@@ -1,0 +1,6 @@
+format: chisel-v1
+
+archives:
+    ubuntu:
+        version: 22.04
+        components: [main, universe]
