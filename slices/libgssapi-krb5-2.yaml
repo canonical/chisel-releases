@@ -1,0 +1,13 @@
+package: libgssapi-krb5-2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcom-err2_libs
+      - libk5crypto3_libs
+      - libkrb5-3_libs
+      - libkrb5support0_libs
+    contents:
+      /etc/gss/mech.d/:
+      /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.*:
