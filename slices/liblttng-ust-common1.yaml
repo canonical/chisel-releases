@@ -1,0 +1,7 @@
+package: liblttng-ust-common1
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/x86_64-linux-gnu/liblttng-ust-common.so.*:
