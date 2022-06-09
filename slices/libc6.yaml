@@ -1,0 +1,30 @@
+package: libc6
+
+slices:
+  config:
+    contents:
+      /etc/ld.so.conf.d/x86_64-linux-gnu.conf:
+
+  libs:
+    contents:
+      /lib/x86_64-linux-gnu/ld-linux-x86-64.so.*:
+      /lib/x86_64-linux-gnu/libBrokenLocale.so.*:
+      /lib/x86_64-linux-gnu/libanl.so.*:
+      /lib/x86_64-linux-gnu/libc.so.*:
+      /lib/x86_64-linux-gnu/libc_malloc_debug.so.*:
+      /lib/x86_64-linux-gnu/libdl.so.*:
+      /lib/x86_64-linux-gnu/libm.so.*:
+      /lib/x86_64-linux-gnu/libmemusage.so:
+      /lib/x86_64-linux-gnu/libmvec.so.*:
+      /lib/x86_64-linux-gnu/libnsl.so.*:
+      /lib/x86_64-linux-gnu/libnss_compat.so.*:
+      /lib/x86_64-linux-gnu/libnss_dns.so.*:
+      /lib/x86_64-linux-gnu/libnss_files.so.*:
+      /lib/x86_64-linux-gnu/libnss_hesiod.so.*:
+      /lib/x86_64-linux-gnu/libpcprofile.so:
+      /lib/x86_64-linux-gnu/libpthread.so.*:
+      /lib/x86_64-linux-gnu/libresolv.so.*:
+      /lib/x86_64-linux-gnu/librt.so.*:
+      /lib/x86_64-linux-gnu/libthread_db.so.*:
+      /lib/x86_64-linux-gnu/libutil.so.*:
+      /lib64/ld-linux-x86-64.so.*:

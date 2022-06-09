@@ -1,0 +1,7 @@
+package: ca-certificates
+
+slices:
+  data:
+    contents:
+      /etc/ssl/certs/:
+      /usr/share/ca-certificates/mozilla/*.crt:
