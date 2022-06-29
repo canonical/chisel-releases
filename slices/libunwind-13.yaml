@@ -1,0 +1,13 @@
+package: libunwind-13
+
+slices:
+    libs:
+        essential:
+            - libc6_config
+            - libc6_libs
+
+        contents:
+            /usr/lib/llvm-13/lib/libunwind.so.*:
+            /usr/lib/x86_64-linux-gnu/libunwind.so.*:
+
+

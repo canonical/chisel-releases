@@ -1,0 +1,23 @@
+package: dotnet-runtime-6.0
+
+slices:
+    bins:
+        essential:
+            - dotnet-hostfxr-6.0_libs
+            - libc6_config
+            - libc6_libs
+            - libgcc-s1_libs
+            - libicu70_libs
+            - liblttng-ust1_libs
+            - libssl3_libs
+            - libstdc++6_libs
+            - libunwind-13_libs
+            - zlib1g_libs
+
+        contents:
+           /usr/lib/dotnet/dotnet6-*/shared/Microsoft.NETCore.App/*/*.dll:
+           /usr/lib/dotnet/dotnet6-*/shared/Microsoft.NETCore.App/*/*.so:
+
+    config:
+        contents:
+           /usr/lib/dotnet/dotnet6-*/shared/Microsoft.NETCore.App/*/*.json:

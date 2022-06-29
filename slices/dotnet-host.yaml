@@ -1,0 +1,15 @@
+package: dotnet-host
+
+slices:
+    bins:
+        essential:
+            - libc6_config
+            - libc6_libs
+            - libgcc-s1_libs
+            - libstdc++6_libs
+        contents:
+            /usr/lib/dotnet/dotnet6-*/dotnet:
+           
+    config:
+        contents:
+            /etc/profile.d/dotnet.sh:
