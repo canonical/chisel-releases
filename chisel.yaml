@@ -2,5 +2,5 @@ format: chisel-v1
 
 archives:
     ubuntu:
-        version: 22.04
+        version: 22.10
         components: [main, universe]
