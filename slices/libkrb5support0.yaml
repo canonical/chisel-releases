@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libkrb5support.so.*:
+      /usr/lib/*-linux-*/libkrb5support.so.*:
