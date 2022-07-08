@@ -10,4 +10,4 @@ slices:
       - libkrb5support0_libs
     contents:
       /etc/gss/mech.d/:
-      /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.*:
+      /usr/lib/*-linux-*/libgssapi_krb5.so.*:
