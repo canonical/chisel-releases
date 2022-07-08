@@ -7,9 +7,9 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libicudata.so.*:
-      /usr/lib/x86_64-linux-gnu/libicui18n.so.*:
-      /usr/lib/x86_64-linux-gnu/libicuio.so.*:
-      /usr/lib/x86_64-linux-gnu/libicutest.so.*:
-      /usr/lib/x86_64-linux-gnu/libicutu.so.*:
-      /usr/lib/x86_64-linux-gnu/libicuuc.so.*:
+      /usr/lib/*-linux-*/libicudata.so.*:
+      /usr/lib/*-linux-*/libicui18n.so.*:
+      /usr/lib/*-linux-*/libicuio.so.*:
+      /usr/lib/*-linux-*/libicutest.so.*:
+      /usr/lib/*-linux-*/libicutu.so.*:
+      /usr/lib/*-linux-*/libicuuc.so.*:
