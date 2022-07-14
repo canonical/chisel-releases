@@ -10,6 +10,6 @@ slices:
       - libkrb5support0_libs
       - libssl3_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/krb5/plugins/libkrb5/:
-      /usr/lib/x86_64-linux-gnu/krb5/plugins/preauth/spake.so:
-      /usr/lib/x86_64-linux-gnu/libkrb5.so.*:
+      /usr/lib/*-linux-*/krb5/plugins/libkrb5/:
+      /usr/lib/*-linux-*/krb5/plugins/preauth/spake.so:
+      /usr/lib/*-linux-*/libkrb5.so.*:
