@@ -15,7 +15,6 @@ slices:
       /lib/*-linux-*/libdl.so.*:
       /lib/*-linux-*/libm.so.*:
       /lib/*-linux-*/libmemusage.so:
-      #/lib/*-linux-*/libmvec.so.*: # FIXME: libmvec is only available on amd64
       /lib/*-linux-*/libnsl.so.*:
       /lib/*-linux-*/libnss_compat.so.*:
       /lib/*-linux-*/libnss_dns.so.*:
@@ -28,3 +27,12 @@ slices:
       /lib/*-linux-*/libthread_db.so.*:
       /lib/*-linux-*/libutil.so.*:
       /lib*/ld*.so.*:
+
+  # FIXME: libmvec is only available on amd64. Merge it with libs slice once we
+  # have arch-specific path selection.
+  # FIXME: Underscore as prefix is not valid name in current chisel.
+  _mvec:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libmvec.so.*:
