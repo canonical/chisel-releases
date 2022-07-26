@@ -1,4 +1,4 @@
-package: libicu70
+package: libicu71
 
 slices:
   libs:
