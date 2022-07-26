@@ -6,4 +6,4 @@ slices:
       - libc6_libs
       - libkrb5support0_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libk5crypto.so.*:
+      /usr/lib/*-linux-*/libk5crypto.so.*:
