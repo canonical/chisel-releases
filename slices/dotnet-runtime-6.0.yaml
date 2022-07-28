@@ -10,6 +10,7 @@ slices:
       - libssl3_libs
       - libstdc++6_libs
       - libunwind-13_libs
+      - libunwind8_libs
       - zlib1g_libs
     contents:
       /usr/lib/dotnet/dotnet6-*/shared/Microsoft.NETCore.App/**:
