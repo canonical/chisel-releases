@@ -1,0 +1,12 @@
+package: libunwind8
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - liblzma5_libs
+    contents:
+      /usr/lib/x86_64-linux-gnu/libunwind-coredump.so.*:
+      /usr/lib/x86_64-linux-gnu/libunwind-ptrace.so.*:
+      /usr/lib/x86_64-linux-gnu/libunwind-x86_64.so.*:
+      /usr/lib/x86_64-linux-gnu/libunwind.so.8.*:
+      /usr/lib/x86_64-linux-gnu/libunwind.so.8:
