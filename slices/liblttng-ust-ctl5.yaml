@@ -6,4 +6,4 @@ slices:
       - liblttng-ust-common1_libs
       - libnuma1_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-ctl.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-ctl.so.*:
