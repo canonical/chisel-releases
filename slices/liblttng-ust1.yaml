@@ -7,12 +7,12 @@ slices:
       - liblttng-ust-ctl5_libs
       - libnuma1_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-cyg-profile-fast.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-cyg-profile.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-dl.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-fd.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-fork.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-libc-wrapper.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-pthread-wrapper.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust-tracepoint.so.*:
-      /usr/lib/x86_64-linux-gnu/liblttng-ust.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-cyg-profile-fast.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-cyg-profile.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-dl.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-fd.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-fork.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-libc-wrapper.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-pthread-wrapper.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-tracepoint.so.*:
+      /usr/lib/*-linux-*/liblttng-ust.so.*:
