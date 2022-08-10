@@ -1,0 +1,7 @@
+package: aspnetcore-runtime-6.0
+slices:
+  libs:
+    essential:
+      - dotnet-runtime-6.0_libs
+    contents:
+      /usr/lib/dotnet/dotnet6-*/shared/Microsoft.AspNetCore.App/**:
