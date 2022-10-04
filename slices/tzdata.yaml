@@ -1,0 +1,300 @@
+package: tzdata
+
+slices:
+  zoneinfo:
+    essential:
+      - tzdata_africa
+      - tzdata_america
+      - tzdata_antarctica
+      - tzdata_arctic
+      - tzdata_atlantic
+      - tzdata_australia
+      - tzdata_brazil
+      - tzdata_canada
+      - tzdata_chile
+      - tzdata_etc
+      - tzdata_eurasia
+      - tzdata_indian
+      - tzdata_mexico
+      - tzdata_pacific
+      - tzdata_united-states
+      - tzdata_zoneinfo-base
+
+  zoneinfo-icu:
+    contents:
+      /usr/share/zoneinfo-icu/44/be/*:
+      /usr/share/zoneinfo-icu/44/le/*:
+
+  zoneinfo-base:
+    contents:
+      /usr/share/zoneinfo/CET:
+      /usr/share/zoneinfo/CST6CDT:
+      /usr/share/zoneinfo/EET:
+      /usr/share/zoneinfo/EST:
+      /usr/share/zoneinfo/EST5EDT:
+      /usr/share/zoneinfo/Factory:
+      /usr/share/zoneinfo/HST:
+      /usr/share/zoneinfo/iso3166.tab:
+      /usr/share/zoneinfo/leapseconds:
+      /usr/share/zoneinfo/leap-seconds.list:
+      /usr/share/zoneinfo/localtime:
+      /usr/share/zoneinfo/MET:
+      /usr/share/zoneinfo/MST:
+      /usr/share/zoneinfo/MST7MDT:
+      /usr/share/zoneinfo/posix/CET:
+      /usr/share/zoneinfo/posix/CST6CDT:
+      /usr/share/zoneinfo/posix/EET:
+      /usr/share/zoneinfo/posix/EST:
+      /usr/share/zoneinfo/posix/EST5EDT:
+      /usr/share/zoneinfo/posix/Factory:
+      /usr/share/zoneinfo/posix/HST:
+      /usr/share/zoneinfo/posix/MET:
+      /usr/share/zoneinfo/posix/MST:
+      /usr/share/zoneinfo/posix/MST7MDT:
+      /usr/share/zoneinfo/posix/PST8PDT:
+      /usr/share/zoneinfo/posix/WET:
+      /usr/share/zoneinfo/PST8PDT:
+      /usr/share/zoneinfo/right/CET:
+      /usr/share/zoneinfo/right/CST6CDT:
+      /usr/share/zoneinfo/right/EET:
+      /usr/share/zoneinfo/right/EST:
+      /usr/share/zoneinfo/right/EST5EDT:
+      /usr/share/zoneinfo/right/Factory:
+      /usr/share/zoneinfo/right/HST:
+      /usr/share/zoneinfo/right/MET:
+      /usr/share/zoneinfo/right/MST:
+      /usr/share/zoneinfo/right/MST7MDT:
+      /usr/share/zoneinfo/right/PST8PDT:
+      /usr/share/zoneinfo/right/WET:
+      /usr/share/zoneinfo/tzdata.zi:
+      /usr/share/zoneinfo/WET:
+      /usr/share/zoneinfo/zone1970.tab:
+      /usr/share/zoneinfo/zone.tab:
+
+  africa:
+    contents:
+      /usr/share/zoneinfo/Africa/*:
+      /usr/share/zoneinfo/posix/Africa/*:
+      /usr/share/zoneinfo/right/Africa/*:
+      /usr/share/zoneinfo/Egypt:
+      /usr/share/zoneinfo/Iceland:
+      /usr/share/zoneinfo/Libya:
+      /usr/share/zoneinfo/posix/Egypt:
+      /usr/share/zoneinfo/right/Egypt:
+      /usr/share/zoneinfo/posix/Iceland:
+      /usr/share/zoneinfo/right/Iceland:
+      /usr/share/zoneinfo/posix/Libya:
+      /usr/share/zoneinfo/right/Libya:
+
+  america:
+    contents:
+      /usr/share/zoneinfo/America/Argentina/*:
+      /usr/share/zoneinfo/America/Indiana/*:
+      /usr/share/zoneinfo/America/Kentucky/*:
+      /usr/share/zoneinfo/America/North_Dakota/*:
+      /usr/share/zoneinfo/America/*:
+      /usr/share/zoneinfo/posix/America/*:
+      /usr/share/zoneinfo/posix/America/Argentina/*:
+      /usr/share/zoneinfo/posix/America/Indiana/*:
+      /usr/share/zoneinfo/posix/America/Kentucky/*:
+      /usr/share/zoneinfo/posix/America/North_Dakota/*:
+      /usr/share/zoneinfo/right/America/*:
+      /usr/share/zoneinfo/right/America/Argentina/*:
+      /usr/share/zoneinfo/right/America/Indiana/*:
+      /usr/share/zoneinfo/right/America/Kentucky/*:
+      /usr/share/zoneinfo/right/America/North_Dakota/*:
+      /usr/share/zoneinfo/Cuba:
+      /usr/share/zoneinfo/Jamaica:
+      /usr/share/zoneinfo/Navajo:
+      /usr/share/zoneinfo/posix/Cuba:
+      /usr/share/zoneinfo/right/Cuba:
+      /usr/share/zoneinfo/posix/Jamaica:
+      /usr/share/zoneinfo/right/Jamaica:
+      /usr/share/zoneinfo/posix/Navajo:
+      /usr/share/zoneinfo/right/Navajo:
+      /usr/share/zoneinfo/posixrules:
+
+  antarctica:
+    essential:
+      - tzdata_eurasia
+      - tzdata_pacific
+    contents:
+      /usr/share/zoneinfo/Antarctica/*:
+      /usr/share/zoneinfo/posix/Antarctica/*:
+      /usr/share/zoneinfo/right/Antarctica/*:
+
+  arctic:
+    essential:
+      - tzdata_eurasia
+    contents:
+      /usr/share/zoneinfo/Arctic/*:
+      /usr/share/zoneinfo/posix/Arctic/*:
+      /usr/share/zoneinfo/right/Arctic/*:
+
+  atlantic:
+    essential:
+      - tzdata_africa
+      - tzdata_eurasia
+    contents:
+      /usr/share/zoneinfo/Atlantic/*:
+      /usr/share/zoneinfo/posix/Atlantic/*:
+      /usr/share/zoneinfo/right/Atlantic/*:
+
+  australia:
+    contents:
+      /usr/share/zoneinfo/Australia/*:
+      /usr/share/zoneinfo/posix/Australia/*:
+      /usr/share/zoneinfo/right/Australia/*:
+
+  brazil:
+    essential:
+      - tzdata_america
+    contents:
+      /usr/share/zoneinfo/Brazil/*:
+      /usr/share/zoneinfo/posix/Brazil/*:
+      /usr/share/zoneinfo/right/Brazil/*:
+
+  canada:
+    essential:
+      - tzdata_america
+    contents:
+      /usr/share/zoneinfo/Canada/*:
+      /usr/share/zoneinfo/posix/Canada/*:
+      /usr/share/zoneinfo/right/Canada/*:
+
+  chile:
+    essential:
+      - tzdata_america
+      - tzdata_pacific
+    contents:
+      /usr/share/zoneinfo/Chile/*:
+      /usr/share/zoneinfo/posix/Chile/*:
+      /usr/share/zoneinfo/right/Chile/*:
+
+  etc:
+    contents:
+      /usr/share/zoneinfo/Etc/*:
+      /usr/share/zoneinfo/posix/Etc/*:
+      /usr/share/zoneinfo/right/Etc/*:
+      /usr/share/zoneinfo/GMT:
+      /usr/share/zoneinfo/GMT+0:
+      /usr/share/zoneinfo/GMT-0:
+      /usr/share/zoneinfo/GMT0:
+      /usr/share/zoneinfo/Greenwich:
+      /usr/share/zoneinfo/posix/GMT:
+      /usr/share/zoneinfo/posix/GMT+0:
+      /usr/share/zoneinfo/posix/GMT-0:
+      /usr/share/zoneinfo/posix/GMT0:
+      /usr/share/zoneinfo/posix/Greenwich:
+      /usr/share/zoneinfo/right/GMT:
+      /usr/share/zoneinfo/right/GMT+0:
+      /usr/share/zoneinfo/right/GMT-0:
+      /usr/share/zoneinfo/right/GMT0:
+      /usr/share/zoneinfo/right/Greenwich:
+      /usr/share/zoneinfo/posix/UCT:
+      /usr/share/zoneinfo/posix/Universal:
+      /usr/share/zoneinfo/posix/UTC:
+      /usr/share/zoneinfo/right/UCT:
+      /usr/share/zoneinfo/right/Universal:
+      /usr/share/zoneinfo/right/UTC:
+      /usr/share/zoneinfo/posix/Zulu:
+      /usr/share/zoneinfo/right/Zulu:
+      /usr/share/zoneinfo/UCT:
+      /usr/share/zoneinfo/Universal:
+      /usr/share/zoneinfo/UTC:
+      /usr/share/zoneinfo/Zulu:
+
+  eurasia:
+    contents:
+      /usr/share/zoneinfo/Asia/*:
+      /usr/share/zoneinfo/Europe/*:
+      /usr/share/zoneinfo/posix/Asia/*:
+      /usr/share/zoneinfo/posix/Europe/*:
+      /usr/share/zoneinfo/right/Asia/*:
+      /usr/share/zoneinfo/right/Europe/*:
+      /usr/share/zoneinfo/Eire:
+      /usr/share/zoneinfo/GB:
+      /usr/share/zoneinfo/GB-Eire:
+      /usr/share/zoneinfo/Hongkong:
+      /usr/share/zoneinfo/Iran:
+      /usr/share/zoneinfo/Israel:
+      /usr/share/zoneinfo/Japan:
+      /usr/share/zoneinfo/Poland:
+      /usr/share/zoneinfo/Portugal:
+      /usr/share/zoneinfo/posix/Eire:
+      /usr/share/zoneinfo/posix/GB:
+      /usr/share/zoneinfo/posix/GB-Eire:
+      /usr/share/zoneinfo/right/Eire:
+      /usr/share/zoneinfo/right/GB:
+      /usr/share/zoneinfo/right/GB-Eire:
+      /usr/share/zoneinfo/posix/Hongkong:
+      /usr/share/zoneinfo/right/Hongkong:
+      /usr/share/zoneinfo/posix/Iran:
+      /usr/share/zoneinfo/posix/Israel:
+      /usr/share/zoneinfo/right/Iran:
+      /usr/share/zoneinfo/right/Israel:
+      /usr/share/zoneinfo/posix/Japan:
+      /usr/share/zoneinfo/right/Japan:
+      /usr/share/zoneinfo/posix/Poland:
+      /usr/share/zoneinfo/posix/Portugal:
+      /usr/share/zoneinfo/right/Poland:
+      /usr/share/zoneinfo/right/Portugal:
+      /usr/share/zoneinfo/posix/PRC:
+      /usr/share/zoneinfo/posix/ROC:
+      /usr/share/zoneinfo/posix/ROK:
+      /usr/share/zoneinfo/posix/Singapore:
+      /usr/share/zoneinfo/posix/Turkey:
+      /usr/share/zoneinfo/right/PRC:
+      /usr/share/zoneinfo/right/ROC:
+      /usr/share/zoneinfo/right/ROK:
+      /usr/share/zoneinfo/right/Singapore:
+      /usr/share/zoneinfo/right/Turkey:
+      /usr/share/zoneinfo/posix/W-SU:
+      /usr/share/zoneinfo/right/W-SU:
+      /usr/share/zoneinfo/PRC:
+      /usr/share/zoneinfo/ROC:
+      /usr/share/zoneinfo/ROK:
+      /usr/share/zoneinfo/Singapore:
+      /usr/share/zoneinfo/Turkey:
+      /usr/share/zoneinfo/W-SU:
+
+  indian:
+    essential:
+      - tzdata_africa
+      - tzdata_eurasia
+    contents:
+      /usr/share/zoneinfo/Indian/*:
+      /usr/share/zoneinfo/posix/Indian/*:
+      /usr/share/zoneinfo/right/Indian/*:
+
+  mexico:
+    essential:
+      - tzdata_america
+    contents:
+      /usr/share/zoneinfo/Mexico/*:
+      /usr/share/zoneinfo/posix/Mexico/*:
+      /usr/share/zoneinfo/right/Mexico/*:
+
+  pacific:
+    contents:
+      /usr/share/zoneinfo/Pacific/*:
+      /usr/share/zoneinfo/posix/Pacific/*:
+      /usr/share/zoneinfo/right/Pacific/*:
+      /usr/share/zoneinfo/Kwajalein:
+      /usr/share/zoneinfo/NZ:
+      /usr/share/zoneinfo/NZ-CHAT:
+      /usr/share/zoneinfo/posix/Kwajalein:
+      /usr/share/zoneinfo/right/Kwajalein:
+      /usr/share/zoneinfo/posix/NZ:
+      /usr/share/zoneinfo/posix/NZ-CHAT:
+      /usr/share/zoneinfo/right/NZ:
+      /usr/share/zoneinfo/right/NZ-CHAT:
+
+  united-states:
+    essential:
+      - tzdata_america
+      - tzdata_pacific
+    contents:
+      /usr/share/zoneinfo/US/*:
+      /usr/share/zoneinfo/posix/US/*:
+      /usr/share/zoneinfo/right/US/*:
