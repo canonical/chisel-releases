@@ -7,3 +7,12 @@ slices:
       - libstdc++6_libs
     contents:
       /usr/lib/dotnet/dotnet6-*/dotnet:
+    mutate: |
+      created_symlink = False
+      for d in content.list("/usr/lib/dotnet"):
+        if d.startswith("dotnet6-") and d.endswith("/"):
+          content.symlink(d, "/usr/lib/dotnet/dotnet6")
+          created_symlink = True
+          break
+      if not created_symlink:
+        fail("could not find any /usr/lib/dotnet/dotnet* directory")
