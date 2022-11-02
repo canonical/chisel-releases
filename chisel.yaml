@@ -4,3 +4,4 @@ archives:
     ubuntu:
         version: 22.10
         components: [main, universe]
+        suites: [kinetic, kinetic-security, kinetic-updates]
