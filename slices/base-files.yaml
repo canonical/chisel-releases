@@ -43,3 +43,19 @@ slices:
     contents:
       /home/:
       /root/:
+
+  release-info:
+    essential:
+      - base-files_etc
+      - base-files_lib
+    contents:
+      /etc/debian_version:
+      /etc/dpkg/origins/debian:
+      /etc/dpkg/origins/ubuntu:
+      /etc/dpkg/origins/default: {symlink: /etc/dpkg/origins/ubuntu}
+      /etc/host.conf:
+      /etc/issue:
+      /etc/issue.net:
+      /etc/lsb-release:
+      /etc/os-release:
+      /usr/lib/os-release:
