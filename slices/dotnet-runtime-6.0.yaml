@@ -13,4 +13,4 @@ slices:
       - libunwind8_libs
       - zlib1g_libs
     contents:
-      /usr/lib/dotnet/dotnet6-*/shared/Microsoft.NETCore.App/**:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/**:
