@@ -6,4 +6,4 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/dotnet/dotnet6-*/dotnet:
+      /usr/lib/dotnet/dotnet:
