@@ -4,4 +4,4 @@ slices:
     essential:
       - dotnet-runtime-6.0_libs
     contents:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/**:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/6*/**:

@@ -7,4 +7,4 @@ slices:
       - libstdc++6_libs
       - dotnet-host_bins
     contents:
-      /usr/lib/dotnet/host/fxr/*/libhostfxr.so:
+      /usr/lib/dotnet/host/fxr/6*/libhostfxr.so:
