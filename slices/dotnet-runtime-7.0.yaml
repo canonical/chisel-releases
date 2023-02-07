@@ -1,0 +1,13 @@
+package: dotnet-runtime-7.0
+slices:
+  libs:
+    essential:
+      - dotnet-hostfxr-7.0_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - liblttng-ust1_libs
+      - libssl3_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/7*/**:

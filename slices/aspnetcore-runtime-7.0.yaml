@@ -1,0 +1,7 @@
+package: aspnetcore-runtime-7.0
+slices:
+  libs:
+    essential:
+      - dotnet-runtime-7.0_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/7*/**:
