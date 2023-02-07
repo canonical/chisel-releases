@@ -1,0 +1,11 @@
+package: fonts-dejavu-core
+
+slices:
+  config:
+    contents:
+      /etc/fonts/conf.avail/*dejavu*conf:
+      /etc/fonts/conf.d/*dejavu*conf:
+
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/dejavu/*ttf:

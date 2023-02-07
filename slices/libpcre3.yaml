@@ -1,0 +1,9 @@
+package: libpcre3
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-gnu/libpcre.so.3*:
+      /usr/lib/*-linux-gnu/libpcreposix.so.3*:

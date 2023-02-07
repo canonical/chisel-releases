@@ -1,0 +1,9 @@
+package: libexpat1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-gnu/libexpat.so.1*:
+      /usr/lib/*-linux-gnu/libexpatw.so.1*:

@@ -1,0 +1,8 @@
+package: libjpeg-turbo8
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-gnu/libjpeg.so.8*:
