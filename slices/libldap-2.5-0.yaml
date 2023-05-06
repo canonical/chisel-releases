@@ -1,0 +1,11 @@
+package: libldap-2.5-0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgnutls30_libs
+      - libsasl2-2_libs
+    contents:
+      /usr/lib/*-linux-*/liblber-2.5.so.*:
+      /usr/lib/*-linux-*/libldap-2.5.so.*:
