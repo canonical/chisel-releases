@@ -1,0 +1,11 @@
+package: libpq5
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libssl3_libs
+      - libldap-2.5-0_libs
+      - libgssapi-krb5-2_libs
+    contents:
+      /usr/lib/*-linux-*/libpq.so.*:
