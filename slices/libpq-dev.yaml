@@ -1,0 +1,8 @@
+package: libpq-dev
+
+slices:
+  bins:
+    essential:
+      - libpq5_libs
+    contents:
+      /usr/bin/pg_config:
