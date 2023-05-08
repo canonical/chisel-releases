@@ -3,4 +3,4 @@ package: libtirpc-common
 slices:
   etc:
     contents:
-      /etc/netconfig
+      /etc/netconfig:

@@ -4,4 +4,4 @@ slices:
   shares:
     essential:
     contents:
-      /usr/share/readline/inputrc
+      /usr/share/readline/inputrc:

@@ -6,4 +6,4 @@ slices:
       - libc6_libs
     contents:
       /lib/*-linux-*/libtinfo.so.*:
-      /usr/lib/*-linux-*/libtinfo.so.*:
+      /usr/lib/*-linux-*/libtic.so.*:

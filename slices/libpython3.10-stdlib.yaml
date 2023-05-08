@@ -32,7 +32,6 @@ slices:
       /usr/lib/python3.10/aifc.py:
       /usr/lib/python3.10/antigravity.py:
       /usr/lib/python3.10/asynchat.py:
-      /usr/lib/python3.10/asyncio:
       /usr/lib/python3.10/asyncio/__init__.py:
       /usr/lib/python3.10/asyncio/__main__.py:
       /usr/lib/python3.10/asyncio/base_events.py:
@@ -76,36 +75,30 @@ slices:
       /usr/lib/python3.10/code.py:
       /usr/lib/python3.10/codeop.py:
       /usr/lib/python3.10/colorsys.py:
-      /usr/lib/python3.10/concurrent:
       /usr/lib/python3.10/concurrent/__init__.py:
-      /usr/lib/python3.10/concurrent/futures:
       /usr/lib/python3.10/concurrent/futures/__init__.py:
       /usr/lib/python3.10/concurrent/futures/_base.py:
       /usr/lib/python3.10/concurrent/futures/process.py:
       /usr/lib/python3.10/concurrent/futures/thread.py:
       /usr/lib/python3.10/contextvars.py:
       /usr/lib/python3.10/crypt.py:
-      /usr/lib/python3.10/ctypes:
       /usr/lib/python3.10/ctypes/__init__.py:
       /usr/lib/python3.10/ctypes/_aix.py:
       /usr/lib/python3.10/ctypes/_endian.py:
       /usr/lib/python3.10/ctypes/util.py:
       /usr/lib/python3.10/ctypes/wintypes.py:
-      /usr/lib/python3.10/curses:
       /usr/lib/python3.10/curses/__init__.py:
       /usr/lib/python3.10/curses/ascii.py:
       /usr/lib/python3.10/curses/has_key.py:
       /usr/lib/python3.10/curses/panel.py:
       /usr/lib/python3.10/curses/textpad.py:
       /usr/lib/python3.10/dataclasses.py:
-      /usr/lib/python3.10/dbm:
       /usr/lib/python3.10/dbm/__init__.py:
       /usr/lib/python3.10/dbm/dumb.py:
       /usr/lib/python3.10/dbm/gnu.py:
       /usr/lib/python3.10/dbm/ndbm.py:
       /usr/lib/python3.10/decimal.py:
       /usr/lib/python3.10/difflib.py:
-      /usr/lib/python3.10/distutils:
       /usr/lib/python3.10/distutils/__init__.py:
       /usr/lib/python3.10/distutils/version.py:
       /usr/lib/python3.10/doctest.py:
@@ -117,11 +110,9 @@ slices:
       /usr/lib/python3.10/graphlib.py:
       /usr/lib/python3.10/gzip.py:
       /usr/lib/python3.10/hmac.py:
-      /usr/lib/python3.10/html:
       /usr/lib/python3.10/html/__init__.py:
       /usr/lib/python3.10/html/entities.py:
       /usr/lib/python3.10/html/parser.py:
-      /usr/lib/python3.10/http:
       /usr/lib/python3.10/http/__init__.py:
       /usr/lib/python3.10/http/client.py:
       /usr/lib/python3.10/http/cookiejar.py:
@@ -129,13 +120,11 @@ slices:
       /usr/lib/python3.10/http/server.py:
       /usr/lib/python3.10/imaplib.py:
       /usr/lib/python3.10/imghdr.py:
-      /usr/lib/python3.10/json:
       /usr/lib/python3.10/json/__init__.py:
       /usr/lib/python3.10/json/decoder.py:
       /usr/lib/python3.10/json/encoder.py:
       /usr/lib/python3.10/json/scanner.py:
       /usr/lib/python3.10/json/tool.py:
-      /usr/lib/python3.10/lib-dynload:
       /usr/lib/python3.10/lib-dynload/_asyncio.cpython-310-x86_64-linux-gnu.so:
       /usr/lib/python3.10/lib-dynload/_bz2.cpython-310-x86_64-linux-gnu.so:
       /usr/lib/python3.10/lib-dynload/_codecs_cn.cpython-310-x86_64-linux-gnu.so:
@@ -183,11 +172,9 @@ slices:
       /usr/lib/python3.10/mailcap.py:
       /usr/lib/python3.10/mimetypes.py:
       /usr/lib/python3.10/modulefinder.py:
-      /usr/lib/python3.10/multiprocessing:
       /usr/lib/python3.10/multiprocessing/__init__.py:
       /usr/lib/python3.10/multiprocessing/connection.py:
       /usr/lib/python3.10/multiprocessing/context.py:
-      /usr/lib/python3.10/multiprocessing/dummy:
       /usr/lib/python3.10/multiprocessing/dummy/__init__.py:
       /usr/lib/python3.10/multiprocessing/dummy/connection.py:
       /usr/lib/python3.10/multiprocessing/forkserver.py:
@@ -224,7 +211,6 @@ slices:
       /usr/lib/python3.10/pty.py:
       /usr/lib/python3.10/pyclbr.py:
       /usr/lib/python3.10/pydoc.py:
-      /usr/lib/python3.10/pydoc_data:
       /usr/lib/python3.10/pydoc_data/__init__.py:
       /usr/lib/python3.10/pydoc_data/_pydoc.css:
       /usr/lib/python3.10/pydoc_data/topics.py:
@@ -239,7 +225,6 @@ slices:
       /usr/lib/python3.10/smtplib.py:
       /usr/lib/python3.10/sndhdr.py:
       /usr/lib/python3.10/socketserver.py:
-      /usr/lib/python3.10/sqlite3:
       /usr/lib/python3.10/sqlite3/__init__.py:
       /usr/lib/python3.10/sqlite3/dbapi2.py:
       /usr/lib/python3.10/sqlite3/dump.py:
@@ -249,13 +234,11 @@ slices:
       /usr/lib/python3.10/tabnanny.py:
       /usr/lib/python3.10/tarfile.py:
       /usr/lib/python3.10/telnetlib.py:
-      /usr/lib/python3.10/test:
       /usr/lib/python3.10/test/__init__.py:
       /usr/lib/python3.10/test/__main__.py:
       /usr/lib/python3.10/test/ann_module.py:
       /usr/lib/python3.10/test/ann_module2.py:
       /usr/lib/python3.10/test/ann_module3.py:
-      /usr/lib/python3.10/test/libregrtest:
       /usr/lib/python3.10/test/libregrtest/__init__.py:
       /usr/lib/python3.10/test/libregrtest/cmdline.py:
       /usr/lib/python3.10/test/libregrtest/main.py:
@@ -268,7 +251,6 @@ slices:
       /usr/lib/python3.10/test/libregrtest/utils.py:
       /usr/lib/python3.10/test/libregrtest/win_utils.py:
       /usr/lib/python3.10/test/regrtest.py:
-      /usr/lib/python3.10/test/support:
       /usr/lib/python3.10/test/support/__init__.py:
       /usr/lib/python3.10/test/support/bytecode_helper.py:
       /usr/lib/python3.10/test/support/hashlib_helper.py:
@@ -287,7 +269,6 @@ slices:
       /usr/lib/python3.10/trace.py:
       /usr/lib/python3.10/tty.py:
       /usr/lib/python3.10/turtle.py:
-      /usr/lib/python3.10/unittest:
       /usr/lib/python3.10/unittest/__init__.py:
       /usr/lib/python3.10/unittest/__main__.py:
       /usr/lib/python3.10/unittest/_log.py:
@@ -302,19 +283,14 @@ slices:
       /usr/lib/python3.10/unittest/suite.py:
       /usr/lib/python3.10/unittest/util.py:
       /usr/lib/python3.10/uuid.py:
-      /usr/lib/python3.10/venv:
       /usr/lib/python3.10/venv/__init__.py:
       /usr/lib/python3.10/venv/__main__.py:
-      /usr/lib/python3.10/venv/scripts:
-      /usr/lib/python3.10/venv/scripts/common:
       /usr/lib/python3.10/venv/scripts/common/Activate.ps1:
       /usr/lib/python3.10/venv/scripts/common/activate:
-      /usr/lib/python3.10/venv/scripts/posix:
       /usr/lib/python3.10/venv/scripts/posix/activate.csh:
       /usr/lib/python3.10/venv/scripts/posix/activate.fish:
       /usr/lib/python3.10/wave.py:
       /usr/lib/python3.10/webbrowser.py:
-      /usr/lib/python3.10/wsgiref:
       /usr/lib/python3.10/wsgiref/__init__.py:
       /usr/lib/python3.10/wsgiref/handlers.py:
       /usr/lib/python3.10/wsgiref/headers.py:
@@ -322,9 +298,7 @@ slices:
       /usr/lib/python3.10/wsgiref/util.py:
       /usr/lib/python3.10/wsgiref/validate.py:
       /usr/lib/python3.10/xdrlib.py:
-      /usr/lib/python3.10/xml:
       /usr/lib/python3.10/xml/__init__.py:
-      /usr/lib/python3.10/xml/dom:
       /usr/lib/python3.10/xml/dom/NodeFilter.py:
       /usr/lib/python3.10/xml/dom/__init__.py:
       /usr/lib/python3.10/xml/dom/domreg.py:
@@ -333,28 +307,23 @@ slices:
       /usr/lib/python3.10/xml/dom/minidom.py:
       /usr/lib/python3.10/xml/dom/pulldom.py:
       /usr/lib/python3.10/xml/dom/xmlbuilder.py:
-      /usr/lib/python3.10/xml/etree:
       /usr/lib/python3.10/xml/etree/ElementInclude.py:
       /usr/lib/python3.10/xml/etree/ElementPath.py:
       /usr/lib/python3.10/xml/etree/ElementTree.py:
       /usr/lib/python3.10/xml/etree/__init__.py:
       /usr/lib/python3.10/xml/etree/cElementTree.py:
-      /usr/lib/python3.10/xml/parsers:
       /usr/lib/python3.10/xml/parsers/__init__.py:
       /usr/lib/python3.10/xml/parsers/expat.py:
-      /usr/lib/python3.10/xml/sax:
       /usr/lib/python3.10/xml/sax/__init__.py:
       /usr/lib/python3.10/xml/sax/_exceptions.py:
       /usr/lib/python3.10/xml/sax/expatreader.py:
       /usr/lib/python3.10/xml/sax/handler.py:
       /usr/lib/python3.10/xml/sax/saxutils.py:
       /usr/lib/python3.10/xml/sax/xmlreader.py:
-      /usr/lib/python3.10/xmlrpc:
       /usr/lib/python3.10/xmlrpc/__init__.py:
       /usr/lib/python3.10/xmlrpc/client.py:
       /usr/lib/python3.10/xmlrpc/server.py:
       /usr/lib/python3.10/zipapp.py:
-      /usr/lib/python3.10/zoneinfo:
       /usr/lib/python3.10/zoneinfo/__init__.py:
       /usr/lib/python3.10/zoneinfo/_common.py:
       /usr/lib/python3.10/zoneinfo/_tzpath.py:

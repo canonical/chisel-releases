@@ -3,4 +3,4 @@ package: media-types
 slices:
   etc:
     contents:
-      /etc/mime.types
+      /etc/mime.types:
