@@ -1,0 +1,10 @@
+package: python3.10-minimal
+
+slices:
+  bins:
+    essential:
+      - libexpat1_libs
+      - zlib1g_libs
+      - libpython3.10-stdlib_libs
+    contents:
+      /usr/bin/python3.10:

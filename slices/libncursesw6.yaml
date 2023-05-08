@@ -1,0 +1,12 @@
+package: libncursesw6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /lib/*-linux-*/libncursesw.so.*:
+      /usr/lib/*-linux-*/libformw.so.*:
+      /usr/lib/*-linux-*/libmenuw.so.*:
+      /usr/lib/*-linux-*/libpanelw.so.*:

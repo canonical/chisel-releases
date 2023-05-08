@@ -1,0 +1,8 @@
+package: libsasl2-2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libsasl2.so.*:
