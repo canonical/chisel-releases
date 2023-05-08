@@ -1,0 +1,7 @@
+package: readline-common
+
+slices:
+  shares:
+    essential:
+    contents:
+      /usr/share/readline/inputrc

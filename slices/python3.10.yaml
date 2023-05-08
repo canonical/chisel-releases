@@ -1,0 +1,10 @@
+package: python3.10
+
+slices:
+  bins:
+    essential:
+      - python3.10-minimal_bins
+    contents:
+      /usr/bin/pydoc3.10:
+      /usr/bin/pygettext3.10:
+      /usr/bin/pdb3.10:
