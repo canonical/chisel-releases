@@ -1,7 +1,7 @@
 package: openjdk-8-jre-headless
 
 slices:
-
+  # The "core" slice provides a minimal, yet functional JRE8.
   core:
     essential:
       - libc6_libs
@@ -13,6 +13,8 @@ slices:
       /etc/java-8-openjdk/content-types.properties:
       /etc/java-8-openjdk/logging.properties:
       /etc/java-8-openjdk/net.properties:
+      # This security path is also in "core" as it describes permissions for
+      # various classes and how they can interact with the system.
       /etc/java-8-openjdk/security/java.policy:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.policy:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/meta-index:
@@ -70,6 +72,8 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/jsse.jar:
       /etc/java-8-openjdk/security/blacklisted.certs:
 
+  # Abstract Window Toolkit.
+  # Classes and components for creating GUI elements (windows, graphics, etc.).
   awt:
     essential:
       - openjdk-8-jre-headless_core
@@ -101,6 +105,7 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/PYCC.pf:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/sRGB.pf:
 
+  # Enabled management and monitoring capabilities for Java apps.
   management:
     essential:
       - openjdk-8-jre-headless_core
@@ -110,27 +115,29 @@ slices:
       /etc/java-8-openjdk/management/management.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/management/management.properties:
 
+  # Java Flight Recorder - API for collecting diagnostic and profilling data.
   jfr:
     essential:
       - openjdk-8-jre-headless_core
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
 
-  # profiling and debugging support
-  profiledebug:
+  # Shared libraries for supporting heap profilling.
+  hprof:
     essential:
       - openjdk-8-jre-headless_core
     contents:
-      # utf8 conversions used by profiler and debugger
-      # jwdp agent and hprof agent
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnpt.so:
-      # profiler library itself
+      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so: { arch: amd64 }
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
-      # profiling instrumentation
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
-      # debug agent
+
+  # Shared libraries for supporting debugging capabilities.
+  debug:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so: { arch: amd64 }
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
-      # transport protocol
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
 
   tools:
@@ -140,14 +147,14 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/bin/keytool:
       /usr/lib/jvm/java-8-openjdk-*/bin/keytool:
 
-  # https://bugs.openjdk.org/browse/JDK-4882798
+  # Java Programming Language Instrumentation Services interface.
   jplis:
     essential:
       - openjdk-8-jre-headless_core
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libinstrument.so:
 
-  # allows to query dns records through JNDI
+  # Allow querying of DNS records through JNDI.
   jndidns:
     essential:
       - openjdk-8-jre-headless_core
@@ -160,8 +167,7 @@ slices:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/zipfs.jar:
 
-  # 30 kb native part of the com.sun.nio.sctp private api in rt.jar
-  # no internal usages in jre
+  # No internal usages in JRE8, but part of the com.sun.nio.sctp private API.
   stcp:
     essential:
       - openjdk-8-jre-headless_core
