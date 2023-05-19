@@ -1,152 +1,169 @@
 package: openjdk-8-jre-headless
 
 slices:
-  accessibility:
-    contents:
-      /etc/java-8-openjdk/accessibility.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/accessibility.properties:
 
-  bins:
+  core:
     essential:
-      - ca-certificates-java_data
-      - openjdk-8-jre-headless_libs
-      - openjdk-8-jre-headless_security
-      - openjdk-8-jre-headless_properties
-      - openjdk-8-jre-headless_certs
-      - openjdk-8-jre-headless_data
-      - openjdk-8-jre-headless_jars
-      - openjdk-8-jre-headless_config
-      - openjdk-8-jre-headless_profiles
-      - openjdk-8-jre-headless_tools
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - zlib1g_libs
     contents:
-      /usr/lib/jvm/java-8-openjdk-*/jre/bin/java:
-
-  certs:
-    contents:
-      /etc/java-8-openjdk/security/blacklisted.certs:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/blacklisted.certs:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/cacerts:
-
-  config:
-    contents:
+      /etc/java-8-openjdk/calendars.properties:
+      /etc/java-8-openjdk/content-types.properties:
+      /etc/java-8-openjdk/logging.properties:
+      /etc/java-8-openjdk/net.properties:
+      /etc/java-8-openjdk/security/java.policy:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.policy:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/meta-index:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/resources.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/rt.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jli/libjli.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnet.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnio.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libverify.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libzip.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjsig.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/hijrah-config-umalqura.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/logging.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/net.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jvm.cfg-default:
-
-  data:
-    contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/currency.data:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/tzdb.dat:
+      /usr/lib/jvm/java-8-openjdk-*/jre/bin/java:
+
+  locale:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/cldrdata.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/localedata.jar:
 
   security:
+    essential:
+      - libpcsclite1_libs
+      - ca-certificates-java_data
+      - openjdk-8-jre-headless_core
     contents:
-      /etc/java-8-openjdk/security/java.policy:
       /etc/java-8-openjdk/security/java.security:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.policy:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.security:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/blacklisted.certs:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/cacerts:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/limited/US_export_policy.jar:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/limited/local_policy.jar:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/unlimited/US_export_policy.jar:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/unlimited/local_policy.jar:
-
-  jars:
-    essential:
-      - openjdk-8-jre-headless_libs
-    contents:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/cldrdata.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/dnsns.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/localedata.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/zipfs.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunec.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunjce_provider.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunpkcs11.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jce.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jsse.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/charsets.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/meta-index:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/resources.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/rt.jar:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/management-agent.jar:
-
-  libs:
-    essential:
-      - liblcms2-2_libs
-      - libfontconfig1_libs
-      - libc6_libs
-      - libfreetype6_libs
-      - libgcc-s1_libs
-      - libpcsclite1_libs
-      - libstdc++6_libs
-      - zlib1g_libs
-    contents:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jli/libjli.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libattach.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libinstrument.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjsdt.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnet.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnio.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnpt.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsaproc.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsctp.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libverify.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libzip.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libj2gss.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libj2pcsc.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libj2pkcs11.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjaas_unix.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsunec.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libmanagement.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunec.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunjce_provider.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunpkcs11.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jce.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jsse.jar:
+      /etc/java-8-openjdk/security/blacklisted.certs:
+
+  awt:
+    essential:
+      - openjdk-8-jre-headless_core
+      - liblcms2-2_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libjpeg-turbo8_libs
+    contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libawt.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libawt_headless.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libfontmanager.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjavajpeg.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjavalcms.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libmlib_image.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjsig.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
-
-  profiles:
-    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/charsets.jar:
+      /etc/java-8-openjdk/flavormap.properties:
+      /etc/java-8-openjdk/images/cursors/cursors.properties:
+      /etc/java-8-openjdk/swing.properties:
+      /etc/java-8-openjdk/psfont.properties.ja:
+      /etc/java-8-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/images/cursors/cursors.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/flavormap.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/swing.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/psfontj2d.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/psfont.properties.ja:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/CIEXYZ.pf:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/GRAY.pf:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/LINEAR_RGB.pf:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/PYCC.pf:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/sRGB.pf:
 
-  properties:
+  management:
+    essential:
+      - openjdk-8-jre-headless_core
     contents:
-      /etc/java-8-openjdk/calendars.properties:
-      /etc/java-8-openjdk/content-types.properties:
-      /etc/java-8-openjdk/flavormap.properties:
-      /etc/java-8-openjdk/images/cursors/cursors.properties:
-      /etc/java-8-openjdk/logging.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/management-agent.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libmanagement.so:
       /etc/java-8-openjdk/management/management.properties:
-      /etc/java-8-openjdk/net.properties:
-      /etc/java-8-openjdk/psfont.properties.ja:
-      /etc/java-8-openjdk/psfontj2d.properties:
-      /etc/java-8-openjdk/sound.properties:
-      /etc/java-8-openjdk/swing.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/hijrah-config-umalqura.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/flavormap.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/images/cursors/cursors.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/logging.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/management/management.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/net.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/psfont.properties.ja:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/sound.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/swing.properties:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/psfontj2d.properties:
+
+  jfr:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
+
+  # profiling and debugging support
+  profiledebug:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      # utf8 conversions used by profiler and debugger
+      # jwdp agent and hprof agent
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnpt.so:
+      # profiler library itself
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
+      # profiling instrumentation
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
+      # debug agent
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
+      # transport protocol
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
 
   tools:
     essential:
-      - openjdk-8-jre-headless_libs
+      - openjdk-8-jre-headless_core
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/bin/keytool:
       /usr/lib/jvm/java-8-openjdk-*/bin/keytool:
+
+  # https://bugs.openjdk.org/browse/JDK-4882798
+  jplis:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libinstrument.so:
+
+  # allows to query dns records through JNDI
+  jndidns:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/dnsns.jar:
+
+  zipfs:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/zipfs.jar:
+
+  # 30 kb native part of the com.sun.nio.sctp private api in rt.jar
+  # no internal usages in jre
+  stcp:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsctp.so:
