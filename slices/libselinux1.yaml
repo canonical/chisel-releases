@@ -6,4 +6,4 @@ slices:
       - libc6_libs
       - libpcre2-8-0_libs
     contents:
-      /lib/*-linux-gnu/libselinux.so.1:
+      /lib/*-linux-*/libselinux.so.1:

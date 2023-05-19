@@ -9,4 +9,4 @@ slices:
       - libuuid1_libs
       - fontconfig-config_config
     contents:
-      /usr/lib/*-linux-gnu/libfontconfig.so.1*:
+      /usr/lib/*-linux-*/libfontconfig.so.1*:

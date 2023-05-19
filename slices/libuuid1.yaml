@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-gnu/libuuid.so.1*:
+      /usr/lib/*-linux-*/libuuid.so.1*:

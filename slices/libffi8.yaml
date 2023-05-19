@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-gnu/libffi.so.8*:
+      /usr/lib/*-linux-*/libffi.so.8*:

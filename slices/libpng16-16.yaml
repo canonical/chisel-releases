@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-gnu/libpng16.so.16*:
+      /usr/lib/*-linux-*/libpng16.so.16*:

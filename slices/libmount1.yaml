@@ -7,4 +7,4 @@ slices:
       - libselinux1_libs
       - libblkid1_libs
     contents:
-      /usr/lib/*-linux-gnu/libmount.so.1*:
+      /usr/lib/*-linux-*/libmount.so.1*:

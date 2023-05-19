@@ -8,4 +8,4 @@ slices:
       - libbrotli1_libs
       - libpng16-16_libs
     contents:
-      /usr/lib/*-linux-gnu/libfreetype.so.6*:
+      /usr/lib/*-linux-*/libfreetype.so.6*:

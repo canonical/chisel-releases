@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-gnu/libsqlite3.so.0*:
+      /usr/lib/*-linux-*/libsqlite3.so.0*:

@@ -10,8 +10,8 @@ slices:
       - libselinux1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-gnu/libgio-2.0.so.0*:
-      /usr/lib/*-linux-gnu/libglib-2.0.so.0*:
-      /usr/lib/*-linux-gnu/libgmodule-2.0.so.0*:
-      /usr/lib/*-linux-gnu/libgobject-2.0.so.0*:
-      /usr/lib/*-linux-gnu/libgthread-2.0.so.0*:
+      /usr/lib/*-linux-*/libgio-2.0.so.0*:
+      /usr/lib/*-linux-*/libglib-2.0.so.0*:
+      /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
+      /usr/lib/*-linux-*/libgobject-2.0.so.0*:
+      /usr/lib/*-linux-*/libgthread-2.0.so.0*:
