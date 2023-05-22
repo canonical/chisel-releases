@@ -168,7 +168,7 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/zipfs.jar:
 
   # No internal usages in JRE8, but part of the com.sun.nio.sctp private API.
-  stcp:
+  sctp:
     essential:
       - openjdk-8-jre-headless_core
     contents:
