@@ -128,6 +128,7 @@ slices:
       - openjdk-8-jre-headless_core
     contents:
       /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so: { arch: amd64 }
+      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so: { arch: arm64 }
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
 
@@ -137,6 +138,7 @@ slices:
       - openjdk-8-jre-headless_core
     contents:
       /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so: { arch: amd64 }
+      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so: { arch: arm64 }
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
 
