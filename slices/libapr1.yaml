@@ -1,0 +1,9 @@
+package: libapr1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libuuid1_libs
+    contents:
+      /usr/lib/*-linux-*/libapr-1.so.0*:
