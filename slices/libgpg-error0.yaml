@@ -1,0 +1,8 @@
+package: libgpg-error0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libgpg-error.so.0*:

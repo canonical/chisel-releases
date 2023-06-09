@@ -1,0 +1,8 @@
+package: liblz4-1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/liblz4.so.1*:

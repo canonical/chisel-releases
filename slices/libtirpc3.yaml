@@ -1,0 +1,10 @@
+package: libtirpc3
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgssapi-krb5-2_libs
+      - libtirpc-common_common
+    contents:
+      /lib/*-linux-*/libtirpc.so.3*:
