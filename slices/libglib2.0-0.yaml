@@ -1,7 +1,7 @@
 package: libglib2.0-0
 
 slices:
-  glib:
+  core:
     essential:
       - libc6_libs
       - libpcre3_libs
@@ -10,7 +10,7 @@ slices:
 
   libs:
     essential:
-      - libglib2.0-0_glib
+      - libglib2.0-0_core
       - libffi8_libs
       - libmount1_libs
       - libselinux1_libs
