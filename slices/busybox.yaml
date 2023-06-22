@@ -1,0 +1,8 @@
+package: busybox
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /bin/busybox:
