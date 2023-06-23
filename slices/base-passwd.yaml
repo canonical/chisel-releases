@@ -9,6 +9,6 @@ slices:
       /etc/passwd: {text: FIXME, mutable: true}
     mutate: |
       gr = content.read("/usr/share/base-passwd/group.master")
-      content.write("/etc/group", pw)
+      content.write("/etc/group", gr)
       pw = content.read("/usr/share/base-passwd/passwd.master")
-      content.write("/etc/passwd", gr)
+      content.write("/etc/passwd", pw)
