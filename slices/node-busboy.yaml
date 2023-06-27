@@ -1,0 +1,7 @@
+package: node-busboy
+
+slices:
+  libs:
+    contents:
+      /usr/share/nodejs/busboy/lib/**:
+      /usr/share/nodejs/streamsearch/**:

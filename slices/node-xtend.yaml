@@ -1,0 +1,6 @@
+package: node-xtend
+
+slices:
+  libs:
+    contents:
+      /usr/share/nodejs/xtend/**:

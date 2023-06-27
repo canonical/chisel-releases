@@ -1,0 +1,13 @@
+package: node-undici
+
+slices:
+  libs:
+    essential:
+      - node-busboy_libs
+    contents:
+      /usr/share/nodejs/undici/undici-fetch.js:
+      /usr/share/nodejs/undici/package.json:
+      /usr/share/nodejs/undici/index.js:
+      /usr/share/nodejs/undici/index-fetch.js:
+      /usr/share/nodejs/undici/lib/**:
+      /usr/share/nodejs/binary-search/**:

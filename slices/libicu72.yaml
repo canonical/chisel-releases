@@ -1,0 +1,15 @@
+package: libicu72
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libicudata.so.*:
+      /usr/lib/*-linux-*/libicui18n.so.*:
+      /usr/lib/*-linux-*/libicuio.so.*:
+      /usr/lib/*-linux-*/libicutest.so.*:
+      /usr/lib/*-linux-*/libicutu.so.*:
+      /usr/lib/*-linux-*/libicuuc.so.*:

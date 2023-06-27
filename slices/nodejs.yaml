@@ -1,0 +1,12 @@
+package: nodejs
+
+slices:
+  bins:
+    essential:
+      - libnode108_libs
+      - node-cjs-module-lexer_libs
+      - node-acorn_libs
+      - node-undici_libs
+    contents:
+      /usr/bin/nodejs:
+      /usr/bin/node:
