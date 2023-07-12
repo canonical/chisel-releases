@@ -1,0 +1,7 @@
+format: chisel-v1
+
+archives:
+    ubuntu:
+        version: 20.04
+        components: [main, universe]
+        suites: [focal, focal-security, focal-updates]
