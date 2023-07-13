@@ -1,0 +1,11 @@
+package: libnss3
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libnspr4_libs
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/*-linux-*/libnssutil3.so:
+      /usr/lib/*-linux-*/libnss3.so:
