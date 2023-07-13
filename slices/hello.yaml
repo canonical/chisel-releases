@@ -1,0 +1,8 @@
+package: hello
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/hello:
