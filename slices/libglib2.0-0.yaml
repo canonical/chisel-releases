@@ -1,0 +1,22 @@
+package: libglib2.0-0
+
+slices:
+  core:
+    essential:
+      - libc6_libs
+      - libpcre3_libs
+    contents:
+      /usr/lib/*-linux-*/libglib-2.0.so.0*:
+
+  libs:
+    essential:
+      - libglib2.0-0_core
+      - libffi7_libs
+      - libmount1_libs
+      - libselinux1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libgio-2.0.so.0*:
+      /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
+      /usr/lib/*-linux-*/libgobject-2.0.so.0*:
+      /usr/lib/*-linux-*/libgthread-2.0.so.0*:
