@@ -1,0 +1,13 @@
+package: ca-certificates-java
+
+slices:
+  data:
+    essential:
+      - ca-certificates_data
+      - libnss3_libs
+    contents:
+      /etc/default/cacerts:
+      /etc/ssl/certs/java/:
+
+    # we need to run `keytool` in postinst, but we can't yet do
+    # this from a mutation script
