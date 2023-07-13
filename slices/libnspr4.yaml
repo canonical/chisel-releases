@@ -1,0 +1,10 @@
+package: libnspr4
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libnspr4.so:
+      /usr/lib/*-linux-*/libplc4.so:
+      /usr/lib/*-linux-*/libplds4.so:
