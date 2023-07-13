@@ -1,0 +1,8 @@
+package: libsqlite3-0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libsqlite3.so.0*:
