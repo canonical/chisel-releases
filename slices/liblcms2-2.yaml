@@ -1,0 +1,8 @@
+package: liblcms2-2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/liblcms2.so.2*:

@@ -1,0 +1,9 @@
+package: libk5crypto3
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libkrb5support0_libs
+    contents:
+      /usr/lib/*-linux-*/libk5crypto.so.*:

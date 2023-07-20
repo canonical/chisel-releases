@@ -1,0 +1,8 @@
+package: libgraphite2-3
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libgraphite2.so*:
