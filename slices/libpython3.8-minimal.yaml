@@ -1,0 +1,113 @@
+package: libpython3.8-minimal
+
+# Most of the Python3.8 standard libraries are split into
+# two major packages:
+# - libpython3.8-minimal (this one)
+# - libpython3.8-stdlib
+# While the libpython3.8-stdlib package has been chiselled logically
+# into granular slices, the same hasn't been done for this package.
+# The reason is simple, the libraries in this package are tightly
+# dependent upon each other.
+slices:
+  config:
+    contents:
+      /etc/python3.8/sitecustomize.py:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libssl1.1_libs
+      - libpython3.8-minimal_config
+    contents:
+      /usr/lib/python3.8/__future__.py:
+      /usr/lib/python3.8/_bootlocale.py:
+      /usr/lib/python3.8/_collections_abc.py:
+      /usr/lib/python3.8/_compat_pickle.py:
+      /usr/lib/python3.8/_py_abc.py:
+      /usr/lib/python3.8/_sitebuiltins.py:
+      /usr/lib/python3.8/_strptime.py:
+      /usr/lib/python3.8/_sysconfigdata_*-linux-*.py:
+      /usr/lib/python3.8/_threading_local.py:
+      /usr/lib/python3.8/_weakrefset.py:
+      /usr/lib/python3.8/abc.py:
+      /usr/lib/python3.8/argparse.py:
+      /usr/lib/python3.8/ast.py:
+      /usr/lib/python3.8/base64.py:
+      /usr/lib/python3.8/bisect.py:
+      /usr/lib/python3.8/calendar.py:
+      /usr/lib/python3.8/codecs.py:
+      /usr/lib/python3.8/collections/**:
+      /usr/lib/python3.8/compileall.py:
+      /usr/lib/python3.8/configparser.py:
+      /usr/lib/python3.8/contextlib.py:
+      /usr/lib/python3.8/copy.py:
+      /usr/lib/python3.8/copyreg.py:
+      /usr/lib/python3.8/csv.py:
+      /usr/lib/python3.8/datetime.py:
+      /usr/lib/python3.8/dis.py:
+      /usr/lib/python3.8/email/**:
+      /usr/lib/python3.8/encodings/**:
+      /usr/lib/python3.8/enum.py:
+      /usr/lib/python3.8/fnmatch.py:
+      /usr/lib/python3.8/functools.py:
+      /usr/lib/python3.8/genericpath.py:
+      /usr/lib/python3.8/getopt.py:
+      /usr/lib/python3.8/glob.py:
+      /usr/lib/python3.8/hashlib.py:
+      /usr/lib/python3.8/heapq.py:
+      /usr/lib/python3.8/imp.py:
+      /usr/lib/python3.8/importlib/**:
+      /usr/lib/python3.8/inspect.py:
+      /usr/lib/python3.8/io.py:
+      /usr/lib/python3.8/ipaddress.py:
+      /usr/lib/python3.8/keyword.py:
+      /usr/lib/python3.8/lib-dynload/_hashlib.cpython-38-*-linux-*.so:
+      /usr/lib/python3.8/lib-dynload/_opcode.cpython-38-*-linux-*.so:
+      /usr/lib/python3.8/lib-dynload/_ssl.cpython-38-*-linux-*.so:
+      /usr/lib/python3.8/linecache.py:
+      /usr/lib/python3.8/locale.py:
+      /usr/lib/python3.8/logging/**:
+      /usr/lib/python3.8/opcode.py:
+      /usr/lib/python3.8/operator.py:
+      /usr/lib/python3.8/optparse.py:
+      /usr/lib/python3.8/os.py:
+      /usr/lib/python3.8/pathlib.py:
+      /usr/lib/python3.8/pickle.py:
+      /usr/lib/python3.8/pkgutil.py:
+      /usr/lib/python3.8/platform.py:
+      /usr/lib/python3.8/posixpath.py:
+      /usr/lib/python3.8/py_compile.py:
+      /usr/lib/python3.8/quopri.py:
+      /usr/lib/python3.8/random.py:
+      /usr/lib/python3.8/re.py:
+      /usr/lib/python3.8/reprlib.py:
+      /usr/lib/python3.8/runpy.py:
+      /usr/lib/python3.8/selectors.py:
+      /usr/lib/python3.8/signal.py:
+      /usr/lib/python3.8/site.py:
+      /usr/lib/python3.8/sitecustomize.py:
+      /usr/lib/python3.8/socket.py:
+      /usr/lib/python3.8/sre_compile.py:
+      /usr/lib/python3.8/sre_constants.py:
+      /usr/lib/python3.8/sre_parse.py:
+      /usr/lib/python3.8/ssl.py:
+      /usr/lib/python3.8/stat.py:
+      /usr/lib/python3.8/string.py:
+      /usr/lib/python3.8/stringprep.py:
+      /usr/lib/python3.8/struct.py:
+      /usr/lib/python3.8/subprocess.py:
+      /usr/lib/python3.8/sysconfig.py:
+      /usr/lib/python3.8/tempfile.py:
+      /usr/lib/python3.8/textwrap.py:
+      /usr/lib/python3.8/threading.py:
+      /usr/lib/python3.8/token.py:
+      /usr/lib/python3.8/tokenize.py:
+      /usr/lib/python3.8/traceback.py:
+      /usr/lib/python3.8/tracemalloc.py:
+      /usr/lib/python3.8/types.py:
+      /usr/lib/python3.8/urllib/**:
+      /usr/lib/python3.8/uu.py:
+      /usr/lib/python3.8/warnings.py:
+      /usr/lib/python3.8/weakref.py:
+      /usr/lib/python3.8/zipfile.py:
+      /usr/lib/python3.8/zipimport.py:
