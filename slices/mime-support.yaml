@@ -1,0 +1,6 @@
+package: mime-support
+
+slices:
+  mime-types:
+    contents:
+      /etc/mime.types:
