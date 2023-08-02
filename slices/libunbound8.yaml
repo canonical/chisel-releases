@@ -1,0 +1,12 @@
+package: libunbound8
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+      - libevent-2.1-7_libs
+      - libhogweed6_libs
+      - libnettle8_libs
+    contents:
+      /usr/lib/*-linux-*/libunbound.so*:

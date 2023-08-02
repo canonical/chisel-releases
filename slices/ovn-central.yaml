@@ -1,0 +1,10 @@
+package: ovn-central
+
+slices:
+  base:
+    essential:
+      - openvswitch-common_bins
+      - ovn-common_bins
+    contents:
+      /usr/bin/ovn-northd:
+      /usr/share/ovn/*.ovsschema:

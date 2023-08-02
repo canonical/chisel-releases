@@ -1,0 +1,25 @@
+package: ovn-common
+
+slices:
+  core:
+    essential:
+      - coreutils_bins
+      - sed_bins
+      - dash_base
+      - libc6_libs
+      - libcap-ng0_libs
+      - libssl3_libs
+      - libunbound8_libs
+    contents:
+      /usr/share/ovn/scripts/ovn-ctl:
+      /usr/share/ovn/scripts/ovn-lib:
+      /var/run/ovn/: {make: true, mode: 02775}
+      /var/log/ovn/: {make: true, mode: 02775}
+      /var/lib/ovn/: {make: true, mode: 02775}
+  bins:
+    essential:
+      - ovn-common_core
+    contents:
+      /usr/bin/ovn-appctl:
+      /usr/bin/ovn-nbctl:
+      /usr/bin/ovn-sbctl:

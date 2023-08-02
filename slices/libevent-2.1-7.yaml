@@ -1,0 +1,8 @@
+package: libevent-2.1-7
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libevent-2.1.so.*:
