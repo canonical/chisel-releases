@@ -3,8 +3,9 @@ package: openvswitch-common
 slices:
   core:
     essential:
+      - coreutils_bins
       - sed_bins
-      - dash_base
+      - dash_bins
       - libc6_libs
       - libcap-ng0_libs
       - libssl3_libs
