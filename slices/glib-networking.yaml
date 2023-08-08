@@ -1,0 +1,12 @@
+package: glib-networking
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libglib2.0-0_libs
+      - libgnutls30_libs
+      - libproxy1v5_libs
+      - gsettings-desktop-schemas_data
+    contents:
+      /usr/lib/*-linux-*/gio/modules/*.so:
