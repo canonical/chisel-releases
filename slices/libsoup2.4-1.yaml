@@ -1,0 +1,16 @@
+package: libsoup2.4-1
+
+slices:
+  libs:
+    essential:
+      - libbrotli1_libs
+      - libc6_libs
+      - libglib2.0-0_core
+      - libgssapi-krb5-2_libs
+      - libicu70_libs
+      - liblzma5_libs
+      - libpsl5_libs
+      - libsqlite3-0_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libsoup-2.4.so.*:
