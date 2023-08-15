@@ -1,0 +1,11 @@
+package: libharfbuzz0b
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libfreetype6_libs
+      - libglib2.0-0_core
+      - libgraphite2-3_libs
+    contents:
+      /usr/lib/*-linux-*/libharfbuzz.so.0*:
