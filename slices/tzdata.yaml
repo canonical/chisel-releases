@@ -1,31 +1,10 @@
 package: tzdata
 
 slices:
-  zoneinfo:
-    essential:
-      - tzdata_africa
-      - tzdata_america
-      - tzdata_antarctica
-      - tzdata_arctic
-      - tzdata_atlantic
-      - tzdata_australia
-      - tzdata_brazil
-      - tzdata_canada
-      - tzdata_chile
-      - tzdata_etc
-      - tzdata_eurasia
-      - tzdata_indian
-      - tzdata_mexico
-      - tzdata_pacific
-      - tzdata_united-states
-      - tzdata_zoneinfo-base
-
-  zoneinfo-icu:
-    contents:
-      /usr/share/zoneinfo-icu/44/be/*:
-      /usr/share/zoneinfo-icu/44/le/*:
-
-  zoneinfo-base:
+  # The "base" slice contains Canonical timezone abbreviations. These are primary,
+  # preferred zone names that are often used as abbreviations for location-specific
+  # timezones across the globe. Example: Europe/Sofia observes EET.
+  base:
     contents:
       /usr/share/zoneinfo/CET:
       /usr/share/zoneinfo/CST6CDT:
@@ -68,41 +47,28 @@ slices:
       /usr/share/zoneinfo/right/WET:
       /usr/share/zoneinfo/tzdata.zi:
       /usr/share/zoneinfo/WET:
-      /usr/share/zoneinfo/zone1970.tab:
-      /usr/share/zoneinfo/zone.tab:
 
   africa:
+    essential:
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Africa/*:
       /usr/share/zoneinfo/posix/Africa/*:
       /usr/share/zoneinfo/right/Africa/*:
       /usr/share/zoneinfo/Egypt:
-      /usr/share/zoneinfo/Iceland:
       /usr/share/zoneinfo/Libya:
       /usr/share/zoneinfo/posix/Egypt:
       /usr/share/zoneinfo/right/Egypt:
-      /usr/share/zoneinfo/posix/Iceland:
-      /usr/share/zoneinfo/right/Iceland:
       /usr/share/zoneinfo/posix/Libya:
       /usr/share/zoneinfo/right/Libya:
 
   america:
+    essential:
+      - tzdata_config
     contents:
-      /usr/share/zoneinfo/America/Argentina/*:
-      /usr/share/zoneinfo/America/Indiana/*:
-      /usr/share/zoneinfo/America/Kentucky/*:
-      /usr/share/zoneinfo/America/North_Dakota/*:
-      /usr/share/zoneinfo/America/*:
-      /usr/share/zoneinfo/posix/America/*:
-      /usr/share/zoneinfo/posix/America/Argentina/*:
-      /usr/share/zoneinfo/posix/America/Indiana/*:
-      /usr/share/zoneinfo/posix/America/Kentucky/*:
-      /usr/share/zoneinfo/posix/America/North_Dakota/*:
-      /usr/share/zoneinfo/right/America/*:
-      /usr/share/zoneinfo/right/America/Argentina/*:
-      /usr/share/zoneinfo/right/America/Indiana/*:
-      /usr/share/zoneinfo/right/America/Kentucky/*:
-      /usr/share/zoneinfo/right/America/North_Dakota/*:
+      /usr/share/zoneinfo/America/**:
+      /usr/share/zoneinfo/posix/America/**:
+      /usr/share/zoneinfo/right/America/**:
       /usr/share/zoneinfo/Cuba:
       /usr/share/zoneinfo/Jamaica:
       /usr/share/zoneinfo/Navajo:
@@ -116,6 +82,7 @@ slices:
 
   antarctica:
     essential:
+      - tzdata_config
       - tzdata_eurasia
       - tzdata_pacific
     contents:
@@ -125,6 +92,7 @@ slices:
 
   arctic:
     essential:
+      - tzdata_config
       - tzdata_eurasia
     contents:
       /usr/share/zoneinfo/Arctic/*:
@@ -134,6 +102,7 @@ slices:
   atlantic:
     essential:
       - tzdata_africa
+      - tzdata_config
       - tzdata_eurasia
     contents:
       /usr/share/zoneinfo/Atlantic/*:
@@ -141,14 +110,19 @@ slices:
       /usr/share/zoneinfo/right/Atlantic/*:
 
   australia:
+    essential:
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Australia/*:
       /usr/share/zoneinfo/posix/Australia/*:
       /usr/share/zoneinfo/right/Australia/*:
 
+  # Some counties, although geographically belonging to a continent, are kept
+  # in their own slice since that is how they are structured in the tzdata deb.
   brazil:
     essential:
       - tzdata_america
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Brazil/*:
       /usr/share/zoneinfo/posix/Brazil/*:
@@ -157,6 +131,7 @@ slices:
   canada:
     essential:
       - tzdata_america
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Canada/*:
       /usr/share/zoneinfo/posix/Canada/*:
@@ -165,12 +140,24 @@ slices:
   chile:
     essential:
       - tzdata_america
+      - tzdata_config
       - tzdata_pacific
     contents:
       /usr/share/zoneinfo/Chile/*:
       /usr/share/zoneinfo/posix/Chile/*:
       /usr/share/zoneinfo/right/Chile/*:
 
+  config:
+    contents:
+      # The .tab files are intended as an aid for users, to help them select
+      # timezones appropriate for their practical needs.
+      /usr/share/zoneinfo/zone1970.tab:
+      /usr/share/zoneinfo/zone.tab:
+
+  # "Etc" is meant to provide "timezones" that don't fit with the standard timezones.
+  # As an example, UTC isn't actually a timezone, but a standard. Like Zulu and others,
+  # most of these can be used for time information, but derive from different domains
+  # (like the military). Same for others.
   etc:
     contents:
       /usr/share/zoneinfo/Etc/*:
@@ -205,6 +192,10 @@ slices:
       /usr/share/zoneinfo/Zulu:
 
   eurasia:
+    essential:
+      # tzdata_africa is needed because the "Iceland" symlink needs it.
+      - tzdata_africa
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Asia/*:
       /usr/share/zoneinfo/Europe/*:
@@ -216,6 +207,7 @@ slices:
       /usr/share/zoneinfo/GB:
       /usr/share/zoneinfo/GB-Eire:
       /usr/share/zoneinfo/Hongkong:
+      /usr/share/zoneinfo/Iceland:
       /usr/share/zoneinfo/Iran:
       /usr/share/zoneinfo/Israel:
       /usr/share/zoneinfo/Japan:
@@ -229,9 +221,11 @@ slices:
       /usr/share/zoneinfo/right/GB-Eire:
       /usr/share/zoneinfo/posix/Hongkong:
       /usr/share/zoneinfo/right/Hongkong:
+      /usr/share/zoneinfo/posix/Iceland:
       /usr/share/zoneinfo/posix/Iran:
       /usr/share/zoneinfo/posix/Israel:
       /usr/share/zoneinfo/right/Iran:
+      /usr/share/zoneinfo/right/Iceland:
       /usr/share/zoneinfo/right/Israel:
       /usr/share/zoneinfo/posix/Japan:
       /usr/share/zoneinfo/right/Japan:
@@ -261,6 +255,7 @@ slices:
   indian:
     essential:
       - tzdata_africa
+      - tzdata_config
       - tzdata_eurasia
     contents:
       /usr/share/zoneinfo/Indian/*:
@@ -270,12 +265,15 @@ slices:
   mexico:
     essential:
       - tzdata_america
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Mexico/*:
       /usr/share/zoneinfo/posix/Mexico/*:
       /usr/share/zoneinfo/right/Mexico/*:
 
   pacific:
+    essential:
+      - tzdata_config
     contents:
       /usr/share/zoneinfo/Pacific/*:
       /usr/share/zoneinfo/posix/Pacific/*:
@@ -293,8 +291,37 @@ slices:
   united-states:
     essential:
       - tzdata_america
+      - tzdata_config
       - tzdata_pacific
     contents:
       /usr/share/zoneinfo/US/*:
       /usr/share/zoneinfo/posix/US/*:
       /usr/share/zoneinfo/right/US/*:
+
+  # Install all timezones.
+  zoneinfo:
+    essential:
+      - tzdata_africa
+      - tzdata_america
+      - tzdata_antarctica
+      - tzdata_arctic
+      - tzdata_atlantic
+      - tzdata_australia
+      - tzdata_base
+      - tzdata_brazil
+      - tzdata_canada
+      - tzdata_chile
+      - tzdata_config
+      - tzdata_etc
+      - tzdata_eurasia
+      - tzdata_indian
+      - tzdata_mexico
+      - tzdata_pacific
+      - tzdata_united-states
+
+  # Specific for applications that use the ICU library.
+  zoneinfo-icu:
+    contents:
+      /usr/share/zoneinfo-icu/44/be/*:
+      /usr/share/zoneinfo-icu/44/le/*:
+
