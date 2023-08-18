@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libuv.so.*:
+      /usr/lib/*-linux-*/libuv.so.1*:

@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libcares.so.*:
+      /usr/lib/*-linux-*/libcares.so.2*:

@@ -6,8 +6,11 @@ slices:
       - node-xtend_libs
     contents:
       # basically avoiding all the .map files (line tables) and unittest drivers
-      /usr/share/nodejs/acorn/**:
-      /usr/share/nodejs/acorn-walk/**:
+      /usr/share/nodejs/acorn/dist/acorn.js:
+      /usr/share/nodejs/acorn/dist/acorn.mjs:
+      /usr/share/nodejs/acorn/package.json:
+      /usr/share/nodejs/acorn-walk/*.js:
+      /usr/share/nodejs/acorn-walk/*.mjs:
       /usr/share/nodejs/acorn-static-class-features/index.js:
       /usr/share/nodejs/acorn-static-class-features/package.json:
       /usr/share/nodejs/acorn-private-methods/index.js:
