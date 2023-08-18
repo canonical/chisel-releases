@@ -8,4 +8,4 @@ slices:
       - liblzma5_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libxml2.so.*:
+      /usr/lib/*-linux-*/libxml2.so.2*:
