@@ -1,0 +1,11 @@
+package: libpsl5
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libidn2-0_libs
+      - libunistring2_libs
+      - publicsuffix_data
+    contents:
+      /usr/lib/*-linux-*/libpsl.so.5*:

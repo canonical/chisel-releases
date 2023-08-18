@@ -1,0 +1,6 @@
+package: publicsuffix
+
+slices:
+  data:
+    contents:
+      /usr/share/publicsuffix/*:
