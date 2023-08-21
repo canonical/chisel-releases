@@ -1,0 +1,13 @@
+package: python3.8-minimal
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libpython3.8-minimal_libs
+      - libexpat1_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/python3.8:
+      /usr/local/lib/python3.8/: {make: true, mode: 02775}
+      /usr/local/lib/python3.8/dist-packages/: {make: true, mode: 02775}
