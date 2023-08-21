@@ -8,7 +8,7 @@ slices:
   libs:
     contents:
       /lib/*-linux-*/ld-*.*.so:
-      /lib/*-linux-*/ld-*.so.*:
+      /lib/*-linux-*/ld*.so.*:
       /lib/*-linux-*/libBrokenLocale-*.*.so:
       /lib/*-linux-*/libBrokenLocale.so.*:
       /lib/*-linux-*/libSegFault.so:
