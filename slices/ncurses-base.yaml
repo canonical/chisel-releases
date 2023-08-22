@@ -1,0 +1,21 @@
+package: ncurses-base
+
+slices:
+  libs:
+    contents:
+      /lib/terminfo/E/Eterm*:
+      /lib/terminfo/a/ansi:
+      /lib/terminfo/c/cons25*:
+      /lib/terminfo/c/cygwin:
+      /lib/terminfo/d/dumb:
+      /lib/terminfo/h/hurd:
+      /lib/terminfo/l/linux:
+      /lib/terminfo/m/mach*:
+      /lib/terminfo/p/pcansi:
+      /lib/terminfo/r/rxvt*:
+      /lib/terminfo/s/screen*:
+      /lib/terminfo/s/sun:
+      /lib/terminfo/t/tmux*:
+      /lib/terminfo/v/vt*:
+      /lib/terminfo/w/wsvt25*:
+      /lib/terminfo/x/xterm*:
