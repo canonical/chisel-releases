@@ -1,21 +1,88 @@
 package: ncurses-base
 
 slices:
-  libs:
+  # the "data" slice contains all the /lib/terminfo files
+  data:
+    essential:
+      - ncurses-base_ansi
+      - ncurses-base_cons25
+      - ncurses-base_cygwin
+      - ncurses-base_dumb
+      - ncurses-base_eterm
+      - ncurses-base_hurd
+      - ncurses-base_linux
+      - ncurses-base_mach
+      - ncurses-base_pcansi
+      - ncurses-base_rxvt
+      - ncurses-base_screen
+      - ncurses-base_sun
+      - ncurses-base_tmux
+      - ncurses-base_vts
+      - ncurses-base_wsvt25
+      - ncurses-base_xterm
+
+  ansi:
+    contents:
+      /lib/terminfo/a/ansi:
+
+  cons25:
+    contents:
+      /lib/terminfo/c/cons25*:
+
+  cygwin:
+    contents:
+      /lib/terminfo/c/cygwin:
+
+  dumb:
+    contents:
+      /lib/terminfo/d/dumb:
+
+  eterm:
     contents:
       /lib/terminfo/E/Eterm*:
-      /lib/terminfo/a/ansi:
-      /lib/terminfo/c/cons25*:
-      /lib/terminfo/c/cygwin:
-      /lib/terminfo/d/dumb:
+
+  hurd:
+    contents:
       /lib/terminfo/h/hurd:
+
+  linux:
+    contents:
       /lib/terminfo/l/linux:
+
+  mach:
+    contents:
       /lib/terminfo/m/mach*:
+
+  pcansi:
+    contents:
       /lib/terminfo/p/pcansi:
+
+  rxvt:
+    contents:
       /lib/terminfo/r/rxvt*:
+
+  screen:
+    contents:
       /lib/terminfo/s/screen*:
+
+  sun:
+    contents:
       /lib/terminfo/s/sun:
+
+  tmux:
+    contents:
       /lib/terminfo/t/tmux*:
+
+  # "vt"s - collection of vt*
+  # (slice names have to be at least 3 letters)
+  vts:
+    contents:
       /lib/terminfo/v/vt*:
+
+  wsvt25:
+    contents:
       /lib/terminfo/w/wsvt25*:
+
+  xterm:
+    contents:
       /lib/terminfo/x/xterm*:
