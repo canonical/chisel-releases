@@ -6,4 +6,4 @@ slices:
       - libc6_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libasan.so*:
+      /usr/lib/*-linux-*/libasan.so.6*:
