@@ -5,5 +5,6 @@ slices:
     essential:
       - libc6_libs
       - libstdc++6_libs
+      - libgcc-s1_libs
     contents:
       /usr/lib/*-linux-*/libasan.so.6*:
