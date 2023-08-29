@@ -1,0 +1,11 @@
+package: libasan6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libstdc++6_libs
+      - libgcc-s1_libs
+    # Although gcc-11-base is a package dependency, it is not needed for this libs slice and is thus omitted.
+    contents:
+      /usr/lib/*-linux-*/libasan.so.6*:
