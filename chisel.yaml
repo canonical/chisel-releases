@@ -1,0 +1,7 @@
+format: chisel-v1
+
+archives:
+    ubuntu:
+        version: 23.10
+        components: [main, universe]
+        suites: [mantic, mantic-security, mantic-updates]
