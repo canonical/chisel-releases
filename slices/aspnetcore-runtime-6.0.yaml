@@ -1,0 +1,8 @@
+package: aspnetcore-runtime-6.0
+# NOTE: not available for armhf riscv64 ppc64el s390x
+slices:
+  libs:
+    essential:
+      - dotnet-runtime-6.0_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/**:
