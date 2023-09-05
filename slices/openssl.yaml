@@ -15,6 +15,7 @@ slices:
     contents:
       /etc/ssl/private/:
       /etc/ssl/openssl.cnf:
+      /usr/lib/ssl/cert.pem:
       /usr/lib/ssl/certs:
       /usr/lib/ssl/openssl.cnf:
       /usr/lib/ssl/private:
