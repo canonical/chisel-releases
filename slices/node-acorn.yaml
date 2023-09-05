@@ -9,19 +9,18 @@ slices:
       /usr/share/nodejs/acorn/dist/acorn.js:
       /usr/share/nodejs/acorn/dist/acorn.mjs:
       /usr/share/nodejs/acorn/package.json:
-      /usr/share/nodejs/acorn-walk/*.js:
-      /usr/share/nodejs/acorn-walk/*.mjs:
+      /usr/share/nodejs/acorn-walk/dist/*.js:
+      /usr/share/nodejs/acorn-walk/dist/*.mjs:
+      /usr/share/nodejs/acorn-walk/package.json:
       /usr/share/nodejs/acorn-static-class-features/index.js:
       /usr/share/nodejs/acorn-static-class-features/package.json:
-      /usr/share/nodejs/acorn-private-methods/index.js:
+      /usr/share/nodejs/acorn-private-methods/**.js:
       /usr/share/nodejs/acorn-private-methods/package.json:
-      /usr/share/nodejs/acorn-private-methods/dist/*.js:
       /usr/share/nodejs/acorn-private-methods/dist/*.mjs:
       /usr/share/nodejs/acorn-private-class-elements/**:
-      /usr/share/nodejs/acorn-numeric-separator/dist/*.js:
+      /usr/share/nodejs/acorn-numeric-separator/**.js:
       /usr/share/nodejs/acorn-numeric-separator/dist/*.mjs:
       /usr/share/nodejs/acorn-numeric-separator/package.json:
-      /usr/share/nodejs/acorn-numeric-separator/src/index.js:
       /usr/share/nodejs/acorn-node/**:
       /usr/share/nodejs/acorn-loose/**:
       /usr/share/nodejs/acorn-jsx/**:

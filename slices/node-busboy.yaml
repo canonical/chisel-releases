@@ -4,4 +4,5 @@ slices:
   libs:
     contents:
       /usr/share/nodejs/busboy/lib/**:
+      /usr/share/nodejs/busboy/package.json:
       /usr/share/nodejs/streamsearch/**:
