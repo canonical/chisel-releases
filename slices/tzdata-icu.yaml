@@ -1,0 +1,8 @@
+package: tzdata-icu
+
+slices:
+  # Specific for applications that use the ICU library.
+  zoneinfo-icu:
+    contents:
+      /usr/share/zoneinfo-icu/44/be/*:
+      /usr/share/zoneinfo-icu/44/le/*:
