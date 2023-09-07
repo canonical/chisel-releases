@@ -1,0 +1,17 @@
+package: dotnet-runtime-6.0
+# NOTE: not available for armhf riscv64 ppc64el s390x
+slices:
+  libs:
+    essential:
+      - dotnet-hostfxr-6.0_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libicu72_libs
+      - liblttng-ust1_libs
+      - libssl3_libs
+      - libstdc++6_libs
+      - libunwind-13_libs
+      - libunwind8_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/**:

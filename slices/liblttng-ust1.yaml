@@ -1,0 +1,18 @@
+package: liblttng-ust1
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - liblttng-ust-common1_libs
+      - liblttng-ust-ctl5_libs
+      - libnuma1_libs
+    contents:
+      /usr/lib/*-linux-*/liblttng-ust-cyg-profile-fast.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-cyg-profile.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-dl.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-fd.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-fork.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-libc-wrapper.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-pthread-wrapper.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-tracepoint.so.*:
+      /usr/lib/*-linux-*/liblttng-ust.so.*:
