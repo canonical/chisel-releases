@@ -1,0 +1,10 @@
+package: bash
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /bin/bash:
+      /bin/sh: { symlink: /bin/bash }
