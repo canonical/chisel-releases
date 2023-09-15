@@ -6,5 +6,5 @@ slices:
       - libc6_libs
       - libtinfo6_libs
     contents:
+      # user should manually link /bin/sh to /bin/bash
       /bin/bash:
-      /bin/sh: { symlink: /bin/bash }

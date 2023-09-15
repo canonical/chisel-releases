@@ -70,6 +70,7 @@ slices:
       /usr/bin/link:
       /usr/bin/logname:
       /usr/bin/md5sum:
+      /usr/bin/md5sum.textutils: { symlink: /usr/bin/md5sum }
       /usr/bin/mkfifo:
       /usr/bin/nice:
       /usr/bin/nl:
