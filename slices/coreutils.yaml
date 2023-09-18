@@ -1,8 +1,15 @@
 package: coreutils
 
 slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/libexec/coreutils/libstdbuf.so:
+
   bins:
     essential:
+      - coreutils_libs
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -70,7 +77,7 @@ slices:
       /usr/bin/link:
       /usr/bin/logname:
       /usr/bin/md5sum:
-      /usr/bin/md5sum.textutils: { symlink: /usr/bin/md5sum }
+      /usr/bin/md5sum.textutils:
       /usr/bin/mkfifo:
       /usr/bin/nice:
       /usr/bin/nl:
@@ -117,5 +124,4 @@ slices:
       /usr/bin/who:
       /usr/bin/whoami:
       /usr/bin/yes:
-      /usr/libexec/coreutils/libstdbuf.so:
       /usr/sbin/chroot:
