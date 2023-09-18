@@ -1,10 +1,14 @@
 package: ovn-central
 
 slices:
-  base:
+  config:
+    contents:
+      /etc/default/ovn-central:
+      /usr/share/ovn/*.ovsschema:
+  core:
     essential:
       - openvswitch-common_bins
+      - ovn-central_config
       - ovn-common_bins
     contents:
       /usr/bin/ovn-northd:
-      /usr/share/ovn/*.ovsschema:

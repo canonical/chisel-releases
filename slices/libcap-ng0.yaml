@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libcap-ng.so.*:
+      /lib/*-linux-*/libcap-ng.so.0*:

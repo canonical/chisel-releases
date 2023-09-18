@@ -9,4 +9,4 @@ slices:
       - libhogweed6_libs
       - libnettle8_libs
     contents:
-      /usr/lib/*-linux-*/libunbound.so*:
+      /usr/lib/*-linux-*/libunbound.so.8*:

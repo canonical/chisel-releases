@@ -8,4 +8,3 @@ slices:
       - base-files_base
     contents:
       /bin/dash:
-      /bin/sh:

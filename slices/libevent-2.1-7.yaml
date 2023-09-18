@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libevent-2.1.so.*:
+      /usr/lib/*-linux-*/libevent-2.1.so.7*:
