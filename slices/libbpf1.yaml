@@ -1,0 +1,10 @@
+package: libbpf1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libelf1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libbpf.so.1*:

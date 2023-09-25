@@ -1,0 +1,10 @@
+package: libcap2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libcap.so.2*:
+      /lib/*-linux-*/libpsx.so.2*:
+
