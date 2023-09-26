@@ -1,0 +1,12 @@
+package: libcap2-bin
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+    contents:
+      /sbin/capsh:
+      /sbin/getcap:
+      /sbin/getpcaps:
+      /sbin/setcap:

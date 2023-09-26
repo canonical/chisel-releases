@@ -1,0 +1,60 @@
+package: nginx-common
+
+slices:
+  # Leaving the debconf dependency out as we don't currently need pkg mgmt.
+  # Also, debconf is especially used for the maintainer scripts, which are
+  # handled differently in Chisel.
+  # There's also no need (yet) for any init- and systemd-related files.
+  config:
+    contents:
+      /etc/logrotate.d/nginx:
+      /etc/nginx/fastcgi.conf:
+      /etc/nginx/fastcgi_params:
+      /etc/nginx/koi-utf:
+      /etc/nginx/koi-win:
+      /etc/nginx/mime.types:
+      /etc/nginx/nginx.conf:
+      /etc/nginx/proxy_params:
+      /etc/nginx/scgi_params:
+      /etc/nginx/sites-available/default:
+      /etc/nginx/snippets/fastcgi-php.conf:
+      /etc/nginx/snippets/snakeoil.conf:
+      /etc/nginx/uwsgi_params:
+      /etc/nginx/win-utf:
+      # Created by the maintainer scripts
+      /var/log/nginx/: {make: true, mode: 0755}
+      /var/log/nginx/access.log: {text: "", mode: 640} 
+      /var/log/nginx/error.log: {text: "", mode: 640}
+      /etc/nginx/sites-enabled/default: {symlink: /etc/nginx/sites-available/default}
+      /var/www/html/: {make: true}
+      /var/lib/nginx/: {make: true}
+
+  ufw-config:
+    contents:
+      /etc/ufw/applications.d/nginx:
+
+  apport:
+    contents:
+      /usr/share/apport/package-hooks/source_nginx.py:
+
+  index:
+    contents:
+      /usr/share/nginx/html/index.html:
+      /var/www/html/index.nginx-debian.html: {copy: /usr/share/nginx/html/index.html}
+
+  modules:
+    contents:
+      /usr/share/nginx/modules:
+
+  vim-addons:
+    essential:
+      - nginx-common_vim-config
+    contents:
+      /usr/share/vim/addons/ftdetect/nginx.vim:
+      /usr/share/vim/addons/ftplugin/nginx.vim:
+      /usr/share/vim/addons/indent/nginx.vim:
+      /usr/share/vim/addons/syntax/nginx.vim:
+  
+  vim-config:
+    contents:
+      /usr/share/vim/registry/nginx.yaml:

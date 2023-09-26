@@ -1,0 +1,11 @@
+package: libelf1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libelf-0.*.so:
+      /usr/lib/*-linux-*/libelf.so.1:
