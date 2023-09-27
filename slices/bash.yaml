@@ -15,5 +15,5 @@ slices:
       - libtinfo6_libs
     contents:
       /bin/bash:
-      /bin/rbash: { symlink: /bin/bash }
+      /bin/rbash:
       /usr/bin/clear_console:
