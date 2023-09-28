@@ -16,7 +16,6 @@ slices:
     contents:
       # user should manually link /bin/sh to /bin/bash
       /bin/bash:
-      /bin/bashbug: { symlink: /usr/bin/bashbug }
       /bin/rbash:
       /usr/bin/clear_console:
       /usr/bin/bashbug:
