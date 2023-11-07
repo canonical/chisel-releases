@@ -39,7 +39,6 @@ slices:
       /usr/lib/python3.11/shutil.py:
       /usr/lib/python3.11/socketserver.py:
       /usr/lib/python3.11/tarfile.py:
-#      /usr/lib/python3.11/typing.py:
 
   # Generic Operating System Services
   # https://docs.python.org/3.11/library/allos.html
@@ -66,9 +65,7 @@ slices:
       - libpython3.11-stdlib_crypto
       - libpython3.11-stdlib_all-os
     contents:
-#      /usr/lib/python3.11/_dummy_thread.py:
       /usr/lib/python3.11/concurrent/**:
-#      /usr/lib/python3.11/dummy_threading.py:
       /usr/lib/python3.11/lib-dynload/_multiprocessing.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/lib-dynload/_posixshmem.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/multiprocessing/**:
@@ -253,10 +250,8 @@ slices:
     essential:
       - libpython3.11-stdlib_core
     contents:
-#      /usr/lib/python3.11/lib-dynload/parser.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/pickletools.py:
       /usr/lib/python3.11/pyclbr.py:
-#      /usr/lib/python3.11/symbol.py:
       /usr/lib/python3.11/symtable.py:
       /usr/lib/python3.11/tabnanny.py:
 
@@ -292,7 +287,6 @@ slices:
     essential:
       - libpython3.11-stdlib_core
     contents:
-#      /usr/lib/python3.11/binhex.py:
       /usr/lib/python3.11/json/**:
       /usr/lib/python3.11/lib-dynload/_json.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/mailbox.py:
@@ -303,7 +297,6 @@ slices:
   numeric:
     essential:
       - libpython3.11-stdlib_core
-#      - libmpdec2_libs
     contents:
       /usr/lib/python3.11/_pydecimal.py:
       /usr/lib/python3.11/decimal.py:
@@ -379,5 +372,4 @@ slices:
       - libpython3.11-stdlib_internet
     contents:
       /usr/lib/python3.11/antigravity.py:
-#      /usr/lib/python3.11/formatter.py:
       /usr/lib/python3.11/this.py:

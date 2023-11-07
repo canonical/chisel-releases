@@ -20,7 +20,6 @@ slices:
       - libpython3.11-minimal_config
     contents:
       /usr/lib/python3.11/__future__.py:
-#      /usr/lib/python3.11/_bootlocale.py:
       /usr/lib/python3.11/_collections_abc.py:
       /usr/lib/python3.11/_compat_pickle.py:
       /usr/lib/python3.11/_py_abc.py:
@@ -62,7 +61,6 @@ slices:
       /usr/lib/python3.11/ipaddress.py:
       /usr/lib/python3.11/keyword.py:
       /usr/lib/python3.11/lib-dynload/_hashlib.cpython-311-*-linux-*.so:
-#      /usr/lib/python3.11/lib-dynload/_opcode.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/lib-dynload/_ssl.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/linecache.py:
       /usr/lib/python3.11/locale.py:
