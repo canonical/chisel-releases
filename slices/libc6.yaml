@@ -1,0 +1,30 @@
+package: libc6
+
+slices:
+  config:
+    contents:
+      /etc/ld.so.conf.d/*-linux-*.conf:
+
+  libs:
+    contents:
+      /lib/*-linux-*/ld*.so.*:
+      /lib/*-linux-*/libBrokenLocale.so.*:
+      /lib/*-linux-*/libanl.so.*:
+      /lib/*-linux-*/libc.so.*:
+      /lib/*-linux-*/libc_malloc_debug.so.*:
+      /lib/*-linux-*/libdl.so.*:
+      /lib/*-linux-*/libm.so.*:
+      /lib/*-linux-*/libmemusage.so:
+      /lib/*-linux-*/libmvec.so.*: {arch: amd64}
+      /lib/*-linux-*/libnsl.so.*:
+      /lib/*-linux-*/libnss_compat.so.*:
+      /lib/*-linux-*/libnss_dns.so.*:
+      /lib/*-linux-*/libnss_files.so.*:
+      /lib/*-linux-*/libnss_hesiod.so.*:
+      /lib/*-linux-*/libpcprofile.so:
+      /lib/*-linux-*/libpthread.so.*:
+      /lib/*-linux-*/libresolv.so.*:
+      /lib/*-linux-*/librt.so.*:
+      /lib/*-linux-*/libthread_db.so.*:
+      /lib/*-linux-*/libutil.so.*:
+      /lib*/ld*.so.*:
