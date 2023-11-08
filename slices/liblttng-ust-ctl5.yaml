@@ -1,0 +1,9 @@
+package: liblttng-ust-ctl5
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - liblttng-ust-common1_libs
+      - libnuma1_libs
+    contents:
+      /usr/lib/*-linux-*/liblttng-ust-ctl.so.*:
