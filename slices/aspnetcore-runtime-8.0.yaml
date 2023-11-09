@@ -1,0 +1,8 @@
+package: aspnetcore-runtime-8.0
+
+slices:
+  libs:
+    essential:
+      - dotnet-runtime-8.0_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/8.0*/**:
