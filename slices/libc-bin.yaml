@@ -1,0 +1,7 @@
+package: libc-bin
+
+slices:
+  nsswitch:
+    contents:
+      /usr/share/libc-bin/nsswitch.conf:
+      /etc/nsswitch.conf: {copy: /usr/share/libc-bin/nsswitch.conf}
