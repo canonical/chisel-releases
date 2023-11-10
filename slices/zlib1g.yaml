@@ -1,0 +1,8 @@
+package: zlib1g
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libz.so.*:

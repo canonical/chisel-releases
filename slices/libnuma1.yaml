@@ -1,0 +1,7 @@
+package: libnuma1
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libnuma.so.*:

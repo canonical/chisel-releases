@@ -1,0 +1,8 @@
+package: libkrb5support0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libkrb5support.so.*:

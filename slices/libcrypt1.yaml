@@ -1,0 +1,8 @@
+package: libcrypt1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libcrypt.so.*:

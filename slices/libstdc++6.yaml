@@ -1,0 +1,9 @@
+package: libstdc++6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+    contents:
+      /usr/lib/*-linux-*/libstdc++.so.*:
