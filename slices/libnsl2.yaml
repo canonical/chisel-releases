@@ -1,0 +1,9 @@
+package: libnsl2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libtirpc3_libs
+    contents:
+      /usr/lib/*-linux-*/libnsl.so.2*:

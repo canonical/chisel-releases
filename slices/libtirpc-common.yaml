@@ -1,0 +1,6 @@
+package: libtirpc-common
+
+slices:
+  common:
+    contents:
+      /etc/netconfig:

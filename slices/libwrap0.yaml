@@ -1,0 +1,9 @@
+package: libwrap0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libnsl2_libs
+    contents:
+      /usr/lib/*-linux-*/libwrap.so.0*:

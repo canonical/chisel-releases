@@ -1,0 +1,17 @@
+package: stunnel4
+
+slices:
+  bins:
+    essential:
+      - libc6_config
+      - libc6_libs
+      - libssl3_libs
+      - libsystemd0_libs
+      - libwrap0_libs
+      - openssl_config
+      - stunnel4_libs
+    contents:
+      /usr/bin/stunnel*:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/stunnel/libstunnel.so:
