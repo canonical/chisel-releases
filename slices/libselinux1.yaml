@@ -1,0 +1,9 @@
+package: libselinux1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+    contents:
+      /lib/*-linux-*/libselinux.so.1:
