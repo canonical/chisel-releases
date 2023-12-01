@@ -1,0 +1,9 @@
+package: libtinfo6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libtinfo.so.6*:
+      /usr/lib/*-linux-*/libtic.so.6*:
