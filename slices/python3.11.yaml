@@ -1,0 +1,54 @@
+package: python3.11
+
+slices:
+  # The "core" slice provides a very minimal, yet functioning python3.11.
+  # It includes very few modules from the libpython3.11-stdlib package.
+  core:
+    essential:
+      - python3.11-minimal_bins
+      - libpython3.11-stdlib_core
+      - media-types_data
+
+  # The "standard" slice extends "core" with all the Python
+  # modules from the libpython3.11-stdlib package.
+  standard:
+    essential:
+      - libpython3.11-stdlib_aix-support
+      - libpython3.11-stdlib_all-os
+      - libpython3.11-stdlib_concurrency
+      - libpython3.11-stdlib_core
+      - libpython3.11-stdlib_crypto
+      - libpython3.11-stdlib_custom-interpreters
+      - libpython3.11-stdlib_data-persistence
+      - libpython3.11-stdlib_data-types
+      - libpython3.11-stdlib_debug
+      - libpython3.11-stdlib_development-tools
+      - libpython3.11-stdlib_distribution
+      - libpython3.11-stdlib_extras
+      - libpython3.11-stdlib_file-formats
+      - libpython3.11-stdlib_filesys
+      - libpython3.11-stdlib_frameworks
+      - libpython3.11-stdlib_importing
+      - libpython3.11-stdlib_internet
+      - libpython3.11-stdlib_ipc
+      - libpython3.11-stdlib_language
+      - libpython3.11-stdlib_markup-tools
+      - libpython3.11-stdlib_multimedia
+      - libpython3.11-stdlib_net-data
+      - libpython3.11-stdlib_numeric
+      - libpython3.11-stdlib_osx-support
+      - libpython3.11-stdlib_pydoc
+      - libpython3.11-stdlib_text
+      - libpython3.11-stdlib_unix
+      - python3.11_core
+
+  # The "utlis" slice extends "core" with various tools.
+  utils:
+    essential:
+      - libpython3.11-stdlib_debug
+      - libpython3.11-stdlib_pydoc
+      - python3.11_core
+    contents:
+      /usr/bin/pdb3.11:
+      /usr/bin/pydoc3.11:
+      /usr/bin/pygettext3.11:
