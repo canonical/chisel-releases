@@ -1,0 +1,8 @@
+package: libtasn1-6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libtasn1.so.6*:

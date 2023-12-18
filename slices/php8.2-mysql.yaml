@@ -1,0 +1,27 @@
+package: php8.2-mysql
+
+slices:
+  libs:
+    contents:
+      /usr/lib/php/20220829/mysqlnd.so:
+      /etc/php/8.2/cli/conf.d/10-mysqlnd.ini: {copy: '/usr/share/php8.2-mysql/mysql/mysqlnd.ini'}
+
+  pdo:
+    essential:
+      - php8.2-mysql_libs
+    contents:
+      /usr/lib/php/20220829/pdo_mysql.so:
+      /etc/php/8.2/cli/conf.d/20-pdo_mysql.ini: {copy: '/usr/share/php8.2-mysql/mysql/pdo_mysql.ini'}
+
+  mysqli:
+    essential:
+      - php8.2-mysql_libs
+    contents:
+      /usr/lib/php/20220829/mysqli.so:
+      /etc/php/8.2/cli/conf.d/20-mysqli.ini: {copy: '/usr/share/php8.2-mysql/mysql/mysqli.ini'}
+
+  all:
+    essential:
+      - php8.2-mysql_libs
+      - php8.2-mysql_pdo
+      - php8.2-mysql_mysqli

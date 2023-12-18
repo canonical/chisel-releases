@@ -1,0 +1,8 @@
+package: libx11-6
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+    contents:
+      /usr/lib/*-linux-*/libX11.so.6*:

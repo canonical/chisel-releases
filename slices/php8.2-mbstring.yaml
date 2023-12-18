@@ -1,0 +1,9 @@
+package: php8.2-mbstring
+
+slices:
+  all:
+    essential:
+      - libonig5_libs
+    contents:
+      /usr/lib/php/20220829/mbstring.so:
+      /etc/php/8.2/cli/conf.d/20-mbstring.ini: {copy: '/usr/share/php8.2-mbstring/mbstring/mbstring.ini'}

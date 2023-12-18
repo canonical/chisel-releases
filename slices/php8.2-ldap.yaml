@@ -1,0 +1,8 @@
+package: php8.2-ldap
+slices:
+  all:
+    essential:
+      - libldap2_libs
+    contents:
+      /usr/lib/php/20220829/ldap.so:
+      /etc/php/8.2/cli/conf.d/20-ldap.ini: {copy: '/usr/share/php8.2-ldap/ldap/ldap.ini'}

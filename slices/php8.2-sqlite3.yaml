@@ -1,0 +1,8 @@
+package: php8.2-sqlite3
+slices:
+  all:
+    essential:
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/php/20220829/sqlite3.so:
+      /etc/php/8.2/cli/conf.d/20-sqlite3.ini: {copy: '/usr/share/php8.2-sqlite3/sqlite3/sqlite3.ini'}

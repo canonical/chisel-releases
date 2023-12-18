@@ -1,0 +1,8 @@
+package: libargon2-1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libargon2.so.1:

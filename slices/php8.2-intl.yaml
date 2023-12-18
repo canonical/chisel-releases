@@ -1,0 +1,6 @@
+package: php8.2-intl
+slices:
+  all:
+    contents:
+      /usr/lib/php/20220829/intl.so:
+      /etc/php/8.2/cli/conf.d/20-intl.ini: {copy: '/usr/share/php8.2-intl/intl/intl.ini'}

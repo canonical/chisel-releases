@@ -1,0 +1,11 @@
+package: php8.2-pgsql
+slices:
+  all:
+    essential:
+      - libc6_libs
+      - libpq5_libs
+    contents:
+      /usr/lib/php/20220829/pdo_pgsql.so:
+      /usr/lib/php/20220829/pgsql.so:
+      /etc/php/8.2/cli/conf.d/20-pgsql.ini: {copy: '/usr/share/php8.2-pgsql/pgsql/pgsql.ini'}
+      /etc/php/8.2/cli/conf.d/20-pdo_pgsql.ini: {copy: '/usr/share/php8.2-pgsql/pgsql/pdo_pgsql.ini'}

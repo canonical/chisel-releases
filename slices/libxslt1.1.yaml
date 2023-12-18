@@ -1,0 +1,9 @@
+package: libxslt1.1
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcrypt20_libs
+    contents:
+      /usr/lib/*-linux-*/libexslt.so.0*:
+      /usr/lib/*-linux-*/libxslt.so.1*:

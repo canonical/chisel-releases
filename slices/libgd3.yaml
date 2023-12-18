@@ -1,0 +1,13 @@
+package: libgd3
+slices:
+  libs:
+    essential:
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libpng16-16_libs
+      - libjpeg-turbo8_libs
+      - libtiff6_libs
+      - libwebp7_libs
+      - libxpm4_libs
+    contents:
+      /usr/lib/*-linux-*/libgd.so.3*:

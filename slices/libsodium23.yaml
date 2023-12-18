@@ -1,0 +1,9 @@
+package: libsodium23
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libsodium.so.23:
+      /usr/lib/*-linux-*/libsodium.so.23.3.0:

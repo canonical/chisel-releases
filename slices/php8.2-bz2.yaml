@@ -1,0 +1,8 @@
+package: php8.2-bz2
+slices:
+  all:
+    essential:
+      - libbz2-1.0_libs
+    contents:
+      /usr/lib/php/20220829/bz2.so:
+      /etc/php/8.2/cli/conf.d/20-bz2.ini: {copy: '/usr/share/php8.2-bz2/bz2/bz2.ini'}

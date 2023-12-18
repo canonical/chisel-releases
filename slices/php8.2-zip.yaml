@@ -1,0 +1,9 @@
+package: php8.2-zip
+
+slices:
+  all:
+    essential:
+      - libzip4_libs
+    contents:
+      /usr/lib/php/20220829/zip.so:
+      /etc/php/8.2/cli/conf.d/20-zip.ini: {copy: '/usr/share/php8.2-zip/zip/zip.ini'}

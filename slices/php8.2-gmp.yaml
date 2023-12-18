@@ -1,0 +1,8 @@
+package: php8.2-gmp
+slices:
+  all:
+    essential:
+      - libgmp10_libs
+    contents:
+      /usr/lib/php/20220829/gmp.so:
+      /etc/php/8.2/cli/conf.d/20-gmp.ini: {copy: '/usr/share/php8.2-gmp/gmp/gmp.ini'}

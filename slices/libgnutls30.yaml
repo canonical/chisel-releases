@@ -1,0 +1,15 @@
+package: libgnutls30
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+      - libhogweed6_libs
+      - libidn2-0_libs
+      - libnettle8_libs
+      - libp11-kit0_libs
+      - libtasn1-6_libs
+      - libunistring2_libs
+    contents:
+      /usr/lib/*-linux-*/libgnutls*.so.30*:

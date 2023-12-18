@@ -1,0 +1,6 @@
+package: php8.2-igbinary
+slices:
+  all:
+    contents:
+      /usr/lib/php/20220829/igbinary.so:
+      /etc/php/8.2/cli/conf.d/20-igbinary.ini: {copy: '/etc/php/8.2/mods-available/igbinary.ini'}

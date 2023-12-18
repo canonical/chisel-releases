@@ -1,0 +1,7 @@
+package: libwebp7
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libwebp.so.7*:

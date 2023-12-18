@@ -1,0 +1,7 @@
+package: php8.2-opcache
+
+slices:
+  all:
+    contents:
+      /usr/lib/php/20220829/opcache.so:
+      /etc/php/8.2/cli/conf.d/10-opcache.ini: {copy: '/usr/share/php8.2-opcache/opcache/opcache.ini'}

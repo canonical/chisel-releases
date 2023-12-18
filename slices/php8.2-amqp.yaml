@@ -1,0 +1,8 @@
+package: php8.2-amqp
+slices:
+  all:
+    essential:
+      - librabbitmq4_libs
+    contents:
+      /usr/lib/php/20220829/amqp.so:
+      /etc/php/8.2/cli/conf.d/20-amqp.ini: {copy: '/etc/php/8.2/mods-available/amqp.ini'}

@@ -1,0 +1,8 @@
+package: libunistring2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libunistring.so.2*:

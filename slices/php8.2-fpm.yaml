@@ -1,0 +1,21 @@
+package: php8.2-fpm
+
+slices:
+  all:
+    essential:
+      - php8.2-fpm_base
+      - php8.2-common_all
+
+  base:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libxml2_libs
+      - libssl3_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libargon2-1_libs
+      - php8.2-common_base
+    contents:
+      /usr/sbin/php-fpm: {copy: /usr/sbin/php-fpm8.1}
