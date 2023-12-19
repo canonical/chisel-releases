@@ -1,10 +1,10 @@
-package: dotnet-hostfxr-6.0
+package: dotnet-hostfxr-7.0
 slices:
   libs:
     essential:
       - libc6_libs
       - libgcc-s1_libs
       - libstdc++6_libs
-      - dotnet-host_bins
+      - dotnet-host-7.0_bins
     contents:
-      /usr/lib/dotnet/host/fxr/6*/libhostfxr.so:
+      /usr/lib/dotnet/host/fxr/7*/libhostfxr.so:

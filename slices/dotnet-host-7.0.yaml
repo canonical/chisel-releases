@@ -1,0 +1,14 @@
+package: dotnet-host-7.0
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      # This copy is done to avoid Chisel's current handling of conflicts, as
+      # it flags a conflict between this slice and .NET6's, even if the two
+      # are not being installed at the same time.
+      # TODO: once Chisel can cope with duplicate contents within the same
+      # release, this copy can be suppressed
+      /usr/lib/dotnet/dotnet7:  {copy: /usr/lib/dotnet/dotnet}
