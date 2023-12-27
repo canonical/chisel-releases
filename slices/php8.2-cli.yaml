@@ -4,7 +4,7 @@ slices:
   all:
     essential:
       - php8.2-cli_base
-      - php8.2-common_all
+      - php8.2-common_all-cli
 
   base:
     essential:
@@ -16,6 +16,6 @@ slices:
       - libpcre2-8-0_libs
       - libsodium23_libs
       - libargon2-1_libs
-      - php8.2-common_base
+      - php8.2-common_base-cli
     contents:
       /usr/bin/php: {copy: /usr/bin/php8.2}

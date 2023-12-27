@@ -2,7 +2,17 @@ package: php8.2-gd
 slices:
   all:
     essential:
+      - php8.2-gd_cli
+      - php8.2-gd_fpm
+  cli:
+    essential:
       - libgd3_libs
     contents:
       /usr/lib/php/20220829/gd.so:
       /etc/php/8.2/cli/conf.d/20-gd.ini: {copy: '/usr/share/php8.2-gd/gd/gd.ini'}
+  fpm:
+    essential:
+      - libgd3_libs
+    contents:
+      /usr/lib/php/20220829/gd.so:
+      /etc/php/8.2/fpm/conf.d/20-gd.ini: {copy: '/usr/share/php8.2-gd/gd/gd.ini'}

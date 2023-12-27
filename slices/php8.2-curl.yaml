@@ -2,7 +2,17 @@ package: php8.2-curl
 slices:
   all:
     essential:
+      - php8.2-curl_cli
+      - php8.2-curl_fpm
+  cli:
+    essential:
       - libcurl4_libs
     contents:
       /usr/lib/php/20220829/curl.so:
       /etc/php/8.2/cli/conf.d/20-curl.ini: {copy: '/usr/share/php8.2-curl/curl/curl.ini'}
+  fpm:
+    essential:
+      - libcurl4_libs
+    contents:
+      /usr/lib/php/20220829/curl.so:
+      /etc/php/8.2/fpm/conf.d/20-curl.ini: {copy: '/usr/share/php8.2-curl/curl/curl.ini'}

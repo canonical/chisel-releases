@@ -1,6 +1,14 @@
 package: php8.2-igbinary
 slices:
   all:
+    essential:
+      - php8.2-igbinary_cli
+      - php8.2-igbinary_fpm
+  cli:
     contents:
       /usr/lib/php/20220829/igbinary.so:
       /etc/php/8.2/cli/conf.d/20-igbinary.ini: {copy: '/etc/php/8.2/mods-available/igbinary.ini'}
+  fpm:
+    contents:
+      /usr/lib/php/20220829/igbinary.so:
+      /etc/php/8.2/fpm/conf.d/20-igbinary.ini: {copy: '/etc/php/8.2/mods-available/igbinary.ini'}

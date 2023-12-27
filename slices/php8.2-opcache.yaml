@@ -2,6 +2,14 @@ package: php8.2-opcache
 
 slices:
   all:
+    essential:
+      - php8.2-opcache_cli
+      - php8.2-opcache_fpm
+  cli:
     contents:
       /usr/lib/php/20220829/opcache.so:
       /etc/php/8.2/cli/conf.d/10-opcache.ini: {copy: '/usr/share/php8.2-opcache/opcache/opcache.ini'}
+  fpm:
+    contents:
+      /usr/lib/php/20220829/opcache.so:
+      /etc/php/8.2/fpm/conf.d/10-opcache.ini: {copy: '/usr/share/php8.2-opcache/opcache/opcache.ini'}

@@ -3,52 +3,134 @@ package: php8.2-xml
 slices:
   all:
     essential:
-      - php8.2-xml_dom
-      - php8.2-xml_simplexml
-      - php8.2-xml_xml
-      - php8.2-xml_xmlreader
-      - php8.2-xml_xmlwriter
-      - php8.2-xml_xsl
-  
+      - php8.2-xml_cli
+      - php8.2-xml_fpm
+  cli:
+    essential:
+      - php8.2-xml_dom-cli
+      - php8.2-xml_simplexml-cli
+      - php8.2-xml_xml-cli
+      - php8.2-xml_xmlreader-cli
+      - php8.2-xml_xmlwriter-cli
+      - php8.2-xml_xsl-cli
+  fpm:
+    essential:
+      - php8.2-xml_dom-fpm
+      - php8.2-xml_simplexml-fpm
+      - php8.2-xml_xml-fpm
+      - php8.2-xml_xmlreader-fpm
+      - php8.2-xml_xmlwriter-fpm
+      - php8.2-xml_xsl-fpm
   dom:
+    essential:
+      - php8.2-xml_dom-cli
+      - php8.2-xml_dom-fpm
+  dom-cli:
     essential:
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/dom.so:
       /etc/php/8.2/cli/conf.d/20-dom.ini: {copy: '/usr/share/php8.2-xml/xml/dom.ini'}
+  dom-fpm:
+    essential:
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/dom.so:
+      /etc/php/8.2/fpm/conf.d/20-dom.ini: {copy: '/usr/share/php8.2-xml/xml/dom.ini'}
 
   simplexml:
+    essential:
+      - php8.2-xml_simplexml-cli
+      - php8.2-xml_simplexml-fpm
+
+  simplexml-cli:
     essential:
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/simplexml.so:
       /etc/php/8.2/cli/conf.d/20-simplexml.ini: {copy: '/usr/share/php8.2-xml/xml/simplexml.ini'}
 
+  simplexml-fpm:
+    essential:
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/simplexml.so:
+      /etc/php/8.2/fpm/conf.d/20-simplexml.ini: {copy: '/usr/share/php8.2-xml/xml/simplexml.ini'}
+
   xml:
+    essential:
+      - php8.2-xml_xml-cli
+      - php8.2-xml_xml-fpm
+
+  xml-cli:
     essential:
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/xml.so:
       /etc/php/8.2/cli/conf.d/20-xml.ini: {copy: '/usr/share/php8.2-xml/xml/xml.ini'}
 
+  xml-fpm:
+    essential:
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/xml.so:
+      /etc/php/8.2/fpm/conf.d/20-xml.ini: {copy: '/usr/share/php8.2-xml/xml/xml.ini'}
+
   xmlreader:
+    essential:
+      - php8.2-xml_xmlreader-cli
+      - php8.2-xml_xmlreader-fpm
+
+  xmlreader-cli:
     essential:
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/xmlreader.so:
       /etc/php/8.2/cli/conf.d/20-xmlreader.ini: {copy: '/usr/share/php8.2-xml/xml/xmlreader.ini'}
 
+  xmlreader-fpm:
+    essential:
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/xmlreader.so:
+      /etc/php/8.2/fpm/conf.d/20-xmlreader.ini: {copy: '/usr/share/php8.2-xml/xml/xmlreader.ini'}
+
   xmlwriter:
+    essential:
+      - php8.2-xml_xmlwriter-cli
+      - php8.2-xml_xmlwriter-fpm
+
+  xmlwriter-cli:
     essential:
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/xmlwriter.so:
       /etc/php/8.2/cli/conf.d/20-xmlwriter.ini: {copy: '/usr/share/php8.2-xml/xml/xmlwriter.ini'}
 
+  xmlwriter-fpm:
+    essential:
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/xmlwriter.so:
+      /etc/php/8.2/fpm/conf.d/20-xmlwriter.ini: {copy: '/usr/share/php8.2-xml/xml/xmlwriter.ini'}
+
   xsl:
+    essential:
+      - php8.2-xml_xsl-cli
+      - php8.2-xml_xsl-fpm
+
+  xsl-cli:
     essential:
       - libxslt1.1_libs
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/xsl.so:
       /etc/php/8.2/cli/conf.d/20-xsl.ini: {copy: '/usr/share/php8.2-xml/xml/xsl.ini'}
+
+  xsl-fpm:
+    essential:
+      - libxslt1.1_libs
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/xsl.so:
+      /etc/php/8.2/fpm/conf.d/20-xsl.ini: {copy: '/usr/share/php8.2-xml/xml/xsl.ini'}

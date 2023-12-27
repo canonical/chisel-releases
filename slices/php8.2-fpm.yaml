@@ -4,18 +4,39 @@ slices:
   all:
     essential:
       - php8.2-fpm_base
-      - php8.2-common_all
+      - php8.2-common_all-fpm
 
   base:
     essential:
       - libc6_libs
+      - libapparmor1_libs
+      - libacl1_libs
       - libgcc-s1_libs
       - libstdc++6_libs
       - libxml2_libs
       - libssl3_libs
       - libpcre2-8-0_libs
+      - libsystemd0_libs
       - libsodium23_libs
       - libargon2-1_libs
-      - php8.2-common_base
+      - php8.2-common_base-fpm
+      - base-passwd_data
     contents:
-      /usr/sbin/php-fpm: {copy: /usr/sbin/php-fpm8.1}
+      /usr/sbin/php-fpm: {copy: /usr/sbin/php-fpm8.2}
+      /etc/php/8.2/fpm/php-fpm.conf: {mutable: true}
+      /etc/php/8.2/fpm/pool.d/www.conf: {mutable: true}
+    mutate: |
+      fpmConfig = content.read("/etc/php/8.2/fpm/php-fpm.conf")
+      fpmConfig = fpmConfig.replace("error_log = /var/log/php8.2-fpm.log", "error_log = /proc/self/fd/2")
+      fpmConfig = fpmConfig.replace(";log_limit = 4096", "log_limit = 8192")
+      fpmConfig = fpmConfig.replace(";daemonize = yes", "daemonize = no")
+      fpmConfig = fpmConfig.replace("pid = /run/php/php8.2-fpm.pid", ";pid = /run/php/php8.2-fpm.pid")
+      content.write("/etc/php/8.2/fpm/php-fpm.conf", fpmConfig)
+
+      fpmPoolConfig = content.read("/etc/php/8.2/fpm/pool.d/www.conf")
+      fpmPoolConfig = fpmPoolConfig.replace(";clear_env = no", "clear_env = no")
+      fpmPoolConfig = fpmPoolConfig.replace(";catch_workers_output = yes", "catch_workers_output = yes")
+      fpmPoolConfig = fpmPoolConfig.replace(";decorate_workers_output = no", "decorate_workers_output = no")
+      fpmPoolConfig = fpmPoolConfig.replace("listen = /run/php/php8.2-fpm.sock", "listen = 9000")
+      fpmPoolConfig = fpmPoolConfig.replace(";access.log = log/$pool.access.log", "access.log = /proc/self/fd/2")
+      content.write("/etc/php/8.2/fpm/pool.d/www.conf", fpmPoolConfig)

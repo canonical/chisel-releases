@@ -3,7 +3,17 @@ package: php8.2-zip
 slices:
   all:
     essential:
+      - php8.2-zip_cli
+      - php8.2-zip_fpm
+  cli:
+    essential:
       - libzip4_libs
     contents:
       /usr/lib/php/20220829/zip.so:
       /etc/php/8.2/cli/conf.d/20-zip.ini: {copy: '/usr/share/php8.2-zip/zip/zip.ini'}
+  fpm:
+    essential:
+      - libzip4_libs
+    contents:
+      /usr/lib/php/20220829/zip.so:
+      /etc/php/8.2/fpm/conf.d/20-zip.ini: {copy: '/usr/share/php8.2-zip/zip/zip.ini'}

@@ -2,7 +2,17 @@ package: php8.2-bz2
 slices:
   all:
     essential:
+      - php8.2-bz2_cli
+      - php8.2-bz2_fpm
+  cli:
+    essential:
       - libbz2-1.0_libs
     contents:
       /usr/lib/php/20220829/bz2.so:
       /etc/php/8.2/cli/conf.d/20-bz2.ini: {copy: '/usr/share/php8.2-bz2/bz2/bz2.ini'}
+  fpm:
+    essential:
+      - libbz2-1.0_libs
+    contents:
+      /usr/lib/php/20220829/bz2.so:
+      /etc/php/8.2/fpm/conf.d/20-bz2.ini: {copy: '/usr/share/php8.2-bz2/bz2/bz2.ini'}

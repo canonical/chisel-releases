@@ -3,114 +3,323 @@ package: php8.2-common
 slices:
   all:
     essential:
-      - php8.2-common_base
-      - php8.2-common_calendar
-      - php8.2-common_ctype
-      - php8.2-common_exif
-      - php8.2-common_ffi
-      - php8.2-common_fileinfo
-      - php8.2-common_ftp
-      - php8.2-common_gettext
-      - php8.2-common_iconv
-      - php8.2-common_pdo
-      - php8.2-common_phar
-      - php8.2-common_posix
-      - php8.2-common_shmop
-      - php8.2-common_sockets
-      - php8.2-common_sysvmsg
-      - php8.2-common_sysvsem
-      - php8.2-common_sysvshm
-      - php8.2-common_tokenizer
+      - php8.2-common_all-cli
+      - php8.2-common_all-fpm
+
+  all-cli:
+    essential:
+      - php8.2-common_base-cli
+      - php8.2-common_calendar-cli
+      - php8.2-common_ctype-cli
+      - php8.2-common_exif-cli
+      - php8.2-common_ffi-cli
+      - php8.2-common_fileinfo-cli
+      - php8.2-common_ftp-cli
+      - php8.2-common_gettext-cli
+      - php8.2-common_iconv-cli
+      - php8.2-common_pdo-cli
+      - php8.2-common_phar-cli
+      - php8.2-common_posix-cli
+      - php8.2-common_shmop-cli
+      - php8.2-common_sockets-cli
+      - php8.2-common_sysvmsg-cli
+      - php8.2-common_sysvsem-cli
+      - php8.2-common_sysvshm-cli
+      - php8.2-common_tokenizer-cli
+
+  all-fpm:
+    essential:
+      - php8.2-common_base-fpm
+      - php8.2-common_calendar-fpm
+      - php8.2-common_ctype-fpm
+      - php8.2-common_exif-fpm
+      - php8.2-common_ffi-fpm
+      - php8.2-common_fileinfo-fpm
+      - php8.2-common_ftp-fpm
+      - php8.2-common_gettext-fpm
+      - php8.2-common_iconv-fpm
+      - php8.2-common_pdo-fpm
+      - php8.2-common_phar-fpm
+      - php8.2-common_posix-fpm
+      - php8.2-common_shmop-fpm
+      - php8.2-common_sockets-fpm
+      - php8.2-common_sysvmsg-fpm
+      - php8.2-common_sysvsem-fpm
+      - php8.2-common_sysvshm-fpm
+      - php8.2-common_tokenizer-fpm
 
   base:
+    essential:
+     - php8.2-common_base-cli
+     - php8.2-common_base-fpm
+
+  base-cli:
     essential:
       - tzdata_etc
     contents:
       /etc/php/8.2/cli/php.ini: {copy: '/usr/lib/php/8.2/php.ini-production'}
 
+  base-fpm:
+    essential:
+      - tzdata_etc
+    contents:
+      /etc/php/8.2/fpm/php.ini: {copy: '/usr/lib/php/8.2/php.ini-production'}
+
   calendar:
+    essential:
+      - php8.2-common_calendar-cli
+      - php8.2-common_calendar-fpm
+
+  calendar-cli:
     contents:
       /usr/lib/php/20220829/calendar.so:
       /etc/php/8.2/cli/conf.d/20-calendar.ini: {copy: '/usr/share/php8.2-common/common/calendar.ini'}
 
+  calendar-fpm:
+    contents:
+      /usr/lib/php/20220829/calendar.so:
+      /etc/php/8.2/fpm/conf.d/20-calendar.ini: {copy: '/usr/share/php8.2-common/common/calendar.ini'}
+
   ctype:
+    essential:
+      - php8.2-common_ctype-cli
+      - php8.2-common_ctype-fpm
+
+  ctype-cli:
     contents:
       /usr/lib/php/20220829/ctype.so:
       /etc/php/8.2/cli/conf.d/20-ctype.ini: {copy: '/usr/share/php8.2-common/common/ctype.ini'}
 
+  ctype-fpm:
+    contents:
+      /usr/lib/php/20220829/ctype.so:
+      /etc/php/8.2/fpm/conf.d/20-ctype.ini: {copy: '/usr/share/php8.2-common/common/ctype.ini'}
+
   exif:
+    essential:
+      - php8.2-common_exif-cli
+      - php8.2-common_exif-fpm
+
+  exif-cli:
     contents:
       /usr/lib/php/20220829/exif.so:
       /etc/php/8.2/cli/conf.d/20-exif.ini: {copy: '/usr/share/php8.2-common/common/exif.ini'}
 
+  exif-fpm:
+    contents:
+      /usr/lib/php/20220829/exif.so:
+      /etc/php/8.2/fpm/conf.d/20-exif.ini: {copy: '/usr/share/php8.2-common/common/exif.ini'}
+
   ffi:
+    essential:
+      - php8.2-common_ffi-cli
+      - php8.2-common_ffi-fpm
+
+  ffi-cli:
     essential:
       - libffi8_libs
     contents:
       /usr/lib/php/20220829/ffi.so:
       /etc/php/8.2/cli/conf.d/20-ffi.ini: {copy: '/usr/share/php8.2-common/common/ffi.ini'}
 
+  ffi-fpm:
+    essential:
+      - libffi8_libs
+    contents:
+      /usr/lib/php/20220829/ffi.so:
+      /etc/php/8.2/fpm/conf.d/20-ffi.ini: {copy: '/usr/share/php8.2-common/common/ffi.ini'}
+
   fileinfo:
+    essential:
+      - php8.2-common_fileinfo-cli
+      - php8.2-common_fileinfo-fpm
+
+  fileinfo-cli:
     contents:
       /usr/lib/php/20220829/fileinfo.so:
       /etc/php/8.2/cli/conf.d/20-fileinfo.ini: {copy: '/usr/share/php8.2-common/common/fileinfo.ini'}
 
+  fileinfo-fpm:
+    contents:
+      /usr/lib/php/20220829/fileinfo.so:
+      /etc/php/8.2/fpm/conf.d/20-fileinfo.ini: {copy: '/usr/share/php8.2-common/common/fileinfo.ini'}
+
   ftp:
+    essential:
+      - php8.2-common_ftp-cli
+      - php8.2-common_ftp-fpm
+
+  ftp-cli:
     contents:
       /usr/lib/php/20220829/ftp.so:
       /etc/php/8.2/cli/conf.d/20-ftp.ini: {copy: '/usr/share/php8.2-common/common/ftp.ini'}
 
+  ftp-fpm:
+    contents:
+      /usr/lib/php/20220829/ftp.so:
+      /etc/php/8.2/fpm/conf.d/20-ftp.ini: {copy: '/usr/share/php8.2-common/common/ftp.ini'}
+
   gettext:
+    essential:
+      - php8.2-common_gettext-cli
+      - php8.2-common_gettext-fpm
+
+  gettext-cli:
     contents:
       /usr/lib/php/20220829/gettext.so:
       /etc/php/8.2/cli/conf.d/20-gettext.ini: {copy: '/usr/share/php8.2-common/common/gettext.ini'}
 
+  gettext-fpm:
+    contents:
+      /usr/lib/php/20220829/gettext.so:
+      /etc/php/8.2/fpm/conf.d/20-gettext.ini: {copy: '/usr/share/php8.2-common/common/gettext.ini'}
+
   iconv:
+    essential:
+      - php8.2-common_iconv-cli
+      - php8.2-common_iconv-fpm
+
+  iconv-cli:
     contents:
       /usr/lib/php/20220829/iconv.so:
       /etc/php/8.2/cli/conf.d/20-iconv.ini: {copy: '/usr/share/php8.2-common/common/iconv.ini'}
 
+  iconv-fpm:
+    contents:
+      /usr/lib/php/20220829/iconv.so:
+      /etc/php/8.2/fpm/conf.d/20-iconv.ini: {copy: '/usr/share/php8.2-common/common/iconv.ini'}
+
   pdo:
+    essential:
+      - php8.2-common_pdo-cli
+      - php8.2-common_pdo-fpm
+
+  pdo-cli:
     contents:
       /usr/lib/php/20220829/pdo.so:
       /etc/php/8.2/cli/conf.d/10-pdo.ini: {copy: '/usr/share/php8.2-common/common/pdo.ini'}
 
+  pdo-fpm:
+    contents:
+      /usr/lib/php/20220829/pdo.so:
+      /etc/php/8.2/fpm/conf.d/10-pdo.ini: {copy: '/usr/share/php8.2-common/common/pdo.ini'}
+
   phar:
+    essential:
+      - php8.2-common_phar-cli
+      - php8.2-common_phar-fpm
+
+  phar-cli:
     contents:
       /usr/lib/php/20220829/phar.so:
       /etc/php/8.2/cli/conf.d/20-phar.ini: {copy: '/usr/share/php8.2-common/common/phar.ini'}
 
+  phar-fpm:
+    contents:
+      /usr/lib/php/20220829/phar.so:
+      /etc/php/8.2/fpm/conf.d/20-phar.ini: {copy: '/usr/share/php8.2-common/common/phar.ini'}
+
   posix:
+    essential:
+      - php8.2-common_posix-cli
+      - php8.2-common_posix-fpm
+
+  posix-cli:
     contents:
       /usr/lib/php/20220829/posix.so:
       /etc/php/8.2/cli/conf.d/20-posix.ini: {copy: '/usr/share/php8.2-common/common/posix.ini'}
 
+  posix-fpm:
+    contents:
+      /usr/lib/php/20220829/posix.so:
+      /etc/php/8.2/fpm/conf.d/20-posix.ini: {copy: '/usr/share/php8.2-common/common/posix.ini'}
+
   shmop:
+    essential:
+      - php8.2-common_shmop-cli
+      - php8.2-common_shmop-fpm
+
+  shmop-cli:
     contents:
       /usr/lib/php/20220829/shmop.so:
       /etc/php/8.2/cli/conf.d/20-shmop.ini: {copy: '/usr/share/php8.2-common/common/shmop.ini'}
 
+  shmop-fpm:
+    contents:
+      /usr/lib/php/20220829/shmop.so:
+      /etc/php/8.2/fpm/conf.d/20-shmop.ini: {copy: '/usr/share/php8.2-common/common/shmop.ini'}
+
   sockets:
+    essential:
+      - php8.2-common_sockets-cli
+      - php8.2-common_sockets-fpm
+
+  sockets-cli:
     contents:
       /usr/lib/php/20220829/sockets.so:
       /etc/php/8.2/cli/conf.d/20-sockets.ini: {copy: '/usr/share/php8.2-common/common/sockets.ini'}
 
+  sockets-fpm:
+    contents:
+      /usr/lib/php/20220829/sockets.so:
+      /etc/php/8.2/fpm/conf.d/20-sockets.ini: {copy: '/usr/share/php8.2-common/common/sockets.ini'}
+
   sysvmsg:
+    essential:
+      - php8.2-common_sysvmsg-cli
+      - php8.2-common_sysvmsg-fpm
+
+  sysvmsg-cli:
     contents:
       /usr/lib/php/20220829/sysvmsg.so:
       /etc/php/8.2/cli/conf.d/20-sysvmsg.ini: {copy: '/usr/share/php8.2-common/common/sysvmsg.ini'}
 
+  sysvmsg-fpm:
+    contents:
+      /usr/lib/php/20220829/sysvmsg.so:
+      /etc/php/8.2/fpm/conf.d/20-sysvmsg.ini: {copy: '/usr/share/php8.2-common/common/sysvmsg.ini'}
+
   sysvsem:
+    essential:
+      - php8.2-common_sysvsem-cli
+      - php8.2-common_sysvsem-fpm
+
+  sysvsem-cli:
     contents:
       /usr/lib/php/20220829/sysvsem.so:
       /etc/php/8.2/cli/conf.d/20-sysvsem.ini: {copy: '/usr/share/php8.2-common/common/sysvsem.ini'}
 
+  sysvsem-fpm:
+    contents:
+      /usr/lib/php/20220829/sysvsem.so:
+      /etc/php/8.2/fpm/conf.d/20-sysvsem.ini: {copy: '/usr/share/php8.2-common/common/sysvsem.ini'}
+
   sysvshm:
+    essential:
+      - php8.2-common_sysvshm-cli
+      - php8.2-common_sysvshm-fpm
+
+  sysvshm-cli:
     contents:
       /usr/lib/php/20220829/sysvshm.so:
       /etc/php/8.2/cli/conf.d/20-sysvshm.ini: {copy: '/usr/share/php8.2-common/common/sysvshm.ini'}
 
+  sysvshm-fpm:
+    contents:
+      /usr/lib/php/20220829/sysvshm.so:
+      /etc/php/8.2/fpm/conf.d/20-sysvshm.ini: {copy: '/usr/share/php8.2-common/common/sysvshm.ini'}
+
   tokenizer:
+    essential:
+      - php8.2-common_tokenizer-cli
+      - php8.2-common_tokenizer-fpm
+
+  tokenizer-cli:
     contents:
       /usr/lib/php/20220829/tokenizer.so:
       /etc/php/8.2/cli/conf.d/20-tokenizer.ini: {copy: '/usr/share/php8.2-common/common/tokenizer.ini'}
+
+  tokenizer-fpm:
+    contents:
+      /usr/lib/php/20220829/tokenizer.so:
+      /etc/php/8.2/fpm/conf.d/20-tokenizer.ini: {copy: '/usr/share/php8.2-common/common/tokenizer.ini'}

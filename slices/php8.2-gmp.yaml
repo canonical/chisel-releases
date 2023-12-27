@@ -2,7 +2,17 @@ package: php8.2-gmp
 slices:
   all:
     essential:
+      - php8.2-gmp_cli
+      - php8.2-gmp_fpm
+  cli:
+    essential:
       - libgmp10_libs
     contents:
       /usr/lib/php/20220829/gmp.so:
       /etc/php/8.2/cli/conf.d/20-gmp.ini: {copy: '/usr/share/php8.2-gmp/gmp/gmp.ini'}
+  fpm:
+    essential:
+      - libgmp10_libs
+    contents:
+      /usr/lib/php/20220829/gmp.so:
+      /etc/php/8.2/fpm/conf.d/20-gmp.ini: {copy: '/usr/share/php8.2-gmp/gmp/gmp.ini'}

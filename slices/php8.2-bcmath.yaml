@@ -1,6 +1,16 @@
 package: php8.2-bcmath
 slices:
   all:
+    essential:
+      - php8.2-bcmath_cli
+      - php8.2-bcmath_fpm
+
+  cli:
     contents:
       /usr/lib/php/20220829/bcmath.so:
       /etc/php/8.2/cli/conf.d/20-bcmath.ini: {copy: '/usr/share/php8.2-bcmath/bcmath/bcmath.ini'}
+
+  fpm:
+    contents:
+      /usr/lib/php/20220829/bcmath.so:
+      /etc/php/8.2/fpm/conf.d/20-bcmath.ini: {copy: '/usr/share/php8.2-bcmath/bcmath/bcmath.ini'}

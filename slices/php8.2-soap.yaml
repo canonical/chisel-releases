@@ -2,7 +2,17 @@ package: php8.2-soap
 slices:
   all:
     essential:
+      - php8.2-soap_cli
+      - php8.2-soap_fpm
+  cli:
+    essential:
       - libxml2_libs
     contents:
       /usr/lib/php/20220829/soap.so:
       /etc/php/8.2/cli/conf.d/20-soap.ini: {copy: '/usr/share/php8.2-soap/soap/soap.ini'}
+  fpm:
+    essential:
+      - libxml2_libs
+    contents:
+      /usr/lib/php/20220829/soap.so:
+      /etc/php/8.2/fpm/conf.d/20-soap.ini: {copy: '/usr/share/php8.2-soap/soap/soap.ini'}

@@ -1,27 +1,57 @@
 package: php8.2-mysql
 
 slices:
-  libs:
+  libs-cli:
     contents:
       /usr/lib/php/20220829/mysqlnd.so:
       /etc/php/8.2/cli/conf.d/10-mysqlnd.ini: {copy: '/usr/share/php8.2-mysql/mysql/mysqlnd.ini'}
 
-  pdo:
+  libs-fpm:
+    contents:
+      /usr/lib/php/20220829/mysqlnd.so:
+      /etc/php/8.2/fpm/conf.d/10-mysqlnd.ini: {copy: '/usr/share/php8.2-mysql/mysql/mysqlnd.ini'}
+
+  pdo-cli:
     essential:
-      - php8.2-mysql_libs
+      - php8.2-mysql_libs-cli
     contents:
       /usr/lib/php/20220829/pdo_mysql.so:
       /etc/php/8.2/cli/conf.d/20-pdo_mysql.ini: {copy: '/usr/share/php8.2-mysql/mysql/pdo_mysql.ini'}
 
-  mysqli:
+  pdo-fpm:
     essential:
-      - php8.2-mysql_libs
+      - php8.2-mysql_libs-fpm
+    contents:
+      /usr/lib/php/20220829/pdo_mysql.so:
+      /etc/php/8.2/fpm/conf.d/20-pdo_mysql.ini: {copy: '/usr/share/php8.2-mysql/mysql/pdo_mysql.ini'}
+
+  mysqli-cli:
+    essential:
+      - php8.2-mysql_libs-fpm
     contents:
       /usr/lib/php/20220829/mysqli.so:
       /etc/php/8.2/cli/conf.d/20-mysqli.ini: {copy: '/usr/share/php8.2-mysql/mysql/mysqli.ini'}
 
+  mysqli-fpm:
+    essential:
+      - php8.2-mysql_libs-fpm
+    contents:
+      /usr/lib/php/20220829/mysqli.so:
+      /etc/php/8.2/fpm/conf.d/20-mysqli.ini: {copy: '/usr/share/php8.2-mysql/mysql/mysqli.ini'}
+
+  all-cli:
+    essential:
+      - php8.2-mysql_libs-cli
+      - php8.2-mysql_pdo-cli
+      - php8.2-mysql_mysqli-cli
+
+  all-fpm:
+    essential:
+      - php8.2-mysql_libs-fpm
+      - php8.2-mysql_pdo-fpm
+      - php8.2-mysql_mysqli-fpm
+
   all:
     essential:
-      - php8.2-mysql_libs
-      - php8.2-mysql_pdo
-      - php8.2-mysql_mysqli
+      - php8.2-mysql_all-cli
+      - php8.2-mysql_all-fpm
