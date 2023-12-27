@@ -23,8 +23,8 @@ slices:
       /etc/nginx/win-utf:
       # Created by the maintainer scripts
       /var/log/nginx/: {make: true, mode: 0755}
-      /var/log/nginx/access.log: {text: "", mode: 640} 
-      /var/log/nginx/error.log: {text: "", mode: 640}
+      /var/log/nginx/access.log: {text: "", mode: 0640} 
+      /var/log/nginx/error.log: {text: "", mode: 0640}
       /etc/nginx/sites-enabled/default: {symlink: /etc/nginx/sites-available/default}
       /var/www/html/: {make: true}
       /var/lib/nginx/: {make: true}
