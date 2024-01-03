@@ -1,0 +1,8 @@
+package: libnettle8
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libnettle.so.8*:

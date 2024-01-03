@@ -1,0 +1,9 @@
+package: libsasl2-modules-db
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdb5.3_libs
+    contents:
+      /usr/lib/*-linux-*/sasl2/libsasldb.so*:

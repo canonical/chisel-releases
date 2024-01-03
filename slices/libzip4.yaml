@@ -1,0 +1,10 @@
+package: libzip4
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libssl3_libs
+      - libbz2-1.0_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libzip.so.4*:

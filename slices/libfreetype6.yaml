@@ -1,0 +1,11 @@
+package: libfreetype6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+      - libbrotli1_libs
+      - libpng16-16_libs
+    contents:
+      /usr/lib/*-linux-*/libfreetype.so.6*:

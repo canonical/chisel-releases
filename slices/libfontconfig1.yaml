@@ -1,0 +1,12 @@
+package: libfontconfig1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libexpat1_libs
+      - libfreetype6_libs
+      - libuuid1_libs
+      - fontconfig-config_config
+    contents:
+      /usr/lib/*-linux-*/libfontconfig.so.1*:

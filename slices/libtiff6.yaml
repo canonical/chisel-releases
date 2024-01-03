@@ -1,0 +1,15 @@
+package: libtiff6
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdeflate0_libs
+      - libjbig0_libs
+      - libjpeg-turbo8_libs
+      - liblerc4_libs
+      - liblzma5_libs
+      - libwebp7_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libtiff.so.6*:
