@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libz.so.*:
+      /usr/lib/*-linux-*/libz.so.*:
