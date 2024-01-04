@@ -1,0 +1,22 @@
+package: netbase
+
+slices:
+  config:
+    contents:
+      /etc/ethertypes:
+      /etc/protocols:
+      /etc/rpc:
+      /etc/services:
+      # The following files are created from maintainer script,
+      # if they do not exist.
+      /etc/hosts:
+        text: |
+          127.0.0.1	localhost
+          ::1		localhost ip6-localhost ip6-loopback
+          ff02::1		ip6-allnodes
+          ff02::2		ip6-allrouters
+      /etc/networks:
+        text: |
+          default		0.0.0.0
+          loopback	127.0.0.0
+          link-local	169.254.0.0
