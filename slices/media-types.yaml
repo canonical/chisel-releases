@@ -1,0 +1,6 @@
+package: media-types
+
+slices:
+  data:
+    contents:
+      /etc/mime.types:

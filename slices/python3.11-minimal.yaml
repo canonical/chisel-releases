@@ -1,0 +1,15 @@
+package: python3.11-minimal
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libexpat1_libs
+      - libpython3.11-minimal_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/python3.11:
+      # The next two directories are created to mimic the behaviour in
+      # the "postinst" script.
+      /usr/local/lib/python3.11/: {make: true, mode: 02775}
+      /usr/local/lib/python3.11/dist-packages/: {make: true, mode: 02775}
