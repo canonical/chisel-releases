@@ -69,6 +69,7 @@ slices:
       # timezones appropriate for their practical needs.
       /usr/share/zoneinfo/zone.tab:
       /usr/share/zoneinfo/zone1970.tab:
+      /usr/share/zoneinfo/zonenow.tab:
 
   # "Etc" is meant to provide "timezones" that don't fit with the standard timezones.
   # As an example, UTC isn't actually a timezone, but a standard. Like Zulu and others,
