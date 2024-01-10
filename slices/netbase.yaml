@@ -7,8 +7,15 @@ slices:
       /etc/protocols:
       /etc/rpc:
       /etc/services:
-      # The following files are created from maintainer script,
-      # if they do not exist.
+
+  # This slice contains the files created from maintainer scripts with
+  # default values, if those files do not exist in the rootfs already.
+  # These are kept in a slice instead of mutation scripts for lack of
+  # better options at the moment.
+  defaults:
+    essential:
+      - netbase_config
+    contents:
       /etc/hosts:
         text: |
           127.0.0.1	localhost
