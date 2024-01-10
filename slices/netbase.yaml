@@ -8,11 +8,12 @@ slices:
       /etc/rpc:
       /etc/services:
 
-  # This slice contains the files created from maintainer scripts with
-  # default values, if those files do not exist in the rootfs already.
-  # These are kept in a slice instead of mutation scripts for lack of
-  # better options at the moment.
-  defaults:
+  # The following two slices contain the files created from maintainer
+  # scripts with default values, if those files do not exist in the
+  # rootfs already. These are kept in slices instead of mutation scripts
+  # for lack of better options at the moment.
+
+  default-hosts:
     essential:
       - netbase_config
     contents:
@@ -22,6 +23,11 @@ slices:
           ::1		localhost ip6-localhost ip6-loopback
           ff02::1		ip6-allnodes
           ff02::2		ip6-allrouters
+
+  default-networks:
+    essential:
+      - netbase_config
+    contents:
       /etc/networks:
         text: |
           default		0.0.0.0
