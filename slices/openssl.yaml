@@ -14,8 +14,9 @@ slices:
 
   config:
     contents:
-      /etc/ssl/private/:
+      /etc/ssl/certs/:
       /etc/ssl/openssl.cnf:
+      /etc/ssl/private/:
       /usr/lib/ssl/certs:
       /usr/lib/ssl/openssl.cnf:
       /usr/lib/ssl/private:
