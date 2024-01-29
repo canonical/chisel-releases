@@ -13,7 +13,7 @@ slices:
 
   config:
     contents:
-      /etc/ssl/certs:
+      /etc/ssl/certs/:
       /etc/ssl/openssl.cnf:
       /etc/ssl/private/:
       /usr/lib/ssl/certs:
