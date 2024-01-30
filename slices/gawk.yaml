@@ -1,9 +1,8 @@
-package: findutils
+package: gawk
 
 slices:
   libs:
     essential:
-      - libgmp10_libs
       - libmpfr6_libs
       - libreadline8_libs
       - libsigsegv2_libs
