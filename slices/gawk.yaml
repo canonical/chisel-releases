@@ -8,7 +8,7 @@ slices:
       - libreadline8_libs
       - libsigsegv2_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/gawk/*.so
+      /usr/lib/x86_64-linux-gnu/gawk/*.so:
   bins:
     essential:
       - libc6_libs
