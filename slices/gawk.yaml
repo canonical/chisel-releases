@@ -1,0 +1,19 @@
+package: findutils
+
+slices:
+  libs:
+    essential:
+      - libgmp10_libs
+      - libmpfr6_libs
+      - libreadline8_libs
+      - libsigsegv2_libs
+    contents:
+      /usr/lib/x86_64-linux-gnu/gawk/*.so
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      # link to /usr/bin/awk manually
+      /usr/bin/gawk:
+      /usr/lib/x86_64-linux-gnu/awk/grcat:
+      /usr/lib/x86_64-linux-gnu/awk/pwcat:
