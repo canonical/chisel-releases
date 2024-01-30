@@ -11,8 +11,9 @@ slices:
   bins:
     essential:
       - libc6_libs
+      - gawk_libs
     contents:
-      # link to /usr/bin/awk manually
+      # user should manually link /usr/bin/gawk to /usr/bin/awk
       /usr/bin/gawk:
       /usr/lib/x86_64-linux-gnu/awk/grcat:
       /usr/lib/x86_64-linux-gnu/awk/pwcat:
