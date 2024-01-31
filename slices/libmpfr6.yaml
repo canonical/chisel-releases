@@ -6,4 +6,4 @@ slices:
       - libc6_libs
       - libgmp10_libs
     contents:
-      /usr/lib/*-linux-*/libmpfr.so.6.*:
+      /usr/lib/*-linux-*/libmpfr.so.6*:
