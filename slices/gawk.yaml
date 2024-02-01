@@ -1,15 +1,6 @@
 package: gawk
 
 slices:
-  libs:
-    essential:
-      - libmpfr6_libs
-      - libreadline8_libs
-      - libsigsegv2_libs
-      - libc6_libs
-      - libgmp10_libs
-    contents:
-      /usr/lib/*-linux-*/gawk/*.so:
   bins:
     essential:
       - gawk_libs
@@ -25,3 +16,12 @@ slices:
   headers:
     contents:
       /usr/include/gawkapi.h:
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+      - libmpfr6_libs
+      - libreadline8_libs
+      - libsigsegv2_libs
+    contents:
+      /usr/lib/*-linux-*/gawk/*.so:
