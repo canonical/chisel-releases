@@ -13,6 +13,7 @@ slices:
     # See: https://manpages.ubuntu.com/manpages/jammy/en/man1/grep.1.html
     essential:
       - bash_bins
+      - libpcre3_libs
     contents:
       /bin/egrep:
       /bin/fgrep:
