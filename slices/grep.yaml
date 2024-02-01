@@ -7,6 +7,6 @@ slices:
       - libpcre3_libs
     contents:
       /bin/egrep:
-      /bin/grep:
       /bin/fgrep:
+      /bin/grep:
       /usr/bin/rgrep:
