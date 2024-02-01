@@ -1,0 +1,13 @@
+# Libpsl5 allows checking domains against the Public Suffix List. It can be  
+# used to avoid privacy-leaking 'super-cookies', 'super domain' certificates, 
+# for domain highlighting purposes sorting domain lists by site and more.
+package: libpsl5
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libidn2-0_libs
+      - libunistring2_libs
+    contents:
+      /usr/lib/*-linux-*/libpsl.so.5*:
