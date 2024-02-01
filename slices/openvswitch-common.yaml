@@ -1,0 +1,23 @@
+package: openvswitch-common
+
+slices:
+  core:
+    essential:
+      - coreutils_bins
+      - sed_bins
+      - dash_bins
+      - libc6_libs
+      - libcap-ng0_libs
+      - libssl3_libs
+      - libunbound8_libs
+      - openssl_bins
+    contents:
+      /usr/bin/ovsdb-tool:
+      /usr/sbin/ovsdb-server:
+      /usr/share/openvswitch/scripts/ovs-lib:
+  bins:
+    essential:
+      - openvswitch-common_core
+    contents:
+      /usr/bin/ovs-appctl:
+      /usr/bin/ovs-ofctl:

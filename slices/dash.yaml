@@ -1,0 +1,10 @@
+package: dash
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - base-passwd_data
+      - base-files_base
+    contents:
+      /bin/dash:

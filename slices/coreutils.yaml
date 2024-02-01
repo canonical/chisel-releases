@@ -18,6 +18,7 @@ slices:
       - libgmp10_libs
       - libpcre2-8-0_libs
       - libselinux1_libs
+      - coreutils_libs
     contents:
       /bin/cat:
       /bin/chgrp:
