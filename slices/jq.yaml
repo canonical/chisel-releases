@@ -1,0 +1,9 @@
+package: jq
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libjq1_libs
+    contents:
+      /usr/bin/jq:

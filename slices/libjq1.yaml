@@ -1,0 +1,9 @@
+package: libjq1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libonig5_libs
+    contents:
+      /usr/lib/*-linux-*/libjq.so.**:
