@@ -10,8 +10,6 @@ slices:
       - libgssapi-krb5-2_libs
       - libidn2-0_libs
       - libldap-2.5-0_libs
-      - libldap-2.5-0_libs
-      - libpsl5_libs
       - libpsl5_libs
       - libssh2-1_libs
       - libssl3_libs
