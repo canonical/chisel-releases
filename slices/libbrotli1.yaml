@@ -1,0 +1,13 @@
+# Library implementing brotli encoder and decoder (shared libraries)
+package: libbrotli1
+
+slices:
+  libs:
+    essentials:
+      - libc6_libs      
+    contents:
+      /lib/*-linux-*/libbrotlicommon.so.1*:
+      /lib/*-linux-*/libbrotlidec.so.1*:
+      /lib/*-linux-*/libbrotlienc.so.1*:
+
+     
