@@ -1,4 +1,4 @@
-﻿package: libldap-2.5-0
+package: libldap-2.5-0
 
 slices:
   libs:
