@@ -1,0 +1,52 @@
+name: Install slices
+
+on:
+  workflow_call:
+    inputs:
+      arch:
+        description: "Package architecture"
+        type: string
+        default: amd64
+        required: true
+      files:
+        description: "Space separated list of slice definition files"
+        type: string
+        required: false
+      install-all:
+        description: "If true, install all slices in slices/"
+        type: boolean
+        default: false
+        required: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    name: "Install"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+
+      - name: Install dependencies
+        run: |
+          go install github.com/canonical/chisel/cmd/chisel@latest
+          go install github.com/mikefarah/yq/v4@latest
+          wget -q https://raw.githubusercontent.com/canonical/chisel-releases/main/.github/scripts/install-slices
+          chmod +x install-slices
+
+      - name: Install all slices
+        if: ${{ inputs.install-all }}
+        run: |
+          set -e
+          # we need to enable globstar to use the ** patterns below
+          shopt -s globstar
+          ./install-slices --arch "${{ inputs.arch }}" --release ./ slices/**/*.yaml
+
+      - name: Install slices from input files
+        if: ${{ !inputs.install-all }}
+        run: |
+          set -ex
+          ./install-slices --arch "${{ inputs.arch }}" --release ./ ${{ inputs.files }}
