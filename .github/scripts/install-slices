@@ -1,0 +1,144 @@
+#!/bin/bash
+
+set -eu
+
+CHISEL_BIN=${CHISEL_BIN:-"chisel"}
+
+# Package architecture. Can be changed by --arch option.
+ARCH="amd64"
+# chisel-releases branch name or dir. Can be changed by --release option.
+RELEASE=""
+
+print_error() {
+  echo "error:" "$@" >&2
+}
+
+print_usage() {
+  cat <<- EOF
+Usage: $(basename "$0") [OPTIONS] <file...>
+
+This script verifies chisel slice definition files by installing
+the slices in the specified files.
+
+[OPTIONS]
+
+  --arch=<arch>
+      Package architecture. (default: amd64)
+
+  --release=<branch|dir>
+      chisel-releases branch name or directory.
+
+  -h, --help
+      Print this help information and quit.
+
+ENVIRONMENT VARIABLES
+
+  CHISEL_BIN
+      Set CHISEL_BIN to the location of the chisel binary.
+      By default, it will look for "chisel" in PATH.
+EOF
+}
+
+parse_slices() {
+  local filename
+  filename="$1"
+  if [[ ! -f "$filename" ]]; then
+    print_error "file $filename not found"
+    exit 1
+  fi
+
+  if [[ "$(yq 'keys | .[] | select(. == "package")' < "$filename" 2> /dev/null)" != "package" ]]; then
+    print_error "file $filename does not contain .package key"
+    exit 1
+  fi
+  if ! yq '... comments="" | .slices | keys' < "$filename" > /dev/null 2> /dev/null; then
+    print_error "file $filename does not contain any slices"
+    exit 1
+  fi
+
+  local pkg slices slice
+  pkg="$(yq '... comments="" | .package' < "$filename")"
+  slices="$(yq '... comments="" | .slices | keys' < "$filename" | cut -c3- | sort)"
+  for slice in $slices; do
+    echo "$pkg"_"$slice"
+  done
+}
+
+install_slices() {
+  local filename slices tmpfs
+  filename="$1"
+  slices="$(parse_slices "$filename")"
+
+  local slice
+  for slice in $slices; do
+    echo -e "\ninstalling $slice...\n"
+    tmpfs="$(mktemp -d)"
+    if [ -z "$RELEASE" ]; then
+      "$CHISEL_BIN" cut \
+        --arch "$ARCH" \
+        --root "$tmpfs" \
+        "$slice"
+    else
+      "$CHISEL_BIN" cut \
+        --arch "$ARCH" \
+        --release "$RELEASE" \
+        --root "$tmpfs" \
+        "$slice"
+    fi
+    rm -rf "$tmpfs"
+  done
+}
+
+run() {
+  local files file
+  files=( "$@" )
+
+  echo "The slices in the following files will be installed:"
+  for file in "${files[@]}"; do
+    echo "- $file"
+  done
+
+  for file in "${files[@]}"; do
+    install_slices "$file"
+  done
+}
+
+while (( "$#" )); do
+  case "$1" in
+    --arch)
+      if (( "$#" < 2 )); then
+        print_error "--arch requires an argument"
+        exit 1
+      fi
+      ARCH="$2"
+      shift 2
+      ;;
+    --release)
+      if (( "$#" < 2 )); then
+        print_error "--release requires an argument"
+        exit 1
+      fi
+      RELEASE="$2"
+      shift 2
+      ;;
+    -h|--help)
+      print_usage
+      exit 0
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if (( "$#" == 0 )); then
+  # no files specified, do nothing
+  exit 0
+fi
+
+if [ ! "$(which yq /dev/null)" ]; then
+  print_error "yq is not found"
+  exit 1
+fi
+
+run "$@"
