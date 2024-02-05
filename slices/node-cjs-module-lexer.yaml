@@ -1,0 +1,8 @@
+package: node-cjs-module-lexer
+
+slices:
+  libs:
+    contents:
+      /usr/share/nodejs/cjs-module-lexer/*.js:
+      /usr/share/nodejs/cjs-module-lexer/*.json:
+      /usr/share/nodejs/cjs-module-lexer/dist/**:

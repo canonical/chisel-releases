@@ -1,0 +1,10 @@
+package: nodejs
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libnode108_libs
+    contents:
+      /usr/bin/node:
+      /usr/bin/nodejs:

@@ -1,0 +1,8 @@
+package: libuv1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libuv.so.1*:
