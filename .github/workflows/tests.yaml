@@ -54,7 +54,7 @@ jobs:
       fail-fast: false
       matrix:
         ARCH: [amd64, arm64, armhf, i386, ppc64el, riscv64, s390x]
-    uses: rebornplusplus/chisel-releases/.github/workflows/install-slices.yaml@main
+    uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
     with:
       arch: ${{ matrix.ARCH }}
       install-all: true
@@ -69,7 +69,7 @@ jobs:
       fail-fast: false
       matrix:
         ARCH: [amd64, arm64, armhf, i386, ppc64el, riscv64, s390x]
-    uses: rebornplusplus/chisel-releases/.github/workflows/install-slices.yaml@main
+    uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
     with:
       arch: ${{ matrix.ARCH }}
       files: ${{ needs.planner.outputs.changed-sdf }}
