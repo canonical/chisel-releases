@@ -7,6 +7,7 @@ slices:
       - libpcre3_libs
     contents:
       /bin/grep:
+
   deprecated:
     # These are shell scripts requiring a symlink from /usr/bin/bash to /bin/sh
     # See: https://manpages.ubuntu.com/manpages/jammy/en/man1/grep.1.html
