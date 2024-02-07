@@ -15,11 +15,6 @@ on:
 jobs:
   installability:
     name: Installability
-    strategy:
-      fail-fast: false
-      matrix:
-        ARCH: [amd64, arm64, armhf, i386, ppc64el, riscv64, s390x]
     uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
     with:
-      arch: ${{ matrix.ARCH }}
       install-all: ${{ github.event_name == 'schedule' }}
