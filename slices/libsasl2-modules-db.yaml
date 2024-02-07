@@ -1,4 +1,4 @@
-﻿package: libsasl2-modules-db
+package: libsasl2-modules-db
 
 slices:
   libs:

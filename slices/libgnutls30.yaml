@@ -1,4 +1,4 @@
-﻿package: libgnutls30
+package: libgnutls30
 
 slices:
   libs:
