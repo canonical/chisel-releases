@@ -3,11 +3,6 @@ name: Install slices
 on:
   workflow_call:
     inputs:
-      arch:
-        description: "Package architecture"
-        type: string
-        default: amd64
-        required: true
       install-all:
         description: "If true, install all slices in slices/"
         type: boolean
@@ -28,6 +23,10 @@ jobs:
   install:
     runs-on: ubuntu-latest
     name: "Install"
+    strategy:
+      fail-fast: false
+      matrix:
+        ARCH: [amd64, arm64, armhf, i386, ppc64el, riscv64, s390x]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -69,7 +68,7 @@ jobs:
           set -e
           # we need to enable globstar to use the ** patterns below
           shopt -s globstar
-          ./install-slices --arch "${{ inputs.arch }}" --release ./ \
+          ./install-slices --arch "${{ matrix.ARCH }}" --release ./ \
             slices/**/*.yaml
 
       - name: Install slices from changed files
@@ -81,5 +80,5 @@ jobs:
           )
         run: |
           set -ex
-          ./install-slices --arch "${{ inputs.arch }}" --release ./ \
+          ./install-slices --arch "${{ matrix.ARCH }}" --release ./ \
             ${{ steps.changed-paths.outputs.slices_files }}
