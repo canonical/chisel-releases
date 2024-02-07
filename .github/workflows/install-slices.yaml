@@ -79,6 +79,6 @@ jobs:
             steps.changed-paths.outputs.install-all == 'true'
           )
         run: |
-          set -ex
+          set -e
           ./install-slices --arch "${{ matrix.ARCH }}" --release ./ \
             ${{ steps.changed-paths.outputs.slices_files }}
