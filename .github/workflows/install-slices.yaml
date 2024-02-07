@@ -8,10 +8,6 @@ on:
         type: string
         default: amd64
         required: true
-      files:
-        description: "Space separated list of slice definition files"
-        type: string
-        required: false
       install-all:
         description: "If true, install all slices in slices/"
         type: boolean
@@ -19,6 +15,16 @@ on:
         required: false
 
 jobs:
+  # The "install" job tests the slices by installing them.
+  # It installs **all** slices if:
+  #   - inputs.install-all is true
+  #   - chisel.yaml is changed
+  #   - any slice definition files are deleted
+  #   - github workflows (and related files) are changed
+  # Otherwise, it installs only the slices from **added** and/or
+  # **modified** slice definition files.
+  # Please note that "change" is defined to encompass additions,
+  # modifications and deletions here.
   install:
     runs-on: ubuntu-latest
     name: "Install"
@@ -26,6 +32,24 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Check changed paths
+        id: changed-paths
+        if: ${{ !inputs.install-all }}
+        uses: dorny/paths-filter@v3
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            install-all:
+              - 'chisel.yaml'
+              - deleted: 'slices/**/*.yaml'
+              - '.github/**'
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
 
       - name: Setup Go environment
         uses: actions/setup-go@v5
@@ -38,15 +62,24 @@ jobs:
           chmod +x install-slices
 
       - name: Install all slices
-        if: ${{ inputs.install-all }}
+        if: |
+          inputs.install-all ||
+          steps.changed-paths.outputs.install-all == 'true'
         run: |
           set -e
           # we need to enable globstar to use the ** patterns below
           shopt -s globstar
-          ./install-slices --arch "${{ inputs.arch }}" --release ./ slices/**/*.yaml
+          ./install-slices --arch "${{ inputs.arch }}" --release ./ \
+            slices/**/*.yaml
 
-      - name: Install slices from input files
-        if: ${{ !inputs.install-all }}
+      - name: Install slices from changed files
+        if: |
+          steps.changed-paths.outputs.slices == 'true' &&
+          !(
+            inputs.install-all ||
+            steps.changed-paths.outputs.install-all == 'true'
+          )
         run: |
           set -ex
-          ./install-slices --arch "${{ inputs.arch }}" --release ./ ${{ inputs.files }}
+          ./install-slices --arch "${{ inputs.arch }}" --release ./ \
+            ${{ steps.changed-paths.outputs.slices_files }}
