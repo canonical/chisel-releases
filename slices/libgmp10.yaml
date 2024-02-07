@@ -1,4 +1,4 @@
-﻿package: libgmp10
+package: libgmp10
 
 slices:
   libs:
