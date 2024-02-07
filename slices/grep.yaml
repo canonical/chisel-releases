@@ -13,7 +13,7 @@ slices:
     # See: https://manpages.ubuntu.com/manpages/noble/en/man1/grep.1.html
     essential:
       - dash_bins
-      - libpcre2-8-0_libs
+      - grep_bins
     contents:
       /usr/bin/egrep:
       /usr/bin/fgrep:
