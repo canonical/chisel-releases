@@ -1,0 +1,14 @@
+package: nodejs
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      # libatomic1_libs is a depndency of libnode108_libs that's required only on
+      # mips* and riscv64, so uncomment its line from libnode108.yaml if you are
+      # targetting any of those architectures
+      - libnode108_libs
+    contents:
+      /usr/bin/js: {symlink: /usr/bin/nodejs}
+      /usr/bin/node:
+      /usr/bin/nodejs:

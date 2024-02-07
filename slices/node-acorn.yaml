@@ -1,0 +1,37 @@
+package: node-acorn
+
+slices:
+  libs:
+    essential:
+      - node-xtend_libs
+    contents:
+      # basically avoiding all the .map files (line tables) and unittest drivers
+      /usr/share/nodejs/acorn-bigint/index.js:
+      /usr/share/nodejs/acorn-bigint/package.json:
+      /usr/share/nodejs/acorn-class-fields/index.js:
+      /usr/share/nodejs/acorn-class-fields/package.json:
+      /usr/share/nodejs/acorn-dynamic-import/**:
+      /usr/share/nodejs/acorn-export-ns-from/index.js:
+      /usr/share/nodejs/acorn-export-ns-from/package.json:
+      /usr/share/nodejs/acorn-globals/**:
+      /usr/share/nodejs/acorn-import-assertions/**:
+      /usr/share/nodejs/acorn-import-meta/index.js:
+      /usr/share/nodejs/acorn-import-meta/package.json:
+      /usr/share/nodejs/acorn-jsx/**:
+      /usr/share/nodejs/acorn-loose/**:
+      /usr/share/nodejs/acorn-node/**:
+      /usr/share/nodejs/acorn-numeric-separator/**.js:
+      /usr/share/nodejs/acorn-numeric-separator/dist/*.mjs:
+      /usr/share/nodejs/acorn-numeric-separator/package.json:
+      /usr/share/nodejs/acorn-private-class-elements/**:
+      /usr/share/nodejs/acorn-private-methods/**.js:
+      /usr/share/nodejs/acorn-private-methods/dist/*.mjs:
+      /usr/share/nodejs/acorn-private-methods/package.json:
+      /usr/share/nodejs/acorn-static-class-features/index.js:
+      /usr/share/nodejs/acorn-static-class-features/package.json:
+      /usr/share/nodejs/acorn-walk/dist/*.js:
+      /usr/share/nodejs/acorn-walk/dist/*.mjs:
+      /usr/share/nodejs/acorn-walk/package.json:
+      /usr/share/nodejs/acorn/dist/acorn.js:
+      /usr/share/nodejs/acorn/dist/acorn.mjs:
+      /usr/share/nodejs/acorn/package.json:
