@@ -8,3 +8,4 @@ slices:
     contents:
       /usr/bin/node:
       /usr/bin/nodejs:
+      /usr/bin/js: {symlink: /usr/bin/nodejs}

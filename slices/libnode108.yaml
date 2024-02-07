@@ -5,7 +5,7 @@ slices:
     essential:
       # The chisel tool does not support per-architecture packages
       # libatomic1 is only required on mips* and riscv64
-      # - libatomic1
+      # - libatomic1_libs
       - libbrotli1_libs
       - libc-ares2_libs
       - libc6_libs
