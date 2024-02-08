@@ -14,7 +14,6 @@ slices:
     essential:
       - dash_bins
       - grep_bins
-      - libpcre3_libs
     contents:
       /bin/egrep:
       /bin/fgrep:
