@@ -4,7 +4,7 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - libpcre2-8-0_libs
+      - libpcre3_libs
     contents:
       /bin/grep:
 
@@ -13,7 +13,8 @@ slices:
     # See: https://manpages.ubuntu.com/manpages/jammy/en/man1/grep.1.html
     essential:
       - dash_bins
-      - libpcre2-8-0_libs
+      - grep_bins
+      - libpcre3_libs
     contents:
       /bin/egrep:
       /bin/fgrep:
