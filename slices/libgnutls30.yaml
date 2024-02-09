@@ -14,6 +14,7 @@ slices:
       - libunistring2_libs
 
     contents:
-      /usr/lib/*-linux-*/libgnutls.so.30*:
+      /usr/lib/*-linux-*/libgnutls.so.30*: {arch: amd64}
+
 
 

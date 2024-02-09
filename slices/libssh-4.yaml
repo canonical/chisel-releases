@@ -1,0 +1,11 @@
+package: libssh-4
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgssapi-krb5-2_libs
+      - libssl3_libs     
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libssh.so.4*:  {arch: amd64}
