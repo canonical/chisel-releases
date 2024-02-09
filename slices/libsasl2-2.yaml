@@ -1,4 +1,4 @@
-﻿package: libsasl2-2
+package: libsasl2-2
 
 slices:
   libs:

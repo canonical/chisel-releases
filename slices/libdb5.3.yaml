@@ -1,4 +1,4 @@
-﻿package: libdb5.3
+package: libdb5.3
 
 slices:
   libs:
