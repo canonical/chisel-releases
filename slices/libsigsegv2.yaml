@@ -1,8 +1,8 @@
-package: libgmp10
+package: libsigsegv2
 
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libgmp.so.10*:
+      /usr/lib/*-linux-*/libsigsegv.so.2*:
