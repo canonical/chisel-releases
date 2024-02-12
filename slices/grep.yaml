@@ -1,0 +1,20 @@
+package: grep
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libpcre3_libs
+    contents:
+      /bin/grep:
+
+  deprecated:
+    # These are shell scripts requiring a symlink from /usr/bin/dash to /bin/sh
+    # See: https://manpages.ubuntu.com/manpages/jammy/en/man1/grep.1.html
+    essential:
+      - dash_bins
+      - grep_bins
+    contents:
+      /bin/egrep:
+      /bin/fgrep:
+      /usr/bin/rgrep:
