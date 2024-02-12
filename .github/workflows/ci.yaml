@@ -1,4 +1,5 @@
-name: Tests
+name: CI
+run-name: CI for ${{ github.ref }}
 
 on:
   push:
@@ -9,6 +10,6 @@ on:
       - "ubuntu-*"
 
 jobs:
-  installability:
-    name: Installability
+  installability-tests:
+    name: Installability tests
     uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
