@@ -1,0 +1,10 @@
+﻿package: libsasl2-2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libsasl2-modules-db_libs
+      - libssl3_libs
+    contents:
+      /usr/lib/*-linux-*/libsasl*.so.2*: {arch: amd64}
