@@ -36,6 +36,8 @@ slices:
       /var/cache/:
       /var/lib/:
       /var/log/:
+      # Recreate symlink that is in place
+      # on full Ubuntu installs and containers
       /var/run/: {symlink: /run}
       /var/tmp/:
 
