@@ -6,6 +6,11 @@ on:
       - "main"
     paths:
       - ".github/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
   schedule:
     # Run at 00:00 every day.
     # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
@@ -14,7 +19,6 @@ on:
 jobs:
   install-all-slices:
     name: "Install all slices"
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -23,27 +27,7 @@ jobs:
           - ubuntu-22.04
           - ubuntu-23.10
           - ubuntu-24.04
-        arch: [amd64, arm64, armhf, i386, ppc64el, riscv64, s390x]
-    steps:
-      - name: Checkout ${{ matrix.release }} branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ matrix.release }}
-
-      - name: Setup Go environment
-        uses: actions/setup-go@v5
-
-      - name: Install dependencies
-        run: |
-          go install github.com/canonical/chisel/cmd/chisel@latest
-          go install github.com/mikefarah/yq/v4@latest
-          wget -q https://raw.githubusercontent.com/rebornplusplus/chisel-releases/main/.github/scripts/install-slices
-          chmod +x install-slices
-
-      - name: Install all slices
-        run: |
-          set -e
-          # we need to enable globstar to use the ** patterns below
-          shopt -s globstar
-          ./install-slices --arch "${{ matrix.arch }}" --release ./ \
-            slices/**/*.yaml
+    uses: ./.github/workflows/install-slices.yaml
+    with:
+      install-all: true
+      release-branch: ${{ matrix.release }}

@@ -8,6 +8,13 @@ on:
         type: boolean
         default: false
         required: false
+      # Use "release-branch" only when "install-all" is true, since it
+      # will probably not be able to detect changes.
+      release-branch:
+        description: "The chisel-releases branch name"
+        type: string
+        default: ""
+        required: false
 
 jobs:
   # The "install" job tests the slices by installing them.
@@ -31,6 +38,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ inputs.release-branch }}
 
       - name: Check changed paths
         id: changed-paths
