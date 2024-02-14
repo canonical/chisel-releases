@@ -8,4 +8,4 @@ slices:
       - libssl3_libs     
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libssh.so.4*:  {arch: amd64}
+      /usr/lib/*-linux-*/libssh.so.4*: 

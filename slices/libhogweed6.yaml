@@ -7,8 +7,6 @@ slices:
       - libc6_libs
       - libgmp10_libs
       - libnettle8_libs
-    
-
     contents:
       /usr/lib/*-linux-*/libhogweed.so.6:
 

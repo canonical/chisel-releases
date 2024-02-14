@@ -1,5 +1,4 @@
 # Easy-to-use client-side URL transfer library (OpenSSL flavour)
-
 package: libcurl4
 
 slices:
