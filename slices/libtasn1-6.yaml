@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs   
     contents:
-      /lib/*-linux-*/libtasn1.so.6*:  {arch: amd64}
+      /usr/lib/*-linux-*/libtasn1.so.6*:

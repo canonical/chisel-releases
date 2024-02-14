@@ -13,4 +13,4 @@ slices:
       - libtasn1-6_libs
       - libunistring5_libs
     contents:
-      /usr/lib/*-linux-*/libgnutls.so.30*: {arch: amd64}
+      /usr/lib/*-linux-*/libgnutls.so.30*:

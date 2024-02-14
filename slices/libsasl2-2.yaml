@@ -7,4 +7,4 @@ slices:
       - libsasl2-modules-db_libs
       - libssl3_libs
     contents:
-      /usr/lib/*-linux-*/libsasl*.so.2*: {arch: amd64}
+      /usr/lib/*-linux-*/libsasl*.so.2*: 

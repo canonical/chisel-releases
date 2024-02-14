@@ -6,4 +6,4 @@ slices:
       - libc6_libs
       - libffi8_libs    
     contents:
-      /lib/*-linux-*/libp11-kit.so.0*:
+      /usr/lib/*-linux-*/libp11-kit.so.0*:

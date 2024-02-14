@@ -11,4 +11,4 @@ slices:
       - libnettle8_libs
       - zlib1g_libs 
     contents:
-      /usr/lib/*-linux-*/librtmp.so.1*: {arch: amd64}
+      /usr/lib/*-linux-*/librtmp.so.1*: 
