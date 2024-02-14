@@ -1,22 +1,49 @@
 name: Install slices
 
 on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
+  schedule:
+    # Run at 00:00 every day.
+    # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "0 0 * * *"
   workflow_call:
-    inputs:
-      install-all:
-        description: "If true, install all slices in slices/"
-        type: boolean
-        default: false
-        required: false
-      # Use "release-branch" only when "install-all" is true, since it
-      # will probably not be able to detect changes.
-      release-branch:
-        description: "The chisel-releases branch name"
-        type: string
-        default: ""
-        required: false
+
+env:
+  # Package architectures and chisel-releases branches to test on.
+  ARCHES: ${{ toJson('["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]') }}
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-23.10","ubuntu-24.04"]') }}
 
 jobs:
+  prepare-install:
+    runs-on: ubuntu-latest
+    name: "Prepare to install"
+    outputs:
+      install-all: ${{ steps.set-output.outputs.install_all }}
+      matrix: ${{ steps.set-output.outputs.matrix }}
+    steps:
+      - name: Set output
+        id: set-output
+        run: |
+          set -ex
+          if [[
+            "${{ github.base_ref || github.ref_name }}" == "main" ||
+            "${{ github.event_name }}" == "schedule"
+          ]]; then
+            echo "matrix={\"ref\":${{ env.RELEASES }},\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
+            echo "install_all=true" >> $GITHUB_OUTPUT
+          else
+            echo "matrix={\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
+          fi
+
   # The "install" job tests the slices by installing them.
   # It installs **all** slices if:
   #   - inputs.install-all is true
@@ -30,19 +57,21 @@ jobs:
   install:
     runs-on: ubuntu-latest
     name: "Install"
+    needs: prepare-install
     strategy:
       fail-fast: false
-      matrix:
-        arch: [amd64, arm64, armhf, i386, ppc64el, riscv64, s390x]
+      matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
+    env:
+      install-all: ${{ needs.prepare-install.outputs.install-all }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ inputs.release-branch }}
+          ref: ${{ matrix.ref }}
 
       - name: Check changed paths
         id: changed-paths
-        if: ${{ !inputs.install-all }}
+        if: env.install-all != 'true'
         uses: dorny/paths-filter@v3
         with:
           # ref: https://github.com/marketplace/actions/paths-changes-filter
@@ -70,7 +99,7 @@ jobs:
 
       - name: Install all slices
         if: |
-          inputs.install-all ||
+          env.install-all == 'true' ||
           steps.changed-paths.outputs.install-all == 'true'
         run: |
           set -e
@@ -83,7 +112,7 @@ jobs:
         if: |
           steps.changed-paths.outputs.slices == 'true' &&
           !(
-            inputs.install-all ||
+            env.install-all == 'true' ||
             steps.changed-paths.outputs.install-all == 'true'
           )
         run: |
