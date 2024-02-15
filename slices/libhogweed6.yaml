@@ -8,5 +8,4 @@ slices:
       - libgmp10_libs
       - libnettle8_libs
     contents:
-      /usr/lib/*-linux-*/libhogweed.so.6:
-
+      /usr/lib/*-linux-*/libhogweed.so.6*:

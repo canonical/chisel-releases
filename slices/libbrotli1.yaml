@@ -4,10 +4,8 @@ package: libbrotli1
 slices:
   libs:
     essentials:
-      - libc6_libs      
+      - libc6_libs
     contents:
       /usr/lib/*-linux-*/libbrotlicommon.so.1*:
       /usr/lib/*-linux-*/libbrotlidec.so.1*:
       /usr/lib/*-linux-*/libbrotlienc.so.1*:
-
-     

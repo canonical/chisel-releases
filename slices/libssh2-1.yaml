@@ -10,6 +10,6 @@ slices:
     essential:
       - libc6_libs
       - libgcrypt20_libs
-      - zlib1g_libs       
+      - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libssh2.so*:

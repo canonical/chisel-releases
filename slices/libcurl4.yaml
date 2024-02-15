@@ -17,4 +17,4 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libcurl.so.4*: 
+      /usr/lib/*-linux-*/libcurl.so.4*:
