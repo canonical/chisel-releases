@@ -46,7 +46,6 @@ jobs:
 
   # The "install" job tests the slices by installing them.
   # It installs **all** slices if:
-  #   - inputs.install-all is true
   #   - chisel.yaml is changed
   #   - any slice definition files are deleted
   #   - github workflows (and related files) are changed
@@ -97,25 +96,20 @@ jobs:
           wget -q https://raw.githubusercontent.com/canonical/chisel-releases/main/.github/scripts/install-slices
           chmod +x install-slices
 
-      - name: Install all slices
-        if: |
-          env.install-all == 'true' ||
-          steps.changed-paths.outputs.install-all == 'true'
+      - name: Install slices
         run: |
-          set -e
-          # we need to enable globstar to use the ** patterns below
-          shopt -s globstar
-          ./install-slices --arch "${{ matrix.arch }}" --release ./ \
-            slices/**/*.yaml
-
-      - name: Install slices from changed files
-        if: |
-          steps.changed-paths.outputs.slices == 'true' &&
-          !(
-            env.install-all == 'true' ||
-            steps.changed-paths.outputs.install-all == 'true'
-          )
-        run: |
-          set -e
-          ./install-slices --arch "${{ matrix.arch }}" --release ./ \
-            ${{ steps.changed-paths.outputs.slices_files }}
+          set -ex
+          if [[
+            "${{ env.install-all }}" == "true" ||
+            "${{ steps.changed-paths.outputs.install-all }}" == "true"
+          ]]; then
+            # Install all slices in slices/ dir.
+            # We need to enable globstar to use the ** patterns below.
+            shopt -s globstar
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              slices/**/*.yaml
+          elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
+            # Install slices from changed files.
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              ${{ steps.changed-paths.outputs.slices_files }}
+          fi
