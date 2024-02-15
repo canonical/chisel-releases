@@ -5,7 +5,7 @@ slices:
     essential:
       - libc6_libs
       - libgssapi-krb5-2_libs
-      - libssl3_libs     
+      - libssl3_libs
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libssh.so.4*:
