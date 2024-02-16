@@ -89,10 +89,18 @@ jobs:
       - name: Setup Go environment
         uses: actions/setup-go@v5
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
       - name: Install dependencies
         run: |
           go install github.com/canonical/chisel/cmd/chisel@latest
-          go install github.com/mikefarah/yq/v4@latest
+          sudo apt-get -y update
+          sudo apt-get install -y devscripts
+          wget -q https://raw.githubusercontent.com/canonical/chisel-releases/main/.github/scripts/requirements.install-slices.txt
+          pip install -r requirements.install-slices.txt
           wget -q https://raw.githubusercontent.com/canonical/chisel-releases/main/.github/scripts/install-slices
           chmod +x install-slices
 
@@ -106,7 +114,7 @@ jobs:
             # Install all slices in slices/ dir.
             # We need to enable globstar to use the ** patterns below.
             shopt -s globstar
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ --ignore-missing \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.

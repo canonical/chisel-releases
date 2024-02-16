@@ -1,144 +1,268 @@
-#!/bin/bash
+#!/usr/bin/python3
 
-set -eu
+import argparse
+import logging
+import subprocess
+import tempfile
 
-CHISEL_BIN=${CHISEL_BIN:-"chisel"}
+import requests
+import yaml
 
-# Package architecture. Can be changed by --arch option.
-ARCH="amd64"
-# chisel-releases branch name or dir. Can be changed by --release option.
-RELEASE=""
 
-print_error() {
-  echo "error:" "$@" >&2
-}
+def configure_logging() -> None:
+    """
+    Configure the logging options for this script.
+    """
+    logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.DEBUG)
 
-print_usage() {
-  cat <<- EOF
-Usage: $(basename "$0") [OPTIONS] <file...>
 
-This script verifies chisel slice definition files by installing
-the slices in the specified files.
+class CommandArgs:
+    arch: str
+    release: str
+    files: list[str]
+    ignore_missing: bool
 
-[OPTIONS]
 
-  --arch=<arch>
-      Package architecture. (default: amd64)
+def parse_args() -> tuple[str, str, bool, list[str]]:
+    """
+    Get an argument parser tailored to this script.
+    """
+    parser = argparse.ArgumentParser(
+        description="verify slice definition files by installing the slices",
+    )
+    parser.add_argument(
+        "--arch",
+        required=True,
+        help="package architecture",
+    )
+    parser.add_argument(
+        "--release",
+        required=True,
+        help="chisel-releases branch name or directory",
+    )
+    parser.add_argument(
+        "--ignore-missing",
+        required=False,
+        action="store_true",
+        help="ignore package not found in archive errors",
+    )
+    parser.add_argument(
+        "files",
+        metavar="file",
+        help="chisel slice definition file(s)",
+        nargs="*",
+    )
+    args = parser.parse_args()
+    cli_args = CommandArgs()
+    cli_args.arch = args.arch
+    cli_args.release = args.release
+    cli_args.files = args.files
+    cli_args.ignore_missing = args.ignore_missing
+    return cli_args
 
-  --release=<branch|dir>
-      chisel-releases branch name or directory.
 
-  -h, --help
-      Print this help information and quit.
+class Archive:
+    """
+    Minimal data class replicating ubuntu archive in chisel.yaml
+    """
 
-ENVIRONMENT VARIABLES
+    version: str
+    components: list[str]
+    suites: list[str]
 
-  CHISEL_BIN
-      Set CHISEL_BIN to the location of the chisel binary.
-      By default, it will look for "chisel" in PATH.
-EOF
-}
 
-parse_slices() {
-  local filename
-  filename="$1"
-  if [[ ! -f "$filename" ]]; then
-    print_error "file $filename not found"
-    exit 1
-  fi
+def parse_archive(release: str) -> Archive:
+    """
+    Parse the "ubuntu" archive from the chisel.yaml file of a release.
+    The chisel.yaml file has the following structure:
+        ...
+        archives:
+            ubuntu:
+                version: 22.04
+                components: [main, universe]
+                suites: [jammy, jammy-security, jammy-updates]
+                ...
+        ...
+    """
+    logging.debug("Parsing ubuntu archive info...")
+    # (download and) parse chisel.yaml for ubuntu archive info
+    try:
+        if release.endswith("/"):
+            with open(f"{release}chisel.yaml", "r") as stream:
+                data = yaml.safe_load(stream)
+        else:
+            req_url = f"https://raw.githubusercontent.com/canonical/chisel-releases/{release}/chisel.yaml"
+            response = requests.get(req_url)
+            if response.status_code < 200 or response.status_code > 299:
+                logging.error(f"Cannot download chisel.yaml from remote")
+                exit(1)
+            data = yaml.safe_load(response.content)
+    except yaml.YAMLError as e:
+        logging.error(f"chisel.yaml: {e}")
+        exit(1)
+    except Exception as e:
+        logging.error(e)
+        exit(1)
+    # load the yaml data into Archive
+    archive = Archive()
+    try:
+        archive_data = data["archives"]["ubuntu"]
+        archive.version = archive_data["version"]
+        archive.components = archive_data["components"]
+        archive.suites = archive_data["suites"]
+    except KeyError as e:
+        logging.error(f"{release}: key {e} not found")
+        exit(1)
+    return archive
 
-  if [[ "$(yq 'keys | .[] | select(. == "package")' < "$filename" 2> /dev/null)" != "package" ]]; then
-    print_error "file $filename does not contain .package key"
-    exit 1
-  fi
-  if ! yq '... comments="" | .slices | keys' < "$filename" > /dev/null 2> /dev/null; then
-    print_error "file $filename does not contain any slices"
-    exit 1
-  fi
 
-  local pkg slices slice
-  pkg="$(yq '... comments="" | .package' < "$filename")"
-  slices="$(yq '... comments="" | .slices | keys' < "$filename" | cut -c3- | sort)"
-  for slice in $slices; do
-    echo "$pkg"_"$slice"
-  done
-}
+class Package:
+    """
+    Minimal data class to store package info.
+    """
 
-install_slices() {
-  local filename slices tmpfs
-  filename="$1"
-  slices="$(parse_slices "$filename")"
+    path: str
+    package: str
+    slices: list[str]
 
-  local slice
-  for slice in $slices; do
-    echo -e "\ninstalling $slice...\n"
-    tmpfs="$(mktemp -d)"
-    if [ -z "$RELEASE" ]; then
-      "$CHISEL_BIN" cut \
-        --arch "$ARCH" \
-        --root "$tmpfs" \
-        "$slice"
-    else
-      "$CHISEL_BIN" cut \
-        --arch "$ARCH" \
-        --release "$RELEASE" \
-        --root "$tmpfs" \
-        "$slice"
-    fi
-    rm -rf "$tmpfs"
-  done
-}
+    def full_slice_name(self, slice: str) -> str:
+        return f"{self.package}_{slice}"
 
-run() {
-  local files file
-  files=( "$@" )
 
-  echo "The slices in the following files will be installed:"
-  for file in "${files[@]}"; do
-    echo "- $file"
-  done
+def parse_package(filepath: str) -> Package:
+    """
+    Parse a slice definition file and return the Package.
+    """
+    logging.debug(f"Parsing {filepath}...")
+    with open(filepath, "r") as stream:
+        try:
+            data = yaml.safe_load(stream)
+        except yaml.YAMLError as e:
+            logging.error(f"{filepath}: {e}")
+            exit(1)
+    p = Package()
+    p.path = filepath
+    try:
+        p.package = data["package"]
+        p.slices = []
+        for key in data["slices"]:
+            p.slices.append(key)
+        p.slices = sorted(p.slices)
+    except KeyError as e:
+        logging.error(f"{filepath}: key {e} not found")
+        exit(1)
+    except Exception as e:
+        logging.error(f"{filepath}: {e}")
+        exit(1)
+    return p
 
-  for file in "${files[@]}"; do
-    install_slices "$file"
-  done
-}
 
-while (( "$#" )); do
-  case "$1" in
-    --arch)
-      if (( "$#" < 2 )); then
-        print_error "--arch requires an argument"
-        exit 1
-      fi
-      ARCH="$2"
-      shift 2
-      ;;
-    --release)
-      if (( "$#" < 2 )); then
-        print_error "--release requires an argument"
-        exit 1
-      fi
-      RELEASE="$2"
-      shift 2
-      ;;
-    -h|--help)
-      print_usage
-      exit 0
-      ;;
-    *)
-      break
-      ;;
-  esac
-done
+def filter_packages(
+    packages: list[Package], arch: str, release: str, ignore_missing: bool
+) -> tuple[list[Package], list[Package]]:
+    """
+    Filter the Packages using the following criteria:
+        - if "ignore_missing" is true, ignore package if it does not exist
+          in the archive for [arch, release].
+    """
+    ignored = []
+    if ignore_missing:
+        archive = parse_archive(release)
+        # query archive for package availability using "rmadison"
+        logging.debug("Querying the archives for packages...")
+        res = subprocess.run(
+            args=[
+                "rmadison",
+                "--architecture",
+                arch,
+                "--component",
+                ",".join(archive.components),
+                "--suite",
+                ",".join(archive.suites),
+                " ".join([p.package for p in packages]),
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if res.returncode != 0:
+            logging.error(f"Failed to query the archives {res.returncode}")
+            exit(res.returncode)
+        output = res.stdout
+        logging.debug(f"Archive query output:\n{output}")
+        # parse the output for available packages
+        available = {}
+        for line in output.split("\n"):
+            pkg = line.split("|")[0].strip()
+            available[pkg] = True
+        filtered = []
+        for p in packages:
+            if available.get(p.package) == True:
+                filtered.append(p)
+            else:
+                ignored.append(p)
+        packages = filtered
+    return packages, ignored
 
-if (( "$#" == 0 )); then
-  # no files specified, do nothing
-  exit 0
-fi
 
-if [ ! "$(which yq /dev/null)" ]; then
-  print_error "yq is not found"
-  exit 1
-fi
+def install_slice(slice: str, arch: str, release: str) -> None:
+    """
+    Install the slice by running "chisel cut".
+    """
+    logging.info(f"Installing {slice} on {arch}...")
+    with tempfile.TemporaryDirectory() as tmpfs:
+        res = subprocess.run(
+            args=[
+                "chisel",
+                "cut",
+                "--arch",
+                arch,
+                "--release",
+                release,
+                "--root",
+                tmpfs,
+                slice,
+            ],
+            capture_output=True,
+            text=True,
+        )
+        if res.returncode != 0:
+            print("==============================================")
+            print(res.stderr, end="")
+            exit(res.returncode)
 
-run "$@"
+
+def main():
+    configure_logging()
+    # parse CLI args
+    cli_args = parse_args()
+    # parse slice definition files
+    packages = []
+    for file in cli_args.files:
+        pkg = parse_package(file)
+        packages.append(pkg)
+    # choose the packages to install slices from
+    packages, ignored = filter_packages(
+        packages,
+        cli_args.arch,
+        cli_args.release,
+        cli_args.ignore_missing,
+    )
+    if len(ignored) > 0:
+        logging.info("The following packages will be IGNORED:")
+        for pkg in ignored:
+            logging.info(f"  - {pkg.package}")
+    if len(packages) > 0:
+        logging.info("Slices of the following packages will be INSTALLED:")
+        for pkg in packages:
+            logging.info(f"  - {pkg.package}")
+    else:
+        logging.info("No slices will be installed.")
+        exit(0)
+    # install the slices
+    for pkg in packages:
+        for slice in pkg.slices:
+            install_slice(pkg.full_slice_name(slice), cli_args.arch, cli_args.release)
+
+
+if __name__ == "__main__":
+    main()
