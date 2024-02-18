@@ -1,0 +1,8 @@
+package: libjpeg8
+
+slices:
+  libs:
+    essential:
+      - libjpeg-turbo8_libs
+    # Purely a dependency package.
+    contents: {}
