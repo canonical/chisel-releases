@@ -1,0 +1,25 @@
+package: tar
+
+slices:
+  tar:
+    essential:
+      - libacl1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/tar:
+
+  rmt:
+    essential:
+      - libc6_libs
+    contents:
+      /etc/rmt: {symlink: /usr/sbin/rmt-tar}
+      /usr/sbin/rmt-tar:
+
+  bins:
+    essential:
+      - tar_tar
+      - tar_rmt
+    contents:
+      /usr/sbin/tarcat:
+

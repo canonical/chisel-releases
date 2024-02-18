@@ -1,0 +1,8 @@
+package: libxxhash0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libxxhash.so.0*:
