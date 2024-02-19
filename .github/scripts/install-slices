@@ -23,33 +23,36 @@ class CommandArgs:
     ignore_missing: bool
 
 
-def parse_args() -> tuple[str, str, bool, list[str]]:
+def parse_args() -> CommandArgs:
     """
     Get an argument parser tailored to this script.
     """
     parser = argparse.ArgumentParser(
-        description="verify slice definition files by installing the slices",
+        description="Verify slice definition files by installing the slices",
     )
     parser.add_argument(
         "--arch",
         required=True,
-        help="package architecture",
+        help="Package architecture",
     )
     parser.add_argument(
         "--release",
         required=True,
-        help="chisel-releases branch name or directory",
+        help="Chisel-releases branch name or directory",
     )
     parser.add_argument(
         "--ignore-missing",
         required=False,
         action="store_true",
-        help="ignore package not found in archive errors",
+        help=str(
+            "Ignore arch-specific package not found in archive errors. "
+            "If set, also ensure that packages exist for any arch."
+        ),
     )
     parser.add_argument(
         "files",
         metavar="file",
-        help="chisel slice definition file(s)",
+        help="Chisel slice definition file(s)",
         nargs="*",
     )
     args = parser.parse_args()
@@ -157,8 +160,74 @@ def parse_package(filepath: str) -> Package:
     return p
 
 
+def query_package_existence(
+    packages: list[str],
+    arch: list[str] = [],
+    components: list[str] = [],
+    suites: list[str] = [],
+) -> tuple[list[str], list[str]]:
+    """
+    Check which packages exist in the archive. Return a list of packages
+    that exist and another list for which do not.
+    """
+    # prepare cmd
+    args = ["rmadison"]
+    if len(arch) > 0:
+        args += ["--architecture", ",".join(arch)]
+    if len(components) > 0:
+        args += ["--component", ",".join(components)]
+    if len(suites) > 0:
+        args += ["--suite", ",".join(suites)]
+    args.append(" ".join(packages))
+    # query the archives using rmadison
+    logging.debug("Querying the archives for packages...")
+    logging.debug("Executing " + " ".join(args))
+    res = subprocess.run(args, capture_output=True, text=True)
+    if res.returncode != 0:
+        logging.error(f"Failed to query the archives {res.returncode}")
+        exit(res.returncode)
+    output = res.stdout.rstrip()
+    logging.debug(f"Archive query output:\n{output}")
+    # parse the output for available packages
+    available = {}
+    for line in output.split("\n"):
+        line = line.strip()
+        if line == "":
+            continue
+        pkg = line.split("|")[0].strip()
+        available[pkg] = True
+    found = []
+    missing = []
+    for p in packages:
+        if available.get(p):
+            found.append(p)
+        else:
+            missing.append(p)
+    return found, missing
+
+
+def ensure_package_existence(packages: list[str], archive: Archive) -> None:
+    """
+    Ensure that packages exist in the archive for any arch.
+    """
+    _, missing = query_package_existence(
+        packages,
+        components=archive.components,
+        suites=archive.suites,
+    )
+    if len(missing) > 0:
+        logging.error(
+            "The following packages do not exist:\n"
+            + "\n".join(f"  - {p}" for p in missing)
+        )
+        exit(1)
+
+
 def filter_packages(
-    packages: list[Package], arch: str, release: str, ignore_missing: bool
+    packages: list[Package],
+    arch: str,
+    release: str,
+    ignore_missing: bool = False,
 ) -> tuple[list[Package], list[Package]]:
     """
     Filter the Packages using the following criteria:
@@ -167,36 +236,23 @@ def filter_packages(
     """
     ignored = []
     if ignore_missing:
+        package_names = [p.package for p in packages]
         archive = parse_archive(release)
-        # query archive for package availability using "rmadison"
-        logging.debug("Querying the archives for packages...")
-        res = subprocess.run(
-            args=[
-                "rmadison",
-                "--architecture",
-                arch,
-                "--component",
-                ",".join(archive.components),
-                "--suite",
-                ",".join(archive.suites),
-                " ".join([p.package for p in packages]),
-            ],
-            capture_output=True,
-            text=True,
+        # ensure that packages exist in the archive.
+        ensure_package_existence(package_names, archive)
+        # check package existence for particular arch
+        found, _ = query_package_existence(
+            packages=package_names,
+            arch=[arch],
+            components=archive.components,
+            suites=archive.suites,
         )
-        if res.returncode != 0:
-            logging.error(f"Failed to query the archives {res.returncode}")
-            exit(res.returncode)
-        output = res.stdout
-        logging.debug(f"Archive query output:\n{output}")
-        # parse the output for available packages
         available = {}
-        for line in output.split("\n"):
-            pkg = line.split("|")[0].strip()
-            available[pkg] = True
+        for p in found:
+            available[p] = True
         filtered = []
         for p in packages:
-            if available.get(p.package) == True:
+            if available.get(p.package):
                 filtered.append(p)
             else:
                 ignored.append(p)
