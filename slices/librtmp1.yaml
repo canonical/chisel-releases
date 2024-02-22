@@ -1,0 +1,14 @@
+# Toolkit for RTMP streams
+package: librtmp1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs   
+      - libgmp10_libs
+      - libgnutls30_libs
+      - libhogweed6_libs
+      - libnettle8_libs
+      - zlib1g_libs 
+    contents:
+      /usr/lib/*-linux-*/librtmp.so.1*:
