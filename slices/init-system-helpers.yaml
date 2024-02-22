@@ -1,0 +1,10 @@
+package: init-system-helpers
+
+slices:
+  bins:
+    contents:
+      /usr/bin/deb-systemd-helper:
+      /usr/bin/deb-systemd-invoke:
+      /usr/sbin/invoke-rc.d:
+      /usr/sbin/service:
+      /usr/sbin/update-rc.d:

@@ -1,0 +1,22 @@
+package: ucf
+
+# uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
+# during install and removal.
+slices:
+  base:
+    essential:
+      - ucf_bins
+      - ucf_config
+
+  bins:
+    essential:
+      - sensible-utils_base
+    contents:
+      /usr/bin/lcf:
+      /usr/bin/ucf:
+      /usr/bin/ucfq:
+      /usr/bin/ucfr:
+
+  config:
+    contents:
+      /etc/ucf.conf:

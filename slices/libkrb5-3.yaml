@@ -12,4 +12,4 @@ slices:
     contents:
       /usr/lib/*-linux-*/krb5/plugins/libkrb5/:
       /usr/lib/*-linux-*/krb5/plugins/preauth/spake.so:
-      /usr/lib/*-linux-*/libkrb5.so.*:
+      /usr/lib/*-linux-*/libkrb5.so.3*:

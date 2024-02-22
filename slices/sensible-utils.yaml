@@ -1,0 +1,20 @@
+package: sensible-utils
+
+slices:
+  base:
+    essential:
+      - sensible-utils_bins
+      - sensible-utils_data
+
+  bins:
+    contents:
+      /usr/bin/select-editor:
+      /usr/bin/sensible-browser:
+      /usr/bin/sensible-editor:
+      /usr/bin/sensible-pager:
+      /usr/bin/sensible-terminal:
+      /usr/share/sensible-utils/bin/gettext:
+
+  data:
+    contents:
+      /usr/lib/mime/packages/sensible-utils:

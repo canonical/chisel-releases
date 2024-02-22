@@ -1,0 +1,9 @@
+package: libbsd0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libmd0_libs
+    contents:
+      /usr/lib/*-linux-*/libbsd.so.0*:

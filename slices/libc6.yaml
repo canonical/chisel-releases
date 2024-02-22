@@ -28,3 +28,7 @@ slices:
       /usr/lib/*-linux-*/librt.so.*:
       /usr/lib/*-linux-*/libthread_db.so.*:
       /usr/lib/*-linux-*/libutil.so.*:
+
+  gconv:
+    contents:
+      /usr/lib/*-linux-*/gconv/**:
