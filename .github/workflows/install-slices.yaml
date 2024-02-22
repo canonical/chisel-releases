@@ -62,6 +62,7 @@ jobs:
       matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
     env:
       install-all: ${{ needs.prepare-install.outputs.install-all }}
+      main-branch-path: files-from-main
     steps:
       - uses: actions/checkout@v4
         with:
@@ -94,15 +95,28 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
       - name: Install dependencies
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/install_slices"
         run: |
+          set -ex
+
+          # Install chisel
           go install github.com/canonical/chisel/cmd/chisel@latest
+
+          # Install dependencies of the install_slices script
           sudo apt-get -y update
-          sudo apt-get install -y devscripts
-          wget -q https://raw.githubusercontent.com/canonical/chisel-releases/main/.github/scripts/requirements.install-slices.txt
-          pip install -r requirements.install-slices.txt
-          wget -q https://raw.githubusercontent.com/canonical/chisel-releases/main/.github/scripts/install-slices
-          chmod +x install-slices
+          sudo apt-get install -y $(cat "${{ env.script-dir }}/pkglist")
+          pip install -r "${{ env.script-dir }}/requirements.txt"
+
+          # Configure the path of install_slices script
+          ln -s "${{ env.script-dir }}/install_slices.py" install-slices
 
       - name: Install slices
         run: |
@@ -114,7 +128,9 @@ jobs:
             # Install all slices in slices/ dir.
             # We need to enable globstar to use the ** patterns below.
             shopt -s globstar
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ --ignore-missing \
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              --ensure-existence \
+              --ignore-missing \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
