@@ -118,6 +118,13 @@ jobs:
           # Configure the path of install_slices script
           ln -s "${{ env.script-dir }}/install_slices.py" install-slices
 
+      # TODO: As we are installing the slices for every (ref, arch), when
+      #   installing all slices, we are also checking the existence of every
+      #   package for at least one architecture in a particular release.  This
+      #   means that we are running the same check for every arch while running it
+      #   for just one arch would have been enough. We should revisit this in
+      #   future and propose improvements.
+      #   See also https://github.com/canonical/chisel-releases/pull/119#discussion_r1494785644
       - name: Install slices
         run: |
           set -ex
