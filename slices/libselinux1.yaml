@@ -11,6 +11,10 @@ slices:
     contents:
       /usr/lib/*-linux-*/libselinux.so.1:
 
+  tmpfiles-d:
+    contents:
+      /usr/lib/tmpfiles.d/libselinux1.conf:
+
   copyright:
     contents:
       /usr/share/doc/libselinux1/copyright:

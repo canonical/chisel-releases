@@ -1,0 +1,9 @@
+package: libudev1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+    contents:
+      /usr/lib/*-linux-*/libudev.so.1*:

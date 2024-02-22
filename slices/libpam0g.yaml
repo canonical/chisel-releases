@@ -1,0 +1,11 @@
+package: libpam0g
+
+slices:
+  libs:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libpam.so.0*:
+      /usr/lib/*-linux-*/libpam_misc.so.0*:
+      /usr/lib/*-linux-*/libpamc.so.0*:

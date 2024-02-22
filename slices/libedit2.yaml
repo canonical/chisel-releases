@@ -1,0 +1,10 @@
+package: libedit2
+
+slices:
+  libs:
+    essential:
+      - libbsd0_libs
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/lib/*-linux-*/libedit.so.2*:

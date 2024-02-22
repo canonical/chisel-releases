@@ -10,6 +10,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libcap.so.2*:
       /usr/lib/*-linux-*/libpsx.so.2*:
+
   copyright:
     contents:
       /usr/share/doc/libcap2/copyright:

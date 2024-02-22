@@ -1,0 +1,42 @@
+package: openssh-client
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libedit2_libs
+      - libfido2-1_libs
+      - libgssapi-krb5-2_libs
+      - libselinux1_libs
+      - libssl3_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/scp:
+      /usr/bin/sftp:
+      /usr/bin/slogin:
+      /usr/bin/ssh:
+      /usr/bin/ssh-add:
+      /usr/bin/ssh-agent:
+      /usr/bin/ssh-argv0:
+      /usr/bin/ssh-copy-id:
+      /usr/bin/ssh-keygen:
+      /usr/bin/ssh-keyscan:
+      /usr/lib/openssh/agent-launch:
+      /usr/lib/openssh/ssh-keysign:
+      /usr/lib/openssh/ssh-pkcs11-helper:
+      /usr/lib/openssh/ssh-sk-helper:
+
+  config:
+    contents:
+      /etc/ssh/ssh_config:
+      /etc/ssh/ssh_config.d/:
+
+  services:
+    contents:
+      /usr/lib/systemd/user/graphical-session-pre.target.wants/ssh-agent.service:
+      /usr/lib/systemd/user/ssh-agent.service:
+
+  standard:
+    essential:
+      - openssh-client_bins
+      - openssh-client_config
