@@ -1,0 +1,9 @@
+package: libmpfr6
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/lib/*-linux-*/libmpfr.so.6*:

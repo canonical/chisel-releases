@@ -1,0 +1,27 @@
+package: gawk
+
+slices:
+  bins:
+    essential:
+      - gawk_libs
+    contents:
+      # user should manually link /usr/bin/gawk to /usr/bin/awk
+      /usr/bin/gawk:
+      /usr/lib/*-linux-*/awk/grcat:
+      /usr/lib/*-linux-*/awk/pwcat:
+  config:
+    contents:
+      /etc/profile.d/gawk.csh:
+      /etc/profile.d/gawk.sh:
+  headers:
+    contents:
+      /usr/include/gawkapi.h:
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+      - libmpfr6_libs
+      - libreadline8_libs
+      - libsigsegv2_libs
+    contents:
+      /usr/lib/*-linux-*/gawk/*.so:

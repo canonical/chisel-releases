@@ -1,0 +1,10 @@
+package: curl
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libcurl4_libs    
+      - zlib1g_libs
+    contents:
+      /usr/bin/curl:

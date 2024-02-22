@@ -1,0 +1,9 @@
+package: libgomp1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    # Although gcc-12-base is a package dependency, it is not needed for this libs slice and is thus omitted.
+    contents:
+      /usr/lib/*-linux-*/libgomp.so.1*:

@@ -1,0 +1,8 @@
+package: libgmp10
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libgmp.so.10*:

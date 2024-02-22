@@ -1,0 +1,6 @@
+package: readline-common
+
+slices:
+  config:
+    contents:
+      /etc/inputrc: { copy: /usr/share/readline/inputrc }

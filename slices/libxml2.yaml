@@ -1,0 +1,11 @@
+package: libxml2
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libicu70_libs
+      - liblzma5_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libxml2.so.2*:

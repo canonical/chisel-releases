@@ -1,0 +1,13 @@
+package: libattr1
+
+slices:
+  config:
+    contents:
+      /etc/xattr.conf:
+
+  libs:
+    essential:
+      - libattr1_config
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libattr.so.1*:

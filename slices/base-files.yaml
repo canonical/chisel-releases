@@ -36,7 +36,8 @@ slices:
       /var/cache/:
       /var/lib/:
       /var/log/:
-      /var/run/:
+      # The /var/run symlink is enforced by the package's maintainer scripts
+      /var/run/: {symlink: /run}
       /var/tmp/:
 
   home:

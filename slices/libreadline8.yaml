@@ -1,0 +1,11 @@
+package: libreadline8
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+      - readline-common_config
+    contents:
+      /lib/*-linux-*/libhistory.so.8*:
+      /lib/*-linux-*/libreadline.so.8*:
