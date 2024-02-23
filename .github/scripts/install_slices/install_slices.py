@@ -128,9 +128,10 @@ def parse_archive(release: str) -> Archive:
         sys.exit(1)
     # load the yaml data into Archive
     archive_data = data["archives"]["ubuntu"]
-    archive = Archive(
-        str(archive_data["version"]), archive_data["components"], archive_data["suites"]
-    )
+    version = archive_data["version"]
+    if isinstance(version, float):
+        version = f"{version:.2f}"
+    archive = Archive(str(version), archive_data["components"], archive_data["suites"])
     return archive
 
 

@@ -116,6 +116,22 @@ class TestScriptMethods(unittest.TestCase):
         # test parsing remote release
         archive = parse_archive("ubuntu-22.04")
         self.assertEqual(archive, DEFAULT_ARCHIVE)
+        # test parsing archive version properly
+        chisel_yaml = DEFAULT_CHISEL_YAML.replace("22.04", "23.10")
+        chisel_yaml = chisel_yaml.replace("jammy", "mantic")
+        with tempfile.TemporaryDirectory() as tmpfs:
+            filepath = os.path.join(tmpfs, "chisel.yaml")
+            with open(filepath, "w", encoding="utf-8") as file:
+                file.write(chisel_yaml)
+            archive = parse_archive(tmpfs)
+            self.assertEqual(
+                archive,
+                Archive(
+                    version="23.10",
+                    components=["main", "universe"],
+                    suites=["mantic", "mantic-security", "mantic-updates"],
+                ),
+            )
 
     def test_full_slice_name(self):
         """
