@@ -29,11 +29,13 @@ jobs:
     outputs:
       install-all: ${{ steps.set-output.outputs.install_all }}
       matrix: ${{ steps.set-output.outputs.matrix }}
+      checkout-main-ref: ${{ steps.set-output.outputs.checkout_main_ref }}
     steps:
       - name: Set output
         id: set-output
         run: |
           set -ex
+
           if [[
             "${{ github.base_ref || github.ref_name }}" == "main" ||
             "${{ github.event_name }}" == "schedule"
@@ -42,6 +44,14 @@ jobs:
             echo "install_all=true" >> $GITHUB_OUTPUT
           else
             echo "matrix={\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
+          fi
+
+          if [[ "${{ github.base_ref }}" == "main" ]]; then
+            # For PRs to main, use the updated files.
+            # Leaving checkout_main_ref unset will checkout the PR head_ref.
+            echo "checkout_main_ref=" >> $GITHUB_OUTPUT
+          else
+            echo "checkout_main_ref=main" >> $GITHUB_OUTPUT
           fi
 
   # The "install" job tests the slices by installing them.
@@ -62,6 +72,7 @@ jobs:
       matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
     env:
       install-all: ${{ needs.prepare-install.outputs.install-all }}
+      main-branch-ref: ${{ needs.prepare-install.outputs.checkout-main-ref }}
       main-branch-path: files-from-main
     steps:
       - uses: actions/checkout@v4
@@ -98,7 +109,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ env.main-branch-ref }}
           path: ${{ env.main-branch-path }}
 
       - name: Install dependencies
