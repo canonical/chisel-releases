@@ -1,0 +1,98 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
+  schedule:
+    # Run at 00:00 every day.
+    # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "0 0 * * *"
+  workflow_call:
+
+env:
+  # chisel-releases branches to lint on.
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-23.10","ubuntu-24.04"]') }}
+
+jobs:
+  prepare-lint:
+    runs-on: ubuntu-latest
+    name: "Prepare to lint"
+    outputs:
+      matrix: ${{ steps.set-output.outputs.matrix }}
+    steps:
+      - name: Set output
+        id: set-output
+        run: |
+          set -ex
+
+          if [[
+            "${{ github.base_ref || github.ref_name }}" == "main" ||
+            "${{ github.event_name }}" == "schedule"
+          ]]; then
+            echo "matrix={\"ref\":${{ env.RELEASES }}}" >> $GITHUB_OUTPUT
+          else
+            echo "matrix={\"ref\":[\"\"]}" >> $GITHUB_OUTPUT
+          fi
+
+  lint:
+    runs-on: ubuntu-latest
+    name: "Lint"
+    needs: prepare-lint
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare-lint.outputs.matrix) }}
+    env:
+      main-branch-path: files-from-main
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      - name: Install dependencies
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/lint"
+        run: |
+          set -ex
+          pip install --upgrade pip
+          pip install yamllint
+          pip install -r "${{ env.script-dir }}/requirements.txt"
+          ln -s "${{ env.script-dir }}/lint.py" lint
+
+      - name: Lint with yamllint
+        env:
+          config-path: "${{ env.main-branch-path }}/.github/yamllint.yaml"
+        run: |
+          set -ex
+          # We need to enable globstar to use the ** patterns below.
+          shopt -s globstar
+
+          yamllint -c "${{ env.config-path }}" \
+            chisel.yaml \
+            slices/
+
+      - name: Lint with SDF-specific custom linter
+        run: |
+          set -ex
+          # We need to enable globstar to use the ** patterns below.
+          shopt -s globstar
+
+          ./lint slices/**/*.yaml
