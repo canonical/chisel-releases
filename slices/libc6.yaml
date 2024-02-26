@@ -16,7 +16,7 @@ slices:
       /usr/lib/*-linux-*/libm.so.*:
       /usr/lib/*-linux-*/libmemusage.so:
       /usr/lib/*-linux-*/libmvec.so.*:
-      /usr/lib/*-linux-*/libnsl.so.*:
+      /usr/lib/*-linux-*/libnsl.so.1:
       /usr/lib/*-linux-*/libnss_compat.so.*:
       /usr/lib/*-linux-*/libnss_dns.so.*:
       /usr/lib/*-linux-*/libnss_files.so.*:
