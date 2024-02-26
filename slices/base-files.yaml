@@ -23,7 +23,7 @@ slices:
 
   lib:
     contents:
-      /lib/:
+      /lib:
       /usr/lib/:
 
   tmp:
