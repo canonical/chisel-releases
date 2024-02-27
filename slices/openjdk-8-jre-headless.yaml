@@ -29,8 +29,16 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjsig.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjsig.so: {arch: armhf}
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjvm.so: {arch: armhf}
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so: {arch: [amd64,arm64,ppc64el]}
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so: {arch: [amd64,arm64,ppc64el]}
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/hijrah-config-umalqura.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
@@ -122,7 +130,12 @@ slices:
     essential:
       - openjdk-8-jre-headless_core
     contents:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar: {arch: [amd64,arm64,armhf,ppc64el]}
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
+        arch:
+         - amd64
+         - arm64
+         - armhf
+         - ppc64el
 
   # Shared libraries for supporting heap profilling.
   hprof:
