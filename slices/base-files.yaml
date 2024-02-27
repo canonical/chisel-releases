@@ -25,6 +25,8 @@ slices:
     contents:
       /lib:
       /usr/lib/:
+      /lib64:
+      /usr/lib64/:
 
   tmp:
     contents:
