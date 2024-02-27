@@ -50,10 +50,7 @@ def is_sorted(entries: list) -> bool:
     """
     Return true if a list is sorted in ASCENDING order.
     """
-    for i in range(len(entries) - 1):
-        if entries[i] > entries[i + 1]:
-            return False
-    return True
+    return sorted(entries) == entries
 
 
 def lint_sorted_slices(yaml_data: dict) -> list[str] | None:
