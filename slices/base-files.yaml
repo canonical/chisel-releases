@@ -16,14 +16,14 @@ slices:
 
   bin:
     contents:
-      /bin/:
-      /sbin/:
+      /bin:
+      /sbin:
       /usr/bin/:
       /usr/sbin/:
 
   lib:
     contents:
-      /lib/:
+      /lib:
       /usr/lib/:
 
   tmp:
