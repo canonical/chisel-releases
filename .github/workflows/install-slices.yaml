@@ -1,0 +1,146 @@
+name: Install slices
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/**"
+  schedule:
+    # Run at 00:00 every day.
+    # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "0 0 * * *"
+  workflow_call:
+
+env:
+  # Package architectures and chisel-releases branches to test on.
+  ARCHES: ${{ toJson('["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]') }}
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-23.10","ubuntu-24.04"]') }}
+
+jobs:
+  prepare-install:
+    runs-on: ubuntu-latest
+    name: "Prepare to install"
+    outputs:
+      install-all: ${{ steps.set-output.outputs.install_all }}
+      matrix: ${{ steps.set-output.outputs.matrix }}
+    steps:
+      - name: Set output
+        id: set-output
+        run: |
+          set -ex
+          if [[
+            "${{ github.base_ref || github.ref_name }}" == "main" ||
+            "${{ github.event_name }}" == "schedule"
+          ]]; then
+            echo "matrix={\"ref\":${{ env.RELEASES }},\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
+            echo "install_all=true" >> $GITHUB_OUTPUT
+          else
+            echo "matrix={\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
+          fi
+
+  # The "install" job tests the slices by installing them.
+  # It installs **all** slices if:
+  #   - chisel.yaml is changed
+  #   - any slice definition files are deleted
+  #   - github workflows (and related files) are changed
+  # Otherwise, it installs only the slices from **added** and/or
+  # **modified** slice definition files.
+  # Please note that "change" is defined to encompass additions,
+  # modifications and deletions here.
+  install:
+    runs-on: ubuntu-latest
+    name: "Install"
+    needs: prepare-install
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
+    env:
+      install-all: ${{ needs.prepare-install.outputs.install-all }}
+      main-branch-path: files-from-main
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ matrix.ref }}
+
+      - name: Check changed paths
+        id: changed-paths
+        if: env.install-all != 'true'
+        uses: dorny/paths-filter@v3
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            install-all:
+              - 'chisel.yaml'
+              - deleted: 'slices/**/*.yaml'
+              - '.github/**'
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      - name: Install dependencies
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/install_slices"
+        run: |
+          set -ex
+
+          # Install chisel
+          go install github.com/canonical/chisel/cmd/chisel@latest
+
+          # Install dependencies of the install_slices script
+          sudo apt-get -y update
+          sudo apt-get install -y $(cat "${{ env.script-dir }}/deb-requirements.txt")
+          pip install -r "${{ env.script-dir }}/requirements.txt"
+
+          # Configure the path of install_slices script
+          ln -s "${{ env.script-dir }}/install_slices.py" install-slices
+
+      # TODO: As we are installing the slices for every (ref, arch), when
+      #   installing all slices, we are also checking the existence of every
+      #   package for at least one architecture in a particular release.  This
+      #   means that we are running the same check for every arch while running it
+      #   for just one arch would have been enough. We should revisit this in
+      #   future and propose improvements.
+      #   See also https://github.com/canonical/chisel-releases/pull/119#discussion_r1494785644
+      - name: Install slices
+        run: |
+          set -ex
+          if [[
+            "${{ env.install-all }}" == "true" ||
+            "${{ steps.changed-paths.outputs.install-all }}" == "true"
+          ]]; then
+            # Install all slices in slices/ dir.
+            # We need to enable globstar to use the ** patterns below.
+            shopt -s globstar
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              --ensure-existence \
+              --ignore-missing \
+              slices/**/*.yaml
+          elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
+            # Install slices from changed files.
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              ${{ steps.changed-paths.outputs.slices_files }}
+          fi
