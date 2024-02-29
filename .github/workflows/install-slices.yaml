@@ -82,6 +82,20 @@ jobs:
               - '.github/**'
             slices:
               - added|modified: 'slices/**/*.yaml'
+          # Branch, tag, or commit SHA against which the changes will be
+          # detected. If it references the same branch it was pushed to, changes
+          # are detected against the most recent commit before the push.
+          # Otherwise, it uses git merge-base to find the best common ancestor
+          # between current branch (HEAD) and base.  When merge-base is found,
+          # it's used for change detection - only changes introduced by the
+          # current branch are considered. All files are considered as added if
+          # there is no common ancestor with base branch or no previous commit.
+          # This option is ignored if action is triggered by pull_request event.
+          # Default: repository default branch (e.g. master)
+          #
+          # Only add this value on "push" events and compare with the SHA of the
+          # most recent commit on "ref" before the push.
+          base: ${{ github.event_name == 'push' && github.event.before }}
           # Space delimited list usable as command-line argument list in
           # Linux shell. If needed, it uses single or double quotes to
           # wrap filename with unsafe characters.
