@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libbz2.so.1*:
+      /usr/lib/*-linux-*/libbz2.so.1*:

@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libcrypt.so.*:
+      /usr/lib/*-linux-*/libcrypt.so.1*:

@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libkeyutils.so.*:
+      /usr/lib/*-linux-*/libkeyutils.so.1*:
