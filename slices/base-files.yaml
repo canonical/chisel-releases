@@ -25,6 +25,8 @@ slices:
     contents:
       /lib:
       /usr/lib/:
+      /lib64: {arch: [amd64,ppc64el]}
+      /usr/lib64/: {arch: [amd64,ppc64el]}
 
   tmp:
     contents:
