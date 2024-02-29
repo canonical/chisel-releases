@@ -5,5 +5,12 @@ slices:
     essential:
       - libc6_libs
       - libgcc-s1_libs
+      - libstdc++6_copyright
     contents:
       /usr/lib/*-linux-*/libstdc++.so.*:
+
+  copyright:
+    essential:
+      - gcc-12-base_copyright
+    contents:
+      /usr/share/doc/libstdc++6:

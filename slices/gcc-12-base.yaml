@@ -1,0 +1,6 @@
+package: gcc-12-base
+
+slices:
+  copyright:
+    # we do not need to list the copyright file
+    # since chisel will add it anyway.
