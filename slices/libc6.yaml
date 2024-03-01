@@ -6,6 +6,8 @@ slices:
       /etc/ld.so.conf.d/*-linux-*.conf:
 
   libs:
+    essential:
+      - base-files_lib
     contents:
       /usr/lib/*-linux-*/ld*.so.*:
       /usr/lib/*-linux-*/libBrokenLocale.so.*:
