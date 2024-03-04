@@ -58,8 +58,6 @@ jobs:
 
       - name: Setup Python
         uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
 
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -68,31 +66,51 @@ jobs:
           path: ${{ env.main-branch-path }}
 
       - name: Install dependencies
-        env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/lint"
         run: |
           set -ex
           pip install --upgrade pip
           pip install yamllint
-          pip install -r "${{ env.script-dir }}/requirements.txt"
-          ln -s "${{ env.script-dir }}/lint.py" lint
+
+      - name: Install yq
+        uses: mikefarah/yq@v4.42.1
 
       - name: Lint with yamllint
         env:
           config-path: "${{ env.main-branch-path }}/.github/yamllint.yaml"
         run: |
-          set -ex
-          # We need to enable globstar to use the ** patterns below.
-          shopt -s globstar
-
+          set -e
           yamllint -c "${{ env.config-path }}" \
             chisel.yaml \
             slices/
 
-      - name: Lint with SDF-specific custom linter
+      - name: Lint with SDF-specific rules
         run: |
-          set -ex
-          # We need to enable globstar to use the ** patterns below.
-          shopt -s globstar
+          set -e
 
-          ./lint slices/**/*.yaml
+          export LC_COLLATE=C
+          EXIT_CODE=0
+
+          err() {
+            echo "error:   " "$@" >&2
+            EXIT_CODE=1
+          }
+          warn() {
+            echo "warning: " "$@" >&2
+          }
+
+          for filename in $(find slices/ | grep "\.yaml$" | sort); do
+            yq '.slices | keys | .[]' "$filename" | sort -C || \
+              warn "$filename: slice names are not sorted"
+            for slice in $(yq '.slices | keys | .[]' "$filename"); do
+              key="$slice" yq \
+                '.slices | with_entries(select(.key == env(key))) | .[].essential[]' \
+                "$filename" | sort -C || \
+                err "$filename: $slice: \"essential\" entries are not sorted"
+              key="$slice" yq \
+                '.slices | with_entries(select(.key == env(key))) | .[].contents | select(.) | keys | .[]' \
+                "$filename" | sort -C || \
+                err "$filename: $slice: \"contents\" entries are not sorted"
+            done
+          done
+
+          exit $EXIT_CODE
