@@ -2,9 +2,6 @@ name: CI
 run-name: CI for ${{ github.ref }}
 
 on:
-  push:
-    branches:
-      - "ubuntu-*"
   pull_request:
     branches:
       - "ubuntu-*"
