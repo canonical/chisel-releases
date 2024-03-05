@@ -1,0 +1,9 @@
+package: dash
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /bin/dash:
+      /bin/sh:
