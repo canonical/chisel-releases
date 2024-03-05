@@ -64,9 +64,6 @@ jobs:
           pip install --upgrade pip
           pip install yamllint
 
-      - name: Install yq
-        uses: mikefarah/yq@v4.42.1
-
       - name: Lint with yamllint
         env:
           config-path: "${{ env.main-branch-path }}/.github/yamllint.yaml"
