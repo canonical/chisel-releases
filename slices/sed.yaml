@@ -8,4 +8,4 @@ slices:
       - libpcre2-8-0_libs
       - libselinux1_libs
     contents:
-      /bin/sed:
+      /usr/bin/sed:
