@@ -1,0 +1,38 @@
+package: apt
+
+slices:
+  config:
+    contents:
+      /etc/apt/apt.conf.d/01-vendor-ubuntu:
+      /etc/apt/apt.conf.d/01autoremove:
+
+  bins:
+    essential:  # libseccomp2 (>= 2.4.2), libstdc++6 (>= 13.1), libsystemd0
+      - base-passwd_data
+      - libc6_libs
+      - dpkg_config
+      - gpgv_bins
+      - libapt-pkg.so.6.0_libs
+      - ubuntu-keyring_archive
+      - libgcc-s1_libs
+      - libgnutls30_libs
+      - libseccomp2_libs
+      - libstdc++6_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/apt*:
+      /usr/lib/apt/**:
+      /usr/lib/dpkg/methods/apt/*:
+      /usr/lib/*-linux-*/libapt-private.so*:
+
+  locales:
+    essential:
+      - apt_bins
+    contents:
+      /usr/share/locale/**/apt.mo:
+
+  completions:
+    essential:
+      - apt_bins
+    contents:
+      /usr/share/bash-completion/completions/apt:
