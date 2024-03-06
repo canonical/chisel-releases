@@ -23,6 +23,7 @@ jobs:
     name: "Prepare to lint"
     outputs:
       matrix: ${{ steps.set-output.outputs.matrix }}
+      main-ref: ${{ steps.set-output.outputs.main_ref }}
     steps:
       - name: Set output
         id: set-output
@@ -38,6 +39,12 @@ jobs:
             echo "matrix={\"ref\":[\"\"]}" >> $GITHUB_OUTPUT
           fi
 
+          # For PRs to main, use the updated files from PR head_ref by leaving
+          # main_ref unset. Otherwise, set main_ref to main.
+          if [[ "${{ github.base_ref }}" != "main" ]]; then
+            echo "main_ref=main" >> $GITHUB_OUTPUT
+          fi
+
   lint:
     runs-on: ubuntu-latest
     name: "Lint"
@@ -46,6 +53,7 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.prepare-lint.outputs.matrix) }}
     env:
+      main-branch-ref: ${{ needs.prepare-lint.outputs.main-ref }}
       main-branch-path: files-from-main
     steps:
       - uses: actions/checkout@v4
@@ -55,7 +63,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ env.main-branch-ref }}
           path: ${{ env.main-branch-path }}
 
       - name: Install dependencies
