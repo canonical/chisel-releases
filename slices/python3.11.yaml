@@ -5,9 +5,9 @@ slices:
   # It includes very few modules from the libpython3.11-stdlib package.
   core:
     essential:
-      - python3.11-minimal_bins
       - libpython3.11-stdlib_core
       - media-types_data
+      - python3.11-minimal_bins
 
   # The "standard" slice extends "core" with all the Python
   # modules from the libpython3.11-stdlib package.
