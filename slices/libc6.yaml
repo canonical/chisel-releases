@@ -7,6 +7,7 @@ slices:
 
   libs:
     contents:
+      /usr/lib*/ld*.so.*:
       /usr/lib/*-linux-*/ld*.so.*:
       /usr/lib/*-linux-*/libBrokenLocale.so.*:
       /usr/lib/*-linux-*/libanl.so.*:
@@ -27,4 +28,3 @@ slices:
       /usr/lib/*-linux-*/librt.so.*:
       /usr/lib/*-linux-*/libthread_db.so.*:
       /usr/lib/*-linux-*/libutil.so.*:
-      /usr/lib*/ld*.so.*:
