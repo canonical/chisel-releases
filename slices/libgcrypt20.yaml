@@ -5,6 +5,6 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgpg-error0_libs         
+      - libgpg-error0_libs
     contents:
       /usr/lib/*-linux-*/libgcrypt.so.20*:

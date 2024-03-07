@@ -7,5 +7,5 @@ slices:
       - libgnutls30_libs
       - libsasl2-2_libs
     contents:
-      /usr/lib/*-linux-*/libldap-2.5.so.0*:
       /usr/lib/*-linux-*/liblber-2.5.so.0*:
+      /usr/lib/*-linux-*/libldap-2.5.so.0*:
