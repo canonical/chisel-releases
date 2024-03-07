@@ -142,5 +142,7 @@ jobs:
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              --ensure-existence \
+              --ignore-missing \
               ${{ steps.changed-paths.outputs.slices_files }}
           fi
