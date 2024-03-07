@@ -4,3 +4,18 @@ slices:
   nsswitch:
     contents:
       /etc/nsswitch.conf: {copy: /usr/share/libc-bin/nsswitch.conf}
+
+  locale:
+    contents:
+      /usr/lib/locale/C.UTF-8/LC_ADDRESS:
+      /usr/lib/locale/C.UTF-8/LC_COLLATE:
+      /usr/lib/locale/C.UTF-8/LC_CTYPE:
+      /usr/lib/locale/C.UTF-8/LC_IDENTIFICATION:
+      /usr/lib/locale/C.UTF-8/LC_MEASUREMENT:
+      /usr/lib/locale/C.UTF-8/LC_MESSAGES/SYS_LC_MESSAGES:
+      /usr/lib/locale/C.UTF-8/LC_MONETARY:
+      /usr/lib/locale/C.UTF-8/LC_NAME:
+      /usr/lib/locale/C.UTF-8/LC_NUMERIC:
+      /usr/lib/locale/C.UTF-8/LC_PAPER:
+      /usr/lib/locale/C.UTF-8/LC_TELEPHONE:
+      /usr/lib/locale/C.UTF-8/LC_TIME:
