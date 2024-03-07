@@ -1,9 +1,10 @@
 package: tzdata
 
 slices:
-  # The "base" slice contains Canonical timezone abbreviations. These are primary,
-  # preferred zone names that are often used as abbreviations for location-specific
-  # timezones across the globe. Example: Europe/Sofia observes EET.
+  # The "base" slice contains Canonical timezone abbreviations. These are
+  # primary, preferred zone names that are often used as abbreviations for
+  # location-specific timezones across the globe. Example: Europe/Sofia
+  # observes EET.
   base:
     contents:
       /usr/share/zoneinfo/CET:
@@ -71,10 +72,10 @@ slices:
       /usr/share/zoneinfo/zone1970.tab:
       /usr/share/zoneinfo/zonenow.tab:
 
-  # "Etc" is meant to provide "timezones" that don't fit with the standard timezones.
-  # As an example, UTC isn't actually a timezone, but a standard. Like Zulu and others,
-  # most of these can be used for time information, but derive from different domains
-  # (like the military). Same for others.
+  # "Etc" is meant to provide "timezones" that don't fit with the standard
+  # timezones.  As an example, UTC isn't actually a timezone, but a standard.
+  # Like Zulu and others, most of these can be used for time information, but
+  # derive from different domains (like the military). Same for others.
   etc:
     contents:
       /usr/share/zoneinfo/Etc/**:

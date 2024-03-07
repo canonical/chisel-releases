@@ -15,7 +15,7 @@ slices:
       /usr/lib/*-linux-*/libdl.so.*:
       /usr/lib/*-linux-*/libm.so.*:
       /usr/lib/*-linux-*/libmemusage.so:
-      /usr/lib/*-linux-*/libmvec.so.*: {arch: [amd64,arm64]}
+      /usr/lib/*-linux-*/libmvec.so.*: {arch: [amd64, arm64]}
       /usr/lib/*-linux-*/libnsl.so.1:
       /usr/lib/*-linux-*/libnss_compat.so.*:
       /usr/lib/*-linux-*/libnss_dns.so.*:
