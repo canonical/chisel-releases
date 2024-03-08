@@ -132,18 +132,20 @@ slices:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
         arch:
-         - amd64
-         - arm64
-         - armhf
-         - ppc64el
+          - amd64
+          - arm64
+          - armhf
+          - ppc64el
 
   # Shared libraries for supporting heap profilling.
   hprof:
     essential:
       - openjdk-8-jre-headless_core
     contents:
-      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so: { arch: amd64 }
-      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so: { arch: arm64 }
+      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so:
+        arch: amd64
+      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so:
+        arch: arm64
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
 
@@ -152,8 +154,10 @@ slices:
     essential:
       - openjdk-8-jre-headless_core
     contents:
-      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so: { arch: amd64 }
-      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so: { arch: arm64 }
+      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so:
+        arch: amd64
+      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so:
+        arch: arm64
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
 
