@@ -1,12 +1,12 @@
 package: libpython3.8-stdlib
 
-# The slices in this package have been grouped with inspiration
-# from the Python 3.8 Standard Library (https://docs.python.org/3.8/library/index.html).
-# Aside from the "core" slice which contains the minimal libraries that
-# should come from this package and the "extra" slice which contains
-# miscellaneous libraries, all the other slice definitions are sorted
-# by their names. The "core" slice is placed at the very beginning and
-# the "extra" slice at the very end.
+# The slices in this package have been grouped with inspiration from the Python
+# 3.8 Standard Library (https://docs.python.org/3.8/library/index.html).
+# Aside from the "core" slice which contains the minimal libraries that should
+# come from this package and the "extra" slice which contains miscellaneous
+# libraries, all the other slice definitions are sorted by their names. The
+# "core" slice is placed at the very beginning and the "extra" slice at the
+# very end.
 slices:
   # The "core" slice provides a very minimal libpython3.8-stdlib
   core:
