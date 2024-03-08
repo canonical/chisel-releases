@@ -9,7 +9,7 @@ slices:
   bins:
     # Leaving the debconf dependency out as we don't currently need pkg mgmt.
     # Also, debconf is used by the pkg's maintainer scripts, which are handled
-    # differently in Chisel. 
+    # differently in Chisel.
     essential:
       - iproute2_config
       - iproute2_libs
