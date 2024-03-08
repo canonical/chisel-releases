@@ -7,5 +7,5 @@ slices:
       - libtinfo6_libs
       - readline-common_config
     contents:
-      /lib/*-linux-*/libreadline.so.8*:
       /lib/*-linux-*/libhistory.so.8*:
+      /lib/*-linux-*/libreadline.so.8*:
