@@ -5,24 +5,25 @@ slices:
   # It includes very few modules from the libpython3.8-stdlib package.
   core:
     essential:
-      - python3.8-minimal_bins
       - libpython3.8-stdlib_core
       - mime-support_mime-types
+      - python3.8-minimal_bins
 
   # The "standard" slice extends "core" with all the Python
   # modules from the libpython3.8-stdlib package.
   standard:
     essential:
-      - python3.8_core
-      - libpython3.8-stdlib_core
       - libpython3.8-stdlib_all-os
       - libpython3.8-stdlib_concurrency
+      - libpython3.8-stdlib_core
       - libpython3.8-stdlib_crypto
       - libpython3.8-stdlib_custom-interpreters
+      - libpython3.8-stdlib_data-persistence
       - libpython3.8-stdlib_data-types
       - libpython3.8-stdlib_debug
       - libpython3.8-stdlib_development-tools
       - libpython3.8-stdlib_distribution
+      - libpython3.8-stdlib_extras
       - libpython3.8-stdlib_file-formats
       - libpython3.8-stdlib_filesys
       - libpython3.8-stdlib_frameworks
@@ -35,18 +36,17 @@ slices:
       - libpython3.8-stdlib_net-data
       - libpython3.8-stdlib_numeric
       - libpython3.8-stdlib_osx-support
-      - libpython3.8-stdlib_data-persistence
       - libpython3.8-stdlib_pydoc
       - libpython3.8-stdlib_text
       - libpython3.8-stdlib_unix
-      - libpython3.8-stdlib_extras
+      - python3.8_core
 
   # The "utlis" slice extends "core" with various tools.
   utils:
     essential:
-      - python3.8_core
-      - libpython3.8-stdlib_pydoc
       - libpython3.8-stdlib_debug
+      - libpython3.8-stdlib_pydoc
+      - python3.8_core
     contents:
       /usr/bin/pdb3.8:
       /usr/bin/pydoc3.8:
