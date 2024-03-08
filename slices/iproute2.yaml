@@ -9,18 +9,18 @@ slices:
   bins:
     # Leaving the debconf dependency out as we don't currently need pkg mgmt.
     # Also, debconf is used by the pkg's maintainer scripts, which are handled
-    # differently in Chisel. 
+    # differently in Chisel.
     essential:
       - iproute2_config
       - iproute2_libs
       - libcap2-bin_bins
     contents:
       /bin/ip:
-      /sbin/ip:
       /bin/ss:
       /sbin/bridge:
       /sbin/dcb:
       /sbin/devlink:
+      /sbin/ip:
       /sbin/rtacct:
       /sbin/rtmon:
       # "tc" is an obvious candidate for getting its own "traffic-control"
@@ -28,12 +28,12 @@ slices:
       /sbin/tc:
       /sbin/tipc:
       /sbin/vdpa:
-      /usr/bin/lnstat:
       /usr/bin/ctstat:
-      /usr/bin/rtstat:
+      /usr/bin/lnstat:
       /usr/bin/nstat:
       /usr/bin/rdma:
       /usr/bin/routel:
+      /usr/bin/rtstat:
       /usr/sbin/arpd:
       /usr/sbin/genl:
 
@@ -67,8 +67,8 @@ slices:
     contents:
       /usr/include/iproute2/bpf_elf.h:
       /usr/lib/*-linux-*/tc/experimental.dist:
-      /usr/lib/*-linux-*/tc/m_xt.so:
       /usr/lib/*-linux-*/tc/m_ipt.so:
+      /usr/lib/*-linux-*/tc/m_xt.so:
       /usr/lib/*-linux-*/tc/normal.dist:
       /usr/lib/*-linux-*/tc/pareto.dist:
       /usr/lib/*-linux-*/tc/paretonormal.dist:
