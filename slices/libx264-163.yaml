@@ -1,0 +1,8 @@
+package: libx264-163
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libx264.so.163*:
