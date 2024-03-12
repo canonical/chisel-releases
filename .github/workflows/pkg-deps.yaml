@@ -1,0 +1,102 @@
+name: Package dependencies
+
+on:
+  workflow_call:
+
+jobs:
+  check-dependency:
+    name: Check dependency
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' &&
+      startswith(github.base_ref, 'ubuntu-')
+    env:
+      branch: ${{ github.base_ref }}
+      msg_file: dependencies.message
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check changed paths
+        id: changed-paths
+        uses: dorny/paths-filter@v3
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
+
+      - name: Check dependencies
+        id: check-deps
+        if: steps.changed-paths.outputs.slices == 'true'
+        run: |
+          set -e
+
+          export LC_COLLATE=C
+
+          version=$(echo "$branch" | grep -Eo '[0-9.]+')
+          docker run -i -d --rm --name ubuntu ubuntu:"$version"
+          docker exec ubuntu apt-get update
+
+          cleanup() {
+            docker stop ubuntu
+          }
+          trap cleanup EXIT
+
+          echo "Slice package dependency issues:" > "$msg_file"
+          for f in ${{ steps.changed-paths.outputs.slices_files }}; do
+            echo "Processing $f.." >&2
+            pkg=$(yq '.package' "$f")
+
+            mapfile -t deps < <(
+              docker exec ubuntu apt depends \
+                --no-recommends --no-suggests --no-conflicts \
+                --no-breaks --no-replaces --no-enhances \
+                "$pkg" 2>/dev/null | \
+              sed -nr 's/.*Depends:\s(\S*).*/\1/p' | \
+              sed 's/<//; s/>//; s/:any//' | \
+              sort | uniq
+            )
+
+            mapfile -t listed < <(
+              yq '.slices.[].essential[]' "$f" | \
+              sed "s/_.*//; /^$pkg$/d" | sort | uniq
+            )
+
+            errs=()
+            for p in "${listed[@]}"; do
+              if printf '%s\0' "${deps[@]}" | grep -Fxqz -- "$p"; then
+                continue
+              fi
+              errs+=("$p")
+            done
+
+            if (( "${#errs[@]}")); then
+              echo "<details>" >> "$msg_file"
+              echo -e "<summary>$f</summary>\n" >> "$msg_file"
+              for e in "${errs[@]}"; do
+                echo "  - \`$e\` is listed in \`essential\`, but is not a dependency." >> "$msg_file"
+              done
+              echo -e "\n</details>" >> "$msg_file"
+            fi
+          done
+          echo -e "\n---" >> "$msg_file"
+          cat "$msg_file"
+
+      - name: Craft default message if no errors
+        run: |
+          set -e
+          if [[ ! -f "$msg_file" ]]; then
+            echo "Slice package dependency issues:" > "$msg_file"
+            echo -e "\tNone found." >> "$msg_file"
+          fi
+
+      - name: Post messages to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: ${{ env.msg_file }}
