@@ -1,0 +1,13 @@
+package: p11-kit-modules
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libp11-kit0_libs
+      - libffi8_libs
+      - libtasn1-6_libs
+    contents:
+      /usr/lib/*-linux-*/pkcs11/p11-kit-client.so:
+      /usr/lib/*-linux-*/pkcs11/p11-kit-trust.so:
+      /usr/lib/*-linux-*/p11-kit-proxy.so:
