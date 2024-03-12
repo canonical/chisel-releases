@@ -5,7 +5,7 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/llvm-13/lib/libunwind.so.1.*:
-      /usr/lib/llvm-13/lib/libunwind.so.1:
-      /usr/lib/*-linux-*/libunwind.so.1.*:
       /usr/lib/*-linux-*/libunwind.so.1:
+      /usr/lib/*-linux-*/libunwind.so.1.*:
+      /usr/lib/llvm-13/lib/libunwind.so.1:
+      /usr/lib/llvm-13/lib/libunwind.so.1.*:
