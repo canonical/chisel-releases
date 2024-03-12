@@ -6,5 +6,5 @@ slices:
       - liblzma5_libs
     contents:
       /usr/lib/*-linux-*/libunwind-*.so.*:
-      /usr/lib/*-linux-*/libunwind.so.8.*:
       /usr/lib/*-linux-*/libunwind.so.8:
+      /usr/lib/*-linux-*/libunwind.so.8.*:

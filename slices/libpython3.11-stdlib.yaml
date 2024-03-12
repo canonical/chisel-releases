@@ -174,8 +174,8 @@ slices:
       /usr/lib/python3.11/lib-dynload/_testmultiphase.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/lib-dynload/_xxsubinterpreters.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/lib-dynload/_xxtestfuzz.cpython-311-*-linux-*.so:
-      /usr/lib/python3.11/lib-dynload/xxlimited_35.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/lib-dynload/xxlimited.cpython-311-*-linux-*.so:
+      /usr/lib/python3.11/lib-dynload/xxlimited_35.cpython-311-*-linux-*.so:
       /usr/lib/python3.11/test/**:
       /usr/lib/python3.11/unittest/**:
 
@@ -350,8 +350,8 @@ slices:
     essential:
       - libpython3.11-stdlib_core
     contents:
-      /usr/lib/python3.11/pydoc_data/**:
       /usr/lib/python3.11/pydoc.py:
+      /usr/lib/python3.11/pydoc_data/**:
 
   # Text Processing Services
   # https://docs.python.org/3.11/library/text.html

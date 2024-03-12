@@ -9,7 +9,8 @@ slices:
       /usr/bin/grep:
 
   deprecated:
-    # These are shell scripts requiring a symlink from /usr/bin/dash to /usr/bin/sh
+    # These are shell scripts requiring a symlink from /usr/bin/dash to
+    # /usr/bin/sh.
     # See: https://manpages.ubuntu.com/manpages/noble/en/man1/grep.1.html
     essential:
       - dash_bins
