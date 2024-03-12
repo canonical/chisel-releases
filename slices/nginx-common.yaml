@@ -17,17 +17,19 @@ slices:
       /etc/nginx/proxy_params:
       /etc/nginx/scgi_params:
       /etc/nginx/sites-available/default:
+      # This symlink is created by the maintainer scipts
+      /etc/nginx/sites-enabled/default:
+        symlink: /etc/nginx/sites-available/default
       /etc/nginx/snippets/fastcgi-php.conf:
       /etc/nginx/snippets/snakeoil.conf:
       /etc/nginx/uwsgi_params:
       /etc/nginx/win-utf:
-      # Created by the maintainer scripts
-      /var/log/nginx/: {make: true, mode: 0755}
-      /var/log/nginx/access.log: {text: "", mode: 0640} 
-      /var/log/nginx/error.log: {text: "", mode: 0640}
-      /etc/nginx/sites-enabled/default: {symlink: /etc/nginx/sites-available/default}
-      /var/www/html/: {make: true}
+      # Following are created by the maintainer scripts
       /var/lib/nginx/: {make: true}
+      /var/log/nginx/: {make: true, mode: 0755}
+      /var/log/nginx/access.log: {text: "", mode: 0640}
+      /var/log/nginx/error.log: {text: "", mode: 0640}
+      /var/www/html/: {make: true}
 
   ufw-config:
     contents:
@@ -40,7 +42,8 @@ slices:
   index:
     contents:
       /usr/share/nginx/html/index.html:
-      /var/www/html/index.nginx-debian.html: {copy: /usr/share/nginx/html/index.html}
+      /var/www/html/index.nginx-debian.html:
+        copy: /usr/share/nginx/html/index.html
 
   modules:
     contents:
@@ -54,7 +57,7 @@ slices:
       /usr/share/vim/addons/ftplugin/nginx.vim:
       /usr/share/vim/addons/indent/nginx.vim:
       /usr/share/vim/addons/syntax/nginx.vim:
-  
+
   vim-config:
     contents:
       /usr/share/vim/registry/nginx.yaml:
