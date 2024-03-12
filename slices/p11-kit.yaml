@@ -1,0 +1,18 @@
+package: p11-kit
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libp11-kit0_libs
+      - libtasn1-6_libs
+      - p11-kit-modules_libs
+      - p11-kit_config
+    contents:
+      /usr/bin/p11-kit:
+      /usr/bin/trust:
+      /usr/libexec/p11-kit/p11-kit-remote:
+      /usr/libexec/p11-kit/p11-kit-server:
+  config:
+    contents:
+      /usr/share/p11-kit/modules/p11-kit-trust.module:
