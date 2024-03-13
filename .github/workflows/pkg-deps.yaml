@@ -1,0 +1,52 @@
+name: Package dependencies
+
+on:
+  workflow_call:
+
+jobs:
+  check-dependency:
+    name: Check dependency
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' &&
+      startswith(github.base_ref, 'ubuntu-')
+    env:
+      branch: ${{ github.base_ref }}
+      main-branch-path: files-from-main
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check changed paths
+        id: changed-paths
+        uses: dorny/paths-filter@v3
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      - name: Check dependencies
+        id: check-deps
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/pkg-deps"
+        run: |
+          set -ex
+          ./${{ env.script-dir }}/pkg-deps \
+            ${{ steps.changed-paths.outputs.slices_files }}
+
+      - name: Post messages to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: ${{ steps.check-deps.outputs.msg_file }}
