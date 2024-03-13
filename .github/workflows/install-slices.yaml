@@ -5,12 +5,14 @@ on:
     branches:
       - "main"
     paths:
-      - ".github/**"
+      - ".github/scripts/install-slices/**"
+      - ".github/workflows/install-slices.yaml"
   pull_request:
     branches:
       - "main"
     paths:
-      - ".github/**"
+      - ".github/scripts/install-slices/**"
+      - ".github/workflows/install-slices.yaml"
   schedule:
     # Run at 00:00 every day.
     # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
