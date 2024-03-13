@@ -1,0 +1,71 @@
+#!/bin/bash
+
+set -e
+
+export LC_COLLATE=C
+
+if [[ -z "$branch" ]]; then
+  echo "error: no branch specified" >&2
+  exit 1
+fi
+
+version=$(echo "$branch" | grep -Eo '[0-9.]+')
+docker run -i -d --rm --name ubuntu ubuntu:"$version" >&2
+
+cleanup() {
+  docker rm -f ubuntu >&2
+}
+trap cleanup EXIT
+
+docker exec ubuntu apt-get update >&2
+
+msg_file="${msg_file:-$(mktemp)}"
+echo "Writing dependencies diff to $msg_file" >&2
+if [[ -n "$GITHUB_OUTPUT" ]]; then
+  echo "msg_file=$msg_file" >> $GITHUB_OUTPUT
+fi
+
+echo "Diff of dependencies:" > "$msg_file"
+for f in $@; do
+  echo "Processing $f.." >&2
+  pkg=$(yq '.package' "$f")
+
+  mapfile -t deps < <(
+    docker exec ubuntu apt depends \
+      --no-recommends --no-suggests --no-conflicts \
+      --no-breaks --no-replaces --no-enhances \
+      "$pkg" 2>/dev/null | \
+    sed -nr 's/.*Depends:\s(\S*).*/\1/p' | \
+    sed 's/<//; s/>//; s/:any//' | \
+    sort | uniq
+  )
+
+  mapfile -t listed < <(
+    yq '.slices.[].essential[]' "$f" | \
+    sed "s/_.*//; /^$pkg$/d" | sort | uniq
+  )
+
+  diffs=()
+  for p in "${listed[@]}"; do
+    if printf '%s\0' "${deps[@]}" | grep -Fxqz -- "$p"; then
+      continue
+    fi
+    diffs+=("$p")
+  done
+
+  if (( "${#diffs[@]}")); then
+    echo "<details>" >> "$msg_file"
+    echo -e "<summary>$f</summary>\n" >> "$msg_file"
+    for e in "${diffs[@]}"; do
+      echo "  - \`$e\` is listed in \`essential\`, but is not a dependency." >> "$msg_file"
+    done
+    echo -e "\n</details>" >> "$msg_file"
+  fi
+done
+
+if ! grep "<summary>" "$msg_file"; then
+  echo -e "\tNone found." >> "$msg_file"
+fi
+
+echo -e "\n---" >> "$msg_file"
+cat "$msg_file"
