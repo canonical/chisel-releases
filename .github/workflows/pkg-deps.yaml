@@ -40,7 +40,7 @@ jobs:
       - name: Check dependencies
         id: check-deps
         env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/install_slices"
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/pkg-deps"
         run: |
           set -ex
           ./${{ env.script-dir }}/pkg-deps \
