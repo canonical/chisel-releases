@@ -16,6 +16,6 @@ slices:
     contents:
       # user should manually link /bin/sh to /bin/bash
       /usr/bin/bash:
-      /usr/bin/rbash:
-      /usr/bin/clear_console:
       /usr/bin/bashbug:
+      /usr/bin/clear_console:
+      /usr/bin/rbash:
