@@ -22,5 +22,7 @@ jobs:
 
   pkg-deps:
     if: github.event_name == 'pull_request'
+    permissions:
+      pull-requests: write
     name: Package dependencies
     uses: canonical/chisel-releases/.github/workflows/pkg-deps.yaml@main
