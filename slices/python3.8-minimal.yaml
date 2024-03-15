@@ -4,8 +4,8 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - libpython3.8-minimal_libs
       - libexpat1_libs
+      - libpython3.8-minimal_libs
       - zlib1g_libs
     contents:
       /usr/bin/python3.8:

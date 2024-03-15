@@ -16,8 +16,8 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libssl1.1_libs
       - libpython3.8-minimal_config
+      - libssl1.1_libs
     contents:
       /usr/lib/python3.8/__future__.py:
       /usr/lib/python3.8/_bootlocale.py:

@@ -1,20 +1,20 @@
 package: libpython3.8-stdlib
 
-# The slices in this package have been grouped with inspiration
-# from the Python 3.8 Standard Library (https://docs.python.org/3.8/library/index.html).
-# Aside from the "core" slice which contains the minimal libraries that
-# should come from this package and the "extra" slice which contains
-# miscellaneous libraries, all the other slice definitions are sorted
-# by their names. The "core" slice is placed at the very beginning and
-# the "extra" slice at the very end.
+# The slices in this package have been grouped with inspiration from the Python
+# 3.8 Standard Library (https://docs.python.org/3.8/library/index.html).
+# Aside from the "core" slice which contains the minimal libraries that should
+# come from this package and the "extra" slice which contains miscellaneous
+# libraries, all the other slice definitions are sorted by their names. The
+# "core" slice is placed at the very beginning and the "extra" slice at the
+# very end.
 slices:
   # The "core" slice provides a very minimal libpython3.8-stdlib
   core:
     essential:
-      - libpython3.8-minimal_libs
-      - libc6_libs
       - libbz2-1.0_libs
+      - libc6_libs
       - liblzma5_libs
+      - libpython3.8-minimal_libs
       - mime-support_mime-types
     contents:
       /usr/lib/python3.8/_compression.py:
@@ -45,10 +45,10 @@ slices:
   # https://docs.python.org/3.8/library/allos.html
   all-os:
     essential:
+      - libffi7_libs
+      - libncursesw6_libs
       - libpython3.8-stdlib_core
       - libpython3.8-stdlib_unix
-      - libncursesw6_libs
-      - libffi7_libs
       - libtinfo6_libs
     contents:
       /usr/lib/python3.8/_pyio.py:
@@ -62,9 +62,9 @@ slices:
   # https://docs.python.org/3.8/library/concurrency.html
   concurrency:
     essential:
+      - libpython3.8-stdlib_all-os
       - libpython3.8-stdlib_core
       - libpython3.8-stdlib_crypto
-      - libpython3.8-stdlib_all-os
     contents:
       /usr/lib/python3.8/_dummy_thread.py:
       /usr/lib/python3.8/concurrent/**:
@@ -124,9 +124,9 @@ slices:
   # https://docs.python.org/3.8/library/development.html
   development-tools:
     essential:
-      - libpython3.8-stdlib_core
       - libpython3.8-stdlib_all-os
       - libpython3.8-stdlib_concurrency
+      - libpython3.8-stdlib_core
       - libpython3.8-stdlib_data-types
       - libpython3.8-stdlib_debug
       - libpython3.8-stdlib_distribution
@@ -239,8 +239,8 @@ slices:
   # https://docs.python.org/3.8/library/ipc.html
   ipc:
     essential:
-      - libpython3.8-stdlib_core
       - libpython3.8-stdlib_concurrency
+      - libpython3.8-stdlib_core
     contents:
       /usr/lib/python3.8/asynchat.py:
       /usr/lib/python3.8/asyncio/**:
@@ -302,8 +302,8 @@ slices:
   # https://docs.python.org/3.8/library/numeric.html
   numeric:
     essential:
-      - libpython3.8-stdlib_core
       - libmpdec2_libs
+      - libpython3.8-stdlib_core
     contents:
       /usr/lib/python3.8/_pydecimal.py:
       /usr/lib/python3.8/decimal.py:
@@ -323,8 +323,8 @@ slices:
   # https://docs.python.org/3.8/library/persistence.html
   data-persistence:
     essential:
-      - libpython3.8-stdlib_core
       - libdb5.3_libs
+      - libpython3.8-stdlib_core
       - libsqlite3-0_libs
     contents:
       /usr/lib/python3.8/dbm/**:
@@ -339,8 +339,8 @@ slices:
     essential:
       - libpython3.8-stdlib_core
     contents:
-      /usr/lib/python3.8/pydoc_data/**:
       /usr/lib/python3.8/pydoc.py:
+      /usr/lib/python3.8/pydoc_data/**:
 
   # Text Processing Services
   # https://docs.python.org/3.8/library/text.html
@@ -358,9 +358,9 @@ slices:
   # https://docs.python.org/3.8/library/unix.html
   unix:
     essential:
+      - libcrypt1_libs
       - libpython3.8-stdlib_core
       - libpython3.8-stdlib_frameworks
-      - libcrypt1_libs
     contents:
       /usr/lib/python3.8/crypt.py:
       /usr/lib/python3.8/lib-dynload/_crypt.cpython-38-*-linux-*.so:
