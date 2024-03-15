@@ -19,8 +19,3 @@ jobs:
   lint:
     name: Lint
     uses: canonical/chisel-releases/.github/workflows/lint.yaml@main
-
-  pkg-deps:
-    if: github.event_name == 'pull_request'
-    name: Package dependencies
-    uses: canonical/chisel-releases/.github/workflows/pkg-deps.yaml@main
