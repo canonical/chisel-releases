@@ -1,7 +1,7 @@
 # This workflow supports jobs which needs the on.pull_request_target event
 # instead of the usual on.pull_request event.
-name: CI
-run-name: CI for ${{ github.ref }}
+name: Pkg coverage
+run-name: Pkg coverage for ${{ github.ref }}
 
 on:
   pull_request_target:
