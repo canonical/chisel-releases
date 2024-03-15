@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libonig.so.**:
+      /usr/lib/*-linux-*/libonig.so.5*:

@@ -6,4 +6,4 @@ slices:
       - libc6_libs
       - libonig5_libs
     contents:
-      /usr/lib/*-linux-*/libjq.so.**:
+      /usr/lib/*-linux-*/libjq.so.1*:
