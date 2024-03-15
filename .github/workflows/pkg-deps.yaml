@@ -8,7 +8,7 @@ jobs:
     name: Check dependency
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'pull_request' &&
+      startswith(github.event_name, 'pull_request') &&
       startswith(github.base_ref, 'ubuntu-')
     env:
       branch: ${{ github.base_ref }}
@@ -17,6 +17,8 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Check changed paths
         id: changed-paths
