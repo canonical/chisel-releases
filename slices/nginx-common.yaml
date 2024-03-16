@@ -6,6 +6,11 @@ slices:
   # handled differently in Chisel.
   # There's also no need (yet) for any init- and systemd-related files.
   config:
+    essential:
+      # adds required /run directory
+      - base-files_var
+      # adds /etc/passwd so nginx can find the www-data user
+      - base-passwd_data
     contents:
       /etc/logrotate.d/nginx:
       /etc/nginx/fastcgi.conf:
