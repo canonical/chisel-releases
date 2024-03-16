@@ -1,0 +1,20 @@
+package: python3.12-minimal
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libexpat1_libs
+      - libpython3.12-minimal_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/python3.12:
+      # The next two directories are created to mimic the behaviour in
+      # the "postinst" script.
+      /usr/local/lib/python3.12/: {make: true, mode: 02775}
+      /usr/local/lib/python3.12/dist-packages/: {make: true, mode: 02775}
+
+  binfmt:
+    contents:
+      /usr/lib/binfmt.d/python3.12.conf:
+      /usr/share/binfmts/python3.12:

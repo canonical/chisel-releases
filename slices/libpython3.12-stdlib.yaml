@@ -1,0 +1,399 @@
+package: libpython3.12-stdlib
+
+# The slices in this package have been grouped with inspiration from the
+# Python 3.12 Standard Library
+# (https://docs.python.org/3.12/library/index.html).
+#
+# Aside from the "core" slice which contains the minimal libraries that
+# should come from this package and the "extra" slice which contains
+# miscellaneous libraries, all the other slice definitions are sorted by
+# their names. The "core" slice is placed at the very beginning and the
+# "extra" slice at the very end.
+slices:
+  # The "core" slice provides a very minimal libpython3.12-stdlib
+  core:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      - liblzma5_libs
+      - libpython3.12-minimal_libs
+      - media-types_data
+      - netbase_config
+    contents:
+      /usr/lib/python3.12/_bootsubprocess.py:
+      /usr/lib/python3.12/_compression.py:
+      /usr/lib/python3.12/_pydatetime.py:
+      /usr/lib/python3.12/bz2.py:
+      /usr/lib/python3.12/contextvars.py:
+      /usr/lib/python3.12/dataclasses.py:
+      /usr/lib/python3.12/gettext.py:
+      /usr/lib/python3.12/gzip.py:
+      /usr/lib/python3.12/http/__init__.py:
+      /usr/lib/python3.12/http/client.py:
+      /usr/lib/python3.12/lib-dynload/_bz2.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_codecs_*.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_contextvars.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_lzma.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_multibytecodec.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_queue.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_typing.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/mmap.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lzma.py:
+      /usr/lib/python3.12/mimetypes.py:
+      /usr/lib/python3.12/ntpath.py:
+      /usr/lib/python3.12/queue.py:
+      /usr/lib/python3.12/shutil.py:
+      /usr/lib/python3.12/socketserver.py:
+      /usr/lib/python3.12/tarfile.py:
+
+  # Shared AIX (IBM) support functions
+  aix-support:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/_aix_support.py:
+
+  # Generic Operating System Services
+  # https://docs.python.org/3.11/library/allos.html
+  all-os:
+    essential:
+      - libffi8_libs
+      - libncursesw6_libs
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_unix
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.12/_pyio.py:
+      /usr/lib/python3.12/ctypes/**:
+      /usr/lib/python3.12/curses/**:
+      /usr/lib/python3.12/getpass.py:
+      /usr/lib/python3.12/lib-dynload/_ctypes*.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_curses*.cpython-312-*-linux-*.so:
+
+  # Concurrent Execution
+  # https://docs.python.org/3.11/library/concurrency.html
+  concurrency:
+    essential:
+      - libpython3.12-stdlib_all-os
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_crypto
+    contents:
+      /usr/lib/python3.12/concurrent/**:
+      /usr/lib/python3.12/lib-dynload/_multiprocessing.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_posixshmem.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/multiprocessing/**:
+      /usr/lib/python3.12/sched.py:
+
+  # Cryptographic Services
+  # https://docs.python.org/3.11/library/crypto.html
+  crypto:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/hmac.py:
+      /usr/lib/python3.12/secrets.py:
+
+  # Custom Python Interpreters
+  # https://docs.python.org/3.11/library/custominterp.html
+  custom-interpreters:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_text
+    contents:
+      /usr/lib/python3.12/code.py:
+      /usr/lib/python3.12/codeop.py:
+
+  # Data Persistence
+  # https://docs.python.org/3.11/library/persistence.html
+  data-persistence:
+    essential:
+      - libdb5.3_libs
+      - libpython3.12-stdlib_core
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/python3.12/dbm/**:
+      /usr/lib/python3.12/lib-dynload/_dbm.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_sqlite3.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/shelve.py:
+      /usr/lib/python3.12/sqlite3/**:
+
+  # Data Types
+  # https://docs.python.org/3.11/library/datatypes.html
+  data-types:
+    essential:
+      - libpython3.12-stdlib_core
+      - tzdata_zoneinfo
+    contents:
+      /usr/lib/python3.12/graphlib.py:
+      /usr/lib/python3.12/lib-dynload/_zoneinfo.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/pprint.py:
+      /usr/lib/python3.12/zoneinfo/**:
+
+  # Debugging and Profiling
+  # https://docs.python.org/3.11/library/debug.html
+  debug:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_custom-interpreters
+      - libpython3.12-stdlib_data-types
+      - libpython3.12-stdlib_frameworks
+      - libpython3.12-stdlib_text
+    contents:
+      /usr/lib/python3.12/bdb.py:
+      /usr/lib/python3.12/cProfile.py:
+      /usr/lib/python3.12/lib-dynload/_lsprof.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/pdb.py:
+      /usr/lib/python3.12/profile.py:
+      /usr/lib/python3.12/pstats.py:
+      /usr/lib/python3.12/timeit.py:
+      /usr/lib/python3.12/trace.py:
+
+  # Development Tools
+  # https://docs.python.org/3.11/library/development.html
+  development-tools:
+    essential:
+      - libpython3.12-stdlib_all-os
+      - libpython3.12-stdlib_concurrency
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_data-types
+      - libpython3.12-stdlib_debug
+      - libpython3.12-stdlib_distribution
+      - libpython3.12-stdlib_internet
+      - libpython3.12-stdlib_ipc
+      - libpython3.12-stdlib_markup-tools
+      - libpython3.12-stdlib_net-data
+      - libpython3.12-stdlib_numeric
+      - libpython3.12-stdlib_text
+      - libpython3.12-stdlib_unix
+    contents:
+      /usr/lib/python3.12/__phello__/**:
+      /usr/lib/python3.12/doctest.py:
+      /usr/lib/python3.12/lib-dynload/_testbuffer.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testcapi.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testclinic.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testimportmultiple.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testinternalcapi.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testmultiphase.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testsinglephase.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_xxinterpchannels.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_xxsubinterpreters.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_xxtestfuzz.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/xxlimited_35.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/xxlimited.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/xxsubtype.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/test/**:
+      /usr/lib/python3.12/unittest/**:
+
+  # Software Packaging and Distribution
+  # https://docs.python.org/3.11/library/distribution.html
+  distribution:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_osx-support
+    contents:
+      /usr/lib/python3.12/_distutils_system_mod.py:
+      /usr/lib/python3.12/venv/**:
+      /usr/lib/python3.12/zipapp.py:
+
+  # File Formats
+  # https://docs.python.org/3.11/library/fileformats.html
+  file-formats:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_frameworks
+      - libpython3.12-stdlib_markup-tools
+    contents:
+      /usr/lib/python3.12/netrc.py:
+      /usr/lib/python3.12/plistlib.py:
+      /usr/lib/python3.12/tomllib/**:
+      /usr/lib/python3.12/xdrlib.py:
+
+  # File and Directory Access
+  # https://docs.python.org/3.11/library/filesys.html
+  filesys:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/fileinput.py:
+
+  # Program Frameworks
+  # https://docs.python.org/3.11/library/frameworks.html
+  frameworks:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_text
+    contents:
+      /usr/lib/python3.12/cmd.py:
+      /usr/lib/python3.12/shlex.py:
+      /usr/lib/python3.12/turtle.py:
+
+  # Importing Modules
+  # https://docs.python.org/3.11/library/modules.html
+  importing:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/modulefinder.py:
+
+  # Internet Protocols and Support
+  # https://docs.python.org/3.11/library/internet.html
+  internet:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_crypto
+      - libpython3.12-stdlib_file-formats
+      - libpython3.12-stdlib_frameworks
+      - libpython3.12-stdlib_ipc
+      - libpython3.12-stdlib_markup-tools
+      - libpython3.12-stdlib_numeric
+      - libpython3.12-stdlib_pydoc
+      - libuuid1_libs
+    contents:
+      /usr/lib/python3.12/cgi.py:
+      /usr/lib/python3.12/cgitb.py:
+      /usr/lib/python3.12/ftplib.py:
+      /usr/lib/python3.12/http/cookiejar.py:
+      /usr/lib/python3.12/http/cookies.py:
+      /usr/lib/python3.12/http/server.py:
+      /usr/lib/python3.12/imaplib.py:
+      /usr/lib/python3.12/lib-dynload/_uuid.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/nntplib.py:
+      /usr/lib/python3.12/nturl2path.py:
+      /usr/lib/python3.12/poplib.py:
+      /usr/lib/python3.12/smtpd.py:
+      /usr/lib/python3.12/smtplib.py:
+      /usr/lib/python3.12/telnetlib.py:
+      /usr/lib/python3.12/uuid.py:
+      /usr/lib/python3.12/webbrowser.py:
+      /usr/lib/python3.12/wsgiref/**:
+      /usr/lib/python3.12/xmlrpc/**:
+
+  # Networking and Interprocess Communication
+  # https://docs.python.org/3.11/library/ipc.html
+  ipc:
+    essential:
+      - libpython3.12-stdlib_concurrency
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/asyncio/**:
+      /usr/lib/python3.12/lib-dynload/_asyncio.cpython-312-*-linux-*.so:
+
+  # Python Language Services
+  # https://docs.python.org/3.11/library/language.html
+  language:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/pickletools.py:
+      /usr/lib/python3.12/pyclbr.py:
+      /usr/lib/python3.12/symtable.py:
+      /usr/lib/python3.12/tabnanny.py:
+
+  # Structured Markup Processing Tools (HTML, XML)
+  # https://docs.python.org/3.11/library/markup.html
+  markup-tools:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/_markupbase.py:
+      /usr/lib/python3.12/html/**:
+      /usr/lib/python3.12/xml/**:
+
+  # Multimedia Services
+  # https://docs.python.org/3.11/library/mm.html
+  multimedia:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/aifc.py:
+      /usr/lib/python3.12/chunk.py:
+      /usr/lib/python3.12/colorsys.py:
+      /usr/lib/python3.12/imghdr.py:
+      /usr/lib/python3.12/lib-dynload/audioop.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/ossaudiodev.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/sndhdr.py:
+      /usr/lib/python3.12/sunau.py:
+      /usr/lib/python3.12/wave.py:
+
+  # Internet Data Handling
+  # https://docs.python.org/3.11/library/netdata.html
+  net-data:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/json/**:
+      /usr/lib/python3.12/lib-dynload/_json.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/mailbox.py:
+      /usr/lib/python3.12/mailcap.py:
+
+  # Numeric and Mathematical Modules
+  # https://docs.python.org/3.11/library/numeric.html
+  numeric:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/_pydecimal.py:
+      /usr/lib/python3.12/_pylong.py:
+      /usr/lib/python3.12/decimal.py:
+      /usr/lib/python3.12/fractions.py:
+      /usr/lib/python3.12/lib-dynload/_decimal.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/numbers.py:
+      /usr/lib/python3.12/statistics.py:
+
+  # Shared OS X support functions
+  osx-support:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/_osx_support.py:
+
+  # pydoc - Documentation generator and online help system
+  # https://docs.python.org/3.11/library/pydoc.html
+  pydoc:
+    essential:
+      - libpython3.12-stdlib_core
+    contents:
+      /usr/lib/python3.12/pydoc_data/**:
+      /usr/lib/python3.12/pydoc.py:
+
+  # Text Processing Services
+  # https://docs.python.org/3.11/library/text.html
+  text:
+    essential:
+      - libpython3.12-stdlib_core
+      - libreadline8_libs
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.12/difflib.py:
+      /usr/lib/python3.12/lib-dynload/readline.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/rlcompleter.py:
+
+  # Unix Specific Services
+  # https://docs.python.org/3.11/library/unix.html
+  unix:
+    essential:
+      - libcrypt1_libs
+      - libnsl2_libs
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_frameworks
+      - libtirpc3_libs
+    contents:
+      /usr/lib/python3.12/crypt.py:
+      /usr/lib/python3.12/lib-dynload/_crypt.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/nis.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/resource.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/termios.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/pipes.py:
+      /usr/lib/python3.12/pty.py:
+      /usr/lib/python3.12/tty.py:
+
+  # Outliers and Deprecated Modules
+  # The "extra" slice consists of easter-eggs and deprecated modules
+  extras:
+    essential:
+      - libpython3.12-stdlib_core
+      - libpython3.12-stdlib_internet
+    contents:
+      /usr/lib/python3.12/__hello__.py:
+      /usr/lib/python3.12/antigravity.py:
+      /usr/lib/python3.12/this.py:
