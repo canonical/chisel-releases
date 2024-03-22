@@ -3,17 +3,17 @@ package: procps
 slices:
   bins:
     essential:
-      - libc6_libs
       - init-system-helpers_bins
+      - libc6_libs
       - libncursesw6_libs
       - libproc2-0_libs
       - libsystemd0_libs
       - libtinfo6_libs
     contents:
+      /etc/init.d/procps:
+      /usr/bin/free:
       /usr/bin/kill:
       /usr/bin/ps:
-      /usr/sbin/sysctl:
-      /usr/bin/free:
       /usr/bin/pgrep:
       /usr/bin/pidwait:
       /usr/bin/pkill:
@@ -28,7 +28,7 @@ slices:
       /usr/bin/vmstat:
       /usr/bin/w:
       /usr/bin/watch:
-      /etc/init.d/procps:
+      /usr/sbin/sysctl:
 
   config:
     contents:

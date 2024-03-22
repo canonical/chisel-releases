@@ -11,5 +11,5 @@ slices:
 
   standard:
     essential:
-      - openssh-sftp-server_bins
       - openssh-client_standard
+      - openssh-sftp-server_bins

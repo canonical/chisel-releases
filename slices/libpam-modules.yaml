@@ -9,8 +9,8 @@ slices:
       /etc/security/limits.conf:
       /etc/security/limits.d/:
       /etc/security/namespace.conf:
-      /etc/security/namespace.init:
       /etc/security/namespace.d/:
+      /etc/security/namespace.init:
       /etc/security/pam_env.conf:
       /etc/security/sepermit.conf:
       /etc/security/time.conf:

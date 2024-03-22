@@ -17,7 +17,7 @@ slices:
       /etc/ucf.conf:
       /var/lib/ucf/hashfile: {text: ""}
       /var/lib/ucf/registry: {text: ""}
-  
+
   standard:
     essential:
       - ucf_bins

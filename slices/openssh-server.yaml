@@ -25,9 +25,9 @@ slices:
       - ucf_bins
       - zlib1g_libs
     contents:
-      /usr/sbin/sshd:
-      /usr/lib/openssh/ssh-session-cleanup:
       /etc/init.d/ssh:
+      /usr/lib/openssh/ssh-session-cleanup:
+      /usr/sbin/sshd:
 
   config:
     contents:
