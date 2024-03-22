@@ -1,16 +1,11 @@
 package: ucf
 
-# uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
+# Uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
 # during install and removal.
 slices:
-  base:
-    essential:
-      - ucf_bins
-      - ucf_config
-
   bins:
     essential:
-      - sensible-utils_base
+      - sensible-utils_bins
     contents:
       /usr/bin/lcf:
       /usr/bin/ucf:
@@ -20,3 +15,10 @@ slices:
   config:
     contents:
       /etc/ucf.conf:
+      /var/lib/ucf/hashfile: {text: ""}
+      /var/lib/ucf/registry: {text: ""}
+  
+  standard:
+    essential:
+      - ucf_bins
+      - ucf_config

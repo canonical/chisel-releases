@@ -1,12 +1,6 @@
 package: openssh-server
 
 slices:
-  base:
-    essential:
-      - openssh-server_bins
-      - openssh-server_config
-      - openssh-server_services
-
   bins:
     # openssh-server actually depends on adduser as well to create and remove
     # a user during package install/removal - however we don't support this
@@ -20,22 +14,20 @@ slices:
       - libgssapi-krb5-2_libs
       - libkrb5-3_libs
       - libpam-modules_libs
-      - libpam-runtime_base
       - libpam0g_libs
       - libselinux1_libs
       - libssl3_libs
       - libsystemd0_libs
       - libwrap0_libs
-      - sysvinit-utils_base
-      - openssh-client_base
+      - openssh-client_bins
       - openssh-sftp-server_bins
-      - procps_base
-      - ucf_base
+      - procps_bins
+      - ucf_bins
       - zlib1g_libs
     contents:
-      /etc/init.d/ssh:
       /usr/sbin/sshd:
       /usr/lib/openssh/ssh-session-cleanup:
+      /etc/init.d/ssh:
 
   config:
     contents:
@@ -46,10 +38,22 @@ slices:
       /etc/ufw/applications.d/openssh-server:
       /usr/share/openssh/sshd_config:
       /usr/share/openssh/sshd_config.md5sum:
-      /usr/lib/tmpfiles.d/openssh-server.conf:
 
   services:
     contents:
       /usr/lib/systemd/system/rescue-ssh.target:
       /usr/lib/systemd/system/ssh.service:
       /usr/lib/systemd/system/ssh.socket:
+
+  standard:
+    essential:
+      - libpam-runtime_core
+      - openssh-client_standard
+      - openssh-server_bins
+      - openssh-server_config
+      - procps_standard
+      - ucf_standard
+
+  tmpfiles-d:
+    contents:
+      /usr/lib/tmpfiles.d/openssh-server.conf:

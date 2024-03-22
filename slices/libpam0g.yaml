@@ -3,8 +3,8 @@ package: libpam0g
 slices:
   libs:
     essential:
-      - libc6_libs
       - libaudit1_libs
+      - libc6_libs
     contents:
       /usr/lib/*-linux-*/libpam.so.0*:
       /usr/lib/*-linux-*/libpam_misc.so.0*:

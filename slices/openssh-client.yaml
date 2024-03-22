@@ -1,12 +1,6 @@
 package: openssh-client
 
 slices:
-  base:
-    essential:
-      - openssh-client_bins
-      - openssh-client_config
-      - openssh-client_services
-
   bins:
     essential:
       - libc6_libs
@@ -41,3 +35,8 @@ slices:
     contents:
       /usr/lib/systemd/user/graphical-session-pre.target.wants/ssh-agent.service:
       /usr/lib/systemd/user/ssh-agent.service:
+
+  standard:
+    essential:
+      - openssh-client_bins
+      - openssh-client_config

@@ -1,14 +1,26 @@
 package: libpam-modules
 
 slices:
+  config:
+    contents:
+      /etc/security/access.conf:
+      /etc/security/faillock.conf:
+      /etc/security/group.conf:
+      /etc/security/limits.conf:
+      /etc/security/limits.d/:
+      /etc/security/namespace.conf:
+      /etc/security/namespace.init:
+      /etc/security/namespace.d/:
+      /etc/security/pam_env.conf:
+      /etc/security/sepermit.conf:
+      /etc/security/time.conf:
+
   libs:
     essential:
-      - libpam-modules_config
-      - libc6_libs
       - libaudit1_libs
+      - libc6_libs
       - libcrypt1_libs
       - libdb5.3_libs
-      - libpam-modules-bin_base
       - libpam0g_libs
       - libselinux1_libs
     contents:
@@ -58,17 +70,16 @@ slices:
       /usr/lib/*-linux-*/security/pam_wheel.so:
       /usr/lib/*-linux-*/security/pam_xauth.so:
 
-  config:
+  # Used by pam-auth-update to generate the pam.d/ config
+  # files inside etc. However pam-auth-update relies on
+  # debconf to actually work and discover these packages.
+  pam-config:
     contents:
-      /etc/security/access.conf:
-      /etc/security/faillock.conf:
-      /etc/security/group.conf:
-      /etc/security/limits.conf:
-      /etc/security/namespace.conf:
-      /etc/security/namespace.init:
-      /etc/security/pam_env.conf:
-      /etc/security/sepermit.conf:
-      /etc/security/time.conf:
-      /etc/security/limits.d/:
-      /etc/security/namespace.d/:
       /usr/share/pam-configs/mkhomedir:
+
+  standard:
+    essential:
+      - libpam-modules-bin_bins
+      - libpam-modules-bin_services
+      - libpam-modules_config
+      - libpam-modules_libs

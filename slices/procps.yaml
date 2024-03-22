@@ -1,11 +1,6 @@
 package: procps
 
 slices:
-  base:
-    essential:
-      - procps_bins
-      - procps_config
-
   bins:
     essential:
       - libc6_libs
@@ -47,3 +42,8 @@ slices:
       /etc/sysctl.d/10-zeropage.conf:
       /etc/sysctl.d/README.sysctl:
       /usr/lib/sysctl.d/99-protect-links.conf:
+
+  standard:
+    essential:
+      - procps_bins
+      - procps_config

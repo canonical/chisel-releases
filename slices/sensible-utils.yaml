@@ -1,11 +1,6 @@
 package: sensible-utils
 
 slices:
-  base:
-    essential:
-      - sensible-utils_bins
-      - sensible-utils_data
-
   bins:
     contents:
       /usr/bin/select-editor:
@@ -15,6 +10,11 @@ slices:
       /usr/bin/sensible-terminal:
       /usr/share/sensible-utils/bin/gettext:
 
-  data:
+  mime:
     contents:
       /usr/lib/mime/packages/sensible-utils:
+
+  standard:
+    essential:
+      - sensible-utils_bins
+      - sensible-utils_mime

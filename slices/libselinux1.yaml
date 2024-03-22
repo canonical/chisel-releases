@@ -8,6 +8,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/libselinux.so.1:
 
-  config:
+  tmpfiles-d:
     contents:
       /usr/lib/tmpfiles.d/libselinux1.conf:

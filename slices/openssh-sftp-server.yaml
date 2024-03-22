@@ -4,7 +4,12 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - openssh-client_base
+      - openssh-client_bins
     contents:
       /usr/lib/openssh/sftp-server:
       /usr/lib/sftp-server:
+
+  standard:
+    essential:
+      - openssh-sftp-server_bins
+      - openssh-client_standard
