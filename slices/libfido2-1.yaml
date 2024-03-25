@@ -1,0 +1,12 @@
+package: libfido2-1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcbor0.10_libs
+      - libssl3_libs
+      - libudev1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libfido2.so.1*:

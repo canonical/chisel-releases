@@ -1,0 +1,24 @@
+package: libpam-modules-bin
+
+slices:
+  bins:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libpam0g_libs
+      - libselinux1_libs
+    contents:
+      /usr/sbin/faillock:
+      /usr/sbin/mkhomedir_helper:
+      /usr/sbin/pam_extrausers_chkpwd:
+      /usr/sbin/pam_extrausers_update:
+      /usr/sbin/pam_namespace_helper:
+      /usr/sbin/pam_timestamp_check:
+      /usr/sbin/pwhistory_helper:
+      /usr/sbin/unix_chkpwd:
+      /usr/sbin/unix_update:
+
+  services:
+    contents:
+      /usr/lib/systemd/system/pam_namespace.service:

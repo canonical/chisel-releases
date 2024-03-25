@@ -1,8 +1,8 @@
-package: libcom-err2
+package: libcbor0.10
 
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libcom_err.so.2*:
+      /usr/lib/*-linux-*/libcbor.so.0.10*:
