@@ -1,0 +1,10 @@
+package: libtcnative-1
+
+slices:
+  libs:
+    essential:
+      - libapr1_libs
+      - libc6_libs
+      - libssl3_libs
+    contents:
+      /usr/lib/*-linux-*/libtcnative-1.so*:

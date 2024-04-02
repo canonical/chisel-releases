@@ -1,0 +1,57 @@
+package: tomcat9-common
+
+slices:
+  core:
+    essential:
+      - libtomcat9-java_libs
+      - libtomcat9-java_i18n-common
+      - openssl_bins
+      - libapr1_libs
+    contents:
+      /usr/libexec/tomcat9/tomcat-locate-java.sh:
+      /usr/share/tomcat9/bin/bootstrap.jar:
+      /usr/share/tomcat9/bin/catalina.sh:
+      /usr/share/tomcat9/bin/catalina-tasks.xml:
+      /usr/share/tomcat9/bin/ciphers.sh:
+      /usr/share/tomcat9/bin/configtest.sh:
+      /usr/share/tomcat9/bin/daemon.sh:
+      /usr/share/tomcat9/bin/digest.sh:
+      /usr/share/tomcat9/bin/makebase.sh:
+      /usr/share/tomcat9/bin/setclasspath.sh:
+      /usr/share/tomcat9/bin/shutdown.sh:
+      /usr/share/tomcat9/bin/startup.sh:
+      /usr/share/tomcat9/bin/tomcat-juli.jar:
+      /usr/share/tomcat9/bin/tool-wrapper.sh:
+      /usr/share/tomcat9/bin/version.sh:
+      /usr/share/tomcat9/lib/annotations-api.jar:
+      /usr/share/tomcat9/lib/catalina-ant.jar:
+      /usr/share/tomcat9/lib/catalina-ha.jar:
+      /usr/share/tomcat9/lib/catalina.jar:
+      /usr/share/tomcat9/lib/catalina-storeconfig.jar:
+      /usr/share/tomcat9/lib/catalina-tribes.jar:
+      /usr/share/tomcat9/lib/el-api.jar:
+      /usr/share/tomcat9/lib/jasper-el.jar:
+      /usr/share/tomcat9/lib/jasper.jar:
+      /usr/share/tomcat9/lib/jaspic-api.jar:
+      /usr/share/tomcat9/lib/jsp-api.jar:
+      /usr/share/tomcat9/lib/servlet-api.jar:
+      /usr/share/tomcat9/lib/tomcat-api.jar:
+      /usr/share/tomcat9/lib/tomcat-coyote.jar:
+      /usr/share/tomcat9/lib/tomcat-dbcp.jar:
+      /usr/share/tomcat9/lib/tomcat-i18n-es.jar:
+      /usr/share/tomcat9/lib/tomcat-i18n-fr.jar:
+      /usr/share/tomcat9/lib/tomcat-i18n-ja.jar:
+      /usr/share/tomcat9/lib/tomcat-i18n-ru.jar:
+      /usr/share/tomcat9/lib/tomcat-jdbc.jar:
+      /usr/share/tomcat9/lib/tomcat-jni.jar:
+      /usr/share/tomcat9/lib/tomcat-util.jar:
+      /usr/share/tomcat9/lib/tomcat-util-scan.jar:
+      /usr/share/tomcat9/lib/tomcat-websocket.jar:
+      /usr/share/tomcat9/lib/websocket-api.jar:
+  doc :
+    contents:
+      /usr/share/doc/tomcat9-common/changelog.Debian.gz:
+      /usr/share/doc/tomcat9-common/copyright:
+      /usr/share/doc/tomcat9-common/README.Debian:
+      /usr/share/doc/tomcat9-common/RELEASE-NOTES.gz:
+      /usr/share/doc/tomcat9-common/RUNNING.txt.gz:

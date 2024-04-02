@@ -1,0 +1,76 @@
+
+package: libtomcat9-java
+
+slices:
+  i18n-common:
+    contents:
+      /usr/share/java/tomcat9-i18n-es-9.*.jar:
+      /usr/share/java/tomcat9-i18n-es.jar:
+      /usr/share/java/tomcat9-i18n-fr-9.*.jar:
+      /usr/share/java/tomcat9-i18n-fr.jar:
+      /usr/share/java/tomcat9-i18n-ja-9.*.jar:
+      /usr/share/java/tomcat9-i18n-ja.jar:
+      /usr/share/java/tomcat9-i18n-ru-9.*.jar:
+      /usr/share/java/tomcat9-i18n-ru.jar:
+
+  i18n-extra:
+    contents:
+      /usr/share/java/tomcat9-i18n-cs-9.*.jar:
+      /usr/share/java/tomcat9-i18n-cs.jar:
+      /usr/share/java/tomcat9-i18n-de-9.*.jar:
+      /usr/share/java/tomcat9-i18n-de.jar:
+      /usr/share/java/tomcat9-i18n-ko-9.*.jar:
+      /usr/share/java/tomcat9-i18n-ko.jar:
+      /usr/share/java/tomcat9-i18n-pt-BR-9.*.jar:
+      /usr/share/java/tomcat9-i18n-pt-BR.jar:
+      /usr/share/java/tomcat9-i18n-zh-CN-9.*.jar:
+      /usr/share/java/tomcat9-i18n-zh-CN.jar:
+
+  libs:
+    essential:
+      - libeclipse-jdt-core-java_libs
+    contents:
+      /usr/share/java/tomcat9-annotations-api-9*.jar:
+      /usr/share/java/tomcat9-annotations-api.jar:
+      /usr/share/java/tomcat9-api-9.*.jar:
+      /usr/share/java/tomcat9-api.jar:
+      /usr/share/java/tomcat9-catalina-9.*.jar:
+      /usr/share/java/tomcat9-catalina-ant-9.*.jar:
+      /usr/share/java/tomcat9-catalina-ant.jar:
+      /usr/share/java/tomcat9-catalina-ha-9.*.jar:
+      /usr/share/java/tomcat9-catalina-ha.jar:
+      /usr/share/java/tomcat9-catalina.jar:
+      /usr/share/java/tomcat9-coyote-9.*.jar:
+      /usr/share/java/tomcat9-coyote.jar:
+      /usr/share/java/tomcat9-dbcp-9.*.jar:
+      /usr/share/java/tomcat9-dbcp.jar:
+      /usr/share/java/tomcat9-el-api-9.*.jar:
+      /usr/share/java/tomcat9-el-api.jar:
+      /usr/share/java/tomcat9-jasper-9.*.jar:
+      /usr/share/java/tomcat9-jasper-el-9.*.jar:
+      /usr/share/java/tomcat9-jasper-el.jar:
+      /usr/share/java/tomcat9-jasper.jar:
+      /usr/share/java/tomcat9-jaspic-api-9.*.jar:
+      /usr/share/java/tomcat9-jaspic-api.jar:
+      /usr/share/java/tomcat9-jdbc-9.*.jar:
+      /usr/share/java/tomcat9-jdbc.jar:
+      /usr/share/java/tomcat9-jni-9.*.jar:
+      /usr/share/java/tomcat9-jni.jar:
+      /usr/share/java/tomcat9-jsp-api-9.*.jar:
+      /usr/share/java/tomcat9-jsp-api.jar:
+      /usr/share/java/tomcat9-juli-9.*.jar:
+      /usr/share/java/tomcat9-juli.jar:
+      /usr/share/java/tomcat9-servlet-api-9.*.jar:
+      /usr/share/java/tomcat9-servlet-api.jar:
+      /usr/share/java/tomcat9-storeconfig-9.*.jar:
+      /usr/share/java/tomcat9-storeconfig.jar:
+      /usr/share/java/tomcat9-tribes-9.*.jar:
+      /usr/share/java/tomcat9-tribes.jar:
+      /usr/share/java/tomcat9-util-9.*.jar:
+      /usr/share/java/tomcat9-util.jar:
+      /usr/share/java/tomcat9-util-scan-9.*.jar:
+      /usr/share/java/tomcat9-util-scan.jar:
+      /usr/share/java/tomcat9-websocket-9.*.jar:
+      /usr/share/java/tomcat9-websocket-api-9.*.jar:
+      /usr/share/java/tomcat9-websocket-api.jar:
+      /usr/share/java/tomcat9-websocket.jar:

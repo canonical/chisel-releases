@@ -1,0 +1,6 @@
+package: libeclipse-jdt-core-java
+
+slices:
+  libs:
+    content:
+      /usr/share/java/eclipse-jdt-core*.jar:
