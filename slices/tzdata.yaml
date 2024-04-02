@@ -71,7 +71,7 @@ slices:
     contents:
       /usr/share/zoneinfo/Australia/*:
 
-  # Some counties, although geographically belonging to a continent, are kept
+  # Some countries, although geographically belonging to a continent, are kept
   # in their own slice since that is how they are structured in the tzdata deb.
   brazil:
     essential:
