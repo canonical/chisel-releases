@@ -5,4 +5,12 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libcom_err.so.*:
+      /lib/*-linux-*/libcom_err.so.*: {arch: amd64}
+      /usr/lib/*-linux-*/libcom_err.so.*:
+        arch:
+          - arm64
+          - armhf
+          - s390x
+          - i386
+          - ppc64el
+          - riscv64
