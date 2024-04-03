@@ -9,7 +9,7 @@ slices:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf:
-      
+
   config:
     contents:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans-mono.conf:

@@ -4,7 +4,7 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - libselinux1_libs      
+      - libselinux1_libs
     contents:
       /usr/bin/find:
       /usr/bin/xargs:
