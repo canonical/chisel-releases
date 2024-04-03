@@ -8,6 +8,5 @@ slices:
     contents:
       /etc/default/cacerts:
       /etc/ssl/certs/java/:
-
-    # we need to run `keytool` in postinst, but we can't yet do
-    # this from a mutation script
+      # we need to run `keytool` in postinst, but we can't yet do
+      # this from a mutation script
