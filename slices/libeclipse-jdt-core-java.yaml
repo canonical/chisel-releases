@@ -2,5 +2,5 @@ package: libeclipse-jdt-core-java
 
 slices:
   libs:
-    content:
+    contents:
       /usr/share/java/eclipse-jdt-core*.jar:
