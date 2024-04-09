@@ -6,5 +6,4 @@ slices:
       - liblttng-ust-common1t64_libs
       - libnuma1_libs
     contents:
-      /usr/lib/*-linux-*/liblttng-ust-ctl.so.*:
-        {arch: [amd64], precedes: liblttng-ust-ctl5}
+      /usr/lib/*-linux-*/liblttng-ust-ctl.so.*: {arch: [amd64]}

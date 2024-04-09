@@ -4,5 +4,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/liblttng-ust-common.so.*:
-        {arch: [amd64], precedes: liblttng-ust-common1}
+      /usr/lib/*-linux-*/liblttng-ust-common.so.*: {arch: [amd64]}
