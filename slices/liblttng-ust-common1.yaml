@@ -5,4 +5,4 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/liblttng-ust-common.so.*:
-        { arch: [arm64, armhf, riscv64, ppc64el, s390x] }
+        {arch: [arm64, armhf, riscv64, ppc64el, s390x]}

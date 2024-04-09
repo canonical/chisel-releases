@@ -7,4 +7,4 @@ slices:
       - libnuma1_libs
     contents:
       /usr/lib/*-linux-*/liblttng-ust-ctl.so.*:
-        { arch: [arm64, armhf, riscv64, ppc64el, s390x] }
+        {arch: [arm64, armhf, riscv64, ppc64el, s390x]}

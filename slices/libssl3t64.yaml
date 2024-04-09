@@ -5,9 +5,12 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/engines-3/afalg.so: {arch: [amd64]}
-      /usr/lib/*-linux-*/engines-3/loader_attic.so: {arch: [amd64]}
-      /usr/lib/*-linux-*/engines-3/padlock.so: {arch: [amd64]}
-      /usr/lib/*-linux-*/libcrypto.so.*: {arch: [amd64]}
-      /usr/lib/*-linux-*/libssl.so.*: {arch: [amd64]}
-      /usr/lib/*-linux-*/ossl-modules/legacy.so: {arch: [amd64]}
+      /usr/lib/*-linux-*/engines-3/afalg.so: {arch: [amd64], precedes: libssl3}
+      /usr/lib/*-linux-*/engines-3/loader_attic.so:
+        {arch: [amd64], precedes: libssl3}
+      /usr/lib/*-linux-*/engines-3/padlock.so:
+        {arch: [amd64], precedes: libssl3}
+      /usr/lib/*-linux-*/libcrypto.so.*: {arch: [amd64], precedes: libssl3}
+      /usr/lib/*-linux-*/libssl.so.*: {arch: [amd64], precedes: libssl3}
+      /usr/lib/*-linux-*/ossl-modules/legacy.so:
+        {arch: [amd64], precedes: libssl3}
