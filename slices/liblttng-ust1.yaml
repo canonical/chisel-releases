@@ -7,12 +7,12 @@ slices:
       - liblttng-ust-ctl5_libs
       - libnuma1_libs
     contents:
-      /usr/lib/*-linux-*/liblttng-ust-cyg-profile-fast.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-cyg-profile.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-dl.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-fd.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-fork.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-libc-wrapper.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-pthread-wrapper.so.*:
-      /usr/lib/*-linux-*/liblttng-ust-tracepoint.so.*:
-      /usr/lib/*-linux-*/liblttng-ust.so.*:
+      /usr/lib/*-linux-*/liblttng-ust-cyg-profile-fast.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-cyg-profile.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-dl.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-fd.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-fork.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-libc-wrapper.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-pthread-wrapper.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust-tracepoint.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
+      /usr/lib/*-linux-*/liblttng-ust.so.*: {arch: [arm64, armhf, riscv64, ppc64el, s390x]}
