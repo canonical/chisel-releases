@@ -55,7 +55,6 @@ slices:
       /usr/lib/python3.12/glob.py:
       /usr/lib/python3.12/hashlib.py:
       /usr/lib/python3.12/heapq.py:
-      /usr/lib/python3.12/imp.py:
       /usr/lib/python3.12/importlib/**:
       /usr/lib/python3.12/inspect.py:
       /usr/lib/python3.12/io.py:
@@ -109,5 +108,4 @@ slices:
       /usr/lib/python3.12/uu.py:
       /usr/lib/python3.12/warnings.py:
       /usr/lib/python3.12/weakref.py:
-      /usr/lib/python3.12/zipfile.py:
       /usr/lib/python3.12/zipimport.py:
