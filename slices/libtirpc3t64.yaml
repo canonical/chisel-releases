@@ -7,4 +7,4 @@ slices:
       - libgssapi-krb5-2_libs
       - libtirpc-common_config
     contents:
-      /lib/*-linux-*/libtirpc.so.3*:
+      /usr/lib/*-linux-*/libtirpc.so.3*:
