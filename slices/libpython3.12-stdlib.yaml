@@ -246,7 +246,6 @@ slices:
       - libpython3.12-stdlib_markup-tools
       - libpython3.12-stdlib_numeric
       - libpython3.12-stdlib_pydoc
-      - libuuid1_libs
     contents:
       /usr/lib/python3.12/cgi.py:
       /usr/lib/python3.12/cgitb.py:
@@ -369,10 +368,8 @@ slices:
   unix:
     essential:
       - libcrypt1_libs
-      - libnsl2_libs
       - libpython3.12-stdlib_core
       - libpython3.12-stdlib_frameworks
-      - libtirpc3t64_libs
     contents:
       /usr/lib/python3.12/crypt.py:
       /usr/lib/python3.12/lib-dynload/_crypt.cpython-312-*-linux-*.so:
