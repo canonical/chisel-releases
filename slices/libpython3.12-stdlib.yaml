@@ -21,6 +21,8 @@ slices:
       - netbase_config
     contents:
       /usr/lib/python3.12/_compression.py:
+      /usr/lib/python3.12/_pydatetime.py:
+      /usr/lib/python3.12/_pylong.py:
       /usr/lib/python3.12/bz2.py:
       /usr/lib/python3.12/contextvars.py:
       /usr/lib/python3.12/dataclasses.py:
@@ -167,13 +169,17 @@ slices:
       /usr/lib/python3.12/doctest.py:
       /usr/lib/python3.12/lib-dynload/_testbuffer.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_testcapi.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testclinic.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_testimportmultiple.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_testinternalcapi.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_testmultiphase.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_testsinglephase.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_xxinterpchannels.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_xxsubinterpreters.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_xxtestfuzz.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/xxlimited.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/xxlimited_35.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/xxsubtype.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/test/**:
       /usr/lib/python3.12/unittest/**:
 

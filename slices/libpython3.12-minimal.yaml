@@ -108,4 +108,5 @@ slices:
       /usr/lib/python3.12/uu.py:
       /usr/lib/python3.12/warnings.py:
       /usr/lib/python3.12/weakref.py:
+      /usr/lib/python3.12/zipfile/**:
       /usr/lib/python3.12/zipimport.py:
