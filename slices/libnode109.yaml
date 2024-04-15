@@ -1,4 +1,4 @@
-package: libnode108
+package: libnode109
 
 slices:
   libs:
@@ -20,4 +20,4 @@ slices:
       - node-undici_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libnode.so.108:
+      /usr/lib/*-linux-*/libnode.so.109:
