@@ -14,7 +14,7 @@ slices:
       - libnghttp2-14_libs
       - libssl3t64_libs
       - libstdc++6_libs
-      - libuv1_libs
+      - libuv1t64_libs
       - node-acorn_libs
       - node-cjs-module-lexer_libs
       - node-undici_libs
