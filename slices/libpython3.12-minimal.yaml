@@ -1,0 +1,113 @@
+package: libpython3.12-minimal
+
+# Most of the python3.12 standard libraries are split into
+# two major packages:
+# - libpython3.12-minimal (this one)
+# - libpython3.12-stdlib
+# While the libpython3.12-stdlib package has been chiselled logically
+# into granular slices, the same hasn't been done for this package.
+# The reason is simple, the libraries in this package are tightly
+# dependent upon each other.
+slices:
+  config:
+    contents:
+      /etc/python3.12/sitecustomize.py:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libpython3.12-minimal_config
+      - libssl3t64_libs
+    contents:
+      /usr/lib/python3.12/__future__.py:
+      /usr/lib/python3.12/_collections_abc.py:
+      /usr/lib/python3.12/_compat_pickle.py:
+      /usr/lib/python3.12/_py_abc.py:
+      /usr/lib/python3.12/_sitebuiltins.py:
+      /usr/lib/python3.12/_strptime.py:
+      /usr/lib/python3.12/_sysconfigdata__*-linux-*.py:
+      /usr/lib/python3.12/_threading_local.py:
+      /usr/lib/python3.12/_weakrefset.py:
+      /usr/lib/python3.12/abc.py:
+      /usr/lib/python3.12/argparse.py:
+      /usr/lib/python3.12/ast.py:
+      /usr/lib/python3.12/base64.py:
+      /usr/lib/python3.12/bisect.py:
+      /usr/lib/python3.12/calendar.py:
+      /usr/lib/python3.12/codecs.py:
+      /usr/lib/python3.12/collections/**:
+      /usr/lib/python3.12/compileall.py:
+      /usr/lib/python3.12/configparser.py:
+      /usr/lib/python3.12/contextlib.py:
+      /usr/lib/python3.12/copy.py:
+      /usr/lib/python3.12/copyreg.py:
+      /usr/lib/python3.12/csv.py:
+      /usr/lib/python3.12/datetime.py:
+      /usr/lib/python3.12/dis.py:
+      /usr/lib/python3.12/email/**:
+      /usr/lib/python3.12/encodings/**:
+      /usr/lib/python3.12/enum.py:
+      /usr/lib/python3.12/filecmp.py:
+      /usr/lib/python3.12/fnmatch.py:
+      /usr/lib/python3.12/functools.py:
+      /usr/lib/python3.12/genericpath.py:
+      /usr/lib/python3.12/getopt.py:
+      /usr/lib/python3.12/glob.py:
+      /usr/lib/python3.12/hashlib.py:
+      /usr/lib/python3.12/heapq.py:
+      /usr/lib/python3.12/imp.py:
+      /usr/lib/python3.12/importlib/**:
+      /usr/lib/python3.12/inspect.py:
+      /usr/lib/python3.12/io.py:
+      /usr/lib/python3.12/ipaddress.py:
+      /usr/lib/python3.12/keyword.py:
+      /usr/lib/python3.12/lib-dynload/_hashlib.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/lib-dynload/_ssl.cpython-312-*-linux-*.so:
+      /usr/lib/python3.12/linecache.py:
+      /usr/lib/python3.12/locale.py:
+      /usr/lib/python3.12/logging/**:
+      /usr/lib/python3.12/opcode.py:
+      /usr/lib/python3.12/operator.py:
+      /usr/lib/python3.12/optparse.py:
+      /usr/lib/python3.12/os.py:
+      /usr/lib/python3.12/pathlib.py:
+      /usr/lib/python3.12/pickle.py:
+      /usr/lib/python3.12/pkgutil.py:
+      /usr/lib/python3.12/platform.py:
+      /usr/lib/python3.12/posixpath.py:
+      /usr/lib/python3.12/py_compile.py:
+      /usr/lib/python3.12/quopri.py:
+      /usr/lib/python3.12/random.py:
+      /usr/lib/python3.12/re/**:
+      /usr/lib/python3.12/reprlib.py:
+      /usr/lib/python3.12/runpy.py:
+      /usr/lib/python3.12/selectors.py:
+      /usr/lib/python3.12/signal.py:
+      /usr/lib/python3.12/site.py:
+      /usr/lib/python3.12/sitecustomize.py:
+      /usr/lib/python3.12/socket.py:
+      /usr/lib/python3.12/sre_compile.py:
+      /usr/lib/python3.12/sre_constants.py:
+      /usr/lib/python3.12/sre_parse.py:
+      /usr/lib/python3.12/ssl.py:
+      /usr/lib/python3.12/stat.py:
+      /usr/lib/python3.12/string.py:
+      /usr/lib/python3.12/stringprep.py:
+      /usr/lib/python3.12/struct.py:
+      /usr/lib/python3.12/subprocess.py:
+      /usr/lib/python3.12/sysconfig.py:
+      /usr/lib/python3.12/tempfile.py:
+      /usr/lib/python3.12/textwrap.py:
+      /usr/lib/python3.12/threading.py:
+      /usr/lib/python3.12/token.py:
+      /usr/lib/python3.12/tokenize.py:
+      /usr/lib/python3.12/traceback.py:
+      /usr/lib/python3.12/tracemalloc.py:
+      /usr/lib/python3.12/types.py:
+      /usr/lib/python3.12/typing.py:
+      /usr/lib/python3.12/urllib/**:
+      /usr/lib/python3.12/uu.py:
+      /usr/lib/python3.12/warnings.py:
+      /usr/lib/python3.12/weakref.py:
+      /usr/lib/python3.12/zipfile.py:
+      /usr/lib/python3.12/zipimport.py:
