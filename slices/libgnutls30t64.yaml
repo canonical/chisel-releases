@@ -8,7 +8,7 @@ slices:
       - libgmp10_libs
       - libhogweed6t64_libs
       - libidn2-0_libs
-      - libnettle8_libs
+      - libnettle8t64_libs
       - libp11-kit0_libs
       - libtasn1-6_libs
       - libunistring5_libs

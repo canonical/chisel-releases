@@ -6,6 +6,6 @@ slices:
     essential:
       - libc6_libs
       - libgmp10_libs
-      - libnettle8_libs
+      - libnettle8t64_libs
     contents:
       /usr/lib/*-linux-*/libhogweed.so.6*:
