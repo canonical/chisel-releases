@@ -13,7 +13,7 @@ slices:
       - libpsl5_libs
       - librtmp1_libs
       - libssh-4_libs
-      - libssl3_libs
+      - libssl3t64_libs
       - libzstd1_libs
       - zlib1g_libs
     contents:
