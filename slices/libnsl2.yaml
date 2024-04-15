@@ -4,6 +4,6 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libtirpc3_libs
+      - libtirpc3t64_libs
     contents:
       /usr/lib/*-linux-*/libnsl.so.2*:

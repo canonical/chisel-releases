@@ -6,8 +6,8 @@ slices:
     essential:
       - libc6_libs
       - libgmp10_libs
-      - libgnutls30_libs
-      - libhogweed6_libs
+      - libgnutls30t64_libs
+      - libhogweed6t64_libs
       - libnettle8_libs
       - zlib1g_libs
     contents:

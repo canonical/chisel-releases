@@ -1,12 +1,12 @@
 # GNU TLS library - main runtime library
-package: libgnutls30
+package: libgnutls30t64
 
 slices:
   libs:
-    essentials:
+    essential:
       - libc6_libs
       - libgmp10_libs
-      - libhogweed6_libs
+      - libhogweed6t64_libs
       - libidn2-0_libs
       - libnettle8_libs
       - libp11-kit0_libs

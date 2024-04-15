@@ -21,7 +21,7 @@ slices:
       - libc6_libs
       - libgmp10_libs
       - libmpfr6_libs
-      - libreadline8_libs
+      - libreadline8t64_libs
       - libsigsegv2_libs
     contents:
       /usr/lib/*-linux-*/gawk/*.so:
