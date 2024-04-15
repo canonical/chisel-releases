@@ -20,7 +20,6 @@ slices:
       - media-types_data
       - netbase_config
     contents:
-      /usr/lib/python3.12/_bootsubprocess.py:
       /usr/lib/python3.12/_compression.py:
       /usr/lib/python3.12/bz2.py:
       /usr/lib/python3.12/contextvars.py:
@@ -35,7 +34,6 @@ slices:
       /usr/lib/python3.12/lib-dynload/_lzma.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_multibytecodec.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/_queue.cpython-312-*-linux-*.so:
-      /usr/lib/python3.12/lib-dynload/_typing.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/mmap.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lzma.py:
       /usr/lib/python3.12/mimetypes.py:
@@ -187,7 +185,6 @@ slices:
       - libpython3.12-stdlib_osx-support
     contents:
       /usr/lib/python3.12/_distutils_system_mod.py:
-      /usr/lib/python3.12/distutils/**:
       /usr/lib/python3.12/venv/**:
       /usr/lib/python3.12/zipapp.py:
 
@@ -252,11 +249,9 @@ slices:
       /usr/lib/python3.12/http/cookies.py:
       /usr/lib/python3.12/http/server.py:
       /usr/lib/python3.12/imaplib.py:
-      /usr/lib/python3.12/lib-dynload/_uuid.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/nntplib.py:
       /usr/lib/python3.12/nturl2path.py:
       /usr/lib/python3.12/poplib.py:
-      /usr/lib/python3.12/smtpd.py:
       /usr/lib/python3.12/smtplib.py:
       /usr/lib/python3.12/telnetlib.py:
       /usr/lib/python3.12/uuid.py:
@@ -271,9 +266,7 @@ slices:
       - libpython3.12-stdlib_concurrency
       - libpython3.12-stdlib_core
     contents:
-      /usr/lib/python3.12/asynchat.py:
       /usr/lib/python3.12/asyncio/**:
-      /usr/lib/python3.12/asyncore.py:
       /usr/lib/python3.12/lib-dynload/_asyncio.cpython-312-*-linux-*.so:
 
   # Python Language Services
@@ -377,7 +370,6 @@ slices:
     contents:
       /usr/lib/python3.12/crypt.py:
       /usr/lib/python3.12/lib-dynload/_crypt.cpython-312-*-linux-*.so:
-      /usr/lib/python3.12/lib-dynload/nis.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/resource.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/lib-dynload/termios.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/pipes.py:
