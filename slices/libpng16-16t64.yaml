@@ -1,0 +1,9 @@
+package: libpng16-16t64
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libpng16.so.16*:
