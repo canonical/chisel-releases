@@ -1,0 +1,10 @@
+package: libaudit1
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libaudit-common_config
+      - libcap-ng0_libs
+    contents:
+      /lib/*-linux-*/libaudit.so.1*:

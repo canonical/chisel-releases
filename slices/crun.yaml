@@ -1,0 +1,13 @@
+package: crun
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libseccomp2_libs
+      - libsystemd0_libs
+      - libyajl2_libs
+    contents:
+      /usr/bin/crun:
+      /usr/lib/*-linux-*/libcrun.a:
