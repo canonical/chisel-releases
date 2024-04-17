@@ -1,0 +1,12 @@
+package: uidmap
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+      - libaudit1_libs
+      - libsubid4_libs
+    contents:
+      /usr/bin/newgidmap:
+      /usr/bin/newuidmap:

@@ -1,0 +1,6 @@
+package: libaudit-common
+
+slices:
+  config:
+    contents:
+      /etc/libaudit.conf:
