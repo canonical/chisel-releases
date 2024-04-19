@@ -1,4 +1,4 @@
-package: libreadline8
+package: libreadline8t64
 
 slices:
   libs:

@@ -4,7 +4,7 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgnutls30_libs
+      - libgnutls30t64_libs
       - libsasl2-2_libs
     contents:
       /usr/lib/*-linux-*/liblber.so.2*:

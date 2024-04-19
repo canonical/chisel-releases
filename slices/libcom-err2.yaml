@@ -5,4 +5,4 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libcom_err.so.*:
+      /usr/lib/*-linux-*/libcom_err.so.*:

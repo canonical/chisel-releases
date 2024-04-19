@@ -1,10 +1,10 @@
-package: liblttng-ust1
+package: liblttng-ust1t64
 slices:
   libs:
     essential:
       - libc6_libs
-      - liblttng-ust-common1_libs
-      - liblttng-ust-ctl5_libs
+      - liblttng-ust-common1t64_libs
+      - liblttng-ust-ctl5t64_libs
       - libnuma1_libs
     contents:
       /usr/lib/*-linux-*/liblttng-ust-cyg-profile-fast.so.*:

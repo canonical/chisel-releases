@@ -1,4 +1,4 @@
-package: libuv1
+package: libuv1t64
 
 slices:
   libs:

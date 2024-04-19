@@ -1,4 +1,4 @@
-package: libtirpc3
+package: libtirpc3t64
 
 slices:
   libs:
@@ -7,4 +7,4 @@ slices:
       - libgssapi-krb5-2_libs
       - libtirpc-common_config
     contents:
-      /lib/*-linux-*/libtirpc.so.3*:
+      /usr/lib/*-linux-*/libtirpc.so.3*:

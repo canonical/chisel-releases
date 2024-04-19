@@ -1,4 +1,4 @@
-package: liblttng-ust-common1
+package: liblttng-ust-common1t64
 slices:
   libs:
     essential:
