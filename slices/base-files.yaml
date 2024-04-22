@@ -60,3 +60,10 @@ slices:
       /etc/lsb-release:
       /etc/os-release:
       /usr/lib/os-release:
+
+  # Artficial slice which should generate the Chisel DB.
+  chisel:
+    essential:
+      - base-files_var
+    contents:
+      /var/lib/chisel/**: {generate: manifest}
