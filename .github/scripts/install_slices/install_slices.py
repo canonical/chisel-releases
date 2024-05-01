@@ -21,15 +21,25 @@ options:
 """
 
 import argparse
+from apt.debfile import DebPackage
 from dataclasses import dataclass
 import logging
 import os
+import pathlib
 import subprocess
 import tempfile
 import sys
 
+import apt_pkg
 import requests
 import yaml
+
+
+CHISEL_PKG_CACHE = pathlib.Path.home() / ".cache/chisel/sha256"
+
+
+class MissingCopyright(Exception):
+    pass
 
 
 def configure_logging() -> None:
@@ -252,11 +262,14 @@ def ignore_missing_packages(
     return filtered, ignored
 
 
-def install_slice(slice: str, arch: str, release: str) -> None:
+def install_slice(
+    pkg: str, slice: str, arch: str, release: str, missing_copyright: dict
+) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    logging.info("Installing %s on %s...", slice, arch)
+    slice_name = full_slice_name(pkg, slice)
+    logging.info("Installing %s on %s...", slice_name, arch)
     with tempfile.TemporaryDirectory() as tmpfs:
         res = subprocess.run(
             args=[
@@ -268,7 +281,7 @@ def install_slice(slice: str, arch: str, release: str) -> None:
                 release,
                 "--root",
                 tmpfs,
-                slice,
+                slice_name,
             ],
             capture_output=True,
             text=True,
@@ -280,6 +293,49 @@ def install_slice(slice: str, arch: str, release: str) -> None:
                 res.stderr.rstrip(),
             )
             sys.exit(res.returncode)
+        # Check if the copyright file has been installed with this slice
+        if list(
+            filter(
+                lambda path: f"/usr/share/doc/{pkg}/copyright" in str(path)
+                and path.is_file(),
+                pathlib.Path(tmpfs).rglob("*"),
+            )
+        ):
+            missing_copyright[slice_name] = False
+        else:
+            missing_copyright[slice_name] = True
+
+
+def deb_has_copyright_file(pkg: str) -> bool:
+    """
+    Checks if a deb's contents comprise a copyright file
+
+    NOTE: this is a temporary and convoluted implementation, as at the moment
+    we don't have an easy and reliable way to check which deb was used for
+    the installation (at least not without duplicating a some of the Chisel
+    codebase).
+
+    TODO: update this function once the Chisel DB is available, as the pkg
+    SHAs will be available from the DB itself.
+    """
+    pkg_shas = os.popen(
+        f"grep -A 25 -R 'Package: {pkg}$' {str(CHISEL_PKG_CACHE)} | grep SHA256 | cut -d ' ' -f 2"
+    ).read()
+    for deb in pkg_shas.splitlines():
+        deb_path = pathlib.Path(CHISEL_PKG_CACHE / deb)
+        if not deb_path.is_file():
+            continue
+        try:
+            deb = DebPackage(str(deb_path))
+        except apt_pkg.Error:
+            # Not a deb file
+            continue
+        else:
+            if deb.pkgname == pkg:
+                if f"usr/share/doc/{pkg}/copyright" in deb.filelist:
+                    return True
+
+    return False
 
 
 def main() -> None:
@@ -319,6 +375,11 @@ def main() -> None:
         return
     # Install the slices in each package.
     for pkg in packages:
+        # Keep track of whether the copyright file is installed on every "cut"
+        # This should always be the case, whether enforced by a global "essential"
+        # or Chisel itself. Exception: the copyright file will not be installed
+        # if it doesn't exist in the deb itself.
+        missing_copyright = {}
         for slice in pkg.slices:
             if cli_args.dry_run:
                 logging.info(
@@ -328,10 +389,20 @@ def main() -> None:
                 )
             else:
                 install_slice(
-                    full_slice_name(pkg.package, slice),
+                    pkg.package,
+                    slice,
                     cli_args.arch,
                     cli_args.release,
+                    missing_copyright,
                 )
+
+            if any(missing_copyright.values()):
+                # Does the copyright file exist in the deb?
+                if deb_has_copyright_file(pkg.package):
+                    err = "{} has a copyright file but it wasn't installed with: {}".format(
+                        pkg.package, ",".join(missing_copyright.keys())
+                    )
+                    raise MissingCopyright(err)
 
 
 if __name__ == "__main__":

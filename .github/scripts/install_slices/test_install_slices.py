@@ -11,6 +11,7 @@ import unittest
 import unittest.mock
 
 from install_slices import (
+    CHISEL_PKG_CACHE,
     Package,
     Archive,
     parse_archive,
@@ -20,22 +21,23 @@ from install_slices import (
     ensure_package_existence,
     ignore_missing_packages,
     install_slice,
+    deb_has_copyright_file,
     main,
 )
 
 
 # Default archive for testing. Copied from the ubuntu-22.04 release.
 DEFAULT_CHISEL_YAML = """
-format: chisel-v1
+format: v1
 
 archives:
     ubuntu:
         version: 22.04
         components: [main, universe]
         suites: [jammy, jammy-security, jammy-updates]
-        v1-public-keys: [ubuntu-archive-key-2018]
+        public-keys: [ubuntu-archive-key-2018]
 
-v1-public-keys:
+public-keys:
     # Ubuntu Archive Automatic Signing Key (2018) <ftpmaster@ubuntu.com>
     # rsa4096/f6ecb3762474eda9d21b7022871920d1991bc93c 2018-09-17T15:01:46Z
     ubuntu-archive-key-2018:
@@ -214,13 +216,45 @@ class TestScriptMethods(unittest.TestCase):
         """
         Test install_slice()
         """
-        install_slice("libc6_libs", "amd64", "ubuntu-22.04")
+        mock_missing_copyright = {}
+        install_slice("libc6", "libs", "amd64", "ubuntu-22.04", mock_missing_copyright)
+        assert mock_missing_copyright == {"libc6_libs": False}
         #
         try:
-            install_slice("foo123_bar", "amd64", "ubuntu-22.04")
+            install_slice(
+                "foo123", "bar", "amd64", "ubuntu-22.04", mock_missing_copyright
+            )
             assert False
         except SystemExit as e:
             self.assertEqual(e.code, 1)
+
+    @unittest.mock.patch("os.popen")
+    @unittest.mock.patch("pathlib.Path.is_file")
+    @unittest.mock.patch("apt.debfile.DebPackage.__new__")
+    def test_deb_has_copyright_file(self, mock_debpackage, mock_is_file, mock_popen):
+        """
+        Test deb_has_copyright_file()
+        """
+        mock_popen.return_value.read.return_value = "sha\n"
+
+        # If SHA is not a file, we keep skipping
+        mock_is_file.return_value = False
+        assert deb_has_copyright_file("mock_pkg") == False
+        mock_debpackage.assert_not_called()
+        mock_is_file.assert_called_once()
+
+        # If SHA is a deb file but the package name doesn't match, we skip
+        mock_is_file.return_value = True
+        mock_deb = unittest.mock.MagicMock()
+        mock_deb.pkgname = "wrong"
+        mock_debpackage.return_value = mock_deb
+        assert deb_has_copyright_file("mock_pkg") == False
+
+        # If the deb matches and its contents have a copyright, return True
+        mock_deb.pkgname = "mock_pkg"
+        mock_deb.filelist = "something\nusr/share/doc/mock_pkg/copyright\nextra"
+        mock_debpackage.return_value = mock_deb
+        assert deb_has_copyright_file("mock_pkg") == True
 
     def test_main(self):
         """
