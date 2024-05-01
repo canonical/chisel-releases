@@ -1,5 +1,8 @@
 package: libgssapi-krb5-2
 
+essential:
+  - libgssapi-krb5-2_copyright
+
 slices:
   libs:
     essential:
@@ -11,3 +14,7 @@ slices:
     contents:
       /etc/gss/mech.d/:
       /usr/lib/*-linux-*/libgssapi_krb5.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgssapi-krb5-2/copyright:

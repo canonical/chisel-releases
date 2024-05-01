@@ -1,5 +1,8 @@
 package: libmpdec3
 
+essential:
+  - libmpdec3_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libmpdec++.so.*:
       /usr/lib/*-linux-*/libmpdec.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmpdec3/copyright:

@@ -1,5 +1,8 @@
 package: libapr1
 
+essential:
+  - libapr1_copyright
+
 slices:
   libs:
     essential:
@@ -7,3 +10,7 @@ slices:
       - libuuid1_libs
     contents:
       /usr/lib/*-linux-*/libapr-1.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libapr1/copyright:

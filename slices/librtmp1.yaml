@@ -1,6 +1,9 @@
 # Toolkit for RTMP streams
 package: librtmp1
 
+essential:
+  - librtmp1_copyright
+
 slices:
   libs:
     essential:
@@ -12,3 +15,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/librtmp.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/librtmp1/copyright:
