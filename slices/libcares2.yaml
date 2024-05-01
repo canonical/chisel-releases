@@ -1,4 +1,4 @@
-package: libc-ares2
+package: libcares2
 
 slices:
   libs:
