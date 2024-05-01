@@ -1,5 +1,8 @@
 package: libnode109
 
+essential:
+  - libnode109_copyright
+
 slices:
   libs:
     essential:
@@ -21,3 +24,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libnode.so.109:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnode109/copyright:

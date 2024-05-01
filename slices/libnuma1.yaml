@@ -1,7 +1,14 @@
 package: libnuma1
+essential:
+  - libnuma1_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libnuma.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnuma1/copyright:

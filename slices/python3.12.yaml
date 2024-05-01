@@ -1,5 +1,8 @@
 package: python3.12
 
+essential:
+  - python3.12_copyright
+
 slices:
   # The "core" slice provides a very minimal, yet functioning python3.12.
   # It includes very few modules from the libpython3.12-stdlib package.
@@ -52,3 +55,7 @@ slices:
       /usr/bin/pdb3.12:
       /usr/bin/pydoc3.12:
       /usr/bin/pygettext3.12:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.12/copyright:

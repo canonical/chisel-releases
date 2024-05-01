@@ -1,5 +1,8 @@
 package: netbase
 
+essential:
+  - netbase_copyright
+
 slices:
   config:
     contents:
@@ -33,3 +36,7 @@ slices:
           default		0.0.0.0
           loopback	127.0.0.0
           link-local	169.254.0.0
+
+  copyright:
+    contents:
+      /usr/share/doc/netbase/copyright:

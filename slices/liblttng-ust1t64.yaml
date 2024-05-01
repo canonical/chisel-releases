@@ -1,4 +1,7 @@
 package: liblttng-ust1t64
+essential:
+  - liblttng-ust1t64_copyright
+
 slices:
   libs:
     essential:
@@ -16,3 +19,7 @@ slices:
       /usr/lib/*-linux-*/liblttng-ust-pthread-wrapper.so.*:
       /usr/lib/*-linux-*/liblttng-ust-tracepoint.so.*:
       /usr/lib/*-linux-*/liblttng-ust.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/liblttng-ust1t64/copyright:
