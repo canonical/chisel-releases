@@ -263,7 +263,7 @@ def ignore_missing_packages(
 
 
 def install_slice(
-    pkg: str, slice: str, arch: str, release: str, has_copyright: dict
+    pkg: str, slice: str, arch: str, release: str, installed_copyright: dict
 ) -> None:
     """
     Install the slice by running "chisel cut".
@@ -295,7 +295,7 @@ def install_slice(
             sys.exit(res.returncode)
         # Check if the copyright file has been installed with this slice
         copyright_file = pathlib.Path(f"{tmpfs}/usr/share/doc/{pkg}/copyright")
-        has_copyright[slice_name] = (
+        installed_copyright[slice_name] = (
             copyright_file.is_file() or copyright_file.is_symlink()
         )
 
@@ -373,7 +373,7 @@ def main() -> None:
         # This should always be the case, whether enforced by a global "essential"
         # or Chisel itself. Exception: the copyright file will not be installed
         # if it doesn't exist in the deb itself.
-        has_copyright = {}
+        installed_copyright = {}
         for slice in pkg.slices:
             if cli_args.dry_run:
                 logging.info(
@@ -387,17 +387,18 @@ def main() -> None:
                     slice,
                     cli_args.arch,
                     cli_args.release,
-                    has_copyright,
+                    installed_copyright,
                 )
 
-        if not all(has_copyright.values()):
+        if not all(installed_copyright.values()):
             # Does the copyright file exist in the deb?
             if deb_has_copyright_file(pkg.package):
                 err = "{} has a copyright file but it wasn't installed with: {}".format(
                     pkg.package,
                     ",".join(
-                        list(
-                            filter(lambda c: not has_copyright[c], has_copyright.keys())
+                        filter(
+                            lambda c: not installed_copyright[c],
+                            installed_copyright.keys(),
                         )
                     ),
                 )
