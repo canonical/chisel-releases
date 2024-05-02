@@ -294,13 +294,9 @@ def install_slice(
             )
             sys.exit(res.returncode)
         # Check if the copyright file has been installed with this slice
-        has_copyright[slice_name] = any(
-            filter(
-                lambda path: f"/usr/share/doc/{pkg}/copyright" in str(path)
-                and path.is_file(),
-                pathlib.Path(tmpfs).rglob("*"),
-            )
-        )
+        has_copyright[slice_name] = pathlib.Path(
+            f"{tmpfs}/usr/share/doc/{pkg}/copyright"
+        ).is_file()
 
 
 def deb_has_copyright_file(pkg: str) -> bool:
