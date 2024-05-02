@@ -24,6 +24,7 @@ import argparse
 from apt.debfile import DebPackage
 from dataclasses import dataclass
 import logging
+import magic
 import os
 import pathlib
 import subprocess
@@ -312,20 +313,21 @@ def deb_has_copyright_file(pkg: str) -> bool:
     TODO: update this function once the Chisel DB is available, as the pkg
     SHAs will be available from the DB itself.
     """
-    pkg_shas = os.popen(
-        f"grep -A 25 -R 'Package: {pkg}$' {str(CHISEL_PKG_CACHE)} | grep SHA256 | cut -d ' ' -f 2"
-    ).read()
-    for deb in pkg_shas.splitlines():
-        deb_path = pathlib.Path(CHISEL_PKG_CACHE / deb)
-        if not deb_path.is_file():
-            continue
+    for sha_file in pathlib.Path(CHISEL_PKG_CACHE).rglob("*"):
         try:
-            deb = DebPackage(str(deb_path))
-        except apt_pkg.Error:
-            # Not a deb file
+            sha_type = magic.from_file(str(sha_file), mime=True)
+        except:
+            # Ignore any other kind
             continue
-        else:
-            if deb.pkgname == pkg:
+
+        if sha_type and "debian.binary-package" in sha_type:
+            deb_path = str(pathlib.Path(CHISEL_PKG_CACHE / sha_file))
+            sha_pkg = os.popen(
+                f"dpkg-deb -f {deb_path} Package"
+            ).read().strip()
+
+            if sha_pkg == pkg:
+                deb = DebPackage(deb_path)
                 if f"usr/share/doc/{pkg}/copyright" in deb.filelist:
                     return True
 
