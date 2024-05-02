@@ -116,7 +116,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/install_slices"
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/install-slices"
         run: |
           set -ex
 
