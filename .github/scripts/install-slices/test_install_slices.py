@@ -216,9 +216,9 @@ class TestScriptMethods(unittest.TestCase):
         """
         Test install_slice()
         """
-        mock_missing_copyright = {}
+        mock_missing_copyright = set()
         install_slice("libc6", "libs", "amd64", "ubuntu-22.04", mock_missing_copyright)
-        assert mock_missing_copyright == {"libc6_libs": False}
+        assert mock_missing_copyright == set()
         #
         try:
             install_slice(
@@ -229,29 +229,44 @@ class TestScriptMethods(unittest.TestCase):
             self.assertEqual(e.code, 1)
 
     @unittest.mock.patch("os.popen")
-    @unittest.mock.patch("pathlib.Path.is_file")
+    @unittest.mock.patch("pathlib.Path.rglob")
     @unittest.mock.patch("apt.debfile.DebPackage.__new__")
-    def test_deb_has_copyright_file(self, mock_debpackage, mock_is_file, mock_popen):
+    @unittest.mock.patch("magic.from_file")
+    def test_deb_has_copyright_file(
+        self, mock_magic, mock_debpackage, mock_rglob, mock_popen
+    ):
         """
         Test deb_has_copyright_file()
         """
-        mock_popen.return_value.read.return_value = "sha\n"
-
-        # If SHA is not a file, we keep skipping
-        mock_is_file.return_value = False
+        # No files, nothing to do
+        mock_rglob.return_value = []
         assert deb_has_copyright_file("mock_pkg") == False
         mock_debpackage.assert_not_called()
-        mock_is_file.assert_called_once()
 
-        # If SHA is a deb file but the package name doesn't match, we skip
-        mock_is_file.return_value = True
+        # If SHA exists but is not a deb, we skip
+        mock_rglob.return_value = ["fake_sha"]
+        mock_magic.return_value = "not-a-deb"
+        assert deb_has_copyright_file("mock_pkg") == False
+        mock_magic.assert_called_once_with("fake_sha", mime=True)
+        mock_popen.assert_not_called()
+
+        # If the deb exists but the pkg doesn't match, we skip
+        mock_magic.return_value = "debian.binary-package"
+        mock_popen.return_value.read.return_value = "bad-pkg-name"
+        assert deb_has_copyright_file("mock_pkg") == False
+        mock_popen.assert_called_once_with(
+            f"dpkg-deb -f {str(CHISEL_PKG_CACHE) + '/fake_sha'} Package"
+        )
+        mock_debpackage.assert_not_called()
+
+        # If the deb exists and matches, then return True is copyright exists
+        mock_popen.return_value.read.return_value = "mock_pkg"
         mock_deb = unittest.mock.MagicMock()
-        mock_deb.pkgname = "wrong"
+        mock_deb.filelist = "no\ncopyright\nfile"
         mock_debpackage.return_value = mock_deb
         assert deb_has_copyright_file("mock_pkg") == False
+        mock_debpackage.assert_called_once()
 
-        # If the deb matches and its contents have a copyright, return True
-        mock_deb.pkgname = "mock_pkg"
         mock_deb.filelist = "something\nusr/share/doc/mock_pkg/copyright\nextra"
         mock_debpackage.return_value = mock_deb
         assert deb_has_copyright_file("mock_pkg") == True

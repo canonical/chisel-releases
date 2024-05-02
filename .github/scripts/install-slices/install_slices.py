@@ -264,7 +264,7 @@ def ignore_missing_packages(
 
 
 def install_slice(
-    pkg: str, slice: str, arch: str, release: str, installed_copyright: dict
+    pkg: str, slice: str, arch: str, release: str, missing_copyright: set
 ) -> None:
     """
     Install the slice by running "chisel cut".
@@ -296,9 +296,8 @@ def install_slice(
             sys.exit(res.returncode)
         # Check if the copyright file has been installed with this slice
         copyright_file = pathlib.Path(f"{tmpfs}/usr/share/doc/{pkg}/copyright")
-        installed_copyright[slice_name] = (
-            copyright_file.is_file() or copyright_file.is_symlink()
-        )
+        if not copyright_file.is_file() and not copyright_file.is_symlink():
+            missing_copyright.add(slice_name)
 
 
 def deb_has_copyright_file(pkg: str) -> bool:
@@ -322,14 +321,11 @@ def deb_has_copyright_file(pkg: str) -> bool:
 
         if sha_type and "debian.binary-package" in sha_type:
             deb_path = str(pathlib.Path(CHISEL_PKG_CACHE / sha_file))
-            sha_pkg = os.popen(
-                f"dpkg-deb -f {deb_path} Package"
-            ).read().strip()
+            sha_pkg = os.popen(f"dpkg-deb -f {deb_path} Package").read().strip()
 
             if sha_pkg == pkg:
                 deb = DebPackage(deb_path)
-                if f"usr/share/doc/{pkg}/copyright" in deb.filelist:
-                    return True
+                return f"usr/share/doc/{pkg}/copyright" in deb.filelist
 
     return False
 
@@ -375,7 +371,7 @@ def main() -> None:
         # This should always be the case, whether enforced by a global "essential"
         # or Chisel itself. Exception: the copyright file will not be installed
         # if it doesn't exist in the deb itself.
-        installed_copyright = {}
+        missing_copyright = set()
         for slice in pkg.slices:
             if cli_args.dry_run:
                 logging.info(
@@ -389,20 +385,15 @@ def main() -> None:
                     slice,
                     cli_args.arch,
                     cli_args.release,
-                    installed_copyright,
+                    missing_copyright,
                 )
 
-        if not all(installed_copyright.values()):
+        if len(missing_copyright) > 0:
             # Does the copyright file exist in the deb?
             if deb_has_copyright_file(pkg.package):
                 err = "{} has a copyright file but it wasn't installed with: {}".format(
                     pkg.package,
-                    ",".join(
-                        filter(
-                            lambda c: not installed_copyright[c],
-                            installed_copyright.keys(),
-                        )
-                    ),
+                    ",".join(missing_copyright),
                 )
                 raise MissingCopyright(err)
 
