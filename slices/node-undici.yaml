@@ -1,5 +1,8 @@
 package: node-undici
 
+essential:
+  - node-undici_copyright
+
 slices:
   libs:
     essential:
@@ -11,3 +14,7 @@ slices:
       /usr/share/nodejs/undici/lib/**.js:
       /usr/share/nodejs/undici/package.json:
       /usr/share/nodejs/undici/undici-fetch.js:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-undici/copyright:

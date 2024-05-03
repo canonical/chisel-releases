@@ -1,5 +1,8 @@
 package: dotnet-runtime-8.0
 
+essential:
+  - dotnet-runtime-8.0_copyright
+
 slices:
   libs:
     essential:
@@ -13,3 +16,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-runtime-8.0/copyright:

@@ -1,5 +1,8 @@
 package: dash
 
+essential:
+  - dash_copyright
+
 slices:
   bins:
     essential:
@@ -7,3 +10,7 @@ slices:
     contents:
       /usr/bin/dash:
       /usr/bin/sh:
+
+  copyright:
+    contents:
+      /usr/share/doc/dash/copyright:
