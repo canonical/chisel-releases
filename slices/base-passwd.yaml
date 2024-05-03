@@ -1,5 +1,8 @@
 package: base-passwd
 
+essential:
+  - base-passwd_copyright
+
 slices:
   data:
     contents:
@@ -12,3 +15,7 @@ slices:
       content.write("/etc/group", gr)
       pw = content.read("/usr/share/base-passwd/passwd.master")
       content.write("/etc/passwd", pw)
+
+  copyright:
+    contents:
+      /usr/share/doc/base-passwd/copyright:

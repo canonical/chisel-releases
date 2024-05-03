@@ -1,5 +1,8 @@
 package: fontconfig-config
 
+essential:
+  - fontconfig-config_copyright
+
 slices:
   config:
     essential:
@@ -65,3 +68,7 @@ slices:
       /etc/fonts/conf.d/90-synthetic.conf:
       /etc/fonts/fonts.conf:
       /usr/share/xml/fontconfig/fonts.dtd:
+
+  copyright:
+    contents:
+      /usr/share/doc/fontconfig-config/copyright:

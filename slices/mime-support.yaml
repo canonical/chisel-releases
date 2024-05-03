@@ -1,6 +1,13 @@
 package: mime-support
 
+essential:
+  - mime-support_copyright
+
 slices:
   mime-types:
     contents:
       /etc/mime.types:
+
+  copyright:
+    contents:
+      /usr/share/doc/mime-support/copyright:
