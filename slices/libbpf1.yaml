@@ -1,5 +1,8 @@
 package: libbpf1
 
+essential:
+  - libbpf1_copyright
+
 slices:
   libs:
     essential:
@@ -8,3 +11,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libbpf.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libbpf1/copyright:
