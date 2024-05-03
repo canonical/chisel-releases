@@ -1,0 +1,13 @@
+package: busybox-static
+
+essential:
+  - busybox-static_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/busybox: {prefer: busybox}
+
+  copyright:
+    contents:
+      /usr/share/doc/busybox-static/copyright:
