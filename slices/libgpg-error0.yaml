@@ -2,9 +2,16 @@
 # runtime functionality for all GnuPG components.
 package: libgpg-error0
 
+essential:
+  - libgpg-error0_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /lib/*-linux-*/libgpg-error.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgpg-error0/copyright:

@@ -1,5 +1,8 @@
 package: fonts-dejavu-core
 
+essential:
+  - fonts-dejavu-core_copyright
+
 slices:
   fonts:
     contents:
@@ -36,3 +39,7 @@ slices:
       /etc/fonts/conf.d/58-dejavu-lgc-sans-mono.conf:
       /etc/fonts/conf.d/58-dejavu-lgc-sans.conf:
       /etc/fonts/conf.d/58-dejavu-lgc-serif.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-dejavu-core/copyright:

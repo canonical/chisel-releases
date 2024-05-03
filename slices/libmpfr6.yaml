@@ -1,5 +1,8 @@
 package: libmpfr6
 
+essential:
+  - libmpfr6_copyright
+
 slices:
   libs:
     essential:
@@ -7,3 +10,7 @@ slices:
       - libgmp10_libs
     contents:
       /usr/lib/*-linux-*/libmpfr.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmpfr6/copyright:
