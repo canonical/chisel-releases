@@ -1,4 +1,5 @@
 package: dotnet-runtime-6.0
+
 essential:
   - dotnet-runtime-6.0_copyright
 

@@ -1,4 +1,5 @@
 package: liblttng-ust-ctl5
+
 essential:
   - liblttng-ust-ctl5_copyright
 

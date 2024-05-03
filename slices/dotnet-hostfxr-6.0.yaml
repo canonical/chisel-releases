@@ -1,4 +1,5 @@
 package: dotnet-hostfxr-6.0
+
 essential:
   - dotnet-hostfxr-6.0_copyright
 
