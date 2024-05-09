@@ -1,0 +1,29 @@
+package: procps
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libncursesw6_libs
+      - libproc2-0_libs
+      - libsystemd0_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/free:
+      /usr/bin/kill:
+      /usr/bin/pgrep:
+      /usr/bin/pkill: {symlink: pgrep}
+      /usr/bin/pidwait:
+      /usr/bin/pmap:
+      /usr/bin/ps:
+      /usr/bin/pwdx:
+      /usr/bin/skill:
+      /usr/bin/snice: {symlink: skill}
+      /usr/bin/slabtop:
+      /usr/bin/tload:
+      /usr/bin/top:
+      /usr/bin/uptime:
+      /usr/bin/vmstat:
+      /usr/bin/w:
+      /usr/bin/watch:
+      /usr/sbin/sysctl:
