@@ -1,0 +1,16 @@
+package: libboost-coroutine1.83.0
+
+essential:
+  - libboost-coroutine1.83.0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libstdc++6_libs
+      - libboost-context1.83.0_libs
+    contents:
+      /usr/lib/*-linux-*/libboost_coroutine.so.1.83.0:
+  copyright:
+    contents:
+      /usr/share/doc/libboost-coroutine1.83.0/copyright:
