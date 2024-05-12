@@ -1,8 +1,15 @@
 package: node-busboy
 
+essential:
+  - node-busboy_copyright
+
 slices:
   libs:
     contents:
       /usr/share/nodejs/busboy/lib/**:
       /usr/share/nodejs/busboy/package.json:
       /usr/share/nodejs/streamsearch/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-busboy/copyright:

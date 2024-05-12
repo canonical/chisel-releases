@@ -1,8 +1,15 @@
 package: libcom-err2
 
+essential:
+  - libcom-err2_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
-      /lib/*-linux-*/libcom_err.so.*:
+      /usr/lib/*-linux-*/libcom_err.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcom-err2/copyright:

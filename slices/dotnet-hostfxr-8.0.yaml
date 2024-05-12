@@ -1,5 +1,8 @@
 package: dotnet-hostfxr-8.0
 
+essential:
+  - dotnet-hostfxr-8.0_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
       - libstdc++6_libs
     contents:
       /usr/lib/dotnet/host/fxr/8.0*/libhostfxr.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-hostfxr-8.0/copyright:
