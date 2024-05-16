@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      - libc6_libs
       - libaudit-common_config
+      - libc6_libs
       - libcap-ng0_libs
     contents:
       /lib/*-linux-*/libaudit.so.1*:
