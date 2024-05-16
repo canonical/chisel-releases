@@ -1,5 +1,8 @@
 package: openssl
 
+essential:
+  - openssl_copyright
+
 slices:
   bins:
     essential:
@@ -24,3 +27,7 @@ slices:
   data:
     contents:
       /usr/lib/ssl/cert.pem:
+
+  copyright:
+    contents:
+      /usr/share/doc/openssl/copyright:

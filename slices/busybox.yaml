@@ -1,15 +1,15 @@
-package: hello
+package: busybox
 
 essential:
-  - hello_copyright
+  - busybox_copyright
 
 slices:
   bins:
     essential:
       - libc6_libs
     contents:
-      /usr/bin/hello:
+      /usr/bin/busybox:
 
   copyright:
     contents:
-      /usr/share/doc/hello/copyright:
+      /usr/share/doc/busybox/copyright:

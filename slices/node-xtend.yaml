@@ -1,6 +1,13 @@
 package: node-xtend
 
+essential:
+  - node-xtend_copyright
+
 slices:
   libs:
     contents:
       /usr/share/nodejs/xtend/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-xtend/copyright:

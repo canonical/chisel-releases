@@ -1,5 +1,8 @@
 package: grep
 
+essential:
+  - grep_copyright
+
 slices:
   bins:
     essential:
@@ -19,3 +22,7 @@ slices:
       /usr/bin/egrep:
       /usr/bin/fgrep:
       /usr/bin/rgrep:
+
+  copyright:
+    contents:
+      /usr/share/doc/grep/copyright:

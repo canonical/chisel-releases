@@ -1,5 +1,8 @@
 package: bash
 
+essential:
+  - bash_copyright
+
 slices:
   config:
     contents:
@@ -19,3 +22,7 @@ slices:
       /usr/bin/bashbug:
       /usr/bin/clear_console:
       /usr/bin/rbash:
+
+  copyright:
+    contents:
+      /usr/share/doc/bash/copyright:

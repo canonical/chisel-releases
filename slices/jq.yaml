@@ -1,15 +1,15 @@
-package: hello
+package: jq
 
 essential:
-  - hello_copyright
+  - jq_copyright
 
 slices:
   bins:
     essential:
       - libc6_libs
+      - libjq1_libs
     contents:
-      /usr/bin/hello:
-
+      /usr/bin/jq:
   copyright:
     contents:
-      /usr/share/doc/hello/copyright:
+      /usr/share/doc/jq/copyright:

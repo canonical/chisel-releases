@@ -1,5 +1,8 @@
 package: libc6
 
+essential:
+  - libc6_copyright
+
 slices:
   config:
     contents:
@@ -28,3 +31,7 @@ slices:
       /usr/lib/*-linux-*/librt.so.*:
       /usr/lib/*-linux-*/libthread_db.so.*:
       /usr/lib/*-linux-*/libutil.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libc6/copyright:

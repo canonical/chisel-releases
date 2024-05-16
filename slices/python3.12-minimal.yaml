@@ -1,5 +1,8 @@
 package: python3.12-minimal
 
+essential:
+  - python3.12-minimal_copyright
+
 slices:
   bins:
     essential:
@@ -13,3 +16,7 @@ slices:
       # the "postinst" script.
       /usr/local/lib/python3.12/: {make: true, mode: 02775}
       /usr/local/lib/python3.12/dist-packages/: {make: true, mode: 02775}
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.12-minimal/copyright:
