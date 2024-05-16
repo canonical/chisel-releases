@@ -8,6 +8,7 @@ slices:
       - libproc2-0_libs
       - libsystemd0_libs
       - libtinfo6_libs
+      - init-system-helpers_bins
     contents:
       /usr/bin/free:
       /usr/bin/kill:
