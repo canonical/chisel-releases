@@ -1,5 +1,8 @@
 package: node-acorn
 
+essential:
+  - node-acorn_copyright
+
 slices:
   libs:
     essential:
@@ -35,3 +38,7 @@ slices:
       /usr/share/nodejs/acorn/dist/acorn.js:
       /usr/share/nodejs/acorn/dist/acorn.mjs:
       /usr/share/nodejs/acorn/package.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-acorn/copyright:

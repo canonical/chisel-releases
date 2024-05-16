@@ -1,14 +1,21 @@
 package: base-passwd
 
+essential:
+  - base-passwd_copyright
+
 slices:
   data:
     contents:
-      /usr/share/base-passwd/group.master:  {until: mutate}
-      /usr/share/base-passwd/passwd.master: {until: mutate}
-      /etc/group:  {text: FIXME, mutable: true}
+      /etc/group: {text: FIXME, mutable: true}
       /etc/passwd: {text: FIXME, mutable: true}
+      /usr/share/base-passwd/group.master: {until: mutate}
+      /usr/share/base-passwd/passwd.master: {until: mutate}
     mutate: |
       gr = content.read("/usr/share/base-passwd/group.master")
       content.write("/etc/group", gr)
       pw = content.read("/usr/share/base-passwd/passwd.master")
       content.write("/etc/passwd", pw)
+
+  copyright:
+    contents:
+      /usr/share/doc/base-passwd/copyright:

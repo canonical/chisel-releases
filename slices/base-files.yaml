@@ -1,14 +1,17 @@
 package: base-files
 
+essential:
+  - base-files_copyright
+
 slices:
   base:
     essential:
-      - base-files_etc
       - base-files_bin
+      - base-files_etc
+      - base-files_home
       - base-files_lib
       - base-files_tmp
       - base-files_var
-      - base-files_home
 
   etc:
     contents:
@@ -24,9 +27,9 @@ slices:
   lib:
     contents:
       /lib:
+      /lib64: {arch: [amd64, ppc64el]}
       /usr/lib/:
-      /lib64: {arch: [amd64,ppc64el]}
-      /usr/lib64/: {arch: [amd64,ppc64el]}
+      /usr/lib64/: {arch: [amd64, ppc64el]}
 
   tmp:
     contents:
@@ -54,11 +57,15 @@ slices:
     contents:
       /etc/debian_version:
       /etc/dpkg/origins/debian:
-      /etc/dpkg/origins/ubuntu:
       /etc/dpkg/origins/default: {symlink: /etc/dpkg/origins/ubuntu}
+      /etc/dpkg/origins/ubuntu:
       /etc/host.conf:
       /etc/issue:
       /etc/issue.net:
       /etc/lsb-release:
       /etc/os-release:
       /usr/lib/os-release:
+
+  copyright:
+    contents:
+      /usr/share/doc/base-files/copyright:
