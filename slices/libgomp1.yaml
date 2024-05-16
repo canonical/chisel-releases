@@ -14,4 +14,4 @@ slices:
     essential:
       - gcc-14-base_copyright
     contents:
-      /usr/share/doc/libgomp1/:
+      /usr/share/doc/libgomp1:
