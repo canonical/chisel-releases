@@ -1,5 +1,8 @@
 package: curl
 
+essential:
+  - curl_copyright
+
 slices:
   bins:
     essential:
@@ -8,3 +11,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/bin/curl:
+
+  copyright:
+    contents:
+      /usr/share/doc/curl/copyright:

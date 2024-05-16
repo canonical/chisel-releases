@@ -1,5 +1,8 @@
 package: libldap-2.5-0
 
+essential:
+  - libldap-2.5-0_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/liblber-2.5.so.0*:
       /usr/lib/*-linux-*/libldap-2.5.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libldap-2.5-0/copyright:

@@ -4,6 +4,9 @@
 # keyboard-interactive authentication.
 package: libssh-4
 
+essential:
+  - libssh-4_copyright
+
 slices:
   libs:
     essential:
@@ -13,3 +16,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libssh.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libssh-4/copyright:
