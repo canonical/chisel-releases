@@ -1,0 +1,16 @@
+package: libidn2-0
+
+essential:
+  - libidn2-0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libunistring2_libs
+    contents:
+      /usr/lib/*-linux-*/libidn2.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libidn2-0/copyright:

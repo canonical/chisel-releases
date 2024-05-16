@@ -1,11 +1,18 @@
 package: libunwind-13
 # NOTE: this package is not available for s390x
+essential:
+  - libunwind-13_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/llvm-13/lib/libunwind.so.1.*:
-      /usr/lib/llvm-13/lib/libunwind.so.1:
-      /usr/lib/*-linux-*/libunwind.so.1.*:
       /usr/lib/*-linux-*/libunwind.so.1:
+      /usr/lib/*-linux-*/libunwind.so.1.*:
+      /usr/lib/llvm-13/lib/libunwind.so.1:
+      /usr/lib/llvm-13/lib/libunwind.so.1.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libunwind-13/copyright:

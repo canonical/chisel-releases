@@ -1,5 +1,8 @@
 package: libcap2
 
+essential:
+  - libcap2_copyright
+
 slices:
   libs:
     essential:
@@ -8,3 +11,6 @@ slices:
       /lib/*-linux-*/libcap.so.2*:
       /lib/*-linux-*/libpsx.so.2*:
 
+  copyright:
+    contents:
+      /usr/share/doc/libcap2/copyright:

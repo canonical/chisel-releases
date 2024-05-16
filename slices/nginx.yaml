@@ -1,5 +1,8 @@
 package: nginx
 
+essential:
+  - nginx_copyright
+
 slices:
   bins:
     essential:
@@ -14,3 +17,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/sbin/nginx:
+
+  copyright:
+    contents:
+      /usr/share/doc/nginx/copyright:

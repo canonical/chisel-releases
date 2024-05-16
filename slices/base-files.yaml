@@ -1,14 +1,17 @@
 package: base-files
 
+essential:
+  - base-files_copyright
+
 slices:
   base:
     essential:
-      - base-files_etc
       - base-files_bin
+      - base-files_etc
+      - base-files_home
       - base-files_lib
       - base-files_tmp
       - base-files_var
-      - base-files_home
 
   etc:
     contents:
@@ -36,7 +39,8 @@ slices:
       /var/cache/:
       /var/lib/:
       /var/log/:
-      /var/run/:
+      # The /var/run symlink is enforced by the package's maintainer scripts
+      /var/run/: {symlink: /run}
       /var/tmp/:
 
   home:
@@ -51,11 +55,15 @@ slices:
     contents:
       /etc/debian_version:
       /etc/dpkg/origins/debian:
-      /etc/dpkg/origins/ubuntu:
       /etc/dpkg/origins/default: {symlink: /etc/dpkg/origins/ubuntu}
+      /etc/dpkg/origins/ubuntu:
       /etc/host.conf:
       /etc/issue:
       /etc/issue.net:
       /etc/lsb-release:
       /etc/os-release:
       /usr/lib/os-release:
+
+  copyright:
+    contents:
+      /usr/share/doc/base-files/copyright:

@@ -1,5 +1,8 @@
 package: ca-certificates
 
+essential:
+  - ca-certificates_copyright
+
 slices:
   data:
     contents:
@@ -8,5 +11,11 @@ slices:
       /usr/share/ca-certificates/mozilla/*: {until: mutate}
     mutate: |
       certs_dir = "/usr/share/ca-certificates/mozilla/"
-      certs = [content.read(certs_dir + path) for path in content.list(certs_dir)]
+      certs = [
+        content.read(certs_dir + path) for path in content.list(certs_dir)
+      ]
       content.write("/etc/ssl/certs/ca-certificates.crt", "".join(certs))
+
+  copyright:
+    contents:
+      /usr/share/doc/ca-certificates/copyright:
