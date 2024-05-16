@@ -5,6 +5,9 @@
 
 package: libssh2-1
 
+essential:
+  - libssh2-1_copyright
+
 slices:
   libs:
     essential:
@@ -13,3 +16,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libssh2.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libssh2-1/copyright:

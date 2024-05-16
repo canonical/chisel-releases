@@ -1,6 +1,9 @@
 # GNU TLS library - main runtime library
 package: libgnutls30
 
+essential:
+  - libgnutls30_copyright
+
 slices:
   libs:
     essentials:
@@ -14,3 +17,7 @@ slices:
       - libunistring2_libs
     contents:
       /usr/lib/*-linux-*/libgnutls.so.30*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgnutls30/copyright:

@@ -1,6 +1,9 @@
 # Library implementing brotli encoder and decoder (shared libraries)
 package: libbrotli1
 
+essential:
+  - libbrotli1_copyright
+
 slices:
   libs:
     essentials:
@@ -9,3 +12,7 @@ slices:
       /usr/lib/*-linux-*/libbrotlicommon.so.1*:
       /usr/lib/*-linux-*/libbrotlidec.so.1*:
       /usr/lib/*-linux-*/libbrotlienc.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libbrotli1/copyright:

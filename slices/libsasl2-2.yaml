@@ -1,5 +1,8 @@
 package: libsasl2-2
 
+essential:
+  - libsasl2-2_copyright
+
 slices:
   libs:
     essential:
@@ -8,3 +11,7 @@ slices:
       - libssl3_libs
     contents:
       /usr/lib/*-linux-*/libsasl2.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsasl2-2/copyright:
