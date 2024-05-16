@@ -1,5 +1,8 @@
 package: sed
 
+essential:
+  - sed_copyright
+
 slices:
   bins:
     essential:
@@ -9,3 +12,7 @@ slices:
       - libselinux1_libs
     contents:
       /bin/sed:
+
+  copyright:
+    contents:
+      /usr/share/doc/sed/copyright:
