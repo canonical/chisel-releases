@@ -3,24 +3,24 @@ package: procps
 slices:
   bins:
     essential:
+      - init-system-helpers_bins
       - libc6_libs
       - libncursesw6_libs
       - libproc2-0_libs
       - libsystemd0_libs
       - libtinfo6_libs
-      - init-system-helpers_bins
     contents:
       /usr/bin/free:
       /usr/bin/kill:
       /usr/bin/pgrep:
-      /usr/bin/pkill: {symlink: pgrep}
       /usr/bin/pidwait:
+      /usr/bin/pkill: {symlink: pgrep}
       /usr/bin/pmap:
       /usr/bin/ps:
       /usr/bin/pwdx:
       /usr/bin/skill:
-      /usr/bin/snice: {symlink: skill}
       /usr/bin/slabtop:
+      /usr/bin/snice: {symlink: skill}
       /usr/bin/tload:
       /usr/bin/top:
       /usr/bin/uptime:
