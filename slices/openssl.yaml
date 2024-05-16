@@ -1,5 +1,8 @@
 package: openssl
 
+essential:
+  - openssl_copyright
+
 slices:
   bins:
     essential:
@@ -19,3 +22,7 @@ slices:
       /usr/lib/ssl/certs:
       /usr/lib/ssl/openssl.cnf:
       /usr/lib/ssl/private:
+
+  copyright:
+    contents:
+      /usr/share/doc/openssl/copyright:

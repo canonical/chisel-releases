@@ -1,5 +1,8 @@
 package: ncurses-base
 
+essential:
+  - ncurses-base_copyright
+
 slices:
   # the "data" slice contains all the /lib/terminfo files
   data:
@@ -86,3 +89,7 @@ slices:
   xterm:
     contents:
       /lib/terminfo/x/xterm*:
+
+  copyright:
+    contents:
+      /usr/share/doc/ncurses-base/copyright:

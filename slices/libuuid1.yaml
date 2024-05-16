@@ -1,8 +1,15 @@
 package: libuuid1
 
+essential:
+  - libuuid1_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /lib/*-linux-*/libuuid.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libuuid1/copyright:

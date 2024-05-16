@@ -1,5 +1,8 @@
 package: base-files
 
+essential:
+  - base-files_copyright
+
 slices:
   base:
     essential:
@@ -59,3 +62,7 @@ slices:
       /etc/lsb-release:
       /etc/os-release:
       /usr/lib/os-release:
+
+  copyright:
+    contents:
+      /usr/share/doc/base-files/copyright:

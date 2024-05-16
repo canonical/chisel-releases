@@ -1,8 +1,15 @@
 package: libmpdec2
 
+essential:
+  - libmpdec2_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libmpdec.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmpdec2/copyright:

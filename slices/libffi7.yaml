@@ -1,8 +1,15 @@
 package: libffi7
 
+essential:
+  - libffi7_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libffi.so.7*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libffi7/copyright:

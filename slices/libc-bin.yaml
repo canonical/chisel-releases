@@ -1,5 +1,8 @@
 package: libc-bin
 
+essential:
+  - libc-bin_copyright
+
 slices:
   nsswitch:
     contents:
@@ -19,3 +22,7 @@ slices:
       /usr/lib/locale/C.UTF-8/LC_PAPER:
       /usr/lib/locale/C.UTF-8/LC_TELEPHONE:
       /usr/lib/locale/C.UTF-8/LC_TIME:
+
+  copyright:
+    contents:
+      /usr/share/doc/libc-bin/copyright:
