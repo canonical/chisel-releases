@@ -1,5 +1,8 @@
 package: dotnet-hostfxr-6.0
 # NOTE: not available for armhf riscv64 ppc64el s390x
+essential:
+  - dotnet-hostfxr-6.0_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
       - libstdc++6_libs
     contents:
       /usr/lib/dotnet/host/fxr/*/libhostfxr.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-hostfxr-6.0/copyright:

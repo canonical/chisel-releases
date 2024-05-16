@@ -1,5 +1,8 @@
 package: tzdata
 
+essential:
+  - tzdata_copyright
+
 slices:
   # The "base" slice contains Canonical timezone abbreviations. These are
   # primary, preferred zone names that are often used as abbreviations for
@@ -115,3 +118,7 @@ slices:
       - tzdata_eurasia
       - tzdata_indian
       - tzdata_pacific
+
+  copyright:
+    contents:
+      /usr/share/doc/tzdata/copyright:

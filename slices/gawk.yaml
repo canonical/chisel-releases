@@ -1,5 +1,8 @@
 package: gawk
 
+essential:
+  - gawk_copyright
+
 slices:
   bins:
     essential:
@@ -25,3 +28,7 @@ slices:
       - libsigsegv2_libs
     contents:
       /usr/lib/*-linux-*/gawk/*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/gawk/copyright:

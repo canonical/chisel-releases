@@ -1,5 +1,8 @@
 package: libcap2-bin
 
+essential:
+  - libcap2-bin_copyright
+
 slices:
   bins:
     essential:
@@ -10,3 +13,7 @@ slices:
       /sbin/getcap:
       /sbin/getpcaps:
       /sbin/setcap:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcap2-bin/copyright:
