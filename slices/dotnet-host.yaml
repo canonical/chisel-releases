@@ -1,4 +1,8 @@
 package: dotnet-host
+
+essential:
+  - dotnet-host_copyright
+
 slices:
   bins:
     essential:
@@ -7,3 +11,7 @@ slices:
       - libstdc++6_libs
     contents:
       /usr/lib/dotnet/dotnet:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-host/copyright:

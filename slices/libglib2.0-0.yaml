@@ -1,5 +1,8 @@
 package: libglib2.0-0
 
+essential:
+  - libglib2.0-0_copyright
+
 slices:
   core:
     essential:
@@ -20,3 +23,7 @@ slices:
       /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
       /usr/lib/*-linux-*/libgobject-2.0.so.0*:
       /usr/lib/*-linux-*/libgthread-2.0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libglib2.0-0/copyright:
