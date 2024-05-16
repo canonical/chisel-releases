@@ -1,8 +1,15 @@
 package: libdb5.3
 
+essential:
+  - libdb5.3_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libdb-5.3.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdb5.3/copyright:

@@ -1,5 +1,8 @@
 package: python3.8
 
+essential:
+  - python3.8_copyright
+
 slices:
   # The "core" slice provides a very minimal, yet functioning Python3.8.
   # It includes very few modules from the libpython3.8-stdlib package.
@@ -51,3 +54,7 @@ slices:
       /usr/bin/pdb3.8:
       /usr/bin/pydoc3.8:
       /usr/bin/pygettext3.8:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.8/copyright:

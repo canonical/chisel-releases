@@ -1,8 +1,15 @@
 package: libpng16-16
 
+essential:
+  - libpng16-16_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libpng16.so.16*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpng16-16/copyright:

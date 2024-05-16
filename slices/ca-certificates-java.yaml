@@ -1,5 +1,8 @@
 package: ca-certificates-java
 
+essential:
+  - ca-certificates-java_copyright
+
 slices:
   data:
     essential:
@@ -10,3 +13,7 @@ slices:
       /etc/ssl/certs/java/:
       # we need to run `keytool` in postinst, but we can't yet do
       # this from a mutation script
+
+  copyright:
+    contents:
+      /usr/share/doc/ca-certificates-java/copyright:
