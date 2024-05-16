@@ -1,5 +1,8 @@
 package: p11-kit-modules
 
+essential:
+  - p11-kit-modules_copyright
+
 slices:
   libs:
     essential:
@@ -11,3 +14,9 @@ slices:
       /usr/lib/*-linux-*/p11-kit-proxy.so:
       /usr/lib/*-linux-*/pkcs11/p11-kit-client.so:
       /usr/lib/*-linux-*/pkcs11/p11-kit-trust.so:
+
+  copyright:
+    essential:
+      - libp11-kit0_copyright
+    contents:
+      /usr/share/doc/p11-kit-modules:
