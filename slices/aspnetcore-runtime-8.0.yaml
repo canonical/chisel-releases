@@ -1,8 +1,15 @@
 package: aspnetcore-runtime-8.0
 
+essential:
+  - aspnetcore-runtime-8.0_copyright
+
 slices:
   libs:
     essential:
       - dotnet-runtime-8.0_libs
     contents:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/8.0*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/aspnetcore-runtime-8.0/copyright:

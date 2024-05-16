@@ -1,5 +1,8 @@
 package: dotnet-runtime-8.0
 
+essential:
+  - dotnet-runtime-8.0_copyright
+
 slices:
   libs:
     essential:
@@ -7,9 +10,13 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libicu74_libs
-      - liblttng-ust1_libs
-      - libssl3_libs
+      - liblttng-ust1t64_libs
+      - libssl3t64_libs
       - libstdc++6_libs
       - zlib1g_libs
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-runtime-8.0/copyright:

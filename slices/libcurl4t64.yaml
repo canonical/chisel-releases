@@ -1,5 +1,8 @@
 # Easy-to-use client-side URL transfer library (OpenSSL flavour)
-package: libcurl4
+package: libcurl4t64
+
+essential:
+  - libcurl4t64_copyright
 
 slices:
   libs:
@@ -10,11 +13,15 @@ slices:
       - libidn2-0_libs
       - libldap2_libs
       - libnghttp2-14_libs
-      - libpsl5_libs
+      - libpsl5t64_libs
       - librtmp1_libs
       - libssh-4_libs
-      - libssl3_libs
+      - libssl3t64_libs
       - libzstd1_libs
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libcurl.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcurl4t64/copyright:

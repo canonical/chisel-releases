@@ -1,0 +1,15 @@
+package: liblttng-ust-common1t64
+
+essential:
+  - liblttng-ust-common1t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/liblttng-ust-common.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/liblttng-ust-common1t64/copyright:
