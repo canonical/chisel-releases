@@ -11,7 +11,6 @@ slices:
       - libgpg-error0_libs
     contents:
       /usr/lib/*-linux-*/libgcrypt.so.20*:
-
   copyright:
     contents:
       /usr/share/doc/libgcrypt20/copyright:
