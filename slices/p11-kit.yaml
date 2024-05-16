@@ -1,5 +1,8 @@
 package: p11-kit
 
+essential:
+  - p11-kit_copyright
+
 slices:
   bins:
     essential:
@@ -16,3 +19,6 @@ slices:
   config:
     contents:
       /usr/share/p11-kit/modules/p11-kit-trust.module:
+  copyright:
+    contents:
+      /usr/share/doc/p11-kit/copyright:
