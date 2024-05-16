@@ -6,8 +6,8 @@ esential:
 slices:
   libs:
     essential:
-      - libc6_libs
       - libaudit1_libs
+      - libc6_libs
       - libselinux1_libs
     contents:
       /usr/lib/*-linux-*/libsubid.so.4*:
