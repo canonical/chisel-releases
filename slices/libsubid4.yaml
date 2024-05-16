@@ -1,5 +1,8 @@
 package: libsubid4
 
+esential:
+  - libsubid4_copyright
+
 slices:
   libs:
     essential:
@@ -8,3 +11,6 @@ slices:
       - libselinux1_libs
     contents:
       /usr/lib/*-linux-*/libsubid.so.4*:
+  copyright:
+    contents:
+      /usr/share/doc/libsubid4/copyright:
