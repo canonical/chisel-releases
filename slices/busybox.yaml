@@ -1,8 +1,15 @@
 package: busybox
 
+essential:
+  - busybox_copyright
+
 slices:
   bins:
     essential:
       - libc6_libs
     contents:
       /usr/bin/busybox:
+
+  copyright:
+    contents:
+      /usr/share/doc/busybox/copyright:
