@@ -4,5 +4,12 @@ slices:
   libs:
     essential:
       - libc6_libs
+      - libgcc-s1_copyright
     contents:
       /lib/*-linux-*/libgcc_s.so.*:
+
+  copyright:
+    essential:
+      - gcc-12-base_copyright
+    contents:
+      /usr/share/doc/libgcc-s1:
