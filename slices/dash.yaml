@@ -1,9 +1,16 @@
 package: dash
 
+essential:
+  - dash_copyright
+
 slices:
   bins:
     essential:
       - libc6_libs
     contents:
-      /bin/dash:
-      /bin/sh:
+      /usr/bin/dash:
+      /usr/bin/sh:
+
+  copyright:
+    contents:
+      /usr/share/doc/dash/copyright:

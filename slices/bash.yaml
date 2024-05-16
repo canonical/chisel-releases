@@ -1,5 +1,8 @@
 package: bash
 
+essential:
+  - bash_copyright
+
 slices:
   config:
     contents:
@@ -15,7 +18,11 @@ slices:
       - libtinfo6_libs
     contents:
       # user should manually link /bin/sh to /bin/bash
-      /bin/bash:
-      /bin/rbash:
-      /usr/bin/clear_console:
+      /usr/bin/bash:
       /usr/bin/bashbug:
+      /usr/bin/clear_console:
+      /usr/bin/rbash:
+
+  copyright:
+    contents:
+      /usr/share/doc/bash/copyright:

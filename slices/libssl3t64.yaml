@@ -1,4 +1,7 @@
-package: libssl3
+package: libssl3t64
+
+essential:
+  - libssl3t64_copyright
 
 slices:
   libs:
@@ -11,3 +14,7 @@ slices:
       /usr/lib/*-linux-*/libcrypto.so.*:
       /usr/lib/*-linux-*/libssl.so.*:
       /usr/lib/*-linux-*/ossl-modules/legacy.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libssl3t64/copyright:
