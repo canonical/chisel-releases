@@ -1,0 +1,8 @@
+package: libmpeg2-4
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libmpeg2.so.0*:
