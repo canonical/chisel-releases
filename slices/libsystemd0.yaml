@@ -1,5 +1,8 @@
 package: libsystemd0
 
+essential:
+  - libsystemd0_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,6 @@ slices:
       - liblzma5_libs
     contents:
       /lib/*-linux-*/libsystemd.so.0*:
+  copyright:
+    contents:
+      /usr/share/doc/libsystemd0/copyright:
