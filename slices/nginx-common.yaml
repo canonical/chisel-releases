@@ -1,5 +1,8 @@
 package: nginx-common
 
+essential:
+  - nginx-common_copyright
+
 slices:
   # Leaving the debconf dependency out as we don't currently need pkg mgmt.
   # Also, debconf is especially used for the maintainer scripts, which are
@@ -61,3 +64,7 @@ slices:
   vim-config:
     contents:
       /usr/share/vim/registry/nginx.yaml:
+
+  copyright:
+    contents:
+      /usr/share/doc/nginx-common/copyright:

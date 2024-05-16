@@ -1,5 +1,8 @@
 package: findutils
 
+essential:
+  - findutils_copyright
+
 slices:
   bins:
     essential:
@@ -8,3 +11,7 @@ slices:
     contents:
       /usr/bin/find:
       /usr/bin/xargs:
+
+  copyright:
+    contents:
+      /usr/share/doc/findutils/copyright:

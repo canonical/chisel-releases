@@ -1,5 +1,8 @@
 package: dotnet-runtime-6.0
 # NOTE: not available for armhf riscv64 ppc64el s390x
+essential:
+  - dotnet-runtime-6.0_copyright
+
 slices:
   libs:
     essential:
@@ -15,3 +18,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-runtime-6.0/copyright:
