@@ -11,6 +11,7 @@ slices:
       - libselinux1_libs
       - libsubid4_libs
     contents:
+      /usr/bin/getsubids:
       /usr/bin/newgidmap:
       /usr/bin/newuidmap:
   copyright:
