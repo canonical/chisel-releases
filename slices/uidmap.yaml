@@ -1,5 +1,8 @@
 package: uidmap
 
+essential:
+  - uidmap_copyright
+
 slices:
   bins:
     essential:
@@ -9,3 +12,6 @@ slices:
     contents:
       /usr/bin/newgidmap:
       /usr/bin/newuidmap:
+  copyright:
+    contents:
+      /usr/share/doc/uidmap/copyright:
