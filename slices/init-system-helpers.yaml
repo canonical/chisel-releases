@@ -1,5 +1,8 @@
 package: init-system-helpers
 
+essential:
+  - init-system-helpers_copyright
+
 slices:
   bins:
     contents:
@@ -23,3 +26,6 @@ slices:
   var:
     contents:
       /var/lib/systemd/:
+  copyright:
+    contents:
+      /usr/share/doc/init-system-helpers/copyright:

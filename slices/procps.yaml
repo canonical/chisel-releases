@@ -1,5 +1,8 @@
 package: procps
 
+essential:
+  - procps_copyright
+
 slices:
   bins:
     essential:
@@ -41,3 +44,6 @@ slices:
       /etc/sysctl.d/10-ptrace.conf:
       /etc/sysctl.d/10-zeropage.conf:
       /usr/lib/sysctl.d/99-protect-links.conf:
+  copyright:
+    contents:
+      /usr/share/doc/procps/copyright:
