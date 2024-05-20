@@ -1,5 +1,8 @@
 package: crun
 
+essential:
+  - crun_copyright
+
 slices:
   bins:
     essential:
@@ -11,3 +14,6 @@ slices:
     contents:
       /usr/bin/crun:
       /usr/lib/*-linux-*/libcrun.a:
+  copyright:
+    contents:
+      /usr/share/doc/crun/copyright:
