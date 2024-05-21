@@ -6,13 +6,13 @@ essential:
 slices:
   bins:
     contents:
+      /usr/bin/debconf:
       /usr/bin/debconf-apt-progress:
       /usr/bin/debconf-communicate:
       /usr/bin/debconf-copydb:
       /usr/bin/debconf-escape:
       /usr/bin/debconf-set-selections:
       /usr/bin/debconf-show:
-      /usr/bin/debconf:
       /usr/sbin/dpkg-preconfigure:
       /usr/sbin/dpkg-reconfigure:
       /usr/share/bash-completion/completions/debconf-show:
