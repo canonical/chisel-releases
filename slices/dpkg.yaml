@@ -1,0 +1,29 @@
+package: dpkg
+
+slices:
+  config:
+    contents:
+      /etc/dpkg/dpkg.cfg:
+
+  bins:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      - liblzma5_libs
+      - libmd0_libs
+      - libselinux1_libs
+      - libzstd1
+      - tar_tar
+      - zlib1g_libs
+      - dpkg_config
+    contents:
+      /usr/bin/dpkg*:
+      /usr/bin/update-alternatives:
+      /usr/libexec/dpkg/*:
+      /usr/sbin/start-stop-daemon:
+
+  locales:
+    essential:
+      - dpkg_bins
+    contents:
+      /usr/share/locale/**/dpkg.mo:

@@ -1,0 +1,12 @@
+package: gpgv
+
+slices:
+  bins:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libgcrypt20_libs
+      - libgpg-error0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/gpgv:
