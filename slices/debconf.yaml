@@ -1,0 +1,24 @@
+package: debconf
+
+essential:
+  - debconf_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/debconf:
+      /usr/bin/debconf-apt-progress:
+      /usr/bin/debconf-communicate:
+      /usr/bin/debconf-copydb:
+      /usr/bin/debconf-escape:
+      /usr/bin/debconf-set-selections:
+      /usr/bin/debconf-show:
+      /usr/sbin/dpkg-preconfigure:
+      /usr/sbin/dpkg-reconfigure:
+  config:
+    contents:
+      /etc/apt/apt.conf.d/70debconf:
+      /etc/debconf.conf:
+  copyright:
+    contents:
+      /usr/share/doc/debconf/copyright:
