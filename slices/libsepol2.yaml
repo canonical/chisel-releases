@@ -8,7 +8,7 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libsepol.so.2*:
+      /lib/*-linux-*/libsepol.so.2*:
   copyright:
     contents:
       /usr/share/doc/libsepol2/copyright:
