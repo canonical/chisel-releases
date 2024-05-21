@@ -7,7 +7,7 @@ slices:
   libs:
     essential:
       - libaudit1_libs
-      - libbz2-1_libs
+      - libbz2-1.0_libs
       - libc6_libs
       - libselinux1_libs
       - libsemanage-commmon_config
