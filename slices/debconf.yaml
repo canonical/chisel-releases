@@ -4,19 +4,37 @@ essential:
   - debconf_copyright
 
 slices:
-  bins:
+  bash-completion:
     contents:
-      /usr/bin/debconf:
+      /usr/share/bash-completion/completions/debconf-show:
+      /usr/share/bash-completion/completions/debconf:
+
+  bins:
+    essential:
+      - debconf_config
+      - debconf_modules
+    contents:
       /usr/bin/debconf-apt-progress:
       /usr/bin/debconf-communicate:
       /usr/bin/debconf-copydb:
       /usr/bin/debconf-escape:
       /usr/bin/debconf-set-selections:
       /usr/bin/debconf-show:
+      /usr/bin/debconf:
       /usr/sbin/dpkg-preconfigure:
       /usr/sbin/dpkg-reconfigure:
-      /usr/share/bash-completion/completions/debconf-show:
-      /usr/share/bash-completion/completions/debconf:
+
+  config:
+    contents:
+      /etc/apt/apt.conf.d/70debconf:
+      /etc/debconf.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/debconf/copyright:
+
+  modules:
+    contents:
       /usr/share/debconf/confmodule:
       /usr/share/debconf/confmodule.sh:
       /usr/share/debconf/debconf.conf:
@@ -124,10 +142,3 @@ slices:
       /usr/share/perl5/Debconf/Template/Transient.pm:
       /usr/share/perl5/Debconf/TmpFile.pm:
       /usr/share/perl5/Debian/DebConf/Client/ConfModule.pm:
-  config:
-    contents:
-      /etc/apt/apt.conf.d/70debconf:
-      /etc/debconf.conf:
-  copyright:
-    contents:
-      /usr/share/doc/debconf/copyright:
