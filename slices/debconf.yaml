@@ -6,21 +6,21 @@ essential:
 slices:
   bash-completion:
     contents:
-      /usr/share/bash-completion/completions/debconf-show:
       /usr/share/bash-completion/completions/debconf:
+      /usr/share/bash-completion/completions/debconf-show:
 
   bins:
     essential:
       - debconf_config
       - debconf_modules
     contents:
+      /usr/bin/debconf:
       /usr/bin/debconf-apt-progress:
       /usr/bin/debconf-communicate:
       /usr/bin/debconf-copydb:
       /usr/bin/debconf-escape:
       /usr/bin/debconf-set-selections:
       /usr/bin/debconf-show:
-      /usr/bin/debconf:
       /usr/sbin/dpkg-preconfigure:
       /usr/sbin/dpkg-reconfigure:
 
@@ -45,8 +45,6 @@ slices:
       /usr/share/perl5/Debconf/Client/ConfModule.pm:
       /usr/share/perl5/Debconf/Config.pm:
       /usr/share/perl5/Debconf/ConfModule.pm:
-      /usr/share/perl5/Debconf/Db.pm:
-      /usr/share/perl5/Debconf/DbDriver.pm:
       /usr/share/perl5/Debconf/DbDriver/Backup.pm:
       /usr/share/perl5/Debconf/DbDriver/Cache.pm:
       /usr/share/perl5/Debconf/DbDriver/Copy.pm:
@@ -57,8 +55,9 @@ slices:
       /usr/share/perl5/Debconf/DbDriver/LDAP.pm:
       /usr/share/perl5/Debconf/DbDriver/PackageDir.pm:
       /usr/share/perl5/Debconf/DbDriver/Pipe.pm:
+      /usr/share/perl5/Debconf/DbDriver.pm:
       /usr/share/perl5/Debconf/DbDriver/Stack.pm:
-      /usr/share/perl5/Debconf/Element.pm:
+      /usr/share/perl5/Debconf/Db.pm:
       /usr/share/perl5/Debconf/Element/Dialog/Boolean.pm:
       /usr/share/perl5/Debconf/Element/Dialog/Error.pm:
       /usr/share/perl5/Debconf/Element/Dialog/Multiselect.pm:
@@ -77,27 +76,28 @@ slices:
       /usr/share/perl5/Debconf/Element/Editor/Select.pm:
       /usr/share/perl5/Debconf/Element/Editor/String.pm:
       /usr/share/perl5/Debconf/Element/Editor/Text.pm:
-      /usr/share/perl5/Debconf/Element/Gnome.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Boolean.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Error.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Multiselect.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Note.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Password.pm:
+      /usr/share/perl5/Debconf/Element/Gnome.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Progress.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Select.pm:
       /usr/share/perl5/Debconf/Element/Gnome/String.pm:
       /usr/share/perl5/Debconf/Element/Gnome/Text.pm:
       /usr/share/perl5/Debconf/Element/Multiselect.pm:
-      /usr/share/perl5/Debconf/Element/Noninteractive.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Boolean.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Error.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Multiselect.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Note.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Password.pm:
+      /usr/share/perl5/Debconf/Element/Noninteractive.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Progress.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Select.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/String.pm:
       /usr/share/perl5/Debconf/Element/Noninteractive/Text.pm:
+      /usr/share/perl5/Debconf/Element.pm:
       /usr/share/perl5/Debconf/Element/Select.pm:
       /usr/share/perl5/Debconf/Element/Teletype/Boolean.pm:
       /usr/share/perl5/Debconf/Element/Teletype/Error.pm:
@@ -118,15 +118,15 @@ slices:
       /usr/share/perl5/Debconf/Element/Web/String.pm:
       /usr/share/perl5/Debconf/Element/Web/Text.pm:
       /usr/share/perl5/Debconf/Encoding.pm:
-      /usr/share/perl5/Debconf/Format.pm:
       /usr/share/perl5/Debconf/Format/822.pm:
-      /usr/share/perl5/Debconf/FrontEnd.pm:
+      /usr/share/perl5/Debconf/Format.pm:
       /usr/share/perl5/Debconf/FrontEnd/Dialog.pm:
       /usr/share/perl5/Debconf/FrontEnd/Editor.pm:
       /usr/share/perl5/Debconf/FrontEnd/Gnome.pm:
       /usr/share/perl5/Debconf/FrontEnd/Kde.pm:
       /usr/share/perl5/Debconf/FrontEnd/Noninteractive.pm:
       /usr/share/perl5/Debconf/FrontEnd/Passthrough.pm:
+      /usr/share/perl5/Debconf/FrontEnd.pm:
       /usr/share/perl5/Debconf/FrontEnd/Readline.pm:
       /usr/share/perl5/Debconf/FrontEnd/ScreenSize.pm:
       /usr/share/perl5/Debconf/FrontEnd/Teletype.pm:
