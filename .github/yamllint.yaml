@@ -30,4 +30,4 @@ rules:
   indentation:
     spaces: 2
   line-length:
-    max: 80
+    max: 100
