@@ -6,7 +6,6 @@ essential:
 slices:
   bins:
     essential:
-      - init-system-helpers_bins
       - libc6_libs
       - libncursesw6_libs
       - libproc2-0_libs
