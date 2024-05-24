@@ -22,7 +22,7 @@ slices:
       /usr/bin/pwdx:
       /usr/bin/skill:
       /usr/bin/slabtop:
-      /usr/bin/snice: {symlink: skill}
+      /usr/bin/snice:
       /usr/bin/tload:
       /usr/bin/top:
       /usr/bin/uptime:
