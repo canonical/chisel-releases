@@ -1,0 +1,18 @@
+# Low level cryptographic library (public-key cryptos)
+package: libhogweed6
+
+essential:
+  - libhogweed6_copyright
+
+slices:
+  libs:
+    essentials:
+      - libc6_libs
+      - libgmp10_libs
+      - libnettle8_libs
+    contents:
+      /usr/lib/*-linux-*/libhogweed.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libhogweed6/copyright:
