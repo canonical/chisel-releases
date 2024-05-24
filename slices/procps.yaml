@@ -16,7 +16,7 @@ slices:
       /usr/bin/kill:
       /usr/bin/pgrep:
       /usr/bin/pidwait:
-      /usr/bin/pkill: {symlink: pgrep}
+      /usr/bin/pkill:
       /usr/bin/pmap:
       /usr/bin/ps:
       /usr/bin/pwdx:
