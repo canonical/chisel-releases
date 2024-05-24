@@ -1,5 +1,8 @@
 package: fonts-dejavu-mono
 
+essential:
+  - fonts-dejavu-mono_copyright
+
 slices:
   fonts:
     contents:
@@ -17,3 +20,7 @@ slices:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-dejavu-mono/copyright:

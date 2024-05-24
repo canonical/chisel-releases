@@ -1,5 +1,8 @@
 package: fonts-dejavu-core
 
+essential:
+  - fonts-dejavu-core_copyright
+
 slices:
   fonts:
     essential:
@@ -27,3 +30,7 @@ slices:
       /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-dejavu-core/copyright:

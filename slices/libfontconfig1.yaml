@@ -1,5 +1,8 @@
 package: libfontconfig1
 
+essential:
+  - libfontconfig1_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
       - libfreetype6_libs
     contents:
       /usr/lib/*-linux-*/libfontconfig.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfontconfig1/copyright:

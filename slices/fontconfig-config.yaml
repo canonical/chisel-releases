@@ -1,5 +1,8 @@
 package: fontconfig-config
 
+essential:
+  - fontconfig-config_copyright
+
 slices:
   config:
     essential:
@@ -30,3 +33,7 @@ slices:
       /etc/fonts/fonts.conf:
       /usr/share/fontconfig/conf.avail/*.conf:
       /usr/share/xml/fontconfig/fonts.dtd:
+
+  copyright:
+    contents:
+      /usr/share/doc/fontconfig-config/copyright:
