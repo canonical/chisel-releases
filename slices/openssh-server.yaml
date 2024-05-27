@@ -1,8 +1,5 @@
 package: openssh-server
 
-essential:
-  - openssh-server_copyright
-
 slices:
   bins:
     # openssh-server actually depends on adduser as well to create and remove
@@ -47,10 +44,6 @@ slices:
       /usr/lib/systemd/system/rescue-ssh.target:
       /usr/lib/systemd/system/ssh.service:
       /usr/lib/systemd/system/ssh.socket:
-
-  copyright:
-    contents:
-      /usr/share/doc/openssh-server/copyright:
 
   standard:
     essential:
