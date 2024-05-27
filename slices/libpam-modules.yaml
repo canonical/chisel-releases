@@ -20,7 +20,7 @@ slices:
       - libaudit1_libs
       - libc6_libs
       - libcrypt1_libs
-      - libdb5.3_libs
+      - libdb5.3t64_libs
       - libpam0g_libs
       - libselinux1_libs
     contents:
