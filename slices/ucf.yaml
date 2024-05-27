@@ -1,5 +1,8 @@
 package: ucf
 
+essential:
+  - ucf_copyright
+
 # Uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
 # during install and removal.
 slices:
@@ -17,6 +20,10 @@ slices:
       /etc/ucf.conf:
       /var/lib/ucf/hashfile: {text: ""}
       /var/lib/ucf/registry: {text: ""}
+
+  copyright:
+    contents:
+      /usr/share/doc/ucf/copyright:
 
   standard:
     essential:

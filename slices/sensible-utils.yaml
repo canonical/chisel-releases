@@ -1,5 +1,8 @@
 package: sensible-utils
 
+essential:
+  - sensible-utils_copyright
+
 slices:
   bins:
     contents:
@@ -13,6 +16,10 @@ slices:
   mime:
     contents:
       /usr/lib/mime/packages/sensible-utils:
+
+  copyright:
+    contents:
+      /usr/share/doc/sensible-utils/copyright:
 
   standard:
     essential:

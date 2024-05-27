@@ -1,6 +1,13 @@
 package: libaudit-common
 
+essential:
+  - libaudit-common_copyright
+
 slices:
   config:
     contents:
       /etc/libaudit.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libaudit-common/copyright:

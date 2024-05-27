@@ -1,5 +1,8 @@
 package: openssh-client
 
+essential:
+  - openssh-client_copyright
+
 slices:
   bins:
     essential:
@@ -35,6 +38,10 @@ slices:
     contents:
       /usr/lib/systemd/user/graphical-session-pre.target.wants/ssh-agent.service:
       /usr/lib/systemd/user/ssh-agent.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/openssh-client/copyright:
 
   standard:
     essential:

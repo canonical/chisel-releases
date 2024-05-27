@@ -1,5 +1,8 @@
 package: libpam-modules
 
+essential:
+  - libpam-modules_copyright
+
 slices:
   config:
     contents:
@@ -74,6 +77,10 @@ slices:
   pam-config:
     contents:
       /usr/share/pam-configs/mkhomedir:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-modules/copyright:
 
   standard:
     essential:

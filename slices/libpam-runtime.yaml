@@ -1,5 +1,8 @@
 package: libpam-runtime
 
+essential:
+  - libpam-runtime_copyright
+
 slices:
   bins:
     essential:
@@ -42,6 +45,10 @@ slices:
       /usr/share/pam/common-session-noninteractive:
       /usr/share/pam/common-session-noninteractive.md5sums:
       /usr/share/pam/common-session.md5sums:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-runtime/copyright:
 
   # Introduce a core slice that only contains minimal things that
   # can be needed by other things than the perl scripts from this

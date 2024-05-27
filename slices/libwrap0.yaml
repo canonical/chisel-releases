@@ -1,5 +1,8 @@
 package: libwrap0
 
+essential:
+  - libwrap0_copyright
+
 slices:
   libs:
     essential:
@@ -39,3 +42,7 @@ slices:
           # validate looked up hostnames still leave understandable logs. In past
           # versions of Debian this has been the default.
           # ALL: PARANOID
+
+  copyright:
+    contents:
+      /usr/share/doc/libwrap0/copyright:

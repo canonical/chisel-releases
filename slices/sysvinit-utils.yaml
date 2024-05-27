@@ -1,5 +1,8 @@
 package: sysvinit-utils
 
+essential:
+  - sysvinit-utils_copyright
+
 slices:
   bins:
     essential:
@@ -16,6 +19,10 @@ slices:
     contents:
       /usr/lib/lsb/init-functions.d/00-verbose:
       /usr/lib/lsb/init-functions.d/50-ubuntu-logging:
+
+  copyright:
+    contents:
+      /usr/share/doc/sysvinit-utils/copyright:
 
   standard:
     essential:
