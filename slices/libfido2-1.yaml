@@ -5,7 +5,7 @@ slices:
     essential:
       - libc6_libs
       - libcbor0.10_libs
-      - libssl3_libs
+      - libssl3t64_libs
       - libudev1_libs
       - zlib1g_libs
     contents:

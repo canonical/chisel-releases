@@ -16,7 +16,7 @@ slices:
       - libpam-modules_libs
       - libpam0g_libs
       - libselinux1_libs
-      - libssl3_libs
+      - libssl3t64_libs
       - libsystemd0_libs
       - libwrap0_libs
       - openssh-client_bins
