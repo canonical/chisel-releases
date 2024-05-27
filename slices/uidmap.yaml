@@ -1,0 +1,17 @@
+package: uidmap
+
+essential:
+  - uidmap_copyright
+
+slices:
+  bins:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/newgidmap:
+      /usr/bin/newuidmap:
+  copyright:
+    contents:
+      /usr/share/doc/uidmap/copyright:
