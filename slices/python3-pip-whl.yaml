@@ -1,0 +1,15 @@
+package: python3-pip-whl
+
+essential:
+  - python3-pip-whl_copyright
+
+slices:
+  libs:
+    essential:
+      - ca-certificates_data
+    contents:
+      /usr/share/python-wheels/pip-*.whl:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-pip-whl/copyright:

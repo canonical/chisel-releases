@@ -1,0 +1,10 @@
+package: python3.12-venv
+
+slices:
+  libs:
+    essential:
+      - python3.12_standard
+      - python3-pip-whl_libs
+      - python3-setuptools-whl_libs
+    contents:
+      /usr/lib/python3.12/ensurepip/*.py:
