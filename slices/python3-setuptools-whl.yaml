@@ -4,9 +4,9 @@ essential:
   - python3-setuptools-whl_copyright
 
 slices:
-  libs:
+  wheels:
     contents:
-      /usr/share/python-wheels/setuptools-*.whl:
+      /usr/share/python-wheels/setuptools-*-py3-none-any.whl:
 
   copyright:
     contents:
