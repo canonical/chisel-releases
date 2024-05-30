@@ -1,10 +1,12 @@
 package: libgcc-s1
 
+essential:
+  - libgcc-s1_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
-      - libgcc-s1_copyright
     contents:
       /usr/lib/*-linux-*/libgcc_s.so.*:
 
