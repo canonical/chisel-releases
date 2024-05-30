@@ -1,0 +1,31 @@
+package: init-system-helpers
+
+essential:
+  - init-system-helpers_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/deb-systemd-helper:
+      /usr/bin/deb-systemd-invoke:
+      /usr/sbin/invoke-rc.d:
+      /usr/sbin/service:
+      /usr/sbin/update-rc.d:
+  config:
+    contents:
+      /etc/rc0.d/:
+      /etc/rc1.d/:
+      /etc/rc2.d/:
+      /etc/rc3.d/:
+      /etc/rc4.d/:
+      /etc/rc5.d/:
+      /etc/rc6.d/:
+      /etc/rcS.d/:
+      /etc/systemd/system/:
+      /etc/systemd/user/:
+  var:
+    contents:
+      /var/lib/systemd/:
+  copyright:
+    contents:
+      /usr/share/doc/init-system-helpers/copyright:
