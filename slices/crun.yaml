@@ -13,6 +13,8 @@ slices:
       - libyajl2_libs
     contents:
       /usr/bin/crun:
+  libs:
+    contents:
       /usr/lib/*-linux-*/libcrun.a:
   copyright:
     contents:
