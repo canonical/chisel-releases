@@ -1,0 +1,15 @@
+package: libsharpyuv0
+
+essential:
+  - libsharpyuv0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libsharpyuv.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsharpyuv0/copyright:
