@@ -29,10 +29,6 @@ slices:
       /etc/apt/apt.conf.d/70debconf:
       /etc/debconf.conf:
 
-  copyright:
-    contents:
-      /usr/share/doc/debconf/copyright:
-
   modules:
     contents:
       /usr/share/debconf/confmodule:
@@ -142,3 +138,7 @@ slices:
       /usr/share/perl5/Debconf/Template/Transient.pm:
       /usr/share/perl5/Debconf/TmpFile.pm:
       /usr/share/perl5/Debian/DebConf/Client/ConfModule.pm:
+
+  copyright:
+    contents:
+      /usr/share/doc/debconf/copyright:
