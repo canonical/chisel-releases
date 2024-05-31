@@ -10,9 +10,8 @@ slices:
       - libdeflate0_libs
       - libjbig0_libs
       - libjpeg-turbo8_libs
-      # liblerc4_libs is a depndency of libtiff6_libs that's required only
-      # on all architectures, but s390. 
-      # please install it separately if you don't run s390
+      # liblerc4_libs is a depndency of libtiff6_libs that's required on all
+      # architectures, but s390. Please install it separately to make it work.
       - liblzma5_libs
       - libwebp7_libs
       - libzstd1_libs
