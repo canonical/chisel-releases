@@ -1,0 +1,16 @@
+package: libmbedcrypto7t64
+
+essential:
+  - libmbedcrypto7t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libmbedcrypto.so.2.28.8:
+      /usr/lib/*-linux-*/libmbedcrypto.so.7:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmbedcrypto7t64/copyright:
