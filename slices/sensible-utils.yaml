@@ -20,8 +20,3 @@ slices:
   copyright:
     contents:
       /usr/share/doc/sensible-utils/copyright:
-
-  standard:
-    essential:
-      - sensible-utils_bins
-      - sensible-utils_mime

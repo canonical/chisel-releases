@@ -4,11 +4,6 @@ essential:
   - procps_copyright
 
 slices:
-  standard:
-    essential:
-      - procps_bins
-      - procps_config
-
   bins:
     essential:
       - libc6_libs

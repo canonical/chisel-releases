@@ -24,8 +24,3 @@ slices:
   copyright:
     contents:
       /usr/share/doc/ucf/copyright:
-
-  standard:
-    essential:
-      - ucf_bins
-      - ucf_config

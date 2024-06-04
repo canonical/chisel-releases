@@ -7,10 +7,14 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libnsl2_libs
     contents:
       /usr/lib/*-linux-*/libwrap.so.0*:
 
+  # The two host-files written by these slices are supposed to dependant on
+  # the fact that these files do not already exist. 
+  # TODO: Use mutation scripts to only write these on a conditional that these
+  # files don't already exist once starlark supports this, and once conflict
+  # resolution is implemented.
   host-files:
     contents:
       /etc/hosts.allow:

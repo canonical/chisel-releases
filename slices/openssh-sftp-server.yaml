@@ -8,8 +8,3 @@ slices:
     contents:
       /usr/lib/openssh/sftp-server:
       /usr/lib/sftp-server:
-
-  standard:
-    essential:
-      - openssh-client_standard
-      - openssh-sftp-server_bins

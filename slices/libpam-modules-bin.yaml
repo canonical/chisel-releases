@@ -11,6 +11,7 @@ slices:
       - libcrypt1_libs
       - libpam0g_libs
       - libselinux1_libs
+      - libsystemd0_libs
     contents:
       /usr/sbin/faillock:
       /usr/sbin/mkhomedir_helper:

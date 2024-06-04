@@ -11,7 +11,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libselinux.so.1:
 
-  tmpfiles-d:
+  config:
     contents:
       /usr/lib/tmpfiles.d/libselinux1.conf:
 

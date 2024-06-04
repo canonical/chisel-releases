@@ -49,19 +49,3 @@ slices:
   copyright:
     contents:
       /usr/share/doc/libpam-runtime/copyright:
-
-  # Introduce a core slice that only contains minimal things that
-  # can be needed by other things than the perl scripts from this
-  # package.
-  core:
-    essential:
-      - libpam-runtime_config
-      - libpam-runtime_var
-
-  standard:
-    essential:
-      - libpam-runtime_bins
-      - libpam-runtime_config
-      - libpam-runtime_pam-config
-      - libpam-runtime_pam-defaults
-      - libpam-runtime_var

@@ -23,9 +23,9 @@ slices:
       - libaudit1_libs
       - libc6_libs
       - libcrypt1_libs
-      - libdb5.3t64_libs
       - libpam0g_libs
       - libselinux1_libs
+      - libsystemd0_libs
     contents:
       /usr/lib/*-linux-*/security/pam_access.so:
       /usr/lib/*-linux-*/security/pam_debug.so:
@@ -81,10 +81,3 @@ slices:
   copyright:
     contents:
       /usr/share/doc/libpam-modules/copyright:
-
-  standard:
-    essential:
-      - libpam-modules-bin_bins
-      - libpam-modules-bin_services
-      - libpam-modules_config
-      - libpam-modules_libs

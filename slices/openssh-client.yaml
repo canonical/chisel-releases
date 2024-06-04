@@ -5,6 +5,9 @@ essential:
 
 slices:
   bins:
+    # openssh-client depends on adduser as well to create or update
+    # the ssh agent user during package install - however we 
+    # don't support this currently so adduser is not added here.
     essential:
       - libc6_libs
       - libedit2_libs
@@ -42,8 +45,3 @@ slices:
   copyright:
     contents:
       /usr/share/doc/openssh-client/copyright:
-
-  standard:
-    essential:
-      - openssh-client_bins
-      - openssh-client_config

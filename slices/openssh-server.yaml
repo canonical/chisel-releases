@@ -14,11 +14,12 @@ slices:
       - libgssapi-krb5-2_libs
       - libkrb5-3_libs
       - libpam-modules_libs
+      - libpam-runtime_config
       - libpam0g_libs
       - libselinux1_libs
       - libssl3t64_libs
-      - libsystemd0_libs
       - libwrap0_libs
+      - lsb-base_bins
       - openssh-client_bins
       - openssh-sftp-server_bins
       - procps_bins
@@ -44,12 +45,3 @@ slices:
       /usr/lib/systemd/system/rescue-ssh.target:
       /usr/lib/systemd/system/ssh.service:
       /usr/lib/systemd/system/ssh.socket:
-
-  standard:
-    essential:
-      - libpam-runtime_core
-      - openssh-client_standard
-      - openssh-server_bins
-      - openssh-server_config
-      - procps_standard
-      - ucf_standard

@@ -23,8 +23,3 @@ slices:
   copyright:
     contents:
       /usr/share/doc/sysvinit-utils/copyright:
-
-  standard:
-    essential:
-      - sysvinit-utils_bins
-      - sysvinit-utils_config
