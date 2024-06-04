@@ -11,7 +11,11 @@ slices:
       /usr/bin/sensible-editor:
       /usr/bin/sensible-pager:
       /usr/bin/sensible-terminal:
+
+  auxillary-bins:
+    contents:
       /usr/share/sensible-utils/bin/gettext:
+      /usr/share/sensible-utils/bin/realpath:
 
   mime:
     contents:

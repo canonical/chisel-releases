@@ -11,13 +11,14 @@ slices:
       /usr/lib/*-linux-*/libwrap.so.0*:
 
   # The two host-files written by these slices are supposed to dependant on
-  # the fact that these files do not already exist. 
+  # the fact that these files do not already exist.
   # TODO: Use mutation scripts to only write these on a conditional that these
   # files don't already exist once starlark supports this, and once conflict
   # resolution is implemented.
   host-files:
     contents:
-      /etc/hosts.allow:
+      /etc/hosts.allow: {text: FIXME, mutable: true}
+      /etc/hosts.allow.tmp:
         text: |
           # /etc/hosts.allow: list of hosts that are allowed to access the system.
           #                   See the manual pages hosts_access(5) and hosts_options(5).
@@ -28,7 +29,9 @@ slices:
           # If you're going to protect the portmapper use the name "rpcbind" for the
           # daemon name. See rpcbind(8) and rpc.mountd(8) for further information.
           #
-      /etc/hosts.deny:
+        until: mutate
+      /etc/hosts.deny: {text: FIXME, mutable: true}
+      /etc/hosts.deny.tmp:
         text: |
           # /etc/hosts.deny: list of hosts that are _not_ allowed to access the system.
           #                  See the manual pages hosts_access(5) and hosts_options(5).
@@ -46,6 +49,15 @@ slices:
           # validate looked up hostnames still leave understandable logs. In past
           # versions of Debian this has been the default.
           # ALL: PARANOID
+        until: mutate
+    mutate: |
+      files = content.list("/etc/")
+      for x in ["hosts.allow", "hosts.deny"]:
+        gr = content.read("/etc/" + x + ".tmp")
+        if x in files:
+          content.write("/etc/" + x, gr)
+        elif gr.startswith("FIXME"):
+          content.write("/etc/" + x, gr)
 
   copyright:
     contents:

@@ -6,7 +6,7 @@ essential:
 slices:
   bins:
     # openssh-client depends on adduser as well to create or update
-    # the ssh agent user during package install - however we 
+    # the ssh agent user during package install - however we
     # don't support this currently so adduser is not added here.
     essential:
       - libc6_libs
@@ -15,6 +15,7 @@ slices:
       - libgssapi-krb5-2_libs
       - libselinux1_libs
       - libssl3t64_libs
+      - passwd_config
       - zlib1g_libs
     contents:
       /usr/bin/scp:
