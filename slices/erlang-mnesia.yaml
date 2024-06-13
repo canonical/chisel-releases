@@ -1,0 +1,15 @@
+package: erlang-mnesia
+
+essential:
+  - erlang-mnesia_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+    contents:
+      /usr/lib/erlang/lib/mnesia-4.21.4.2/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-mnesia/copyright:

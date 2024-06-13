@@ -1,0 +1,15 @@
+package: erlang-tftp
+
+essential:
+  - erlang-tftp_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+    contents:
+      /usr/lib/erlang/lib/tftp-1.0.4/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-tftp/copyright:

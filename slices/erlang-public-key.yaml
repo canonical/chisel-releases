@@ -1,0 +1,17 @@
+package: erlang-public-key
+
+essential:
+  - erlang-public-key_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-asn1_libs
+      - erlang-base_bins
+      - erlang-crypto_libs
+    contents:
+      /usr/lib/erlang/lib/public_key-1.13.3.2/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-public-key/copyright:

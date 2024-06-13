@@ -1,0 +1,19 @@
+package: socat
+
+essential:
+  - socat_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libssl3t64_libs
+      - libwrap0_libs
+    contents:
+      /usr/bin/filan:
+      /usr/bin/procan:
+      /usr/bin/socat*:
+
+  copyright:
+    contents:
+      /usr/share/doc/socat/copyright:

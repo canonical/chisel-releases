@@ -1,0 +1,17 @@
+package: erlang-eldap
+
+essential:
+  - erlang-eldap_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-asn1_libs
+      - erlang-base_bins
+      - erlang-ssl_libs
+    contents:
+      /usr/lib/erlang/lib/eldap-1.2.11/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-eldap/copyright:

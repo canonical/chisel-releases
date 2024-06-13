@@ -1,0 +1,19 @@
+package: erlang-os-mon
+
+essential:
+  - erlang-os-mon_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+      - erlang-mnesia_libs
+      - erlang-snmp_bins
+      - libc6_libs
+    contents:
+      /usr/lib/erlang/lib/os_mon-2.8.2/ebin/**:
+      /usr/lib/erlang/lib/os_mon-2.8.2/priv/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-os-mon/copyright:

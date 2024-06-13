@@ -1,0 +1,17 @@
+package: erlang-ftp
+
+essential:
+  - erlang-ftp_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+      - erlang-runtime-tools_libs
+      - erlang-ssl_libs
+    contents:
+      /usr/lib/erlang/lib/ftp-1.1.4/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-ftp/copyright:

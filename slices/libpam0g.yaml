@@ -6,6 +6,7 @@ essential:
 slices:
   libs:
     essential:
+      - debconf_bins
       - libaudit1_libs
       - libc6_libs
     contents:

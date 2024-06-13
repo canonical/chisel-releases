@@ -1,0 +1,15 @@
+package: libpopt0
+
+essential:
+  - libpopt0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libpopt.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpopt0/copyright:
