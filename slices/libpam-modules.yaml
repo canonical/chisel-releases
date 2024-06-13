@@ -1,0 +1,38 @@
+package: libpam-modules
+
+essential:
+  - libpam-modules_copyright
+
+slices:
+  libs:
+    essential:
+      - debconf_bins
+      - libaudit1_libs
+      - libc6_libs
+      - libdb5.3t64_libs
+      - libcrypt1_libs
+      - libpam-modules-bin_bins
+      - libpam-modules_config
+      - libpam0g_libs
+      - libselinux1_libs
+      - libsystemd0_libs
+    contents:
+      /usr/lib/*-linux-*/security/pam_*.so:
+
+  config:
+    contents:
+      /etc/security/access.conf:
+      /etc/security/faillock.conf:
+      /etc/security/group.conf:
+      /etc/security/limits.conf:
+      /etc/security/namespace.conf:
+      /etc/security/namespace.init:
+      /etc/security/pam_env.conf:
+      /etc/security/pwhistory.conf:
+      /etc/security/sepermit.conf:
+      /etc/security/time.conf:
+      /usr/share/pam-configs/mkhomedir:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-modules/copyright:

@@ -1,0 +1,28 @@
+package: libpam-runtime
+
+essential:
+  - libpam-runtime_copyright
+
+slices:
+  bins:
+    essential:
+      - debconf_bins
+      - libpam-modules_config
+    contents:
+      /usr/sbin/pam-auth-update:
+      /usr/sbin/pam_getenv:
+
+  config:
+    contents:
+      /etc/pam.conf:
+      /etc/pam.d/other:
+      /usr/share/pam-configs/unix:
+      /usr/share/pam/common-account:
+      /usr/share/pam/common-auth:
+      /usr/share/pam/common-password:
+      /usr/share/pam/common-session:
+      /usr/share/pam/common-session-noninteractive:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-runtime/copyright:

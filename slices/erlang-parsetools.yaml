@@ -1,0 +1,15 @@
+package: erlang-parsetools
+
+essential:
+  - erlang-parsetools_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+    contents:
+      /usr/lib/erlang/lib/parsetools-2.4.1/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-parsetools/copyright:

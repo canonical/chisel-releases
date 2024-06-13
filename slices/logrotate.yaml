@@ -1,0 +1,29 @@
+package: logrotate
+
+essential:
+  - logrotate_copyright
+
+slices:
+  bins:
+    essential:
+      - cron_bins
+      - libacl1_libs
+      - libc6_libs
+      - libpopt0_libs
+      - libselinux1_libs
+      - logrotate_config
+    contents:
+      /usr/sbin/logrotate:
+
+  config:
+    contents:
+      /etc/cron.daily/logrotate:
+      /etc/logrotate.conf:
+      /etc/logrotate.d/btmp:
+      /etc/logrotate.d/wtmp:
+      /usr/lib/systemd/system/logrotate.service:
+      /usr/lib/systemd/system/logrotate.timer:
+
+  copyright:
+    contents:
+      /usr/share/doc/logrotate/copyright:

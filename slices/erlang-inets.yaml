@@ -1,0 +1,26 @@
+package: erlang-inets
+
+essential:
+  - erlang-inets_copyright
+
+slices:
+  bins:
+    essential:
+      - erlang-base_bins
+      - erlang-ftp_libs
+      - erlang-inets_libs
+      - erlang-mnesia_libs
+      - erlang-runtime-tools_libs
+      - erlang-ssl_libs
+      - erlang-tftp_libs
+    contents:
+      /usr/lib/erlang/lib/inets-8.3.1.2/priv/bin/runcgi.sh:
+
+  libs:
+    contents:
+      /usr/lib/erlang/lib/inets-8.3.1.2/ebin/**:
+      /usr/lib/erlang/lib/inets-8.3.1.2/include/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-inets/copyright:

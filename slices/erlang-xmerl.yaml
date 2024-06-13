@@ -1,0 +1,15 @@
+package: erlang-xmerl
+
+essential:
+  - erlang-xmerl_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+    contents:
+      /usr/lib/erlang/lib/xmerl-1.3.31.1/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-xmerl/copyright:

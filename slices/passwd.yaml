@@ -1,0 +1,57 @@
+package: passwd
+
+essential:
+  - passwd_copyright
+
+slices:
+  bins:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libpam-modules_libs
+      - libpam0g_libs
+      - libselinux1_libs
+      - libsemanage2_libs
+    contents:
+      /usr/bin/chage:
+      /usr/bin/chfn:
+      /usr/bin/chsh:
+      /usr/bin/expiry:
+      /usr/bin/gpasswd:
+      /usr/bin/passwd:
+      /usr/sbin/chgpasswd:
+      /usr/sbin/chpasswd:
+      /usr/sbin/cpgr:
+      /usr/sbin/cppw:
+      /usr/sbin/groupadd:
+      /usr/sbin/groupdel:
+      /usr/sbin/groupmems:
+      /usr/sbin/groupmod:
+      /usr/sbin/grpck:
+      /usr/sbin/grpconv:
+      /usr/sbin/grpunconv:
+      /usr/sbin/newusers:
+      /usr/sbin/pwck:
+      /usr/sbin/pwconv:
+      /usr/sbin/pwunconv:
+      /usr/sbin/shadowconfig:
+      /usr/sbin/useradd:
+      /usr/sbin/userdel:
+      /usr/sbin/usermod:
+      /usr/sbin/vigr:
+      /usr/sbin/vipw:
+
+  config:
+    contents:
+      /etc/default/useradd:
+      /etc/pam.d/chfn:
+      /etc/pam.d/chpasswd:
+      /etc/pam.d/chsh:
+      /etc/pam.d/newusers:
+      /etc/pam.d/passwd:
+      /usr/lib/tmpfiles.d/passwd.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/passwd/copyright:

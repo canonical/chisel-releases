@@ -1,0 +1,55 @@
+package: rabbitmq-server
+
+essential:
+  - rabbitmq-server_copyright
+
+slices:
+  bins:
+    essential:
+      - adduser_bins
+      - erlang-base_bins
+      - erlang-crypto_libs
+      - erlang-eldap_libs
+      - erlang-inets_bins
+      - erlang-mnesia_libs
+      - erlang-os-mon_libs
+      - erlang-parsetools_libs
+      - erlang-public-key_libs
+      - erlang-runtime-tools_libs
+      - erlang-ssl_libs
+      - erlang-syntax-tools_libs
+      - erlang-tools_libs
+      - erlang-xmerl_libs
+      - logrotate_bins
+      - openssl_bins
+      - python3.12_standard
+      - rabbitmq-server_config
+      - rabbitmq-server_libs
+      - socat_bins
+    contents:
+      /usr/bin/rabbitmqadmin:
+      /usr/lib/rabbitmq/bin/rabbitmq-*:
+      /usr/lib/rabbitmq/bin/vmware-rabbitmq:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/rabbitmq-*:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/vmware-rabbitmq:
+      /usr/sbin/rabbitmq-*:
+
+  config:
+    contents:
+      /etc/default/rabbitmq-server:
+      /etc/init.d/rabbitmq-server:
+      /etc/logrotate.d/rabbitmq-server:
+      /usr/lib/rabbitmq/autocomplete/*:
+      /usr/lib/systemd/system/rabbitmq-server.service:
+      /usr/share/rabbitmq/rabbitmq-env.conf:
+
+  libs:
+    contents:
+      /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/**:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/plugins/**:
+
+  copyright:
+    contents:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/LICENSE*:
+      /usr/share/doc/rabbitmq-server/copyright:

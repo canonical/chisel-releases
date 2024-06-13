@@ -1,0 +1,16 @@
+package: erlang-syntax-tools
+
+essential:
+  - erlang-syntax-tools_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+    contents:
+      /usr/lib/erlang/lib/syntax_tools-3.0.1/ebin/**:
+      /usr/lib/erlang/lib/syntax_tools-3.0.1/include/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-syntax-tools/copyright:
