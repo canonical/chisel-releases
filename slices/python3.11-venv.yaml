@@ -1,0 +1,15 @@
+package: python3.11-venv
+
+slices:
+  ensurepip:
+    contents:
+      /usr/lib/python3.11/ensurepip/*.py:
+
+  core:
+    essential:
+      - python3.11_standard
+      - python3-pip-whl_bins
+      - python3-setuptools-whl_bins
+      - python3-distutils_python3-11
+      - python3.11-venv_ensurepip
+

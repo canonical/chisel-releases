@@ -1,0 +1,13 @@
+package: python3-setuptools-whl
+
+essential:
+  - python3-setuptools-whl_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/share/python-wheels/setuptools-*-py3-none-any.whl:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-setuptools-whl/copyright:
