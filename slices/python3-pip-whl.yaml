@@ -4,7 +4,9 @@ essential:
   - python3-pip-whl_copyright
 
 slices:
-  bins:
+  wheels:
+    essential:
+      - ca-certificates_data
     contents:
       /usr/share/python-wheels/pip-*-py3-none-any.whl:
 

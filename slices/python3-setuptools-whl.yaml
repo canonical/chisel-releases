@@ -4,7 +4,7 @@ essential:
   - python3-setuptools-whl_copyright
 
 slices:
-  bins:
+  wheels:
     contents:
       /usr/share/python-wheels/setuptools-*-py3-none-any.whl:
 

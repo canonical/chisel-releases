@@ -5,7 +5,7 @@ slices:
     contents:
       /usr/lib/python3.11/ensurepip/*.py:
 
-  core:
+  libs:
     essential:
       - python3-distutils_python3-11
       - python3-pip-whl_bins
