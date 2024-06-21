@@ -1,0 +1,13 @@
+package: python3-lib2to3
+
+essential:
+  - python3-lib2to3_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/python3.10/lib2to3/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-lib2to3/copyright:
