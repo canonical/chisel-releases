@@ -61,7 +61,7 @@ slices:
         {copy: /usr/lib/python3.10/distutils/command/install_scripts.py}
       /usr/lib/python3.11/distutils/command/register.py:
         {copy: /usr/lib/python3.10/distutils/command/register.py}
-      /usr/lib/python3.11/distutils/command/sdist.py: 
+      /usr/lib/python3.11/distutils/command/sdist.py:
         {copy: /usr/lib/python3.10/distutils/command/sdist.py}
       /usr/lib/python3.11/distutils/command/upload.py:
         {copy: /usr/lib/python3.10/distutils/command/upload.py}
@@ -86,7 +86,8 @@ slices:
       /usr/lib/python3.11/distutils/unixccompiler.py:
         {copy: /usr/lib/python3.10/distutils/unixccompiler.py}
       /usr/lib/python3.11/distutils/util.py: {copy: /usr/lib/python3.10/distutils/util.py}
-      /usr/lib/python3.11/distutils/versionpredicate.py: {copy: /usr/lib/python3.10/distutils/versionpredicate.py}
+      /usr/lib/python3.11/distutils/versionpredicate.py:
+        {copy: /usr/lib/python3.10/distutils/versionpredicate.py}
 
   python3-10:
     contents:
