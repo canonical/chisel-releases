@@ -93,7 +93,7 @@ slices:
 
   python3-10:
     essential:
-      - python3-lib2to3_libs
+      - python3-lib2to3_python3-10
     contents:
       /usr/lib/python3.10/distutils/*.py:
       /usr/lib/python3.10/distutils/command/*.py:
