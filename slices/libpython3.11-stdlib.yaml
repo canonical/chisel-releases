@@ -185,8 +185,8 @@ slices:
       - libpython3.11-stdlib_osx-support
     contents:
       /usr/lib/python3.11/_distutils_system_mod.py:
-      # Due to conflicts with python3-distutils_python3-11 and chisel not able to reconcile 2 slices
-      # doing glob on the same folder, I have to specify the files explicitely
+      # Due to conflicts with python3-distutils_python3-11 and chisel not being able to
+      # reconcile 2 slices with globs on the same folder, I have to specify the files explicitly
       /usr/lib/python3.11/distutils/__init__.py:
       /usr/lib/python3.11/distutils/version.py:
       /usr/lib/python3.11/venv/**:
