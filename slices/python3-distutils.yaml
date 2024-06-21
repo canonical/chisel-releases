@@ -10,11 +10,6 @@ slices:
       # 2 slices doing glob on the same folder, I have to specify the files explicitely
       # Also the original package uses hardlink for the common files between python 3.10 and
       # python3.11 chisel doesn't support hardlinks so I need to use copy
-      /usr/lib/python3.11/distutils/config.py:
-      /usr/lib/python3.11/distutils/msvccompiler.py:
-      /usr/lib/python3.11/distutils/sysconfig.py:
-      /usr/lib/python3.11/distutils/command/bdist.py:
-      /usr/lib/python3.11/distutils/command/build_ext.py:
       /usr/lib/python3.11/distutils/_msvccompiler.py:
         {copy: /usr/lib/python3.10/distutils/_msvccompiler.py}
       /usr/lib/python3.11/distutils/archive_util.py:
@@ -27,6 +22,7 @@ slices:
         {copy: /usr/lib/python3.10/distutils/cmd.py}
       /usr/lib/python3.11/distutils/command/__init__.py:
         {copy: /usr/lib/python3.10/distutils/command/__init__.py}
+      /usr/lib/python3.11/distutils/command/bdist.py:
       /usr/lib/python3.11/distutils/command/bdist_dumb.py:
         {copy: /usr/lib/python3.10/distutils/command/bdist_dumb.py}
       /usr/lib/python3.11/distutils/command/bdist_rpm.py:
@@ -35,6 +31,7 @@ slices:
         {copy: /usr/lib/python3.10/distutils/command/build.py}
       /usr/lib/python3.11/distutils/command/build_clib.py:
         {copy: /usr/lib/python3.10/distutils/command/build_clib.py}
+      /usr/lib/python3.11/distutils/command/build_ext.py:
       /usr/lib/python3.11/distutils/command/build_py.py:
         {copy: /usr/lib/python3.10/distutils/command/build_py.py}
       /usr/lib/python3.11/distutils/command/build_scripts.py:
@@ -65,6 +62,7 @@ slices:
         {copy: /usr/lib/python3.10/distutils/command/sdist.py}
       /usr/lib/python3.11/distutils/command/upload.py:
         {copy: /usr/lib/python3.10/distutils/command/upload.py}
+      /usr/lib/python3.11/distutils/config.py:
       /usr/lib/python3.11/distutils/core.py: {copy: /usr/lib/python3.10/distutils/core.py}
       /usr/lib/python3.11/distutils/cygwinccompiler.py:
         {copy: /usr/lib/python3.10/distutils/cygwinccompiler.py}
@@ -81,7 +79,9 @@ slices:
       /usr/lib/python3.11/distutils/log.py: {copy: /usr/lib/python3.10/distutils/log.py}
       /usr/lib/python3.11/distutils/msvc9compiler.py:
         {copy: /usr/lib/python3.10/distutils/msvc9compiler.py}
+      /usr/lib/python3.11/distutils/msvccompiler.py:
       /usr/lib/python3.11/distutils/spawn.py: {copy: /usr/lib/python3.10/distutils/spawn.py}
+      /usr/lib/python3.11/distutils/sysconfig.py:
       /usr/lib/python3.11/distutils/text_file.py: {copy: /usr/lib/python3.10/distutils/text_file.py}
       /usr/lib/python3.11/distutils/unixccompiler.py:
         {copy: /usr/lib/python3.10/distutils/unixccompiler.py}
