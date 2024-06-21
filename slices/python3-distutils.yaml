@@ -6,56 +6,85 @@ essential:
 slices:
   python3-11:
     contents:
-      #Due to conflicts with libpython3.11-stdlib_distribution and chisel not able to reconcile 2 slices
-      #doing glob on the same folder, I have to specify the files explicitely
-      #Also the original package uses hardlink for the common files between python 3.10 and python 3.11
-      #chisel doesn't support hardlinks so I need to use copy
+      # Due to conflicts with libpython3.11-stdlib_distribution and chisel not able to reconcile
+      # 2 slices doing glob on the same folder, I have to specify the files explicitely
+      # Also the original package uses hardlink for the common files between python 3.10 and
+      # python3.11 chisel doesn't support hardlinks so I need to use copy
       /usr/lib/python3.11/distutils/config.py:
       /usr/lib/python3.11/distutils/msvccompiler.py:
       /usr/lib/python3.11/distutils/sysconfig.py:
       /usr/lib/python3.11/distutils/command/bdist.py:
       /usr/lib/python3.11/distutils/command/build_ext.py:
-      /usr/lib/python3.11/distutils/_msvccompiler.py: {copy: /usr/lib/python3.10/distutils/_msvccompiler.py}
-      /usr/lib/python3.11/distutils/archive_util.py: {copy: /usr/lib/python3.10/distutils/archive_util.py}
-      /usr/lib/python3.11/distutils/bcppcompiler.py: {copy: /usr/lib/python3.10/distutils/bcppcompiler.py}
-      /usr/lib/python3.11/distutils/ccompiler.py: {copy: /usr/lib/python3.10/distutils/ccompiler.py}
-      /usr/lib/python3.11/distutils/cmd.py: {copy: /usr/lib/python3.10/distutils/cmd.py}
-      /usr/lib/python3.11/distutils/command/__init__.py: {copy: /usr/lib/python3.10/distutils/command/__init__.py}
-      /usr/lib/python3.11/distutils/command/bdist_dumb.py: {copy: /usr/lib/python3.10/distutils/command/bdist_dumb.py}
-      /usr/lib/python3.11/distutils/command/bdist_rpm.py: {copy: /usr/lib/python3.10/distutils/command/bdist_rpm.py}
-      /usr/lib/python3.11/distutils/command/build.py: {copy: /usr/lib/python3.10/distutils/command/build.py}
-      /usr/lib/python3.11/distutils/command/build_clib.py: {copy: /usr/lib/python3.10/distutils/command/build_clib.py}
-      /usr/lib/python3.11/distutils/command/build_py.py: {copy: /usr/lib/python3.10/distutils/command/build_py.py}
-      /usr/lib/python3.11/distutils/command/build_scripts.py: {copy: /usr/lib/python3.10/distutils/command/build_scripts.py}
-      /usr/lib/python3.11/distutils/command/check.py: {copy: /usr/lib/python3.10/distutils/command/check.py}
-      /usr/lib/python3.11/distutils/command/clean.py: {copy: /usr/lib/python3.10/distutils/command/clean.py}
-      /usr/lib/python3.11/distutils/command/command_template: {copy: /usr/lib/python3.10/distutils/command/command_template}
-      /usr/lib/python3.11/distutils/command/config.py: {copy: /usr/lib/python3.10/distutils/command/config.py}
-      /usr/lib/python3.11/distutils/command/install.py: {copy: /usr/lib/python3.10/distutils/command/install.py}
-      /usr/lib/python3.11/distutils/command/install_data.py: {copy: /usr/lib/python3.10/distutils/command/install_data.py}
-      /usr/lib/python3.11/distutils/command/install_egg_info.py: {copy: /usr/lib/python3.10/distutils/command/install_egg_info.py}
-      /usr/lib/python3.11/distutils/command/install_headers.py: {copy: /usr/lib/python3.10/distutils/command/install_headers.py}
-      /usr/lib/python3.11/distutils/command/install_lib.py: {copy: /usr/lib/python3.10/distutils/command/install_lib.py}
-      /usr/lib/python3.11/distutils/command/install_scripts.py: {copy: /usr/lib/python3.10/distutils/command/install_scripts.py}
-      /usr/lib/python3.11/distutils/command/register.py: {copy: /usr/lib/python3.10/distutils/command/register.py}
-      /usr/lib/python3.11/distutils/command/sdist.py: {copy: /usr/lib/python3.10/distutils/command/sdist.py}
-      /usr/lib/python3.11/distutils/command/upload.py: {copy: /usr/lib/python3.10/distutils/command/upload.py}
+      /usr/lib/python3.11/distutils/_msvccompiler.py:
+        {copy: /usr/lib/python3.10/distutils/_msvccompiler.py}
+      /usr/lib/python3.11/distutils/archive_util.py:
+        {copy: /usr/lib/python3.10/distutils/archive_util.py}
+      /usr/lib/python3.11/distutils/bcppcompiler.py:
+        {copy: /usr/lib/python3.10/distutils/bcppcompiler.py}
+      /usr/lib/python3.11/distutils/ccompiler.py:
+        {copy: /usr/lib/python3.10/distutils/ccompiler.py}
+      /usr/lib/python3.11/distutils/cmd.py:
+        {copy: /usr/lib/python3.10/distutils/cmd.py}
+      /usr/lib/python3.11/distutils/command/__init__.py:
+        {copy: /usr/lib/python3.10/distutils/command/__init__.py}
+      /usr/lib/python3.11/distutils/command/bdist_dumb.py:
+        {copy: /usr/lib/python3.10/distutils/command/bdist_dumb.py}
+      /usr/lib/python3.11/distutils/command/bdist_rpm.py:
+        {copy: /usr/lib/python3.10/distutils/command/bdist_rpm.py}
+      /usr/lib/python3.11/distutils/command/build.py:
+        {copy: /usr/lib/python3.10/distutils/command/build.py}
+      /usr/lib/python3.11/distutils/command/build_clib.py:
+        {copy: /usr/lib/python3.10/distutils/command/build_clib.py}
+      /usr/lib/python3.11/distutils/command/build_py.py:
+        {copy: /usr/lib/python3.10/distutils/command/build_py.py}
+      /usr/lib/python3.11/distutils/command/build_scripts.py:
+        {copy: /usr/lib/python3.10/distutils/command/build_scripts.py}
+      /usr/lib/python3.11/distutils/command/check.py:
+        {copy: /usr/lib/python3.10/distutils/command/check.py}
+      /usr/lib/python3.11/distutils/command/clean.py:
+        {copy: /usr/lib/python3.10/distutils/command/clean.py}
+      /usr/lib/python3.11/distutils/command/command_template:
+        {copy: /usr/lib/python3.10/distutils/command/command_template}
+      /usr/lib/python3.11/distutils/command/config.py:
+        {copy: /usr/lib/python3.10/distutils/command/config.py}
+      /usr/lib/python3.11/distutils/command/install.py:
+        {copy: /usr/lib/python3.10/distutils/command/install.py}
+      /usr/lib/python3.11/distutils/command/install_data.py:
+        {copy: /usr/lib/python3.10/distutils/command/install_data.py}
+      /usr/lib/python3.11/distutils/command/install_egg_info.py:
+        {copy: /usr/lib/python3.10/distutils/command/install_egg_info.py}
+      /usr/lib/python3.11/distutils/command/install_headers.py:
+        {copy: /usr/lib/python3.10/distutils/command/install_headers.py}
+      /usr/lib/python3.11/distutils/command/install_lib.py:
+        {copy: /usr/lib/python3.10/distutils/command/install_lib.py}
+      /usr/lib/python3.11/distutils/command/install_scripts.py:
+        {copy: /usr/lib/python3.10/distutils/command/install_scripts.py}
+      /usr/lib/python3.11/distutils/command/register.py:
+        {copy: /usr/lib/python3.10/distutils/command/register.py}
+      /usr/lib/python3.11/distutils/command/sdist.py: 
+        {copy: /usr/lib/python3.10/distutils/command/sdist.py}
+      /usr/lib/python3.11/distutils/command/upload.py:
+        {copy: /usr/lib/python3.10/distutils/command/upload.py}
       /usr/lib/python3.11/distutils/core.py: {copy: /usr/lib/python3.10/distutils/core.py}
-      /usr/lib/python3.11/distutils/cygwinccompiler.py: {copy: /usr/lib/python3.10/distutils/cygwinccompiler.py}
+      /usr/lib/python3.11/distutils/cygwinccompiler.py:
+        {copy: /usr/lib/python3.10/distutils/cygwinccompiler.py}
       /usr/lib/python3.11/distutils/debug.py: {copy: /usr/lib/python3.10/distutils/debug.py}
       /usr/lib/python3.11/distutils/dep_util.py: {copy: /usr/lib/python3.10/distutils/dep_util.py}
       /usr/lib/python3.11/distutils/dir_util.py: {copy: /usr/lib/python3.10/distutils/dir_util.py}
       /usr/lib/python3.11/distutils/dist.py: {copy: /usr/lib/python3.10/distutils/dist.py}
       /usr/lib/python3.11/distutils/errors.py: {copy: /usr/lib/python3.10/distutils/errors.py}
       /usr/lib/python3.11/distutils/extension.py: {copy: /usr/lib/python3.10/distutils/extension.py}
-      /usr/lib/python3.11/distutils/fancy_getopt.py: {copy: /usr/lib/python3.10/distutils/fancy_getopt.py}
+      /usr/lib/python3.11/distutils/fancy_getopt.py:
+        {copy: /usr/lib/python3.10/distutils/fancy_getopt.py}
       /usr/lib/python3.11/distutils/file_util.py: {copy: /usr/lib/python3.10/distutils/file_util.py}
       /usr/lib/python3.11/distutils/filelist.py: {copy: /usr/lib/python3.10/distutils/filelist.py}
       /usr/lib/python3.11/distutils/log.py: {copy: /usr/lib/python3.10/distutils/log.py}
-      /usr/lib/python3.11/distutils/msvc9compiler.py: {copy: /usr/lib/python3.10/distutils/msvc9compiler.py}
+      /usr/lib/python3.11/distutils/msvc9compiler.py:
+        {copy: /usr/lib/python3.10/distutils/msvc9compiler.py}
       /usr/lib/python3.11/distutils/spawn.py: {copy: /usr/lib/python3.10/distutils/spawn.py}
       /usr/lib/python3.11/distutils/text_file.py: {copy: /usr/lib/python3.10/distutils/text_file.py}
-      /usr/lib/python3.11/distutils/unixccompiler.py: {copy: /usr/lib/python3.10/distutils/unixccompiler.py}
+      /usr/lib/python3.11/distutils/unixccompiler.py:
+        {copy: /usr/lib/python3.10/distutils/unixccompiler.py}
       /usr/lib/python3.11/distutils/util.py: {copy: /usr/lib/python3.10/distutils/util.py}
       /usr/lib/python3.11/distutils/versionpredicate.py: {copy: /usr/lib/python3.10/distutils/versionpredicate.py}
 

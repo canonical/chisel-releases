@@ -12,4 +12,3 @@ slices:
       - python3-setuptools-whl_bins
       - python3-distutils_python3-11
       - python3.11-venv_ensurepip
-
