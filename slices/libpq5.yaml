@@ -11,7 +11,7 @@ slices:
       - libldap-2.5-0_libs
       - libssl3_libs
     contents:
-      /lib/*-linux-*/libpq.so.5*:
+      /usr/lib/*-linux-*/libpq.so.5*:
 
   copyright:
     contents:
