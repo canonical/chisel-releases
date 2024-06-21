@@ -10,5 +10,5 @@ slices:
       - python3-distutils_python3-11
       - python3-pip-whl_bins
       - python3-setuptools-whl_bins
-      - python3.11_standard
       - python3.11-venv_ensurepip
+      - python3.11_standard
