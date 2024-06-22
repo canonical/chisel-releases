@@ -7,6 +7,7 @@ slices:
   python3-11:
     essential:
       - python3.11_core
+      - python3-lib2to3_python3-11
     contents:
       # Due to conflicts with libpython3.11-stdlib_distribution and chisel not being able to
       # reconcile 2 slices with globs on the same folder, I have to specify the files explicitly.
