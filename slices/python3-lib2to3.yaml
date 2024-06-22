@@ -12,6 +12,7 @@ slices:
     essential:
       - python3.11_core
     contents:
+      # TODO: Replace with globing once chisel supports hardlinks.
       /usr/lib/python3.11/lib2to3/Grammar.txt: {copy: /usr/lib/python3.10/lib2to3/Grammar.txt}
       /usr/lib/python3.11/lib2to3/PatternGrammar.txt:
         {copy: /usr/lib/python3.10/lib2to3/PatternGrammar.txt}
