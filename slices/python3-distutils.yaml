@@ -6,6 +6,7 @@ essential:
 slices:
   python3-11:
     essential:
+      - python3-lib2to3_python3-10
       - python3.11_core
     contents:
       # Due to conflicts with libpython3.11-stdlib_distribution and chisel not being able to
