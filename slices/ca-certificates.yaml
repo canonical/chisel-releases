@@ -6,7 +6,6 @@ essential:
 slices:
   data:
     contents:
-      /etc/ca-certificates.conf: {text: FIXME, mutable: true}
       /etc/ssl/certs/ca-certificates.crt: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/: {until: mutate}
       /usr/share/ca-certificates/mozilla/*: {until: mutate}
@@ -16,10 +15,25 @@ slices:
         content.read(certs_dir + path) for path in content.list(certs_dir)
       ]
       content.write("/etc/ssl/certs/ca-certificates.crt", "".join(certs))
+
+  default-certs:
+    essential:
+      - ca-certificates_data
+    contents:
+      /etc/ca-certificates.conf: {text: FIXME, mutable: true}
+      /usr/share/ca-certificates/mozilla/**:
+    mutate: |
+      certs_dir = "/usr/share/ca-certificates/mozilla/"
       names = [
         "mozilla/{}".format(name) for name in content.list(certs_dir)
       ]
       content.write("/etc/ca-certificates.conf", "\n".join(names))
+
+  bins:
+    essential:
+      - openssl_bins
+    contents:
+      /usr/sbin/update-ca-certificates:
 
   copyright:
     contents:
