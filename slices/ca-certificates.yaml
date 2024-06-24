@@ -21,6 +21,13 @@ slices:
       ]
       content.write("/etc/ca-certificates.conf", "\n".join(names))
 
+  tools:
+    essential:
+      - ca-certificates_data
+      - openssl_bins
+    contents:
+      /usr/sbin/update-ca-certificates:
+
   copyright:
     contents:
       /usr/share/doc/ca-certificates/copyright:
