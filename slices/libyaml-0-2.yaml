@@ -6,9 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      - gcc-14-base_copyright
       - libc6_libs
-      - libgcc-s1_libs
     contents:
       /usr/lib/*-linux-*/libyaml-0.so.2*:
   copyright:
