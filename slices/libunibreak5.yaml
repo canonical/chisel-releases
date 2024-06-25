@@ -1,0 +1,15 @@
+package: libunibreak5
+
+essential:
+  - libunibreak5_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libunibreak.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libunibreak5/copyright:
