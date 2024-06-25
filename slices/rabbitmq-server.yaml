@@ -39,9 +39,13 @@ slices:
       /etc/default/rabbitmq-server:
       /etc/init.d/rabbitmq-server:
       /etc/logrotate.d/rabbitmq-server:
+      /etc/rabbitmq/: {make: true}
       /usr/lib/rabbitmq/autocomplete/*:
       /usr/lib/systemd/system/rabbitmq-server.service:
       /usr/share/rabbitmq/rabbitmq-env.conf:
+      /var/lib/rabbitmq/:
+      /var/lib/rabbitmq/.erlang.cookie: {text: DUMMY, mode: 0o400}
+      /var/log/rabbitmq/mnesia/: {make: true, mode: 0o750}
 
   libs:
     contents:
