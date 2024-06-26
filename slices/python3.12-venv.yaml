@@ -8,3 +8,4 @@ slices:
       - python3-setuptools-whl_wheels
     contents:
       /usr/lib/python3.12/ensurepip/*.py:
+      /usr/share/doc/python3.12-venv: {symlink: /usr/share/doc/python3.12}
