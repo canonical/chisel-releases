@@ -1,0 +1,61 @@
+package: python3.10
+
+essential:
+  - python3.10_copyright
+
+slices:
+  # The "core" slice provides a very minimal, yet functioning python3.10.
+  # It includes very few modules from the libpython3.10-stdlib package.
+  core:
+    essential:
+      - libpython3.10-stdlib_core
+      - media-types_data
+      - python3.10-minimal_bins
+
+  # The "standard" slice extends "core" with all the Python
+  # modules from the libpython3.10-stdlib package.
+  standard:
+    essential:
+      - libpython3.10-stdlib_aix-support
+      - libpython3.10-stdlib_all-os
+      - libpython3.10-stdlib_concurrency
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_crypto
+      - libpython3.10-stdlib_custom-interpreters
+      - libpython3.10-stdlib_data-persistence
+      - libpython3.10-stdlib_data-types
+      - libpython3.10-stdlib_debug
+      - libpython3.10-stdlib_development-tools
+      - libpython3.10-stdlib_distribution
+      - libpython3.10-stdlib_extras
+      - libpython3.10-stdlib_file-formats
+      - libpython3.10-stdlib_filesys
+      - libpython3.10-stdlib_frameworks
+      - libpython3.10-stdlib_importing
+      - libpython3.10-stdlib_internet
+      - libpython3.10-stdlib_ipc
+      - libpython3.10-stdlib_language
+      - libpython3.10-stdlib_markup-tools
+      - libpython3.10-stdlib_multimedia
+      - libpython3.10-stdlib_net-data
+      - libpython3.10-stdlib_numeric
+      - libpython3.10-stdlib_osx-support
+      - libpython3.10-stdlib_pydoc
+      - libpython3.10-stdlib_text
+      - libpython3.10-stdlib_unix
+      - python3.10_core
+
+  # The "utlis" slice extends "core" with various tools.
+  utils:
+    essential:
+      - libpython3.10-stdlib_debug
+      - libpython3.10-stdlib_pydoc
+      - python3.10_core
+    contents:
+      /usr/bin/pdb3.10:
+      /usr/bin/pydoc3.10:
+      /usr/bin/pygettext3.10:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.10/copyright:
