@@ -23,6 +23,10 @@ slices:
       /usr/lib/ssl/openssl.cnf:
       /usr/lib/ssl/private:
 
+  data:
+    contents:
+      /usr/lib/ssl/cert.pem: {symlink: /etc/ssl/certs/ca-certificates.crt}
+
   copyright:
     contents:
       /usr/share/doc/openssl/copyright:
