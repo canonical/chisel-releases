@@ -12,7 +12,7 @@ slices:
       /usr/bin/sensible-pager:
       /usr/bin/sensible-terminal:
 
-  auxillary-bins:
+  extras:
     contents:
       /usr/share/sensible-utils/bin/gettext:
       /usr/share/sensible-utils/bin/realpath:
