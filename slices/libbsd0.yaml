@@ -1,0 +1,16 @@
+package: libbsd0
+
+essential:
+  - libbsd0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libmd0_libs
+    contents:
+      /usr/lib/*-linux-*/libbsd.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libbsd0/copyright:

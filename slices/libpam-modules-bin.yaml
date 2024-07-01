@@ -9,7 +9,6 @@ slices:
       - libaudit1_libs
       - libc6_libs
       - libcrypt1_libs
-      - libpam-modules-bin_config
       - libpam0g_libs
       - libselinux1_libs
       - libsystemd0_libs
@@ -24,7 +23,7 @@ slices:
       /usr/sbin/unix_chkpwd:
       /usr/sbin/unix_update:
 
-  config:
+  services:
     contents:
       /usr/lib/systemd/system/pam_namespace.service:
 

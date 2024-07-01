@@ -11,6 +11,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libgpg-error.so.0*:
+
   copyright:
     contents:
       /usr/share/doc/libgpg-error0/copyright:

@@ -1,0 +1,48 @@
+package: openssh-client
+
+essential:
+  - openssh-client_copyright
+
+slices:
+  bins:
+    # openssh-client depends on adduser as well to create or update
+    # the ssh agent user during package install - however we
+    # don't support this currently so adduser is not added here.
+    essential:
+      - libc6_libs
+      - libedit2_libs
+      - libfido2-1_libs
+      - libgssapi-krb5-2_libs
+      - libselinux1_libs
+      - libssl3t64_libs
+      - passwd_config
+      - zlib1g_libs
+    contents:
+      /usr/bin/scp:
+      /usr/bin/sftp:
+      /usr/bin/slogin:
+      /usr/bin/ssh:
+      /usr/bin/ssh-add:
+      /usr/bin/ssh-agent:
+      /usr/bin/ssh-argv0:
+      /usr/bin/ssh-copy-id:
+      /usr/bin/ssh-keygen:
+      /usr/bin/ssh-keyscan:
+      /usr/lib/openssh/agent-launch:
+      /usr/lib/openssh/ssh-keysign:
+      /usr/lib/openssh/ssh-pkcs11-helper:
+      /usr/lib/openssh/ssh-sk-helper:
+
+  config:
+    contents:
+      /etc/ssh/ssh_config:
+      /etc/ssh/ssh_config.d/:
+
+  services:
+    contents:
+      /usr/lib/systemd/user/graphical-session-pre.target.wants/ssh-agent.service:
+      /usr/lib/systemd/user/ssh-agent.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/openssh-client/copyright:
