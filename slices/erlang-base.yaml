@@ -1,0 +1,51 @@
+package: erlang-base
+
+essential:
+  - erlang-base_copyright
+
+slices:
+  bins:
+    essential:
+      - adduser_bins
+      - erlang-base_config
+      - erlang-base_libs
+      - erlang-base_releases
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libsystemd0_libs
+      - libtinfo6_libs
+      - procps_bins
+      - zlib1g_libs
+    contents:
+      /usr/bin/epmd:
+      /usr/bin/erl*:
+      /usr/bin/escript:
+      /usr/bin/run_erl:
+      /usr/bin/start_embedded:
+      /usr/bin/to_erl:
+      /usr/lib/erlang/bin/**:
+      /usr/lib/erlang/erts-13.2.2.5/bin/**:
+      /usr/lib/erlang/lib/erl_interface-5.3.2.1/bin/erl_call:
+
+  libs:
+    contents:
+      /usr/lib/erlang/lib/compiler-8.2.6.3/ebin/**:
+      /usr/lib/erlang/lib/erts-13.2.2.5/ebin/**:
+      /usr/lib/erlang/lib/kernel-8.5.4.2/ebin/**:
+      /usr/lib/erlang/lib/sasl-4.2/ebin/**:
+      /usr/lib/erlang/lib/stdlib-4.3.1.3/ebin/**:
+      /usr/lib/erlang/lib/stdlib-4.3.1.3/include/**:
+
+  config:
+    contents:
+      /usr/lib/systemd/system/epmd.service:
+      /usr/lib/systemd/system/epmd.socket:
+
+  releases:
+    contents:
+      /usr/lib/erlang/releases/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-base/copyright:

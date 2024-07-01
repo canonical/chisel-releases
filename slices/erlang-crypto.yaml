@@ -1,0 +1,18 @@
+package: erlang-crypto
+
+essential:
+  - erlang-crypto_copyright
+
+slices:
+  libs:
+    essential:
+      - erlang-base_bins
+      - libc6_libs
+      - libssl3t64_libs
+    contents:
+      /usr/lib/erlang/lib/crypto-5.1.4.1/ebin/**:
+      /usr/lib/erlang/lib/crypto-5.1.4.1/priv/lib/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-crypto/copyright:

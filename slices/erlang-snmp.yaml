@@ -1,0 +1,32 @@
+package: erlang-snmp
+
+essential:
+  - erlang-snmp_copyright
+
+slices:
+  bins:
+    essential:
+      - erlang-base_bins
+      - erlang-crypto_libs
+      - erlang-mnesia_libs
+      - erlang-runtime-tools_libs
+      - erlang-snmp_config
+      - erlang-snmp_libs
+    contents:
+      /usr/bin/snmpc:
+      /usr/lib/erlang/lib/snmp-5.13.5/bin/snmpc:
+
+  config:
+    contents:
+      /usr/lib/erlang/lib/snmp-5.13.5/priv/conf/**:
+
+  libs:
+    contents:
+      /usr/lib/erlang/lib/snmp-5.13.5/ebin/**:
+      /usr/lib/erlang/lib/snmp-5.13.5/include/**:
+      /usr/lib/erlang/lib/snmp-5.13.5/mibs/**:
+      /usr/lib/erlang/lib/snmp-5.13.5/priv/mibs/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-snmp/copyright:
