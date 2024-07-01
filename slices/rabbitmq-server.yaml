@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       - adduser_bins
-      - base_files_base
+      - base-files_base
       - erlang-base_bins
       - erlang-crypto_libs
       - erlang-eldap_libs
