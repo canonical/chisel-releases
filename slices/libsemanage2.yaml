@@ -14,6 +14,7 @@ slices:
       - libsepol2_libs
     contents:
       /usr/lib/*-linux-*/libsemanage.so.2*:
+
   copyright:
     contents:
       /usr/share/doc/libsemanage2/copyright:

@@ -11,6 +11,7 @@ slices:
       - libcap-ng0_libs
     contents:
       /usr/lib/*-linux-*/libaudit.so.1*:
+
   copyright:
     contents:
       /usr/share/doc/libaudit1/copyright:

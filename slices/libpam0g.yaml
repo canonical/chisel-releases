@@ -12,6 +12,7 @@ slices:
       /usr/lib/*-linux-*/libpam.so.0*:
       /usr/lib/*-linux-*/libpam_misc.so.0*:
       /usr/lib/*-linux-*/libpamc.so.0*:
+
   copyright:
     contents:
       /usr/share/doc/libpam0g/copyright:

@@ -1,12 +1,13 @@
 package: libsemanage-common
 
 essential:
-  libsemanage-common_copyright
+  - libsemanage-common_copyright
 
 slices:
   config:
     contents:
       /etc/selinux/semanage.conf:
+
   copyright:
     contents:
       /usr/share/doc/libsemanage-common/copyright:

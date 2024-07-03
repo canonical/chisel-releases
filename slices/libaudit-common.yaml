@@ -7,6 +7,7 @@ slices:
   config:
     contents:
       /etc/libaudit.conf:
+
   copyright:
     contents:
       /usr/share/doc/libaudit-common/copyright:

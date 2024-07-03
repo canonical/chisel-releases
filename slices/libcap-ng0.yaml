@@ -10,6 +10,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libcap-ng.so.0*:
       /usr/lib/*-linux-*/libdrop_ambient.so.0*:
+
   copyright:
     contents:
       /usr/share/doc/libcap-ng0/copyright:
