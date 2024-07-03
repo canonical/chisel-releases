@@ -32,6 +32,10 @@ slices:
       /usr/lib/*-linux-*/libthread_db.so.*:
       /usr/lib/*-linux-*/libutil.so.*:
 
+  gconv:
+    contents:
+      /usr/lib/*-linux-*/gconv/**:
+
   copyright:
     contents:
       /usr/share/doc/libc6/copyright:
