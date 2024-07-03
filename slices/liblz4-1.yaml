@@ -9,6 +9,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/liblz4.so.1*:
+
   copyright:
     contents:
       /usr/share/doc/liblz4-1/copyright:
