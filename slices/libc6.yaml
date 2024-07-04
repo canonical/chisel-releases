@@ -10,6 +10,11 @@ slices:
 
   libs:
     essential:
+      # Although not declared as a dependency in the libc6 deb, base-files is
+      # an essential package assumed to already exist as a core part of the distro.
+      # In this case, libc6 clearly depends on the library paths set by base-files
+      # and as such, we create this explicit dependency between the two slices.
+      # Ref: https://github.com/canonical/chisel-releases/pull/171
       - base-files_lib
     contents:
       /usr/lib*/ld*.so.*:
