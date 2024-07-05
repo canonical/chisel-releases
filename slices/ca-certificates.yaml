@@ -6,12 +6,14 @@ essential:
 slices:
   data:
     essential:
-      # This adds the symlink at `etc/ssl/certs.pem` for OpenSSL to look up this
+      # This adds the symlink at `etc/ssl/certs.pem` for OpenSSL to look up the
       # bundled certificate file. See `openssl_data` for details.
       - openssl_data
     contents:
-      # This bundle of certificates is a result of running the update-ca-certificates
-      # For a deb package, this is done by the postinst script.
+      # This bundle of certificates and the config are the results of running
+      # the `update-ca-certificates` script. This script is run by default
+      # by the postinst maintainer script when installed as a deb package.
+      /etc/ca-certificates.conf: {text: FIXME, mutable: true}
       /etc/ssl/certs/ca-certificates.crt: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/: {until: mutate}
       /usr/share/ca-certificates/mozilla/*: {until: mutate}
@@ -21,12 +23,16 @@ slices:
         content.read(certs_dir + path) for path in content.list(certs_dir)
       ]
       content.write("/etc/ssl/certs/ca-certificates.crt", "".join(certs))
+      names = [
+        "mozilla/{}".format(name) for name in content.list(certs_dir)
+      ]
+      content.write("/etc/ca-certificates.conf", "\n".join(names))
 
-  default-certs:
+  data-keep-certs:
     essential:
       - ca-certificates_data
     contents:
-      /usr/share/ca-certificates/mozilla/**:
+      /usr/share/ca-certificates/mozilla/*:
 
   bins:
     essential:
