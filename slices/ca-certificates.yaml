@@ -5,6 +5,10 @@ essential:
 
 slices:
   data:
+    essential:
+      # This adds the symlink at `etc/ssl/certs.pem` for OpenSSL to look up this
+      # bundled certificate file. See `openssl_data` for details.
+      - openssl_data
     contents:
       # This bundle of certificates is a result of running the update-ca-certificates
       # For a deb package, this is done by the postinst script.
