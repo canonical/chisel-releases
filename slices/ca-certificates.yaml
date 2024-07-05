@@ -6,6 +6,7 @@ essential:
 slices:
   data:
     contents:
+      # This bundle of certificates is a result of running the update-ca-certificates
       /etc/ssl/certs/ca-certificates.crt: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/: {until: mutate}
       /usr/share/ca-certificates/mozilla/*: {until: mutate}
@@ -20,19 +21,15 @@ slices:
     essential:
       - ca-certificates_data
     contents:
-      /etc/ca-certificates.conf: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/**:
-    mutate: |
-      certs_dir = "/usr/share/ca-certificates/mozilla/"
-      names = [
-        "mozilla/{}".format(name) for name in content.list(certs_dir)
-      ]
-      content.write("/etc/ca-certificates.conf", "\n".join(names))
 
   bins:
     essential:
       - openssl_bins
     contents:
+      # To run update-ca-certificates without breaking the default certificates,
+      # the ca-certificates_default-certs slice should also be included.
+      # Details see the `update-ca-certificates` script.
       /usr/sbin/update-ca-certificates:
 
   copyright:
