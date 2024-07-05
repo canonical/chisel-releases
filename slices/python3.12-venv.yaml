@@ -6,9 +6,9 @@ essential:
 slices:
   ensurepip:
     essential:
-      - python3.12_standard
       - python3-pip-whl_wheels
       - python3-setuptools-whl_wheels
+      - python3.12_standard
     contents:
       /usr/lib/python3.12/ensurepip/*.py:
 
