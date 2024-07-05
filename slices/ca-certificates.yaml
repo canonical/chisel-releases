@@ -28,9 +28,9 @@ slices:
     essential:
       - openssl_bins
     contents:
-      # To run update-ca-certificates without breaking the default certificates,
-      # the ca-certificates_default-certs slice should also be included.
-      # Details see the `update-ca-certificates` script.
+      # To run update-ca-certificates without breaking the default certificates
+      # at /etc/ssl/certs/ca-certificates.crt, the ca-certificates_default-certs slice
+      # should also be included. For details, see the `update-ca-certificates` script.
       /usr/sbin/update-ca-certificates:
 
   copyright:
