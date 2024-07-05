@@ -27,6 +27,7 @@ slices:
       - libsystemd-shared_libs
       - libsystemd0_libs
       - mount_bins
+      - systemd-dev_dbus-interfaces
       - systemd_libs
       - systemd_config
       - systemd_generated-config
