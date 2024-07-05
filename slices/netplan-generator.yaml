@@ -1,0 +1,20 @@
+package: netplan-generator
+
+essential:
+  - netplan-generator_copyright
+
+slices:
+  data:
+    essential:
+      - libc6_libs
+      - libglib2.0-0t64_libs
+      - libnetplan1_libs
+      - systemd_bins
+    contents:
+      /usr/lib/netplan/PLACEHOLDER:
+      /usr/lib/systemd/system-generators/netplan:
+      /usr/libexec/netplan/generate:
+
+  copyright:
+    contents:
+      /usr/share/doc/netplan-generator/copyright:

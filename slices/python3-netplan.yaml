@@ -1,0 +1,18 @@
+package: python3-netplan
+
+essential:
+  - python3-netplan_copyright
+
+slices:
+  data:
+    essential:
+      - libc6_libs
+      - libnetplan1_libs
+      - python3-cffi-backend_data
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/netplan/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-netplan/copyright:
