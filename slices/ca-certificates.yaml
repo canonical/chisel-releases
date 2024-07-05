@@ -7,6 +7,7 @@ slices:
   data:
     contents:
       # This bundle of certificates is a result of running the update-ca-certificates
+      # For a deb package, this is done by the postinst script.
       /etc/ssl/certs/ca-certificates.crt: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/: {until: mutate}
       /usr/share/ca-certificates/mozilla/*: {until: mutate}
