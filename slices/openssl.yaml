@@ -23,10 +23,9 @@ slices:
       /usr/lib/ssl/openssl.cnf:
       /usr/lib/ssl/private:
 
-  # Include this slice and `ca-certificates_data` together to use the
-  # certificate bundle from `ca-certificates`.
-  # Missing this slice will cause applications using default certificates
-  # fail to verify local SSL certificates.
+  # Use this slice with "ca-certificates_data" as OpenSSL looks at
+  # the following path for the default CA certificates file.
+  # Ref: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_load_verify_locations.html
   data:
     contents:
       /usr/lib/ssl/cert.pem: {symlink: /etc/ssl/certs/ca-certificates.crt}
