@@ -1,0 +1,17 @@
+package: libfdisk1
+
+essential:
+  - libfdisk1_copyright
+
+slices:
+  libs:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libuuid1_libs
+    contents:
+      /usr/lib/*-linux-*/libfdisk.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfdisk1/copyright:
