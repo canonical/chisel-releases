@@ -1,0 +1,9 @@
+package: gcc-13-base
+
+essential:
+  - gcc-13-base_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/gcc-13-base/copyright:

@@ -1,0 +1,16 @@
+package: libfftw3-double3
+
+essential:
+  - libfftw3-double3_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgomp1_libs
+    contents:
+      /usr/lib/*-linux-gnu*/libfftw3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfftw3-double3/copyright:
