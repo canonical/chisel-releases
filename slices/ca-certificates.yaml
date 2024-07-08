@@ -19,13 +19,13 @@ slices:
       /usr/share/ca-certificates/mozilla/*: {until: mutate}
     mutate: |
       certs_dir = "/usr/share/ca-certificates/mozilla/"
-      certs = [
-        content.read(certs_dir + path) for path in content.list(certs_dir)
-      ]
+      certs = []
+      names = []
+      for path in content.list(certs_dir):
+        certs.append(content.read(certs_dir + path))
+        names.append("mozilla/{}".format(path))
+
       content.write("/etc/ssl/certs/ca-certificates.crt", "".join(certs))
-      names = [
-        "mozilla/{}".format(name) for name in content.list(certs_dir)
-      ]
       content.write("/etc/ca-certificates.conf", "\n".join(names))
 
   # The `_data` slice only provides the bundled certificates and the config file.
