@@ -28,6 +28,8 @@ slices:
       ]
       content.write("/etc/ca-certificates.conf", "\n".join(names))
 
+  # The `_data` slice only provides the bundled certificates and the config file.
+  # To keep the individual certificates, this slice should be included.
   data-keep-certs:
     essential:
       - ca-certificates_data
@@ -37,9 +39,11 @@ slices:
   bins:
     essential:
       - openssl_bins
+      # The `/usr/sbin/update-ca-certificates` script requires sed to run.
+      - sed_bins
     contents:
       # To run update-ca-certificates without breaking the default certificates
-      # at /etc/ssl/certs/ca-certificates.crt, the ca-certificates_default-certs slice
+      # at /etc/ssl/certs/ca-certificates.crt, the ca-certificates_keep-certs slice
       # should also be included. For details, see the `update-ca-certificates` script.
       /usr/sbin/update-ca-certificates:
 
