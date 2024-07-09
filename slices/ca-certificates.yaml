@@ -6,35 +6,37 @@ essential:
 slices:
   data:
     essential:
+      - ca-certificates_data-no-certs
+    contents:
+      # This bundled certificates and the config are the results of running
+      # the `update-ca-certificates` script. This script is run by default
+      # by the postinst maintainer script when installed as a deb package.
+      /etc/ca-certificates.conf: {text: FIXME, mutable: true}
+      /usr/share/ca-certificates/mozilla/**:
+    mutate: |
+      certs_dir = "/usr/share/ca-certificates/mozilla/"
+      names = [
+        "mozilla/{}".format(name) for name in content.list(certs_dir)
+      ]
+      content.write("/etc/ca-certificates.conf", "\n".join(names))
+
+  # This slice contains only the bundled certificates with no symlinks or config.
+  # To keep the individual certificates, the `_data` slice should be used.
+  data-no-certs:
+    essential:
       # This adds the symlink at `etc/ssl/certs.pem` for OpenSSL to look up the
       # bundled certificate file. See `openssl_data` for details.
       - openssl_data
     contents:
-      # This bundle of certificates and the config are the results of running
-      # the `update-ca-certificates` script. This script is run by default
-      # by the postinst maintainer script when installed as a deb package.
-      /etc/ca-certificates.conf: {text: FIXME, mutable: true}
       /etc/ssl/certs/ca-certificates.crt: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/: {until: mutate}
-      /usr/share/ca-certificates/mozilla/*: {until: mutate}
+      /usr/share/ca-certificates/mozilla/**: {until: mutate}
     mutate: |
       certs_dir = "/usr/share/ca-certificates/mozilla/"
-      certs = []
-      names = []
-      for path in content.list(certs_dir):
-        certs.append(content.read(certs_dir + path))
-        names.append("mozilla/{}".format(path))
-
+      certs = [
+        content.read(certs_dir + path) for path in content.list(certs_dir)
+      ]
       content.write("/etc/ssl/certs/ca-certificates.crt", "".join(certs))
-      content.write("/etc/ca-certificates.conf", "\n".join(names))
-
-  # The `_data` slice only provides the bundled certificates and the config file.
-  # To keep the individual certificates, this slice should be included.
-  data-with-certs:
-    essential:
-      - ca-certificates_data
-    contents:
-      /usr/share/ca-certificates/mozilla/*:
 
   bins:
     essential:
