@@ -10,6 +10,7 @@ slices:
       - libsystemd0_libs
     contents:
       /usr/lib/*-linux-*/libproc2.so.0*:
+
   copyright:
     contents:
       /usr/share/doc/libproc2-0/copyright:
