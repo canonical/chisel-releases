@@ -12,7 +12,11 @@ slices:
     contents:
       /usr/bin/filan:
       /usr/bin/procan:
-      /usr/bin/socat*:
+      /usr/bin/socat:
+      /usr/bin/socat-broker.sh:
+      /usr/bin/socat-chain.sh:
+      /usr/bin/socat-mux.sh:
+      /usr/bin/socat1:
 
   copyright:
     contents:

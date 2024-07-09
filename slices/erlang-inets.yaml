@@ -6,20 +6,21 @@ essential:
 slices:
   bins:
     essential:
+      - erlang-inets_libs
+    contents:
+      /usr/lib/erlang/lib/inets-*/priv/bin/runcgi.sh:
+
+  libs:
+    essential:
       - erlang-base_bins
       - erlang-ftp_libs
-      - erlang-inets_libs
       - erlang-mnesia_libs
       - erlang-runtime-tools_libs
       - erlang-ssl_libs
       - erlang-tftp_libs
     contents:
-      /usr/lib/erlang/lib/inets-8.3.1.2/priv/bin/runcgi.sh:
-
-  libs:
-    contents:
-      /usr/lib/erlang/lib/inets-8.3.1.2/ebin/**:
-      /usr/lib/erlang/lib/inets-8.3.1.2/include/**:
+      /usr/lib/erlang/lib/inets-*/ebin/**:
+      /usr/lib/erlang/lib/inets-*/include/**:
 
   copyright:
     contents:

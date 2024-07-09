@@ -10,7 +10,7 @@ slices:
       - erlang-runtime-tools_libs
       - erlang-ssl_libs
     contents:
-      /usr/lib/erlang/lib/ftp-1.1.4/ebin/**:
+      /usr/lib/erlang/lib/ftp-*/ebin/**:
 
   copyright:
     contents:

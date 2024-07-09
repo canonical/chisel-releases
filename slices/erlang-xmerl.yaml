@@ -8,7 +8,7 @@ slices:
     essential:
       - erlang-base_bins
     contents:
-      /usr/lib/erlang/lib/xmerl-1.3.31.1/ebin/**:
+      /usr/lib/erlang/lib/xmerl-*/ebin/**:
 
   copyright:
     contents:

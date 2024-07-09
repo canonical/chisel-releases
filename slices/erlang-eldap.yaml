@@ -10,7 +10,7 @@ slices:
       - erlang-base_bins
       - erlang-ssl_libs
     contents:
-      /usr/lib/erlang/lib/eldap-1.2.11/ebin/**:
+      /usr/lib/erlang/lib/eldap-*/ebin/**:
 
   copyright:
     contents:

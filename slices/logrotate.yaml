@@ -21,8 +21,6 @@ slices:
       /etc/logrotate.conf:
       /etc/logrotate.d/btmp:
       /etc/logrotate.d/wtmp:
-      /usr/lib/systemd/system/logrotate.service:
-      /usr/lib/systemd/system/logrotate.timer:
 
   copyright:
     contents:

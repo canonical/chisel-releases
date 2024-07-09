@@ -8,8 +8,8 @@ slices:
     essential:
       - erlang-base_bins
     contents:
-      /usr/lib/erlang/lib/syntax_tools-3.0.1/ebin/**:
-      /usr/lib/erlang/lib/syntax_tools-3.0.1/include/**:
+      /usr/lib/erlang/lib/syntax_tools-*/ebin/**:
+      /usr/lib/erlang/lib/syntax_tools-*/include/**:
 
   copyright:
     contents:

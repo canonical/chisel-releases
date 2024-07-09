@@ -9,8 +9,8 @@ slices:
       - erlang-base_bins
       - libc6_libs
     contents:
-      /usr/lib/erlang/lib/asn1-5.0.21.1/ebin/**:
-      /usr/lib/erlang/lib/asn1-5.0.21.1/priv/**:
+      /usr/lib/erlang/lib/asn1-*/ebin/**:
+      /usr/lib/erlang/lib/asn1-*/priv/**:
 
   copyright:
     contents:

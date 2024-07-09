@@ -10,8 +10,8 @@ slices:
       - libc6_libs
       - libssl3t64_libs
     contents:
-      /usr/lib/erlang/lib/crypto-5.1.4.1/ebin/**:
-      /usr/lib/erlang/lib/crypto-5.1.4.1/priv/lib/**:
+      /usr/lib/erlang/lib/crypto-*/ebin/**:
+      /usr/lib/erlang/lib/crypto-*/priv/lib/**:
 
   copyright:
     contents:

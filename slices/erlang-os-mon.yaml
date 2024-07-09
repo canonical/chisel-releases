@@ -4,6 +4,12 @@ essential:
   - erlang-os-mon_copyright
 
 slices:
+  bins:
+    essential:
+      - erlang-os-mon_libs
+    contents:
+      /usr/lib/erlang/lib/os_mon-*/priv/**:
+
   libs:
     essential:
       - erlang-base_bins
@@ -11,8 +17,7 @@ slices:
       - erlang-snmp_bins
       - libc6_libs
     contents:
-      /usr/lib/erlang/lib/os_mon-2.8.2/ebin/**:
-      /usr/lib/erlang/lib/os_mon-2.8.2/priv/**:
+      /usr/lib/erlang/lib/os_mon-*/ebin/**:
 
   copyright:
     contents:

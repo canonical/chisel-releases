@@ -14,18 +14,18 @@ slices:
       - erlang-snmp_libs
     contents:
       /usr/bin/snmpc:
-      /usr/lib/erlang/lib/snmp-5.13.5/bin/snmpc:
+      /usr/lib/erlang/lib/snmp-*/bin/snmpc:
 
   config:
     contents:
-      /usr/lib/erlang/lib/snmp-5.13.5/priv/conf/**:
+      /usr/lib/erlang/lib/snmp-*/priv/conf/**:
 
   libs:
     contents:
-      /usr/lib/erlang/lib/snmp-5.13.5/ebin/**:
-      /usr/lib/erlang/lib/snmp-5.13.5/include/**:
-      /usr/lib/erlang/lib/snmp-5.13.5/mibs/**:
-      /usr/lib/erlang/lib/snmp-5.13.5/priv/mibs/**:
+      /usr/lib/erlang/lib/snmp-*/ebin/**:
+      /usr/lib/erlang/lib/snmp-*/include/**:
+      /usr/lib/erlang/lib/snmp-*/mibs/**:
+      /usr/lib/erlang/lib/snmp-*/priv/mibs/**:
 
   copyright:
     contents:

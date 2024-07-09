@@ -10,7 +10,7 @@ slices:
       - erlang-base_bins
       - erlang-crypto_libs
     contents:
-      /usr/lib/erlang/lib/public_key-1.13.3.2/ebin/**:
+      /usr/lib/erlang/lib/public_key-*/ebin/**:
 
   copyright:
     contents:

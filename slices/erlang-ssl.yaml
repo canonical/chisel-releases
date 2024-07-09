@@ -11,7 +11,7 @@ slices:
       - erlang-public-key_libs
       - erlang-runtime-tools_libs
     contents:
-      /usr/lib/erlang/lib/ssl-10.9.1.3/ebin/**:
+      /usr/lib/erlang/lib/ssl-*/ebin/**:
 
   copyright:
     contents:
