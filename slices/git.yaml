@@ -1,0 +1,41 @@
+package: git
+
+essential:
+  - git_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/git:
+      /usr/bin/git-shell:
+      /usr/bin/scalar:
+
+  core:
+    essential:
+      - libc6_libs
+      - libcurl3t64-gnutls_libs
+      - libexpat1_libs
+      - libpcre2-8-0_libs
+      - zlib1g_libs
+      - git_bins
+    contents:
+      /usr/lib/git-core/**:
+
+  contrib:
+    essential:
+      - git_perl5
+    contents:
+      /usr/share/doc/git/contrib/**:
+
+  perl5:
+    contents:
+      /usr/share/perl5/Git.pm:
+      /usr/share/perl5/Git/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/git/copyright:
