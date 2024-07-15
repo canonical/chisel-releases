@@ -22,13 +22,6 @@ slices:
     contents:
       /usr/lib/git-core/**:
 
-  perl5:
-    essential:
-      - git_core
-    contents:
-      /usr/share/perl5/Git.pm:
-      /usr/share/perl5/Git/*:
-
   copyright:
     contents:
       /usr/share/doc/git/copyright:
