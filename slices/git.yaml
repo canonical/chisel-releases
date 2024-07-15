@@ -16,12 +16,12 @@ slices:
 
   core:
     essential:
+      - git_bins
       - libc6_libs
       - libcurl3t64-gnutls_libs
       - libexpat1_libs
       - libpcre2-8-0_libs
       - zlib1g_libs
-      - git_bins
     contents:
       /usr/lib/git-core/**:
 
