@@ -22,13 +22,9 @@ slices:
     contents:
       /usr/lib/git-core/**:
 
-  contrib:
-    essential:
-      - git_perl5
-    contents:
-      /usr/share/doc/git/contrib/**:
-
   perl5:
+    essential:
+      - git_core
     contents:
       /usr/share/perl5/Git.pm:
       /usr/share/perl5/Git/*:
