@@ -1,0 +1,13 @@
+package: iputils-ping
+
+slices:
+    bins:
+        essential:
+          - libcap2_bin
+          - libc6_libs
+          - libcap2_libs
+          - libgcrypt20_libs
+        contents:
+            /usr/bin/ping:
+            /usr/bin/ping6:
+
