@@ -1,0 +1,69 @@
+name: Spread
+run-name: Spread for ${{ github.ref }}
+
+on:
+  workflow_call:
+
+jobs:
+  spread-tests:
+    name: Run Spread tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Check changed paths
+        id: changed-slices
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          list-files: shell
+      
+      - name: Check changed test directories
+        uses: tj-actions/changed-files@v35
+        id: changed-tests
+        with:
+          separator: " "
+          dir_names: "true"
+          files: |
+            tests/spread/integration/**
+
+      - uses: actions/checkout@v4
+        with:
+          repository: snapcore/spread
+          path: _spread
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.17.0'
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Prepare Spread suites
+        id: spread-suites
+        env:
+          integration-tests: "tests/spread/integration"
+        run: |
+          set -ex
+          spread_tasks=""
+          for file in ${{ steps.changed-slices.outputs.slices_files }} ${{ steps.changed-tests.outputs.all_changed_files }}
+          do
+            pkg_name=$(basename $file | sed 's/\.yaml//g')
+            pkg_tests="${{ env.integration-tests }}/${pkg_name}"
+            if [ -f "${pkg_tests}/task.yaml" ] && [[ $spread_tasks != *"${pkg_tests}"* ]]
+            then
+              spread_tasks="${spread_tasks} ${pkg_tests}"
+            fi
+          done
+
+          echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+
+      - name: Build and run spread
+        run: |
+          (cd _spread/cmd/spread && go build)
+          _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}
