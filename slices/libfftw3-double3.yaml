@@ -10,7 +10,9 @@ slices:
       - libc6_libs
       - libgomp1_libs
     contents:
-      /usr/lib/*-linux-gnu*/libfftw3*:
+      /usr/lib/*-linux-*/libfftw3.so.3*:
+      /usr/lib/*-linux-*/libfftw3_omp.so.3*:
+      /usr/lib/*-linux-*/libfftw3_threads.so.3*:
 
   copyright:
     contents:
