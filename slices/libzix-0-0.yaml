@@ -1,0 +1,15 @@
+package: libzix-0-0
+
+essential:
+  - libzix-0-0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libzix-0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libzix-0-0/copyright:
