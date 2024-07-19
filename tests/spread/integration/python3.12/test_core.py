@@ -6,11 +6,12 @@ import sys
 import os
 import socket
 import time
-import urllib
-import urllib.request
 
 
 def hello_world():
+    # Asserting the stdout would require additional modules (like StringIO)
+    # that are not available in the "core" slice. So this test case only tests
+    # the functionality, but not the outcome.
     print("Hello, world!")
 
 
@@ -25,11 +26,14 @@ def check_file_operations():
     print("Checking file operations...")
     filename = f"/test-file-{int(time.time())}"
 
+    original_content = "This is a test file."
     with open(filename, "w") as f:
-        f.write("This is a test file.")
+        f.write(original_content)
     with open(filename, "r") as f:
         content = f.read()
+    assert content == original_content
     os.remove(filename)
+    assert not os.path.exists(filename)
     print(f"File operations are working. Content: {content}")
 
 
