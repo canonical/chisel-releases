@@ -1,0 +1,17 @@
+package: python3.12-venv
+
+essential:
+  - python3.12-venv_copyright
+
+slices:
+  ensurepip:
+    essential:
+      - python3-pip-whl_wheels
+      - python3-setuptools-whl_wheels
+      - python3.12_standard
+    contents:
+      /usr/lib/python3.12/ensurepip/*.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.12-venv: {symlink: /usr/share/doc/python3.12}
