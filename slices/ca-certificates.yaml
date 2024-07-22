@@ -50,8 +50,8 @@ slices:
       - sed_bins
     contents:
       # To run update-ca-certificates without breaking the default certificates
-      # at /etc/ssl/certs/ca-certificates.crt, the `_data-with-certs` slice should
-      # also be included. For details, see the `update-ca-certificates` script.
+      # at /etc/ssl/certs/ca-certificates.crt, the `_data` slice should also be
+      # included. For details, see the `update-ca-certificates` script.
       /usr/sbin/update-ca-certificates:
 
   copyright:
