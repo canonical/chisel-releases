@@ -1,0 +1,10 @@
+#!/bin/bash -ex
+
+# Installs one or more slices into a dynamically created temporary path.
+# Usage: install-slices [<slice>...]
+# Returns the path of the chiselled rootfs
+
+tmpdir="$(mktemp -d)"
+
+echo "${tmpdir}"
+chisel cut --release "$PROJECT_PATH" --root "$tmpdir" $@
