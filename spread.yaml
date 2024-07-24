@@ -1,0 +1,76 @@
+project: chisel-releases
+
+path: /chisel-releases
+
+environment:
+  PROJECT_PATH: /chisel-releases
+  SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
+  PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
+
+exclude:
+  - .github
+
+backends:
+  docker:
+    type: adhoc
+    allocate: |
+      echo "Allocating $SPREAD_SYSTEM..."
+      docker_image=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $1":"$2}')
+      docker_arch=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $NF}')
+      docker run --rm -e DEBIAN_FRONTEND=noninteractice \
+        -e usr=$SPREAD_SYSTEM_USERNAME -e pass=$SPREAD_SYSTEM_PASSWORD \
+        --name $SPREAD_SYSTEM -d $docker_arch/$docker_image sh -c '
+        set -x
+        apt update
+        apt install -y openssh-server sudo
+        mkdir /run/sshd
+        echo "root:$pass" | chpasswd
+        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        /usr/sbin/sshd -D
+      '
+      # The container will be up really fast, but the CMD might take time to
+      # run, and Spread will timeout the SSH op after 5 min. So we wait for the
+      # container during the allocation script.
+      until docker exec $SPREAD_SYSTEM pgrep sshd
+      do
+        sleep 5
+      done
+      ADDRESS `docker inspect $SPREAD_SYSTEM --format '{{.NetworkSettings.Networks.bridge.IPAddress}}'`
+    discard: docker rm -f $SPREAD_SYSTEM
+    systems:
+      - ubuntu-20.04-amd64:
+          password: ubuntu
+      - ubuntu-20.04-arm64v8:
+          password: ubuntu
+      - ubuntu-20.04-arm32v7:
+          password: ubuntu
+      - ubuntu-20.04-ppc64le:
+          password: ubuntu
+      - ubuntu-20.04-s390x:
+          password: ubuntu
+      # Re-enable risvc64 once we have re-enabled this arch for the Ubuntu container
+      # - ubuntu-20.04-riscv64:
+      #     password: ubuntu
+
+prepare: |
+  # Deb arch to GOARCH
+  arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
+  chisel_tar="chisel.tar.gz"
+
+  apt install -y curl wget
+  echo "ca_certificate=/etc/ssl/certs/ca-certificates.crt" > ~/.wgetrc
+
+  curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
+    | awk "/browser_download_url/ && /chisel_v/ && /${arch}.tar/" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | xargs wget -O $chisel_tar
+
+  tar -xf $chisel_tar -C /usr/local/bin
+
+prepare-each:
+  chisel version
+
+suites:
+  tests/spread/integration/:
+    summary: Tests common scenarios
