@@ -15,6 +15,13 @@ slices:
     essential:
       - libbz2-1.0_libs
       - libc6_libs
+      # Adding libgcc-s1 here because it is required for the arm arch.
+      # In practice, libc6 should bring it anyway, BUT, there is a circular
+      # dependency in the archives, where libc6 depends on libgcc-s1 and
+      # vice versa. We don't allow that circular dependency to exist in Chisel
+      # and libgcc-s1 already depends on libc6, so we'll have to include this
+      # line here, explicitly.
+      - libgcc-s1_libs
       - liblzma5_libs
       - libpython3.10-minimal_libs
       - media-types_data
