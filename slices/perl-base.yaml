@@ -27,6 +27,7 @@ slices:
       /usr/bin/perl:
       /usr/bin/perl5.38.2: {copy: /usr/bin/perl}
       /usr/bin/perl:
+      /usr/bin/perl5.38.2: {copy: /usr/bin/perl}
 
   copyright:
     contents:
