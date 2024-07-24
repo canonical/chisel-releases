@@ -24,7 +24,7 @@ the moment, the officially supported Chisel releases are:
 - [ubuntu-23.04](https://github.com/canonical/chisel-releases/tree/ubuntu-23.04)
 \- Lunar (EOL)
 - [ubuntu-23.10](https://github.com/canonical/chisel-releases/tree/ubuntu-23.10)
-\- Mantic
+\- Mantic (EOL)
 - [ubuntu-24.04](https://github.com/canonical/chisel-releases/tree/ubuntu-24.04)
 \- Noble
 
