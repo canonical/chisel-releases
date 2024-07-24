@@ -46,7 +46,133 @@ slices:
       /etc/apparmor.d/abi/4.0:
       /etc/apparmor.d/abi/kernel-5.4-outoftree-network:
       /etc/apparmor.d/abi/kernel-5.4-vanilla:
-      /etc/apparmor.d/abstractions/**:
+      /etc/apparmor.d/abstractions/X:
+      /etc/apparmor.d/abstractions/apache2-common:
+      /etc/apparmor.d/abstractions/apparmor_api/change_profile:
+      /etc/apparmor.d/abstractions/apparmor_api/examine:
+      /etc/apparmor.d/abstractions/apparmor_api/find_mountpoint:
+      /etc/apparmor.d/abstractions/apparmor_api/introspect:
+      /etc/apparmor.d/abstractions/apparmor_api/is_enabled:
+      /etc/apparmor.d/abstractions/aspell:
+      /etc/apparmor.d/abstractions/audio:
+      /etc/apparmor.d/abstractions/authentication:
+      /etc/apparmor.d/abstractions/base:
+      /etc/apparmor.d/abstractions/bash:
+      /etc/apparmor.d/abstractions/consoles:
+      /etc/apparmor.d/abstractions/crypto:
+      /etc/apparmor.d/abstractions/cups-client:
+      /etc/apparmor.d/abstractions/dbus:
+      /etc/apparmor.d/abstractions/dbus-accessibility:
+      /etc/apparmor.d/abstractions/dbus-accessibility-strict:
+      /etc/apparmor.d/abstractions/dbus-network-manager-strict:
+      /etc/apparmor.d/abstractions/dbus-session:
+      /etc/apparmor.d/abstractions/dbus-session-strict:
+      /etc/apparmor.d/abstractions/dbus-strict:
+      /etc/apparmor.d/abstractions/dconf:
+      /etc/apparmor.d/abstractions/dovecot-common:
+      /etc/apparmor.d/abstractions/dri-common:
+      /etc/apparmor.d/abstractions/dri-enumerate:
+      /etc/apparmor.d/abstractions/enchant:
+      /etc/apparmor.d/abstractions/exo-open:
+      /etc/apparmor.d/abstractions/fcitx:
+      /etc/apparmor.d/abstractions/fcitx-strict:
+      /etc/apparmor.d/abstractions/fonts:
+      /etc/apparmor.d/abstractions/freedesktop.org:
+      /etc/apparmor.d/abstractions/gio-open:
+      /etc/apparmor.d/abstractions/gnome:
+      /etc/apparmor.d/abstractions/gnupg:
+      /etc/apparmor.d/abstractions/groff:
+      /etc/apparmor.d/abstractions/gtk:
+      /etc/apparmor.d/abstractions/gvfs-open:
+      /etc/apparmor.d/abstractions/hosts_access:
+      /etc/apparmor.d/abstractions/ibus:
+      /etc/apparmor.d/abstractions/kde:
+      /etc/apparmor.d/abstractions/kde-globals-write:
+      /etc/apparmor.d/abstractions/kde-icon-cache-write:
+      /etc/apparmor.d/abstractions/kde-language-write:
+      /etc/apparmor.d/abstractions/kde-open5:
+      /etc/apparmor.d/abstractions/kerberosclient:
+      /etc/apparmor.d/abstractions/ldapclient:
+      /etc/apparmor.d/abstractions/libpam-systemd:
+      /etc/apparmor.d/abstractions/likewise:
+      /etc/apparmor.d/abstractions/mdns:
+      /etc/apparmor.d/abstractions/mesa:
+      /etc/apparmor.d/abstractions/mir:
+      /etc/apparmor.d/abstractions/mozc:
+      /etc/apparmor.d/abstractions/mysql:
+      /etc/apparmor.d/abstractions/nameservice:
+      /etc/apparmor.d/abstractions/nis:
+      /etc/apparmor.d/abstractions/nss-systemd:
+      /etc/apparmor.d/abstractions/nvidia:
+      /etc/apparmor.d/abstractions/opencl:
+      /etc/apparmor.d/abstractions/opencl-common:
+      /etc/apparmor.d/abstractions/opencl-intel:
+      /etc/apparmor.d/abstractions/opencl-mesa:
+      /etc/apparmor.d/abstractions/opencl-nvidia:
+      /etc/apparmor.d/abstractions/opencl-pocl:
+      /etc/apparmor.d/abstractions/openssl:
+      /etc/apparmor.d/abstractions/orbit2:
+      /etc/apparmor.d/abstractions/p11-kit:
+      /etc/apparmor.d/abstractions/perl:
+      /etc/apparmor.d/abstractions/php:
+      /etc/apparmor.d/abstractions/php-worker:
+      /etc/apparmor.d/abstractions/php5:
+      /etc/apparmor.d/abstractions/postfix-common:
+      /etc/apparmor.d/abstractions/private-files:
+      /etc/apparmor.d/abstractions/private-files-strict:
+      /etc/apparmor.d/abstractions/python:
+      /etc/apparmor.d/abstractions/qt5:
+      /etc/apparmor.d/abstractions/qt5-compose-cache-write:
+      /etc/apparmor.d/abstractions/qt5-settings-write:
+      /etc/apparmor.d/abstractions/recent-documents-write:
+      /etc/apparmor.d/abstractions/ruby:
+      /etc/apparmor.d/abstractions/samba:
+      /etc/apparmor.d/abstractions/samba-rpcd:
+      /etc/apparmor.d/abstractions/smbpass:
+      /etc/apparmor.d/abstractions/snap_browsers:
+      /etc/apparmor.d/abstractions/ssl_certs:
+      /etc/apparmor.d/abstractions/ssl_keys:
+      /etc/apparmor.d/abstractions/svn-repositories:
+      /etc/apparmor.d/abstractions/trash:
+      /etc/apparmor.d/abstractions/ubuntu-bittorrent-clients:
+      /etc/apparmor.d/abstractions/ubuntu-browsers:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/chromium-browser:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/java:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/kde:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/mailto:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/multimedia:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/plugins-common:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/productivity:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/text-editors:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration-xul:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/user-files:
+      /etc/apparmor.d/abstractions/ubuntu-console-browsers:
+      /etc/apparmor.d/abstractions/ubuntu-console-email:
+      /etc/apparmor.d/abstractions/ubuntu-email:
+      /etc/apparmor.d/abstractions/ubuntu-feed-readers:
+      /etc/apparmor.d/abstractions/ubuntu-gnome-terminal:
+      /etc/apparmor.d/abstractions/ubuntu-helpers:
+      /etc/apparmor.d/abstractions/ubuntu-konsole:
+      /etc/apparmor.d/abstractions/ubuntu-media-players:
+      /etc/apparmor.d/abstractions/ubuntu-unity7-base:
+      /etc/apparmor.d/abstractions/ubuntu-unity7-launcher:
+      /etc/apparmor.d/abstractions/ubuntu-unity7-messaging:
+      /etc/apparmor.d/abstractions/ubuntu-xterm:
+      /etc/apparmor.d/abstractions/user-download:
+      /etc/apparmor.d/abstractions/user-mail:
+      /etc/apparmor.d/abstractions/user-manpages:
+      /etc/apparmor.d/abstractions/user-tmp:
+      /etc/apparmor.d/abstractions/user-write:
+      /etc/apparmor.d/abstractions/video:
+      /etc/apparmor.d/abstractions/vulkan:
+      /etc/apparmor.d/abstractions/wayland:
+      /etc/apparmor.d/abstractions/web-data:
+      /etc/apparmor.d/abstractions/winbind:
+      /etc/apparmor.d/abstractions/wutmp:
+      /etc/apparmor.d/abstractions/xad:
+      /etc/apparmor.d/abstractions/xdg-desktop:
+      /etc/apparmor.d/abstractions/xdg-open:
       /etc/apparmor.d/brave:
       /etc/apparmor.d/buildah:
       /etc/apparmor.d/busybox:
@@ -72,6 +198,8 @@ slices:
       /etc/apparmor.d/libcamerify:
       /etc/apparmor.d/linux-sandbox:
       /etc/apparmor.d/local/README:
+      /etc/apparmor.d/local/lsb_release: { text: '' }
+      /etc/apparmor.d/local/nvidia_modprobe: { text: '' }
       /etc/apparmor.d/loupe:
       /etc/apparmor.d/lsb_release:
       /etc/apparmor.d/lxc-attach:
@@ -133,8 +261,7 @@ slices:
       /etc/apparmor.d/tunables/global:
       /etc/apparmor.d/tunables/home:
       /etc/apparmor.d/tunables/home.d/site.local:
-      /etc/apparmor.d/tunables/home.d/ubuntu: {text: FIXME, mutable: true}
-      /etc/apparmor.d/tunables/home.d/ubuntu.tmp:
+      /etc/apparmor.d/tunables/home.d/ubuntu:
         text: |
           # This file is auto-generated. It is recommended you update it using:
           # $ sudo dpkg-reconfigure apparmor
@@ -153,8 +280,7 @@ slices:
       /etc/apparmor.d/tunables/share:
       /etc/apparmor.d/tunables/sys:
       /etc/apparmor.d/tunables/xdg-user-dirs:
-      /etc/apparmor.d/tunables/xdg-user-dirs.d/site.local: {text: FIXME, mutable: true}
-      /etc/apparmor.d/tunables/xdg-user-dirs.d/site.local.tmp:
+      /etc/apparmor.d/tunables/xdg-user-dirs.d/site.local:
         text: |
           # ------------------------------------------------------------------
           #
@@ -188,11 +314,6 @@ slices:
       /etc/apparmor.d/vpnns:
       /etc/apparmor.d/wpcom:
       /var/cache/apparmor/:
-    mutate: |
-      uc = content.read("/etc/apparmor.d/tunables/home.d/ubuntu.tmp")
-      content.write("/etc/apparmor.d/tunables/home.d/ubuntu", uc)
-      xc = content.read("/etc/apparmor.d/tunables/xdg-user-dirs.d/site.local.tmp")
-      content.write("/etc/apparmor.d/tunables/xdg-user-dirs.d/site.local", xc)
 
   copyright:
     contents:
