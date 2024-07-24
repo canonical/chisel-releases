@@ -10,7 +10,6 @@ styles, we must strive for consistency and thus your contributions are expected
 to match the existing codebase, as described by the following guidelines.
 Any non-conforming proposals will be subject to immediate rejection.
 
-
 - [Code of Conduct](#code-of-conduct)
 - [Canonical Contributor Licence Agreement](#canonical-contributor-licence-agreement)
 - [How to Contribute](#how-to-contribute)
@@ -265,12 +264,41 @@ conflicts between slice definitions files;
 Apart from asserting your slice definitions' formatting, you must also test them
 before opening a Pull Request.
 
-Chisel supports custom releases, so please make sure you `cut` your custom
-slices and run smoke tests on them.
+Every Chisel release support the functional testing for slices via
+[Spread](https://github.com/snapcore/spread).
 
-***Tip**: to install slices from a custom Chisel release, simply provide its
-absolute path to the `--release` option in Chisel. E.g.
-`chisel cut --release $PWD/custom-chisel-release --root testfs pkg-a_sliceFoo`.*
+**We expect tests to be provided for every slice**, so please ensure you include
+those in your PRs.
+
+Here's how you can create and run tests for your slice definitions:
+
+1. under `tests/spread/integration/`, make sure at least one folder matching the
+package name you're slicing, exists,
+1. inside that folder you must create a `task.yaml` file. This is where you'll
+write all the tests for your slide definitions. Please follow the structure from
+existing examples, providing at least the `summary` and `execute` fields inside
+`task.yaml` (for other possible fields, please check the
+[Spread docs](https://github.com/snapcore/spread)),
+   1. in `test/spread/lib/` you'll also find a set of helper functions that you
+  can call from within your `task.yaml` execution script,
+1. once your test is ready, ensure you have the necessary requirements to run it
+locally:
+    - Docker: you can install it via the [Snap Store](https://snapcraft.io/docker) or
+    by following the [official instructions](https://docs.docker.com/engine/install/)
+    - Spread: we recommend installing it from source (with
+    `go install github.com/snapcore/spread/cmd/spread@latest`), but there's
+    also a [Spread snap](https://snapcraft.io/spread)
+    - QEMU: if testing for multiple architectures, you'll need to install these
+    packages: `sudo apt-get install qemu binfmt-support qemu-user-static`
+1. from the repository's root directory, you can now run
+`spread tests/spread/integration/<pkg>` for running the tests for your package
+`<pkg>` slices, on all architectures. Additionally, you can also:
+   - run `spread` for orchestrating **all** the tests (not just yours), for all
+  architectures, or
+   - run `spread docker:ubuntu-22.04-amd64` for orchestrating **all** the tests
+   (not just yours) for amd64 only, or
+   - run `spread docker:ubuntu-22.04-arm64v8:tests/spread/integration/<pkg>`
+   for running only the tests for your package `<pkg>` slices, on arm64.
 
 #### 8. Open the PR(s)
 
