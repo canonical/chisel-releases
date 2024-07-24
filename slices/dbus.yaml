@@ -10,7 +10,6 @@ slices:
       - dbus-bin_bins
       - dbus-daemon_bins
       - dbus-system-bus-common_config
-      - dbus-session-bus-common_config
       - libc6_libs
       - libdbus-1-3_libs
       - libexpat1_libs
