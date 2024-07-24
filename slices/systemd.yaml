@@ -438,7 +438,6 @@ slices:
       /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/system/systemd-logind.service:
       /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
-      /usr/lib/systemd/system/systemd-logind.service.d/nice.conf:
       /usr/lib/systemd/system/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/systemd-modules-load.service:
       /usr/lib/systemd/system/systemd-network-generator.service:
