@@ -1,0 +1,15 @@
+package: libdatrie1
+
+essential:
+  - libdatrie1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libdatrie.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdatrie1/copyright:
