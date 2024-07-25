@@ -24,7 +24,7 @@ that apply. -->
 
 * [ ] I have read the [contributing guidelines](
 https://github.com/canonical/chisel-releases/blob/main/CONTRIBUTING.md)
-* [ ] I have tested my changes
+* [ ] I have tested my changes ([see how](https://github.com/canonical/chisel-releases/blob/main/CONTRIBUTING.md#7-test-your-slices-before-opening-a-pr))
 * [ ] I have already submitted the [CLA form](
 https://ubuntu.com/legal/contributors/agreement)
 
