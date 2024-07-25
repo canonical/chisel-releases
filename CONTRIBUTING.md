@@ -264,7 +264,7 @@ conflicts between slice definitions files;
 Apart from asserting your slice definitions' formatting, you must also test them
 before opening a Pull Request.
 
-Every Chisel release support the functional testing for slices via
+Every Chisel release supports the functional testing for slices via
 [Spread](https://github.com/snapcore/spread).
 
 **We expect tests to be provided for every slice**, so please ensure you include
