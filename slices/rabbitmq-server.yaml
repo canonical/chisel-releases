@@ -28,9 +28,9 @@ slices:
       /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
       /usr/lib/rabbitmq/bin/rabbitmq*:
       /usr/lib/rabbitmq/bin/vmware-rabbitmq:
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/rabbitmq-*:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/rabbitmq*:
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/vmware-rabbitmq:
-      /usr/sbin/rabbitmq-*:
+      /usr/sbin/rabbitmq*:
       /var/lib/rabbitmq/:
       /var/lib/rabbitmq/.erlang.cookie: {text: DUMMY, mode: 0400}
       /var/lib/rabbitmq/mnesia/: {mode: 0750}
