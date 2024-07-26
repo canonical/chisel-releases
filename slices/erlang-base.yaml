@@ -34,6 +34,7 @@ slices:
       /usr/lib/erlang/lib/sasl-*/ebin/**:
       /usr/lib/erlang/lib/stdlib-*/ebin/**:
       /usr/lib/erlang/lib/stdlib-*/include/**:
+      /usr/lib/erlang/releases/**:
 
   copyright:
     contents:
