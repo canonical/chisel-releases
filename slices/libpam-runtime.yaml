@@ -46,7 +46,7 @@ slices:
   # debconf to actually work and discover these packages.
   pam-config:
     contents:
-      /usr/share/pam-configs/unix:
+      /usr/share/pam-configs/**:
 
   # default templates for the /etc/pam.d files that are used by
   # pam-auth-update to generate the /etc/pam.d versions based on

@@ -1,0 +1,107 @@
+package: util-linux
+
+essential:
+  - util-linux_copyright
+
+slices:
+  bins:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libcrypt1_libs
+      - libmount1_libs
+      - libpam0g_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+      - libtinfo6_libs
+      - libudev1_libs
+      - libuuid1_libs
+      - util-linux_config
+      - zlib1g_libs
+    contents:
+      /usr/bin/addpart:
+      /usr/bin/choom:
+      /usr/bin/chrt:
+      /usr/bin/delpart:
+      /usr/bin/dmesg:
+      /usr/bin/fallocate:
+      /usr/bin/findmnt:
+      /usr/bin/flock:
+      /usr/bin/getopt:
+      /usr/bin/hardlink:
+      /usr/bin/i386:
+      /usr/bin/ionice:
+      /usr/bin/ipcmk:
+      /usr/bin/ipcrm:
+      /usr/bin/ipcs:
+      /usr/bin/last:
+      /usr/bin/lastb:
+      /usr/bin/linux32:
+      /usr/bin/linux64:
+      /usr/bin/lsblk:
+      /usr/bin/lscpu:
+      /usr/bin/lsipc:
+      /usr/bin/lslocks:
+      /usr/bin/lslogins:
+      /usr/bin/lsmem:
+      /usr/bin/lsns:
+      /usr/bin/mcookie:
+      /usr/bin/mesg:
+      /usr/bin/more:
+      /usr/bin/mountpoint:
+      /usr/bin/namei:
+      /usr/bin/nsenter:
+      /usr/bin/partx:
+      /usr/bin/prlimit:
+      /usr/bin/rename.ul:
+      /usr/bin/resizepart:
+      /usr/bin/rev:
+      /usr/bin/setarch:
+      /usr/bin/setpriv:
+      /usr/bin/setsid:
+      /usr/bin/setterm:
+      /usr/bin/su:
+      /usr/bin/taskset:
+      /usr/bin/uclampset:
+      /usr/bin/unshare:
+      /usr/bin/utmpdump:
+      /usr/bin/wdctl:
+      /usr/bin/whereis:
+      /usr/sbin/agetty:
+      /usr/sbin/blkdiscard:
+      /usr/sbin/blkid:
+      /usr/sbin/blkzone:
+      /usr/sbin/blockdev:
+      /usr/sbin/chcpu:
+      /usr/sbin/chmem:
+      /usr/sbin/ctrlaltdel:
+      /usr/sbin/findfs:
+      /usr/sbin/fsck*:
+      /usr/sbin/fsfreeze:
+      /usr/sbin/fstrim:
+      /usr/sbin/getty:
+      /usr/sbin/isosize:
+      /usr/sbin/ldattach:
+      /usr/sbin/mkfs*:
+      /usr/sbin/mkswap:
+      /usr/sbin/pivot_root:
+      /usr/sbin/readprofile:
+      /usr/sbin/rtcwake:
+      /usr/sbin/runuser:
+      /usr/sbin/sulogin:
+      /usr/sbin/swaplabel:
+      /usr/sbin/switch_root:
+      /usr/sbin/wipefs:
+      /usr/sbin/zramctl:
+
+  config:
+    contents:
+      /etc/pam.d/runuser:
+      /etc/pam.d/runuser-l:
+      /etc/pam.d/su:
+      /etc/pam.d/su-l:
+
+  copyright:
+    contents:
+      /usr/share/doc/util-linux/copyright:
