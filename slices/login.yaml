@@ -26,7 +26,7 @@ slices:
     contents:
       /etc/login.defs:
       /etc/pam.d/login:
-   
+
   copyright:
     contents:
       /usr/share/doc/login/copyright:

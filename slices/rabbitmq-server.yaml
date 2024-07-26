@@ -10,9 +10,9 @@ slices:
 
   bins:
     essential:
-      - bash_bins
       - base-files_base
       - base-passwd_data
+      - bash_bins
       - coreutils_bins
       ## erlang* packages do not exist for i386
       ## for all other archs, uncomment all those slices below

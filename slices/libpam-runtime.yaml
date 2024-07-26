@@ -22,6 +22,7 @@ slices:
   # until appropriate solution for emulating what pam-auth-update can do (or maybe something else).
   bins:
     essential:
+      - debconf_bins
       - libpam-modules_config
       - libpam-runtime_config
       - libpam-runtime_pam-config
