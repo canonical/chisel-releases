@@ -1,0 +1,15 @@
+package: libwayland-egl1
+
+essential:
+  - libwayland-egl1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libwayland-egl.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libwayland-egl1/copyright:
