@@ -1,0 +1,19 @@
+package: libfftw3-double3
+
+essential:
+  - libfftw3-double3_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_config
+      - libc6_libs
+      - libgomp1_libs
+    contents:
+      /usr/lib/*-linux-*/libfftw3.so.3*:
+      /usr/lib/*-linux-*/libfftw3_omp.so.3*:
+      /usr/lib/*-linux-*/libfftw3_threads.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfftw3-double3/copyright:
