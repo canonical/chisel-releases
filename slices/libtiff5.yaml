@@ -9,7 +9,7 @@ slices:
       - libc6_libs
       - libdeflate0_libs
       - libjbig0_libs
-      - libjpeg-turbo8_libs
+      - libjpeg8_libs
       - liblzma5_libs
       - libwebp7_libs
       - libzstd1_libs
