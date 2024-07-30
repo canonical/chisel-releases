@@ -1,0 +1,39 @@
+package: libperl5.38t64
+
+essential:
+  - libperl5.38t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libdb5.3t64_libs
+      - libgdbm-compat4t64_libs
+      - libgdbm6t64_libs
+      - perl-modules-5.38_modules
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libperl.so.5.38*:
+      /usr/lib/*-linux-*/perl/5.38*/**:
+
+  config:
+    contents:
+      /usr/lib/*-linux-*/perl/cross-config-5.38.2/Config.pm:
+      /usr/lib/*-linux-*/perl/cross-config-5.38.2/Config_heavy.pl:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.38.2/config.sh.debug.gz:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.38.2/config.sh.shared.gz:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.38.2/config.sh.static.gz:
+
+  bins:
+    essential:
+      - libperl5.38t64_config
+      - libperl5.38t64_libs
+    contents:
+      /usr/bin/cpan5.38-*-linux-*:
+      /usr/bin/perl5.38-*-linux-*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libperl5.38t64/copyright:
