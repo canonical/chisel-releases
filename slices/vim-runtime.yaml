@@ -1,0 +1,49 @@
+package: vim-runtime
+
+essential:
+  - vim-runtime_copyright
+
+slices:
+  vimtutor:
+    contents:
+      /usr/bin/vimtutor:
+      /usr/share/vim/vim*/tutor/tutor*:
+
+  plugins:
+    contents:
+      /usr/share/vim/vim*/autoload/**:
+      /usr/share/vim/vim*/bugreport.vim:
+      /usr/share/vim/vim*/colors/**:
+      /usr/share/vim/vim*/compiler/**:
+      /usr/share/vim/vim*/defaults.vim:
+      /usr/share/vim/vim*/delmenu.vim:
+      /usr/share/vim/vim*/evim.vim:
+      /usr/share/vim/vim*/filetype.vim:
+      /usr/share/vim/vim*/ftoff.vim:
+      /usr/share/vim/vim*/ftplugin.vim:
+      /usr/share/vim/vim*/ftplugin/**:
+      /usr/share/vim/vim*/ftplugof.vim:
+      /usr/share/vim/vim*/gvimrc_example.vim:
+      /usr/share/vim/vim*/import/**:
+      /usr/share/vim/vim*/indent.vim:
+      /usr/share/vim/vim*/indent/**:
+      /usr/share/vim/vim*/indoff.vim:
+      /usr/share/vim/vim*/keymap/**:
+      /usr/share/vim/vim*/macros/**:
+      /usr/share/vim/vim*/menu.vim:
+      /usr/share/vim/vim*/mswin.vim:
+      /usr/share/vim/vim*/optwin.vim:
+      /usr/share/vim/vim*/pack/**:
+      /usr/share/vim/vim*/plugin/**:
+      /usr/share/vim/vim*/print/**:
+      /usr/share/vim/vim*/scripts.vim:
+      /usr/share/vim/vim*/spell/**:
+      /usr/share/vim/vim*/synmenu.vim:
+      /usr/share/vim/vim*/syntax/**:
+      /usr/share/vim/vim*/vimrc_example.vim:
+      /usr/share/vim/vim*/macros/urm/urm*:
+
+  copyright:
+    contents:
+      /usr/share/doc/vim-runtime/copyright:
+

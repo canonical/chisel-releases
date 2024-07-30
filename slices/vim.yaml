@@ -1,0 +1,24 @@
+package: vim
+
+essential:
+  - vim_copyright
+
+slices:
+  bins:
+    essential:
+      - libacl1_libs
+      - libc6_libs
+      - libgpm2_libs
+      - libpython3.12t64_libs
+      - libselinux1_libs
+      - libsodium23_libs
+      - libtinfo6_libs
+      - vim-common_config
+      - vim-runtime_plugins
+    contents:
+      /usr/bin/vim.basic:
+      /usr/bin/vim: {symlink: /usr/bin/vim.basic}
+
+  copyright:
+    contents:
+      /usr/share/doc/vim/copyright:

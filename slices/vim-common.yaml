@@ -1,0 +1,18 @@
+package: vim-common
+
+essential:
+  - vim-common_copyright
+
+slices:
+  config:
+    contents:
+      /etc/vim/vimrc:
+      /usr/share/vim/vim91/debian.vim:
+
+  data:
+    contents:
+      /usr/bin/helpztags:
+
+  copyright:
+    contents:
+      /usr/share/doc/vim-common/copyright:
