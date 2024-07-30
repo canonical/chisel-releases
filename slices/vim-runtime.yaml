@@ -30,6 +30,7 @@ slices:
       /usr/share/vim/vim*/indoff.vim:
       /usr/share/vim/vim*/keymap/**:
       /usr/share/vim/vim*/macros/**:
+      /usr/share/vim/vim*/macros/urm/urm*:
       /usr/share/vim/vim*/menu.vim:
       /usr/share/vim/vim*/mswin.vim:
       /usr/share/vim/vim*/optwin.vim:
@@ -41,7 +42,6 @@ slices:
       /usr/share/vim/vim*/synmenu.vim:
       /usr/share/vim/vim*/syntax/**:
       /usr/share/vim/vim*/vimrc_example.vim:
-      /usr/share/vim/vim*/macros/urm/urm*:
 
   copyright:
     contents:

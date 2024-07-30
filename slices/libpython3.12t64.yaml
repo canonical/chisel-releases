@@ -8,5 +8,5 @@ slices:
       - libpython3.12-stdlib_core
       - zlib1g_libs
     contents:
-      /usr/lib/python3.12/config-3.12-*-linux-*/libpython3.12.so:
       /usr/lib/*-linux-*/libpython3.12.so.1*:
+      /usr/lib/python3.12/config-3.12-*-linux-*/libpython3.12.so:

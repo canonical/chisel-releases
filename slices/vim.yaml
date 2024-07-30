@@ -16,8 +16,8 @@ slices:
       - vim-common_config
       - vim-runtime_plugins
     contents:
-      /usr/bin/vim.basic:
       /usr/bin/vim: {symlink: /usr/bin/vim.basic}
+      /usr/bin/vim.basic:
 
   copyright:
     contents:
