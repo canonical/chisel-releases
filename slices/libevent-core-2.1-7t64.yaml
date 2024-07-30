@@ -9,7 +9,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libevent_core-2.1.so*:
-  
+
   copyright:
     contents:
       /usr/share/doc/libevent-core-2.1-7t64/copyright:

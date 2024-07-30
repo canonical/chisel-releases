@@ -47,7 +47,7 @@ slices:
       /usr/share/apport/package-hooks/source_mysql-8.0.py:
       /usr/share/mysql/echo_stderr:
       /usr/share/mysql/mysql-systemd-start:
-  
+
   copyright:
     contents:
       /usr/share/doc/mysql-server-8.0/copyright:
