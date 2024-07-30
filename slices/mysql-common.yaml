@@ -6,8 +6,8 @@ essential:
 slices:
   config:
     contents:
-      /etc/mysql/conf.d/*.cnf:
       /etc/mysql/*.cnf.fallback:
+      /etc/mysql/conf.d/*.cnf:
       /usr/share/mysql-common/configure-symlinks:
 
   copyright:
