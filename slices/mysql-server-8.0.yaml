@@ -1,0 +1,53 @@
+package: mysql-server-8.0
+
+essential:
+  - mysql-server-8.0_copyright
+
+slices:
+  bins:
+    essential:
+      - lsb-base_bins
+      - mysql-client-8.0_bins
+      - mysql-common_config
+      - mysql-server-8.0_config
+      - mysql-server-8.0_data
+      - mysql-server-8.0_services
+      - mysql-server-8.0_tools
+      - mysql-server-core-8.0_bins
+      - passwd_bins
+      - perl_bins
+
+  config:
+    contents:
+      /etc/app*or.d/usr.sbin.mysqld:
+      /etc/init.d/mysql:
+      /etc/init/mysql.conf:
+      /etc/mysql/debian-start:
+      /etc/mysql/mysql.cnf:
+      /etc/mysql/mysql.conf.d/mysql.cnf:
+      /etc/mysql/mysql.conf.d/mysqld.cnf:
+
+  data:
+    contents:
+      /usr/share/mysql/debian_create_root_user.sql:
+      /usr/share/mysql/install_rewriter.sql:
+      /usr/share/mysql/uninstall_rewriter.sql:
+
+  services:
+    contents:
+      # /etc/logcheck/ignore.d.paranoid/mysql-server-8_0:
+      # /etc/logcheck/ignore.d.server/mysql-server-8_0:
+      # /etc/logcheck/ignore.d.workstation/mysql-server-8_0:
+      # /etc/logrotate.d/mysql-server:
+      /usr/lib/systemd/system/mysql.service:
+      /usr/share/mysql/mysqld_multi.server:
+
+  tools:
+    contents:
+      /usr/share/apport/package-hooks/source_mysql-8.0.py:
+      /usr/share/mysql/echo_stderr:
+      /usr/share/mysql/mysql-systemd-start:
+  
+  copyright:
+    contents:
+      /usr/share/doc/mysql-server-8.0/copyright:
