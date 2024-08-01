@@ -7,8 +7,8 @@ slices:
   config:
     contents:
       /etc/dbus-1/system.d/:
-      /usr/share/dbus-1/system.conf:
       /usr/lib/sysusers.d/dbus.conf:
+      /usr/share/dbus-1/system.conf:
 
   extras:
     contents:

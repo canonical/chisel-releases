@@ -3,5 +3,5 @@ package: dbus-session-bus-common
 slices:
   config:
     contents:
-      /usr/share/dbus-1/session.conf:
       /etc/dbus-1/session.d/:
+      /usr/share/dbus-1/session.conf:
