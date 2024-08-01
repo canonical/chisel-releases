@@ -9,8 +9,8 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libssl3t64_libs
-      - python3.12_standard
       - python3-cffi-backend_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/cryptography-41.0.7.dist-info/**:
       /usr/lib/python3/dist-packages/cryptography/**:

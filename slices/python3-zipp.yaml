@@ -6,8 +6,8 @@ essential:
 slices:
   dist:
     essential:
-      - python3.12_standard
       - python3-more-itertools_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/zipp-1.0.0.dist-info/**:
       /usr/lib/python3/dist-packages/zipp.py:

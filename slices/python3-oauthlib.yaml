@@ -6,10 +6,10 @@ essential:
 slices:
   dist:
     essential:
-      - python3.12_standard
       - python3-blinker_dist
       - python3-cryptography_dist
       - python3-jwt_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/oauthlib-3.2.2.egg-info/**:
       /usr/lib/python3/dist-packages/oauthlib/**:

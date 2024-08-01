@@ -11,8 +11,8 @@ slices:
       - libssl3t64_libs
       - libudev1_libs
     contents:
-      /usr/sbin/dhcpcd:
       /usr/lib/dhcpcd/dhcpcd-run-hooks:
+      /usr/sbin/dhcpcd:
 
   config:
     contents:

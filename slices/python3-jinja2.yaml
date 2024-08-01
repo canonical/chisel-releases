@@ -6,8 +6,8 @@ essential:
 slices:
   dist:
     essential:
-      - python3.12_standard
       - python3-markupsafe_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/Jinja2-3*/**:
       /usr/lib/python3/dist-packages/jinja2/**:

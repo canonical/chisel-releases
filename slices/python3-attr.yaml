@@ -6,8 +6,8 @@ essential:
 slices:
   dist:
     essential:
-      - python3.12_standard
       - python3-importlib-metadata_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/attr/**:
       /usr/lib/python3/dist-packages/attrs-23.2.0.dist-info/**:

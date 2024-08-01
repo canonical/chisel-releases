@@ -6,8 +6,8 @@ essential:
 slices:
   dist:
     essential:
-      - python3.12_standard
       - python3-zipp_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/importlib_resources-6.0.1.dist-info/**:
       /usr/lib/python3/dist-packages/importlib_resources/**:

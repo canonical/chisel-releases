@@ -11,8 +11,8 @@ slices:
 
   dist:
     essential:
-      - python3.12_standard
       - python3-json-pointer_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/jsonpatch-1*/**:
       /usr/lib/python3/dist-packages/jsonpatch.py:

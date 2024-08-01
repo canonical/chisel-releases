@@ -8,7 +8,7 @@ slices:
     essential:
       - libc6_libs
       - libnetplan1_libs
-      - python3-cffi-backend_data
+      - python3-cffi-backend_dist
       - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/netplan/**:

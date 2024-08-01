@@ -14,17 +14,17 @@ slices:
       - iproute2_bins
       - netplan.io_bins
       - procps_bins
+      - python3-configobj_dist
+      - python3-debconf_dist
+      - python3-jinja2_dist
+      - python3-jsonpatch_dist
+      - python3-jsonschema_dist
+      - python3-netifaces_dist
+      - python3-oauthlib_dist
+      - python3-requests_dist
+      - python3-serial_dist
+      - python3-yaml_dist
       - python3.12_standard
-      - python3-configobj_data
-      - python3-debconf_data
-      - python3-jinja2_data
-      - python3-jsonpatch_data
-      - python3-jsonschema_data
-      - python3-netifaces_data
-      - python3-oauthlib_data
-      - python3-requests_data
-      - python3-serial_data
-      - python3-yaml_data
     contents:
       /usr/bin/cloud-id:
       /usr/bin/cloud-init:

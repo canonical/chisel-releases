@@ -11,8 +11,8 @@ slices:
 
   dist:
     essential:
-      - python3.12_standard
       - python3-pkg-resources_dist
+      - python3.12_standard
     contents:
       /usr/lib/python3/dist-packages/chardet-5.2.0.dist-info/**:
       /usr/lib/python3/dist-packages/chardet/**:
