@@ -1,6 +1,13 @@
 package: libtirpc-common
 
+essential:
+  - libtirpc-common_copyright
+
 slices:
   config:
     contents:
       /etc/netconfig:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtirpc-common/copyright:

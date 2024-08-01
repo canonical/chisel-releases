@@ -1,9 +1,16 @@
 # Fast lossless compression algorithm
 package: libzstd1
 
+essential:
+  - libzstd1_copyright
+
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libzstd.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libzstd1/copyright:

@@ -1,5 +1,8 @@
 package: bash
 
+essential:
+  - bash_copyright
+
 slices:
   config:
     contents:
@@ -17,5 +20,9 @@ slices:
       # user should manually link /bin/sh to /bin/bash
       /bin/bash:
       /bin/rbash:
-      /usr/bin/clear_console:
       /usr/bin/bashbug:
+      /usr/bin/clear_console:
+
+  copyright:
+    contents:
+      /usr/share/doc/bash/copyright:

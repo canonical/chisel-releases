@@ -1,5 +1,8 @@
 package: libsasl2-modules-db
 
+essential:
+  - libsasl2-modules-db_copyright
+
 slices:
   libs:
     essential:
@@ -7,3 +10,7 @@ slices:
       - libdb5.3_libs
     contents:
       /usr/lib/*-linux-*/sasl2/libsasldb.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsasl2-modules-db/copyright:

@@ -8,6 +8,9 @@ package: libpython3.11-minimal
 # into granular slices, the same hasn't been done for this package.
 # The reason is simple, the libraries in this package are tightly
 # dependent upon each other.
+essential:
+  - libpython3.11-minimal_copyright
+
 slices:
   config:
     contents:
@@ -111,3 +114,7 @@ slices:
       /usr/lib/python3.11/weakref.py:
       /usr/lib/python3.11/zipfile.py:
       /usr/lib/python3.11/zipimport.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpython3.11-minimal/copyright:

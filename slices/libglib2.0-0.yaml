@@ -1,5 +1,8 @@
 package: libglib2.0-0
 
+essential:
+  - libglib2.0-0_copyright
+
 slices:
   core:
     essential:
@@ -10,8 +13,8 @@ slices:
 
   libs:
     essential:
-      - libglib2.0-0_core
       - libffi8_libs
+      - libglib2.0-0_core
       - libmount1_libs
       - libselinux1_libs
       - zlib1g_libs
@@ -20,3 +23,7 @@ slices:
       /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
       /usr/lib/*-linux-*/libgobject-2.0.so.0*:
       /usr/lib/*-linux-*/libgthread-2.0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libglib2.0-0/copyright:

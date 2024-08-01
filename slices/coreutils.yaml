@@ -1,5 +1,8 @@
 package: coreutils
 
+essential:
+  - coreutils_copyright
+
 slices:
   libs:
     essential:
@@ -125,3 +128,7 @@ slices:
       /usr/bin/whoami:
       /usr/bin/yes:
       /usr/sbin/chroot:
+
+  copyright:
+    contents:
+      /usr/share/doc/coreutils/copyright:

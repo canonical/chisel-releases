@@ -1,0 +1,11 @@
+package: python3.10-venv
+
+slices:
+  ensurepip:
+    essential:
+      - python3-distutils_python3-10
+      - python3-pip-whl_wheels
+      - python3-setuptools-whl_wheels
+      - python3.10_standard
+    contents:
+      /usr/lib/python3.10/ensurepip/*.py:

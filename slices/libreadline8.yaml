@@ -1,5 +1,8 @@
 package: libreadline8
 
+essential:
+  - libreadline8_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
     contents:
       /lib/*-linux-*/libhistory.so.8*:
       /lib/*-linux-*/libreadline.so.8*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libreadline8/copyright:

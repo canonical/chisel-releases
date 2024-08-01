@@ -1,5 +1,8 @@
 package: libnspr4
 
+essential:
+  - libnspr4_copyright
+
 slices:
   libs:
     essential:
@@ -8,3 +11,7 @@ slices:
       /usr/lib/*-linux-*/libnspr4.so:
       /usr/lib/*-linux-*/libplc4.so:
       /usr/lib/*-linux-*/libplds4.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnspr4/copyright:

@@ -1,6 +1,13 @@
 package: readline-common
 
+essential:
+  - readline-common_copyright
+
 slices:
   config:
     contents:
       /etc/inputrc: { copy: /usr/share/readline/inputrc }
+
+  copyright:
+    contents:
+      /usr/share/doc/readline-common/copyright:
