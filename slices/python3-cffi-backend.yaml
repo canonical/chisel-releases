@@ -4,7 +4,7 @@ essential:
   - python3-cffi-backend_copyright
 
 slices:
-  data:
+  dist:
     essential:
       - libc6_libs
       - libffi8_libs

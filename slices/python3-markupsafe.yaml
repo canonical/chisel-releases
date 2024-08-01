@@ -1,0 +1,17 @@
+package: python3-markupsafe
+
+essential:
+  - python3-markupsafe_copyright
+
+slices:
+  dist:
+    essential:
+      - libc6_libs
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/MarkupSafe-2.1.5.egg-info/**:
+      /usr/lib/python3/dist-packages/markupsafe/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-markupsafe/copyright:
