@@ -1,0 +1,15 @@
+# This is a nothing package but other packages reference this instead of
+# libjpeg-turbo8, so it is includes for convenience.
+package: libjpeg8
+
+essential:
+  - libjpeg8_copyright
+
+slices:
+  libs:
+    essential:
+      - libjpeg-turbo8_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libjpeg8/copyright:

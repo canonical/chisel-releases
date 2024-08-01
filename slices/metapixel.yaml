@@ -9,7 +9,7 @@ slices:
     essential:
       - libc6_libs
       - libgif7_libs
-      - libjpeg-turbo8_libs
+      - libjpeg8_libs
       - libpng16-16t64_libs
     contents:
       /usr/bin/metapixel:
