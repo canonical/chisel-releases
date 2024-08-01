@@ -14,8 +14,10 @@ slices:
     contents:
       /usr/bin/metapixel:
       /usr/bin/metapixel-imagesize:
-      /usr/bin/metapixel-prepare:
-      /usr/bin/metapixel-sizesort:
+      # The following two programs are perl scripts, they can't be added until
+      # there is a perl slice.
+      # /usr/bin/metapixel-prepare:
+      # /usr/bin/metapixel-sizesort:
 
   copyright:
     contents:
