@@ -11,7 +11,7 @@ slices:
       - libblkid1_libs
       - libc6_libs
       - libcom-err2_libs
-      - libext2fs2_libs
+      - libext2fs2t64_libs
       - libss2_libs
       - libuuid1_libs
       - logsave_bins
