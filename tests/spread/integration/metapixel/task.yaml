@@ -7,5 +7,5 @@ execute: |
   cp test.png "${rootfs}/"
 
   chroot "$rootfs" metapixel --help
-  [[ $(chroot "$rootfs" metapixel-imagesize test.gif) == "1 1" ]]
-  [[ $(chroot "$rootfs" metapixel-imagesize test.png) == "1 1" ]]
+  [[ $(chroot "$rootfs" metapixel-imagesize test.gif) == "256 195" ]]
+  [[ $(chroot "$rootfs" metapixel-imagesize test.png) == "256 195" ]]
