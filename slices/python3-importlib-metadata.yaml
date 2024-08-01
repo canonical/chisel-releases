@@ -1,0 +1,18 @@
+package: python3-importlib-metadata
+
+essential:
+  - python3-importlib-metadata_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+      - python3-typing-extensions_dist
+      - python3-zipp_dist
+    contents:
+      /usr/lib/python3/dist-packages/importlib_metadata-4.12.0.dist-info/**:
+      /usr/lib/python3/dist-packages/importlib_metadata/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-importlib-metadata/copyright:

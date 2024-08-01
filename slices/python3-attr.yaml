@@ -1,0 +1,18 @@
+package: python3-attr
+
+essential:
+  - python3-attr_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+      - python3-importlib-metadata_dist
+    contents:
+      /usr/lib/python3/dist-packages/attr/**:
+      /usr/lib/python3/dist-packages/attrs-23.2.0.dist-info/**:
+      /usr/lib/python3/dist-packages/attrs/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-attr/copyright:

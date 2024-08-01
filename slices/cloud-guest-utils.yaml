@@ -1,0 +1,19 @@
+package: cloud-guest-utils
+
+essential:
+  - cloud-guest-utils_copyright
+
+slices:
+  bins:
+    essential:
+      - e2fsprogs_bins
+      - fdisk_bins
+      - python3.12_standard
+    contents:
+      /usr/bin/ec2metadata:
+      /usr/bin/growpart:
+      /usr/bin/vcs-run:
+
+  copyright:
+    contents:
+      /usr/share/doc/cloud-guest-utils/copyright:

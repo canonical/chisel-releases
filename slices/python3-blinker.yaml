@@ -1,0 +1,16 @@
+package: python3-blinker
+
+essential:
+  - python3-blinker_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/blinker-1.7.0.dist-info/**:
+      /usr/lib/python3/dist-packages/blinker/**:
+      
+  copyright:
+    contents:
+      /usr/share/doc/python3-blinker/copyright:

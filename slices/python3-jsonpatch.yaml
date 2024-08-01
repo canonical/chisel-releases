@@ -1,0 +1,22 @@
+package: python3-jsonpatch
+
+essential:
+  - python3-jsonpatch_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/json-patch-jsondiff:
+      /usr/bin/jsonpatch:
+
+  dist:
+    essential:
+      - python3.12_standard
+      - python3-json-pointer_dist
+    contents:
+      /usr/lib/python3/dist-packages/jsonpatch-1*/**:
+      /usr/lib/python3/dist-packages/jsonpatch.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-jsonpatch/copyright:

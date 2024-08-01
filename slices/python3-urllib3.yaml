@@ -1,0 +1,16 @@
+package: python3-urllib3
+
+essential:
+  - python3-urllib3_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/urllib3-2.0.7.dist-info/**:
+      /usr/lib/python3/dist-packages/urllib3/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-urllib3/copyright:

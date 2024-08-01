@@ -1,0 +1,115 @@
+package: cloud-init
+
+essential:
+  - cloud-init_copyright
+
+slices:
+  bins:
+    essential:
+      - cloud-guest-utils_bins
+      - cloud-init_config
+      - cloud-init_data
+      - cloud-init_python-dist
+      - dhcpcd-base_bins
+      - iproute2_bins
+      - netplan.io_bins
+      - procps_bins
+      - python3.12_standard
+      - python3-configobj_data
+      - python3-debconf_data
+      - python3-jinja2_data
+      - python3-jsonpatch_data
+      - python3-jsonschema_data
+      - python3-netifaces_data
+      - python3-oauthlib_data
+      - python3-requests_data
+      - python3-serial_data
+      - python3-yaml_data
+    contents:
+      /usr/bin/cloud-id:
+      /usr/bin/cloud-init:
+      /usr/bin/cloud-init-per:
+      /usr/lib/cloud-init/ds-identify:
+      /usr/lib/cloud-init/hook-hotplug:
+      /usr/lib/cloud-init/uncloud-init:
+      /usr/lib/cloud-init/write-ssh-key-fingerprints:
+
+  config:
+    contents:
+      /etc/logrotate.d/cloud-init:
+      /etc/rsyslog.d/21-cloudinit.conf:
+
+  data:
+    contents:
+      /etc/cloud/cloud.cfg:
+      /etc/cloud/cloud.cfg.d/05_logging.cfg:
+      /etc/cloud/cloud.cfg.d/README:
+      /etc/cloud/templates/chef_client.rb.tmpl:
+      /etc/cloud/templates/chrony.conf.alpine.tmpl:
+      /etc/cloud/templates/chrony.conf.centos.tmpl:
+      /etc/cloud/templates/chrony.conf.cos.tmpl:
+      /etc/cloud/templates/chrony.conf.debian.tmpl:
+      /etc/cloud/templates/chrony.conf.fedora.tmpl:
+      /etc/cloud/templates/chrony.conf.freebsd.tmpl:
+      /etc/cloud/templates/chrony.conf.opensuse-leap.tmpl:
+      /etc/cloud/templates/chrony.conf.opensuse-microos.tmpl:
+      /etc/cloud/templates/chrony.conf.opensuse-tumbleweed.tmpl:
+      /etc/cloud/templates/chrony.conf.opensuse.tmpl:
+      /etc/cloud/templates/chrony.conf.photon.tmpl:
+      /etc/cloud/templates/chrony.conf.rhel.tmpl:
+      /etc/cloud/templates/chrony.conf.sle-micro.tmpl:
+      /etc/cloud/templates/chrony.conf.sle_hpc.tmpl:
+      /etc/cloud/templates/chrony.conf.sles.tmpl:
+      /etc/cloud/templates/chrony.conf.ubuntu.tmpl:
+      /etc/cloud/templates/hosts.alpine.tmpl:
+      /etc/cloud/templates/hosts.arch.tmpl:
+      /etc/cloud/templates/hosts.debian.tmpl:
+      /etc/cloud/templates/hosts.freebsd.tmpl:
+      /etc/cloud/templates/hosts.gentoo.tmpl:
+      /etc/cloud/templates/hosts.mariner.tmpl:
+      /etc/cloud/templates/hosts.photon.tmpl:
+      /etc/cloud/templates/hosts.redhat.tmpl:
+      /etc/cloud/templates/hosts.suse.tmpl:
+      /etc/cloud/templates/ntp.conf.alpine.tmpl:
+      /etc/cloud/templates/ntp.conf.debian.tmpl:
+      /etc/cloud/templates/ntp.conf.fedora.tmpl:
+      /etc/cloud/templates/ntp.conf.freebsd.tmpl:
+      /etc/cloud/templates/ntp.conf.opensuse.tmpl:
+      /etc/cloud/templates/ntp.conf.photon.tmpl:
+      /etc/cloud/templates/ntp.conf.rhel.tmpl:
+      /etc/cloud/templates/ntp.conf.sles.tmpl:
+      /etc/cloud/templates/ntp.conf.ubuntu.tmpl:
+      /etc/cloud/templates/ntpd.conf.openbsd.tmpl:
+      /etc/cloud/templates/resolv.conf.tmpl:
+      /etc/cloud/templates/sources.list.debian.deb822.tmpl:
+      /etc/cloud/templates/sources.list.debian.tmpl:
+      /etc/cloud/templates/sources.list.ubuntu.deb822.tmpl:
+      /etc/cloud/templates/sources.list.ubuntu.tmpl:
+      /etc/cloud/templates/systemd.resolved.conf.tmpl:
+      /etc/cloud/templates/timesyncd.conf.tmpl:
+
+  extras:
+    contents:
+      /etc/profile.d/Z99-cloud-locale-test.sh:
+      /etc/profile.d/Z99-cloudinit-warnings.sh:
+      /etc/systemd/system/sshd-keygen@.service.d/disable-sshd-keygen-if-cloud-init-active.conf:
+      /lib/systemd/system-generators/cloud-init-generator:
+      /lib/systemd/system/cloud-config.service:
+      /lib/systemd/system/cloud-config.target:
+      /lib/systemd/system/cloud-final.service:
+      /lib/systemd/system/cloud-init-hotplugd.service:
+      /lib/systemd/system/cloud-init-hotplugd.socket:
+      /lib/systemd/system/cloud-init-local.service:
+      /lib/systemd/system/cloud-init.service:
+      /lib/systemd/system/cloud-init.target:
+      /lib/udev/rules.d/66-azure-ephemeral.rules:
+  
+  python-dist:
+    contents:
+      # These packages should be unique, so we glob here
+      /usr/lib/python3/dist-packages/cloud_init-24.1.3.egg-info/**:
+      /usr/lib/python3/dist-packages/cloudinit/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/cloud-init/copyright:

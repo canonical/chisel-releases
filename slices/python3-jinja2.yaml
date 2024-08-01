@@ -1,0 +1,19 @@
+package: python3-jinja2
+
+essential:
+  - python3-jinja2_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+      - python3-markupsafe_dist
+    contents:
+      /usr/lib/python3/dist-packages/Jinja2-3*/**:
+      /usr/lib/python3/dist-packages/jinja2/**:
+      /usr/share/python3/bcep/python3-jinja2:
+      /usr/share/vim/addons/syntax/jinja.vim:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-jinja2/copyright:

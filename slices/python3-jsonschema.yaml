@@ -1,0 +1,25 @@
+package: python3-jsonschema
+
+essential:
+  - python3-jsonschema_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/jsonschema:
+
+  dist:
+    essential:
+      - python3.12_standard
+      - python3-attr_dist
+      - python3-importlib-metadata_dist
+      - python3-importlib-resources_dist
+      - python3-pyrsistent_dist
+      - python3-typing-extensions_dist
+    contents:
+      /usr/lib/python3/dist-packages/jsonschema-4.10.3.dist-info/**:
+      /usr/lib/python3/dist-packages/jsonschema/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-jsonschema/copyright:

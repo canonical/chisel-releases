@@ -1,0 +1,21 @@
+package: python3-serial
+
+essential:
+  - python3-serial_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/pyserial-miniterm:
+      /usr/bin/pyserial-ports:
+
+  dist:
+    essential:
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/pyserial-3.5.egg-info/**:
+      /usr/lib/python3/dist-packages/serial/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-serial/copyright:

@@ -1,0 +1,19 @@
+package: python3-oauthlib
+
+essential:
+  - python3-oauthlib_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+      - python3-blinker_dist
+      - python3-cryptography_dist
+      - python3-jwt_dist
+    contents:
+      /usr/lib/python3/dist-packages/oauthlib-3.2.2.egg-info/**:
+      /usr/lib/python3/dist-packages/oauthlib/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-oauthlib/copyright:

@@ -1,0 +1,17 @@
+package: python3-configobj
+
+essential:
+  - python3-configobj_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/configobj-5*/**:
+      /usr/lib/python3/dist-packages/configobj/**:
+      /usr/lib/python3/dist-packages/validate/__init__.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-configobj/copyright:

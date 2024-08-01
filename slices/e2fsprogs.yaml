@@ -1,0 +1,68 @@
+package: e2fsprogs
+
+essential:
+  - e2fsprogs_copyright
+
+slices:
+  bins:
+    essential:
+      - e2fsprogs_config
+      - e2fsprogs_libs
+      - libblkid1_libs
+      - libc6_libs
+      - libcom-err2_libs
+      - libext2fs2_libs
+      - libss2_libs
+      - libuuid1_libs
+      - logsave_bins
+    contents:
+      /usr/bin/chattr:
+      /usr/bin/lsattr:
+      /usr/sbin/badblocks:
+      /usr/sbin/debugfs:
+      /usr/sbin/dumpe2fs:
+      /usr/sbin/e2freefrag:
+      /usr/sbin/e2fsck:
+      /usr/sbin/e2image:
+      /usr/sbin/e2label:
+      /usr/sbin/e2mmpstatus:
+      /usr/sbin/e2scrub:
+      /usr/sbin/e2scrub_all:
+      /usr/sbin/e2undo:
+      /usr/sbin/e4crypt:
+      /usr/sbin/e4defrag:
+      /usr/sbin/filefrag:
+      /usr/sbin/fsck.ext2:
+      /usr/sbin/fsck.ext3:
+      /usr/sbin/fsck.ext4:
+      /usr/sbin/mke2fs:
+      /usr/sbin/mkfs.ext2:
+      /usr/sbin/mkfs.ext3:
+      /usr/sbin/mkfs.ext4:
+      /usr/sbin/mklost+found:
+      /usr/sbin/resize2fs:
+      /usr/sbin/tune2fs:
+
+  config:
+    contents:
+      /etc/e2scrub.conf:
+      /etc/mke2fs.conf:
+
+  extras:
+    contents:
+      /etc/cron.d/e2scrub_all:
+      /lib/systemd/system/e2scrub@.service:
+      /lib/systemd/system/e2scrub_all.service:
+      /lib/systemd/system/e2scrub_all.timer:
+      /lib/systemd/system/e2scrub_fail@.service:
+      /lib/systemd/system/e2scrub_reap.service:
+      /usr/lib/udev/rules.d/96-e2scrub.rules:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/e2fsprogs/e2scrub_all_cron:
+      /usr/lib/*-linux-*/e2fsprogs/e2scrub_fail:
+
+  copyright:
+    contents:
+      /usr/share/doc/e2fsprogs/copyright:

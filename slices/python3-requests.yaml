@@ -1,0 +1,21 @@
+package: python3-requests
+
+essential:
+  - python3-requests_copyright
+
+slices:
+  dist:
+    essential:
+      - ca-certificates_data
+      - python3.12_standard
+      - python3-certifi_dist
+      - python3-chardet_dist
+      - python3-idna_dist
+      - python3-urllib3_dist
+    contents:
+      /usr/lib/python3/dist-packages/requests-2.31.0.egg-info/*:
+      /usr/lib/python3/dist-packages/requests/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-requests/copyright:

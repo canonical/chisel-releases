@@ -1,0 +1,35 @@
+package: dhcpcd-base
+
+essential:
+  - dhcpcd-base_copyright
+
+slices:
+  bins:
+    essential:
+      - dhcpcd-base_config
+      - libc6_libs
+      - libssl3t64_libs
+      - libudev1_libs
+    contents:
+      /usr/sbin/dhcpcd:
+      /usr/lib/dhcpcd/dhcpcd-run-hooks:
+
+  config:
+    contents:
+      /etc/dhcpcd.conf:
+      /usr/lib/dhcpcd/dhcpcd-hooks/01-test:
+      /usr/lib/dhcpcd/dhcpcd-hooks/20-resolv.conf:
+      /usr/lib/dhcpcd/dhcpcd-hooks/30-hostname:
+      /usr/lib/dhcpcd/dhcpcd-hooks/50-ntp.conf:
+      /usr/lib/dhcpcd/dhcpcd-hooks/50-timesyncd.conf:
+      /usr/share/dhcpcd/hooks/10-wpa_supplicant:
+      /usr/share/dhcpcd/hooks/15-timezone:
+      /usr/share/dhcpcd/hooks/29-lookup-hostname:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/dhcpcd/dev/udev.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/dhcpcd-base/copyright:
