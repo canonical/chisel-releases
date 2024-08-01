@@ -10,7 +10,7 @@ slices:
     contents:
       /usr/lib/python3/dist-packages/blinker-1.7.0.dist-info/**:
       /usr/lib/python3/dist-packages/blinker/**:
-      
+
   copyright:
     contents:
       /usr/share/doc/python3-blinker/copyright:

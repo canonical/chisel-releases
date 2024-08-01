@@ -103,7 +103,7 @@ slices:
       /lib/systemd/system/cloud-init.service:
       /lib/systemd/system/cloud-init.target:
       /lib/udev/rules.d/66-azure-ephemeral.rules:
-  
+
   python-dist:
     contents:
       # These packages should be unique, so we glob here
