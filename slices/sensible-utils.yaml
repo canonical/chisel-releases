@@ -1,0 +1,26 @@
+package: sensible-utils
+
+essential:
+  - sensible-utils_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/select-editor:
+      /usr/bin/sensible-browser:
+      /usr/bin/sensible-editor:
+      /usr/bin/sensible-pager:
+      /usr/bin/sensible-terminal:
+
+  extras:
+    contents:
+      /usr/share/sensible-utils/bin/gettext:
+      /usr/share/sensible-utils/bin/realpath:
+
+  mime:
+    contents:
+      /usr/lib/mime/packages/sensible-utils:
+
+  copyright:
+    contents:
+      /usr/share/doc/sensible-utils/copyright:
