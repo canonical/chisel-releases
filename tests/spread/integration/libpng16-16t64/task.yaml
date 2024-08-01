@@ -13,4 +13,4 @@ execute: |
   chroot "$rootfs" metapixel --metapixel images/test.png images/output.png --library library/ --distance=0
 
   apt install -y file
-  [[ $(file "${rootfs}/images/output.png") == "${rootfs}/images/output.png: PNG image data, 256 x 256, 8-bit/color RGB, non-interlaced" ]]
+  [[ $(file "${rootfs}/images/output.png") == "${rootfs}/images/output.png: PNG image data, 64 x 64, 8-bit/color RGB, non-interlaced" ]]
