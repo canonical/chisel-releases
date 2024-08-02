@@ -1,0 +1,22 @@
+package: libtiff5
+
+essential:
+  - libtiff5_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdeflate0_libs
+      - libjbig0_libs
+      - libjpeg8_libs
+      - liblzma5_libs
+      - libwebp7_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libtiff.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtiff5/copyright:
