@@ -1,0 +1,11 @@
+summary: Integration tests for adduser 
+
+execute: |
+  rootfs="$(install-slices adduser_bins)"
+  chroot "${rootfs}"
+  
+  test -f /etc/passwd
+  adduser --quiet --system testuser
+  grep testuser /etc/passwd
+  deluser --quiet testuser
+  ! grep testuser /etc/passwd
