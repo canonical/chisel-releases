@@ -2,7 +2,9 @@ summary: Integration tests for adduser
 
 execute: |
   rootfs="$(install-slices adduser_bins)"
-  chroot "${rootfs}"
+  mkdir -p "$rootfs/{bin,lib,lib64}"
+  cp /bin/bash "$rootfs/bin"
+  chroot "$rootfs"
   
   test -f /etc/passwd
   adduser --quiet --system testuser
