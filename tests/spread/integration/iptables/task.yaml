@@ -1,0 +1,23 @@
+summary: Integration tests for iptables
+
+execute: |
+  rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts sudo_bins iptables_bins)"
+  host=$(hostname)
+  
+  # setup /etc/hosts for the current hostname, otherwise
+  # sudo will be confused
+  sed -i "/127.0.0.1\tlocalhost/a 127.0.0.1\t$host" "$rootfs"/etc/hosts
+
+  mkdir "$rootfs"/run
+
+  # ensure the command spits something out we can recognize
+  chroot "$rootfs" sudo iptables-legacy -t filter --list | grep "Chain INPUT"
+
+  # try to check if there is an input rule for this random IP
+  chroot "$rootfs" sudo iptables-legacy -t filter --check INPUT -s 192.168.1.123 -j DROP 2>&1 | grep "Bad rule"
+
+  # append a random rule
+  chroot "$rootfs" sudo iptables-legacy -t filter -A INPUT -s 192.168.1.230 -j ACCEPT
+
+  # check it appears
+  chroot "$rootfs" sudo iptables-legacy --list | grep "192.168.1.230"
