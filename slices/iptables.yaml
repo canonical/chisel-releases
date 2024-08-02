@@ -1,0 +1,204 @@
+package: iptables
+
+essential:
+  - iptables_copyright
+
+slices:
+  bins:
+    essential:
+      - iptables_libs
+      - iptables_links
+      - libc6_libs
+      - libip4tc2_libs
+      - libip6tc2_libs
+      - libmnl0_libs
+      - libnetfilter-conntrack3_libs
+      - libnfnetlink0_libs
+      - libnftnl11_libs
+      - libxtables12_libs
+      - netbase_default-hosts
+      - netbase_default-networks
+    contents:
+      /usr/sbin/arptables-nft:
+      /usr/sbin/arptables-nft-restore:
+      /usr/sbin/arptables-nft-save:
+      /usr/sbin/ebtables-nft:
+      /usr/sbin/ebtables-nft-restore:
+      /usr/sbin/ebtables-nft-save:
+      /usr/sbin/ebtables-translate:
+      /usr/sbin/ip6tables-apply:
+      /usr/sbin/ip6tables-legacy:
+      /usr/sbin/ip6tables-legacy-restore:
+      /usr/sbin/ip6tables-legacy-save:
+      /usr/sbin/ip6tables-nft:
+      /usr/sbin/ip6tables-nft-restore:
+      /usr/sbin/ip6tables-nft-save:
+      /usr/sbin/ip6tables-restore-translate:
+      /usr/sbin/ip6tables-translate:
+      /usr/sbin/iptables-apply:
+      /usr/sbin/iptables-legacy:
+      /usr/sbin/iptables-legacy-restore:
+      /usr/sbin/iptables-legacy-save:
+      /usr/sbin/iptables-nft:
+      /usr/sbin/iptables-nft-restore:
+      /usr/sbin/iptables-nft-save:
+      /usr/sbin/iptables-restore-translate:
+      /usr/sbin/iptables-translate:
+      /usr/sbin/nfnl_osf:
+      /usr/sbin/xtables-legacy-multi:
+      /usr/sbin/xtables-monitor:
+      /usr/sbin/xtables-nft-multi:
+
+  # The xlst is used to convert XML configuration into something
+  # iptables can understand, and vice-versa.
+  extras:
+    contents:
+      /usr/bin/iptables-xml:
+      /usr/share/iptables/iptables.xslt:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/xtables/libarpt_mangle.so:
+      /usr/lib/*-linux-*/xtables/libebt_802_3.so:
+      /usr/lib/*-linux-*/xtables/libebt_among.so:
+      /usr/lib/*-linux-*/xtables/libebt_arp.so:
+      /usr/lib/*-linux-*/xtables/libebt_arpreply.so:
+      /usr/lib/*-linux-*/xtables/libebt_dnat.so:
+      /usr/lib/*-linux-*/xtables/libebt_ip.so:
+      /usr/lib/*-linux-*/xtables/libebt_ip6.so:
+      /usr/lib/*-linux-*/xtables/libebt_log.so:
+      /usr/lib/*-linux-*/xtables/libebt_mark.so:
+      /usr/lib/*-linux-*/xtables/libebt_mark_m.so:
+      /usr/lib/*-linux-*/xtables/libebt_nflog.so:
+      /usr/lib/*-linux-*/xtables/libebt_pkttype.so:
+      /usr/lib/*-linux-*/xtables/libebt_redirect.so:
+      /usr/lib/*-linux-*/xtables/libebt_snat.so:
+      /usr/lib/*-linux-*/xtables/libebt_stp.so:
+      /usr/lib/*-linux-*/xtables/libebt_vlan.so:
+      /usr/lib/*-linux-*/xtables/libip6t_DNPT.so:
+      /usr/lib/*-linux-*/xtables/libip6t_HL.so:
+      /usr/lib/*-linux-*/xtables/libip6t_NETMAP.so:
+      /usr/lib/*-linux-*/xtables/libip6t_REJECT.so:
+      /usr/lib/*-linux-*/xtables/libip6t_SNPT.so:
+      /usr/lib/*-linux-*/xtables/libip6t_ah.so:
+      /usr/lib/*-linux-*/xtables/libip6t_dst.so:
+      /usr/lib/*-linux-*/xtables/libip6t_eui64.so:
+      /usr/lib/*-linux-*/xtables/libip6t_frag.so:
+      /usr/lib/*-linux-*/xtables/libip6t_hbh.so:
+      /usr/lib/*-linux-*/xtables/libip6t_hl.so:
+      /usr/lib/*-linux-*/xtables/libip6t_icmp6.so:
+      /usr/lib/*-linux-*/xtables/libip6t_ipv6header.so:
+      /usr/lib/*-linux-*/xtables/libip6t_mh.so:
+      /usr/lib/*-linux-*/xtables/libip6t_rt.so:
+      /usr/lib/*-linux-*/xtables/libip6t_srh.so:
+      /usr/lib/*-linux-*/xtables/libipt_CLUSTERIP.so:
+      /usr/lib/*-linux-*/xtables/libipt_ECN.so:
+      /usr/lib/*-linux-*/xtables/libipt_NETMAP.so:
+      /usr/lib/*-linux-*/xtables/libipt_REJECT.so:
+      /usr/lib/*-linux-*/xtables/libipt_TTL.so:
+      /usr/lib/*-linux-*/xtables/libipt_ULOG.so:
+      /usr/lib/*-linux-*/xtables/libipt_ah.so:
+      /usr/lib/*-linux-*/xtables/libipt_icmp.so:
+      /usr/lib/*-linux-*/xtables/libipt_realm.so:
+      /usr/lib/*-linux-*/xtables/libipt_ttl.so:
+      /usr/lib/*-linux-*/xtables/libxt_AUDIT.so:
+      /usr/lib/*-linux-*/xtables/libxt_CHECKSUM.so:
+      /usr/lib/*-linux-*/xtables/libxt_CLASSIFY.so:
+      /usr/lib/*-linux-*/xtables/libxt_CONNMARK.so:
+      /usr/lib/*-linux-*/xtables/libxt_CONNSECMARK.so:
+      /usr/lib/*-linux-*/xtables/libxt_CT.so:
+      /usr/lib/*-linux-*/xtables/libxt_DNAT.so:
+      /usr/lib/*-linux-*/xtables/libxt_DSCP.so:
+      /usr/lib/*-linux-*/xtables/libxt_HMARK.so:
+      /usr/lib/*-linux-*/xtables/libxt_IDLETIMER.so:
+      /usr/lib/*-linux-*/xtables/libxt_LED.so:
+      /usr/lib/*-linux-*/xtables/libxt_LOG.so:
+      /usr/lib/*-linux-*/xtables/libxt_MARK.so:
+      /usr/lib/*-linux-*/xtables/libxt_MASQUERADE.so:
+      /usr/lib/*-linux-*/xtables/libxt_NAT.so:
+      /usr/lib/*-linux-*/xtables/libxt_NFLOG.so:
+      /usr/lib/*-linux-*/xtables/libxt_NFQUEUE.so:
+      /usr/lib/*-linux-*/xtables/libxt_NOTRACK.so:
+      /usr/lib/*-linux-*/xtables/libxt_RATEEST.so:
+      /usr/lib/*-linux-*/xtables/libxt_REDIRECT.so:
+      /usr/lib/*-linux-*/xtables/libxt_SECMARK.so:
+      /usr/lib/*-linux-*/xtables/libxt_SET.so:
+      /usr/lib/*-linux-*/xtables/libxt_SNAT.so:
+      /usr/lib/*-linux-*/xtables/libxt_SYNPROXY.so:
+      /usr/lib/*-linux-*/xtables/libxt_TCPMSS.so:
+      /usr/lib/*-linux-*/xtables/libxt_TCPOPTSTRIP.so:
+      /usr/lib/*-linux-*/xtables/libxt_TEE.so:
+      /usr/lib/*-linux-*/xtables/libxt_TOS.so:
+      /usr/lib/*-linux-*/xtables/libxt_TPROXY.so:
+      /usr/lib/*-linux-*/xtables/libxt_TRACE.so:
+      /usr/lib/*-linux-*/xtables/libxt_addrtype.so:
+      /usr/lib/*-linux-*/xtables/libxt_bpf.so:
+      /usr/lib/*-linux-*/xtables/libxt_cgroup.so:
+      /usr/lib/*-linux-*/xtables/libxt_cluster.so:
+      /usr/lib/*-linux-*/xtables/libxt_comment.so:
+      /usr/lib/*-linux-*/xtables/libxt_connbytes.so:
+      /usr/lib/*-linux-*/xtables/libxt_connlabel.so:
+      /usr/lib/*-linux-*/xtables/libxt_connlimit.so:
+      /usr/lib/*-linux-*/xtables/libxt_connmark.so:
+      /usr/lib/*-linux-*/xtables/libxt_conntrack.so:
+      /usr/lib/*-linux-*/xtables/libxt_cpu.so:
+      /usr/lib/*-linux-*/xtables/libxt_dccp.so:
+      /usr/lib/*-linux-*/xtables/libxt_devgroup.so:
+      /usr/lib/*-linux-*/xtables/libxt_dscp.so:
+      /usr/lib/*-linux-*/xtables/libxt_ecn.so:
+      /usr/lib/*-linux-*/xtables/libxt_esp.so:
+      /usr/lib/*-linux-*/xtables/libxt_hashlimit.so:
+      /usr/lib/*-linux-*/xtables/libxt_helper.so:
+      /usr/lib/*-linux-*/xtables/libxt_ipcomp.so:
+      /usr/lib/*-linux-*/xtables/libxt_iprange.so:
+      /usr/lib/*-linux-*/xtables/libxt_ipvs.so:
+      /usr/lib/*-linux-*/xtables/libxt_length.so:
+      /usr/lib/*-linux-*/xtables/libxt_limit.so:
+      /usr/lib/*-linux-*/xtables/libxt_mac.so:
+      /usr/lib/*-linux-*/xtables/libxt_mark.so:
+      /usr/lib/*-linux-*/xtables/libxt_multiport.so:
+      /usr/lib/*-linux-*/xtables/libxt_nfacct.so:
+      /usr/lib/*-linux-*/xtables/libxt_osf.so:
+      /usr/lib/*-linux-*/xtables/libxt_owner.so:
+      /usr/lib/*-linux-*/xtables/libxt_physdev.so:
+      /usr/lib/*-linux-*/xtables/libxt_pkttype.so:
+      /usr/lib/*-linux-*/xtables/libxt_policy.so:
+      /usr/lib/*-linux-*/xtables/libxt_quota.so:
+      /usr/lib/*-linux-*/xtables/libxt_rateest.so:
+      /usr/lib/*-linux-*/xtables/libxt_recent.so:
+      /usr/lib/*-linux-*/xtables/libxt_rpfilter.so:
+      /usr/lib/*-linux-*/xtables/libxt_sctp.so:
+      /usr/lib/*-linux-*/xtables/libxt_set.so:
+      /usr/lib/*-linux-*/xtables/libxt_socket.so:
+      /usr/lib/*-linux-*/xtables/libxt_standard.so:
+      /usr/lib/*-linux-*/xtables/libxt_state.so:
+      /usr/lib/*-linux-*/xtables/libxt_statistic.so:
+      /usr/lib/*-linux-*/xtables/libxt_string.so:
+      /usr/lib/*-linux-*/xtables/libxt_tcp.so:
+      /usr/lib/*-linux-*/xtables/libxt_tcpmss.so:
+      /usr/lib/*-linux-*/xtables/libxt_time.so:
+      /usr/lib/*-linux-*/xtables/libxt_tos.so:
+      /usr/lib/*-linux-*/xtables/libxt_u32.so:
+      /usr/lib/*-linux-*/xtables/libxt_udp.so:
+
+  # These are created by the post-inst script and sets up
+  # defaults for some of the binaries. Emulate this by creating
+  # the expected symlinks.
+  links:
+    contents:
+      /usr/sbin/arptables: {symlink: /usr/sbin/arptables-nft}
+      /usr/sbin/arptables-restore: {symlink: /usr/sbin/arptables-nft-restore}
+      /usr/sbin/arptables-save: {symlink: /usr/sbin/arptables-nft-save}
+      /usr/sbin/ebtables: {symlink: /usr/sbin/ebtables-nft}
+      /usr/sbin/ebtables-restore: {symlink: /usr/sbin/ebtables-nft-restore}
+      /usr/sbin/ebtables-save: {symlink: /usr/sbin/ebtables-nft-save}
+      /usr/sbin/ip6tables: {symlink: /usr/sbin/ip6tables-nft}
+      /usr/sbin/ip6tables-restore: {symlink: /usr/sbin/ip6tables-nft-restore}
+      /usr/sbin/ip6tables-save: {symlink: /usr/sbin/ip6tables-nft-save}
+      /usr/sbin/iptables: {symlink: /usr/sbin/iptables-nft}
+      /usr/sbin/iptables-restore: {symlink: /usr/sbin/iptables-nft-restore}
+      /usr/sbin/iptables-save: {symlink: /usr/sbin/iptables-nft-save}
+
+  copyright:
+    contents:
+      /usr/share/doc/iptables/copyright:

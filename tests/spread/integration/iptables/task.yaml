@@ -1,0 +1,13 @@
+summary: Integration tests for iptables
+
+execute: |
+  rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts sudo_bins iptables_bins)"
+  host=$(hostname)
+  
+  # setup /etc/hosts for the current hostname, otherwise
+  # sudo will be confused
+  sed -i "/127.0.0.1\tlocalhost/a 127.0.0.1\t$host" "$rootfs"/etc/hosts
+
+  ls /nono
+
+  chroot "$rootfs" sudo iptables -t filter --list | grep
