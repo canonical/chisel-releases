@@ -1,4 +1,4 @@
-# library for GIF images
+# Library for GIF images
 package: libgif7
 
 essential:

@@ -1,4 +1,4 @@
-# generator for photomosaics
+# Metapixel is a program for generating photomosaics.
 package: metapixel
 
 essential:

@@ -1,5 +1,5 @@
 # This is a nothing package but other packages reference this instead of
-# libjpeg-turbo8, so it is includes for convenience.
+# libjpeg-turbo8, so it is included for convenience.
 package: libjpeg8
 
 essential:
