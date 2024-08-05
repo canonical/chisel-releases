@@ -5,11 +5,5 @@ execute: |
   # test in.
   rootfs="$(install-slices bash_bins coreutils_bins passwd_config base-files_base systemd_bins)"
   
-  # systemd needs proc mounted
-  mkdir "${rootfs}"/proc
-  mount --bind /proc "${rootfs}"/proc
-
   cp test.sh "${rootfs}/"
   chroot "${rootfs}/" /test.sh
-
-  umount "${rootfs}"/proc
