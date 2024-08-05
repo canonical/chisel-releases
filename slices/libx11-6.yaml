@@ -1,5 +1,8 @@
 package: libx11-6
 
+essential:
+  - libx11-6_copyright
+
 slices:
   libs:
     essential:
