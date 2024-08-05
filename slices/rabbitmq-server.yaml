@@ -1,0 +1,69 @@
+package: rabbitmq-server
+
+essential:
+  - rabbitmq-server_copyright
+
+slices:
+  autocomplete:
+    contents:
+      /usr/lib/rabbitmq/autocomplete/*:
+
+  bins:
+    essential:
+      - base-files_base
+      - base-passwd_data
+      - bash_bins
+      - coreutils_bins
+      ## erlang* packages do not exist for i386
+      ## for all other archs, uncomment all those slices below
+      # - erlang-base_bins
+      - login_bins
+      - passwd_bins
+      - python3.12_standard
+      - rabbitmq-server_libs
+      - sed_bins
+      - socat_bins
+      - util-linux_bins
+    contents:
+      /usr/bin/rabbitmqadmin:
+      /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
+      /usr/lib/rabbitmq/bin/rabbitmq*:
+      /usr/lib/rabbitmq/bin/vmware-rabbitmq:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/rabbitmq*:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/sbin/vmware-rabbitmq:
+      /usr/sbin/rabbitmq*:
+      /var/lib/rabbitmq/:
+      /var/lib/rabbitmq/.erlang.cookie: {text: DUMMY, mode: 0400}
+      /var/lib/rabbitmq/mnesia/: {mode: 0750}
+      /var/log/rabbitmq/:
+
+  config:
+    contents:
+      /etc/default/rabbitmq-server:
+      /etc/init.d/rabbitmq-server:
+      /etc/rabbitmq/rabbitmq-env.conf: {copy: /usr/share/rabbitmq/rabbitmq-env.conf, mode: 0644}
+
+  libs:
+    essential:
+      ## erlang* packages do not exist for i386
+      ## for all other archs, uncomment all those slices below
+      # - erlang-crypto_libs
+      # - erlang-eldap_libs
+      # - erlang-inets_bins
+      # - erlang-mnesia_libs
+      # - erlang-os-mon_libs
+      # - erlang-parsetools_libs
+      # - erlang-public-key_libs
+      # - erlang-runtime-tools_libs
+      # - erlang-ssl_libs
+      # - erlang-syntax-tools_libs
+      # - erlang-tools_libs
+      # - erlang-xmerl_libs
+      - rabbitmq-server_config
+    contents:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/**:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/plugins/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/rabbitmq-server/copyright:
