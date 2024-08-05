@@ -1,0 +1,22 @@
+package: libsubid4
+
+esential:
+  - libsubid4_copyright
+
+slices:
+  libs:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      # The chisel tool does not support per-architecture packages
+      # libcrypt1, libpam0g and libsemanage2 are only required on
+      # armhf, i386 and riscv64 architectures.
+      # - libcrypt1_libs
+      # - libpam0g_libs
+      - libselinux1_libs
+      # - libsemanage2_libs
+    contents:
+      /usr/lib/*-linux-*/libsubid.so.4*:
+  copyright:
+    contents:
+      /usr/share/doc/libsubid4/copyright:
