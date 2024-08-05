@@ -1,0 +1,25 @@
+package: libgdiplus
+
+essential:
+  - libgdiplus_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcairo2_libs
+      - libexif12_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libgif7_libs
+      - libglib2.0-0_libs
+      - libjpeg8_libs
+      - libpng16-16_libs
+      - libtiff5_libs
+      - libx11-6_libs
+    contents:
+      /usr/lib/libgdiplus.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgdiplus/copyright:
