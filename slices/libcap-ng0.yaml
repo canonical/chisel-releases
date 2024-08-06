@@ -1,0 +1,14 @@
+package: libcap-ng0
+
+essential:
+  - libcap-ng0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /lib/*-linux-*/libcap-ng.so.0*:
+  copyright:
+    contents:
+      /usr/share/doc/libcap-ng0/copyright:
