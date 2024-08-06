@@ -1,0 +1,18 @@
+package: libfreetype6
+
+essential:
+  - libfreetype6_copyright
+
+slices:
+  libs:
+    essential:
+      - libbrotli1_libs
+      - libc6_libs
+      - libpng16-16_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libfreetype.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfreetype6/copyright:
