@@ -7,7 +7,7 @@ slices:
   core:
     essential:
       - libc6_libs
-      - libpcre3_libs
+      - libpcre2-8-0_libs
     contents:
       /usr/lib/*-linux-*/libglib-2.0.so.0*:
 
