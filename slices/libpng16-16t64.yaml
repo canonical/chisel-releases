@@ -1,7 +1,7 @@
-package: libpng16-16
+package: libpng16-16t64
 
 essential:
-  - libpng16-16_copyright
+  - libpng16-16t64_copyright
 
 slices:
   libs:
@@ -12,4 +12,4 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/libpng16-16/copyright:
+      /usr/share/doc/libpng16-16t64/copyright:
