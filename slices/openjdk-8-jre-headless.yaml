@@ -40,6 +40,7 @@ slices:
           - amd64
           - arm64
           - ppc64el
+          - s390x
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/currency.data:
