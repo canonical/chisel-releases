@@ -9,7 +9,6 @@ slices:
       - fonts-dejavu-core_config
       - fonts-dejavu-core_fonts
     contents:
-      /etc/fonts/fonts.conf:
       /etc/fonts/conf.d/10-hinting-slight.conf:
         symlink: /usr/share/fontconfig/conf.avail/10-hinting-slight.conf
       /etc/fonts/conf.d/10-scale-bitmap-fonts.conf:
@@ -54,6 +53,7 @@ slices:
         symlink: /usr/share/fontconfig/conf.avail/80-delicious.conf
       /etc/fonts/conf.d/90-synthetic.conf:
         symlink: /usr/share/fontconfig/conf.avail/90-synthetic.conf
+      /etc/fonts/fonts.conf:
       /usr/share/fontconfig/conf.avail/10-hinting-slight.conf:
       /usr/share/fontconfig/conf.avail/10-scale-bitmap-fonts.conf:
       /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf:
