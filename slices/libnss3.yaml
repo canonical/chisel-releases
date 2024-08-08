@@ -1,0 +1,18 @@
+package: libnss3
+
+essential:
+  - libnss3_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libnspr4_libs
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/*-linux-*/libnss3.so:
+      /usr/lib/*-linux-*/libnssutil3.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnss3/copyright:

@@ -1,0 +1,29 @@
+package: libglib2.0-0t64
+
+essential:
+  - libglib2.0-0t64_copyright
+
+slices:
+  core:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+    contents:
+      /usr/lib/*-linux-*/libglib-2.0.so.0*:
+
+  libs:
+    essential:
+      - libffi8_libs
+      - libglib2.0-0t64_core
+      - libmount1_libs
+      - libselinux1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libgio-2.0.so.0*:
+      /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
+      /usr/lib/*-linux-*/libgobject-2.0.so.0*:
+      /usr/lib/*-linux-*/libgthread-2.0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libglib2.0-0t64/copyright:
