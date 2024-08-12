@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      - libc6_libs
       - libbsd0_libs
+      - libc6_libs
 
     contents:
       /usr/lib/*-linux-*/libXdmcp.so.6*:
