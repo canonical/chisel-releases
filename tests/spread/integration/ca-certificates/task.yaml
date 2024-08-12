@@ -8,7 +8,7 @@ execute: |
 
   # Test 2: Test that the /etc/ca-certificates.conf file is created and update-ca-certificates works
   rootfs=$(install-slices ca-certificates_data-with-certs ca-certificates_bins bash_bins coreutils_bins base-files_base findutils_bins)
-  test -f 
+  test -f ${rootfs}/etc/ca-certificates.conf
   ln ${rootfs}/bin/bash ${rootfs}/bin/sh
   mkdir -p ${rootfs}/dev
   touch ${rootfs}/dev/null
