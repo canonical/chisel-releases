@@ -1,0 +1,5 @@
+summary: Smoke test for crun
+
+execute: |
+  rootfs="$(install-slices crun_bins)"
+  chroot "$rootfs" crun --version
