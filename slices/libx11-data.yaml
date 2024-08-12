@@ -1,7 +1,7 @@
 package: libx11-data
 
 essential:
-  - libx11-data_copyright 
+  - libx11-data_copyright
 
 slices:
   data:
