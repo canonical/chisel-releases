@@ -9,7 +9,6 @@ slices:
       - libc6_libs
       - libx11-data_data
       - libxcb1_libs
-
     contents:
       /usr/lib/*-linux-*/libX11.so.6*:
 
