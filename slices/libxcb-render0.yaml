@@ -8,7 +8,6 @@ slices:
     essential:
       - libc6_libs
       - libxcb1_libs
-
     contents:
       /usr/lib/*-linux-*/libxcb-render.so.0*:
 

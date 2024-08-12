@@ -7,7 +7,6 @@ slices:
   libs:
     essential:
       - libc6_libs
-
     contents:
       /usr/lib/*-linux-*/libXau.so.6*:
 

@@ -9,7 +9,6 @@ slices:
       - libc6_libs
       - libxau6_libs
       - libxdmcp6_libs
-
     contents:
       /usr/lib/*-linux-*/libxcb.so.1*:
 

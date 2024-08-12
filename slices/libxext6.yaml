@@ -8,7 +8,6 @@ slices:
     essential:
       - libc6_libs
       - libx11-6_libs
-
     contents:
       /usr/lib/*-linux-*/libXext.so.6*:
 
