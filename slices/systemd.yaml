@@ -27,16 +27,16 @@ slices:
       - libsystemd0_libs
       - libzstd1_libs
       - mount_bins
-      - systemd_config
       - systemd_catalog
+      - systemd_config
+      - systemd_kernel-parameters
+      - systemd_libs
       - systemd_network
+      - systemd_pcrlock
       - systemd_repart
       - systemd_system-generators
       - systemd_system-services
       - systemd_user-services
-      - systemd_kernel-parameters
-      - systemd_libs
-      - systemd_pcrlock
     contents:
       /usr/bin/busctl:
       /usr/bin/hostnamectl:
@@ -133,26 +133,6 @@ slices:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
 
-  config:
-    essential:
-      - systemd_modprobe-conf
-      - systemd_pam-profile
-      - systemd_sysusers-config
-      - systemd_tmpfiles
-    contents:
-      /etc/systemd/journald.conf:
-      /etc/systemd/logind.conf:
-      /etc/systemd/networkd.conf:
-      /etc/systemd/pstore.conf:
-      /etc/systemd/sleep.conf:
-      /etc/systemd/system.conf:
-      /etc/systemd/user.conf:
-      /etc/xdg/systemd/user:
-      /usr/lib/environment.d/99-environment.conf:
-      /usr/lib/systemd/journald.conf.d/syslog.conf:
-      /usr/lib/systemd/resolv.conf:
-      /var/log/journal/: {make: true}
-
   catalog:
     contents:
       /usr/lib/systemd/catalog/systemd.be.catalog:
@@ -172,6 +152,26 @@ slices:
       /usr/lib/systemd/catalog/systemd.sr.catalog:
       /usr/lib/systemd/catalog/systemd.zh_CN.catalog:
       /usr/lib/systemd/catalog/systemd.zh_TW.catalog:
+
+  config:
+    essential:
+      - systemd_modprobe-conf
+      - systemd_pam-profile
+      - systemd_sysusers-config
+      - systemd_tmpfiles
+    contents:
+      /etc/systemd/journald.conf:
+      /etc/systemd/logind.conf:
+      /etc/systemd/networkd.conf:
+      /etc/systemd/pstore.conf:
+      /etc/systemd/sleep.conf:
+      /etc/systemd/system.conf:
+      /etc/systemd/user.conf:
+      /etc/xdg/systemd/user:
+      /usr/lib/environment.d/99-environment.conf:
+      /usr/lib/systemd/journald.conf.d/syslog.conf:
+      /usr/lib/systemd/resolv.conf:
+      /var/log/journal/: {make: true}
 
   network:
     contents:
