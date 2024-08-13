@@ -27,10 +27,16 @@ slices:
       - libsystemd0_libs
       - libzstd1_libs
       - mount_bins
-      - systemd-dev_dbus-interfaces
       - systemd_config
-      - systemd_generated-config
+      - systemd_catalog
+      - systemd_network
+      - systemd_repart
+      - systemd_system-generators
+      - systemd_system-services
+      - systemd_user-services
+      - systemd_kernel-parameters
       - systemd_libs
+      - systemd_pcrlock
     contents:
       /usr/bin/busctl:
       /usr/bin/hostnamectl:
@@ -72,6 +78,7 @@ slices:
       /usr/bin/systemd-umount:
       /usr/bin/timedatectl:
       /usr/bin/varlinkctl:
+      /usr/lib/lsb/init-functions.d/40-systemd:
       /usr/lib/systemd/systemd:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
@@ -131,55 +138,27 @@ slices:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
 
   config:
+    essential:
+      - systemd_modprobe-conf
+      - systemd_pam-profile
+      - systemd_sysusers-config
+      - systemd_tmpfiles
     contents:
-      /etc/modules-load.d/modules.conf:
-      /etc/sysctl.d/99-sysctl.conf:
       /etc/systemd/journald.conf:
       /etc/systemd/logind.conf:
       /etc/systemd/networkd.conf:
       /etc/systemd/pstore.conf:
       /etc/systemd/sleep.conf:
-      /etc/systemd/system-generators/systemd-gpt-auto-generator:
       /etc/systemd/system.conf:
       /etc/systemd/user.conf:
       /etc/xdg/systemd/user:
       /usr/lib/environment.d/99-environment.conf:
-      /usr/lib/kernel/install.conf:
-      /usr/lib/kernel/install.d/50-depmod.install:
-      /usr/lib/kernel/install.d/55-initrd.install:
-      /usr/lib/kernel/install.d/90-loaderentry.install:
-      /usr/lib/kernel/install.d/90-uki-copy.install:
-      /usr/lib/lsb/init-functions.d/40-systemd:
-      /usr/lib/modprobe.d/systemd.conf:
-      /usr/lib/pam.d/systemd-user:
-      /usr/lib/pcrlock.d/350-action-efi-application.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/300-0x00000000.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/600-0xffffffff.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/500-separator.pcrlock.d/300-0x00000000.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/500-separator.pcrlock.d/600-0xffffffff.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/300-present.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/600-absent.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/750-enter-initrd.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/800-leave-initrd.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/850-sysinit.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/900-ready.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/950-shutdown.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/pcrlock.d/990-final.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/sysctl.d/50-pid-max.conf:
-        arch: [amd64, arm64, riscv64, s390x, ppc64el]
+      /usr/lib/systemd/journald.conf.d/syslog.conf:
+      /usr/lib/systemd/resolv.conf:
+      /var/log/journal/: {make: true}
+
+  catalog:
+    contents:
       /usr/lib/systemd/catalog/systemd.be.catalog:
       /usr/lib/systemd/catalog/systemd.be@latin.catalog:
       /usr/lib/systemd/catalog/systemd.bg.catalog:
@@ -197,7 +176,9 @@ slices:
       /usr/lib/systemd/catalog/systemd.sr.catalog:
       /usr/lib/systemd/catalog/systemd.zh_CN.catalog:
       /usr/lib/systemd/catalog/systemd.zh_TW.catalog:
-      /usr/lib/systemd/journald.conf.d/syslog.conf:
+
+  network:
+    contents:
       /usr/lib/systemd/network/80-6rd-tunnel.network:
       /usr/lib/systemd/network/80-container-host0.network:
       /usr/lib/systemd/network/80-container-vb.network:
@@ -205,6 +186,9 @@ slices:
       /usr/lib/systemd/network/80-container-vz.network:
       /usr/lib/systemd/network/80-vm-vt.network:
       /usr/lib/systemd/network/80-wifi-adhoc.network:
+
+  repart:
+    contents:
       /usr/lib/systemd/repart/definitions/confext.repart.d/10-root.conf:
       /usr/lib/systemd/repart/definitions/confext.repart.d/20-root-verity.conf:
       /usr/lib/systemd/repart/definitions/confext.repart.d/30-root-verity-sig.conf:
@@ -214,7 +198,13 @@ slices:
       /usr/lib/systemd/repart/definitions/sysext.repart.d/10-root.conf:
       /usr/lib/systemd/repart/definitions/sysext.repart.d/20-root-verity.conf:
       /usr/lib/systemd/repart/definitions/sysext.repart.d/30-root-verity-sig.conf:
-      /usr/lib/systemd/resolv.conf:
+      /usr/lib/systemd/system/initrd-root-fs.target.wants/systemd-repart.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-repart.service:
+      /usr/lib/systemd/system/systemd-repart.service:
+
+  system-generators:
+    contents:
+      /etc/systemd/system-generators/systemd-gpt-auto-generator:
       /usr/lib/systemd/system-generators/systemd-cryptsetup-generator:
       /usr/lib/systemd/system-generators/systemd-debug-generator:
       /usr/lib/systemd/system-generators/systemd-fstab-generator:
@@ -227,6 +217,11 @@ slices:
       /usr/lib/systemd/system-generators/systemd-system-update-generator:
       /usr/lib/systemd/system-generators/systemd-sysv-generator:
       /usr/lib/systemd/system-generators/systemd-veritysetup-generator:
+
+  system-services:
+    essential:
+      - systemd_generated-services
+    contents:
       /usr/lib/systemd/system-preset/90-systemd.preset:
       /usr/lib/systemd/system/autovt@.service:
       /usr/lib/systemd/system/basic.target:
@@ -272,7 +267,6 @@ slices:
       /usr/lib/systemd/system/initrd-root-device.target.wants/remote-cryptsetup.target:
       /usr/lib/systemd/system/initrd-root-device.target.wants/remote-veritysetup.target:
       /usr/lib/systemd/system/initrd-root-fs.target:
-      /usr/lib/systemd/system/initrd-root-fs.target.wants/systemd-repart.service:
       /usr/lib/systemd/system/initrd-switch-root.service:
       /usr/lib/systemd/system/initrd-switch-root.target:
       /usr/lib/systemd/system/initrd-udevadm-cleanup-db.service:
@@ -379,7 +373,6 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service:
         arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-repart.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:
@@ -445,43 +438,12 @@ slices:
       /usr/lib/systemd/system/systemd-networkd-wait-online@.service:
       /usr/lib/systemd/system/systemd-networkd.service:
       /usr/lib/systemd/system/systemd-networkd.socket:
-      /usr/lib/systemd/system/systemd-pcrextend.socket:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrextend@.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrfs-root.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrfs@.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-file-system.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-firmware-code.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-firmware-config.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-machine-id.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-make-policy.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-secureboot-authority.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-secureboot-policy.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrmachine.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrphase-initrd.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrphase-sysinit.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrphase.service:
-        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/system/systemd-poweroff.service:
       /usr/lib/systemd/system/systemd-pstore.service:
       /usr/lib/systemd/system/systemd-quotacheck.service:
       /usr/lib/systemd/system/systemd-random-seed.service:
       /usr/lib/systemd/system/systemd-reboot.service:
       /usr/lib/systemd/system/systemd-remount-fs.service:
-      /usr/lib/systemd/system/systemd-repart.service:
       /usr/lib/systemd/system/systemd-rfkill.service:
       /usr/lib/systemd/system/systemd-rfkill.socket:
       /usr/lib/systemd/system/systemd-soft-reboot.service:
@@ -529,6 +491,9 @@ slices:
       /usr/lib/systemd/system/veritysetup-pre.target:
       /usr/lib/systemd/system/veritysetup.target:
       /usr/lib/systemd/system/x11-common.service:
+
+  user-services:
+    contents:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
       /usr/lib/systemd/user-preset/90-systemd.preset:
@@ -553,33 +518,11 @@ slices:
       /usr/lib/systemd/user/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/user/timers.target:
       /usr/lib/systemd/user/xdg-desktop-autostart.target:
-      /usr/lib/sysusers.d/basic.conf:
-      /usr/lib/sysusers.d/systemd-journal.conf:
-      /usr/lib/sysusers.d/systemd-network.conf:
-      /usr/lib/tmpfiles.d/credstore.conf:
-      /usr/lib/tmpfiles.d/debian.conf:
-      /usr/lib/tmpfiles.d/home.conf:
-      /usr/lib/tmpfiles.d/journal-nocow.conf:
-      /usr/lib/tmpfiles.d/legacy.conf:
-      /usr/lib/tmpfiles.d/provision.conf:
-      /usr/lib/tmpfiles.d/systemd-network.conf:
-      /usr/lib/tmpfiles.d/systemd-nologin.conf:
-      /usr/lib/tmpfiles.d/systemd-pstore.conf:
-      /usr/lib/tmpfiles.d/systemd-tmp.conf:
-      /usr/lib/tmpfiles.d/systemd.conf:
-      /usr/lib/tmpfiles.d/tmp.conf:
-      /usr/lib/tmpfiles.d/var.conf:
-      /usr/lib/tmpfiles.d/x11.conf:
-      /usr/share/systemd/kbd-model-map:
-      /usr/share/systemd/language-fallback-map:
-      /usr/share/systemd/tmp.mount:
 
   dbus-config:
+    essential:
+      - systemd-dev_dbus-interfaces
     contents:
-      /usr/lib/udev/rules.d/70-uaccess.rules:
-      /usr/lib/udev/rules.d/71-seat.rules:
-      /usr/lib/udev/rules.d/73-seat-late.rules:
-      /usr/lib/udev/rules.d/99-systemd.rules:
       /usr/share/dbus-1/services/org.freedesktop.systemd1.service:
       /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service:
       /usr/share/dbus-1/system-services/org.freedesktop.locale1.service:
@@ -594,7 +537,15 @@ slices:
       /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
 
-  # Generated config slice is to emulate symlinks or initial state
+  extras:
+    contents:
+      /etc/modules-load.d/modules.conf:
+      /etc/sysctl.d/99-sysctl.conf:
+      /usr/share/systemd/kbd-model-map:
+      /usr/share/systemd/language-fallback-map:
+      /usr/share/systemd/tmp.mount:
+
+  # Generated services slice is to emulate symlinks or initial state
   # config generated by systemd upon install.
   # Systemd performs a lot of initialization upon install, however since systemd
   # does actually not rely on these install actions (since all of these are run as
@@ -602,7 +553,7 @@ slices:
   # left out. It's done like that because systemd needs to be usable after install
   # on a running system, but this is not the case here.
   # These are the few that seems to be not emulated
-  generated-config:
+  generated-services:
     contents:
       /etc/systemd/system/getty.target.wants/getty@tty1.service:
         symlink: /usr/lib/systemd/system/getty@.service
@@ -610,7 +561,19 @@ slices:
         symlink: /usr/lib/systemd/system/remote-fs.target
       /etc/systemd/system/sysinit.target.wants/systemd-pstore.service:
         symlink: /usr/lib/systemd/system/systemd-pstore.service
-      /var/log/journal/: {make: true}
+
+  kernel-install:
+    contents:
+      /usr/lib/kernel/install.conf:
+      /usr/lib/kernel/install.d/50-depmod.install:
+      /usr/lib/kernel/install.d/55-initrd.install:
+      /usr/lib/kernel/install.d/90-loaderentry.install:
+      /usr/lib/kernel/install.d/90-uki-copy.install:
+
+  kernel-parameters:
+    contents:
+      /usr/lib/sysctl.d/50-pid-max.conf:
+        arch: [amd64, arm64, riscv64, s390x, ppc64el]
 
   libs:
     contents:
@@ -619,7 +582,74 @@ slices:
       /usr/lib/*-linux-*/cryptsetup/libcryptsetup-token-systemd-tpm2.so:
         arch: [amd64, arm64, riscv64]
 
-  polkit-config:
+  modprobe-conf:
+    contents:
+      /usr/lib/modprobe.d/systemd.conf:
+
+  pam-profile:
+    contents:
+      /usr/lib/pam.d/systemd-user:
+
+  pcrlock:
+    contents:
+      /usr/lib/pcrlock.d/350-action-efi-application.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/300-0x00000000.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/600-0xffffffff.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/500-separator.pcrlock.d/300-0x00000000.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/500-separator.pcrlock.d/600-0xffffffff.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/300-present.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/600-absent.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/750-enter-initrd.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/800-leave-initrd.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/850-sysinit.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/900-ready.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/950-shutdown.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/pcrlock.d/990-final.pcrlock:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrextend.socket:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrextend@.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrfs-root.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrfs@.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-file-system.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-firmware-code.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-firmware-config.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-machine-id.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-make-policy.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-secureboot-authority.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-secureboot-policy.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrmachine.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase-initrd.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase-sysinit.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase.service:
+        arch: [amd64, arm64, riscv64]
+
+  polkit:
     contents:
       /usr/share/polkit-1/actions/org.freedesktop.hostname1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.locale1.policy:
@@ -629,6 +659,36 @@ slices:
       /usr/share/polkit-1/actions/org.freedesktop.timedate1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.timesync1.policy:
       /usr/share/polkit-1/rules.d/systemd-networkd.rules:
+
+  sysusers-config:
+    contents:
+      /usr/lib/sysusers.d/basic.conf:
+      /usr/lib/sysusers.d/systemd-journal.conf:
+      /usr/lib/sysusers.d/systemd-network.conf:
+
+  tmpfiles:
+    contents:
+      /usr/lib/tmpfiles.d/credstore.conf:
+      /usr/lib/tmpfiles.d/debian.conf:
+      /usr/lib/tmpfiles.d/home.conf:
+      /usr/lib/tmpfiles.d/journal-nocow.conf:
+      /usr/lib/tmpfiles.d/legacy.conf:
+      /usr/lib/tmpfiles.d/provision.conf:
+      /usr/lib/tmpfiles.d/systemd-network.conf:
+      /usr/lib/tmpfiles.d/systemd-nologin.conf:
+      /usr/lib/tmpfiles.d/systemd-pstore.conf:
+      /usr/lib/tmpfiles.d/systemd-tmp.conf:
+      /usr/lib/tmpfiles.d/systemd.conf:
+      /usr/lib/tmpfiles.d/tmp.conf:
+      /usr/lib/tmpfiles.d/var.conf:
+      /usr/lib/tmpfiles.d/x11.conf:
+
+  udev-rules:
+    contents:
+      /usr/lib/udev/rules.d/70-uaccess.rules:
+      /usr/lib/udev/rules.d/71-seat.rules:
+      /usr/lib/udev/rules.d/73-seat-late.rules:
+      /usr/lib/udev/rules.d/99-systemd.rules:
 
   copyright:
     contents:
