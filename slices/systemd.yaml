@@ -100,16 +100,13 @@ slices:
       /usr/lib/systemd/systemd-localed:
       /usr/lib/systemd/systemd-logind:
       /usr/lib/systemd/systemd-makefs:
-      /usr/lib/systemd/systemd-measure:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/systemd-measure: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/systemd-modules-load:
       /usr/lib/systemd/systemd-network-generator:
       /usr/lib/systemd/systemd-networkd:
       /usr/lib/systemd/systemd-networkd-wait-online:
-      /usr/lib/systemd/systemd-pcrextend:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/systemd-pcrlock:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/systemd-pcrextend: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/systemd-pcrlock: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/systemd-pstore:
       /usr/lib/systemd/systemd-quotacheck:
       /usr/lib/systemd/systemd-random-seed:
@@ -127,8 +124,7 @@ slices:
       /usr/lib/systemd/systemd-sysv-install:
       /usr/lib/systemd/systemd-time-wait-sync:
       /usr/lib/systemd/systemd-timedated:
-      /usr/lib/systemd/systemd-tpm2-setup:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/systemd-tpm2-setup: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/systemd-update-done:
       /usr/lib/systemd/systemd-update-utmp:
       /usr/lib/systemd/systemd-user-runtime-dir:
