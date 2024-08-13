@@ -7,7 +7,7 @@ execute: |
   chroot ${rootfs} /usr/bin/python3.10 -c "import urllib.request;urllib.request.urlopen('https://example.com')"
 
   # Test 2: Test that the /etc/ca-certificates.conf file is created and update-ca-certificates works
-  rootfs=$(install-slices ca-certificates_data-with-certs ca-certificates_bins bash_bins coreutils_bins base-files_base findutils_bins)
+  rootfs=$(install-slices ca-certificates_data-with-certs ca-certificates_bins)
   test -f ${rootfs}/etc/ca-certificates.conf
   ln ${rootfs}/bin/bash ${rootfs}/bin/sh
   mkdir -p ${rootfs}/dev
