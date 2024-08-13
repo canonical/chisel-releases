@@ -1,3 +1,4 @@
+# PNG library - runtime (version 1.6)
 package: libpng16-16t64
 
 essential:
@@ -7,6 +8,7 @@ slices:
   libs:
     essential:
       - libc6_libs
+      - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libpng16.so.16*:
 
