@@ -10,7 +10,7 @@ slices:
       - libselinux1_libs
       - libudev1_libs
     contents:
-      /usr/lib/*-linux-*/libdevmapper.so.1:
+      /usr/lib/*-linux-*/libdevmapper.so.1.02.1:
 
   copyright:
     contents:
