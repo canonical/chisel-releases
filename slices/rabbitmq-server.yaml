@@ -17,7 +17,16 @@ slices:
       ## erlang* packages do not exist for i386
       ## for all other archs, uncomment all those slices below
       # - erlang-base_bins
+      # - erlang-inets_bins
+      # - erlang-os-mon_bins
+      - grep_bins
+      - libc-bin_locale
+      - libc-bin_nsswitch
+      - libtinfo6_libs
       - login_bins
+      - openssl_bins
+      - openssl_config
+      - openssl_data
       - passwd_bins
       - python3.12_standard
       - rabbitmq-server_libs
@@ -49,9 +58,7 @@ slices:
       ## for all other archs, uncomment all those slices below
       # - erlang-crypto_libs
       # - erlang-eldap_libs
-      # - erlang-inets_bins
       # - erlang-mnesia_libs
-      # - erlang-os-mon_libs
       # - erlang-parsetools_libs
       # - erlang-public-key_libs
       # - erlang-runtime-tools_libs
