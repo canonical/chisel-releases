@@ -4,13 +4,13 @@ essential:
   - secureboot-db_copyright
 
 slices:
-  dist:
+  data:
     essential:
       - sbsigntool_bins
     contents:
       /usr/share/secureboot/updates/dbx/dbxupdate_*.bin:
 
-  extras:
+  services:
     contents:
       /usr/lib/systemd/system/secureboot-db.service:
 
