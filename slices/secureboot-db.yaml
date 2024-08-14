@@ -5,12 +5,13 @@ essential:
 
 slices:
   data:
-    essential:
-      - sbsigntool_bins
     contents:
       /usr/share/secureboot/updates/dbx/dbxupdate_*.bin:
 
   services:
+    essential:
+      - sbsigntool_bins
+      - secureboot-db_data
     contents:
       /usr/lib/systemd/system/secureboot-db.service:
 
