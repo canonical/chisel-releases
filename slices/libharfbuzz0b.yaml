@@ -11,7 +11,7 @@ slices:
       - libglib2.0-0t64_libs
       - libgraphite2-3_libs
     contents:
-      /usr/lib/*-linux-gnu/libharfbuzz.so.0*:
+      /usr/lib/*-linux-*/libharfbuzz.so.0*:
 
   copyright:
     contents:
