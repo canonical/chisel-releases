@@ -68,6 +68,12 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/libinstrument.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjdwp.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libsaproc.so:
+        arch:
+          - amd64
+          - arm64
+          - armhf
+          - ppc64el
+          - riscv64
 
   management:
     essential:
