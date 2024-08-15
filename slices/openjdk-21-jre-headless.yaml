@@ -99,18 +99,18 @@ slices:
       /etc/java-21-openjdk/security/blocked.certs:
       /etc/java-21-openjdk/security/default.policy:
       /etc/java-21-openjdk/security/nss.cfg:
-      /etc/java-21-openjdk/security/policy/limited/default_local.policy:
       /etc/java-21-openjdk/security/policy/limited/default_US_export.policy:
+      /etc/java-21-openjdk/security/policy/limited/default_local.policy:
       /etc/java-21-openjdk/security/policy/limited/exempt_local.policy:
-      /etc/java-21-openjdk/security/policy/unlimited/default_local.policy:
       /etc/java-21-openjdk/security/policy/unlimited/default_US_export.policy:
+      /etc/java-21-openjdk/security/policy/unlimited/default_local.policy:
       /etc/java-21-openjdk/security/public_suffix_list.dat:
       /usr/lib/jvm/java-21-openjdk-*/conf/security/nss.cfg:
-      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/default_local.policy:
       /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/default_US_export.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/default_local.policy:
       /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/exempt_local.policy:
-      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/unlimited/default_local.policy:
       /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/unlimited/default_US_export.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/unlimited/default_local.policy:
       /usr/lib/jvm/java-21-openjdk-*/lib/libj2gss.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libj2pcsc.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libj2pkcs11.so:
