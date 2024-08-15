@@ -7,10 +7,10 @@ slices:
   libs:
     essential:
       - libbrotli1_libs
+      - libbz2-1.0_libs
       - libc6_libs
       - libpng16-16t64_libs
       - zlib1g_libs
-      - libbz2-1.0_libs
     contents:
       /usr/lib/*-linux-*/libfreetype.so.6*:
 
