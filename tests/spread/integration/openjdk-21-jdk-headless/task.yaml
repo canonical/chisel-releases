@@ -1,0 +1,30 @@
+summary: Integration tests for openjdk-21-jdk-headless
+
+environment:
+  SLICE/bins: "bins"
+  SLICE/modules: "modules"
+
+execute: |
+  # Test different slice installations
+  DEB_FRONTEND=noninteractive apt-get install -y dpkg-dev
+  echo "SLICE=${SLICE}"
+  ARCH=`dpkg-architecture -q DEB_HOST_ARCH`
+  JAVA_HOME=/usr/lib/jvm/java-21-openjdk-${ARCH}/
+  rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} busybox_bins)"
+  (cd ${rootfs}/usr/bin && for applet in $(${rootfs}/usr/bin/busybox --list); do \
+      ln -s busybox $applet ; \
+    done)
+  cp `which link-proc` ${rootfs}/
+  cp Main.java ${rootfs}/
+
+  case ${SLICE} in
+    bins)
+      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java --version
+      cp Main.java ${rootfs}/
+      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java /Main.java
+      ;;
+    modules)
+      mkdir -p ${rootfs}/opt/java
+      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/jlink --add-modules java.base --output ${rootfs}/opt/java
+      ;;
+  esac
