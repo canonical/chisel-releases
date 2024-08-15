@@ -77,6 +77,11 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.dynalink.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.editpad.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.hotspot.agent.jmod:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.httpserver.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.incubator.vector.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.ed.jmod:
@@ -87,17 +92,17 @@ slices:
         arch:
           - amd64
           - arm64
-          - s390x
+          - riscv64
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.compiler.jmod:
         arch:
           - amd64
           - arm64
-          - s390x
+          - riscv64
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.compiler.management.jmod:
         arch:
           - amd64
           - arm64
-          - s390x
+          - riscv64
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jartool.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.javadoc.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jcmd.jmod:
