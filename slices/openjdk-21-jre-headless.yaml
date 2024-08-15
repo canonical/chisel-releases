@@ -7,7 +7,6 @@ package: openjdk-21-jre-headless
 essential:
   - openjdk-21-jre-headless_copyright
 
-
 slices:
   core:
     essential:
@@ -93,13 +92,12 @@ slices:
   security:
     essential:
       - ca-certificates-java_data
-      - libpcsclite1_libs
       - libnss3_libs
+      - libpcsclite1_libs
       - openjdk-21-jre-headless_core
     contents:
       /etc/java-21-openjdk/security/blocked.certs:
       /etc/java-21-openjdk/security/default.policy:
-
       /etc/java-21-openjdk/security/nss.cfg:
       /etc/java-21-openjdk/security/policy/limited/default_local.policy:
       /etc/java-21-openjdk/security/policy/limited/default_US_export.policy:
@@ -124,18 +122,17 @@ slices:
 
   awt:
     essential:
-      - liblcms2-2_libs # liblcms.so
-      - libjpeg-turbo8_libs # libjavajpeg.so
-      - openjdk-21-jre-headless_core
-      # libfontmanager.so dependencies
-      - libharfbuzz0b_libs
-      - libfreetype6_libs
+      - libbrotli1_libs
       - libfontconfig1_libs
+      - libfreetype6_libs
       - libglib2.0-0t64_libs
       - libgraphite2-3_libs
-      - libpng16-16t64_libs
-      - libbrotli1_libs
+      - libharfbuzz0b_libs
+      - libjpeg-turbo8_libs
+      - liblcms2-2_libs
       - libpcre2-8-0_libs
+      - libpng16-16t64_libs
+      - openjdk-21-jre-headless_core
     contents:
       /etc/java-21-openjdk/psfont.properties.ja:
       /etc/java-21-openjdk/psfontj2d.properties:
@@ -161,7 +158,7 @@ slices:
 
   tools:
     essential:
-     - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/jpackage:
       /usr/lib/jvm/java-21-openjdk-*/bin/keytool:
@@ -169,14 +166,13 @@ slices:
 
   jfr:
     essential:
-     - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_core
     contents:
       /etc/java-21-openjdk/jfr/default.jfc:
       /etc/java-21-openjdk/jfr/profile.jfc:
       /usr/lib/jvm/java-21-openjdk-*/lib/jfr/default.jfc:
       /usr/lib/jvm/java-21-openjdk-*/lib/jfr/profile.jfc:
       /usr/lib/jvm/java-21-openjdk-*/lib/jrt-fs.jar:
-
 
   copyright:
     contents:
