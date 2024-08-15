@@ -23,6 +23,9 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
       /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
       /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
+        arch:
+          - amd64
+          - arm64
       /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
       /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
       /usr/lib/jvm/java-21-openjdk-*/bin/jlink:
@@ -81,8 +84,20 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.le.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.opt.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.ci.jmod:
+        arch:
+          - amd64
+          - arm64
+          - s390x
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.compiler.jmod:
+        arch:
+          - amd64
+          - arm64
+          - s390x
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.compiler.management.jmod:
+        arch:
+          - amd64
+          - arm64
+          - s390x
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jartool.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.javadoc.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jcmd.jmod:
