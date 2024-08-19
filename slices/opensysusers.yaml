@@ -1,0 +1,27 @@
+package: opensysusers
+
+essential:
+  - opensysusers_copyright
+
+slices:
+# /usr/bin/systemd-sysusers is actually part of this package
+# aswell but conflicts with the systemd-sysusers inside the systemd
+# package.
+  scripts:
+    # These are shell scripts requiring a symlink from /usr/bin/dash to
+    # /usr/bin/sh.
+    essential:
+      - coreutils_sort
+      - dash_bins
+      - grep_bins
+      - passwd_bins
+    contents:
+      /usr/bin/opensysusers-sysusers:
+
+  initd:
+    contents:
+      /etc/init.d/opensysusers:
+
+  copyright:
+    contents:
+      /usr/share/doc/opensysusers/copyright:

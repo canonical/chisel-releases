@@ -1,0 +1,34 @@
+summary: Integration tests for systemd-sysv
+
+environment:
+  SLICE/halt: "halt"
+  SLICE/init: "init"
+  SLICE/poweroff: "poweroff"
+  SLICE/reboot: "reboot"
+  SLICE/runlevel: "runlevel"
+  SLICE/shutdown: "shutdown"
+  SLICE/telinit: "telinit"
+
+# commands that control system stuff like reboot and shutdown
+# are just smoke-tested using --help
+# init and telinit send commands to the init daemon, and let us avoid
+# that (like reboot, power off etc) and smoke instead
+execute: |
+  rootfs="$(install-slices base-files_base bash_bins systemd-sysv_${SLICE})"
+
+  case ${SLICE} in
+    halt|poweroff|reboot|shutdown)
+      chroot "${rootfs}" "/usr/sbin/${SLICE}" --help
+    ;;
+    init|telinit)
+      chroot "${rootfs}" "/usr/sbin/${SLICE}" --help
+    ;;
+    runlevel)
+      mkdir "${rootfs}"/proc
+      mount --bind /proc "${rootfs}"/proc
+
+      chroot "${rootfs}" "/usr/sbin/${SLICE}" 2>&1 | grep "Running in chroot"
+
+      umount -l "${rootfs}"/proc
+    ;;
+  esac

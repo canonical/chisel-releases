@@ -1,0 +1,24 @@
+summary: Integration tests for opensysusers
+
+execute: |
+  rootfs="$(install-slices base-files_bin opensysusers_scripts)"
+
+  # needs /dev/null
+  mkdir "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+
+  # test using the basic.conf script from systemd
+  mkdir -p "${rootfs}/etc/sysusers.d"
+  cp ./basic.conf "${rootfs}/etc/sysusers.d/basic.conf"
+
+  # this will create additional users, ensure one of them dont exist
+  ! grep "storage:x:993:" < "${rootfs}/etc/group"
+
+  # should create groups
+  chroot "${rootfs}/" /usr/bin/opensysusers-sysusers
+
+  # should exist now
+  grep "storage:x:993:" < "${rootfs}/etc/group"
+
+  # cleanup
+  umount -l "${rootfs}/dev"
