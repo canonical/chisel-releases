@@ -38,26 +38,59 @@ slices:
       /usr/lib/rabbitmq/bin/rabbitmq*:
       /usr/lib/rabbitmq/bin/vmware-rabbitmq:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-diagnostics:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-plugins:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-queues:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-streams:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-upgrade:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmqctl:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/vmware-rabbitmq:
+        { mutable: true }
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/rabbitmq*:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/vmware-rabbitmq:
       /usr/sbin/rabbitmq*:
       /var/lib/rabbitmq/:
-      /var/lib/rabbitmq/.erlang.cookie: {text: DUMMY, mode: 0400}
-      /var/lib/rabbitmq/mnesia/: {mode: 0750}
+      /var/lib/rabbitmq/.erlang.cookie: { text: DUMMY, mode: 0400 }
+      /var/lib/rabbitmq/mnesia/: { mode: 0750 }
       /var/log/rabbitmq/:
     mutate: |
-      file = content.read("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics")
-      content.write("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-plugins", file)
-      content.write("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-queues", file)
-      content.write("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-streams", file)
-      content.write("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-upgrade", file)
-      content.write("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmqctl", file)
-      content.write("/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/vmware-rabbitmq", file)
+      file = content.read(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics"
+      )
+      content.write(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-plugins",
+        file
+      )
+      content.write(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-queues",
+        file
+      )
+      content.write(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-streams",
+        file
+      )
+      content.write(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-upgrade",
+        file
+      )
+      content.write(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmqctl",
+        file
+      )
+      content.write(
+        "/usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/vmware-rabbitmq",
+        file
+      )
 
   config:
     contents:
       /etc/default/rabbitmq-server:
-      /etc/rabbitmq/rabbitmq-env.conf: {copy: /usr/share/rabbitmq/rabbitmq-env.conf, mode: 0644}
+      /etc/rabbitmq/rabbitmq-env.conf:
+        { copy: /usr/share/rabbitmq/rabbitmq-env.conf, mode: 0644 }
 
   libs:
     essential:
