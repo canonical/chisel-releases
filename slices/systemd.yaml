@@ -515,7 +515,7 @@ slices:
       /usr/lib/systemd/user/timers.target:
       /usr/lib/systemd/user/xdg-desktop-autostart.target:
 
-  dbus-config:
+  dbus-services:
     essential:
       - systemd-dev_dbus-interfaces
     contents:
