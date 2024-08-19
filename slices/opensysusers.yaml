@@ -1,0 +1,15 @@
+package: opensysusers
+
+essential:
+  - opensysusers_copyright
+
+slices:
+  bins:
+    contents:
+      /bin/systemd-sysusers:
+      /etc/init.d/opensysusers:
+      /usr/bin/opensysusers-sysusers:
+
+  copyright:
+    contents:
+      /usr/share/doc/opensysusers/copyright:

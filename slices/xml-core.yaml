@@ -1,0 +1,205 @@
+package: xml-core
+
+essential:
+  - xml-core_copyright
+
+slices:
+  # also contains some binary debian helpers, they are
+  # used only to generate or update the xml catalogue.
+  # /usr/bin/dh_installxmlcatalogs
+  # /usr/sbin/update-xmlcatalog
+
+  # this package depends officially on the 'sed' tool, but
+  # this is afaict only used by the above perl scripts that
+  # we have taken care of in this slice by the mutation script.
+  catalog:
+    essential:
+      - sgml-base_catalog
+    contents:
+      /etc/sgml/xml-core.cat:
+      /etc/xml/catalog: {text: '', mutable: true}
+      /etc/xml/xml-core.xml: {text: '', mutable: true}
+      /usr/share/sgml/dtd/xml-core/catalog:
+      /usr/share/sgml/dtd/xml-core/catalog.dtd:
+      /usr/share/xml-core/catalog.footer: { until: mutate }
+      /usr/share/xml-core/catalog.header: { until: mutate }
+      /usr/share/xml/schema/xml-core/catalog.dtd:
+      /usr/share/xml/schema/xml-core/catalog.xml:
+      /usr/share/xml/schema/xml-core/tr9401.dtd:
+      /var/lib/xml-core/catalog: {text: '', mutable: true}
+      /var/lib/xml-core/xml-core: {text: '', mutable: true}
+    mutate: |
+      catalog_dir = "/etc/xml/"
+      catalog_data_dir = "/var/lib/xml-core/"
+
+      def read_catalog_data(path):
+        catalog = {}
+        data = content.read(path)
+        lines = data.splitlines()
+        for l in lines:
+          tokens = l.split('>', 1)
+          key = tokens[0].strip("> <")
+          entry = tokens[1].strip("> <")
+          catalog[key] = entry
+        return catalog
+
+      def write_catalog(catalog, path):
+        header = content.read("/usr/share/xml-core/catalog.header")
+        footer = content.read("/usr/share/xml-core/catalog.footer")
+        for k in catalog:
+          v = catalog[k]
+          header += "<" + k + " " + v + "/>\n"
+        header += footer
+        content.write(path, header)
+
+      def write_catalog_data(catalog, path):
+        updated_catalog = ""
+        for k in catalog:
+          v = catalog[k]
+          updated_catalog += "<" + k + "><" + v + ">\n"
+        content.write(path, updated_catalog)
+
+      def add_entry(catalog, key, entry):
+        if key in catalog:
+          if catalog[key] != entry:
+            return False
+          else:
+            fail("key was already registered")
+        catalog[key] = entry
+        return True
+
+      def generate_key(typ, id):
+        start = typ;
+        if typ != "uri":
+          start += "Id"
+        start += "StartString"
+        nid = start + "=\"" + id + "\""
+        ntype = ""
+        if typ == "uri":
+          ntype = typ.upper()
+        else:
+          ntype = typ.title()
+        ntype = "delegate" + ntype;
+        return ntype + " " + nid
+
+      def add_xmlcatalog(typ, id, package, local, root):
+        if root:
+          if package == "":
+            fail("package must be given if root is provided")
+          if local != "":
+            fail("cannot add a local file to root")
+        elif package != "":
+          if local == "":
+            fail("local catalog file must be provided")
+        elif local == "":
+          fail("catalog not given")
+
+        if typ != "":
+          if typ != "public" and typ != "system" and typ != "uri":
+            fail("unsupported type provided")
+        else:
+          fail("type must be provided")
+
+        if id == "":
+          fail("id must be provided")
+
+        catalog_path = ""
+        catalog_data_path = ""
+        key = ""
+        entry = ""
+        if root:
+          catalog_data_path = catalog_data_dir + "catalog"
+          catalog_path = catalog_dir + "catalog"
+          key = generate_key(typ, id);
+          entry = "catalog=\"file:///etc/xml/" + package + "\""
+        elif package != "":
+          catalog_data_path = catalog_data_dir + package
+          catalog_path = catalog_dir + package + ".xml"
+          key = generate_key(typ, id);
+          entry = "catalog=\"file://" + local + "\""
+        elif local != "":
+          translated = local.replace("/", "_")
+          catalog_data_path = catalog_data_dir + translated
+          catalog_path = local
+
+          start = ""
+          if typ == "uri":
+            start = "name"
+          else:
+            start = typ
+          nid = start + "=\"" + id + "\""
+
+          key = typ + " " + nid
+          entry = "uri=\"" + local + "\""
+
+        entries = read_catalog_data(catalog_data_path)
+        if add_entry(entries, key, entry):
+          write_catalog_data(entries, catalog_data_path)
+          write_catalog(entries, catalog_path)
+
+      # replicate actions in the postinst, for now we are just supporting
+      # the 'add' operation as we don't support the removal of packages as
+      # a concept in chisel.
+      add_xmlcatalog(
+        "system",
+        "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd",
+        "xml-core",
+        "/usr/share/xml/schema/xml-core/catalog.xml",
+        False)
+
+      add_xmlcatalog(
+        "public",
+        "-//OASIS//DTD XML Catalogs V1.0//EN",
+        "xml-core",
+        "/usr/share/xml/schema/xml-core/catalog.xml",
+        False)
+
+      add_xmlcatalog(
+        "system",
+        "http://globaltranscorp.org/oasis/catalog/xml/tr9401.dtd",
+        "xml-core",
+        "/usr/share/xml/schema/xml-core/catalog.xml",
+        False)
+
+      add_xmlcatalog(
+        "public",
+        "-//GlobalTransCorp//DTD XML Catalogs V1.0-Based Extension V1.0//EN",
+        "xml-core",
+        "/usr/share/xml/schema/xml-core/catalog.xml",
+        False)
+
+      add_xmlcatalog(
+        "system",
+        "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd",
+        "xml-core",
+        "",
+        True)
+
+      add_xmlcatalog(
+        "public",
+        "-//OASIS//DTD XML Catalogs V1.0//EN",
+        "xml-core",
+        "",
+        True)
+
+      add_xmlcatalog(
+        "system",
+        "http://globaltranscorp.org/oasis/catalog/xml/tr9401.dtd",
+        "xml-core",
+        "",
+        True)
+
+      add_xmlcatalog(
+        "public",
+        "-//GlobalTransCorp//DTD XML Catalogs V1.0-Based Extension V1.0//EN",
+        "xml-core",
+        "",
+        True)
+
+  perl-modules:
+    contents:
+      /usr/share/perl5/Debian/Debhelper/Sequence/xml_core.pm:
+
+  copyright:
+    contents:
+      /usr/share/doc/xml-core/copyright:

@@ -1,0 +1,65 @@
+package: polkitd
+
+essential:
+  - polkitd_copyright
+
+slices:
+  bins:
+    essential:
+      - dbus-broker_bins
+      - libc6_gconv
+      - libc6_libs
+      - libduktape207_libs
+      - libexpat1_libs
+      - libglib2.0-0t64_libs
+      - libpam0g_libs
+      - libpolkit-agent-1-0_libs
+      - libpolkit-gobject-1-0_libs
+      - libsystemd0_libs
+      - login_bins
+      - opensysusers_bins
+      - polkitd_config
+      - polkitd_pam-profile
+      - polkitd_rules
+      - xml-core_catalog
+    contents:
+      /usr/bin/pkaction:
+      /usr/bin/pkcheck:
+      /usr/bin/pkttyagent:
+      /usr/lib/policykit-1/polkit-agent-helper-1:
+      /usr/lib/polkit-1/polkit-agent-helper-1:
+      /usr/lib/polkit-1/polkitd:
+      /usr/libexec/polkit-agent-helper-1:
+
+  config:
+    contents:
+      /usr/lib/sysusers.d/polkit.conf:
+      /usr/lib/tmpfiles.d/polkitd.conf:
+      /var/lib/polkit-1/: { make: true, mode: 0700 }
+
+  dbus-interface:
+    contents:
+      /usr/share/dbus-1/system-services/org.freedesktop.PolicyKit1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.PolicyKit1.conf:
+
+  pam-profile:
+    contents:
+      /usr/lib/pam.d/polkit-1:
+
+  rules:
+    contents:
+      /etc/polkit-1/rules.d/: { make: true, mode: 0755 }
+      /usr/share/polkit-1/actions/org.freedesktop.policykit.policy:
+      /usr/share/polkit-1/policyconfig-1.dtd:
+      /usr/share/polkit-1/rules.d/49-ubuntu-admin.rules:
+      /usr/share/polkit-1/rules.d/50-default.rules:
+
+  services:
+    essential:
+      - polkitd_bins
+    contents:
+      /usr/lib/systemd/system/polkit.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/polkitd/copyright:

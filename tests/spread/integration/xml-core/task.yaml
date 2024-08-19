@@ -1,0 +1,48 @@
+summary: Integration tests for xml-core
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices xml-core_catalog)"
+
+  if ! [ -e "$rootfs/etc/xml/catalog" ]; then
+    echo "expected /etc/xml/catalog to be created"
+    exit 1
+  fi
+
+  # ensure a marker was written that we can somewhat reliably
+  # expect
+  cat "$rootfs/etc/xml/catalog" | grep "delegateSystem systemIdStartString"
+  cat "$rootfs/etc/xml/catalog" | grep "delegatePublic publicIdStartString"
+
+  if ! [ -e "$rootfs/etc/xml/xml-core.xml" ]; then
+    echo "expected /etc/xml/xml-core.xml to be created"
+    exit 1
+  fi
+
+  # ensure a marker was written that we can somewhat reliably
+  # expect
+  cat "$rootfs/etc/xml/xml-core.xml" | grep "delegateSystem systemIdStartString"
+  cat "$rootfs/etc/xml/xml-core.xml" | grep "delegatePublic publicIdStartString"
+
+  if ! [ -e "$rootfs/var/lib/xml-core/catalog" ]; then
+    echo "expected /var/lib/xml-core/catalog to be created"
+    exit 1
+  fi
+
+  # ensure a marker was written that we can somewhat reliably
+  # expect
+  cat "$rootfs/var/lib/xml-core/catalog" | grep "delegateSystem systemIdStartString"
+  cat "$rootfs/var/lib/xml-core/catalog" | grep "delegatePublic publicIdStartString"
+
+  if ! [ -e "$rootfs/var/lib/xml-core/xml-core" ]; then
+    echo "expected /var/lib/xml-core/xml-core to be created"
+    exit 1
+  fi
+
+  # ensure a marker was written that we can somewhat reliably
+  # expect
+  cat "$rootfs/var/lib/xml-core/xml-core" | grep "delegateSystem systemIdStartString"
+  cat "$rootfs/var/lib/xml-core/xml-core" | grep "delegatePublic publicIdStartString"

@@ -1,0 +1,21 @@
+package: systemd-sysv
+
+essential:
+  - systemd-sysv_copyright
+
+slices:
+  bins:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/halt:
+      /usr/sbin/init:
+      /usr/sbin/poweroff:
+      /usr/sbin/reboot:
+      /usr/sbin/runlevel:
+      /usr/sbin/shutdown:
+      /usr/sbin/telinit:
+
+  copyright:
+    contents:
+      /usr/share/doc/systemd-sysv/copyright:

@@ -1,0 +1,38 @@
+package: dbus-broker
+
+essential:
+  - dbus-broker_copyright
+
+slices:
+  bins:
+    essential:
+      - dbus-broker_catalog
+      - dbus-system-bus-common_config
+      - init-system-helpers_bins
+      - libapparmor1_libs
+      - libaudit1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libexpat1_libs
+      - libselinux1_libs
+      - libsystemd0_libs
+      - systemd-sysv_bins
+    contents:
+      /usr/bin/dbus-broker:
+      /usr/bin/dbus-broker-launch:
+
+  catalog:
+    contents:
+      /usr/lib/systemd/catalog/dbus-broker-launch.catalog:
+      /usr/lib/systemd/catalog/dbus-broker.catalog:
+
+  services:
+    essential:
+      - dbus-broker_bins
+    contents:
+      /usr/lib/systemd/system/dbus-broker.service:
+      /usr/lib/systemd/user/dbus-broker.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/dbus-broker/copyright:
