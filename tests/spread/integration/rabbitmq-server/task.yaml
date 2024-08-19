@@ -1,0 +1,6 @@
+summary: Integration tests for RabbitMQ
+
+execute: |
+  rootfs="$(install-slices rabbitmq-server_bins)"
+
+  chroot "$rootfs" /usr/sbin/rabbitmqctl version

@@ -37,19 +37,19 @@ slices:
       /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
       /usr/lib/rabbitmq/bin/rabbitmq*:
       /usr/lib/rabbitmq/bin/vmware-rabbitmq:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-plugins:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-queues:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-streams:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-upgrade:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmqctl:
+        { mutable: true }
+      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/vmware-rabbitmq:
+        { mutable: true }
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-diagnostics:
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-plugins:
-        { mutable: true }
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-queues:
-        { mutable: true }
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-streams:
-        { mutable: true }
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-upgrade:
-        { mutable: true }
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmqctl:
-        { mutable: true }
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/vmware-rabbitmq:
-        { mutable: true }
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/rabbitmq*:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/vmware-rabbitmq:
       /usr/sbin/rabbitmq*:
