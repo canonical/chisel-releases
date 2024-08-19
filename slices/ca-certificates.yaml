@@ -53,7 +53,8 @@ slices:
       - base-files_bin
       - base-files_tmp
       # Manually linking /bin/sh to /bin/bash is required as /bin/sh is hardcoded in
-      # the shebang of the script. See https://github.com/canonical/chisel-releases/pull/61#discussion_r1326873419
+      # the shebang of the script. 
+      # See https://github.com/canonical/chisel-releases/pull/61#discussion_r1326873419
       - bash_bins
       - coreutils_bins
       - findutils_bins
