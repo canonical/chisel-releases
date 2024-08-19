@@ -1,0 +1,32 @@
+package: xfonts-utils
+
+essential:
+  - xfonts-utils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libfontenc1_libs
+      - libfreetype6_libs
+      - xfonts-encodings_data
+      - xfonts-utils_data
+      - zlib1g_libs
+    contents:
+      /usr/bin/bdftopcf:
+      /usr/bin/bdftruncate:
+      /usr/bin/fonttosfnt:
+      /usr/bin/mkfontdir:
+      /usr/bin/mkfontscale:
+      /usr/bin/ucs2any:
+      /usr/sbin/update-fonts-alias:
+      /usr/sbin/update-fonts-dir:
+      /usr/sbin/update-fonts-scale:
+
+  data:
+    contents:
+      /usr/share/fonts/X11/util/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/xfonts-utils/copyright:

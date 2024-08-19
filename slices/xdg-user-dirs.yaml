@@ -1,0 +1,19 @@
+package: xdg-user-dirs
+
+essential:
+  - xdg-user-dirs_copyright
+
+slices:
+  bin:
+    essential:
+      - libc6_libs
+    contents:
+      /etc/xdg/autostart/xdg-user-dirs.desktop:
+      /etc/xdg/user-dirs.conf:
+      /etc/xdg/user-dirs.defaults:
+      /usr/bin/xdg-user-dir:
+      /usr/bin/xdg-user-dirs-update:
+
+  copyright:
+    contents:
+      /usr/share/doc/xdg-user-dirs/copyright:

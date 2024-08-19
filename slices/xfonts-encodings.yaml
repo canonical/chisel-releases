@@ -1,0 +1,13 @@
+package: xfonts-encodings
+
+essential:
+  - xfonts-utils_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/fonts/X11/encodings/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/xfonts-encodings/copyright:

@@ -1,0 +1,23 @@
+package: fonts-urw-base35
+
+essential:
+  - fonts-urw-base35_copyright
+
+slices:
+  config:
+    contents:
+      /etc/fonts/conf.d/61-urw*:
+      /usr/share/fontconfig/conf.avail/urw-*:
+
+  fonts:
+    essential:
+      - xfonts-utils_bins
+    contents:
+      /etc/X11/fonts/Type1/fonts-urw-base35*:
+      /usr/share/fonts/X11/Type1/*.pfb:
+      /usr/share/fonts/opentype/urw-base35/*.otf:
+      /usr/share/fonts/type1/urw-base35/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-urw-base35/copyright:
