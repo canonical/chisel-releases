@@ -37,6 +37,9 @@ slices:
       /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
       /usr/lib/rabbitmq/bin/rabbitmq*:
       /usr/lib/rabbitmq/bin/vmware-rabbitmq:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-diagnostics:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/rabbitmq*:
+      /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/vmware-rabbitmq:
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-plugins:
         { mutable: true }
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-queues:
@@ -49,9 +52,6 @@ slices:
         { mutable: true }
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/vmware-rabbitmq:
         { mutable: true }
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/escript/rabbitmq-diagnostics:
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/rabbitmq*:
-      /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/vmware-rabbitmq:
       /usr/sbin/rabbitmq*:
       /var/lib/rabbitmq/:
       /var/lib/rabbitmq/.erlang.cookie: { text: DUMMY, mode: 0400 }
