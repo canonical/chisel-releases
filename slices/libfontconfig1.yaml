@@ -10,7 +10,6 @@ slices:
       - libc6_libs
       - libexpat1_libs
       - libfreetype6_libs
-      - libuuid1_libs
     contents:
       /usr/lib/*-linux-*/libfontconfig.so.1*:
 
