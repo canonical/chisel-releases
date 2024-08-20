@@ -37,21 +37,28 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjimage.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjli.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjsig.so:
-      # terminal support
-      /usr/lib/jvm/java-21-openjdk-*/lib/lible.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libnet.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libnio.so:
-      # jdk.prefs module
-      /usr/lib/jvm/java-21-openjdk-*/lib/libprefs.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
       # nio
-      /usr/lib/jvm/java-21-openjdk-*/lib/libsctp.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libnio.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libverify.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libzip.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/modules:
       /usr/lib/jvm/java-21-openjdk-*/lib/server/libjsig.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/server/libjvm.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/tzdb.dat:
+
+  prefs:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libprefs.so:
+
+  console:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/lible.so:
 
   stcp:
     essential:
