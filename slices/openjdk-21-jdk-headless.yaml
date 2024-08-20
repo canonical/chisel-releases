@@ -144,6 +144,7 @@ slices:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/include/jdwpTransport.h:
+
   copyright:
     essential:
       - openjdk-21-jre-headless_copyright
