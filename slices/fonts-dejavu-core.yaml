@@ -22,21 +22,13 @@ slices:
       /etc/fonts/conf.avail/58-dejavu-lgc-sans.conf:
       /etc/fonts/conf.avail/58-dejavu-lgc-serif.conf:
       /etc/fonts/conf.d/20-unhint-small-dejavu-lgc-sans.conf:
-        symlink: /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans.conf
       /etc/fonts/conf.d/20-unhint-small-dejavu-lgc-serif.conf:
-        symlink: /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-serif.conf
       /etc/fonts/conf.d/20-unhint-small-dejavu-sans.conf:
-        symlink: /etc/fonts/conf.avail/20-unhint-small-dejavu-sans.conf
       /etc/fonts/conf.d/20-unhint-small-dejavu-serif.conf:
-        symlink: /etc/fonts/conf.avail/20-unhint-small-dejavu-serif.conf
       /etc/fonts/conf.d/57-dejavu-sans.conf:
-        symlink: /etc/fonts/conf.avail/57-dejavu-sans.conf
       /etc/fonts/conf.d/57-dejavu-serif.conf:
-        symlink: /etc/fonts/conf.avail/57-dejavu-serif.conf
       /etc/fonts/conf.d/58-dejavu-lgc-sans.conf:
-        symlink: /etc/fonts/conf.avail/58-dejavu-lgc-sans.conf
       /etc/fonts/conf.d/58-dejavu-lgc-serif.conf:
-        symlink: /etc/fonts/conf.avail/58-dejavu-lgc-serif.conf
 
   copyright:
     contents:
