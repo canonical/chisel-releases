@@ -20,7 +20,6 @@ execute: |
   case ${SLICE} in
     bins)
       chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java --version
-      cp Main.java ${rootfs}/
       chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java /Main.java
       ;;
     modules)
