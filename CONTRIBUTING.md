@@ -281,24 +281,31 @@ existing examples, providing at least the `summary` and `execute` fields inside
 [Spread docs](https://github.com/snapcore/spread)),
    1. in `test/spread/lib/` you'll also find a set of helper functions that you
   can call from within your `task.yaml` execution script,
-1. once your test is ready, ensure you have the necessary requirements to run it
-locally:
-    - Docker: you can install it via the [Snap Store](https://snapcraft.io/docker) or
-    by following the [official instructions](https://docs.docker.com/engine/install/)
-    - Spread: we recommend installing it from source (with
-    `go install github.com/snapcore/spread/cmd/spread@latest`), but there's
-    also a [Spread snap](https://snapcraft.io/spread)
-    - QEMU: if testing for multiple architectures, you'll need to install these
-    packages: `sudo apt-get install qemu binfmt-support qemu-user-static`
+1. once your test is ready, ensure you have Spread installed (we recommend installing it from source with
+`go install github.com/snapcore/spread/cmd/spread@latest`, but there's also a
+[Spread snap](https://snapcraft.io/spread)) and also ensure you install the
+necessary requirements to run the tests locally:
+    - with Docker:
+      - Docker: you can install it via the [Snap Store](https://snapcraft.io/docker) or
+      by following the [official instructions](https://docs.docker.com/engine/install/)
+      - QEMU: if testing for multiple architectures, you'll need to install these
+      packages: `sudo apt-get install qemu binfmt-support qemu-user-static`
+
+      or
+    - with LXD:
+      - LXD: [install and configure LXD](https://canonical.com/lxd/install),
 1. from the repository's root directory, you can now run
-`spread tests/spread/integration/<pkg>` for running the tests for your package
-`<pkg>` slices, on all architectures. Additionally, you can also:
-   - run `spread` for orchestrating **all** the tests (not just yours), for all
-  architectures, or
-   - run `spread docker:ubuntu-22.04-amd64` for orchestrating **all** the tests
-   (not just yours) for amd64 only, or
-   - run `spread docker:ubuntu-22.04-arm64v8:tests/spread/integration/<pkg>`
-   for running only the tests for your package `<pkg>` slices, on arm64.
+
+    ```bash
+    spread lxd:tests/spread/integration/<pkgA> lxd:tests/spread/integration/<pkgB> ...
+    ```
+
+    for running the tests for your slices. Additionally, you can also:
+    - replace `lxd` with `docker` to run the tests on all supported
+    architectures (NOTE: the `docker` backend might be unable to run tests that
+    perform privileged operations);
+    - run `spread docker:ubuntu-22.04-amd64` for orchestrating **all** the tests
+    (not just yours) with Docker, for amd64 only. 
 
 #### 8. Open the PR(s)
 
