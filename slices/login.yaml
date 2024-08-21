@@ -10,7 +10,7 @@ slices:
       - libc6_libs
       - libcrypt1_libs
       - libpam-modules_libs
-      - libpam-runtime_bins
+      - libpam-runtime_config
       - libpam0g_libs
       - login_config
     contents:
