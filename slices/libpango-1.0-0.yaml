@@ -6,9 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      - fontconfig-config_config
+      - fontconfig_bins
       - libc6_libs
-      - libfontconfig1_libs
       - libfribidi0_libs
       - libglib2.0-0t64_libs
       - libharfbuzz0b_libs
