@@ -3,4 +3,15 @@ summary: Integration tests for RabbitMQ
 execute: |
   rootfs="$(install-slices rabbitmq-server_bins erlang-base_bins erlang-inets_bins erlang-os-mon_bins erlang-crypto_libs erlang-eldap_libs erlang-mnesia_libs erlang-parsetools_libs erlang-public-key_libs erlang-runtime-tools_libs erlang-ssl_libs erlang-syntax-tools_libs erlang-tools_libs erlang-xmerl_libs)"
 
+  cp /bin/sh "$rootfs"/bin/
+  chroot "$rootfs" mkdir /dev
+  chroot "$rootfs" touch /dev/null
+  chroot "$rootfs" chmod 777 /dev/null
+  chroot "$rootfs" mkdir -p /var/lib/rabbitmq/mnesia /var/log/rabbitmq /etc/rabbitmq
+  chroot "$rootfs" useradd -r -d /var/lib/rabbitmq rabbitmq
+  cat <<EOF > "$rootfs"/var/lib/rabbitmq/.erlang.cookie
+  dYgNi96w+c24zqq3U5jFXI7tet+UjOkUI+cN4cFDAP84xmccgmrAavcp
+  EOF
+  chroot "$rootfs" chown -R rabbitmq /var/lib/rabbitmq /var/log/rabbitmq /etc/rabbitmq
+  chroot "$rootfs" chmod 400 /var/lib/rabbitmq/.erlang.cookie
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl version
