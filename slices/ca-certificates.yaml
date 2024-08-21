@@ -5,7 +5,7 @@ essential:
 
 slices:
   # This slice only contains the certificates bundle at /etc/ssl/certs/ca-certificates.crt.
-  # To keep the individual certificates at /usr/share/ca-certificates/mozilla/ or the
+  # To keep the individual certificates at /usr/share/ca-certificates/mozilla/ and the
   # configuration file at /etc/ca-certificates.conf, please use the "data-with-certs" slice.
   # Please note that the mutation script (partially) mimics the deb's maintainer
   # scripts to generate the certificates bundle.
