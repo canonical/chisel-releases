@@ -1,0 +1,15 @@
+package: libxshmfence1
+
+essential:
+  - libxshmfence1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libxshmfence.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxshmfence1/copyright:

@@ -1,0 +1,15 @@
+package: libpixman-1-0
+
+essential:
+  - libpixman-1-0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libpixman-1.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpixman-1-0/copyright:
