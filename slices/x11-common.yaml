@@ -6,7 +6,7 @@ essential:
 slices:
   data:
     essential:
-      - lsb-base_libs
+      - lsb-base_bins
     contents:
       /etc/init.d/x11-common:
       /etc/X11/Xreset:
