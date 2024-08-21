@@ -30,7 +30,6 @@ slices:
       - python3.12_standard
       - rabbitmq-server_libs
       - sed_bins
-      - socat_bins
       - util-linux_bins
     contents:
       /usr/bin/rabbitmqadmin:
