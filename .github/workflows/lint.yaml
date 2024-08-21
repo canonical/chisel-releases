@@ -15,7 +15,7 @@ on:
 
 env:
   # chisel-releases branches to lint on.
-  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-23.10","ubuntu-24.04"]') }}
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04"]') }}
 
 jobs:
   prepare-lint:
