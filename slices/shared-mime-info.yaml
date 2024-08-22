@@ -1,12 +1,6 @@
 package: shared-mime-info
 
 slices:
-  data:
-    contents:
-      /usr/share/mime/packages/freedesktop.org.xml:
-      /usr/share/pkgconfig/shared-mime-info.pc:
-      /usr/share/gettext/its/shared-mime-info.*:
-
   bins:
     essential:
       - libc6_libs
@@ -16,3 +10,9 @@ slices:
       - libxml2_libs
     contents:
       /usr/bin/update-mime-database:
+
+  data:
+    contents:
+      /usr/share/gettext/its/shared-mime-info.*:
+      /usr/share/mime/packages/freedesktop.org.xml:
+      /usr/share/pkgconfig/shared-mime-info.pc:

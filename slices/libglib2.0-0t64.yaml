@@ -5,6 +5,12 @@ essential:
   - libpcre2-8-0_libs
 
 slices:
+  bins:
+    essential:
+      - libglib2.0-0t64_libs
+    contents:
+      /usr/lib/*-linux-*/glib-2.0/*:
+
   core:
     contents:
       /usr/lib/*-linux-*/libglib-2.0.so.0*:
@@ -36,8 +42,3 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libgio-2.0.so.0*:
-  bins:
-    essential:
-      - libglib2.0-0t64_libs
-    contents:
-      /usr/lib/*-linux-*/glib-2.0/*:
