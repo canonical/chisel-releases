@@ -1,0 +1,21 @@
+package: libgdk-pixbuf-2.0-0
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgdk-pixbuf2.0-common_core
+      - shared-mime-info_data
+      - libglib2.0-0t64_libs
+      - libjpeg8_libs
+      - libpng16-16t64_libs
+      - libtiff6_libs
+    contents:
+      /usr/lib/*-linux-*/libgdk_pixbuf-2.0.so.0*:
+      /usr/lib/*-linux-*/gdk-pixbuf-2.0/*/loaders/*:
+
+  bins:
+    essential:
+      - libgdk-pixbuf-2.0-0_libs
+    contents:
+      /usr/lib/*-linux-*/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders:

@@ -1,0 +1,6 @@
+package: libgdk-pixbuf2.0-common
+
+slices:
+  core:
+    # This package has no dependencies and only contains a changelog and copyright file.
+    contents: {}

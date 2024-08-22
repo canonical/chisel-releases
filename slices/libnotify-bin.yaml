@@ -1,0 +1,14 @@
+package: libnotify-bin
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libglib2.0-0t64_libs
+      - libnotify4_libs
+    contents:
+      /usr/bin/notify-send:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnotify-bin/copyright:

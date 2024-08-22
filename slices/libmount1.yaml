@@ -1,0 +1,10 @@
+package: libmount1
+
+slices:
+  libs:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/lib/*-linux-*/libmount.so.1*:
