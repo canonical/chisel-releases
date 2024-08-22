@@ -12,7 +12,7 @@ slices:
       - libc6_libs
       - dpkg_config
       - gpgv_bins
-      - libapt-pkg.so.6.0_libs
+      - libapt-pkg6.0_libs
       - ubuntu-keyring_archive
       - libgcc-s1_libs
       - libgnutls30_libs

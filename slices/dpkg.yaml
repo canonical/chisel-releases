@@ -12,7 +12,7 @@ slices:
       - liblzma5_libs
       - libmd0_libs
       - libselinux1_libs
-      - libzstd1
+      - libzstd1_libs
       - tar_tar
       - zlib1g_libs
       - dpkg_config
