@@ -116,7 +116,6 @@ slices:
 
   security:
     essential:
-      - ca-certificates-java_data
       - libnss3_libs
       - libpcsclite1_libs
       - openjdk-21-jre-headless_core
