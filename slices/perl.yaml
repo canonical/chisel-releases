@@ -20,11 +20,11 @@ slices:
       /usr/bin/instmodsh:
       /usr/bin/json_pp:
       /usr/bin/libnetcfg:
-      # /usr/bin/perlbug:
+      /usr/bin/perlbug:
       /usr/bin/perldoc:
       /usr/bin/perlivp:
       # hard link
-      # /usr/bin/perlthanks: {copy: /usr/bin/perlbug}
+      /usr/bin/perlthanks: {copy: /usr/bin/perlbug}
       /usr/bin/piconv:
       /usr/bin/pl2pm:
       /usr/bin/pod2html:

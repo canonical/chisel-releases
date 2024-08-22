@@ -20,11 +20,11 @@ slices:
 
   config:
     contents:
-      /usr/lib/*-linux-*/perl/cross-config-5.38.2/Config.pm:
-      /usr/lib/*-linux-*/perl/cross-config-5.38.2/Config_heavy.pl:
-      /usr/lib/*-linux-*/perl/debian-config-data-5.38.2/config.sh.debug.gz:
-      /usr/lib/*-linux-*/perl/debian-config-data-5.38.2/config.sh.shared.gz:
-      /usr/lib/*-linux-*/perl/debian-config-data-5.38.2/config.sh.static.gz:
+      /usr/lib/*-linux-*/perl/cross-config-5.38*/Config.pm:
+      /usr/lib/*-linux-*/perl/cross-config-5.38*/Config_heavy.pl:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.38*/config.sh.debug.gz:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.38*/config.sh.shared.gz:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.38*/config.sh.static.gz:
 
   bins:
     essential:
