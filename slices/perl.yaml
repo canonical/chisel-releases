@@ -46,8 +46,8 @@ slices:
       - libperl5.38t64_bins
       - perl-base_bins
     contents:
-      /usr/bin/zipdetails:
       /usr/bin/streamzip:
+      /usr/bin/zipdetails:
 
   encoding:
     essential:
