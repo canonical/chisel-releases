@@ -1,7 +1,13 @@
 summary: Integration tests for libnotify-bin
 
 execute: |
-  rootfs="$(install-slices libnotify-bin_bins)"
+  # liblerc4_libs required by libtiff6_libs on most architectures.
+  # See: https://github.com/canonical/chisel-releases/blob/ubuntu-24.04/slices/libtiff6.yaml
+  if [[ $(uname -m) == "s390x" ]] then
+    rootfs="$(install-slices libnotify-bin_bins)"
+  else
+    rootfs="$(install-slices liblerc4_libs libnotify-bin_bins)"
+  fi
 
   chroot "${rootfs}/" notify-send --help
 
