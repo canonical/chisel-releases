@@ -155,10 +155,10 @@ slices:
 
   config:
     essential:
-      - systemd_modprobe-conf
+      - systemd_modprobe-config
       - systemd_pam-profile
       - systemd_sysusers-config
-      - systemd_tmpfiles
+      - systemd_tmpfiles-config
     contents:
       /etc/systemd/journald.conf:
       /etc/systemd/logind.conf:
@@ -578,7 +578,7 @@ slices:
       /usr/lib/*-linux-*/cryptsetup/libcryptsetup-token-systemd-tpm2.so:
         arch: [amd64, arm64, riscv64]
 
-  modprobe-conf:
+  modprobe-config:
     contents:
       /usr/lib/modprobe.d/systemd.conf:
 
@@ -662,7 +662,7 @@ slices:
       /usr/lib/sysusers.d/systemd-journal.conf:
       /usr/lib/sysusers.d/systemd-network.conf:
 
-  tmpfiles:
+  tmpfiles-config:
     contents:
       /usr/lib/tmpfiles.d/credstore.conf:
       /usr/lib/tmpfiles.d/debian.conf:
