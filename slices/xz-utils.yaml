@@ -1,0 +1,26 @@
+package: xz-utils
+
+essential:
+  - xz-utils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - liblzma5_libs
+    contents:
+      /usr/bin/lzmainfo:
+      /usr/bin/unxz:
+      /usr/bin/xz:
+      /usr/bin/xzcat:
+      /usr/bin/xzcmp:
+      /usr/bin/xzdiff:
+      /usr/bin/xzegrep:
+      /usr/bin/xzfgrep:
+      /usr/bin/xzgrep:
+      /usr/bin/xzless:
+      /usr/bin/xzmore:
+
+  copyright:
+    contents:
+      /usr/share/doc/xz-utils/copyright:
