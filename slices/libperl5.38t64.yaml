@@ -16,6 +16,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libperl.so.5.38*:
+      /usr/lib/*-linux-*/perl/5.38:
       /usr/lib/*-linux-*/perl/5.38*/**:
 
   config:

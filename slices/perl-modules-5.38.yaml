@@ -9,7 +9,7 @@ slices:
       - perl-base_libs
       - perl-base_modules
     contents:
-      /usr/share/per/5.38:
+      /usr/share/perl/5.38:
       /usr/share/perl/5.38*/**:
 
   copyright:
