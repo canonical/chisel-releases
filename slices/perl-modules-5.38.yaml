@@ -6,8 +6,7 @@ essential:
 slices:
   modules:
     essential:
-      - perl-base_libs
-      - perl-base_modules
+      - perl-base_full
     contents:
       /usr/share/perl/5.38:
       /usr/share/perl/5.38*/**:

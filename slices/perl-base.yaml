@@ -4,28 +4,271 @@ essential:
   - perl-base_copyright
 
 slices:
-  modules:
-    contents:
-      /usr/lib/*-linux-*/perl-base/**/*.pl:
-      /usr/lib/*-linux-*/perl-base/**/*.pm:
-      /usr/lib/*-linux-*/perl-base/*.pl:
-      /usr/lib/*-linux-*/perl-base/*.pm:
-
-  libs:
+  core:
     essential:
-      - libc6_libs
-      - libcrypt1_libs
-    contents:
-      /usr/lib/*-linux-*/perl-base/**/*.so:
+      - perl-base_data-structures
+      - perl-base_error-handling
+      - perl-base_file-handling
+      - perl-base_networking
+      - perl-base_primitive-types
+      - perl-base_utilities
+
+  full:
+    essential:
+      - perl-base_core
+      - perl-base_extra
 
   bins:
     essential:
-      - perl-base_libs
-      - perl-base_modules
+      - perl-base_core
     contents:
       # hard link
       /usr/bin/perl:
       /usr/bin/perl5.38.2: {copy: /usr/bin/perl}
+
+  autoloader:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/perl-base/AutoLoader.pm:
+      /usr/lib/*-linux-*/perl-base/auto/**.so:
+
+  carp:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Carp.pm:
+      /usr/lib/*-linux-*/perl-base/Carp/**.pm:
+
+  config:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Config.pm:
+      /usr/lib/*-linux-*/perl-base/Config_git.pl:
+      /usr/lib/*-linux-*/perl-base/Config_heavy.pl:
+
+  cwd:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Cwd.pm:
+
+  dynaloader:
+    contents:
+      /usr/lib/*-linux-*/perl-base/DynaLoader.pm:
+
+  errorno:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Errno.pm:
+
+  exporter:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Exporter.pm:
+      /usr/lib/*-linux-*/perl-base/Exporter/**.pm:
+
+  fcntl:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Fcntl.pm:
+
+  file:
+    contents:
+      /usr/lib/*-linux-*/perl-base/File/**.pm:
+      /usr/lib/*-linux-*/perl-base/FileHandle.pm:
+
+  hash:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Hash/**.pm:
+
+  perlio:
+    contents:
+      /usr/lib/*-linux-*/perl-base/IO.pm:
+      /usr/lib/*-linux-*/perl-base/IO/**.pm:
+
+  ipc:
+    contents:
+      /usr/lib/*-linux-*/perl-base/IPC/**.pm:
+
+  list:
+    contents:
+      /usr/lib/*-linux-*/perl-base/List/**.pm:
+
+  posix:
+    contents:
+      /usr/lib/*-linux-*/perl-base/POSIX.pm:
+
+  scalar:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Scalar/**.pm:
+
+  socket:
+    essential:
+      - perl-base_perlio
+    contents:
+      /usr/lib/*-linux-*/perl-base/Socket.pm:
+
+  symbol:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Symbol.pm:
+
+  text:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Text/**.pm:
+
+  tie:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Tie/**.pm:
+
+  xsloader:
+    contents:
+      /usr/lib/*-linux-*/perl-base/XSLoader.pm:
+
+  attributes:
+    contents:
+      /usr/lib/*-linux-*/perl-base/attributes.pm:
+
+  bytes:
+    contents:
+      /usr/lib/*-linux-*/perl-base/bytes.pm:
+      /usr/lib/*-linux-*/perl-base/bytes_heavy.pl:
+
+  constant:
+    contents:
+      /usr/lib/*-linux-*/perl-base/constant.pm:
+
+  feature:
+    contents:
+      /usr/lib/*-linux-*/perl-base/feature.pm:
+
+  fields:
+    contents:
+      /usr/lib/*-linux-*/perl-base/fields.pm:
+
+  integer:
+    contents:
+      /usr/lib/*-linux-*/perl-base/integer.pm:
+
+  lib:
+    contents:
+      /usr/lib/*-linux-*/perl-base/lib.pm:
+
+  locale:
+    contents:
+      /usr/lib/*-linux-*/perl-base/locale.pm:
+
+  overload:
+    contents:
+      /usr/lib/*-linux-*/perl-base/overload.pm:
+      /usr/lib/*-linux-*/perl-base/overloading.pm:
+
+  parent:
+    contents:
+      /usr/lib/*-linux-*/perl-base/parent.pm:
+
+  perlre:
+    contents:
+      /usr/lib/*-linux-*/perl-base/re.pm:
+
+  strict:
+    contents:
+      /usr/lib/*-linux-*/perl-base/strict.pm:
+
+  utf8:
+    contents:
+      /usr/lib/*-linux-*/perl-base/utf8.pm:
+
+  vars:
+    contents:
+      /usr/lib/*-linux-*/perl-base/vars.pm:
+
+  warnings:
+    contents:
+      /usr/lib/*-linux-*/perl-base/warnings.pm:
+      /usr/lib/*-linux-*/perl-base/warnings/**.pm:
+
+  error-handling:
+    essential:
+      - perl-base_carp
+      - perl-base_errorno
+      - perl-base_warnings
+
+  file-handling:
+    essential:
+      - perl-base_cwd
+      - perl-base_fcntl
+      - perl-base_file
+      - perl-base_perlio
+
+  data-structures:
+    essential:
+      - perl-base_fields
+      - perl-base_hash
+      - perl-base_list
+      - perl-base_scalar
+      - perl-base_tie
+
+  primitive-types:
+    essential:
+      - perl-base_bytes
+      - perl-base_constant
+      - perl-base_integer
+
+  networking:
+    essential:
+      - perl-base_ipc
+      - perl-base_socket
+
+  utilities:
+    essential:
+      - perl-base_attributes
+      - perl-base_autoloader
+      - perl-base_dynaloader
+      - perl-base_exporter
+      - perl-base_feature
+      - perl-base_lib
+      - perl-base_locale
+      - perl-base_overload
+      - perl-base_parent
+      - perl-base_posix
+      - perl-base_perlre
+      - perl-base_strict
+      - perl-base_symbol
+      - perl-base_text
+      - perl-base_utf8
+      - perl-base_vars
+      - perl-base_xsloader
+
+  # base - Establish an ISA relationship with base classes at compile time
+  # https://perldoc.perl.org/base
+  base:
+    contents:
+      /usr/lib/*-linux-*/perl-base/base.pm:
+
+  # builtin - Perl pragma to import built-in utility functions
+  # https://perldoc.perl.org/builtin
+  builtin:
+    contents:
+      /usr/lib/*-linux-*/perl-base/builtin.pm:
+
+  # Getopt::Long - Extended processing of command line options
+  # https://perldoc.perl.org/Getopt::Long
+  getopt:
+    contents:
+      /usr/lib/*-linux-*/perl-base/Getopt/**.pm:
+
+  # SelectSaver - save and restore selected file handle
+  # https://perldoc.perl.org/SelectSaver
+  selectsaver:
+    contents:
+      /usr/lib/*-linux-*/perl-base/SelectSaver.pm:
+
+  # perlunicode - Unicode support in Perl
+  # https://perldoc.perl.org/perlunicode
+  unicore:
+    contents:
+      /usr/lib/*-linux-*/perl-base/unicore/**.pl:
+
+  extra:
+    essential:
+      - perl-base_base
+      - perl-base_builtin
+      - perl-base_getopt
+      - perl-base_selectsaver
+      - perl-base_unicore
 
   copyright:
     contents:
