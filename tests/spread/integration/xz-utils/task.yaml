@@ -1,0 +1,9 @@
+summary: Integration tests for xz-utils
+
+execute: |
+  rootfs="$(install-slices xz-utils_bins)"
+
+  cp uncompressed.txt "${rootfs}/"
+  chroot "$rootfs" xz --help
+  chroot "$rootfs" xz -z /uncompressed.txt
+  chroot "$rootfs" xzgrep "compressed content" uncompressed.txt.xz
