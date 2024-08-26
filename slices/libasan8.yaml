@@ -13,5 +13,3 @@ slices:
   copyright:
     essential:
       - gcc-14-base_copyright
-    contents:
-      /usr/share/doc/libasan8/copyright:
