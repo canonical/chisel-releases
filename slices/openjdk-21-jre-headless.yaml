@@ -4,6 +4,15 @@ essential:
   - openjdk-21-jre-headless_copyright
 
 slices:
+
+  headless:
+    essential:
+      - openjdk-21-jre-headless_console
+      - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_prefs
+      - openjdk-21-jre-headless_rmi
+      - openjdk-21-jre-headless_security
+
   core:
     essential:
       - libc6_libs
