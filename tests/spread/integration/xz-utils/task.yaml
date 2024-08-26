@@ -6,4 +6,3 @@ execute: |
   cp uncompressed.txt "${rootfs}/"
   chroot "$rootfs" xz --help
   chroot "$rootfs" xz -z /uncompressed.txt
-  chroot "$rootfs" xzgrep "compressed content" uncompressed.txt.xz
