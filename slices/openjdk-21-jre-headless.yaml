@@ -33,10 +33,10 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjimage.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjli.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libjsig.so:
+      # required for IO.
       /usr/lib/jvm/java-21-openjdk-*/lib/libnet.so:
-      # nio
+      # required for IO.
       /usr/lib/jvm/java-21-openjdk-*/lib/libnio.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libverify.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libzip.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/modules:
@@ -49,6 +49,12 @@ slices:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/libprefs.so:
+
+  rmi:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
 
   console:
     essential:
