@@ -223,8 +223,8 @@ slices:
       - perl-base_locale
       - perl-base_overload
       - perl-base_parent
-      - perl-base_posix
       - perl-base_perlre
+      - perl-base_posix
       - perl-base_strict
       - perl-base_symbol
       - perl-base_text
