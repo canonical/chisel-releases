@@ -16,8 +16,10 @@ slices:
       # cd rootfs
       # sudo chroot . /bin/bash /usr/sbin/update-ca-certificates
       # sudo chroot . find /etc/ssl/certs/ -name *.pem -exec echo +{} \; > certs
-      # `mkdir proc && mount -t proc /proc proc/` or   `chroot . ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java proc/self/exe`
-      # sudo chroot . /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
+      # `mkdir proc && mount -t proc /proc proc/` or
+      # `chroot . ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java proc/self/exe`
+      # sudo chroot . /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
+      #    -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
       # rm certs
       # See tests/spread/integration/ca-certificates-java/task.yaml
       /usr/share/ca-certificates-java/ca-certificates-java.jar:
