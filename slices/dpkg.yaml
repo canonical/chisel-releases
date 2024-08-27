@@ -51,7 +51,7 @@ slices:
       /usr/share/dpkg/*table:
 
   var:
-    # Directories that are included in the tarball because they need to exist in /var for dpkg to run.
+    # Directories that are included in the tarball because they need to exist in /var
     contents:
       /var/lib/dpkg/alternatives/: {make: true}
       /var/lib/dpkg/info/: {make: true}
