@@ -1,0 +1,23 @@
+package: gpg
+
+essential:
+  - gpg_copyright
+
+slices:
+  bins:
+    essential:  # gpgconf (= 2.4.4-2ubuntu17)
+      - libassuan0_libs
+      - libc6_libs
+      - libbz2-1.0_libs
+      - libgcrypt20_libs
+      - libgpg-error0_libs
+      - libnpth0t64_libs
+      - libreadline8t64_libs
+      - libsqlite3-0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/gpg:
+
+  copyright:
+    contents:
+      /usr/share/doc/gpg/copyright:
