@@ -1,5 +1,8 @@
 package: tar
 
+essential:
+  - tar_copyright
+
 slices:
   bins:
     essential:
@@ -7,6 +10,10 @@ slices:
       - tar_tar
     contents:
       /usr/sbin/tarcat:
+
+  copyright:
+    contents:
+      /usr/share/doc/tar/copyright:
 
   rmt:
     essential:
