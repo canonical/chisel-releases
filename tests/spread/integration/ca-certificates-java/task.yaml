@@ -1,0 +1,16 @@
+summary: Integration tests for ca-certificates-java
+
+environment:
+  SLICE/bins: "bins"
+
+execute: |
+  # Test bins slice installation
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices ca-certificates-java_${SLICE})"
+
+  cd ${rootfs}
+  chroot . /bin/bash /usr/sbin/update-ca-certificates
+  chroot . find /etc/ssl/certs/ -name *.pem -exec echo +{} \; > ${rootfs}/certs
+  mkdir -p proc/self
+  chroot . ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java proc/self/exe
+  chroot . /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
