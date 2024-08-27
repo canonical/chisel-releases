@@ -13,3 +13,5 @@ slices:
   copyright:
     essential:
       - gcc-11-base_copyright
+    contents:
+      /usr/share/doc/libasan6:
