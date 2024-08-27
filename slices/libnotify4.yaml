@@ -1,6 +1,13 @@
 package: libnotify4
 
+essential:
+  - libnotify4_copyright
+
 slices:
+  copyright:
+    contents:
+      /usr/share/doc/libnotify4/copyright:
+
   libs:
     essential:
       - libc6_libs

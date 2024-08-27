@@ -1,8 +1,7 @@
 package: libglib2.0-0t64
 
 essential:
-  - libc6_libs
-  - libpcre2-8-0_libs
+  - libglib2.0-0t64_copyright
 
 slices:
   bins:
@@ -11,25 +10,36 @@ slices:
     contents:
       /usr/lib/*-linux-*/glib-2.0/*:
 
+  copyright:
+    contents:
+      /usr/share/doc/libglib2.0-0t64/copyright:
+
   core:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
     contents:
       /usr/lib/*-linux-*/libglib-2.0.so.0*:
+
   libgmodule:
     essential:
       - libglib2.0-0t64_core
     contents:
       /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
+
   libgobject:
     essential:
       - libffi8_libs
       - libglib2.0-0t64_core
     contents:
       /usr/lib/*-linux-*/libgobject-2.0.so.0*:
+
   libgthread:
     essential:
       - libglib2.0-0t64_core
     contents:
       /usr/lib/*-linux-*/libgthread-2.0.so.0*:
+
   libs:
     essential:
       - libffi8_libs
