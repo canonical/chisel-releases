@@ -4,12 +4,1055 @@ essential:
   - perl-modules-5.38_copyright
 
 slices:
-  modules:
+  # App::Prove - Implements the prove command.
+  # https://perldoc.perl.org/App::Prove
+  app-prove:
     essential:
-      - perl-base_full
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/App/Prove.pm:
+      /usr/share/perl/5.38*/App/Prove/**.pm:
+
+  archive:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Archive/**.pm:
+
+  # AnyDBM_File - provide framework for multiple DBMs
+  # https://perldoc.perl.org/AnyDBM_File
+  any-dbm:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/AnyDBM_File.pm:
+
+  # Attribute::Handlers - Simpler definition of attribute handlers
+  # https://perldoc.perl.org/Attribute::Handlers
+  attribute-handlers:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Attribute/**.pm:
+
+  # AutoLoader - load subroutines only on demand
+  # https://perldoc.perl.org/AutoLoader
+  # AutoSplit - split a package for autoloading
+  # https://perldoc.perl.org/AutoSplit
+  auto-loader:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/AutoLoader.pm:
+      /usr/share/perl/5.38*/AutoSplit.pm:
+
+  # autodie - Replace functions with ones that succeed or die with lexical scope
+  # https://perldoc.perl.org/autodie
+  # Divided into standard according to https://perldoc.perl.org/modules
+  autodie-standard:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/autodie/Scope/**.pm:
+      /usr/share/perl/5.38*/autodie/Util.pm:
+
+  # B - The Perl Compiler Backend
+  # https://perldoc.perl.org/B
+  # Use b-standard to inflate slice name
+  b-standard:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/B/**.pm:
+
+  # Benchmark - benchmark running times of Perl code
+  # https://perldoc.perl.org/Benchmark
+  benchmark:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Benchmark.pm:
+
+  # CPAN - query, download and build perl modules from CPAN sites
+  # https://perldoc.perl.org/CPAN
+  cpan:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/CPAN.pm:
+      /usr/share/perl/5.38*/CPAN/**:
+
+  # Carp - alternative warn and die for modules
+  # https://perldoc.perl.org/Carp
+  carp:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Carp.pm:
+      /usr/share/perl/5.38*/Carp/**.pm:
+
+  class:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Class/**.pm:
+
+  compress:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Compress/**.pm:
+
+  # Config - access Perl configuration information
+  # https://perldoc.perl.org/Config
+  config:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Config/**.pm:
+
+  # CORE - Namespace for Perl's core routines
+  # https://perldoc.perl.org/CORE
+  core:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/CORE.pod:
+
+  # DB - programmatic interface to the Perl debugging API
+  # https://perldoc.perl.org/DB
+  debug:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/DB.pm:
+
+  # DBM_Filter -- Filter DBM keys/values
+  # https://perldoc.perl.org/DBM_Filter
+  dbm-filter:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/DBM_Filter.pm:
+      /usr/share/perl/5.38*/DBM_Filter/**.pm:
+
+  devel:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Devel/**.pm:
+
+  # Digest - Modules that calculate message digests
+  # https://perldoc.perl.org/Digest
+  digest:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Digest.pm:
+      /usr/share/perl/5.38*/Digest/**.pm:
+
+  # DirHandle - (obsolete) supply object methods for directory handles
+  # https://perldoc.perl.org/DirHandle
+  dirhandle:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/DirHandle.pm:
+
+  # Dumpvalue - provides screen dump of Perl data.
+  # https://perldoc.perl.org/Dumpvalue
+  dumpvalue:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Dumpvalue.pm:
+
+
+  # Encode - character encodings in Perl
+  # https://perldoc.perl.org/Encode
+  encode:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Encode/**:
+
+  # English - use nice English (or awk) names for ugly punctuation variables
+  # https://perldoc.perl.org/English
+  english:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/English.pm:
+
+  # Env - perl module that imports environment variables as scalars or arrays
+  # https://perldoc.perl.org/Env
+  env:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Env.pm:
+
+  # Exporter - Implements default import method for modules
+  # https://perldoc.perl.org/Exporter
+  exporter:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Exporter.pm:
+      /usr/share/perl/5.38*/Exporter/**.pm:
+
+  # ExtUtils::Cbuilder - Compile and link C code for Perl modules
+  # https://perldoc.perl.org/ExtUtils::CBuilder
+  extutils-cbuilder:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/CBuilder.pm:
+      /usr/share/perl/5.38*/ExtUtils/CBuilder/**.pm:
+
+  # ExtUtils::Command - utilities to replace common UNIX commands in Makefiles etc.
+  # https://perldoc.perl.org/ExtUtils::Command
+  extutils-command:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Command.pm:
+      /usr/share/perl/5.38*/ExtUtils/Command/**.pm:
+
+  # ExtUtils::Constant - generate XS code to import C header constants
+  # https://perldoc.perl.org/ExtUtils::Constant
+  extutils-constant:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Constant.pm:
+      /usr/share/perl/5.38*/ExtUtils/Constant/**.pm:
+
+  # ExtUtils::MakeMaker - Create a module Makefile
+  # https://perldoc.perl.org/ExtUtils::MakeMaker
+  extutils-makemaker:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/MM*.pm:
+      /usr/share/perl/5.38*/ExtUtils/MY.pm:
+      /usr/share/perl/5.38*/ExtUtils/MakeMaker.pm:
+      /usr/share/perl/5.38*/ExtUtils/MakeMaker/**.pm:
+
+  # ExtUtils::Manifest - utilities to write and check a MANIFEST file
+  # https://perldoc.perl.org/ExtUtils::Manifest
+  extutils-manifest:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Manifest.pm:
+
+  # ExtUtils::Miniperl - write the C code for perlmain.c
+  # https://perldoc.perl.org/ExtUtils::Miniperl
+  extutils-miniperl:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Miniperl.pm:
+
+  # ExtUtils::Mkbootstrap - make a bootstrap file for use by DynaLoader
+  # https://perldoc.perl.org/ExtUtils::Mkbootstrap
+  extutils-mkbootstrap:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Mkbootstrap.pm:
+
+  # ExtUtils::Mksymlists - write linker options files for dynamic extension
+  # https://perldoc.perl.org/ExtUtils::Mksymlists
+  extutils-mksymlists:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Mksymlists.pm:
+
+  # ExtUtils::PL2Bat - Batch file creation to run perl scripts on Windows
+  # https://perldoc.perl.org/ExtUtils::PL2Bat
+  extutils-pl2bat:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/PL2Bat.pm:
+
+  # ExtUtils::Packlist - manage .packlist files
+  # https://perldoc.perl.org/ExtUtils::Packlist
+  extutils-packlist:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Packlist.pm:
+
+  # ExtUtils::ParseXS - converts Perl XS code into C code
+  # https://perldoc.perl.org/ExtUtils::ParseXS
+  extutils-parsexs:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/ParseXS.pm:
+      /usr/share/perl/5.38*/ExtUtils/ParseXS.pod:
+      /usr/share/perl/5.38*/ExtUtils/ParseXS/**.pm:
+
+  # ExtUtils::Typemaps - Read/Write/Modify Perl/XS typemap files
+  # https://perldoc.perl.org/ExtUtils::Typemaps
+  extutils-typemaps:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/Typemaps.pm:
+      /usr/share/perl/5.38*/ExtUtils/Typemaps/**.pm:
+      /usr/share/perl/5.38*/ExtUtils/typemap:
+
+  # ExtUtils::testlib - add blib/* directories to @INC
+  # https://perldoc.perl.org/ExtUtils::testlib
+  extutils-testlib:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/testlib.pm:
+
+  # ExtUtils::xsubpp - compiler to convert Perl XS code into C code
+  # https://perldoc.perl.org/ExtUtils::xsubpp
+  extutils-xsubpp:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/xsubpp:
+
+  # Fatal - replace functions with equivalents which succeed or die
+  # https://perldoc.perl.org/Fatal
+  fatal:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Fatal.pm:
+
+  # File
+  # https://perldoc.perl.org/FileHandle
+  # https://perldoc.perl.org/FileCache
+  # https://perldoc.perl.org/File::{Basename|Compare|Copy|Fetch|Find|GlobMapper|Path|Temp|stat}
+  file:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/File/**.pm:
+      /usr/share/perl/5.38*/FileCache.pm:
+      /usr/share/perl/5.38*/FileHandle.pm:
+
+  filter:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Filter/**.pm:
+
+  # Findbin - Locate directory of original perl script
+  # https://perldoc.perl.org/FindBin
+  findbin:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/FindBin.pm:
+
+  getopt:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Getopt/**.pm:
+
+  http:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/HTTP/**.pm:
+
+  i18n:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/I18N/**.pm:
+
+  # Internals - Reserved special namespace for internals related functions
+  # https://perldoc.perl.org/Internals
+  internals:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Internals.pod:
+
+  # IO - load various IO modules
+  # https://perldoc.perl.org/IO
+  # Use io-standard to inflate slice name
+  io-standard:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/IO/**.pm:
+      /usr/share/perl/5.38*/IO/**.pod:
+
+  ipc:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/IPC/**.pm:
+
+  # JSON::PP - JSON::XS compatible pure-Perl module.
+  # https://perldoc.perl.org/JSON::PP
+  json-pp:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/JSON/PP.pm:
+      /usr/share/perl/5.38*/JSON/PP/**.pm:
+
+  # Locale::Maketext - framework for localization
+  # https://perldoc.perl.org/Locale::Maketext
+  locale-maketext:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Locale/Maketext.pm:
+      /usr/share/perl/5.38*/Locale/Maketext.pod:
+      /usr/share/perl/5.38*/Locale/Maketext/**.pm:
+
+  # Math modules including BigFlat, BigInt, BigRat, Complex, and Trig
+  math:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Math/**.pm:
+
+  memoize:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Memoize.pm:
+      /usr/share/perl/5.38*/Memoize/**.pm:
+
+  module:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Module/**.pm:
+      /usr/share/perl/5.38*/Module/**.pod:
+
+  next:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/NEXT.pm:
+
+  net:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Net/**.pm:
+      /usr/share/perl/5.38*/Net/**.pod:
+
+  # Params::Check - A generic input parsing/checking mechanism.
+  params:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Params/Check.pm:
+
+  # Parse::CPAN::Meta - Parse META.yml and META.json CPAN metadata files
+  # https://perldoc.perl.org/Parse::CPAN::Meta
+  parse-cpan-meta:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Parse/CPAN/Meta.pm:
+
+  # Perl::OSType - Map Perl operating system names to generic types
+  # https://perldoc.perl.org/Perl::OSType
+  perl-ostype:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Perl/OSType.pm:
+
+  # PerlIO - On demand loader for PerlIO layers and root of PerlIO::* name space
+  # https://perldoc.perl.org/PerlIO
+  perlio:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/PerlIO/**.pm:
+
+  pod:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Pod/**.pm:
+      /usr/share/perl/5.38*/Pod/**.pod:
+
+  safe:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Safe.pm:
+
+  search:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Search/**.pm:
+
+  # SelectSaver - save and restore selected file handle
+  # https://perldoc.perl.org/SelectSaver
+  selectsaver:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/SelectSaver.pm:
+
+  # SelfLoader - load functions only on demand
+  # https://perldoc.perl.org/SelfLoader
+  selfloader:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/SelfLoader.pm:
+
+  # Symbol - manipulate Perl symbols and their names
+  # https://perldoc.perl.org/Symbol
+  symbol:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Symbol.pm:
+
+  tap:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/TAP/**.pm:
+      /usr/share/perl/5.38*/TAP/**.pod:
+        
+  term:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Term/**.pm:
+
+  # Test - provides a simple framework for writing test scripts
+  # https://perldoc.perl.org/Test
+  test:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Test/**.pm:
+      /usr/share/perl/5.38*/Test/**.pod:
+
+  # Test2 - Framework for writing test tools that all work together.
+  # https://perldoc.perl.org/Test2
+  test2:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Test2/**.pm:
+      /usr/share/perl/5.38*/Test2/**.pod:
+
+  text:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Text/**.pm:
+
+  thread:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Thread.pm:
+      /usr/share/perl/5.38*/Thread/**.pm:
+
+  tie:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Tie/**.pm:
+
+  time:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Time/**.pm:
+
+  # UNIVERSAL - base class for ALL classes (blessed references)
+  # https://perldoc.perl.org/UNIVERSAL
+  universal:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/UNIVERSAL.pm:
+
+  unicode:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/Unicode/**.pl:
+      /usr/share/perl/5.38*/Unicode/**.pm:
+      /usr/share/perl/5.38*/Unicode/**.txt:
+
+  user:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/User/**.pm:
+
+  version-standard:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/version/Internals.pod:
+
+  xsloader:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/XSLoader.pm:
+
+  # Standard Modules
+  # https://perldoc.perl.org/modules#Standard-Modules
+  standard:
+    essential:
+      - perl-modules-5.38_any-dbm
+      - perl-modules-5.38_app-prove
+      - perl-modules-5.38_archive
+      - perl-modules-5.38_attribute-handlers
+      - perl-modules-5.38_auto-loader
+      - perl-modules-5.38_autodie-standard
+      - perl-modules-5.38_b-standard
+      - perl-modules-5.38_benchmark
+      - perl-modules-5.38_carp
+      - perl-modules-5.38_class
+      - perl-modules-5.38_compress
+      - perl-modules-5.38_config
+      - perl-modules-5.38_core
+      - perl-modules-5.38_cpan
+      - perl-modules-5.38_dbm-filter
+      - perl-modules-5.38_debug
+      - perl-modules-5.38_devel
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_dirhandle
+      - perl-modules-5.38_dumpvalue
+      - perl-modules-5.38_encode
+      - perl-modules-5.38_english
+      - perl-modules-5.38_env
+      - perl-modules-5.38_exporter
+      - perl-modules-5.38_extutils-cbuilder
+      - perl-modules-5.38_extutils-command
+      - perl-modules-5.38_extutils-constant
+      - perl-modules-5.38_extutils-makemaker
+      - perl-modules-5.38_extutils-manifest
+      - perl-modules-5.38_extutils-miniperl
+      - perl-modules-5.38_extutils-mkbootstrap
+      - perl-modules-5.38_extutils-mksymlists
+      - perl-modules-5.38_extutils-packlist
+      - perl-modules-5.38_extutils-parsexs
+      - perl-modules-5.38_extutils-pl2bat
+      - perl-modules-5.38_extutils-testlib
+      - perl-modules-5.38_extutils-typemaps
+      - perl-modules-5.38_fatal
+      - perl-modules-5.38_file
+      - perl-modules-5.38_filter
+      - perl-modules-5.38_findbin
+      - perl-modules-5.38_getopt
+      - perl-modules-5.38_http
+      - perl-modules-5.38_i18n
+      - perl-modules-5.38_internals
+      - perl-modules-5.38_io-standard
+      - perl-modules-5.38_ipc
+      - perl-modules-5.38_json-pp
+      - perl-modules-5.38_locale-maketext
+      - perl-modules-5.38_math
+      - perl-modules-5.38_memoize
+      - perl-modules-5.38_module
+      - perl-modules-5.38_net
+      - perl-modules-5.38_next
+      - perl-modules-5.38_params
+      - perl-modules-5.38_parse-cpan-meta
+      - perl-modules-5.38_perl-ostype
+      - perl-modules-5.38_perlio
+      - perl-modules-5.38_pod
+      - perl-modules-5.38_safe
+      - perl-modules-5.38_search
+      - perl-modules-5.38_selectsaver
+      - perl-modules-5.38_selfloader
+      - perl-modules-5.38_symbol
+      - perl-modules-5.38_tap
+      - perl-modules-5.38_term
+      - perl-modules-5.38_test
+      - perl-modules-5.38_test2
+      - perl-modules-5.38_text
+      - perl-modules-5.38_thread
+      - perl-modules-5.38_tie
+      - perl-modules-5.38_time
+      - perl-modules-5.38_unicode
+      - perl-modules-5.38_universal
+      - perl-modules-5.38_user
+      - perl-modules-5.38_xsloader
     contents:
       /usr/share/perl/5.38:
-      /usr/share/perl/5.38*/**:
+
+  # Pragmatic Modules
+  # https://perldoc.perl.org/modules#Pragmatic-Modules
+
+  # autodie - Replace functions with ones that succeed or die with lexical scope
+  # https://perldoc.perl.org/autodie
+  # Divided into pragmatic according to https://perldoc.perl.org/modules
+  autodie-pragmatic:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/autodie.pm:
+      /usr/share/perl/5.38*/autodie/exception.pm:
+      /usr/share/perl/5.38*/autodie/exception/**.pm:
+      /usr/share/perl/5.38*/autodie/hints.pm:
+      /usr/share/perl/5.38*/autodie/skip.pm:
+
+  # autouse - postpone load of modules until a function is used
+  # https://perldoc.perl.org/autouse
+  autouse:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/autouse.pm:
+
+  # base - Establish an ISA relationship with base classes at compile time
+  # https://perldoc.perl.org/base
+  base:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/base.pm:
+
+  # https://perldoc.perl.org/bigfloat
+  # https://perldoc.perl.org/bigint
+  # https://perldoc.perl.org/bignum
+  # https://perldoc.perl.org/bigrat
+  bigmath:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/bigfloat.pm:
+      /usr/share/perl/5.38*/bigint.pm:
+      /usr/share/perl/5.38*/bignum.pm:
+      /usr/share/perl/5.38*/bigrat.pm:
+
+  # blib - Use MakeMaker's uninstalled version of a package
+  # https://perldoc.perl.org/blib
+  blib:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/blib.pm:
+
+  # builtin - Import built-in utility functions
+  # https://perldoc.perl.org/builtin
+  builtin:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/builtin.pm:
+
+  # bytes - Expose the individual bytes of characters
+  # https://perldoc.perl.org/bytes
+  bytes:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/bytes.pm:
+
+  # charnames - access to Unicode character names and named character sequences; also define character names
+  # https://perldoc.perl.org/charnames
+  charnames:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/_charnames.pm:
+
+  # constant - Declare constants
+  # https://perldoc.perl.org/constant
+  constant:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/constant.pm:
+
+  # deprecate - Perl pragma for deprecating the inclusion of a module in core
+  # https://perldoc.perl.org/deprecate
+  deprecate:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/deprecate.pm:
+
+  # diagnostics, splain - Produce verbose warning diagnostics
+  # https://perldoc.perl.org/diagnostics
+  diagnostics:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/diagnostics.pm:
+
+  # encoding::warnings - Warn on implicit encoding conversions
+  # https://perldoc.perl.org/encoding::warnings
+  encoding-warnings:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/encoding/warnings.pm:
+
+  # experimental - Experimental features made easy
+  # https://perldoc.perl.org/experimental
+  experimental:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/experimental.pm:
+
+  # feature - Enable new features
+  # https://perldoc.perl.org/feature
+  feature:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/feature.pm:
+
+  # fields - Compile-time class fields
+  fields:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/fields.pm:
+
+  # filetest - Control the filetest permission operators
+  # https://perldoc.perl.org/filetest
+  filetest:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/filetest.pm:
+
+  # if - use a Perl module if a condition holds
+  # https://perldoc.perl.org/if
+  # Use if-pragmatic to inflate slice name
+  if-pragmatic:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/if.pm:
+
+  # integer - Use integer arithmetic instead of floating point
+  # https://perldoc.perl.org/integer
+  integer:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/integer.pm:
+
+  # less - Request less of something
+  # https://perldoc.perl.org/less
+  less:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/less.pm:
+
+  # locale - Use or avoid POSIX locales for built-in operations
+  # https://perldoc.perl.org/locale
+  locale:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/locale.pm:
+  
+  # ok - Alternative to Test::More::use_ok
+  # https://perldoc.perl.org/ok
+  # Use ok-pragmatic to inflate slice name
+  ok-pragmatic:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/ok.pm:
+
+  # open - Set default PerlIO layers for input and output
+  # https://perldoc.perl.org/open
+  open:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/open.pm:
+  
+  # overload - Package for overloading Perl operations
+  # https://perldoc.perl.org/overload
+  overload:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/overload.pm:
+      /usr/share/perl/5.38*/overload/**.pm:
+      
+  # overloading - Lexically control overloading
+  # https://perldoc.perl.org/overloading
+  overloading:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/overloading.pm:
+
+  # parent - Establish an ISA relationship with base classes at compile time
+  # https://perldoc.perl.org/parent
+  parent:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/parent.pm:
+
+  # sigtrap - Enable simple signal handling
+  # https://perldoc.perl.org/sigtrap
+  sigtrap:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/sigtrap.pm:  
+
+  # sort - Control sort() behaviour
+  # https://perldoc.perl.org/sort
+  sort:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/sort.pm:
+
+  # stable - Experimental features made easy, once we know they're stable
+  # https://perldoc.perl.org/stable
+  stable:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/stable.pm:
+
+  # strict - Restrict unsafe constructs
+  # https://perldoc.perl.org/strict
+  strict:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/strict.pm:
+
+  # subs - Predeclare subroutine names
+  # https://perldoc.perl.org/subs
+  subs:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/subs.pm:
+
+  # utf8 - Enable/disable UTF-8 (or UTF-EBCDIC) in source code
+  utf8:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/utf8.pm:
+
+  # vars - Predeclare global variable names
+  # https://perldoc.perl.org/vars
+  vars:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/vars.pm:
+
+  # version - Perl extension for Version Objects
+  # https://perldoc.perl.org/version
+  version:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/version.pm:
+      /usr/share/perl/5.38*/version.pod:
+      /usr/share/perl/5.38*/version/regex.pm:
+
+  # vmsish - Control VMS-specific language features
+  vmsish:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/vmsish.pm:
+
+  # warnings - Control optional warnings
+  # https://perldoc.perl.org/warnings
+  warnings:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/warnings.pm:
+      /usr/share/perl/5.38*/warnings/register.pm:
+
+  # Pragmatic Modules
+  # https://perldoc.perl.org/modules#Pragmatic-Modules
+  pragmatic:
+    essential:
+      - perl-modules-5.38_autodie-pragmatic
+      - perl-modules-5.38_autouse
+      - perl-modules-5.38_base
+      - perl-modules-5.38_bigmath
+      - perl-modules-5.38_blib
+      - perl-modules-5.38_builtin
+      - perl-modules-5.38_bytes
+      - perl-modules-5.38_charnames
+      - perl-modules-5.38_constant
+      - perl-modules-5.38_deprecate
+      - perl-modules-5.38_diagnostics
+      - perl-modules-5.38_encoding-warnings
+      - perl-modules-5.38_experimental
+      - perl-modules-5.38_feature
+      - perl-modules-5.38_fields
+      - perl-modules-5.38_filetest
+      - perl-modules-5.38_if-pragmatic
+      - perl-modules-5.38_integer
+      - perl-modules-5.38_less
+      - perl-modules-5.38_locale
+      - perl-modules-5.38_ok-pragmatic
+      - perl-modules-5.38_open
+      - perl-modules-5.38_overload
+      - perl-modules-5.38_overloading
+      - perl-modules-5.38_parent
+      - perl-modules-5.38_sigtrap
+      - perl-modules-5.38_sort
+      - perl-modules-5.38_stable
+      - perl-modules-5.38_strict
+      - perl-modules-5.38_subs
+      - perl-modules-5.38_utf8
+      - perl-modules-5.38_vars
+      - perl-modules-5.38_version
+      - perl-modules-5.38_vmsish
+      - perl-modules-5.38_warnings
+    contents:
+      /usr/share/perl/5.38:
+  
+  # The following slices are not part of the standard or pragmatic modules
+  unicore:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/unicore/**:
+
+  misc:
+    essential:
+      - perl-base_core
+    contents:
+      /usr/share/perl/5.38*/dumpvar.pl:
+      /usr/share/perl/5.38*/meta_notation.pm:
+      /usr/share/perl/5.38*/perl5db.pl:
+      /usr/share/perl/5.38*/perlfaq.pm:
+      /usr/share/perl/5.38*/pod/perldiag.pod:
 
   copyright:
     contents:

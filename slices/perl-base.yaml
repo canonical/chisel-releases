@@ -74,7 +74,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/perl-base/Hash/**.pm:
 
-  perlio:
+  io-modules:
     contents:
       /usr/lib/*-linux-*/perl-base/IO.pm:
       /usr/lib/*-linux-*/perl-base/IO/**.pm:
@@ -97,7 +97,7 @@ slices:
 
   socket:
     essential:
-      - perl-base_perlio
+      - perl-base_io-modules
     contents:
       /usr/lib/*-linux-*/perl-base/Socket.pm:
 
@@ -159,7 +159,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/perl-base/parent.pm:
 
-  perlre:
+  re-modules:
     contents:
       /usr/lib/*-linux-*/perl-base/re.pm:
 
@@ -191,7 +191,7 @@ slices:
       - perl-base_cwd
       - perl-base_fcntl
       - perl-base_file
-      - perl-base_perlio
+      - perl-base_io-modules
 
   data-structures:
     essential:
@@ -223,8 +223,8 @@ slices:
       - perl-base_locale
       - perl-base_overload
       - perl-base_parent
-      - perl-base_perlre
       - perl-base_posix
+      - perl-base_re-modules
       - perl-base_strict
       - perl-base_symbol
       - perl-base_text

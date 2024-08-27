@@ -12,7 +12,8 @@ slices:
       - libdb5.3t64_libs
       - libgdbm-compat4t64_libs
       - libgdbm6t64_libs
-      - perl-modules-5.38_modules
+      - perl-modules-5.38_pragmatic
+      - perl-modules-5.38_standard
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libperl.so.5.38*:
