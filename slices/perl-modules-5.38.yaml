@@ -167,7 +167,6 @@ slices:
     contents:
       /usr/share/perl/5.38*/Dumpvalue.pm:
 
-
   # Encode - character encodings in Perl
   # https://perldoc.perl.org/Encode
   encode:
@@ -532,7 +531,7 @@ slices:
     contents:
       /usr/share/perl/5.38*/TAP/**.pm:
       /usr/share/perl/5.38*/TAP/**.pod:
-        
+
   term:
     essential:
       - perl-base_core
@@ -768,7 +767,8 @@ slices:
     contents:
       /usr/share/perl/5.38*/bytes.pm:
 
-  # charnames - access to Unicode character names and named character sequences; also define character names
+  # charnames - access to Unicode character names and named character sequences;
+  # also define character names
   # https://perldoc.perl.org/charnames
   charnames:
     essential:
@@ -871,7 +871,7 @@ slices:
       - perl-base_core
     contents:
       /usr/share/perl/5.38*/locale.pm:
-  
+
   # ok - Alternative to Test::More::use_ok
   # https://perldoc.perl.org/ok
   # Use ok-pragmatic to inflate slice name
@@ -888,7 +888,7 @@ slices:
       - perl-base_core
     contents:
       /usr/share/perl/5.38*/open.pm:
-  
+
   # overload - Package for overloading Perl operations
   # https://perldoc.perl.org/overload
   overload:
@@ -897,7 +897,7 @@ slices:
     contents:
       /usr/share/perl/5.38*/overload.pm:
       /usr/share/perl/5.38*/overload/**.pm:
-      
+
   # overloading - Lexically control overloading
   # https://perldoc.perl.org/overloading
   overloading:
@@ -920,7 +920,7 @@ slices:
     essential:
       - perl-base_core
     contents:
-      /usr/share/perl/5.38*/sigtrap.pm:  
+      /usr/share/perl/5.38*/sigtrap.pm:
 
   # sort - Control sort() behaviour
   # https://perldoc.perl.org/sort
@@ -1036,7 +1036,7 @@ slices:
       - perl-modules-5.38_warnings
     contents:
       /usr/share/perl/5.38:
-  
+
   # The following slices are not part of the standard or pragmatic modules
   unicore:
     essential:
