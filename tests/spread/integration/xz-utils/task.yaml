@@ -1,8 +1,26 @@
 summary: Integration tests for xz-utils
 
 execute: |
-  rootfs="$(install-slices xz-utils_bins)"
+  rootfs="$(install-slices xz-utils_bins xz-utils_utils)"
 
+  # smoke test
+  chroot "$rootfs" xz --version
+
+  # test compression
   cp uncompressed.txt "${rootfs}/"
-  chroot "$rootfs" xz --help
   chroot "$rootfs" xz -z /uncompressed.txt
+
+  # test xzgrep
+  chroot "$rootfs" xzgrep "compressed content" uncompressed.txt.xz
+
+  # test xzdiff
+  cp FILE1 "${rootfs}/"
+  chroot "$rootfs" xz -zk /FILE1
+  chroot "$rootfs" xz -zk /FILE1
+  chroot "$rootfs" cmp <(diff /FILE1 /FILE2) <(xzdiff /FILE1.xz /FILE2.xz)
+
+  # test xzcat
+  chroot "$rootfs" cmp <(xzcat /FILE1.xz) <(cat /FILE1)
+
+  # test xzcmp
+  chroot "$rootfs" xzcmp FILE1.xz
