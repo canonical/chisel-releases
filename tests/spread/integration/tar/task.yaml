@@ -25,3 +25,9 @@ execute: |
 
   # Expect an error gzipping a tarball since gzip is not installed in the chroot.
   ! chroot "${rootfs}/" tar -czf test.tar.gz /test/ 2| grep -q "tar (child): gzip: Cannot exec: No such file or directory"
+
+  # New environment for rmt slice.
+  rootfs="$(install-slices tar_rmt)"
+
+  # We can't really do much with rmt, so just check that the executable works.
+  chroot "${rootfs}/" rmt-tar --version
