@@ -1,9 +1,13 @@
 package: dpkg
 
+essential:
+  - dpkg_copyright
+
 slices:
   bins:
     essential:
       - dpkg_config
+      - dpkg_var
       - libbz2-1.0_libs
       - libc-bin_ldconfig
       - libc6_libs
@@ -14,19 +18,42 @@ slices:
       - tar_tar
       - zlib1g_libs
     contents:
-      /usr/bin/dpkg*:
+      /usr/bin/dpkg:
+      /usr/bin/dpkg-deb:
+      /usr/bin/dpkg-divert:
+      /usr/bin/dpkg-maintscript-helper:
+      /usr/bin/dpkg-query:
+      /usr/bin/dpkg-realpath:
+      /usr/bin/dpkg-split:
+      /usr/bin/dpkg-statoverride:
+      /usr/bin/dpkg-trigger:
       /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
       /usr/sbin/start-stop-daemon:
-      /var/lib/dpkg/tmp.ci/: {make: true}
-      /var/log/dpkg.log: {text: ""}
+
+  copyright:
+    contents:
+      /usr/share/doc/dpkg/copyright:
 
   config:
     contents:
       /etc/dpkg/dpkg.cfg:
+      /etc/dpkg/dpkg.cfg.d/: {make: true}
 
   locales:
     essential:
       - dpkg_bins
     contents:
       /usr/share/locale/**/dpkg.mo:
+
+  tables:
+    contents:
+      /usr/share/dpkg/*table:
+
+  var:
+    # Directories that are included in the tarball because they need to exist in /var for dpkg to run.
+    contents:
+      /var/lib/dpkg/alternatives/: {make: true}
+      /var/lib/dpkg/info/: {make: true}
+      /var/lib/dpkg/parts/: {make: true}
+      /var/lib/dpkg/updates/: {make: true}
