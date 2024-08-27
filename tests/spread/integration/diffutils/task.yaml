@@ -1,0 +1,25 @@
+summary: Integration tests for diffutils
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices diffutils_bins)"
+
+  mkdir "${rootfs}/test"
+  echo "This is a test file" > "${rootfs}/test1.txt"
+  echo "This is another test file" > "${rootfs}/test2.txt"
+
+  # Compare two different files with cmp
+  actual="$(! chroot "${rootfs}/" cmp -b /test1.txt /test2.txt)"
+  expected='/test1.txt /test2.txt differ: byte 10, line 1 is  40   156 n'
+  [[ "$actual" == "$expected" ]]
+
+  # Compare with diff
+  cp "${rootfs}/test1.txt" "${rootfs}/test3.txt"
+  [[ "$(chroot "${rootfs}/" diff /test1.txt /test3.txt)" == "" ]]
+
+  # Compare with diff3
+  chroot "${rootfs}/" diff3 -a /test1.txt /test2.txt /test3.txt
+
+  # ...and sdiff
+  chroot "${rootfs}/" sdiff /test1.txt /test3.txt
