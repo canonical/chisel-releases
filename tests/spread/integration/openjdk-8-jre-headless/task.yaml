@@ -4,11 +4,13 @@ environment:
   SLICE/core: "core"
 
 execute: |
-  # Test different slice installations
+  # Test core slice installation
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices busybox_bins openjdk-8-jre-headless_${SLICE})"
-  (cd ${rootfs}/bin && for applet in $(${rootfs}/bin/busybox --list); do \
-      ln -s busybox $applet ; \
-    done)
-  cp smoke.sh "${rootfs}/"
-  chroot ${rootfs} busybox sh /smoke.sh
+  rootfs="$(install-slices openjdk-8-jre-headless_${SLICE})"
+
+  cd ${rootfs}
+  mkdir -p proc/self
+  for java in `find usr/lib/jvm -name java`; do
+      ln -sf /${java} proc/self/exe
+      chroot . ${java} -version
+  done
