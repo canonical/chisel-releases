@@ -53,7 +53,7 @@ slices:
   var:
     # Directories that are included in the tarball because they need to exist in /var
     contents:
-      /var/lib/dpkg/alternatives/: {make: true}
-      /var/lib/dpkg/info/: {make: true}
-      /var/lib/dpkg/parts/: {make: true}
-      /var/lib/dpkg/updates/: {make: true}
+      /var/lib/dpkg/alternatives/:
+      /var/lib/dpkg/info/:
+      /var/lib/dpkg/parts/:
+      /var/lib/dpkg/updates/:
