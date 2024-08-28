@@ -11,6 +11,38 @@ exclude:
   - .github
 
 backends:
+  # We can switch back to using the official Spread LXD backend after
+  # https://github.com/snapcore/spread/pulls?q=is%3Apr+is%3Aopen+LXD+updated%3A%3C%3D2024-02-23+
+  lxd:
+    type: adhoc
+    allocate: |
+      set -x
+      release=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $2}')
+
+      # Ideally, we would add the ubuntu-minimal remote
+      # e.g. https://cloud-images.ubuntu.com/minimal/releases/jammy/
+      # but that would effectively change the host's LXC configurations.
+
+      echo "Allocating $SPREAD_SYSTEM..."
+      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
+      until lxc exec $SPREAD_SYSTEM -- systemctl status | grep "running"
+      do
+        sleep 5
+      done
+      lxc exec $SPREAD_SYSTEM -- systemctl enable --now ssh
+      lxc exec $SPREAD_SYSTEM -- sed -i 's/^\s*#\?\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/\1 yes/' /etc/ssh/sshd_config
+      lxc exec $SPREAD_SYSTEM -- bash -c "sed -i 's/^\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/# COMMENTED OUT BY SPREAD: \0/' /etc/ssh/sshd_config.d/* || true"
+      lxc exec $SPREAD_SYSTEM -- bash -c "test -d /etc/ssh/sshd_config.d && echo -e 'PermitRootLogin=yes\nPasswordAuthentication=yes' > /etc/ssh/sshd_config.d/00-spread.conf"
+      lxc exec $SPREAD_SYSTEM -- bash -c "echo root:${SPREAD_SYSTEM_PASSWORD} | chpasswd"
+      lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
+      ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
+    discard: lxc stop $SPREAD_SYSTEM || true
+    systems:
+      - ubuntu-jammy:
+          password: ubuntu
+
+  # The Docker backend is recommended for comprehensive multi-arch tests, but
+  # not ideal for tests that need to perform privileged operations (like "mount").
   docker:
     type: adhoc
     allocate: |
@@ -48,9 +80,8 @@ backends:
           password: ubuntu
       - ubuntu-22.04-s390x:
           password: ubuntu
-      # Re-enable risvc64 once we have re-enabled this arch for the Ubuntu container
-      # - ubuntu-22.04-riscv64:
-      #     password: ubuntu
+      - ubuntu-22.04-riscv64:
+          password: ubuntu
 
 prepare: |
   # Deb arch to GOARCH
@@ -66,8 +97,7 @@ prepare: |
 
   tar -xf $chisel_tar -C /usr/local/bin
 
-prepare-each:
-  chisel version
+prepare-each: chisel version
 
 suites:
   tests/spread/integration/:
