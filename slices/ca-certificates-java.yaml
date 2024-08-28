@@ -22,8 +22,9 @@ slices:
       #    -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
       # rm certs
       # See tests/spread/integration/ca-certificates-java/task.yaml
-      /usr/share/ca-certificates-java/ca-certificates-java.jar:
       /etc/ssl/certs/java/:
+      /usr/share/ca-certificates-java/ca-certificates-java.jar:
+
 
   copyright:
     contents:
