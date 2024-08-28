@@ -422,6 +422,7 @@ slices:
       /usr/lib/systemd/system/systemd-journald.socket:
       /usr/lib/systemd/system/systemd-journald@.service:
       /usr/lib/systemd/system/systemd-journald@.socket:
+      /usr/lib/systemd/system/systemd-journald.service.d/nice.conf:
       /usr/lib/systemd/system/systemd-kexec.service:
       /usr/lib/systemd/system/systemd-localed.service:
       /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
