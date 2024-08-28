@@ -38,7 +38,7 @@ slices:
   config:
     contents:
       /etc/dpkg/dpkg.cfg:
-      /etc/dpkg/dpkg.cfg.d/: {make: true}
+      /etc/dpkg/dpkg.cfg.d/:
 
   locales:
     essential:
