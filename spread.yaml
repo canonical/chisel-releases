@@ -40,9 +40,9 @@ backends:
     systems:
       - ubuntu-jammy:
           password: ubuntu
-  
+
   # The Docker backend is recommended for comprehensive multi-arch tests, but
-  # not ideal for tests that need to perform privileged operations (like "mount"). 
+  # not ideal for tests that need to perform privileged operations (like "mount").
   docker:
     type: adhoc
     allocate: |
