@@ -11,6 +11,8 @@ exclude:
   - .github
 
 backends:
+  # We can switch back to using the official Spread LXD backend after
+  # https://github.com/snapcore/spread/pulls?q=is%3Apr+is%3Aopen+LXD+updated%3A%3C%3D2024-02-23+
   lxd:
     type: adhoc
     allocate: |
