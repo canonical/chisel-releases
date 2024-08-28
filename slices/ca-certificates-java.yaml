@@ -25,7 +25,6 @@ slices:
       /etc/ssl/certs/java/:
       /usr/share/ca-certificates-java/ca-certificates-java.jar:
 
-
   copyright:
     contents:
       /usr/share/doc/ca-certificates-java/copyright:
