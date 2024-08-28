@@ -47,8 +47,7 @@ backends:
       echo "Allocating $SPREAD_SYSTEM..."
       docker_image=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $1":"$2}')
       docker_arch=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $NF}')
-      docker run --cap-add SYS_ADMIN --security-opt apparmor=unconfined \
-        --rm -e DEBIAN_FRONTEND=noninteractice \
+      docker run --rm -e DEBIAN_FRONTEND=noninteractice \
         -e usr=$SPREAD_SYSTEM_USERNAME -e pass=$SPREAD_SYSTEM_PASSWORD \
         --name $SPREAD_SYSTEM -d $docker_arch/$docker_image sh -c '
         set -x
