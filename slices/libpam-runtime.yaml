@@ -139,7 +139,7 @@ slices:
 
   pam-defaults:
     essential:
-      - libpam_runtime_config
+      - libpam-runtime_config
 
   # folders expected by libpam to exist
   var:
