@@ -6,6 +6,7 @@ essential:
 slices:
   bins:
     essential:
+      # On armhf (only), these also need libgcc-s1_libs
       - libglib2.0-0t64_libs
     contents:
       /usr/lib/*-linux-*/glib-2.0/*:
