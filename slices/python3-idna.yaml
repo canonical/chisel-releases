@@ -1,0 +1,16 @@
+package: python3-idna
+
+essential:
+  - python3-idna_copyright
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/idna-3.6.dist-info/**:
+      /usr/lib/python3/dist-packages/idna/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-idna/copyright:

@@ -1,0 +1,17 @@
+package: python3-certifi
+
+essential:
+  - python3-certifi_copyright
+
+slices:
+  dist:
+    essential:
+      - ca-certificates_data
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/certifi-2023.11.17.egg-info/**:
+      /usr/lib/python3/dist-packages/certifi/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-certifi/copyright:

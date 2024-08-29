@@ -1,0 +1,9 @@
+# package contains no copyright
+package: python3-debconf
+
+slices:
+  dist:
+    essential:
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/debconf.py:
