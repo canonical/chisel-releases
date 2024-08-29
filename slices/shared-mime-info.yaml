@@ -1,5 +1,8 @@
 package: shared-mime-info
 
+essential:
+  - shared-mime-info_copyright
+
 slices:
   bins:
     essential:
@@ -16,3 +19,7 @@ slices:
       /usr/share/gettext/its/shared-mime-info.*:
       /usr/share/mime/packages/freedesktop.org.xml:
       /usr/share/pkgconfig/shared-mime-info.pc:
+
+  copyright:
+    contents:
+      /usr/share/doc/shared-mime-info/copyright:

@@ -1,5 +1,8 @@
 package: libgdk-pixbuf-2.0-0
 
+essential:
+  - libgdk-pixbuf-2.0-0_copyright
+
 slices:
   bins:
     essential:
@@ -10,7 +13,7 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgdk-pixbuf2.0-common_core
+      - libgdk-pixbuf2.0-common_copyright
       - libglib2.0-0t64_libs
       - libjpeg8_libs
       - libpng16-16t64_libs
@@ -19,3 +22,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/gdk-pixbuf-2.0/*/loaders/*:
       /usr/lib/*-linux-*/libgdk_pixbuf-2.0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgdk-pixbuf-2.0-0/copyright:
