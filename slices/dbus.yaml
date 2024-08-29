@@ -24,6 +24,7 @@ slices:
 
   services:
     essential:
+      - dbus_bins
       - dbus-system-bus-common_services
     contents:
       /usr/lib/systemd/system/dbus.service:
