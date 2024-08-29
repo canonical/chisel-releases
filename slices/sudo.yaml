@@ -35,7 +35,9 @@ slices:
       /etc/sudoers:
       /usr/lib/tmpfiles.d/sudo.conf:
 
-  extras:
+  services:
+    essential:
+      - sudo_bins
     contents:
       /usr/lib/systemd/system/sudo.service:
 

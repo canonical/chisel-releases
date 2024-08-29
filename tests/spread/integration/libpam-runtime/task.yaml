@@ -1,4 +1,4 @@
-summary: Integration tests for sudo
+summary: Integration tests for libpam-runtime
 
 execute: |
   rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts coreutils_bins sudo_bins)"

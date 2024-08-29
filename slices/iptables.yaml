@@ -51,7 +51,7 @@ slices:
 
   # The xlst is used to convert XML configuration into something
   # iptables can understand, and vice-versa.
-  extras:
+  converters:
     contents:
       /usr/bin/iptables-xml:
       /usr/share/iptables/iptables.xslt:
