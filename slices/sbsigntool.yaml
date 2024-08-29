@@ -1,0 +1,20 @@
+package: sbsigntool
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libssl3t64_libs
+      - libuuid1_libs
+    contents:
+      /usr/bin/kmodsign:
+      /usr/bin/sbattach:
+      /usr/bin/sbkeysync:
+      /usr/bin/sbsiglist:
+      /usr/bin/sbsign:
+      /usr/bin/sbvarsign:
+      /usr/bin/sbverify:
+
+  copyright:
+    contents:
+      /usr/share/doc/sbsigntool/copyright:
