@@ -1,7 +1,14 @@
 package: dbus-session-bus-common
 
+essential:
+  - dbus-session-bus-common_copyright
+
 slices:
   config:
     contents:
       /etc/dbus-1/session.d/:
       /usr/share/dbus-1/session.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/dbus-session-bus-common/copyright:

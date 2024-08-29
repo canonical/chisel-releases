@@ -22,9 +22,9 @@ slices:
     contents:
       /etc/default/dbus:
 
-  extras:
+  services:
     essential:
-      - dbus-system-bus-common_extras
+      - dbus-system-bus-common_services
     contents:
       /usr/lib/systemd/system/dbus.service:
       /usr/lib/systemd/system/multi-user.target.wants/dbus.service:
