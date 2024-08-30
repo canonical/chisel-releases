@@ -1,0 +1,16 @@
+package: libxcb-xfixes0
+
+essential:
+  - libxcb-xfixes0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+    contents:
+      /usr/lib/*-linux-*/libxcb-xfixes.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-xfixes0/copyright:
