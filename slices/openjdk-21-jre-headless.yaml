@@ -5,7 +5,7 @@ essential:
 
 slices:
 
-  all:
+  standard:
     essential:
       - openjdk-21-jre-headless_awt
       - openjdk-21-jre-headless_console
