@@ -1,3 +1,4 @@
+# PNG library - runtime (version 1.6)
 package: libpng16-16t64
 
 essential:
