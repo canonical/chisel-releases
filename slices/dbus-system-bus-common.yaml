@@ -6,7 +6,7 @@ essential:
 slices:
   # Depends on adduser, however it's used by the dbus postinst
   # to create the following user:
-  # 'messagebus' with home '/var/run/dbus' and disabled password
+  # 'messagebus' without a home directory and disabled password
   config:
     contents:
       /etc/dbus-1/system.d/:

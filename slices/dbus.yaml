@@ -16,7 +16,7 @@ slices:
       - libsystemd0_libs
     contents:
       /etc/init.d/dbus:
-      /usr/lib/dbus-1.0/dbus-daemon-launch-helper:
+      /usr/lib/dbus-*/dbus-daemon-launch-helper:
 
   config:
     contents:

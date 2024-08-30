@@ -20,6 +20,7 @@ slices:
     contents:
       /usr/bin/dbus-daemon:
       /usr/bin/dbus-run-session:
+      /var/lib/dbus/: { make: true, mode: 0755 }
 
   config:
     contents:
