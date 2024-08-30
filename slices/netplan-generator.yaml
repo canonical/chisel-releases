@@ -4,16 +4,23 @@ essential:
   - netplan-generator_copyright
 
 slices:
-  data:
+  bins:
     essential:
       - libc6_libs
       - libglib2.0-0t64_libs
       - libnetplan1_libs
       - systemd_bins
     contents:
-      /usr/lib/netplan/PLACEHOLDER:
-      /usr/lib/systemd/system-generators/netplan:
       /usr/libexec/netplan/generate:
+      /usr/lib/systemd/system-generators/netplan:
+
+  # the generator needs the folder and thus carry
+  # a placeholder file, it will be removed and a
+  # symlink to /usr/libexec/netplan/generate will
+  # be created in this folder
+  placeholder:
+    contents:
+      /usr/lib/netplan/PLACEHOLDER:
 
   copyright:
     contents:

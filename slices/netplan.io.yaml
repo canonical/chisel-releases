@@ -11,8 +11,8 @@ slices:
       - libglib2.0-0t64_libs
       - libnetplan1_libs
       - libsystemd0_libs
-      - netplan-generator_data
-      - netplan.io_cli
+      - netplan-generator_bins
+      - netplan.io_scripts
       - python3-dbus_data
       - python3-netifaces_data
       - python3-netplan_data
@@ -22,12 +22,12 @@ slices:
     contents:
       /usr/sbin/netplan:
 
-  cli:
+  scripts:
     contents:
       /usr/share/netplan/netplan.script:
       /usr/share/netplan/netplan_cli/**:
 
-  extras:
+  dbus-service:
     contents:
       /usr/libexec/netplan/netplan-dbus:
       /usr/share/dbus-1/system-services/io.netplan.Netplan.service:
