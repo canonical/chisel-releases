@@ -14,7 +14,7 @@ slices:
       - libssl3t64_libs
       - libuuid1_libs
     contents:
-      /lib/*-linux-*/libcryptsetup.so.12*:
+      /usr/lib/*-linux-*/libcryptsetup.so.12*:
 
   copyright:
     contents:
