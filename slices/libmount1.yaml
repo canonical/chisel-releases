@@ -1,0 +1,17 @@
+package: libmount1
+
+essential:
+  - libseccomp2_copyright
+
+slices:
+  libs:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/lib/*-linux-*/libmount.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmount1/copyright:

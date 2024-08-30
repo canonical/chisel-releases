@@ -1,0 +1,15 @@
+package: libjson-c5
+
+essential:
+  - libjson-c5_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libjson-c.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libjson-c5/copyright:
