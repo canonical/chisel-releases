@@ -10,7 +10,7 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libelf-0.190.so*:
+      /usr/lib/*-linux-*/libelf-0.*.so*:
       /usr/lib/*-linux-*/libelf.so.1*:
 
   copyright:
