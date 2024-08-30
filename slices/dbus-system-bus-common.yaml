@@ -1,0 +1,23 @@
+package: dbus-system-bus-common
+
+essential:
+  - dbus-system-bus-common_copyright
+
+slices:
+  # Depends on adduser, however it's used by the dbus postinst
+  # to create the following user:
+  # 'messagebus' without a home directory and disabled password
+  config:
+    contents:
+      /etc/dbus-1/system.d/:
+      /usr/lib/sysusers.d/dbus.conf:
+      /usr/share/dbus-1/system.conf:
+
+  services:
+    contents:
+      /usr/lib/systemd/system/dbus.socket:
+      /usr/lib/systemd/system/sockets.target.wants/dbus.socket:
+
+  copyright:
+    contents:
+      /usr/share/doc/dbus-system-bus-common/copyright:
