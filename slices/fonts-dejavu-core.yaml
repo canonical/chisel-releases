@@ -6,7 +6,15 @@ essential:
 slices:
   fonts:
     essential:
+      - fonts-dejavu-core_config
       - fonts-dejavu-mono_fonts
+    contents:
+      /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf:
+
+  config:
     contents:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans.conf:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-serif.conf:
@@ -16,7 +24,6 @@ slices:
       /etc/fonts/conf.avail/57-dejavu-serif.conf:
       /etc/fonts/conf.avail/58-dejavu-lgc-sans.conf:
       /etc/fonts/conf.avail/58-dejavu-lgc-serif.conf:
-
       /etc/fonts/conf.d/20-unhint-small-dejavu-lgc-sans.conf:
       /etc/fonts/conf.d/20-unhint-small-dejavu-lgc-serif.conf:
       /etc/fonts/conf.d/20-unhint-small-dejavu-sans.conf:
@@ -25,11 +32,6 @@ slices:
       /etc/fonts/conf.d/57-dejavu-serif.conf:
       /etc/fonts/conf.d/58-dejavu-lgc-sans.conf:
       /etc/fonts/conf.d/58-dejavu-lgc-serif.conf:
-
-      /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:
-      /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:
-      /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf:
-      /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf:
 
   copyright:
     contents:
