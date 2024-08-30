@@ -1,0 +1,46 @@
+package: cracklib-runtime
+
+essential:
+  - cracklib-runtime_copyright
+
+# Cracklib runs /usr/sbin/update-cracklib on install, and this
+# in turns generate the cracklib caches. This is mostly possible to do
+# as a mutation script, and is provided here:
+# https://paste.ubuntu.com/p/Jc5vvgk3tN/
+# however the files it writes are malformed as we cannot write raw bytes,
+# but instead we write files as text which results in larger files than
+# expected (i.e the generated cracklib_dict.hwm is 1618 bytes instead of 1024).
+# If we could use the above mutation script, then the contents of the 'bins'
+# slice would probably not be needed, together with most of the 'config'
+# slice.
+slices:
+  # the scripts use both 'file', 'find' and 'grep'
+  # so we ensure those dependencies are added.
+  # furthermore, libssl3t64 is required as well
+  bins:
+    essential:
+      - cracklib-runtime_config
+      - file_bins
+      - findutils_bins
+      - grep_bins
+      - libc6_libs
+      - libcrack2_libs
+      - libssl3t64_libs
+    contents:
+      /usr/sbin/cracklib-check:
+      /usr/sbin/cracklib-format:
+      /usr/sbin/cracklib-packer:
+      /usr/sbin/cracklib-unpacker:
+      /usr/sbin/create-cracklib-dict:
+      /usr/sbin/update-cracklib:
+
+  config:
+    contents:
+      /etc/cracklib/cracklib.conf:
+      /etc/logcheck/ignore.d.paranoid/cracklib-runtime:
+      /usr/share/dict/cracklib-small:
+      /var/cache/cracklib/: { make: true, mode: 0755 }
+
+  copyright:
+    contents:
+      /usr/share/doc/cracklib-runtime/copyright:

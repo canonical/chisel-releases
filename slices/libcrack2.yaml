@@ -1,0 +1,15 @@
+package: libcrack2
+
+essential:
+  - libcrack2_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libcrack.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcrack2/copyright:
