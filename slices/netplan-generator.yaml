@@ -11,8 +11,8 @@ slices:
       - libnetplan1_libs
       - systemd_bins
     contents:
-      /usr/libexec/netplan/generate:
       /usr/lib/systemd/system-generators/netplan:
+      /usr/libexec/netplan/generate:
 
   # the generator needs the folder and thus carry
   # a placeholder file, it will be removed and a
