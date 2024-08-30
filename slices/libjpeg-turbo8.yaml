@@ -1,0 +1,15 @@
+package: libjpeg-turbo8
+
+essential:
+  - libjpeg-turbo8_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libjpeg.so.8*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libjpeg-turbo8/copyright:

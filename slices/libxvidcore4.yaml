@@ -1,0 +1,15 @@
+package: libxvidcore4
+
+essential:
+  - libxvidcore4_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libxvidcore.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxvidcore4/copyright:

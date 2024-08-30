@@ -1,0 +1,13 @@
+package: lsb-base
+
+essential:
+  - lsb-base_copyright
+
+slices:
+  bins:
+    essential:
+      - sysvinit-utils_bins
+
+  copyright:
+    contents:
+      /usr/share/doc/lsb-base/copyright:

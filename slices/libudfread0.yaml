@@ -1,0 +1,15 @@
+package: libudfread0
+
+essential:
+  - libudfread0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libudfread.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libudfread0/copyright:

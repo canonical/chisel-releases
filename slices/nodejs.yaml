@@ -1,0 +1,21 @@
+package: nodejs
+
+essential:
+  - nodejs_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      # libatomic1_libs is a depndency of libnode109_libs that's required only
+      # on mips* and riscv64, so uncomment its line from libnode109.yaml if you
+      # are targetting any of those architectures
+      - libnode109_libs
+    contents:
+      /usr/bin/js: {symlink: /usr/bin/nodejs}
+      /usr/bin/node:
+      /usr/bin/nodejs:
+
+  copyright:
+    contents:
+      /usr/share/doc/nodejs/copyright:

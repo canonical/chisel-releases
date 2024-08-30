@@ -1,0 +1,30 @@
+package: libnode109
+
+essential:
+  - libnode109_copyright
+
+slices:
+  libs:
+    essential:
+      # The chisel tool does not support per-architecture packages
+      # libatomic1 is only required on mips* and riscv64
+      # - libatomic1_libs
+      - libbrotli1_libs
+      - libc6_libs
+      - libcares2_libs
+      - libgcc-s1_libs
+      - libicu74_libs
+      - libnghttp2-14_libs
+      - libssl3t64_libs
+      - libstdc++6_libs
+      - libuv1t64_libs
+      - node-acorn_libs
+      - node-cjs-module-lexer_libs
+      - node-undici_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libnode.so.109:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnode109/copyright:
