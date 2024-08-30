@@ -9,6 +9,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libseccomp.so.2*:
+
   copyright:
     contents:
       /usr/share/doc/libseccomp2/copyright:
