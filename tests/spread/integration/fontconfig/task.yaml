@@ -2,6 +2,13 @@ summary: Integration tests for fontconfig
 
 execute: |
   rootfs="$(install-slices fontconfig_bins)"
+
+  # Test fc-cache
+  chroot ${rootfs} fc-cache
+
+  # Test fc-cat
+  chroot ${rootfs} fc-cat
+
   # Test fc-conflist
   chroot ${rootfs} fc-conflist
 
