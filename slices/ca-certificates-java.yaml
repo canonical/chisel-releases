@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      - ca-certificates_bins
       - ca-certificates-java_data
+      - ca-certificates_bins
       # chisel tool does not allow per-architecture packages
       # openjdk-8 is not published for RISCV in the archive
       # - openjdk-8-jre-headless_security
