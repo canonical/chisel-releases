@@ -41,6 +41,8 @@ slices:
       /usr/lib/*-linux-*/perl-base/parent.pm:
 
   config:
+    essential:
+      - libcrypt1_libs
     contents:
       /usr/lib/*-linux-*/perl-base/Config.pm:
       /usr/lib/*-linux-*/perl-base/Config_git.pl:
