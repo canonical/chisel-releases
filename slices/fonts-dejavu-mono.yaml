@@ -6,8 +6,8 @@ essential:
 slices:
   fonts:
     contents:
-      /usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf:
 
