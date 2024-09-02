@@ -60,6 +60,8 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/cldrdata.jar:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/localedata.jar:
 
+  # The security slice provides access to TLS and crypto capabilities
+  # of the runtime.
   security:
     essential:
       - libnss3_libs
