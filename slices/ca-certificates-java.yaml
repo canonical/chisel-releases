@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       - ca-certificates_bins
-      - ca-certificates_data-with-certs
+      - ca-certificates-java_data
       # chisel tool does not allow per-architecture packages
       # openjdk-8 is not published for RISCV in the archive
       # - openjdk-8-jre-headless_security
@@ -27,6 +27,12 @@ slices:
       # See tests/spread/integration/ca-certificates-java/task.yaml
       /etc/ssl/certs/java/:
       /usr/share/ca-certificates-java/ca-certificates-java.jar:
+
+  data:
+    essential:
+      - ca-certificates_data-with-certs
+  contents:
+    /etc/ssl/certs/java/:
 
   copyright:
     contents:
