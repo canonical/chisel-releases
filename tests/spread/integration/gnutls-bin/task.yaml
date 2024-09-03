@@ -1,0 +1,15 @@
+summary: Integration tests for gnutls-bin
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices gnutls-bin_bins)"
+
+  # smoke-test the certificate tools
+  chroot "${rootfs}" /usr/bin/certtool --generate-privkey --outfile key.pem --rsa
+  chroot "${rootfs}" /usr/bin/certtool --get-dh-params --outfile dh.pem --sec-param medium
+
+  # smoke-test psk
+  chroot "${rootfs}" /usr/bin/psktool -u psk_identity -p keys.psk

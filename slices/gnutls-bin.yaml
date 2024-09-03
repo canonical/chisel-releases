@@ -1,0 +1,25 @@
+package: gnutls-bin
+
+essential:
+  - gnutls-bin_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgnutls-dane0t64_libs
+      - libgnutls30t64_libs
+      - libtasn1-6_libs
+    contents:
+      /usr/bin/certtool:
+      /usr/bin/danetool:
+      /usr/bin/gnutls-cli:
+      /usr/bin/gnutls-cli-debug:
+      /usr/bin/gnutls-serv:
+      /usr/bin/ocsptool:
+      /usr/bin/p11tool:
+      /usr/bin/psktool:
+
+  copyright:
+    contents:
+      /usr/share/doc/gnutls-bin/copyright:
