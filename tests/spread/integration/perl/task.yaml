@@ -4,7 +4,6 @@ execute: |
   set -ex
   # Test 1: ptar
   rootfs=$(install-slices perl_ptar)
-  # mkdir -p "$rootfs/dev"
   touch "$rootfs/file1.txt"
   tar -cf "$rootfs/archive.tar" "$rootfs/file1.txt"
 
