@@ -31,8 +31,8 @@ slices:
   data:
     essential:
       - ca-certificates_data-with-certs
-  contents:
-    /etc/ssl/certs/java/:
+    contents:
+      /etc/ssl/certs/java/:
 
   copyright:
     contents:
