@@ -20,7 +20,7 @@ slices:
       - perl-modules-5.38_compiler-utils
       - perl-modules-5.38_compress
       - perl-modules-5.38_config
-      - perl-modules-5.38_core
+      - perl-modules-5.38_core-routines
       - perl-modules-5.38_cpan
       - perl-modules-5.38_data-structures
       - perl-modules-5.38_database
@@ -196,7 +196,7 @@ slices:
 
   # CORE - Namespace for Perl's core routines
   # https://perldoc.perl.org/CORE
-  core:
+  core-routines:
     essential:
       - perl-base_core
     contents:
