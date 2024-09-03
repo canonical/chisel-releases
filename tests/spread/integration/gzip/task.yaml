@@ -1,0 +1,16 @@
+summary: Integration tests for gzip
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices gzip_bins)"
+  echo "this is a test text file that we will compress using gzip" > "${rootfs}"/test.txt
+  chroot "${rootfs}" gzip -k test.txt
+  # store original for comparison
+  mv "${rootfs}"/test.txt "${rootfs}"/test.original
+  # decompress the original file
+  chroot "${rootfs}" gzip -d test.txt.gz
+  # ensure that the files are identical
+  cmp "${rootfs}"/test.txt "${rootfs}"/test.original
