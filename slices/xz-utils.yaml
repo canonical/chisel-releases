@@ -15,10 +15,13 @@ slices:
       /usr/bin/xzcat:
   utils:
     essential:
-      - xz-utils_bins
+      - base-files_bin
+      - base-files_tmp
+      - coreutils_bins
       - dash_bins
-      - grep_bins
       - diffutils_bins
+      - grep_bins
+      - xz-utils_bins
     contents:
       /usr/bin/xzcmp:
       /usr/bin/xzdiff:

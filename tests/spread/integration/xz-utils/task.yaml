@@ -3,24 +3,33 @@ summary: Integration tests for xz-utils
 execute: |
   rootfs="$(install-slices xz-utils_bins xz-utils_utils)"
 
+  # make artificial /dev/null for testing
+  mkdir "$rootfs/dev"
+  touch "$rootfs/dev/null"
+  
   # smoke test
   chroot "$rootfs" xz --version
 
   # test compression
   cp uncompressed.txt "${rootfs}/"
-  chroot "$rootfs" xz -z /uncompressed.txt
+  chroot "$rootfs" xz -z uncompressed.txt
 
   # test xzgrep
-  chroot "$rootfs" xzgrep "compressed content" uncompressed.txt.xz
+  chroot "$rootfs" xzgrep "$(cat uncompressed.txt)" uncompressed.txt.xz
 
   # test xzdiff
-  cp FILE1 "${rootfs}/"
-  chroot "$rootfs" xz -zk /FILE1
-  chroot "$rootfs" xz -zk /FILE1
-  chroot "$rootfs" cmp <(diff /FILE1 /FILE2) <(xzdiff /FILE1.xz /FILE2.xz)
+  cp FILE1 FILE2 "${rootfs}/"
+  chroot "$rootfs" xz -zk FILE1
+  chroot "$rootfs" xz -zk FILE2
+  chroot "$rootfs" xzdiff FILE1.xz FILE2.xz > xzdiff_result
+  chroot "$rootfs" diff FILE1 FILE2 > diff_result
+  cmp xzdiff_result diff_result
 
   # test xzcat
-  chroot "$rootfs" cmp <(xzcat /FILE1.xz) <(cat /FILE1)
+  chroot "$rootfs" xzcat FILE1.xz > xzcat_result
+  cmp xzcat_result FILE1
 
   # test xzcmp
-  chroot "$rootfs" xzcmp FILE1.xz
+  chroot "$rootfs" xzcmp -b FILE1.xz FILE2.xz | cut -d: -f2  > xzcmp_result
+  chroot "$rootfs" cmp -b FILE1 FILE2 | cut -d: -f2  > cmp_result
+  cmp xzcmp_result cmp_result
