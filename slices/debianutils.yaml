@@ -1,0 +1,35 @@
+package: debianutils
+
+essential:
+  - debianutils_copyright
+
+slices:
+  bins:
+    essential:
+      - debianutils_config
+      - libc6_libs
+    contents:
+      /usr/bin/ischroot:
+      /usr/bin/run-parts:
+      /usr/bin/savelog:
+      /usr/bin/tempfile:
+      /usr/bin/which.debianutils:
+      /usr/sbin/add-shell:
+      /usr/sbin/installkernel:
+      /usr/sbin/remove-shell:
+      /usr/sbin/update-shells:
+
+  # the following emulates the post-install script
+  which:
+    essential:
+      - debianutils_bins
+    contents:
+      /usr/bin/which: {symlink: /usr/bin/which.debianutils}
+
+  config:
+    contents:
+      /usr/share/debianutils/shells:
+
+  copyright:
+    contents:
+      /usr/share/doc/debianutils/copyright:
