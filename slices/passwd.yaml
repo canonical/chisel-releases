@@ -29,7 +29,12 @@ slices:
       /usr/sbin/cppw:
       /usr/sbin/groupadd:
       /usr/sbin/groupdel:
-      /usr/sbin/groupmems:
+      # groupmems is no longer present in the latest deb. Unsure whether this
+      # is intentional. The passwd package installed in ubuntu:24.10 docker
+      # image does contain the file. However, the installed package is of a
+      # lower version.
+      # TODO uncomment if and once the file is included in the latest version.
+      # /usr/sbin/groupmems:
       /usr/sbin/groupmod:
       /usr/sbin/grpck:
       /usr/sbin/grpconv:
