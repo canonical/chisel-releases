@@ -1,0 +1,17 @@
+summary: Integration tests for bzip2
+
+execute: |
+  rootfs="$(install-slices bzip2_bins)"
+
+  # generate a test file
+  echo "this is a test file we use for compression with bzip2" > "${rootfs}/input.txt"
+
+  # compress file we've generated
+  chroot "${rootfs}" bzip2 -z -k input.txt
+  mv "${rootfs}/input.txt" "${rootfs}/input.original"
+
+  # decompress it
+  chroot "${rootfs}" bzip2 -d input.txt.bz2
+
+  # ensure its identical to the original file
+  cmp "${rootfs}/input.txt" "${rootfs}/input.original"
