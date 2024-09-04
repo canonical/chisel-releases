@@ -1,0 +1,102 @@
+project: chisel-releases
+
+path: /chisel-releases
+
+environment:
+  PROJECT_PATH: /chisel-releases
+  SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
+  PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
+
+exclude:
+  - .github
+
+backends:
+  # We can switch back to using the official Spread LXD backend after
+  # https://github.com/snapcore/spread/pulls?q=is%3Apr+is%3Aopen+LXD+updated%3A%3C%3D2024-02-23+
+  lxd:
+    type: adhoc
+    allocate: |
+      set -x
+      release=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $2}')
+
+      # Ideally, we would add the ubuntu-minimal remote
+      # e.g. https://cloud-images.ubuntu.com/minimal/releases/jammy/
+      # but that would effectively change the host's LXC configurations.
+
+      echo "Allocating $SPREAD_SYSTEM..."
+      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
+      until lxc exec $SPREAD_SYSTEM -- systemctl status | grep "running"
+      do
+        sleep 5
+      done
+      lxc exec $SPREAD_SYSTEM -- systemctl enable --now ssh
+      lxc exec $SPREAD_SYSTEM -- sed -i 's/^\s*#\?\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/\1 yes/' /etc/ssh/sshd_config
+      lxc exec $SPREAD_SYSTEM -- bash -c "sed -i 's/^\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/# COMMENTED OUT BY SPREAD: \0/' /etc/ssh/sshd_config.d/* || true"
+      lxc exec $SPREAD_SYSTEM -- bash -c "test -d /etc/ssh/sshd_config.d && echo -e 'PermitRootLogin=yes\nPasswordAuthentication=yes' > /etc/ssh/sshd_config.d/00-spread.conf"
+      lxc exec $SPREAD_SYSTEM -- bash -c "echo root:${SPREAD_SYSTEM_PASSWORD} | chpasswd"
+      lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
+      ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
+    discard: lxc stop $SPREAD_SYSTEM || true
+    systems:
+      - ubuntu-noble:
+          password: ubuntu
+
+  docker:
+    type: adhoc
+    allocate: |
+      echo "Allocating $SPREAD_SYSTEM..."
+      docker_image=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $1":"$2}')
+      docker_arch=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $NF}')
+      docker run --rm -e DEBIAN_FRONTEND=noninteractice \
+        -e usr=$SPREAD_SYSTEM_USERNAME -e pass=$SPREAD_SYSTEM_PASSWORD \
+        --name $SPREAD_SYSTEM -d $docker_arch/$docker_image sh -c '
+        set -x
+        apt update
+        apt install -y openssh-server sudo
+        mkdir /run/sshd
+        echo "root:$pass" | chpasswd
+        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+        /usr/sbin/sshd -D
+      '
+      # The container will be up really fast, but the CMD might take time to
+      # run, and Spread will timeout the SSH op after 5 min. So we wait for the
+      # container during the allocation script.
+      until docker exec $SPREAD_SYSTEM pgrep sshd
+      do
+        sleep 5
+      done
+      ADDRESS `docker inspect $SPREAD_SYSTEM --format '{{.NetworkSettings.Networks.bridge.IPAddress}}'`
+    discard: docker rm -f $SPREAD_SYSTEM
+    systems:
+      - ubuntu-24.04-amd64:
+          password: ubuntu
+      - ubuntu-24.04-arm64v8:
+          password: ubuntu
+      - ubuntu-24.04-arm32v7:
+          password: ubuntu
+      - ubuntu-24.04-ppc64le:
+          password: ubuntu
+      - ubuntu-24.04-s390x:
+          password: ubuntu
+      - ubuntu-24.04-riscv64:
+          password: ubuntu
+
+prepare: |
+  # Deb arch to GOARCH
+  arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
+  chisel_tar="chisel.tar.gz"
+
+  apt install -y curl wget
+  curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
+    | awk "/browser_download_url/ && /chisel_v/ && /$arch/" \
+    | cut -d : -f 2,3 \
+    | tr -d \" \
+    | xargs wget -O $chisel_tar
+
+  tar -xf $chisel_tar -C /usr/local/bin
+
+prepare-each: chisel version
+
+suites:
+  tests/spread/integration/:
+    summary: Tests common scenarios

@@ -1,0 +1,20 @@
+summary: Integration tests for dbus
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices base-files_base bash_bins coreutils_bins passwd_config dbus_bins)"
+  
+  # we need /dev/null for testing
+  mkdir "${rootfs}"/dev
+  mount --bind /dev "${rootfs}"/dev
+
+  # we also need a messagebus user
+  useradd -R "${rootfs}" -c "dbus messagebus test user" -u 1234 -g 1 -M messagebus
+  
+  cp test.sh "${rootfs}/"
+  chroot "${rootfs}/" /test.sh
+
+  # cleanup the daemon and mount
+  pkill -9 -f dbus-daemon
+  umount "${rootfs}"/dev
