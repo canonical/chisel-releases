@@ -10,18 +10,18 @@ slices:
       - libnss-mdns_mdns4
       - libnss-mdns_mdns6
     contents:
-      /lib/*-linux-*/libnss_mdns.so.*:
-      /lib/*-linux-*/libnss_mdns_minimal.so.*:
+      /usr/lib/*-linux-*/libnss_mdns.so.*:
+      /usr/lib/*-linux-*/libnss_mdns_minimal.so.*:
 
   mdns4:
     contents:
-      /lib/*-linux-*/libnss_mdns4.so.*:
-      /lib/*-linux-*/libnss_mdns4_minimal.so.*:
+      /usr/lib/*-linux-*/libnss_mdns4.so.*:
+      /usr/lib/*-linux-*/libnss_mdns4_minimal.so.*:
 
   mdns6:
     contents:
-      /lib/*-linux-*/libnss_mdns6.so.*:
-      /lib/*-linux-*/libnss_mdns6_minimal.so.*:
+      /usr/lib/*-linux-*/libnss_mdns6.so.*:
+      /usr/lib/*-linux-*/libnss_mdns6_minimal.so.*:
 
   copyright:
     contents:
