@@ -1,0 +1,28 @@
+package: libpam-systemd
+
+essential:
+  - libpam-systemd_copyright
+
+slices:
+  libs:
+    essential:
+      - dbus_bins
+      - libc6_libs
+      - libcap2_libs
+      - libpam-runtime_libs
+      - libpam0g_libs
+      - systemd_bins
+      - systemd-dev_dbus-interfaces
+      - libpam-systemd_pam-config
+    contents:
+      /usr/lib/*-linux-*/security/pam_systemd.so:
+      /usr/lib/*-linux-*/security/pam_systemd_loadkey.so:
+
+  # Used by libpam-runtime to generate proper pam.d files.
+  pam-config:
+    contents:
+      /usr/share/pam-configs/systemd:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-systemd/copyright:
