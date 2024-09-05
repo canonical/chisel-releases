@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      - libc6_libs
       - libc-bin_config
+      - libc6_libs
     contents:
       /usr/bin/getconf:
       /usr/bin/getent:
