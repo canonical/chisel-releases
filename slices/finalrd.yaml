@@ -1,0 +1,33 @@
+package: finalrd
+
+essential:
+  - finalrd_copyright
+
+slices:
+  # finalrd is a shell script that relies on a couple of packages to even
+  # work correctly: libc-bin, systemd, mount, grep and coreutils. If initramfs-tools
+  # is supplied (which is optional), it also needs findutils and debianutils.
+  # so rely on atleast the first set of binaries.
+  bins:
+    essential:
+      - coreutils_bins
+      - finalrd_config
+      - grep_bins
+      - libc-bin_bins
+      - mount_bins
+      - systemd_bins
+    contents:
+      /usr/bin/finalrd:
+  
+  config:
+    contents:
+      /usr/lib/finalrd/finalrd-static.conf:
+      /usr/share/finalrd/:
+
+  services:
+    contents:
+      /lib/systemd/system/finalrd.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/finalrd/copyright:

@@ -4,6 +4,33 @@ essential:
   - libc-bin_copyright
 
 slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libc-bin_config
+    contents:
+      /usr/bin/getconf:
+      /usr/bin/getent:
+      /usr/bin/iconv:
+      /usr/bin/ld.so:
+      /usr/bin/ldd:
+      /usr/bin/locale:
+      /usr/bin/localedef:
+      /usr/bin/pldd:
+      /usr/bin/tzselect:
+      /usr/bin/zdump:
+      /usr/sbin/iconvconfig:
+      /usr/sbin/ldconfig:
+      /usr/sbin/ldconfig.real:
+      /usr/sbin/zic:
+
+  config:
+    contents:
+      /etc/bindresvport.blacklist:
+      /etc/gai.conf:
+      /etc/ld.so.conf:
+      /etc/ld.so.conf.d/libc.conf:
+
   nsswitch:
     contents:
       /etc/nsswitch.conf: {copy: /usr/share/libc-bin/nsswitch.conf}
