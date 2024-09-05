@@ -18,7 +18,7 @@ slices:
       /usr/bin/mksquashfs:
       /usr/bin/sqfscat:
       /usr/bin/sqfstar:
-      /usr/bin/unsquashfs: 
+      /usr/bin/unsquashfs:
 
   copyright:
     contents:
