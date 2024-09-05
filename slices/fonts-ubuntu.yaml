@@ -44,7 +44,7 @@ slices:
     contents:
       /usr/share/fonts/truetype/ubuntu/UbuntuSans-Italic[wdth,wght].ttf:
       /usr/share/fonts/truetype/ubuntu/UbuntuSans[wdth,wght].ttf:
-  
+
   ubuntu-sans-mono:
     contents:
       /usr/share/fonts/truetype/ubuntu/UbuntuSansMono-Italic[wght].ttf:
