@@ -5,9 +5,9 @@ essential:
 
 slices:
   # finalrd is a shell script that relies on a couple of packages to even
-  # work correctly: libc-bin, systemd, mount, grep and coreutils. If initramfs-tools
-  # is supplied (which is optional), it also needs findutils and debianutils.
-  # so rely on atleast the first set of binaries.
+  # work correctly: libc-bin, systemd, mount, grep and coreutils. 
+  # If initramfs-tools is supplied (which is optional), it also needs 
+  # findutils and debianutils. so rely on atleast the first set of binaries.
   bins:
     essential:
       - coreutils_bins
@@ -18,7 +18,7 @@ slices:
       - systemd_bins
     contents:
       /usr/bin/finalrd:
-  
+
   config:
     contents:
       /usr/lib/finalrd/finalrd-static.conf:
