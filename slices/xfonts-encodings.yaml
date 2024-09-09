@@ -4,7 +4,7 @@ essential:
   - xfonts-utils_copyright
 
 slices:
-  data:
+  encodings:
     contents:
       /usr/share/fonts/X11/encodings/*:
 

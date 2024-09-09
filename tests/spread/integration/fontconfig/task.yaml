@@ -1,0 +1,14 @@
+summary: Integration tests for fontconfig
+
+execute: |
+  rootfs="$(install-slices fontconfig)"
+
+  [[ $(chroot "$rootfs" fc-cache | tail -n 1) == "fc-cache: succeeded" ]]
+  test $(chroot "$rootfs" fc-cat -V) -eq 0
+  test $(chroot "$rootfs" fc-conflist -V) -eq 0
+  test $(chroot "$rootfs" fc-list -V) -eq 0
+  test $(chroot "$rootfs" fc-match -V) -eq 0
+  test $(chroot "$rootfs" fc-pattern -V) -eq 0
+  test $(chroot "$rootfs" fc-query -V) -eq 0
+  test $(chroot "$rootfs" fc-scan -V) -eq 0
+  test $(chroot "$rootfs" fc-validate -V) -eq 0

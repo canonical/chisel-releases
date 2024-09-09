@@ -5,8 +5,13 @@ essential:
 
 slices:
   data:
+    essential:
+      - libx11-data_locale
     contents:
       /usr/share/X11/XErrorDB:
+
+  locale:
+    contents:
       /usr/share/X11/locale/C/**:
       /usr/share/X11/locale/am_ET.UTF-8/**:
       /usr/share/X11/locale/armscii-8/**:
