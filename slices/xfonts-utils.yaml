@@ -9,8 +9,8 @@ slices:
       - libc6_libs
       - libfontenc1_libs
       - libfreetype6_libs
-      - xfonts-encodings_encodings
-      - xfonts-utils_data
+      - xfonts-encodings_data
+      - xfonts-utils_utils
       - zlib1g_libs
     contents:
       /usr/bin/bdftopcf:
@@ -20,7 +20,7 @@ slices:
       /usr/bin/mkfontscale:
       /usr/bin/ucs2any:
 
-  data:
+  utils:
     contents:
       /usr/share/fonts/X11/util/*:
 
