@@ -1,0 +1,35 @@
+package: dbus
+
+essential:
+  - dbus_copyright
+
+slices:
+  bins:
+    essential:
+      - dbus-bin_bins
+      - dbus-daemon_bins
+      - dbus-system-bus-common_config
+      - dbus_config
+      - libc6_libs
+      - libdbus-1-3_libs
+      - libexpat1_libs
+      - libsystemd0_libs
+    contents:
+      /etc/init.d/dbus:
+      /usr/lib/dbus-*/dbus-daemon-launch-helper:
+
+  config:
+    contents:
+      /etc/default/dbus:
+
+  services:
+    essential:
+      - dbus-system-bus-common_services
+      - dbus_bins
+    contents:
+      /usr/lib/systemd/system/dbus.service:
+      /usr/lib/systemd/system/multi-user.target.wants/dbus.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/dbus/copyright:
