@@ -9,7 +9,7 @@ slices:
       - libc6_libs
       - libfontenc1_libs
       - libfreetype6_libs
-      - xfonts-encodings_data
+      - xfonts-encodings_encodings
       - xfonts-utils_utils
       - zlib1g_libs
     contents:
