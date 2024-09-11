@@ -143,7 +143,7 @@ slices:
   file-handling:
     essential:
       - perl-base_core
-      - perl-modules-5.38_file-handling
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Cwd.pm:
       /usr/lib/*-linux-*/perl/5.38*/Fcntl.pm:
