@@ -31,6 +31,7 @@ slices:
       /usr/share/perl/5.38*/Locale/Maketext.pm:
       /usr/share/perl/5.38*/Locale/Maketext.pod:
       /usr/share/perl/5.38*/Locale/Maketext/**.pm:
+      /usr/share/perl/5.38*/Locale/Maketext/**.pod:
       /usr/share/perl/5.38*/SelectSaver.pm:
       /usr/share/perl/5.38*/SelfLoader.pm:
       /usr/share/perl/5.38*/Symbol.pm:
@@ -41,6 +42,8 @@ slices:
       /usr/share/perl/5.38*/base.pm:
       /usr/share/perl/5.38*/builtin.pm:
       /usr/share/perl/5.38*/bytes.pm:
+      /usr/share/perl/5.38*/bytes_heavy.pl:
+      /usr/share/perl/5.38*/charnames.pm:
       /usr/share/perl/5.38*/constant.pm:
       /usr/share/perl/5.38*/deprecate.pm:
       /usr/share/perl/5.38*/experimental.pm:
@@ -65,6 +68,7 @@ slices:
     essential:
       - perl-base_core
       - perl-modules-5.38_app-prove
+      - perl-modules-5.38_app-cpan
       - perl-modules-5.38_archive
       - perl-modules-5.38_attribute-handlers
       - perl-modules-5.38_autodie
@@ -91,6 +95,7 @@ slices:
       - perl-modules-5.38_less
       - perl-modules-5.38_math
       - perl-modules-5.38_memoize
+      - perl-modules-5.38_misc
       - perl-modules-5.38_module
       - perl-modules-5.38_networking
       - perl-modules-5.38_next
@@ -124,6 +129,16 @@ slices:
     contents:
       /usr/share/perl/5.38*/App/Prove.pm:
       /usr/share/perl/5.38*/App/Prove/**.pm:
+
+  app-cpan:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_encoding
+      - perl-modules-5.38_networking
+      - perl-modules-5.38_time
+    contents:
+      /usr/share/perl/5.38*/App/Cpan.pm:
 
   archive:
     essential:
@@ -271,6 +286,8 @@ slices:
     contents:
       /usr/share/perl/5.38*/ExtUtils/**.pm:
       /usr/share/perl/5.38*/ExtUtils/**.pod:
+      /usr/share/perl/5.38*/ExtUtils/MANIFEST.SKIP:
+      /usr/share/perl/5.38*/ExtUtils/typemap:
       /usr/share/perl/5.38*/ExtUtils/xsubpp:
 
   filter:
@@ -370,6 +387,7 @@ slices:
     essential:
       - perl-modules-5.38_core
     contents:
+      /usr/share/perl/5.38*/PerlIO.pm:
       /usr/share/perl/5.38*/PerlIO/**.pm:
       /usr/share/perl/5.38*/open.pm:
 
@@ -435,6 +453,7 @@ slices:
     essential:
       - perl-modules-5.38_core
     contents:
+      /usr/share/perl/5.38*/Test.pm:
       /usr/share/perl/5.38*/Test/**.pm:
       /usr/share/perl/5.38*/Test/**.pod:
   test2:
@@ -442,6 +461,7 @@ slices:
       - perl-modules-5.38_core
       - perl-modules-5.38_term
     contents:
+      /usr/share/perl/5.38*/Test2.pm:
       /usr/share/perl/5.38*/Test2/**.pm:
       /usr/share/perl/5.38*/Test2/**.pod:
 
