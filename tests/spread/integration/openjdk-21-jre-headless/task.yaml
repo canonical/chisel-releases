@@ -14,35 +14,30 @@ environment:
 
 execute: |
   # Test different slice installations
-  DEB_FRONTEND=noninteractive apt-get install -y dpkg-dev
   echo "SLICE=${SLICE}"
-  ARCH=`dpkg-architecture -q DEB_HOST_ARCH`
-  JAVA_HOME=/usr/lib/jvm/java-21-openjdk-${ARCH}/
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE} busybox_bins)"
-  (cd ${rootfs}/usr/bin && for applet in $(${rootfs}/usr/bin/busybox --list); do \
-      ln -s busybox $applet ; \
-    done)
-  cp `which link-proc` ${rootfs}/
-  chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java --version
-  case ${SLICE} in
-    awt)
-      cp ImageTest.java ${rootfs}/
-      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java -Djava.awt.headless=true /ImageTest.java
-    ;;
-    classescache)
-      cp Main.java ${rootfs}/
-      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java -XX:ArchiveClassesAtExit=archive.cds /Main.java
-    ;;
-    debug)
-      cp Main.java ${rootfs}/
-      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
-    ;;
-    jfr)
-      cp Main.java ${rootfs}/
-      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
-    ;;
-    security)
-      cp ReadCertificate.java ${rootfs}/
-      chroot ${rootfs} sh /link-proc ${JAVA_HOME}/bin/java /ReadCertificate.java
-    ;;
-  esac
+  cp ImageTest.java ${rootfs}/
+  cp Main.java ${rootfs}/
+  cp ReadCertificate.java ${rootfs}/
+
+  cd ${rootfs}
+  for java in `find usr/lib/jvm -name java`; do
+    chroot . ${java} --version
+    case ${SLICE} in
+      awt)
+        chroot . ${java} -Djava.awt.headless=true /ImageTest.java
+      ;;
+      classescache)
+        chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
+      ;;
+      debug)
+        chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
+      ;;
+      jfr)
+        chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
+      ;;
+      security)
+        chroot . ${java} /ReadCertificate.java
+      ;;
+    esac
+  done
