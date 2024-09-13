@@ -21,6 +21,7 @@ execute: |
   cp ReadCertificate.java ${rootfs}/
 
   cd ${rootfs}
+  mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
     ln -sf /${java} proc/self/exe
     chroot . ${java} --version

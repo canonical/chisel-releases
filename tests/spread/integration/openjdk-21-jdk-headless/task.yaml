@@ -9,14 +9,15 @@ execute: |
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE})"
   cp Main.java ${rootfs}/
+  cd ${rootfs}
+  mkdir -p proc/self
 
   case ${SLICE} in
     bins)
-      cd ${rootfs}
       for java in `find usr/lib/jvm -name java`; do
         ln -sf /${java} proc/self/exe
-        chroot . ${JAVA_HOME}/bin/java --version
-        chroot . ${JAVA_HOME}/bin/java /Main.java
+        chroot . ${java} --version
+        chroot . ${java} /Main.java
       done
       ;;
     modules)
