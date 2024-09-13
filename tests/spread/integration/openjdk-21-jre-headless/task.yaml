@@ -22,6 +22,7 @@ execute: |
 
   cd ${rootfs}
   for java in `find usr/lib/jvm -name java`; do
+    ln -sf /${java} proc/self/exe
     chroot . ${java} --version
     case ${SLICE} in
       awt)

@@ -23,6 +23,7 @@ execute: |
       mkdir -p ${rootfs}/opt/java
       cd ${rootfs}
       for jlink in `find usr/lib/jvm -name jlink`; do
+        ln -sf /${jlink} proc/self/exe
         chroot . ${jlink} --add-modules java.base --output ${rootfs}/opt/java
       done
       ;;
