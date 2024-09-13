@@ -1,7 +1,7 @@
 package: libmount1
 
 essential:
-  - libseccomp2_copyright
+  - libmount1_copyright
 
 slices:
   libs:
