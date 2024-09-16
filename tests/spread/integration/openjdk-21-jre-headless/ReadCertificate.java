@@ -3,7 +3,6 @@ import java.io.*;
 
 public class ReadCertificate {
 
-
     static final String PEM = """
 -----BEGIN CERTIFICATE-----
 MIIDazCCAlOgAwIBAgIULvuqN3MiptnZSYS9y1qJAZYKFA4wDQYJKoZIhvcNAQEL
@@ -27,6 +26,7 @@ Z76Ro4JDuomyWeR9iQ5pP5ug4ciflLa7hlYcH0xJbF3b2M3BlnUYKMqih/TjqKdr
 NBs121h64SPY0gh7kIvF
 -----END CERTIFICATE-----
             """;
+    
     public static void main(String[] args) throws Throwable {
         java.security.cert.Certificate cert = CertificateFactory.getInstance("X509").generateCertificate(new ByteArrayInputStream(PEM.getBytes()));
         if (cert == null)
