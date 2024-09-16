@@ -1,0 +1,8 @@
+summary: Integration tests for rfkill
+
+execute: |
+  rootfs="$(install-slices rfkill_bins)"
+  
+  # smoketest the rfkill binary, the rfkill device is
+  # not available in the test system
+  chroot "${rootfs}" rfkill --help

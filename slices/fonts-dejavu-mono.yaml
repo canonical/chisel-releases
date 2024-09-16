@@ -5,8 +5,6 @@ essential:
 
 slices:
   fonts:
-    essential:
-      - fonts-dejavu-mono_config
     contents:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf:
@@ -14,6 +12,8 @@ slices:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf:
 
   config:
+    essential:
+      - fonts-dejavu-mono_fonts
     contents:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans-mono.conf:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-sans-mono.conf:
