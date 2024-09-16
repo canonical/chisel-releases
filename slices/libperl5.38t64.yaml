@@ -12,7 +12,7 @@ slices:
       /usr/bin/cpan5.38*-*-linux-*:
       /usr/bin/perl5.38*-*-linux-*:
 
-  libs:
+  standard:
     essential:
       - libc6_libs
       - libperl5.38t64_bits
@@ -38,7 +38,6 @@ slices:
       - libperl5.38t64_math
       - libperl5.38t64_module-utils
       - libperl5.38t64_networking
-      - libperl5.38t64_overloading
       - libperl5.38t64_std
       - libperl5.38t64_system-utils
       - libperl5.38t64_text-processing
@@ -54,6 +53,10 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/bits/**.ph:
 
   compiler-utils:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
+      - perl-modules-5.38_compiler-utils
     contents:
       # The Perl Compiler Backend
       /usr/lib/*-linux-*/perl/5.38*/B.pm:
@@ -72,6 +75,7 @@ slices:
     essential:
       - libbz2-1.0_libs
       - perl-base_core
+      - perl-modules-5.38_core
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Compress/**.pm:
@@ -80,7 +84,7 @@ slices:
     essential:
       - libcrypt1_libs
       - perl-base_core
-      - perl-modules-5.38_config
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Config.pm:
       /usr/lib/*-linux-*/perl/5.38*/Config_git.pl:
@@ -99,19 +103,22 @@ slices:
 
   data-dumper:
     contents:
-      /usr/lib/*-linux-*/perl/5.38*/Data/**.pm:
+      /usr/lib/*-linux-*/perl/5.38*/Data/Dumper.pm:
 
   data-structures:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/List/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Scalar/**.pm:
-      /usr/lib/*-linux-*/perl/5.38*/Storable.pm:
 
   database:
     essential:
       - libdb5.3t64_libs
       - libgdbm-compat4t64_libs
       - libgdbm6t64_libs
+      - perl-modules-5.38_core
       - perl-modules-5.38_database
     contents:
       /usr/lib/*-linux-*/perl/5.38*/DB_File.pm:
@@ -121,14 +128,25 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/SDBM_File.pm:
 
   devel:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
+      - perl-modules-5.38_devel
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Devel/**.pm:
 
   digest:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Digest/**.pm:
 
   encoding:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Encode.pm:
       /usr/lib/*-linux-*/perl/5.38*/Encode/**.pm:
@@ -136,6 +154,9 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/endian.ph:
 
   error-handling:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Errno.pm:
       /usr/lib/*-linux-*/perl/5.38*/errno.ph:
@@ -148,16 +169,23 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/Cwd.pm:
       /usr/lib/*-linux-*/perl/5.38*/Fcntl.pm:
       /usr/lib/*-linux-*/perl/5.38*/File/**.pm:
+      /usr/lib/*-linux-*/perl/5.38*/Storable.pm:
 
   gnu:
     contents:
       /usr/lib/*-linux-*/perl/5.38*/gnu/**.ph:
 
   hashing:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Hash/**.pm:
 
   io-modules:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/IO.pm:
       /usr/lib/*-linux-*/perl/5.38*/IO/**.pm:
@@ -170,11 +198,16 @@ slices:
   loaders:
     essential:
       - libc6_libs
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/DynaLoader.pm:
       /usr/lib/*-linux-*/perl/5.38*/auto/**.so:
 
   locale:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/I18N/**.pm:
 
@@ -183,25 +216,31 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/machine/:
 
   math:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Math/**.pm:
 
   module-utils:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Sub/**.pm:
+      /usr/lib/*-linux-*/perl/5.38*/attributes.pm:
       /usr/lib/*-linux-*/perl/5.38*/features-time64.ph:
       /usr/lib/*-linux-*/perl/5.38*/features.ph:
       /usr/lib/*-linux-*/perl/5.38*/lib.pm:
       /usr/lib/*-linux-*/perl/5.38*/mro.pm:
 
   networking:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/IPC/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Socket.pm:
-
-  overloading:
-    contents:
-      /usr/lib/*-linux-*/perl/5.38*/attributes.pm:
 
   std:
     contents:
@@ -213,6 +252,9 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/wait.ph:
 
   system-utils:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/POSIX.pm:
       /usr/lib/*-linux-*/perl/5.38*/POSIX.pod:
@@ -225,11 +267,17 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/syslog.ph:
 
   text-processing:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/MIME/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Unicode/**.pm:
 
   threading:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/threads.pm:
       /usr/lib/*-linux-*/perl/5.38*/threads/**.pm:
