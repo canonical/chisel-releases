@@ -1,0 +1,38 @@
+summary: Integration tests for openjdk-11-jre-headless
+
+environment:
+#  SLICE/core: "core"
+  SLICE/debug: "debug"
+  SLICE/jfr: "jfr"
+#  SLICE/management: "management"
+  SLICE/security: "security"
+#  SLICE/stcp: "stcp"
+#  SLICE/tools: "tools"
+
+execute: |
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-11-jre-headless_${SLICE} busybox_bins)"
+  cp Main.java ${rootfs}/
+  cp ReadCertificate.java ${rootfs}/
+  cp certificate.pem ${rootfs}/
+  cd ${rootfs}
+  mkdir -p proc/self
+  for java in `find usr/lib/jvm -name java`; do
+    ln -sf /${java} proc/self/exe
+    chroot . ${java} --version
+    case ${SLICE} in
+      classescache)
+        chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
+      ;;
+      debug)
+        chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
+      ;;
+      jfr)
+        chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
+      ;;
+      security)
+        chroot . ${java} /ReadCertificate.java
+      ;;
+    esac
+  done

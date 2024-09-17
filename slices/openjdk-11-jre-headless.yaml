@@ -1,0 +1,161 @@
+package: openjdk-11-jre-headless
+
+essential:
+  - openjdk-11-jre-headless_copyright
+
+slices:
+
+  standard:
+    essential:
+      - openjdk-11-jre-headless_core
+      - openjdk-11-jre-headless_prefs
+      - openjdk-11-jre-headless_rmi
+      - openjdk-11-jre-headless_security
+
+  core:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /etc/java-11-openjdk/jvm-*.cfg:
+      /etc/java-11-openjdk/logging.properties:
+      /etc/java-11-openjdk/management/jmxremote.access:
+      /etc/java-11-openjdk/management/management.properties:
+      /etc/java-11-openjdk/net.properties:
+      /etc/java-11-openjdk/security/java.policy:
+      /etc/java-11-openjdk/security/java.security:
+      /usr/lib/jvm/java-11-openjdk-*/bin/java:
+      /usr/lib/jvm/java-11-openjdk-*/conf/logging.properties:
+      /usr/lib/jvm/java-11-openjdk-*/conf/management/jmxremote.access:
+      /usr/lib/jvm/java-11-openjdk-*/conf/management/management.properties:
+      /usr/lib/jvm/java-11-openjdk-*/conf/net.properties:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/java.policy:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/java.security:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jexec:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jli/libjli.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jspawnhelper:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jvm.cfg:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jvm.cfg-default:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libextnet.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libjava.so:
+      # lib/modules support
+      /usr/lib/jvm/java-11-openjdk-*/lib/libjimage.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libjsig.so:
+      # required for IO.
+      /usr/lib/jvm/java-11-openjdk-*/lib/libnet.so:
+      # required for IO.
+      /usr/lib/jvm/java-11-openjdk-*/lib/libnio.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libverify.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libzip.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/modules:
+      /usr/lib/jvm/java-11-openjdk-*/lib/server/libjsig.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/server/libjvm.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/tzdb.dat:
+
+  prefs:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libprefs.so:
+
+  rmi:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/lib/librmi.so:
+
+  stcp:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libsctp.so:
+
+  debug:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libattach.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libdt_socket.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libinstrument.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libjdwp.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libsaproc.so:
+        arch:
+          - amd64
+          - arm64
+          - armhf
+          - ppc64el
+
+  management:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /etc/java-11-openjdk/management/jmxremote.access:
+      /etc/java-11-openjdk/management/management.properties:
+      /usr/lib/jvm/java-11-openjdk-*/conf/management/jmxremote.access:
+      /usr/lib/jvm/java-11-openjdk-*/conf/management/management.properties:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libmanagement.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libmanagement_agent.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libmanagement_ext.so:
+
+  security:
+    essential:
+      - libnss3_libs
+      - libpcsclite1_libs
+      - openjdk-11-jre-headless_core
+    contents:
+      /etc/java-11-openjdk/security/blocked.certs:
+      /etc/java-11-openjdk/security/default.policy:
+      /etc/java-11-openjdk/security/nss.cfg:
+      /etc/java-11-openjdk/security/policy/limited/default_US_export.policy:
+      /etc/java-11-openjdk/security/policy/limited/default_local.policy:
+      /etc/java-11-openjdk/security/policy/limited/exempt_local.policy:
+      /etc/java-11-openjdk/security/policy/unlimited/default_US_export.policy:
+      /etc/java-11-openjdk/security/policy/unlimited/default_local.policy:
+      /etc/java-11-openjdk/security/public_suffix_list.dat:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/nss.cfg:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/policy/limited/default_US_export.policy:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/policy/limited/default_local.policy:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/policy/limited/exempt_local.policy:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/policy/unlimited/default_US_export.policy:
+      /usr/lib/jvm/java-11-openjdk-*/conf/security/policy/unlimited/default_local.policy:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libj2gss.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libj2pcsc.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libj2pkcs11.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/libjaas.so:
+      /usr/lib/jvm/java-11-openjdk-*/lib/security/blocked.certs:
+      /usr/lib/jvm/java-11-openjdk-*/lib/security/cacerts:
+      /usr/lib/jvm/java-11-openjdk-*/lib/security/default.policy:
+      /usr/lib/jvm/java-11-openjdk-*/lib/security/public_suffix_list.dat:
+
+  tools:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jjs:
+      /usr/lib/jvm/java-11-openjdk-*/bin/keytool:
+      /usr/lib/jvm/java-11-openjdk-*/bin/pack200:
+      /usr/lib/jvm/java-11-openjdk-*/bin/rmid:
+      /usr/lib/jvm/java-11-openjdk-*/bin/rmiregistry:
+      /usr/lib/jvm/java-11-openjdk-*/bin/unpack200:
+
+  jfr:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /etc/java-11-openjdk/jfr/default.jfc:
+      /etc/java-11-openjdk/jfr/profile.jfc:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jfr/default.jfc:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jfr/profile.jfc:
+      /usr/lib/jvm/java-11-openjdk-*/lib/jrt-fs.jar:
+
+  javac:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/lib/ct.sym:
+
+  copyright:
+    contents:
+      /usr/share/doc/openjdk-11-jre-headless/copyright:
