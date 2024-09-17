@@ -1,0 +1,31 @@
+summary: Integration tests for openjdk-17-jdk-headless
+
+environment:
+  SLICE/bins: "bins"
+  SLICE/modules: "modules"
+
+execute: |
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-17-jdk-headless_${SLICE})"
+  cp Main.java ${rootfs}/
+  cd ${rootfs}
+  mkdir -p proc/self
+
+  case ${SLICE} in
+    bins)
+      for java in `find usr/lib/jvm -name java`; do
+        ln -sf /${java} proc/self/exe
+        chroot . ${java} --version
+        chroot . ${java} /Main.java
+      done
+      ;;
+    modules)
+      mkdir -p ${rootfs}/opt/java
+      cd ${rootfs}
+      for jlink in `find usr/lib/jvm -name jlink`; do
+        ln -sf /${jlink} proc/self/exe
+        chroot . ${jlink} --add-modules java.base --output ${rootfs}/opt/java
+      done
+      ;;
+  esac
