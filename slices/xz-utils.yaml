@@ -15,8 +15,8 @@ slices:
       /usr/bin/xzcat:
   scripts:  # These are utilities which extend bins
     essential:
-      - coreutils_bins
       - base-files_tmp
+      - coreutils_bins
       - diffutils_bins
       - grep_bins
       - xz-utils_bins
