@@ -8,4 +8,4 @@ execute: |
   # testing diff and cmp
   chroot "$rootfs" diff FILE1 FILE2 > "$rootfs/diff-output_rootfs" || true
   diff FILE1 FILE2 > "$rootfs/diff-output_host" || true
-  chroot cmp diff-output_rootfs diff-output_host 
+  chroot "$rootfs" cmp diff-output_rootfs diff-output_host 
