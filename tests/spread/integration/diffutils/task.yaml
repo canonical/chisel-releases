@@ -9,5 +9,5 @@ execute: |
   cp FILE1 FILE2 "${rootfs}/"
 
   # testing diff and cmp
-  chroot "$rootfs" diff FILE1 FILE2 > /diff-output
+  chroot "$rootfs" diff FILE1 FILE2 > /diff-output || true
   chroot "$rootfs" cmp /diff-output <(diff FILE1 FILE2)
