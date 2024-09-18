@@ -13,12 +13,12 @@ slices:
       /usr/bin/unxz:
       /usr/bin/xz:
       /usr/bin/xzcat:
-  scripts:  # These are utilities which extend bins
+  scripts:  # scripts which add xz compression to common utils 
     essential:
-      - base-files_tmp
-      - coreutils_bins
-      - diffutils_bins
-      - grep_bins
+      - base-files_tmp # utils require temporary storage
+      - coreutils_bins # shebang in scripts reference interpreter in /bin not /usr/bin
+      - diffutils_bins # needed for zx cmp and diff
+      - grep_bins # needed for zx grep utils
       - xz-utils_bins
     contents:
       /usr/bin/xzcmp:
@@ -26,8 +26,6 @@ slices:
       /usr/bin/xzegrep:
       /usr/bin/xzfgrep:
       /usr/bin/xzgrep:
-      /usr/bin/xzless:
-      /usr/bin/xzmore:
 
   copyright:
     contents:

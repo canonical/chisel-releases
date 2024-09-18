@@ -11,6 +11,7 @@ execute: |
   chroot "$rootfs" xz --version
 
   # test compression
+  echo "compressed content" > uncompressed.txt
   cp uncompressed.txt "${rootfs}/"
   chroot "$rootfs" xz -z uncompressed.txt
 
@@ -18,6 +19,8 @@ execute: |
   chroot "$rootfs" xzgrep "$(cat uncompressed.txt)" uncompressed.txt.xz
 
   # test xzdiff
+  echo "one" > FILE1
+  echo "two" > FILE2
   cp FILE1 FILE2 "${rootfs}/"
   chroot "$rootfs" xz -zk FILE1
   chroot "$rootfs" xz -zk FILE2
