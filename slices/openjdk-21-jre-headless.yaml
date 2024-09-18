@@ -194,7 +194,7 @@ slices:
 
   tools:
     essential:
-      - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_security
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/jpackage:
       /usr/lib/jvm/java-21-openjdk-*/bin/keytool:
