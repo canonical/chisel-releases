@@ -3,11 +3,9 @@ summary: Integration tests for diffutils
 execute: |
   rootfs="$(install-slices diffutils_bins)"
 
-  apt install -y gcc
-  arch=$(gcc -dumpmachine)
-
   cp FILE1 FILE2 "${rootfs}/"
 
   # testing diff and cmp
-  chroot "$rootfs" diff FILE1 FILE2 > /diff-output || true
-  chroot "$rootfs" cmp /diff-output <(diff FILE1 FILE2)
+  chroot "$rootfs" diff FILE1 FILE2 > "$rootfs/diff-output_rootfs" || true
+  diff FILE1 FILE2 > "$rootfs/diff-output_host" || true
+  chroot cmp diff-output_rootfs diff-output_host 
