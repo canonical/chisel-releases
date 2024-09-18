@@ -7,7 +7,7 @@ environment:
 #  SLICE/management: "management"
   SLICE/security: "security"
 #  SLICE/stcp: "stcp"
-#  SLICE/tools: "tools"
+  SLICE/tools: "tools"
 
 execute: |
   # Test different slice installations
@@ -33,6 +33,10 @@ execute: |
       ;;
       security)
         chroot . ${java} /ReadCertificate.java
+      ;;
+      tools)
+        DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
+        chroot . $(dirname ${java})/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME"
       ;;
     esac
   done

@@ -131,7 +131,7 @@ slices:
 
   tools:
     essential:
-      - openjdk-17-jre-headless_core
+      - openjdk-17-jre-headless_security
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/keytool:
       /usr/lib/jvm/java-17-openjdk-*/bin/rmiregistry:
