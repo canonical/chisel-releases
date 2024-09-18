@@ -13,12 +13,8 @@ slices:
       /usr/bin/unxz:
       /usr/bin/xz:
       /usr/bin/xzcat:
-  utils:
+  scripts: # Thses are utilities which extend bins
     essential:
-      - base-files_bin
-      - base-files_tmp
-      - coreutils_bins
-      - dash_bins
       - diffutils_bins
       - grep_bins
       - xz-utils_bins
