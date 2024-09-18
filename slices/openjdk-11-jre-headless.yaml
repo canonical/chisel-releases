@@ -131,7 +131,7 @@ slices:
 
   tools:
     essential:
-      - openjdk-11-jre-headless_core
+      - openjdk-11-jre-headless_security
     contents:
       /usr/lib/jvm/java-11-openjdk-*/bin/jjs:
       /usr/lib/jvm/java-11-openjdk-*/bin/keytool:
