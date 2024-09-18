@@ -1,7 +1,7 @@
 summary: Integration tests for xz-utils
 
 execute: |
-  rootfs="$(install-slices xz-utils_bins xz-utils_utils)"
+  rootfs="$(install-slices xz-utils_bins xz-utils_utils base-files_bin coreutils_bins dash_bins)"
 
   # make artificial /dev/null for testing
   mkdir "$rootfs/dev"
