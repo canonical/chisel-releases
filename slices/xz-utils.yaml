@@ -13,7 +13,7 @@ slices:
       /usr/bin/unxz:
       /usr/bin/xz:
       /usr/bin/xzcat:
-  scripts: # Thses are utilities which extend bins
+  scripts:  # These are utilities which extend bins
     essential:
       - diffutils_bins
       - grep_bins
