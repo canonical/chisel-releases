@@ -16,7 +16,7 @@ slices:
   scripts:  # These are utilities which extend bins
     essential:
       - coreutils_bins
-      - base-files_tmp 
+      - base-files_tmp
       - diffutils_bins
       - grep_bins
       - xz-utils_bins
