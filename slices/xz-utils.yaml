@@ -13,12 +13,13 @@ slices:
       /usr/bin/unxz:
       /usr/bin/xz:
       /usr/bin/xzcat:
-  scripts:  # scripts which add xz compression to common utils 
+  scripts:  # scripts which add xz compression to common utils
     essential:
-      - base-files_tmp # utils require temporary storage
-      - coreutils_bins # shebang in scripts reference interpreter in /bin not /usr/bin
-      - diffutils_bins # needed for zx cmp and diff
-      - grep_bins # needed for zx grep utils
+      - base-files_tmp  # utils require temporary storage
+      # shebang in scripts reference interpreter in /bin not /usr/bin
+      - coreutils_bins
+      - diffutils_bins  # needed for zx cmp and diff
+      - grep_bins  # needed for zx grep utils
       - xz-utils_bins
     contents:
       /usr/bin/xzcmp:
