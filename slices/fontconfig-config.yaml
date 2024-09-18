@@ -82,8 +82,8 @@ slices:
       /usr/share/fontconfig/conf.avail/69-unifont.conf:
       /usr/share/fontconfig/conf.avail/70-force-bitmaps.conf:
       /usr/share/fontconfig/conf.avail/70-no-bitmaps-and-emoji.conf:
-      /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf:
       /usr/share/fontconfig/conf.avail/70-no-bitmaps-except-emoji.conf:
+      /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf:
       /usr/share/fontconfig/conf.avail/70-yes-bitmaps.conf:
       /usr/share/fontconfig/conf.avail/80-delicious.conf:
       /usr/share/fontconfig/conf.avail/90-synthetic.conf:
