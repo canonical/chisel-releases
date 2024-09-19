@@ -4,5 +4,5 @@ execute: |
   rootfs="$(install-slices xdg-user-dirs_scripts)"
 
   test -d ${rootfs}/etc/xdg/autostart
-  test -d ${rootfs}/etc/xdg/user-dirs.conf
-  test -d ${rootfs}/etc/xdg/user-dirs.defaults
+  test -f ${rootfs}/etc/xdg/user-dirs.conf
+  test -f ${rootfs}/etc/xdg/user-dirs.defaults
