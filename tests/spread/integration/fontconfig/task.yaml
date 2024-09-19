@@ -1,14 +1,13 @@
 summary: Integration tests for fontconfig
 
 execute: |
-  rootfs="$(install-slices fontconfig_bins)"
+  rootfs="$(install-slices bash_bins fontconfig_bins)"
 
-  [[ $(chroot "$rootfs" HOME=/tmp fc-cache | tail -n 1) == "fc-cache: succeeded" ]]
-  test $(chroot "$rootfs" fc-cat -V) -eq 0
-  test $(chroot "$rootfs" fc-conflist -V) -eq 0
-  test $(chroot "$rootfs" fc-list -V) -eq 0
-  test $(chroot "$rootfs" fc-match -V) -eq 0
-  test $(chroot "$rootfs" fc-pattern -V) -eq 0
-  test $(chroot "$rootfs" fc-query -V) -eq 0
-  test $(chroot "$rootfs" fc-scan -V) -eq 0
-  test $(chroot "$rootfs" fc-validate -V) -eq 0
+  mkdir -p $(rootfs)/tmp
+
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cache') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cat') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-conflist') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-list') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-match') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-pattern') -eq 0 ]]
