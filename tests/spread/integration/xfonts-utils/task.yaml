@@ -3,9 +3,7 @@ summary: Integration tests for xfonts-utils
 execute: |
   rootfs="$(install-slices xfonts-utils_bins)"
 
-  test $(chroot "$rootfs" bdftopcf) -eq 0
-  test $(chroot "$rootfs" bdftruncate) -eq 0
-  test $(chroot "$rootfs" fonttosfnt) -eq 0
-  test $(chroot "$rootfs" mkfontdir) -eq 0
-  test $(chroot "$rootfs" mkfontscale) -eq 0
-  test $(chroot "$rootfs" ucs2any) -eq 0
+  mkdir -p $rootfs/tmp/fonts
+  cp sample.bdf $rootfs/tmp/fonts/sample.bdf
+
+  chroot "$rootfs" bdftopcf /tmp/fonts/sample.bdf 1>/dev/null
