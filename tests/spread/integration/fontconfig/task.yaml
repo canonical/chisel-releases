@@ -3,7 +3,7 @@ summary: Integration tests for fontconfig
 execute: |
   rootfs="$(install-slices fontconfig_bins)"
 
-  [[ $(chroot "$rootfs" fc-cache | tail -n 1) == "fc-cache: succeeded" ]]
+  [[ $(chroot "$rootfs" HOME=/tmp fc-cache | tail -n 1) == "fc-cache: succeeded" ]]
   test $(chroot "$rootfs" fc-cat -V) -eq 0
   test $(chroot "$rootfs" fc-conflist -V) -eq 0
   test $(chroot "$rootfs" fc-list -V) -eq 0
