@@ -111,20 +111,6 @@ slices:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/classlist:
-      /usr/lib/jvm/java-21-openjdk-*/lib/server/classes.jsa:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - riscv64
-          - s390x
-      /usr/lib/jvm/java-21-openjdk-*/lib/server/classes_nocoops.jsa:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - riscv64
-          - s390x
 
   security:
     essential:
