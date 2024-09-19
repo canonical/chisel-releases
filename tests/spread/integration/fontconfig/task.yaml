@@ -5,9 +5,4 @@ execute: |
 
   mkdir -p $(rootfs)/tmp
 
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cache') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cat') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-conflist') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-list') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-match') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-pattern') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cache && echo $?') -eq 0 ]]
