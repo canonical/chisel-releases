@@ -12,6 +12,12 @@ slices:
       - openjdk-17-jre-headless_rmi
       - openjdk-17-jre-headless_security
 
+  classescache:
+    essential:
+      - openjdk-17-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-17-openjdk-amd64/lib/classlist:
+
   core:
     essential:
       - libc6_libs
