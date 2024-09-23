@@ -8,7 +8,7 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libxxhash.so.0*:
+      /usr/lib/*-linux-*/libxxhash.so.0*:
   copyright:
     contents:
       /usr/share/doc/libxxhash0/copyright:

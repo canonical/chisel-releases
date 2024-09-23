@@ -10,7 +10,7 @@ slices:
       - libssl3t64_libs
       - zlib1g_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libssh2.so.1*:
+      /usr/lib/*-linux-*/libssh2.so.1*:
   copyright:
     contents:
       /usr/share/doc/libssh2-1t64/copyright:
