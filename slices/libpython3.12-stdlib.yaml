@@ -253,6 +253,7 @@ slices:
       - libpython3.12-stdlib_markup-tools
       - libpython3.12-stdlib_numeric
       - libpython3.12-stdlib_pydoc
+      - libuuid1_libs
     contents:
       /usr/lib/python3.12/cgi.py:
       /usr/lib/python3.12/cgitb.py:
@@ -261,6 +262,7 @@ slices:
       /usr/lib/python3.12/http/cookies.py:
       /usr/lib/python3.12/http/server.py:
       /usr/lib/python3.12/imaplib.py:
+      /usr/lib/python3.12/lib-dynload/_uuid.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/nntplib.py:
       /usr/lib/python3.12/nturl2path.py:
       /usr/lib/python3.12/poplib.py:
@@ -390,9 +392,12 @@ slices:
   # The "extra" slice consists of easter-eggs and deprecated modules
   extras:
     essential:
+      - libnsl2_libs
       - libpython3.12-stdlib_core
       - libpython3.12-stdlib_internet
+      - libtirpc3t64_libs
     contents:
       /usr/lib/python3.12/__hello__.py:
       /usr/lib/python3.12/antigravity.py:
+      /usr/lib/python3.12/lib-dynload/nis.cpython-312-*-linux-*.so:
       /usr/lib/python3.12/this.py:
