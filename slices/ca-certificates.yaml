@@ -43,11 +43,6 @@ slices:
       ]
       content.write("/etc/ca-certificates.conf", "\n".join(names))
 
-  # Kept to avoid breaking existing users of this slice.
-  data-no-certs:
-    essential:
-      - ca-certificates_data
-
   bins:
     essential:
       - base-files_bin
