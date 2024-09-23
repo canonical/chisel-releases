@@ -19,7 +19,7 @@ slices:
     essential:
       - openjdk-17-jre-headless_core
     contents:
-      /usr/lib/jvm/java-17-openjdk-amd64/lib/classlist:
+      /usr/lib/jvm/java-17-openjdk-*/lib/classlist:
 
   core:
     essential:
