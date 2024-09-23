@@ -16,11 +16,10 @@ slices:
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
-      - libcrypt1_libs
-      - libgcc-s1_libs
       - libgmp10_libs
       - libpcre2-8-0_libs
       - libselinux1_libs
+      - libssl3t64_libs
     contents:
       /usr/bin/[:
       /usr/bin/arch:
