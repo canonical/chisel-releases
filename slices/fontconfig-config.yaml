@@ -6,18 +6,10 @@ essential:
 slices:
   config:
     essential:
-      - fonts-croscore_fonts
       - fonts-dejavu-core_config
-      - fonts-dejavu-core_fonts
-      - fonts-freefont-otf_fonts
-      - fonts-freefont-ttf_fonts
-      - fonts-liberation_fonts
       - fonts-noto-core_config
-      - fonts-noto-core_fonts
       - fonts-texgyre_config
-      - fonts-texgyre_fonts
       - fonts-urw-base35_config
-      - fonts-urw-base35_fonts
     contents:
       /etc/fonts/conf.d/10-hinting-slight.conf:
       /etc/fonts/conf.d/10-scale-bitmap-fonts.conf:

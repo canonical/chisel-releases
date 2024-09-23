@@ -4,17 +4,14 @@ essential:
   - x11-common_copyright
 
 slices:
-  data:
-    essential:
-      - lsb-base_bins
+  resources:
     contents:
-      /etc/X11/Xreset:
-      /etc/X11/Xreset.d/:
       /etc/X11/Xresources/x11-common:
-      /etc/init.d/x11-common:
 
   scripts:
     contents:
+      /etc/X11/Xreset:
+      /etc/X11/Xreset.d/:
       /etc/X11/Xsession:
       /etc/X11/Xsession.d/20x11-common_process-args:
       /etc/X11/Xsession.d/30x11-common_xresources:
@@ -24,6 +21,12 @@ slices:
       /etc/X11/Xsession.d/60x11-common_xdg_path:
       /etc/X11/Xsession.d/90x11-common_ssh-agent:
       /etc/X11/Xsession.d/99x11-common_start:
+
+  services:
+    essential:
+      - lsb-base_bins
+    contents:
+      /etc/init.d/x11-common:
 
   copyright:
     contents:

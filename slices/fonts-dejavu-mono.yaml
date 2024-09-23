@@ -12,8 +12,6 @@ slices:
       /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf:
 
   config:
-    essential:
-      - fonts-dejavu-mono_fonts
     contents:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans-mono.conf:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-sans-mono.conf:

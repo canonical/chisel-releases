@@ -10,8 +10,6 @@ slices:
       /usr/share/fontconfig/conf.avail/urw-*:
 
   fonts:
-    essential:
-      - xfonts-utils_bins
     contents:
       /etc/X11/fonts/Type1/fonts-urw-base35*:
       /usr/share/fonts/X11/Type1/*.pfb:
