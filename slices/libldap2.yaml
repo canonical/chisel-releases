@@ -8,6 +8,7 @@ slices:
     essential:
       - libc6_libs
       - libgnutls30t64_libs
+      - libldap-common_config
       - libsasl2-2_libs
     contents:
       /usr/lib/*-linux-*/liblber.so.2*:
