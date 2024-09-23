@@ -11,7 +11,6 @@ slices:
       - apparmor_config
       - apparmor_profiles
       - libc6_libs
-      - lsb-base_bins
     contents:
       /etc/init.d/apparmor:
       /sbin/apparmor_parser:
