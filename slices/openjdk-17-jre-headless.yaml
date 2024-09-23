@@ -8,6 +8,9 @@ slices:
   standard:
     essential:
       - openjdk-17-jre-headless_core
+      - openjdk-17-jre-headless_debug
+      - openjdk-17-jre-headless_jfr
+      - openjdk-17-jre-headless_management
       - openjdk-17-jre-headless_prefs
       - openjdk-17-jre-headless_rmi
       - openjdk-17-jre-headless_security
