@@ -33,7 +33,6 @@ slices:
 
   config:
     contents:
-      /etc/init.d/procps:
       /etc/sysctl.conf:
       /etc/sysctl.d/10-console-messages.conf:
       /etc/sysctl.d/10-ipv6-privacy.conf:
