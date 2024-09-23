@@ -15,7 +15,7 @@ slices:
       - libnghttp2-14_libs
       - libpsl5t64_libs
       - librtmp1_libs
-      - libssh-4_libs
+      - libssh2-1t64_libs
       - libssl3t64_libs
       - libzstd1_libs
       - zlib1g_libs
