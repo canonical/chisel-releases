@@ -7,6 +7,7 @@ slices:
   libs:
     essential:
       - libc6_libs
+      - libxxhash0_libs
     contents:
       /usr/lib/*-linux-*/liblz4.so.1*:
 
