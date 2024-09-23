@@ -8,7 +8,10 @@ slices:
   # files provided also by the package.
   bins:
     essential:
+      - libacl1_libs
+      - libattr1_libs
       - libaudit1_libs
+      - libbsd0_libs
       - libc6_libs
       - libcrypt1_libs
       - libpam-modules_libs
