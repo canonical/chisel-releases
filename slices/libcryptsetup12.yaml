@@ -6,7 +6,6 @@ essential:
 slices:
   libs:
     essential:
-      - libargon2-1_libs
       - libblkid1_libs
       - libc6_libs
       - libdevmapper1.02.1_libs
