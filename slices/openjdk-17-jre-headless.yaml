@@ -30,15 +30,11 @@ slices:
     contents:
       /etc/java-17-openjdk/jvm-*.cfg:
       /etc/java-17-openjdk/logging.properties:
-      /etc/java-17-openjdk/management/jmxremote.access:
-      /etc/java-17-openjdk/management/management.properties:
       /etc/java-17-openjdk/net.properties:
       /etc/java-17-openjdk/security/java.policy:
       /etc/java-17-openjdk/security/java.security:
       /usr/lib/jvm/java-17-openjdk-*/bin/java:
       /usr/lib/jvm/java-17-openjdk-*/conf/logging.properties:
-      /usr/lib/jvm/java-17-openjdk-*/conf/management/jmxremote.access:
-      /usr/lib/jvm/java-17-openjdk-*/conf/management/management.properties:
       /usr/lib/jvm/java-17-openjdk-*/conf/net.properties:
       /usr/lib/jvm/java-17-openjdk-*/conf/security/java.policy:
       /usr/lib/jvm/java-17-openjdk-*/conf/security/java.security:
