@@ -5,9 +5,13 @@ essential:
 
 slices:
 
+  # A set of slices to run headless openjdk runtime
   standard:
     essential:
       - openjdk-11-jre-headless_core
+      - openjdk-11-jre-headless_debug
+      - openjdk-11-jre-headless_jfr
+      - openjdk-11-jre-headless_management
       - openjdk-11-jre-headless_prefs
       - openjdk-11-jre-headless_rmi
       - openjdk-11-jre-headless_security
