@@ -12,8 +12,8 @@ slices:
       - openjdk-21-jre-headless_console
       - openjdk-21-jre-headless_core
       - openjdk-21-jre-headless_debug
-      - openjdk-17-jre-headless_jfr
-      - openjdk-17-jre-headless_management
+      - openjdk-21-jre-headless_jfr
+      - openjdk-21-jre-headless_management
       - openjdk-21-jre-headless_prefs
       - openjdk-21-jre-headless_rmi
       - openjdk-21-jre-headless_security
