@@ -30,7 +30,7 @@ slices:
           - ppc64el
           - s390x
 
-  # Minimal set of files to run a Java application
+  # A minimal set of files to run a Java application
   core:
     essential:
       - libc6_libs
