@@ -2,6 +2,7 @@ summary: Integration tests for openjdk-11-jre-headless
 
 environment:
 #  SLICE/core: "core"
+  SLICE/classescache: "classescache"
   SLICE/debug: "debug"
   SLICE/jfr: "jfr"
 #  SLICE/management: "management"
@@ -23,6 +24,7 @@ execute: |
     chroot . ${java} --version
     case ${SLICE} in
       classescache)
+        chroot . ${java} -Xshare:dump
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
       debug)

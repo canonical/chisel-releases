@@ -12,6 +12,12 @@ slices:
       - openjdk-11-jre-headless_rmi
       - openjdk-11-jre-headless_security
 
+  # List of classes required to create the Class Data Sharing archive
+  classescache:
+    essential:
+      - openjdk-11-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/lib/classlist:
   core:
     essential:
       - libc6_libs
