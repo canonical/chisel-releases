@@ -23,7 +23,7 @@ slices:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/classlist:
 
-  # Minimal set of files to run Java application
+  # Minimal set of files to run a Java application
   core:
     essential:
       - libc6_libs

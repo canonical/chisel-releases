@@ -37,7 +37,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstatd:
       /usr/lib/jvm/java-17-openjdk-*/bin/serialver:
 
-  # OpenJDK modules required for build runtime image
+  # OpenJDK modules required to build the runtime image
   modules:
     essential:
       - openjdk-17-jdk-headless_bins
