@@ -5,6 +5,7 @@ essential:
 
 slices:
 
+  # A set of slices to run headless openjdk runtime
   standard:
     essential:
       - openjdk-17-jre-headless_core
@@ -15,12 +16,14 @@ slices:
       - openjdk-17-jre-headless_rmi
       - openjdk-17-jre-headless_security
 
+  # List of classes required to create the Class Data Sharing archive
   classescache:
     essential:
       - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/classlist:
 
+  # Minimal set of files to run Java application
   core:
     essential:
       - libc6_libs
@@ -59,24 +62,28 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/server/libjvm.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/tzdb.dat:
 
+  # Native part of jdk.prefs modules
   prefs:
     essential:
       - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/libprefs.so:
 
+  # Native part of java.rmi
   rmi:
     essential:
       - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/librmi.so:
 
+  # Native part of STCP protocol implementation
   stcp:
     essential:
       - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/libsctp.so:
 
+  # Debug support
   debug:
     essential:
       - openjdk-17-jre-headless_core
@@ -92,6 +99,7 @@ slices:
           - armhf
           - ppc64el
 
+  # Configuration and native part of Java Management Extensions
   management:
     essential:
       - openjdk-17-jre-headless_core
@@ -104,6 +112,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/libmanagement_agent.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/libmanagement_ext.so:
 
+  # Security configuration files and native libraries
   security:
     essential:
       - libnss3_libs
@@ -134,6 +143,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/security/default.policy:
       /usr/lib/jvm/java-17-openjdk-*/lib/security/public_suffix_list.dat:
 
+  # OpenJDK tools
   tools:
     essential:
       - openjdk-17-jre-headless_security
@@ -144,6 +154,7 @@ slices:
         arch:
           - amd64
 
+  # Java Flight Recorder configuration and jar file
   jfr:
     essential:
       - openjdk-17-jre-headless_core
@@ -154,6 +165,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/jfr/profile.jfc:
       /usr/lib/jvm/java-17-openjdk-*/lib/jrt-fs.jar:
 
+  # Javac JDK API signatures for the backwards compatibility
   javac:
     essential:
       - openjdk-17-jre-headless_core
