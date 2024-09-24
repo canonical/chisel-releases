@@ -4,6 +4,7 @@ essential:
   - openjdk-17-jdk-headless_copyright
 
 slices:
+  # OpenJDK binaries slice
   bins:
     essential:
       - openjdk-17-jre-headless_core
@@ -36,6 +37,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstatd:
       /usr/lib/jvm/java-17-openjdk-*/bin/serialver:
 
+  # OpenJDK modules required for build runtime image
   modules:
     essential:
       - openjdk-17-jdk-headless_bins
@@ -124,6 +126,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/jmods/jdk.xml.dom.jmod:
       /usr/lib/jvm/java-17-openjdk-*/jmods/jdk.zipfs.jmod:
 
+  # OpenJDK headers for JNI
   headers:
     essential:
       - openjdk-17-jre-headless_core
@@ -134,6 +137,7 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/include/jvmticmlr.h:
       /usr/lib/jvm/java-17-openjdk-*/include/linux/jni_md.h:
 
+  # OpenJDK headers for the debug agent development
   debug-headers:
     essential:
       - openjdk-17-jre-headless_core
