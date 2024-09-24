@@ -4,6 +4,7 @@ essential:
   - openjdk-17-jdk-headless_copyright
 
 slices:
+
   # OpenJDK binaries slice
   bins:
     essential:
