@@ -4,6 +4,8 @@ essential:
   - openjdk-21-jdk-headless_copyright
 
 slices:
+
+  # OpenJDK binaries slice
   bins:
     essential:
       - openjdk-21-jre-headless_core
@@ -38,6 +40,7 @@ slices:
       # used by javac
       /usr/lib/jvm/java-21-openjdk-*/lib/ct.sym:
 
+  # OpenJDK modules required to build the runtime image
   modules:
     essential:
       - openjdk-21-jdk-headless_bins
@@ -129,6 +132,7 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.xml.dom.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.zipfs.jmod:
 
+  # OpenJDK headers for JNI
   headers:
     essential:
       - openjdk-21-jre-headless_core
@@ -139,6 +143,7 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/include/jvmticmlr.h:
       /usr/lib/jvm/java-21-openjdk-*/include/linux/jni_md.h:
 
+  # OpenJDK headers for the debug agent development
   debug-headers:
     essential:
       - openjdk-21-jre-headless_core

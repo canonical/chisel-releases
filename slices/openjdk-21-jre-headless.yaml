@@ -18,6 +18,14 @@ slices:
       - openjdk-21-jre-headless_rmi
       - openjdk-21-jre-headless_security
 
+  # List of classes required to create the Class Data Sharing archive
+  classescache:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/classlist:
+
+  # A minimal set of files to run a Java application
   core:
     essential:
       - libc6_libs
@@ -58,30 +66,35 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/server/libjvm.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/tzdb.dat:
 
+  # Native part of jdk.prefs modules
   prefs:
     essential:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/libprefs.so:
 
+  # Native part of java.rmi
   rmi:
     essential:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
 
+  # Native part of the console support
   console:
     essential:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/lible.so:
 
+  # Native part of STCP protocol implementation
   stcp:
     essential:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/libsctp.so:
 
+  # Debug support
   debug:
     essential:
       - openjdk-21-jre-headless_core
@@ -98,6 +111,7 @@ slices:
           - ppc64el
           - riscv64
 
+  # Configuration and native part of Java Management Extensions
   management:
     essential:
       - openjdk-21-jre-headless_core
@@ -110,12 +124,7 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/libmanagement_agent.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libmanagement_ext.so:
 
-  classescache:
-    essential:
-      - openjdk-21-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-21-openjdk-*/lib/classlist:
-
+  # Security configuration files and native libraries
   security:
     essential:
       - libnss3_libs
@@ -146,6 +155,7 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/security/default.policy:
       /usr/lib/jvm/java-21-openjdk-*/lib/security/public_suffix_list.dat:
 
+  # Abstract Window Toolkit configuration and native libraries
   awt:
     essential:
       - libbrotli1_libs
@@ -182,6 +192,7 @@ slices:
       # foreign function and memory api
       /usr/lib/jvm/java-21-openjdk-*/lib/libsyslookup.so: {arch: amd64}
 
+  # OpenJDK tools
   tools:
     essential:
       - openjdk-21-jre-headless_security
@@ -190,6 +201,7 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/bin/keytool:
       /usr/lib/jvm/java-21-openjdk-*/bin/rmiregistry:
 
+  # Java Flight Recorder configuration and jar file
   jfr:
     essential:
       - openjdk-21-jre-headless_core
