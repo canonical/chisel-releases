@@ -1,5 +1,8 @@
 package: libgnutls30
 
+essential:
+  - libgnutls30_copyright
+
 slices:
   libs:
     essential:
@@ -11,6 +14,9 @@ slices:
       - libp11-kit0_libs
       - libtasn1-6_libs
       - libunistring2_libs
-
     contents:
-      /usr/lib/*-linux-*/libgnutls.so.30*:
+      /usr/lib/*-linux-*/libgnutls*.so.30*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgnutls30/copyright:

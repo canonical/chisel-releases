@@ -1,0 +1,28 @@
+package: bash
+
+essential:
+  - bash_copyright
+
+slices:
+  config:
+    contents:
+      /etc/bash.bashrc:
+      /etc/skel/.bash_logout:
+      /etc/skel/.bashrc:
+      /etc/skel/.profile:
+
+  bins:
+    essential:
+      - bash_config
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      # user should manually link /bin/sh to /bin/bash
+      /bin/bash:
+      /bin/rbash:
+      /usr/bin/bashbug:
+      /usr/bin/clear_console:
+
+  copyright:
+    contents:
+      /usr/share/doc/bash/copyright:

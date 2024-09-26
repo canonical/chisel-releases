@@ -1,0 +1,17 @@
+package: curl
+
+essential:
+  - curl_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libcurl4_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/curl:
+
+  copyright:
+    contents:
+      /usr/share/doc/curl/copyright:

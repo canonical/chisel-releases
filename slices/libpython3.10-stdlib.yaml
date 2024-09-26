@@ -1,0 +1,404 @@
+package: libpython3.10-stdlib
+
+# The slices in this package have been grouped with inspiration from the
+# Python 3.10 Standard Library
+# (https://docs.python.org/3.10/library/index.html).
+#
+# Aside from the "core" slice which contains the minimal libraries that
+# should come from this package and the "extra" slice which contains
+# miscellaneous libraries, all the other slice definitions are sorted by
+# their names. The "core" slice is placed at the very beginning and the
+# "extra" slice at the very end.
+slices:
+  # The "core" slice provides a very minimal libpython3.10-stdlib
+  core:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      # Adding libgcc-s1 here because it is required for the arm arch.
+      # In practice, libc6 should bring it anyway, BUT, there is a circular
+      # dependency in the archives, where libc6 depends on libgcc-s1 and
+      # vice versa. We don't allow that circular dependency to exist in Chisel
+      # and libgcc-s1 already depends on libc6, so we'll have to include this
+      # line here, explicitly.
+      - libgcc-s1_libs
+      - liblzma5_libs
+      - libpython3.10-minimal_libs
+      - media-types_data
+    contents:
+      /usr/lib/python3.10/_bootsubprocess.py:
+      /usr/lib/python3.10/_compression.py:
+      /usr/lib/python3.10/bz2.py:
+      /usr/lib/python3.10/contextvars.py:
+      /usr/lib/python3.10/dataclasses.py:
+      /usr/lib/python3.10/gettext.py:
+      /usr/lib/python3.10/gzip.py:
+      /usr/lib/python3.10/http/__init__.py:
+      /usr/lib/python3.10/http/client.py:
+      /usr/lib/python3.10/lib-dynload/_bz2.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_codecs_*.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_contextvars.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_lzma.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_multibytecodec.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_queue.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/mmap.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lzma.py:
+      /usr/lib/python3.10/mimetypes.py:
+      /usr/lib/python3.10/ntpath.py:
+      /usr/lib/python3.10/queue.py:
+      /usr/lib/python3.10/shutil.py:
+      /usr/lib/python3.10/socketserver.py:
+      /usr/lib/python3.10/tarfile.py:
+
+  # Shared AIX (IBM) support functions
+  aix-support:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/_aix_support.py:
+
+  # Generic Operating System Services
+  # https://docs.python.org/3.10/library/allos.html
+  all-os:
+    essential:
+      - libffi8_libs
+      - libncursesw6_libs
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_unix
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.10/_pyio.py:
+      /usr/lib/python3.10/ctypes/**:
+      /usr/lib/python3.10/curses/**:
+      /usr/lib/python3.10/getpass.py:
+      /usr/lib/python3.10/lib-dynload/_ctypes*.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_curses*.cpython-310-*-linux-*.so:
+
+  # Concurrent Execution
+  # https://docs.python.org/3.10/library/concurrency.html
+  concurrency:
+    essential:
+      - libpython3.10-stdlib_all-os
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_crypto
+    contents:
+      /usr/lib/python3.10/concurrent/**:
+      /usr/lib/python3.10/lib-dynload/_multiprocessing.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_posixshmem.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/multiprocessing/**:
+      /usr/lib/python3.10/sched.py:
+
+  # Cryptographic Services
+  # https://docs.python.org/3.10/library/crypto.html
+  crypto:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/hmac.py:
+      /usr/lib/python3.10/secrets.py:
+
+  # Custom Python Interpreters
+  # https://docs.python.org/3.10/library/custominterp.html
+  custom-interpreters:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_text
+    contents:
+      /usr/lib/python3.10/code.py:
+      /usr/lib/python3.10/codeop.py:
+
+  # Data Persistence
+  # https://docs.python.org/3.10/library/persistence.html
+  data-persistence:
+    essential:
+      - libdb5.3_libs
+      - libpython3.10-stdlib_core
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/python3.10/dbm/**:
+      /usr/lib/python3.10/lib-dynload/_dbm.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_sqlite3.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/shelve.py:
+      /usr/lib/python3.10/sqlite3/**:
+
+  # Data Types
+  # https://docs.python.org/3.10/library/datatypes.html
+  data-types:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/graphlib.py:
+      /usr/lib/python3.10/lib-dynload/_zoneinfo.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/pprint.py:
+      /usr/lib/python3.10/zoneinfo/**:
+
+  # Debugging and Profiling
+  # https://docs.python.org/3.10/library/debug.html
+  debug:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_custom-interpreters
+      - libpython3.10-stdlib_data-types
+      - libpython3.10-stdlib_frameworks
+      - libpython3.10-stdlib_text
+    contents:
+      /usr/lib/python3.10/bdb.py:
+      /usr/lib/python3.10/cProfile.py:
+      /usr/lib/python3.10/lib-dynload/_lsprof.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/pdb.py:
+      /usr/lib/python3.10/profile.py:
+      /usr/lib/python3.10/pstats.py:
+      /usr/lib/python3.10/timeit.py:
+      /usr/lib/python3.10/trace.py:
+
+  # Development Tools
+  # https://docs.python.org/3.10/library/development.html
+  development-tools:
+    essential:
+      - libpython3.10-stdlib_all-os
+      - libpython3.10-stdlib_concurrency
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_data-types
+      - libpython3.10-stdlib_debug
+      - libpython3.10-stdlib_distribution
+      - libpython3.10-stdlib_internet
+      - libpython3.10-stdlib_ipc
+      - libpython3.10-stdlib_markup-tools
+      - libpython3.10-stdlib_net-data
+      - libpython3.10-stdlib_numeric
+      - libpython3.10-stdlib_text
+      - libpython3.10-stdlib_unix
+    contents:
+      /usr/lib/python3.10/__phello__.foo.py:
+      /usr/lib/python3.10/doctest.py:
+      /usr/lib/python3.10/lib-dynload/_testbuffer.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_testcapi.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_testclinic.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_testimportmultiple.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_testinternalcapi.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_testmultiphase.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_xxsubinterpreters.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/_xxtestfuzz.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/xxlimited.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/xxlimited_35.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/test/**:
+      /usr/lib/python3.10/unittest/**:
+
+  # Software Packaging and Distribution
+  # https://docs.python.org/3.10/library/distribution.html
+  distribution:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_osx-support
+    contents:
+      /usr/lib/python3.10/_distutils_system_mod.py:
+      # Due to conflicts with python3-distutils_python3.10 and chisel not being able to
+      # reconcile 2 slices with globs on the same folder, I have to specify the files explicitly
+      /usr/lib/python3.10/distutils/__init__.py:
+      /usr/lib/python3.10/distutils/version.py:
+      /usr/lib/python3.10/venv/**:
+      /usr/lib/python3.10/zipapp.py:
+
+  # File Formats
+  # https://docs.python.org/3.10/library/fileformats.html
+  file-formats:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_frameworks
+      - libpython3.10-stdlib_markup-tools
+    contents:
+      /usr/lib/python3.10/netrc.py:
+      /usr/lib/python3.10/plistlib.py:
+      /usr/lib/python3.10/xdrlib.py:
+
+  # File and Directory Access
+  # https://docs.python.org/3.10/library/filesys.html
+  filesys:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/fileinput.py:
+
+  # Program Frameworks
+  # https://docs.python.org/3.10/library/frameworks.html
+  frameworks:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_text
+    contents:
+      /usr/lib/python3.10/cmd.py:
+      /usr/lib/python3.10/shlex.py:
+      /usr/lib/python3.10/turtle.py:
+
+  # Importing Modules
+  # https://docs.python.org/3.10/library/modules.html
+  importing:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/modulefinder.py:
+
+  # Internet Protocols and Support
+  # https://docs.python.org/3.10/library/internet.html
+  internet:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_crypto
+      - libpython3.10-stdlib_file-formats
+      - libpython3.10-stdlib_frameworks
+      - libpython3.10-stdlib_ipc
+      - libpython3.10-stdlib_markup-tools
+      - libpython3.10-stdlib_numeric
+      - libpython3.10-stdlib_pydoc
+      - libuuid1_libs
+    contents:
+      /usr/lib/python3.10/cgi.py:
+      /usr/lib/python3.10/cgitb.py:
+      /usr/lib/python3.10/ftplib.py:
+      /usr/lib/python3.10/http/cookiejar.py:
+      /usr/lib/python3.10/http/cookies.py:
+      /usr/lib/python3.10/http/server.py:
+      /usr/lib/python3.10/imaplib.py:
+      /usr/lib/python3.10/lib-dynload/_uuid.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/nntplib.py:
+      /usr/lib/python3.10/nturl2path.py:
+      /usr/lib/python3.10/poplib.py:
+      /usr/lib/python3.10/smtpd.py:
+      /usr/lib/python3.10/smtplib.py:
+      /usr/lib/python3.10/telnetlib.py:
+      /usr/lib/python3.10/uuid.py:
+      /usr/lib/python3.10/webbrowser.py:
+      /usr/lib/python3.10/wsgiref/**:
+      /usr/lib/python3.10/xmlrpc/**:
+
+  # Networking and Interprocess Communication
+  # https://docs.python.org/3.10/library/ipc.html
+  ipc:
+    essential:
+      - libpython3.10-stdlib_concurrency
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/asynchat.py:
+      /usr/lib/python3.10/asyncio/**:
+      /usr/lib/python3.10/asyncore.py:
+      /usr/lib/python3.10/lib-dynload/_asyncio.cpython-310-*-linux-*.so:
+
+  # Python Language Services
+  # https://docs.python.org/3.10/library/language.html
+  language:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/pickletools.py:
+      /usr/lib/python3.10/pyclbr.py:
+      /usr/lib/python3.10/symtable.py:
+      /usr/lib/python3.10/tabnanny.py:
+
+  # Structured Markup Processing Tools (HTML, XML)
+  # https://docs.python.org/3.10/library/markup.html
+  markup-tools:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/_markupbase.py:
+      /usr/lib/python3.10/html/**:
+      /usr/lib/python3.10/xml/**:
+
+  # Multimedia Services
+  # https://docs.python.org/3.10/library/mm.html
+  multimedia:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/aifc.py:
+      /usr/lib/python3.10/chunk.py:
+      /usr/lib/python3.10/colorsys.py:
+      /usr/lib/python3.10/imghdr.py:
+      /usr/lib/python3.10/lib-dynload/audioop.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/ossaudiodev.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/sndhdr.py:
+      /usr/lib/python3.10/sunau.py:
+      /usr/lib/python3.10/wave.py:
+
+  # Internet Data Handling
+  # https://docs.python.org/3.10/library/netdata.html
+  net-data:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/json/**:
+      /usr/lib/python3.10/lib-dynload/_json.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/mailbox.py:
+      /usr/lib/python3.10/mailcap.py:
+
+  # Numeric and Mathematical Modules
+  # https://docs.python.org/3.10/library/numeric.html
+  numeric:
+    essential:
+      - libmpdec3_libs
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/_pydecimal.py:
+      /usr/lib/python3.10/decimal.py:
+      /usr/lib/python3.10/fractions.py:
+      /usr/lib/python3.10/lib-dynload/_decimal.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/numbers.py:
+      /usr/lib/python3.10/statistics.py:
+
+  # Shared OS X support functions
+  osx-support:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/_osx_support.py:
+      /usr/lib/python3.10/binhex.py:
+
+  # pydoc - Documentation generator and online help system
+  # https://docs.python.org/3.10/library/pydoc.html
+  pydoc:
+    essential:
+      - libpython3.10-stdlib_core
+    contents:
+      /usr/lib/python3.10/pydoc.py:
+      /usr/lib/python3.10/pydoc_data/**:
+
+  # Text Processing Services
+  # https://docs.python.org/3.10/library/text.html
+  text:
+    essential:
+      - libpython3.10-stdlib_core
+      - libreadline8_libs
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.10/difflib.py:
+      /usr/lib/python3.10/lib-dynload/readline.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/rlcompleter.py:
+
+  # Unix Specific Services
+  # https://docs.python.org/3.10/library/unix.html
+  unix:
+    essential:
+      - libcrypt1_libs
+      - libnsl2_libs
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_frameworks
+      - libtirpc3_libs
+    contents:
+      /usr/lib/python3.10/crypt.py:
+      /usr/lib/python3.10/lib-dynload/_crypt.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/nis.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/resource.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/lib-dynload/termios.cpython-310-*-linux-*.so:
+      /usr/lib/python3.10/pipes.py:
+      /usr/lib/python3.10/pty.py:
+      /usr/lib/python3.10/tty.py:
+
+  # Outliers and Deprecated Modules
+  # The "extra" slice consists of easter-eggs and deprecated modules
+  extras:
+    essential:
+      - libpython3.10-stdlib_core
+      - libpython3.10-stdlib_internet
+    contents:
+      /usr/lib/python3.10/antigravity.py:
+      /usr/lib/python3.10/this.py:

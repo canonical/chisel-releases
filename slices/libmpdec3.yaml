@@ -1,0 +1,18 @@
+package: libmpdec3
+
+essential:
+  - libmpdec3_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libmpdec++.so.*:
+      /usr/lib/*-linux-*/libmpdec.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmpdec3/copyright:
