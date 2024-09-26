@@ -25,7 +25,6 @@ execute: |
     case ${SLICE} in
       classescache)
         chroot . ${java} -Xshare:dump
-        chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
       debug)
         chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
