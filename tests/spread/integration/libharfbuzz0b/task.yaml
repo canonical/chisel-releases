@@ -1,0 +1,8 @@
+summary: Integration tests for libharfbuzz0b
+
+execute: |
+  rootfs="$(install-slices libharfbuzz0b_libs fonts-dejavu-mono_fonts)"
+  apt install --update -y libharfbuzz-dev gcc
+  gcc test.c -lharfbuzz -o test-harfbuzz
+  cp test-harfbuzz ${rootfs}/
+  chroot ${rootfs} /test-harfbuzz
