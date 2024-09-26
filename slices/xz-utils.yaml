@@ -17,7 +17,8 @@ slices:
     essential:
       - base-files_tmp  # utils require temporary storage
       # shebang in scripts reference interpreter in /bin not /usr/bin
-      - coreutils_bins
+      - base-files_bin
+      - coreutils_bins  # required for expr and mkdir in xzdiff and xzcmp
       - diffutils_bins  # needed for zx cmp and diff
       - grep_bins  # needed for zx grep utils
       - xz-utils_bins
