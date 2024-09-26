@@ -1,16 +1,25 @@
 package: libsoup2.4-1
 
+essential:
+  - libsoup2.4-1_copyright
+
 slices:
   libs:
     essential:
+      - glib-networking_libs
       - libbrotli1_libs
       - libc6_libs
       - libglib2.0-0_core
       - libgssapi-krb5-2_libs
-      - libicu70_libs
-      - liblzma5_libs
       - libpsl5_libs
       - libsqlite3-0_libs
+      - libxml2_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libsoup-2.4.so.*:
+      /usr/lib/*-linux-*/libsoup-2.4.so.1*:
+
+  copyright:
+    essential:
+      - libsoup2.4-common_copyright
+    contents:
+      /usr/share/doc/libsoup2.4-1/copyright:

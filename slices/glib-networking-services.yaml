@@ -1,0 +1,9 @@
+package: glib-networking-services
+
+essential:
+  - glib-networking-services_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/glib-networking-services/copyright:
