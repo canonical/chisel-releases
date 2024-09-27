@@ -13,7 +13,6 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgdk-pixbuf2.0-common_copyright
       - libglib2.0-0t64_libs
       - libjpeg8_libs
       - libpng16-16t64_libs
@@ -26,3 +25,5 @@ slices:
   copyright:
     contents:
       /usr/share/doc/libgdk-pixbuf-2.0-0/copyright:
+    essential:
+      - libgdk-pixbuf2.0-common_copyright
