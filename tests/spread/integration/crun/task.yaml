@@ -1,0 +1,14 @@
+summary: Integration tests for crun
+
+execute: |
+  rootfs="$(install-slices crun_bins)"
+
+  # crun needs proc mounted
+  mkdir "${rootfs}"/proc
+  mount --bind /proc "${rootfs}"/proc
+
+  chroot "$rootfs" crun --help
+  chroot "$rootfs" crun list 
+
+  chroot "$rootfs" crun spec
+  test -f "$rootfs"/config.json
