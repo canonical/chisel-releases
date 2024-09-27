@@ -1,5 +1,8 @@
 package: libicu70
 
+essential:
+  - libicu70_copyright
+
 slices:
   libs:
     essential:
@@ -13,3 +16,7 @@ slices:
       /usr/lib/*-linux-*/libicutest.so.*:
       /usr/lib/*-linux-*/libicutu.so.*:
       /usr/lib/*-linux-*/libicuuc.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libicu70/copyright:

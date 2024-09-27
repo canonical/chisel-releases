@@ -1,5 +1,8 @@
 package: openssl
 
+essential:
+  - openssl_copyright
+
 slices:
   bins:
     essential:
@@ -19,3 +22,14 @@ slices:
       /usr/lib/ssl/certs:
       /usr/lib/ssl/openssl.cnf:
       /usr/lib/ssl/private:
+
+  # Use this slice with "ca-certificates_data" as OpenSSL looks at
+  # the following path for the default CA certificates file.
+  # Ref: https://www.openssl.org/docs/manmaster/man3/SSL_CTX_load_verify_locations.html
+  data:
+    contents:
+      /usr/lib/ssl/cert.pem: {symlink: /etc/ssl/certs/ca-certificates.crt}
+
+  copyright:
+    contents:
+      /usr/share/doc/openssl/copyright:

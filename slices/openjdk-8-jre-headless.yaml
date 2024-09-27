@@ -1,5 +1,8 @@
 package: openjdk-8-jre-headless
 
+essential:
+  - openjdk-8-jre-headless_copyright
+
 slices:
   # The "core" slice provides a minimal, yet functional JRE8.
   core:
@@ -37,6 +40,7 @@ slices:
           - amd64
           - arm64
           - ppc64el
+          - s390x
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/currency.data:
@@ -190,3 +194,7 @@ slices:
       - openjdk-8-jre-headless_core
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsctp.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/openjdk-8-jre-headless/copyright:

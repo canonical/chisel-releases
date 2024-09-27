@@ -15,6 +15,13 @@ slices:
     essential:
       - libbz2-1.0_libs
       - libc6_libs
+      # Adding libgcc-s1 here because it is required for the arm arch.
+      # In practice, libc6 should bring it anyway, BUT, there is a circular
+      # dependency in the archives, where libc6 depends on libgcc-s1 and
+      # vice versa. We don't allow that circular dependency to exist in Chisel
+      # and libgcc-s1 already depends on libc6, so we'll have to include this
+      # line here, explicitly.
+      - libgcc-s1_libs
       - liblzma5_libs
       - libpython3.11-minimal_libs
       - media-types_data
@@ -185,7 +192,10 @@ slices:
       - libpython3.11-stdlib_osx-support
     contents:
       /usr/lib/python3.11/_distutils_system_mod.py:
-      /usr/lib/python3.11/distutils/**:
+      # Due to conflicts with python3-distutils_python3-11 and chisel not being able to
+      # reconcile 2 slices with globs on the same folder, I have to specify the files explicitly
+      /usr/lib/python3.11/distutils/__init__.py:
+      /usr/lib/python3.11/distutils/version.py:
       /usr/lib/python3.11/venv/**:
       /usr/lib/python3.11/zipapp.py:
 

@@ -1,5 +1,8 @@
 package: base-files
 
+essential:
+  - base-files_copyright
+
 slices:
   base:
     essential:
@@ -67,3 +70,7 @@ slices:
       - base-files_var
     contents:
       /var/lib/chisel/**: {generate: manifest}
+
+  copyright:
+    contents:
+      /usr/share/doc/base-files/copyright:
