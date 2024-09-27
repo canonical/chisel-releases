@@ -1,0 +1,16 @@
+package: libx264-163
+
+essential:
+  - libx264-163_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libx264.so.163:
+      /usr/lib/i386-linux-gnu/i686/sse2/libx264.so.163: { arch: i386 }
+
+  copyright:
+    contents:
+      /usr/share/doc/libx264-163/copyright:
