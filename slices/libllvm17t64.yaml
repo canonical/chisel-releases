@@ -1,0 +1,23 @@
+package: libllvm17t64
+
+essential:
+  - libllvm17t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libedit2_libs
+      - libffi8_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libtinfo6_libs
+      - libxml2_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libLLVM-17.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libllvm17t64/copyright:

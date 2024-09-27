@@ -1,0 +1,20 @@
+package: dbus-bin
+
+essential:
+  - dbus-bin_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libdbus-1-3_libs
+    contents:
+      /usr/bin/dbus-cleanup-sockets:
+      /usr/bin/dbus-monitor:
+      /usr/bin/dbus-send:
+      /usr/bin/dbus-update-activation-environment:
+      /usr/bin/dbus-uuidgen:
+
+  copyright:
+    contents:
+      /usr/share/doc/dbus-bin/copyright:
