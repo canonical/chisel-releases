@@ -11,10 +11,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/glib-2.0/*:
 
-  copyright:
-    contents:
-      /usr/share/doc/libglib2.0-0t64/copyright:
-
   core:
     essential:
       - libc6_libs
@@ -53,3 +49,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libgio-2.0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libglib2.0-0t64/copyright:
