@@ -82,7 +82,6 @@ slices:
           - ppc64el
           - riscv64
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.httpserver.jmod:
-      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.incubator.vector.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.ed.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.jvmstat.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.le.jmod:

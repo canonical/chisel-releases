@@ -183,15 +183,6 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/psfont.properties.ja:
       /usr/lib/jvm/java-21-openjdk-*/lib/psfontj2d.properties:
 
-  incubator:
-    essential:
-      - openjdk-21-jre-headless_core
-    contents:
-      # vector api
-      /usr/lib/jvm/java-21-openjdk-*/lib/libjsvml.so: {arch: amd64}
-      # foreign function and memory api
-      /usr/lib/jvm/java-21-openjdk-*/lib/libsyslookup.so: {arch: amd64}
-
   # OpenJDK tools
   tools:
     essential:
