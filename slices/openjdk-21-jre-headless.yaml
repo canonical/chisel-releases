@@ -78,6 +78,7 @@ slices:
     essential:
       - openjdk-21-jre-headless_core
     contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
 
   # Native part of the console support
@@ -190,7 +191,6 @@ slices:
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/jpackage:
       /usr/lib/jvm/java-21-openjdk-*/bin/keytool:
-      /usr/lib/jvm/java-21-openjdk-*/bin/rmiregistry:
 
   # Java Flight Recorder configuration and jar file
   jfr:
