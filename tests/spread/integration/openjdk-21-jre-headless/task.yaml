@@ -3,23 +3,26 @@ summary: Integration tests for openjdk-21-jre-headless
 environment:
   SLICE/awt: "awt"
   SLICE/classescache: "classescache"
-#  SLICE/core: "core"
+  SLICE/core: "core"
+  SLICE/prefs: "prefs"
+#  SLICE/rmi: "rmi" # This slice is used by openjdk-21-jdk-headless_rmi.
+                    # It can not be tested on its own.
+  SLICE/console: "console"
+  SLICE/stcp: "stcp"
   SLICE/debug: "debug"
-#  SLICE/incubator: "incubator"
+  SLICE/management: "management"
   SLICE/jfr: "jfr"
-#  SLICE/management: "management"
   SLICE/security: "security"
-#  SLICE/stcp: "stcp"
   SLICE/tools: "tools"
 
 execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE} busybox_bins)"
-  cp ImageTest.java ${rootfs}/
-  cp Main.java ${rootfs}/
-  cp ReadCertificate.java ${rootfs}/
-
+  apt install --update -y openjdk-21-jdk-headless
+  javac *.java
+  cp *.java ${rootfs}/
+  cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
@@ -32,8 +35,27 @@ execute: |
       classescache)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
+      core)
+        chroot . ${java} /Main.java
+      ;;
+      prefs)
+        chroot . ${java} /PrefsTest.java put
+        chroot . ${java} /PrefsTest.java get
+      ;;
+      console)
+        chroot . ${java} /ConsoleTest.java
+      ;;
+      stcp)
+        chroot . ${java} /SCTP.java
+      ;;
       debug)
         chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
+      ;;
+      management)
+        chroot . ${java} -Dcom.sun.management.jmxremote.port=5000 \
+          -Dcom.sun.management.jmxremote.authenticate=false \
+          -Dcom.sun.management.jmxremote=true \
+          -Dcom.sun.management.jmxremote.ssl=false  -cp . TestJMX
       ;;
       jfr)
         chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
