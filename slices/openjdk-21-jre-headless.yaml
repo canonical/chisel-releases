@@ -19,7 +19,7 @@ slices:
       - openjdk-21-jre-headless_security
 
   # List of classes required to create the Class Data Sharing archive
-  classescache:
+  class-data-sharing:
     essential:
       - openjdk-21-jre-headless_core
     contents:

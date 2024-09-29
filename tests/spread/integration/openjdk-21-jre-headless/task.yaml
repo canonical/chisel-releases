@@ -2,7 +2,7 @@ summary: Integration tests for openjdk-21-jre-headless
 
 environment:
   SLICE/awt: "awt"
-  SLICE/classescache: "classescache"
+  SLICE/classdatasharing: "class-data-sharing"
   SLICE/core: "core"
   SLICE/prefs: "prefs"
 #  SLICE/rmi: "rmi" # This slice is used by openjdk-21-jdk-headless_rmi.
@@ -32,7 +32,7 @@ execute: |
       awt)
         chroot . ${java} -Djava.awt.headless=true /ImageTest.java
       ;;
-      classescache)
+      class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
       core)
