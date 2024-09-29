@@ -133,8 +133,6 @@ slices:
 
   # OpenJDK headers for JNI
   headers:
-    essential:
-      - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/include/classfile_constants.h:
       /usr/lib/jvm/java-21-openjdk-*/include/jni.h:
@@ -144,8 +142,6 @@ slices:
 
   # OpenJDK headers for the debug agent development
   debug-headers:
-    essential:
-      - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/include/jdwpTransport.h:
 
