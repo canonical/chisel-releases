@@ -8,7 +8,6 @@ environment:
 #  SLICE/rmi: "rmi" # This slice is used by openjdk-21-jdk-headless_rmi.
                     # It can not be tested on its own.
   SLICE/console: "console"
-  SLICE/stcp: "stcp"
   SLICE/debug: "debug"
   SLICE/management: "management"
   SLICE/jfr: "jfr"
@@ -44,9 +43,6 @@ execute: |
       ;;
       console)
         chroot . ${java} /ConsoleTest.java
-      ;;
-      stcp)
-        chroot . ${java} /SCTP.java
       ;;
       debug)
         chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java

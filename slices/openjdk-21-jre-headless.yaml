@@ -88,13 +88,6 @@ slices:
     contents:
       /usr/lib/jvm/java-21-openjdk-*/lib/lible.so:
 
-  # Native part of STCP protocol implementation
-  stcp:
-    essential:
-      - openjdk-21-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libsctp.so:
-
   # Debug support
   debug:
     essential:
@@ -115,7 +108,8 @@ slices:
   # Configuration and native part of Java Management Extensions
   management:
     essential:
-      - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_rmi
+      - openjdk-21-jre-headless_security
     contents:
       /etc/java-21-openjdk/management/jmxremote.access:
       /etc/java-21-openjdk/management/management.properties:
