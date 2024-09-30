@@ -1,8 +1,14 @@
 summary: Integration tests for fontconfig
 
 execute: |
-  rootfs="$(install-slices bash_bins fontconfig_bins)"
+  rootfs="$(install-slices bash_bins fontconfig_bins coreutils_bins fonts-dejavu-core_fonts)"
 
   mkdir -p $(rootfs)/tmp
 
   [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cache && echo $?') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cat && echo $?') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-conflist | wc -l') -gt 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-list | wc -l') -gt 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-match') == 'DejaVuSans.ttf: "DejaVu Sans" "Book"' ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-query /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf && echo $?') -eq 0 ]]
+  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-scan /usr/share/fonts/truetype/dejavu/ && echo $?') -eq 0 ]]
