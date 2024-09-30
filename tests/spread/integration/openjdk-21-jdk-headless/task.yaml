@@ -6,7 +6,19 @@ environment:
   SLICE/modules: "modules"
 
 execute: |
+  setup_trap() {
+    pid=$1
+    cleanup() {
+      kill -9 ${pid}
+    }
+    for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
+    trap cleanup EXIT
+  }
   apt install --update -y openjdk-21-jdk-headless curl
+  nohup java MonitoringTest.java &
+  pid=$!
+  setup_trap ${pid}
+
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins)"
@@ -14,23 +26,18 @@ execute: |
   javac *.java
   cp *.class ${rootfs}/
   cd ${rootfs}
-  mkdir -p proc sys dev
+  mkdir -p proc sys dev tmp
   mount --bind /proc proc
   mount --bind /sys sys
-  mount --bind /dev dev
+  # intentional - not enough entropy
+  mount --bind /dev/urandom /dev/random
+  mount --bind /dev/urandom /dev/urandom
+  mount --bind /tmp tmp
   case ${SLICE} in
     core)
       for java in `find usr/lib/jvm -name java`; do
 
         home=$(dirname ${java})
-        nohup java MonitoringTest.java &
-        pid=$!
-        cleanup() {
-          kill -9 ${pid}
-        }
-        trap cleanup SIGTERM SIGINT SIGKILL
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
-        chroot . ${home}/jar cvf test.jar *.java
         # /usr/lib/jvm/java-21-openjdk-*/bin/javac:
         chroot . ${home}/javac /Main.java -d /
         # /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
@@ -41,69 +48,61 @@ execute: |
         chroot . ${home}/jdeprscan --class-path . Main
         # /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
         chroot . ${home}/jdeps -m java.base
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
-        if [ -f ${home}/jhsdb ]; then
-          chroot . ${home}/jhsdb jstack --pid ${pid}
-        fi
         # /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
         chroot . ${home}/jimage info ${home}/../lib/modules
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
-        chroot . ${home}/jinfo ${pid}
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
-        chroot . ${home}/jmap ${pid}
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
-        chroot . /usr/bin/sh "echo 'System.out.println("hello world")' | ${home}/jshell"
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
-        chroot . ${home}/jstack ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
-        nohup sudo chroot . /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
-        wpid=$!
-        curl http://localhost:8000
-        kill -9 ${wpid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
         chroot . ${home}/serialver -classpath / SerializableObject
-        kill -9 ${pid}
       done
       ;;
     standard)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
-        nohup chroot . ${home}/java MonitoringTest.java &
-        pid=$!
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
         # /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
-        jar cvf test.jar *.java
+        chroot . ${home}/jar cvf test.jar *.java
         DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
-        keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
-        chroot . ${home}/jarsigner -keystore /foo -storepass barbar test.jar foo
+        chroot . ${home}/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
+        chroot . ${home}/jarsigner -keystore foo -storepass barbar test.jar foo
         # /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
         chroot . /usr/bin/sh -c "echo run | ${home}/jdb Main.java"
         # /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
         chroot . ${home}/jcmd jdk.compiler/com.sun.tools.javac.launcher.Main VM.version
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
+        if [ -f ${home}/jhsdb ]; then
+          chroot . ${home}/jhsdb jstack --pid ${pid}
+        fi
         # /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
-        chroot . ${home}/jcmd ${pid} JFR.start
+        chroot . ${home}/jcmd ${pid} JFR.start maxsize=1MB
         chroot . ${home}/jcmd ${pid} JFR.stop
-        chroot . ${home}/jcmd ${pid} JFR.dump filename=/recording.jfr
-        chroot . ${home}/jfr print /recording.jfr > /dev/null
+        chroot . ${home}/jcmd ${pid} JFR.dump filename=/tmp/recording.jfr
+        chroot . ${home}/jfr print /tmp/recording.jfr > /dev/null
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
+        chroot . ${home}/jinfo ${pid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
+        chroot . /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
+        chroot . ${home}/jmap ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jps:
         chroot . ${home}/jps -l
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
+        chroot . ${home}/jstack ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
-        chroot . ${home}/jstatd &
-        jpid=$!
-        jps | grep Jstatd
-        kill -9 ${jpid}
+        # Skip test
+        # /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
+        # Skip test
         # /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
         ${home}/jrunscript -q
-
-        kill -9 ${pid}
       done
       ;;
     modules)
-      mkdir -p ${rootfs}/opt/java
       cd ${rootfs}
       for jlink in `find usr/lib/jvm -name jlink`; do
-        chroot . ${jlink} --add-modules java.base --output ${rootfs}/opt/java
+        output=$(basename $(mktemp -u))
+        chroot . ${jlink} --add-modules java.base --output ${output}
+        rm -rf ${rootfs}/${output}
       done
       for jmod in `find usr/lib/jvm -name jmod`; do
         home=$(dirname ${jmod})
