@@ -1,0 +1,18 @@
+package: diffutils
+
+essential:
+  - diffutils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cmp:
+      /usr/bin/diff:
+      /usr/bin/diff3:
+      /usr/bin/sdiff:
+
+  copyright:
+    contents:
+      /usr/share/doc/diffutils/copyright:
