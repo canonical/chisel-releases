@@ -25,9 +25,7 @@ slices:
           - arm64
       /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
       /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jlink:
       /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jmod:
       /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
       /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
@@ -53,6 +51,8 @@ slices:
     essential:
       - openjdk-21-jdk-headless_core
     contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jlink:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/java.base.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/java.compiler.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/java.datatransfer.jmod:
