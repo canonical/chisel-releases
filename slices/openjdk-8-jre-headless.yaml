@@ -1,0 +1,202 @@
+package: openjdk-8-jre-headless
+
+essential:
+  - openjdk-8-jre-headless_copyright
+
+slices:
+  # The "core" slice provides a minimal, yet functional JRE8.
+  core:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /etc/java-8-openjdk/calendars.properties:
+      /etc/java-8-openjdk/content-types.properties:
+      /etc/java-8-openjdk/logging.properties:
+      /etc/java-8-openjdk/net.properties:
+      # This security path is also in "core" as it describes permissions for
+      # various classes and how they can interact with the system.
+      /etc/java-8-openjdk/security/java.policy:
+      /usr/lib/jvm/java-8-openjdk-*/jre/bin/java:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjsig.so: {arch: armhf}
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjvm.so: {arch: armhf}
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jli/libjli.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jvm.cfg-default:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjsig.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnet.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnio.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libverify.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libzip.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - s390x
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/currency.data:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/hijrah-config-umalqura.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/logging.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/meta-index:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/net.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/resources.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/rt.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.policy:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/tzdb.dat:
+
+  locale:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/cldrdata.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/localedata.jar:
+
+  # The security slice provides access to TLS and crypto capabilities
+  # of the runtime.
+  security:
+    essential:
+      - libnss3_libs
+      - libpcsclite1_libs
+      - openjdk-8-jre-headless_core
+    contents:
+      /etc/java-8-openjdk/security/blacklisted.certs:
+      /etc/java-8-openjdk/security/java.security:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libj2gss.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libj2pcsc.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libj2pkcs11.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjaas_unix.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsunec.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunec.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunjce_provider.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/sunpkcs11.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jce.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jsse.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/blacklisted.certs:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/cacerts:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.security:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/limited/US_export_policy.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/limited/local_policy.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/unlimited/US_export_policy.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/policy/unlimited/local_policy.jar:
+
+  # Abstract Window Toolkit.
+  # Classes and components for creating GUI elements (windows, graphics, etc.).
+  awt:
+    essential:
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libjpeg-turbo8_libs
+      - liblcms2-2_libs
+      - openjdk-8-jre-headless_core
+    contents:
+      /etc/java-8-openjdk/flavormap.properties:
+      /etc/java-8-openjdk/images/cursors/cursors.properties:
+      /etc/java-8-openjdk/psfont.properties.ja:
+      /etc/java-8-openjdk/psfontj2d.properties:
+      /etc/java-8-openjdk/swing.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libawt.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libawt_headless.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libfontmanager.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjavajpeg.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjavalcms.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libmlib_image.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/charsets.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/CIEXYZ.pf:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/GRAY.pf:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/LINEAR_RGB.pf:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/PYCC.pf:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/cmm/sRGB.pf:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/flavormap.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/images/cursors/cursors.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/psfontj2d.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/swing.properties:
+
+  # Enabled management and monitoring capabilities for Java apps.
+  management:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /etc/java-8-openjdk/management/management.properties:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libmanagement.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/management-agent.jar:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/management/management.properties:
+
+  # Java Flight Recorder - API for collecting diagnostic and profilling data.
+  jfr:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
+        arch: [amd64, arm64, armhf, ppc64el]
+
+  # Shared libraries for supporting heap profilling.
+  hprof:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
+      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so:
+        arch: amd64
+      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so:
+        arch: arm64
+
+  # Shared libraries for supporting debugging capabilities.
+  debug:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
+      /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnpt.so:
+        arch: amd64
+      /usr/lib/jvm/java-8-openjdk-arm64/jre/lib/aarch64/libnpt.so:
+        arch: arm64
+
+  tools:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/bin/keytool:
+      /usr/lib/jvm/java-8-openjdk-*/jre/bin/keytool:
+
+  # Java Programming Language Instrumentation Services interface.
+  jplis:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libinstrument.so:
+
+  # Allow querying of DNS records through JNDI.
+  jndidns:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/dnsns.jar:
+
+  zipfs:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/zipfs.jar:
+
+  # No internal usages in JRE8, but part of the com.sun.nio.sctp private API.
+  sctp:
+    essential:
+      - openjdk-8-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsctp.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/openjdk-8-jre-headless/copyright:

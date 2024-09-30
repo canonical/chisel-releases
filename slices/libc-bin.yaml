@@ -8,6 +8,13 @@ slices:
     contents:
       /etc/nsswitch.conf: {copy: /usr/share/libc-bin/nsswitch.conf}
 
+  ldconfig:
+    essential:
+      - dash_bins
+    contents:
+      /usr/sbin/ldconfig:
+      /usr/sbin/ldconfig.real:
+
   locale:
     contents:
       /usr/lib/locale/C.utf8/LC_ADDRESS:
