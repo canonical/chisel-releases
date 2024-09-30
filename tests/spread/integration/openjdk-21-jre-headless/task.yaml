@@ -7,7 +7,7 @@ environment:
   SLICE/prefs: "prefs"
 #  SLICE/rmi: "rmi" # This slice is used by openjdk-21-jdk-headless_rmi.
                     # It can not be tested on its own.
-  SLICE/console: "console"
+#  SLICE/console: "console" # This test requires /dev/pty. Skip it.
   SLICE/debug: "debug"
   SLICE/management: "management"
   SLICE/jfr: "jfr"
@@ -40,9 +40,6 @@ execute: |
       prefs)
         chroot . ${java} /PrefsTest.java put
         chroot . ${java} /PrefsTest.java get
-      ;;
-      console)
-        chroot . ${java} /ConsoleTest.java
       ;;
       debug)
         chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
