@@ -10,21 +10,12 @@ slices:
     essential:
       - openjdk-21-jre-headless_core
     contents:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jar:
       /usr/lib/jvm/java-21-openjdk-*/bin/javac:
       /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
       /usr/lib/jvm/java-21-openjdk-*/bin/javap:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeprscan:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
-        arch:
-          - amd64
-          - arm64
       /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
       /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
       /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
       # used by javac
@@ -32,15 +23,23 @@ slices:
 
   standard:
     essential:
+      - openjdk-21-jdk-headless_core
       - openjdk-21-jre-headless_standard
     contents:
-      # requires security
+      /usr/lib/jvm/java-21-openjdk-*/bin/jar:
       /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
       /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
       /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
-      # requires RMI
+      /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
+        arch:
+          - amd64
+          - arm64
+      /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
       /usr/lib/jvm/java-21-openjdk-*/bin/jps:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
       # script engine has to be installed separately
