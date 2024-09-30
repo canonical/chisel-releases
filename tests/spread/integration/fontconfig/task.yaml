@@ -3,8 +3,8 @@ summary: Integration tests for fontconfig
 execute: |
   rootfs="$(install-slices bash_bins fontconfig_bins coreutils_bins fonts-dejavu-core_fonts)"
 
-  mkdir -p $(rootfs)/tmp
-  mkdir -p $(rootfs)/dev
+  mkdir -p $rootfs/tmp
+  mkdir -p $rootfs/dev
 
   [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cache && echo $?') -eq 0 ]]
   [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cat 1>/dev/null 2>/dev/null && echo $?') -eq 0 ]]
