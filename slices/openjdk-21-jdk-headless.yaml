@@ -6,12 +6,11 @@ essential:
 slices:
 
   # OpenJDK binaries slice
-  bins:
+  core:
     essential:
       - openjdk-21-jre-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/jar:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
       /usr/lib/jvm/java-21-openjdk-*/bin/javac:
       /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
       /usr/lib/jvm/java-21-openjdk-*/bin/javap:
@@ -29,21 +28,30 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/bin/jlink:
       /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
       /usr/lib/jvm/java-21-openjdk-*/bin/jmod:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jps:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
       /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
       /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
       /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
       # used by javac
       /usr/lib/jvm/java-21-openjdk-*/lib/ct.sym:
 
+  standard:
+    essential:
+      - openjdk-21-jre-headless_standard
+    contents:
+      # requires security
+      /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
+      # requires RMI
+      /usr/lib/jvm/java-21-openjdk-*/bin/jps:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
+      # script engine has to be installed separately
+      /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
+
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
-      - openjdk-21-jdk-headless_bins
+      - openjdk-21-jdk-headless_core
     contents:
       /usr/lib/jvm/java-21-openjdk-*/jmods/java.base.jmod:
       /usr/lib/jvm/java-21-openjdk-*/jmods/java.compiler.jmod:

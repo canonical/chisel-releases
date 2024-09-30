@@ -1,24 +1,116 @@
 summary: Integration tests for openjdk-21-jdk-headless
 
 environment:
-  SLICE/bins: "bins"
+  SLICE/core: "core"
+  SLICE/standard: "standard"
   SLICE/modules: "modules"
 
 execute: |
+  apt install --update -y openjdk-21-jdk-headless curl
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE})"
-  cp Main.java ${rootfs}/
+  rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins)"
+  cp *.java ${rootfs}/
+  javac *.java
+  cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
-
+  # ensure a background java process
+  nohup java MonitoringTest.java &
+  pid=$!
+  trap `kill -9 ${pid}` EXIT
   case ${SLICE} in
-    bins)
+    core)
       for java in `find usr/lib/jvm -name java`; do
-        ln -sf /${java} proc/self/exe
-        chroot . ${java} --version
-        chroot . ${java} /Main.java
+        home=$(dirname ${java})
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
+        ln -sf /${home}/jar proc/self/exe
+        chroot . ${home}/jar cvf test.jar *.java
+        # /usr/lib/jvm/java-21-openjdk-*/bin/javac:
+        ln -sf /${home}/javac proc/self/exe
+        chroot . ${home}/javac /Main.java -d /
+        # /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
+        ln -sf /${home}/javadoc proc/self/exe
+        chroot . ${home}/javadoc /Main.java
+        # /usr/lib/jvm/java-21-openjdk-*/bin/javap:
+        ln -sf /${home}/javap proc/self/exe
+        chroot . ${home}/javap -l /Main.class
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
+        ln -sf /${home}/jcmd proc/self/exe
+        chroot . ${home}/jcmd jdk.compiler/com.sun.tools.javac.launcher.Main VM.version
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
+        ln -sf /${home}/jdb proc/self/exe
+        chroot . /usr/bin/sh "echo run | ${home}/jdb Main.java"
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jdeprscan:
+        ln -sf /${home}/jdeprscan proc/self/exe
+        chroot . ${home}/jdeprscan --class-path . Main
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
+        ln -sf /${home}/jdeps proc/self/exe
+        chroot . ${home}/jdeps /
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
+        ln -sf /${home}/jcmd proc/self/exe
+        chroot . ${home}/jcmd ${pid} JFR.start
+        chroot . ${home}/jcmd ${pid} JFR.stop
+        chroot . ${home}/jcmd ${pid} JFR.dump filename=/recording.jfr
+        ln -sf /${home}/jfr proc/self/exe
+        chroot . ${home}/jfr print /recording.jfr
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
+        if [ -f ${home}/jhsdb ]; then
+          ln -sf /${home}/jhsdb proc/self/exe
+          chroot . ${home}/jhsdb jstack --pid ${pid}
+        fi
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
+        ln -sf /${home}/jimage proc/self/exe
+        chroot . ${home}/jimage info ${home}/../lib/modules
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
+        ln -sf /${home}/jinfo proc/self/exe
+        chroot . ${home}/jinfo ${pid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
+        ln -sf /${home}/jmap proc/self/exe
+        chroot . ${home}/jmap ${pid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
+        ln -sf /${home}/jshell proc/self/exe
+        chroot . /usr/bin/sh "echo 'System.out.println("hello world")' | ${home}/jshell"
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
+        ln -sf /${home}/jstack proc/self/exe
+        chroot . ${home}/jstack ${pid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
+        ln -sf /${home}/jwebserver proc/self/exe
+        nohup sudo chroot . /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
+        wpid=$!
+        trap `kill -9 ${wpid}` EXIT
+        curl http://localhost:8000
+        kill -9 ${wpid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
+        ln -sf /${home}/serialver proc/self/exe
+        chroot . ${home}/serialver -classpath / SerializableObject
       done
+      ;;
+    standard)
+      for java in `find usr/lib/jvm -name java`; do
+        home=$(dirname ${java})
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
+        jar cvf test.jar *.java
+        DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
+        keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
+        ln -sf /${home}/jarsigner proc/self/exe
+        chroot . ${home}/jarsigner -keystore /foo -storepass barbar test.jar foo
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jps:
+        ln -sf /${home}/jps proc/self/exe
+        chroot . ${home}/jps -l
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
+        ln -sf /${home}/jstat proc/self/exe
+        chroot . ${home}/jstat -gc ${pid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
+        ln -sf /${home}/jstatd proc/self/exe
+        chroot . ${home}/jstatd &
+        jpid=$!
+        trap `kill -9 ${jpid}` EXIT
+        jps | grep Jstatd
+        kill -9 ${jpid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
+        ln -sf /${home}/jrunscript proc/self/exe
+        ${home}/jrunscript -q
       ;;
     modules)
       mkdir -p ${rootfs}/opt/java
@@ -26,6 +118,11 @@ execute: |
       for jlink in `find usr/lib/jvm -name jlink`; do
         ln -sf /${jlink} proc/self/exe
         chroot . ${jlink} --add-modules java.base --output ${rootfs}/opt/java
+      done
+      for jmod in `find usr/lib/jvm -name jmod`; do
+        home=$(dirname ${jmod})
+        ln -sf /${jmod} proc/self/exe
+        chroot . ${jmod} list ${home}/../jmods/java.rmi.jmod
       done
       ;;
   esac
