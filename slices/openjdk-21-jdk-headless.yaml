@@ -14,11 +14,8 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/bin/javac:
       /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
       /usr/lib/jvm/java-21-openjdk-*/bin/javap:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeprscan:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
       /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
         arch:
           - amd64
@@ -39,6 +36,9 @@ slices:
     contents:
       # requires security
       /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
       # requires RMI
       /usr/lib/jvm/java-21-openjdk-*/bin/jps:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
