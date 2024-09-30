@@ -1,0 +1,18 @@
+package: libharfbuzz0b
+
+essential:
+  - libharfbuzz0b_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libfreetype6_libs
+      - libglib2.0-0t64_libs
+      - libgraphite2-3_libs
+    contents:
+      /usr/lib/*-linux-*/libharfbuzz.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libharfbuzz0b/copyright:
