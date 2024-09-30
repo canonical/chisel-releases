@@ -1,0 +1,13 @@
+summary: Integration tests for CA Certificates
+
+execute: |
+  rootfs="$(install-slices findutils_bins)"
+  
+  mkdir -p ${rootfs}/data
+  mkdir -p ${rootfs}/dev
+  touch ${rootfs}/data/file1.txt
+  touch ${rootfs}/data/file2.txt
+  touch ${rootfs}/dev/null
+
+  output=$(chroot ${rootfs} /usr/bin/find data -name "*.txt" | /usr/bin/xargs)
+  test "${output}" = "data/file1.txt data/file2.txt"
