@@ -15,7 +15,6 @@ slices:
   scripts:
     essential:
       - xdg-user-dirs_config
-
     contents:
       /usr/bin/xdg-user-dir:
       /usr/bin/xdg-user-dirs-update:
