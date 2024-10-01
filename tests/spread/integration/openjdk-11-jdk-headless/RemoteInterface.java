@@ -1,2 +1,4 @@
-public class RemoteInterface implements java.rmi.Remote {
+import java.rmi.Remote;
+
+public class RemoteInterface implements Remote {
 }
