@@ -22,10 +22,10 @@ slices:
       - libperl5.38t64_core-routines
       - libperl5.38t64_data-dumper
       - libperl5.38t64_data-structures
-      - libperl5.38t64_database
+      - libperl5.38t64_databases
       - libperl5.38t64_devel
       - libperl5.38t64_digest
-      - libperl5.38t64_encoding
+      - libperl5.38t64_encodings
       - libperl5.38t64_error-handling
       - libperl5.38t64_file-handling
       - libperl5.38t64_gnu
@@ -38,7 +38,7 @@ slices:
       - libperl5.38t64_math
       - libperl5.38t64_module-utils
       - libperl5.38t64_networking
-      - libperl5.38t64_std
+      - libperl5.38t64_std-headers
       - libperl5.38t64_system-utils
       - libperl5.38t64_text-processing
       - libperl5.38t64_threading
@@ -46,7 +46,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/libperl.so.5.38*:
       /usr/lib/*-linux-*/perl/5.38:
-      /usr/lib/*-linux-*/perl/cross-config-5.38.2/Config*.pm:
 
   bits:
     contents:
@@ -55,8 +54,8 @@ slices:
   compiler-utils:
     essential:
       - perl-base_core
-      - perl-modules-5.38_core
       - perl-modules-5.38_compiler-utils
+      - perl-modules-5.38_core
     contents:
       # The Perl Compiler Backend
       /usr/lib/*-linux-*/perl/5.38*/B.pm:
@@ -98,28 +97,31 @@ slices:
   core-routines:
     essential:
       - libcrypt1_libs
+      - perl-base_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/CORE/**.h:
 
   data-dumper:
+    essential:
+      - perl-base_core
+      - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Data/Dumper.pm:
 
   data-structures:
     essential:
-      - perl-base_core
       - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/List/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Scalar/**.pm:
 
-  database:
+  databases:
     essential:
       - libdb5.3t64_libs
       - libgdbm-compat4t64_libs
       - libgdbm6t64_libs
       - perl-modules-5.38_core
-      - perl-modules-5.38_database
+      - perl-modules-5.38_databases
     contents:
       /usr/lib/*-linux-*/perl/5.38*/DB_File.pm:
       /usr/lib/*-linux-*/perl/5.38*/GDBM_File.pm:
@@ -143,7 +145,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Digest/**.pm:
 
-  encoding:
+  encodings:
     essential:
       - perl-base_core
       - perl-modules-5.38_core
@@ -242,7 +244,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/IPC/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Socket.pm:
 
-  std:
+  std-headers:
     contents:
       /usr/lib/*-linux-*/perl/5.38*/signal.ph:
       /usr/lib/*-linux-*/perl/5.38*/stdarg.ph:

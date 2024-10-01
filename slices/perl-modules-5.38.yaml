@@ -80,13 +80,13 @@ slices:
       - perl-modules-5.38_config
       - perl-modules-5.38_core-routines
       - perl-modules-5.38_cpan
-      - perl-modules-5.38_database
+      - perl-modules-5.38_databases
       - perl-modules-5.38_debug
       - perl-modules-5.38_devel
       - perl-modules-5.38_diagnostics
       - perl-modules-5.38_digest
       - perl-modules-5.38_dumps
-      - perl-modules-5.38_encoding
+      - perl-modules-5.38_encodings
       - perl-modules-5.38_english
       - perl-modules-5.38_exutils
       - perl-modules-5.38_filter
@@ -134,7 +134,7 @@ slices:
     essential:
       - perl-modules-5.38_core
       - perl-modules-5.38_digest
-      - perl-modules-5.38_encoding
+      - perl-modules-5.38_encodings
       - perl-modules-5.38_networking
       - perl-modules-5.38_time
     contents:
@@ -218,7 +218,7 @@ slices:
     essential:
       - perl-modules-5.38_core
       - perl-modules-5.38_digest
-      - perl-modules-5.38_encoding
+      - perl-modules-5.38_encodings
       - perl-modules-5.38_networking
       - perl-modules-5.38_time
     contents:
@@ -226,7 +226,7 @@ slices:
       /usr/share/perl/5.38*/CPAN/**:
       /usr/share/perl/5.38*/Parse/CPAN/Meta.pm:
 
-  database:
+  databases:
     essential:
       - perl-modules-5.38_core
     contents:
@@ -266,7 +266,7 @@ slices:
       /usr/share/perl/5.38*/Dumpvalue.pm:
       /usr/share/perl/5.38*/dumpvar.pl:
 
-  encoding:
+  encodings:
     essential:
       - perl-modules-5.38_core
     contents:
@@ -350,7 +350,7 @@ slices:
     essential:
       - perl-modules-5.38_core
       - perl-modules-5.38_digest
-      - perl-modules-5.38_encoding
+      - perl-modules-5.38_encodings
       - perl-modules-5.38_time
     contents:
       /usr/share/perl/5.38*/HTTP/**.pm:
@@ -395,7 +395,7 @@ slices:
     essential:
       - perl-modules-5.38_core
       - perl-modules-5.38_digest
-      - perl-modules-5.38_encoding
+      - perl-modules-5.38_encodings
       - perl-modules-5.38_networking
       - perl-modules-5.38_system-utils
       - perl-modules-5.38_time
