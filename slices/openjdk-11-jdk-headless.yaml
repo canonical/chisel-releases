@@ -6,10 +6,23 @@ essential:
 slices:
 
   # OpenJDK binaries slice
-  bins:
+  core:
     essential:
       - openjdk-11-jre-headless_core
       - openjdk-11-jre-headless_javac
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/bin/javac:
+      /usr/lib/jvm/java-11-openjdk-*/bin/javadoc:
+      /usr/lib/jvm/java-11-openjdk-*/bin/javap:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jdeprscan:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jdeps:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jimage:
+      /usr/lib/jvm/java-11-openjdk-*/bin/serialver:
+
+  standard:
+    essential:
+      - openjdk-11-jdk-headless_core
+      - openjdk-11-jre-headless_standard
     contents:
       /usr/lib/jvm/java-11-openjdk-*/bin/jaotc:
         arch:
@@ -17,23 +30,15 @@ slices:
           - arm64
       /usr/lib/jvm/java-11-openjdk-*/bin/jar:
       /usr/lib/jvm/java-11-openjdk-*/bin/jarsigner:
-      /usr/lib/jvm/java-11-openjdk-*/bin/javac:
-      /usr/lib/jvm/java-11-openjdk-*/bin/javadoc:
-      /usr/lib/jvm/java-11-openjdk-*/bin/javap:
       /usr/lib/jvm/java-11-openjdk-*/bin/jcmd:
       /usr/lib/jvm/java-11-openjdk-*/bin/jdb:
-      /usr/lib/jvm/java-11-openjdk-*/bin/jdeprscan:
-      /usr/lib/jvm/java-11-openjdk-*/bin/jdeps:
       /usr/lib/jvm/java-11-openjdk-*/bin/jfr:
       /usr/lib/jvm/java-11-openjdk-*/bin/jhsdb:
         arch:
           - amd64
           - arm64
-      /usr/lib/jvm/java-11-openjdk-*/bin/jimage:
       /usr/lib/jvm/java-11-openjdk-*/bin/jinfo:
-      /usr/lib/jvm/java-11-openjdk-*/bin/jlink:
       /usr/lib/jvm/java-11-openjdk-*/bin/jmap:
-      /usr/lib/jvm/java-11-openjdk-*/bin/jmod:
       /usr/lib/jvm/java-11-openjdk-*/bin/jps:
       /usr/lib/jvm/java-11-openjdk-*/bin/jrunscript:
       /usr/lib/jvm/java-11-openjdk-*/bin/jshell:
@@ -41,13 +46,14 @@ slices:
       /usr/lib/jvm/java-11-openjdk-*/bin/jstat:
       /usr/lib/jvm/java-11-openjdk-*/bin/jstatd:
       /usr/lib/jvm/java-11-openjdk-*/bin/rmic:
-      /usr/lib/jvm/java-11-openjdk-*/bin/serialver:
 
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
-      - openjdk-11-jdk-headless_bins
+      - openjdk-11-jdk-headless_core
     contents:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jlink:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jmod:
       /usr/lib/jvm/java-11-openjdk-*/jmods/java.base.jmod:
       /usr/lib/jvm/java-11-openjdk-*/jmods/java.compiler.jmod:
       /usr/lib/jvm/java-11-openjdk-*/jmods/java.datatransfer.jmod:
@@ -138,8 +144,6 @@ slices:
 
   # OpenJDK headers for JNI
   headers:
-    essential:
-      - openjdk-11-jre-headless_core
     contents:
       /usr/lib/jvm/java-11-openjdk-*/include/classfile_constants.h:
       /usr/lib/jvm/java-11-openjdk-*/include/jni.h:
@@ -149,8 +153,6 @@ slices:
 
   # OpenJDK headers for the debug agent development
   debug-headers:
-    essential:
-      - openjdk-11-jre-headless_core
     contents:
       /usr/lib/jvm/java-11-openjdk-*/include/jdwpTransport.h:
 
