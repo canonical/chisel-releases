@@ -1,0 +1,16 @@
+package: python3-pkg-resources
+
+essential:
+  - python3-pkg-resources_copyright
+
+slices:
+  libs:
+    # Although pkg-resources requires python3, python3.x slices are not listed
+    # as an essential here because we might choose to install
+    # python3-pkg-resources with different versions of python3.
+    contents:
+      /usr/lib/python3/dist-packages/pkg_resources/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-pkg-resources/copyright:

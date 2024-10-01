@@ -1,0 +1,20 @@
+package: python3-setuptools
+
+essential:
+  - python3-setuptools_copyright
+
+slices:
+  libs:
+    # Although setuptools requires python3, python3.x slices are not listed as
+    # an essential here because we might choose to install python3-setuptools
+    # with different versions of python3.
+    essential:
+      - python3-pkg-resources_libs
+    contents:
+      /usr/lib/python3/dist-packages/_distutils_hack/**:
+      /usr/lib/python3/dist-packages/setuptools-*.egg-info/**:
+      /usr/lib/python3/dist-packages/setuptools/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-setuptools/copyright:
