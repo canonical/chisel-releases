@@ -6,43 +6,50 @@ essential:
 slices:
 
   # OpenJDK binaries slice
-  bins:
+  core:
     essential:
       - openjdk-17-jre-headless_core
       - openjdk-17-jre-headless_javac
     contents:
-      /usr/lib/jvm/java-17-openjdk-*/bin/jar:
-      /usr/lib/jvm/java-17-openjdk-*/bin/jarsigner:
       /usr/lib/jvm/java-17-openjdk-*/bin/javac:
       /usr/lib/jvm/java-17-openjdk-*/bin/javadoc:
       /usr/lib/jvm/java-17-openjdk-*/bin/javap:
-      /usr/lib/jvm/java-17-openjdk-*/bin/jcmd:
-      /usr/lib/jvm/java-17-openjdk-*/bin/jdb:
       /usr/lib/jvm/java-17-openjdk-*/bin/jdeprscan:
       /usr/lib/jvm/java-17-openjdk-*/bin/jdeps:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jimage:
+      /usr/lib/jvm/java-17-openjdk-*/bin/serialver:
+
+  standard:
+    essential:
+      - openjdk-11-jdk-headless_core
+      - openjdk-11-jre-headless_standard
+    contents:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jar:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jarsigner:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jcmd:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jdb:
       /usr/lib/jvm/java-17-openjdk-*/bin/jfr:
       /usr/lib/jvm/java-17-openjdk-*/bin/jhsdb:
         arch:
           - amd64
           - arm64
-      /usr/lib/jvm/java-17-openjdk-*/bin/jimage:
       /usr/lib/jvm/java-17-openjdk-*/bin/jinfo:
-      /usr/lib/jvm/java-17-openjdk-*/bin/jlink:
       /usr/lib/jvm/java-17-openjdk-*/bin/jmap:
-      /usr/lib/jvm/java-17-openjdk-*/bin/jmod:
       /usr/lib/jvm/java-17-openjdk-*/bin/jps:
       /usr/lib/jvm/java-17-openjdk-*/bin/jrunscript:
       /usr/lib/jvm/java-17-openjdk-*/bin/jshell:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstack:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstat:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstatd:
-      /usr/lib/jvm/java-17-openjdk-*/bin/serialver:
+
 
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
-      - openjdk-17-jdk-headless_bins
+      - openjdk-17-jdk-headless_core
     contents:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jlink:
+      /usr/lib/jvm/java-17-openjdk-*/bin/jmod:
       /usr/lib/jvm/java-17-openjdk-*/jmods/java.base.jmod:
       /usr/lib/jvm/java-17-openjdk-*/jmods/java.compiler.jmod:
       /usr/lib/jvm/java-17-openjdk-*/jmods/java.datatransfer.jmod:
@@ -129,8 +136,6 @@ slices:
 
   # OpenJDK headers for JNI
   headers:
-    essential:
-      - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/include/classfile_constants.h:
       /usr/lib/jvm/java-17-openjdk-*/include/jni.h:
@@ -140,8 +145,6 @@ slices:
 
   # OpenJDK headers for the debug agent development
   debug-headers:
-    essential:
-      - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/include/jdwpTransport.h:
 

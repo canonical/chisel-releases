@@ -5,9 +5,19 @@ essential:
 
 slices:
 
-  # A set of slices to run headless openjdk runtime
+  # A minimal set of files to run a Java application
+  # excluded dependencies:
+  # - ca-certificates-java_essential - needs chisel support to run
+  #                                    maintainer scripts.
+  # - java-common                    - provides update-alternatives,
+  #                                    not relevant.
+  # - util-linux                     - needed for bash completion
+  #                                    not relevant.
+  # - libjpeg8                       - used in awt, not relevant
+  # - liblcms2-2                     - used in awt, not relevant
   standard:
     essential:
+      - openjdk-17-jre-headless_class-data-sharing
       - openjdk-17-jre-headless_core
       - openjdk-17-jre-headless_debug
       - openjdk-17-jre-headless_jfr
@@ -15,15 +25,16 @@ slices:
       - openjdk-17-jre-headless_prefs
       - openjdk-17-jre-headless_rmi
       - openjdk-17-jre-headless_security
+      - openjdk-17-jre-headless_tools
 
   # List of classes required to create the Class Data Sharing archive
-  classescache:
+  class-data-sharing:
     essential:
       - openjdk-17-jre-headless_core
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/classlist:
 
-  # Minimal set of files to run a Java application
+  # A minimal set of files to run a Java application
   core:
     essential:
       - libc6_libs
@@ -72,16 +83,10 @@ slices:
   # Native part of java.rmi
   rmi:
     essential:
-      - openjdk-17-jre-headless_core
+      - openjdk-17-jre-headless_security
     contents:
+      /usr/lib/jvm/java-17-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-17-openjdk-*/lib/librmi.so:
-
-  # Native part of STCP protocol implementation
-  stcp:
-    essential:
-      - openjdk-17-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-17-openjdk-*/lib/libsctp.so:
 
   # Debug support
   debug:
@@ -102,7 +107,7 @@ slices:
   # Configuration and native part of Java Management Extensions
   management:
     essential:
-      - openjdk-17-jre-headless_core
+      - openjdk-17-jre-headless_rmi
     contents:
       /etc/java-17-openjdk/management/jmxremote.access:
       /etc/java-17-openjdk/management/management.properties:
@@ -149,7 +154,6 @@ slices:
       - openjdk-17-jre-headless_security
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/keytool:
-      /usr/lib/jvm/java-17-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-17-openjdk-amd64/bin/jpackage:
         arch:
           - amd64
