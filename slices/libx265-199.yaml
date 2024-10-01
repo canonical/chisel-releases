@@ -1,0 +1,18 @@
+package: libx265-199
+
+essential:
+  - libx265-199_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libnuma1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libx265.so.199:
+
+  copyright:
+    contents:
+      /usr/share/doc/libx265-199/copyright:
