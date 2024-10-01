@@ -8,8 +8,10 @@ slices:
   # OpenJDK binaries slice
   core:
     essential:
+      - libc6_libs
       - openjdk-11-jre-headless_core
       - openjdk-11-jre-headless_javac
+      - zlib1g_libs
     contents:
       /usr/lib/jvm/java-11-openjdk-*/bin/javac:
       /usr/lib/jvm/java-11-openjdk-*/bin/javadoc:
