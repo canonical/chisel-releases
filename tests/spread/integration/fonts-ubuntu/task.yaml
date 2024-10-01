@@ -1,6 +1,0 @@
-summary: Integration tests for fonts-ubuntu
-
-execute: |
-  rootfs="$(install-slices fonts-ubuntu_all)"
-  
-  # just ensure that slice installs
