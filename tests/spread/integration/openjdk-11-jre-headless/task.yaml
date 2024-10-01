@@ -5,7 +5,6 @@ environment:
   SLICE/core: "core"
   SLICE/prefs: "prefs"
 #  SLICE/rmi: "rmi" # Tested in management slice
-#  SLICE/console: "console" # This test requires /dev/pty. Skip it.
   SLICE/debug: "debug"
   SLICE/management: "management"
   SLICE/jfr: "jfr"
