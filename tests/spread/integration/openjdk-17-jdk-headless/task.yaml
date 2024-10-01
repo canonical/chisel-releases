@@ -15,7 +15,7 @@ execute: |
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
-  apt install --update -y openjdk-11-jdk-headless
+  apt install --update -y openjdk-17-jdk-headless
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
@@ -78,7 +78,7 @@ execute: |
         # /usr/lib/jvm/java-17-openjdk-*/bin/jinfo:
         chroot . ${home}/jinfo ${pid}
         # /usr/lib/jvm/java-17-openjdk-*/bin/jrunscript:
-        chroot . /usr/bin/sh -c "echo 'exit()' | ${home}/jrunscript"
+        chroot . ${home}/jrunscript -q
         # /usr/lib/jvm/java-17-openjdk-*/bin/jshell:
         chroot . /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
         # /usr/lib/jvm/java-17-openjdk-*/bin/jstack:
@@ -95,8 +95,6 @@ execute: |
           grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
           sleep 10
         done
-        # /usr/lib/jvm/java-17-openjdk-*/bin/rmic
-        chroot . ${home}/rmic -classpath . RemoteInterface
       done
       ;;
     modules)
