@@ -42,7 +42,6 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstat:
       /usr/lib/jvm/java-17-openjdk-*/bin/jstatd:
 
-
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
