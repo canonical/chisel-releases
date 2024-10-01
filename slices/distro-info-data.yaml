@@ -1,0 +1,14 @@
+package: distro-info-data
+
+essential:
+  - distro-info-data_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/distro-info/debian.csv:
+      /usr/share/distro-info/ubuntu.csv:
+
+  copyright:
+    contents:
+      /usr/share/doc/distro-info-data/copyright:
