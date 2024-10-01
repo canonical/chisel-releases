@@ -8,7 +8,6 @@ slices:
   # A set of slices to run headless openjdk runtime
   standard:
     essential:
-      - openjdk-21-jre-headless_awt
       - openjdk-21-jre-headless_class-data-sharing
       - openjdk-21-jre-headless_console
       - openjdk-21-jre-headless_core
