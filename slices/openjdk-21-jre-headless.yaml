@@ -159,37 +159,6 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/security/default.policy:
       /usr/lib/jvm/java-21-openjdk-*/lib/security/public_suffix_list.dat:
 
-  # Abstract Window Toolkit configuration and native libraries
-  # The dependencies of AWT slice are actual dependencies.
-  # openjdk-21 packaging provides them in openjdk-21-jre package
-  #
-  awt:
-      essential:
-      - libbrotli1_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libglib2.0-0t64_core
-      - libgraphite2-3_libs
-      - libharfbuzz0b_libs
-      - libjpeg-turbo8_libs
-      - liblcms2-2_libs
-      - libpcre2-8-0_libs
-      - libpng16-16t64_libs
-      - openjdk-21-jre-headless_core
-    contents:
-      /etc/java-21-openjdk/psfont.properties.ja:
-      /etc/java-21-openjdk/psfontj2d.properties:
-      /etc/java-21-openjdk/swing.properties:
-      /usr/lib/jvm/java-21-openjdk-*/conf/swing.properties:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libawt.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libawt_headless.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libfontmanager.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libjavajpeg.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/liblcms.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libmlib_image.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/psfont.properties.ja:
-      /usr/lib/jvm/java-21-openjdk-*/lib/psfontj2d.properties:
-
   # OpenJDK tools
   tools:
     essential:

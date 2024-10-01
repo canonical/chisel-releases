@@ -1,7 +1,6 @@
 summary: Integration tests for openjdk-21-jre-headless
 
 environment:
-  SLICE/awt: "awt"
   SLICE/classdatasharing: "class-data-sharing"
   SLICE/core: "core"
   SLICE/prefs: "prefs"
@@ -27,9 +26,6 @@ execute: |
     ln -sf /${java} proc/self/exe
     chroot . ${java} --version
     case ${SLICE} in
-      awt)
-        chroot . ${java} -Djava.awt.headless=true /ImageTest.java
-      ;;
       class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
