@@ -5,8 +5,7 @@ environment:
   SLICE/classdatasharing: "class-data-sharing"
   SLICE/core: "core"
   SLICE/prefs: "prefs"
-#  SLICE/rmi: "rmi" # This slice is used by openjdk-21-jdk-headless_rmi.
-                    # It can not be tested on its own.
+#  SLICE/rmi: "rmi" # Tested in management slice
 #  SLICE/console: "console" # This test requires /dev/pty. Skip it.
   SLICE/debug: "debug"
   SLICE/management: "management"
