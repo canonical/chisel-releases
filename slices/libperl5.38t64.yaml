@@ -12,6 +12,12 @@ slices:
       /usr/bin/cpan5.38*-*-linux-*:
       /usr/bin/perl5.38*-*-linux-*:
 
+  # The symlink must be explicitly handled to make the files discoverable
+  # according to perl's default search path.
+  links:
+    contents:
+      /usr/lib/*-linux-*/perl/5.38:
+
   standard:
     essential:
       - libc6_libs
@@ -45,7 +51,6 @@ slices:
       - perl-modules-5.38_standard
     contents:
       /usr/lib/*-linux-*/libperl.so.5.38*:
-      /usr/lib/*-linux-*/perl/5.38:
 
   bits:
     contents:
@@ -53,6 +58,7 @@ slices:
 
   compiler-utils:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_compiler-utils
       - perl-modules-5.38_core
@@ -73,6 +79,7 @@ slices:
   compress:
     essential:
       - libbz2-1.0_libs
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
       - zlib1g_libs
@@ -97,12 +104,14 @@ slices:
   core-routines:
     essential:
       - libcrypt1_libs
+      - libperl5.38t64_links
       - perl-base_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/CORE/**.h:
 
   data-dumper:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -110,6 +119,7 @@ slices:
 
   data-structures:
     essential:
+      - libperl5.38t64_links
       - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/List/**.pm:
@@ -120,6 +130,7 @@ slices:
       - libdb5.3t64_libs
       - libgdbm-compat4t64_libs
       - libgdbm6t64_libs
+      - libperl5.38t64_links
       - perl-modules-5.38_core
       - perl-modules-5.38_databases
     contents:
@@ -131,6 +142,7 @@ slices:
 
   devel:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
       - perl-modules-5.38_devel
@@ -139,6 +151,7 @@ slices:
 
   digest:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
       - perl-modules-5.38_digest
@@ -147,6 +160,7 @@ slices:
 
   encodings:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -157,6 +171,7 @@ slices:
 
   error-handling:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -165,6 +180,7 @@ slices:
 
   file-handling:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -174,11 +190,14 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/Storable.pm:
 
   gnu:
+    essential:
+      - libperl5.38t64_links
     contents:
       /usr/lib/*-linux-*/perl/5.38*/gnu/**.ph:
 
   hashing:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -186,6 +205,7 @@ slices:
 
   io-modules:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -200,6 +220,7 @@ slices:
   loaders:
     essential:
       - libc6_libs
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -208,17 +229,21 @@ slices:
 
   locale:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/I18N/**.pm:
 
   machine:
+    essential:
+      - libperl5.38t64_links
     contents:
       /usr/lib/*-linux-*/perl/5.38*/machine/:
 
   math:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -226,6 +251,7 @@ slices:
 
   module-utils:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -238,6 +264,7 @@ slices:
 
   networking:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -255,6 +282,7 @@ slices:
 
   system-utils:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -270,6 +298,7 @@ slices:
 
   text-processing:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:
@@ -278,6 +307,7 @@ slices:
 
   threading:
     essential:
+      - libperl5.38t64_links
       - perl-base_core
       - perl-modules-5.38_core
     contents:

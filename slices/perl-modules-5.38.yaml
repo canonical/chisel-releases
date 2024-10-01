@@ -10,6 +10,7 @@ slices:
     essential:
       - perl-base_core
     contents:
+      /usr/share/perl/5.38:
       /usr/share/perl/5.38*/AutoLoader.pm:
       /usr/share/perl/5.38*/AutoSplit.pm:
       /usr/share/perl/5.38*/Carp.pm:
@@ -119,8 +120,6 @@ slices:
       - perl-modules-5.38_user
       - perl-modules-5.38_version
       - perl-modules-5.38_vmsish
-    contents:
-      /usr/share/perl/5.38:
 
   app-prove:
     essential:
