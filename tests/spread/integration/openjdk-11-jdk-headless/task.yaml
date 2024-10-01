@@ -30,12 +30,9 @@ execute: |
 
   cp *.class ${rootfs}/
   cd ${rootfs}
-  mkdir -p proc sys dev tmp
+  mkdir -p proc sys tmp
   mount --bind /proc proc
   mount --bind /sys sys
-  # intentional - not enough entropy
-  mount --bind /dev/urandom /dev/random
-  mount --bind /dev/urandom /dev/urandom
   mount --bind /tmp tmp
   case ${SLICE} in
     core)
@@ -80,12 +77,10 @@ execute: |
         chroot . ${home}/jfr print /tmp/recording.jfr > /dev/null
         # /usr/lib/jvm/java-11-openjdk-*/bin/jinfo:
         chroot . ${home}/jinfo ${pid}
+        # /usr/lib/jvm/java-11-openjdk-*/bin/jrunscript:
+        chroot . /usr/bin/sh -c "echo 'exit()' | ${home}/jrunscript"
         # /usr/lib/jvm/java-11-openjdk-*/bin/jshell:
         chroot . /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jmap:
-        chroot . ${home}/jmap ${pid}
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jps:
-        chroot . ${home}/jps -l
         # /usr/lib/jvm/java-11-openjdk-*/bin/jstack:
         chroot . ${home}/jstack ${pid}
         # /usr/lib/jvm/java-11-openjdk-*/bin/jstat:
@@ -100,6 +95,8 @@ execute: |
           grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
           sleep 10
         done
+        # /usr/lib/jvm/java-11-openjdk-*/bin/rmic
+        chroot . ${home}/rmic -classpath . RemoteInterface
       done
       ;;
     modules)
