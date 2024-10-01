@@ -91,7 +91,7 @@ slices:
       - perl-modules-5.38_encodings
       - perl-modules-5.38_english
       - perl-modules-5.38_exutils
-      - perl-modules-5.38_filter
+      - perl-modules-5.38_filters
       - perl-modules-5.38_internals
       - perl-modules-5.38_json-pp
       - perl-modules-5.38_less
@@ -289,7 +289,7 @@ slices:
       /usr/share/perl/5.38*/ExtUtils/typemap:
       /usr/share/perl/5.38*/ExtUtils/xsubpp:
 
-  filter:
+  filters:
     essential:
       - perl-modules-5.38_core
     contents:

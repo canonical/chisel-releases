@@ -188,7 +188,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/File/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Storable.pm:
 
-  filter:
+  filters:
     essential:
       - libc6_libs
       - libperl5.38t64_core
@@ -196,7 +196,6 @@ slices:
       - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Filter/**.pm:
-      /usr/lib/*-linux-*/perl/5.38*/Filter/**.so:
 
   gnu:
     essential:
