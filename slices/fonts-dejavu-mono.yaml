@@ -1,0 +1,29 @@
+package: fonts-dejavu-mono
+
+essential:
+  - fonts-dejavu-mono_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf:
+      /usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf:
+
+  config:
+    essential:
+      - fonts-dejavu-mono_fonts
+    contents:
+      /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans-mono.conf:
+      /etc/fonts/conf.avail/20-unhint-small-dejavu-sans-mono.conf:
+      /etc/fonts/conf.avail/57-dejavu-sans-mono.conf:
+      /etc/fonts/conf.avail/58-dejavu-lgc-sans-mono.conf:
+      /etc/fonts/conf.d/20-unhint-small-dejavu-lgc-sans-mono.conf:
+      /etc/fonts/conf.d/20-unhint-small-dejavu-sans-mono.conf:
+      /etc/fonts/conf.d/57-dejavu-sans-mono.conf:
+      /etc/fonts/conf.d/58-dejavu-lgc-sans-mono.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-dejavu-mono/copyright:
