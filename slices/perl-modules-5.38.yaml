@@ -67,8 +67,8 @@ slices:
   standard:
     essential:
       - perl-base_core
-      - perl-modules-5.38_app-prove
       - perl-modules-5.38_app-cpan
+      - perl-modules-5.38_app-prove
       - perl-modules-5.38_archive
       - perl-modules-5.38_attribute-handlers
       - perl-modules-5.38_autodie
