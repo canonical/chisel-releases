@@ -9,22 +9,25 @@ execute: |
   pids=()
   cleanup() {
     for pid in "${pids[@]}"; do
-      kill "$pid" 2>/dev/null
+      kill "$pid" || true
     done
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
   apt install --update -y openjdk-11-jdk-headless
-  nohup java MonitoringTest.java &
-  pid=$!
-  pids+=("$pid")
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-11-jdk-headless_${SLICE} dash_bins)"
   cp *.java ${rootfs}/
+  cp all.policy ${rootfs}/
   javac *.java
+
+  nohup java -cp . MonitoringTest &
+  pid=$!
+  pids+=("$pid")
+
   cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc sys dev tmp
@@ -66,15 +69,14 @@ execute: |
         # /usr/lib/jvm/java-11-openjdk-*/bin/jdb:
         chroot . /usr/bin/sh -c "echo run | ${home}/jdb Main.java"
         # /usr/lib/jvm/java-11-openjdk-*/bin/jcmd:
-        chroot . ${home}/jcmd jdk.compiler/com.sun.tools.javac.launcher.Main VM.version
+        chroot . ${home}/jcmd MonitoringTest VM.version
         # /usr/lib/jvm/java-11-openjdk-*/bin/jhsdb:
         if [ -f ${home}/jhsdb ]; then
           chroot . ${home}/jhsdb jstack --pid ${pid}
         fi
         # /usr/lib/jvm/java-11-openjdk-*/bin/jfr:
-        chroot . ${home}/jcmd ${pid} JFR.start maxsize=1MB
-        chroot . ${home}/jcmd ${pid} JFR.stop
-        chroot . ${home}/jcmd ${pid} JFR.dump filename=/tmp/recording.jfr
+        chroot . ${home}/jcmd ${pid} JFR.start name=recording maxsize=1MB
+        chroot . ${home}/jcmd ${pid} JFR.dump name=recording filename=/tmp/recording.jfr
         chroot . ${home}/jfr print /tmp/recording.jfr > /dev/null
         # /usr/lib/jvm/java-11-openjdk-*/bin/jinfo:
         chroot . ${home}/jinfo ${pid}
@@ -89,7 +91,7 @@ execute: |
         # /usr/lib/jvm/java-11-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-11-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd > ./jstatd.log &
+        nohup chroot . ${home}/jstatd -J-Djava.security.policy=all.policy > ./jstatd.log &
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
           if [ ${retry} -eq 5 ]; then
