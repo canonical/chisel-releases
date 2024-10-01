@@ -16,7 +16,7 @@ environment:
 execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-21-jre-headless_${SLICE} busybox_bins)"
+  rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
   apt install --update -y openjdk-21-jdk-headless
   javac *.java
   cp *.java ${rootfs}/
