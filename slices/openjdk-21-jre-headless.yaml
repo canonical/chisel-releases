@@ -86,7 +86,7 @@ slices:
   # Native part of java.rmi
   rmi:
     essential:
-      - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_security
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
@@ -119,7 +119,6 @@ slices:
   management:
     essential:
       - openjdk-21-jre-headless_rmi
-      - openjdk-21-jre-headless_security
     contents:
       /etc/java-21-openjdk/management/jmxremote.access:
       /etc/java-21-openjdk/management/management.properties:
