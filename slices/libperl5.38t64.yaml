@@ -14,8 +14,8 @@ slices:
 
   core:
     contents:
-      /usr/lib/*-linux-*/perl/5.38:
       /usr/lib/*-linux-*/libperl.so.5.38*:
+      /usr/lib/*-linux-*/perl/5.38:
 
   standard:
     essential:
@@ -91,6 +91,7 @@ slices:
       - perl-modules-5.38_core
     contents:
       /usr/lib/*-linux-*/perl/5.38*/Config.pm:
+      /usr/lib/*-linux-*/perl/5.38*/Config.pod:
       /usr/lib/*-linux-*/perl/5.38*/Config_git.pl:
       /usr/lib/*-linux-*/perl/5.38*/Config_heavy.pl:
       /usr/lib/*-linux-*/perl/cross-config-5.38*/Config.pm:
@@ -186,6 +187,16 @@ slices:
       /usr/lib/*-linux-*/perl/5.38*/Fcntl.pm:
       /usr/lib/*-linux-*/perl/5.38*/File/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Storable.pm:
+
+  filter:
+    essential:
+      - libc6_libs
+      - libperl5.38t64_core
+      - perl-base_core
+      - perl-modules-5.38_core
+    contents:
+      /usr/lib/*-linux-*/perl/5.38*/Filter/**.pm:
+      /usr/lib/*-linux-*/perl/5.38*/Filter/**.so:
 
   gnu:
     essential:
@@ -301,6 +312,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/perl/5.38*/MIME/**.pm:
       /usr/lib/*-linux-*/perl/5.38*/Unicode/**.pm:
+      /usr/lib/*-linux-*/perl/5.38*/re.pm:
 
   threading:
     essential:
