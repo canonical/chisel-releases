@@ -6,6 +6,11 @@ essential:
 slices:
   bins:
     # adding libgcc-s1 as mksquashfs crashes without
+    # In practice, libc6 should bring it anyway, BUT, there is a circular 
+    # dependency in the archives, where libc6 depends on libgcc-s1 and 
+    # vice versa. We don't allow that circular dependency to exist in Chisel 
+    # and libgcc-s1 already depends on libc6, so we'll have to include this 
+    # line here, explicitly. 
     essential:
       - libc6_libs
       - libgcc-s1_libs

@@ -13,9 +13,18 @@ execute: |
   # squash it
   chroot "${rootfs}" mksquashfs /test test.sq
 
+  ls /nono
+
+  # test sqfscat
+  chroot "${rootfs}" sqfscat test.sq dir1/text | grep "test file"
+
   # unsquash it again
   chroot "${rootfs}" unsquashfs test.sq
 
   # compare files inside
   cmp "${rootfs}/test/dir1/text" "${rootfs}/squashfs-root/dir1/text"
   cmp "${rootfs}/test/dir2/second" "${rootfs}/squashfs-root/dir2/second"
+
+  # test sqfstar
+  tar -cvf test.tar "${rootfs}"/test
+  chroot "${rootfs}" sqfscat test2.squashfs < test.tar
