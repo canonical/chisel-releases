@@ -8,6 +8,7 @@ slices:
   # A set of slices to run headless openjdk runtime
   standard:
     essential:
+      - openjdk-11-jre-headless_class-data-sharing
       - openjdk-11-jre-headless_core
       - openjdk-11-jre-headless_debug
       - openjdk-11-jre-headless_jfr
@@ -15,9 +16,10 @@ slices:
       - openjdk-11-jre-headless_prefs
       - openjdk-11-jre-headless_rmi
       - openjdk-11-jre-headless_security
+      - openjdk-11-jre-headless_tools
 
   # List of classes required to create the Class Data Sharing archive
-  classescache:
+  class-data-sharing:
     essential:
       - openjdk-11-jre-headless_core
     contents:
@@ -85,14 +87,9 @@ slices:
     essential:
       - openjdk-11-jre-headless_core
     contents:
+      /usr/lib/jvm/java-11-openjdk-*/bin/rmid:
+      /usr/lib/jvm/java-11-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-11-openjdk-*/lib/librmi.so:
-
-  # Native part of STCP protocol implementation
-  stcp:
-    essential:
-      - openjdk-11-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-11-openjdk-*/lib/libsctp.so:
 
   # Debug support
   debug:
@@ -113,7 +110,8 @@ slices:
   # Configuration and native part of Java Management Extensions
   management:
     essential:
-      - openjdk-11-jre-headless_core
+      - openjdk-11-jre-headless_rmi
+      - openjdk-11-jre-headless_security
     contents:
       /etc/java-11-openjdk/management/jmxremote.access:
       /etc/java-11-openjdk/management/management.properties:
@@ -162,8 +160,6 @@ slices:
       /usr/lib/jvm/java-11-openjdk-*/bin/jjs:
       /usr/lib/jvm/java-11-openjdk-*/bin/keytool:
       /usr/lib/jvm/java-11-openjdk-*/bin/pack200:
-      /usr/lib/jvm/java-11-openjdk-*/bin/rmid:
-      /usr/lib/jvm/java-11-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-11-openjdk-*/bin/unpack200:
 
   # Java Flight Recorder configuration and jar file
