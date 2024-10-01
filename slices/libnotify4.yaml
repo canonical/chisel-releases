@@ -4,10 +4,6 @@ essential:
   - libnotify4_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libnotify4/copyright:
-
   libs:
     essential:
       - libc6_libs
@@ -15,3 +11,7 @@ slices:
       - libglib2.0-0t64_libs
     contents:
       /usr/lib/*-linux-*/libnotify.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnotify4/copyright:
