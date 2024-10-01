@@ -28,6 +28,13 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/classlist:
 
   # A minimal set of files to run a Java application
+  # excluded dependencies:
+  # - ca-certificates-java_essential - needs chisel support to run
+  #                                    maintainer scripts.
+  # - java-common                    - provides update-alternatives,
+  #                                    not relevant.
+  # - util-linux                     - needed for bash completion
+  #                                    not relevant.
   core:
     essential:
       - libc6_libs
@@ -153,8 +160,11 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/security/public_suffix_list.dat:
 
   # Abstract Window Toolkit configuration and native libraries
+  # The dependencies of AWT slice are actual dependencies.
+  # openjdk-21 packaging provides them in openjdk-21-jre package
+  #
   awt:
-    essential:
+      essential:
       - libbrotli1_libs
       - libfontconfig1_libs
       - libfreetype6_libs
