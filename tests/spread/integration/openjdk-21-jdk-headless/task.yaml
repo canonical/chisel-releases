@@ -99,7 +99,7 @@ execute: |
           sleep 10
         done
         # /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
-        nohup chroot . /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver &
+        nohup chroot . ${home}/jwebserver &
         sleep 10
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
