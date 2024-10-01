@@ -64,7 +64,7 @@ slices:
       /etc/os-release:
       /usr/lib/os-release:
 
-  # Artficial slice which should generate the Chisel DB.
+  # Dedicated slice for generating the Chisel manifest.
   chisel:
     essential:
       - base-files_var
