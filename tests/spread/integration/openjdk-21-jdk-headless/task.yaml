@@ -6,18 +6,19 @@ environment:
   SLICE/modules: "modules"
 
 execute: |
-  setup_trap() {
-    pid=$1
-    cleanup() {
-      kill -9 ${pid}
-    }
-    for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
-    trap cleanup EXIT
+  pids=()
+  cleanup() {
+    for pid in "${pids[@]}"; do
+      kill "$pid" 2>/dev/null
+    done
   }
+  for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
+  trap cleanup EXIT
+
   apt install --update -y openjdk-21-jdk-headless curl
   nohup java MonitoringTest.java &
   pid=$!
-  setup_trap ${pid}
+  pids+=("$pid")
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
@@ -36,7 +37,6 @@ execute: |
   case ${SLICE} in
     core)
       for java in `find usr/lib/jvm -name java`; do
-
         home=$(dirname ${java})
         # /usr/lib/jvm/java-21-openjdk-*/bin/javac:
         chroot . ${home}/javac /Main.java -d /
@@ -50,7 +50,6 @@ execute: |
         chroot . ${home}/jdeps -m java.base
         # /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
         chroot . ${home}/jimage info ${home}/../lib/modules
-        # /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
         # /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
         chroot . ${home}/serialver -classpath / SerializableObject
       done
@@ -90,9 +89,26 @@ execute: |
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
-        # Skip test
+        nohup chroot . ${home}/jstatd > ./jstatd.log &
+        pids+=($!)
+        for retry in 0 1 2 3 4 5; do
+          if [ ${retry} -eq 5 ]; then
+            exit 1
+          fi
+          grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
+          sleep 10
+        done
         # /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
-        # Skip test
+        nohup chroot . /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver &
+        sleep 10
+        pids+=($!)
+        for retry in 0 1 2 3 4 5; do
+          if [ ${retry} -eq 5 ]; then
+            exit 1
+          fi
+          curl http://127.0.0.1:8000 && break
+          sleep 10
+        done
         # /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
         ${home}/jrunscript -q
       done
