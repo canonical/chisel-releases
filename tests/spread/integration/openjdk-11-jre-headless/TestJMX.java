@@ -15,9 +15,7 @@ import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 import javax.management.remote.*;
-
 import com.sun.tools.attach.*;
-
 
 public class TestJMX implements TestJMXMBean {
 
@@ -26,7 +24,6 @@ public class TestJMX implements TestJMXMBean {
 
     @Override
     public void test() {
-
     }
 
     public static void main(String[] args) throws Throwable {
