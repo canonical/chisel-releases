@@ -16,7 +16,6 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeprscan:
       /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
       /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
       /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
       # used by javac
       /usr/lib/jvm/java-21-openjdk-*/lib/ct.sym:
@@ -36,14 +35,14 @@ slices:
           - amd64
           - arm64
       /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
-      /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
       /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
       /usr/lib/jvm/java-21-openjdk-*/bin/jps:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
       /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
-      # script engine has to be installed separately
-      /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
 
   # OpenJDK modules required to build the runtime image
   modules:
