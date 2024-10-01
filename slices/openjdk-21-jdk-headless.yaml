@@ -8,7 +8,9 @@ slices:
   # OpenJDK binaries slice
   core:
     essential:
+      - libc6_libs
       - openjdk-21-jre-headless_core
+      - zlib1g_libs
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/javac:
       /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
