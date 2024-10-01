@@ -121,7 +121,7 @@ jobs:
           set -ex
 
           # Install chisel
-          go install github.com/canonical/chisel/cmd/chisel@latest
+          go install github.com/canonical/chisel/cmd/chisel@main
 
           # Install dependencies of the install_slices script
           sudo apt-get -y update
