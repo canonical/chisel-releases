@@ -21,15 +21,12 @@ slices:
       /usr/lib/jvm/java-11-openjdk-*/bin/jimage:
       /usr/lib/jvm/java-11-openjdk-*/bin/serialver:
 
+  # excludes jaotc - this requires binutils
   standard:
     essential:
       - openjdk-11-jdk-headless_core
       - openjdk-11-jre-headless_standard
     contents:
-      /usr/lib/jvm/java-11-openjdk-*/bin/jaotc:
-        arch:
-          - amd64
-          - arm64
       /usr/lib/jvm/java-11-openjdk-*/bin/jar:
       /usr/lib/jvm/java-11-openjdk-*/bin/jarsigner:
       /usr/lib/jvm/java-11-openjdk-*/bin/jcmd:
