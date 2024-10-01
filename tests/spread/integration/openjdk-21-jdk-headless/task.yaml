@@ -27,12 +27,9 @@ execute: |
   javac *.java
   cp *.class ${rootfs}/
   cd ${rootfs}
-  mkdir -p proc sys dev tmp
+  mkdir -p proc sys tmp
   mount --bind /proc proc
   mount --bind /sys sys
-  # intentional - not enough entropy
-  mount --bind /dev/urandom /dev/random
-  mount --bind /dev/urandom /dev/urandom
   mount --bind /tmp tmp
   case ${SLICE} in
     core)
