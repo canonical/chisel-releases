@@ -34,6 +34,8 @@ slices:
   #                                    not relevant.
   # - util-linux                     - needed for bash completion
   #                                    not relevant.
+  # - libjpeg8                       - used in awt, not relevant
+  # - liblcms2-2                     - used in awt, not relevant
   core:
     essential:
       - libc6_libs
