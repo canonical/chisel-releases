@@ -13,8 +13,6 @@ execute: |
   # squash it
   chroot "${rootfs}" mksquashfs /test test.sq
 
-  ls /nono
-
   # test sqfscat
   chroot "${rootfs}" sqfscat test.sq dir1/text | grep "test file"
 
@@ -27,4 +25,4 @@ execute: |
 
   # test sqfstar
   tar -cvf test.tar "${rootfs}"/test
-  chroot "${rootfs}" sqfscat test2.squashfs < test.tar
+  chroot "${rootfs}" sqfstar test2.squashfs < test.tar
