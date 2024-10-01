@@ -57,6 +57,8 @@ execute: |
     standard)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
+        # /usr/lib/jvm/java-11-openjdk-*/bin/jaotc:
+        chroot . ${home}/jaotc Main
         # /usr/lib/jvm/java-11-openjdk-*/bin/jar:
         # /usr/lib/jvm/java-11-openjdk-*/bin/jarsigner:
         chroot . ${home}/jar cvf test.jar *.java
