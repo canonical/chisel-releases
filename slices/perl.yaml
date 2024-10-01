@@ -4,10 +4,57 @@ essential:
   - perl_copyright
 
 slices:
+  bins:
+    essential:
+      - perl_encodings
+      - perl_misc
+      - perl_pod
+      - perl_ptar
+      - perl_utils
+      - perl_zip
+
+  encodings:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_core
+    contents:
+      /usr/bin/enc2xs:
+      /usr/bin/encguess:
+      /usr/bin/json_pp:
+      /usr/bin/piconv:
+
+  ptar:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_core
+    contents:
+      /usr/bin/ptar:
+      /usr/bin/ptardiff:
+      /usr/bin/ptargrep:
+
+  pod:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_core
+    contents:
+      /usr/bin/pod2html:
+      /usr/bin/pod2man:
+      /usr/bin/pod2text:
+      /usr/bin/pod2usage:
+      /usr/bin/podchecker:
+
+  zip:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_core
+    contents:
+      /usr/bin/streamzip:
+      /usr/bin/zipdetails:
+
   utils:
     essential:
       - libperl5.38t64_standard
-      - perl-base_bins
+      - perl-base_core
     contents:
       /usr/bin/h2ph:
       /usr/bin/h2xs:
@@ -21,48 +68,10 @@ slices:
       /usr/bin/splain:
       /usr/bin/xsubpp:
 
-  ptar:
-    essential:
-      - libperl5.38t64_standard
-      - perl-base_bins
-    contents:
-      /usr/bin/ptar:
-      /usr/bin/ptardiff:
-      /usr/bin/ptargrep:
-
-  pod:
-    essential:
-      - libperl5.38t64_standard
-      - perl-base_bins
-    contents:
-      /usr/bin/pod2html:
-      /usr/bin/pod2man:
-      /usr/bin/pod2text:
-      /usr/bin/pod2usage:
-      /usr/bin/podchecker:
-
-  zip:
-    essential:
-      - libperl5.38t64_standard
-      - perl-base_bins
-    contents:
-      /usr/bin/streamzip:
-      /usr/bin/zipdetails:
-
-  encoding:
-    essential:
-      - libperl5.38t64_standard
-      - perl-base_bins
-    contents:
-      /usr/bin/enc2xs:
-      /usr/bin/encguess:
-      /usr/bin/json_pp:
-      /usr/bin/piconv:
-
   misc:
     essential:
       - libperl5.38t64_standard
-      - perl-base_bins
+      - perl-base_core
       - perl_config
     contents:
       /usr/bin/corelist:
@@ -70,15 +79,6 @@ slices:
       /usr/bin/libnetcfg:
       /usr/bin/prove:
       /usr/bin/shasum:
-
-  bins:
-    essential:
-      - perl_encoding
-      - perl_misc
-      - perl_pod
-      - perl_ptar
-      - perl_utils
-      - perl_zip
 
   config:
     contents:

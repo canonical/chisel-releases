@@ -5,7 +5,8 @@ essential:
 
 slices:
   # The _core slice contains the perl modules that are tightly
-  # dependent upon each other.
+  # dependent upon each other. Splitting them into separate slices
+  # would cause cyclic dependencies.
   core:
     essential:
       - perl-base_core
@@ -71,7 +72,7 @@ slices:
       - perl-modules-5.38_app-cpan
       - perl-modules-5.38_app-prove
       - perl-modules-5.38_archive
-      - perl-modules-5.38_attribute-handlers
+      - perl-modules-5.38_attribute
       - perl-modules-5.38_autodie
       - perl-modules-5.38_autouse
       - perl-modules-5.38_benchmark
@@ -100,7 +101,6 @@ slices:
       - perl-modules-5.38_module
       - perl-modules-5.38_networking
       - perl-modules-5.38_next
-      - perl-modules-5.38_ok-pragmatic
       - perl-modules-5.38_params
       - perl-modules-5.38_perl-ostype
       - perl-modules-5.38_perlio
@@ -145,7 +145,7 @@ slices:
     contents:
       /usr/share/perl/5.38*/Archive/**.pm:
 
-  attribute-handlers:
+  attribute:
     essential:
       - perl-modules-5.38_core
     contents:
@@ -362,14 +362,6 @@ slices:
     contents:
       /usr/share/perl/5.38*/NEXT.pm:
 
-  ok-pragmatic:
-    essential:
-      - perl-modules-5.38_core
-      - perl-modules-5.38_test
-      - perl-modules-5.38_test2
-    contents:
-      /usr/share/perl/5.38*/ok.pm:
-
   params:
     essential:
       - perl-modules-5.38_core
@@ -455,6 +447,8 @@ slices:
       /usr/share/perl/5.38*/Test.pm:
       /usr/share/perl/5.38*/Test/**.pm:
       /usr/share/perl/5.38*/Test/**.pod:
+      /usr/share/perl/5.38*/ok.pm:
+
   test2:
     essential:
       - perl-modules-5.38_core

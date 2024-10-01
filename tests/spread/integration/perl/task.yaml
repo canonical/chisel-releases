@@ -25,8 +25,8 @@ execute: |
   cp archive.zip "$rootfs/"
   chroot "$rootfs" /usr/bin/zipdetails "archive.zip" 2>null
 
-  # Test 4: encoding
-  rootfs=$(install-slices perl_encoding)
+  # Test 4: encodings
+  rootfs=$(install-slices perl_encodings)
   in='锟斤拷'
   tmp=$(chroot "$rootfs" /usr/bin/piconv -f utf-8 -t gbk -s $in 2>null)
   out=$(chroot "$rootfs" /usr/bin/piconv -f gbk -t utf-8 -s $tmp 2>null)
