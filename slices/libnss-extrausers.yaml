@@ -9,8 +9,8 @@ slices:
       - libc6_libs
       - libnss-extrausers_var
     contents:
-      /usr/lib/libnss_extrausers.so.2:
-      /usr/lib32/libnss_extrausers.so.2: { arch: [amd64, s390x] }
+      /usr/lib/libnss_extrausers.so.*:
+      /usr/lib32/libnss_extrausers.so.*: { arch: [amd64, s390x] }
 
   var:
     contents:
