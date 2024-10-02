@@ -1,0 +1,59 @@
+package: dpkg
+
+essential:
+  - dpkg_copyright
+
+slices:
+  bins:
+    essential:
+      - dpkg_config
+      - dpkg_var
+      - libbz2-1.0_libs
+      - libc-bin_ldconfig
+      - libc6_libs
+      - liblzma5_libs
+      - libmd0_libs
+      - libselinux1_libs
+      - libzstd1_libs
+      - tar_tar
+      - zlib1g_libs
+    contents:
+      /usr/bin/dpkg:
+      /usr/bin/dpkg-deb:
+      /usr/bin/dpkg-divert:
+      /usr/bin/dpkg-maintscript-helper:
+      /usr/bin/dpkg-query:
+      /usr/bin/dpkg-realpath:
+      /usr/bin/dpkg-split:
+      /usr/bin/dpkg-statoverride:
+      /usr/bin/dpkg-trigger:
+      /usr/bin/update-alternatives:
+      /usr/libexec/dpkg/*:
+      /usr/sbin/start-stop-daemon:
+
+  copyright:
+    contents:
+      /usr/share/doc/dpkg/copyright:
+
+  config:
+    contents:
+      /etc/dpkg/dpkg.cfg:
+      /etc/dpkg/dpkg.cfg.d/:
+
+  locales:
+    essential:
+      - dpkg_bins
+    contents:
+      /usr/share/locale/**/dpkg.mo:
+
+  tables:
+    contents:
+      /usr/share/dpkg/*table:
+
+  var:
+    # Directories that are included in the tarball because they need to exist in /var
+    contents:
+      /var/lib/dpkg/alternatives/:
+      /var/lib/dpkg/info/:
+      /var/lib/dpkg/parts/:
+      /var/lib/dpkg/updates/:

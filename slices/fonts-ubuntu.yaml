@@ -1,0 +1,55 @@
+package: fonts-ubuntu
+
+essential:
+  - fonts-ubuntu_copyright
+
+slices:
+  all:
+    essential:
+      - fonts-ubuntu_ubuntu
+      - fonts-ubuntu_ubuntu-mono
+      - fonts-ubuntu_ubuntu-sans
+      - fonts-ubuntu_ubuntu-sans-mono
+
+  config:
+    contents:
+      /etc/fonts/conf.d/71-ubuntulegacy.conf:
+      /usr/share/fontconfig/conf.avail/71-ubuntulegacy.conf:
+
+  ubuntu:
+    contents:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-BI.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-C.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-Italic[wdth,wght].ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-LI.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-M.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-MI.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-RI.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu-Th.ttf:
+      /usr/share/fonts/truetype/ubuntu/Ubuntu[wdth,wght].ttf:
+
+  ubuntu-mono:
+    contents:
+      /usr/share/fonts/truetype/ubuntu/UbuntuMono-B.ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuMono-BI.ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuMono-Italic[wght].ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuMono-R.ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuMono-RI.ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuMono[wght].ttf:
+
+  ubuntu-sans:
+    contents:
+      /usr/share/fonts/truetype/ubuntu/UbuntuSans-Italic[wdth,wght].ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuSans[wdth,wght].ttf:
+
+  ubuntu-sans-mono:
+    contents:
+      /usr/share/fonts/truetype/ubuntu/UbuntuSansMono-Italic[wght].ttf:
+      /usr/share/fonts/truetype/ubuntu/UbuntuSansMono[wght].ttf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-ubuntu/copyright:
