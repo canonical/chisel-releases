@@ -4,6 +4,7 @@ execute: |
   rootfs="$(install-slices xfonts-utils_bins bash_bins)"
 
   mkdir -p $rootfs/tmp/fonts
+  mkdir -p $rootfs/dev
   cp sample.bdf $rootfs/tmp/fonts/sample.bdf
 
   chroot "$rootfs" bdftopcf /tmp/fonts/sample.bdf 1>/dev/null 2>/dev/null
