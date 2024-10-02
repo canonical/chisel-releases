@@ -71,13 +71,6 @@ slices:
       /usr/lib/*-linux-*/security/pam_wheel.so:
       /usr/lib/*-linux-*/security/pam_xauth.so:
 
-  # Used by pam-auth-update to generate the pam.d/ config
-  # files inside etc. However pam-auth-update relies on
-  # debconf to actually work and discover these packages.
-  pam-config:
-    contents:
-      /usr/share/pam-configs/mkhomedir:
-
   copyright:
     contents:
       /usr/share/doc/libpam-modules/copyright:
