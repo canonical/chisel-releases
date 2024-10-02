@@ -18,9 +18,9 @@ slices:
       # shebang in scripts reference interpreter in /bin not /usr/bin
       - base-files_bin
       - base-files_tmp  # utils require temporary storage
-      - coreutils_expr  # used by xzcmp and xzdiff 
-      - coreutils_mkdir  # used by xzcmp and xzdiff 
-      - diffutils_bins  # used by xzcmp and xzdiff 
+      - coreutils_expr  # used by xzcmp and xzdiff
+      - coreutils_mkdir  # used by xzcmp and xzdiff
+      - diffutils_bins  # used by xzcmp and xzdiff
       - grep_bins  # needed for xz grep utils
       - xz-utils_bins
     contents:

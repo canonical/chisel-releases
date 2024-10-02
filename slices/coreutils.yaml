@@ -131,18 +131,18 @@ slices:
 
   expr:
     essential:
-    - libc6_libs
-    - libgmp10_libs
+      - libc6_libs
+      - libgmp10_libs
     contents:
-      /usr/bin/expr: 
+      /usr/bin/expr:
 
   mkdir:
     essential:
-    - libc6_libs
-    - libpcre2-8-0_libs
-    - libselinux1_libs
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libselinux1_libs
     contents:
-      /usr/bin/mkdir: 
+      /usr/bin/mkdir:
 
   copyright:
     contents:
