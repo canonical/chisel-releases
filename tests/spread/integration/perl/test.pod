@@ -1,0 +1,14 @@
+=pod
+
+=head1 NAME
+
+test_pod - test pod
+
+=head1 SYNOPSIS
+
+test_pod [options]
+
+ Options:
+   --help    Show this usage message
+
+=cut

@@ -1,0 +1,9 @@
+summary: Integration tests for libasan8
+
+execute: |
+  rootfs="$(install-slices libasan8_libs)"
+
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/libasan.so.8
