@@ -5,5 +5,11 @@ execute: |
 
   mkdir -p $rootfs/tmp/fonts
   cp sample.bdf $rootfs/tmp/fonts/sample.bdf
+  cp 6x13.bdf $rootfs/tmp/fonts/6x13.bdf
 
   chroot "$rootfs" bdftopcf /tmp/fonts/sample.bdf 1>/dev/null
+  chroot "$rootfs" bdftruncate 0x3200 </tmp/fonts/sample.bdf 1>/dev/null
+  chroot "$rootfs" fonttosfnt -o test.ttf /tmp/fonts/sample.bdf
+  chroot "$rootfs" mkfontdir
+  chroot "$rootfs" mkfontscale
+  chroot "$rootfs" ucs2any /tmp/fonts/6x13.bdf
