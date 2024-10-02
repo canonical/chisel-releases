@@ -1,7 +1,7 @@
 summary: Integration tests for xfonts-utils
 
 execute: |
-  rootfs="$(install-slices xfonts-utils_bins)"
+  rootfs="$(install-slices xfonts-utils_bins bash_bins)"
 
   mkdir -p $rootfs/tmp/fonts
   cp sample.bdf $rootfs/tmp/fonts/sample.bdf
