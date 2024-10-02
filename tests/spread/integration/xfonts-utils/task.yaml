@@ -7,14 +7,13 @@ execute: |
   cp sample.bdf $rootfs/tmp/fonts/sample.bdf
 
   chroot "$rootfs" bdftopcf /tmp/fonts/sample.bdf 1>/dev/null 2>/dev/null
+  chroot "$rootfs" /usr/bin/bash -c "bdftruncate 0x3200 </tmp/fonts/sample.bdf 1>/dev/null"
+  chroot "$rootfs" /usr/bin/bash -c "fonttosfnt -o /tmp/test.ttf /tmp/fonts/sample.bdf"
 
-  cp sample.bdf $rootfs/tmp/fonts/sample.bdf
-  chroot "$rootfs" bdftruncate 0x3200 </tmp/fonts/sample.bdf 1>/dev/null
+  # it is a script calling mkfontscale and it does require
+  # /bin/sh, so using bash instead
+  chroot "$rootfs" /usr/bin/bash -c "bash mkfontdir"
 
-  cp sample.bdf $rootfs/tmp/fonts/sample.bdf
-  chroot "$rootfs" fonttosfnt -o test.ttf /tmp/fonts/sample.bdf
-
-  chroot "$rootfs" mkfontdir
   chroot "$rootfs" mkfontscale
 
   cp 6x13.bdf $rootfs/tmp/fonts/6x13.bdf
