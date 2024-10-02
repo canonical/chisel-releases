@@ -16,7 +16,7 @@ slices:
   encodings:
     essential:
       - libperl5.38t64_standard
-      - perl-base_core
+      - perl-base_bins
     contents:
       /usr/bin/enc2xs:
       /usr/bin/encguess:
@@ -26,7 +26,7 @@ slices:
   ptar:
     essential:
       - libperl5.38t64_standard
-      - perl-base_core
+      - perl-base_bins
     contents:
       /usr/bin/ptar:
       /usr/bin/ptardiff:
@@ -35,7 +35,7 @@ slices:
   pod:
     essential:
       - libperl5.38t64_standard
-      - perl-base_core
+      - perl-base_bins
     contents:
       /usr/bin/pod2html:
       /usr/bin/pod2man:
@@ -46,7 +46,7 @@ slices:
   zip:
     essential:
       - libperl5.38t64_standard
-      - perl-base_core
+      - perl-base_bins
     contents:
       /usr/bin/streamzip:
       /usr/bin/zipdetails:
@@ -54,7 +54,7 @@ slices:
   utils:
     essential:
       - libperl5.38t64_standard
-      - perl-base_core
+      - perl-base_bins
     contents:
       /usr/bin/h2ph:
       /usr/bin/h2xs:
@@ -71,7 +71,7 @@ slices:
   misc:
     essential:
       - libperl5.38t64_standard
-      - perl-base_core
+      - perl-base_bins
       - perl_config
     contents:
       /usr/bin/corelist:

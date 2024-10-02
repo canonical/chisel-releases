@@ -9,7 +9,7 @@ slices:
   # would cause cyclic dependencies.
   core:
     essential:
-      - perl-base_core
+      - perl-base_modules
     contents:
       /usr/share/perl/5.38:
       /usr/share/perl/5.38*/AutoLoader.pm:
@@ -68,7 +68,7 @@ slices:
 
   standard:
     essential:
-      - perl-base_core
+      - perl-base_modules
       - perl-modules-5.38_app-cpan
       - perl-modules-5.38_app-prove
       - perl-modules-5.38_archive
@@ -207,7 +207,7 @@ slices:
   # https://perldoc.perl.org/CORE
   core-routines:
     essential:
-      - perl-base_core
+      - perl-base_modules
     contents:
       /usr/share/perl/5.38*/CORE.pod:
 
@@ -299,7 +299,7 @@ slices:
   # https://perldoc.perl.org/Internals
   internals:
     essential:
-      - perl-base_core
+      - perl-base_modules
     contents:
       /usr/share/perl/5.38*/Internals.pod:
 
@@ -513,7 +513,7 @@ slices:
   # vmsish - Control VMS-specific language features
   vmsish:
     essential:
-      - perl-base_core
+      - perl-base_modules
     contents:
       /usr/share/perl/5.38*/vmsish.pm:
 

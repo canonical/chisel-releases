@@ -7,16 +7,17 @@ slices:
   bins:
     essential:
       - libc6_libs
+      # perl binary requires libcrypt.so.1 upon loading
+      - libcrypt1_libs
     contents:
       # hard link
       /usr/bin/perl:
       /usr/bin/perl5.38.2: {copy: /usr/bin/perl}
 
-  core:
+  modules:
     essential:
       - libc6_libs
       - libcrypt1_libs
-      - perl-base_bins
     contents:
       /usr/lib/*-linux-*/perl-base/AutoLoader.pm:
       /usr/lib/*-linux-*/perl-base/Carp.pm:
