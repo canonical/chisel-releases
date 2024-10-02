@@ -1,0 +1,4 @@
+summary: Integration tests for git
+
+execute: |
+  rootfs=$(install-slices git_bins)
