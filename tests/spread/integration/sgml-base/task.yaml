@@ -1,0 +1,16 @@
+summary: Integration tests for sgml-base
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices sgml-base_catalog)"
+
+  if cat "$rootfs/var/lib/sgml-base/supercatalog" | grep "/etc/sgml/catalog"; then
+    echo "the super catalog should not list itself"
+    exit 1
+  fi
+
+  # verify some of header was written
+  cat "$rootfs/var/lib/sgml-base/supercatalog" | grep "This file is created by update-catalog"

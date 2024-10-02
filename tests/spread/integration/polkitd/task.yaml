@@ -1,0 +1,24 @@
+summary: Integration tests for polkit
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices libc-bin_nsswitch bash_bins coreutils_bins passwd_bins base-files_base polkitd_bins)"
+
+  # polkitd does a chdir("/") and that requires executable bit
+  chmod +x "$rootfs"
+
+  # add polkit user with same uid/gid as the host. This is created
+  # dynamically by /bin/systemd-sysusers from opensysusers
+  PK_UID="$(cat /etc/passwd | awk -F ':' '/polkitd/{print $3}')"
+  PK_GID="$(cat /etc/group | awk -F ':' '/polkitd/{print $3}')"
+  groupadd --root "$rootfs" --system -g "$PK_GID" polkitd
+  useradd --root "$rootfs" -s /usr/sbin/nologin --system -u "$PK_UID" -m -g polkitd polkitd
+
+  # execute the main polkitd daemon, this should semi-succeed, except it will shutdown
+  # again and give an error that it failed to register on the dbus system bus, which
+  # is not running.
+  # If it starts up correctly, it will print "Entering main event loop"
+  chroot "${rootfs}/" /usr/lib/polkit-1/polkitd | grep "Entering main event loop"

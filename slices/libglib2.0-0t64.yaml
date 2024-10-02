@@ -4,6 +4,14 @@ essential:
   - libglib2.0-0t64_copyright
 
 slices:
+  bins:
+    essential:
+      - libglib2.0-0t64_libs
+    contents:
+      /usr/lib/*-linux-*/glib-2.0/gio-launch-desktop:
+      /usr/lib/*-linux-*/glib-2.0/gio-querymodules:
+      /usr/lib/*-linux-*/glib-2.0/glib-compile-schemas:
+
   core:
     essential:
       - libc6_libs
