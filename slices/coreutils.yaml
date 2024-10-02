@@ -130,19 +130,19 @@ slices:
       /usr/sbin/chroot:
 
   expr:
-    contents:
-      /usr/bin/expr: 
     essential:
     - libc6_libs
     - libgmp10_libs
+    contents:
+      /usr/bin/expr: 
 
   mkdir:
-    contents:
-      /bin/mkdir: 
     essential:
     - libc6_libs
     - libpcre2-8-0_libs
     - libselinux1_libs
+    contents:
+      /usr/bin/mkdir: 
 
   copyright:
     contents:
