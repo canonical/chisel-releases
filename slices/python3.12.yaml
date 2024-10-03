@@ -44,6 +44,7 @@ slices:
       - libpython3.12-stdlib_text
       - libpython3.12-stdlib_unix
       - python3.12_core
+      - tzdata_zoneinfo
 
   # The "utlis" slice extends "core" with various tools.
   utils:
