@@ -45,13 +45,23 @@ slices:
 
   bins:
     essential:
+      # We need sh, openssl, sed, find and a few coreutils binaries to properly
+      # run the update-ca-certificates shell script.
       - base-files_bin
       - base-files_tmp
       # Manually linking /bin/sh to /bin/bash is required as /bin/sh is hardcoded in
       # the shebang of the script.
       # See https://github.com/canonical/chisel-releases/pull/61#discussion_r1326873419
       - bash_bins
-      - coreutils_bins
+      - coreutils_basic-ops
+      - coreutils_chattr
+      - coreutils_conditions
+      - coreutils_fname-manip
+      - coreutils_printing
+      - coreutils_rw-entire-files
+      - coreutils_sort-ops
+      - coreutils_special-types
+      - coreutils_summarizing
       - findutils_bins
       - openssl_bins
       - sed_bins
