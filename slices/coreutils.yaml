@@ -193,9 +193,9 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/bin/chown:
       /usr/bin/chgrp:
       /usr/bin/chmod:
+      /usr/bin/chown:
       /usr/bin/touch:
 
   # File space usage -- These commands report how much storage is in use or
@@ -280,13 +280,13 @@ slices:
       - libc6_libs
       - libselinux1_libs
     contents:
+      /usr/bin/groups:
       /usr/bin/id:
       /usr/bin/logname:
-      /usr/bin/whoami:
-      /usr/bin/groups:
+      /usr/bin/pinky:
       /usr/bin/users:
       /usr/bin/who:
-      /usr/bin/pinky:
+      /usr/bin/whoami:
 
   # System context -- This slice contains commands that print or change
   # system-wide information.
