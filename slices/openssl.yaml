@@ -1,0 +1,33 @@
+package: openssl
+
+essential:
+  - openssl_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_config
+      - libc6_libs
+      - libssl3t64_libs
+      - openssl_config
+      - openssl_data
+    contents:
+      /usr/bin/c_rehash:
+      /usr/bin/openssl:
+
+  config:
+    contents:
+      /etc/ssl/certs/:
+      /etc/ssl/openssl.cnf:
+      /etc/ssl/private/:
+      /usr/lib/ssl/certs:
+      /usr/lib/ssl/openssl.cnf:
+      /usr/lib/ssl/private:
+
+  data:
+    contents:
+      /usr/lib/ssl/cert.pem:
+
+  copyright:
+    contents:
+      /usr/share/doc/openssl/copyright:

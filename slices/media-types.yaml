@@ -1,0 +1,13 @@
+package: media-types
+
+essential:
+  - media-types_copyright
+
+slices:
+  data:
+    contents:
+      /etc/mime.types:
+
+  copyright:
+    contents:
+      /usr/share/doc/media-types/copyright:

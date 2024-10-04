@@ -1,0 +1,17 @@
+package: sed
+
+essential:
+  - sed_copyright
+
+slices:
+  bins:
+    essential:
+      - libacl1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/sed:
+
+  copyright:
+    contents:
+      /usr/share/doc/sed/copyright:

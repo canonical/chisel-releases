@@ -1,0 +1,18 @@
+package: nodejs
+
+essential:
+  - nodejs_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libnode115_libs
+    contents:
+      /usr/bin/js: {symlink: /usr/bin/nodejs}
+      /usr/bin/node:
+      /usr/bin/nodejs:
+
+  copyright:
+    contents:
+      /usr/share/doc/nodejs/copyright:

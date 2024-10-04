@@ -1,0 +1,18 @@
+package: libunwind8
+
+essential:
+  - libunwind8_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - liblzma5_libs
+    contents:
+      /usr/lib/*-linux-*/libunwind-*.so.*:
+      /usr/lib/*-linux-*/libunwind.so.8:
+      /usr/lib/*-linux-*/libunwind.so.8.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libunwind8/copyright:

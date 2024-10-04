@@ -1,0 +1,47 @@
+package: openssh-server
+
+slices:
+  bins:
+    # openssh-server actually depends on adduser as well to create and remove
+    # a user during package install/removal - however we don't support this
+    # currently so adduser is not added here.
+    essential:
+      - init-system-helpers_bins
+      - libaudit1_libs
+      - libc6_libs
+      - libcom-err2_libs
+      - libcrypt1_libs
+      - libgssapi-krb5-2_libs
+      - libkrb5-3_libs
+      - libpam-modules_libs
+      - libpam-runtime_config
+      - libpam0g_libs
+      - libselinux1_libs
+      - libssl3t64_libs
+      - libwrap0_libs
+      - lsb-base_bins
+      - openssh-client_bins
+      - openssh-sftp-server_bins
+      - procps_bins
+      - ucf_bins
+      - zlib1g_libs
+    contents:
+      /etc/init.d/ssh:
+      /usr/lib/openssh/ssh-session-cleanup:
+      /usr/sbin/sshd:
+
+  config:
+    contents:
+      /etc/default/ssh:
+      /etc/pam.d/sshd:
+      /etc/ssh/moduli:
+      /etc/ssh/sshd_config.d/:
+      /etc/ufw/applications.d/openssh-server:
+      /usr/share/openssh/sshd_config:
+      /usr/share/openssh/sshd_config.md5sum:
+
+  services:
+    contents:
+      /usr/lib/systemd/system/rescue-ssh.target:
+      /usr/lib/systemd/system/ssh.service:
+      /usr/lib/systemd/system/ssh.socket:

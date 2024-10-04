@@ -1,0 +1,20 @@
+package: libselinux1
+
+essential:
+  - libselinux1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+    contents:
+      /usr/lib/*-linux-*/libselinux.so.1:
+
+  config:
+    contents:
+      /usr/lib/tmpfiles.d/libselinux1.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libselinux1/copyright:

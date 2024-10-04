@@ -1,0 +1,16 @@
+summary: Integration tests for libpng16-16t64
+
+execute: |
+  rootfs="$(install-slices libpng16-16t64_libs metapixel_bins)"
+
+  mkdir -p "${rootfs}/images"
+  mkdir -p "${rootfs}/library"
+  cp test.png "${rootfs}/images/"
+  # metapixel-prepare depends on perl so we need to run the prepare step manually
+  cp tables.mxt "${rootfs}/library/"
+  cp test.png.png "${rootfs}/library/"
+
+  chroot "$rootfs" metapixel --metapixel images/test.png images/output.png --library library/ --distance=0
+
+  apt install -y file
+  [[ $(file "${rootfs}/images/output.png") == "${rootfs}/images/output.png: PNG image data, 64 x 64, 8-bit/color RGB, non-interlaced" ]]

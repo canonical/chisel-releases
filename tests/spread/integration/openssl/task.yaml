@@ -1,0 +1,9 @@
+summary: Integration tests for openssl
+
+execute: |
+  rootfs="$(install-slices openssl_bins)"
+
+  chroot "$rootfs" openssl --help
+
+  test_sha1="4e1243bd22c66e76c2ba9eddc1f91394e57f9f83"
+  chroot "$rootfs" openssl sha1 <<< "test" | grep $test_sha1

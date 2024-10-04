@@ -1,0 +1,42 @@
+package: netbase
+
+essential:
+  - netbase_copyright
+
+slices:
+  config:
+    contents:
+      /etc/ethertypes:
+      /etc/protocols:
+      /etc/rpc:
+      /etc/services:
+
+  # The following two slices contain the files created from maintainer
+  # scripts with default values, if those files do not exist in the
+  # rootfs already. These are kept in slices instead of mutation scripts
+  # for lack of better options at the moment.
+
+  default-hosts:
+    essential:
+      - netbase_config
+    contents:
+      /etc/hosts:
+        text: |
+          127.0.0.1	localhost
+          ::1		localhost ip6-localhost ip6-loopback
+          ff02::1		ip6-allnodes
+          ff02::2		ip6-allrouters
+
+  default-networks:
+    essential:
+      - netbase_config
+    contents:
+      /etc/networks:
+        text: |
+          default		0.0.0.0
+          loopback	127.0.0.0
+          link-local	169.254.0.0
+
+  copyright:
+    contents:
+      /usr/share/doc/netbase/copyright:

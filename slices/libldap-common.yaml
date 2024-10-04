@@ -1,0 +1,13 @@
+package: libldap-common
+
+essential:
+  - libldap-common_copyright
+
+slices:
+  config:
+    contents:
+      /etc/ldap/ldap.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libldap-common/copyright:

@@ -1,0 +1,48 @@
+package: libc6
+
+essential:
+  - libc6_copyright
+
+slices:
+  config:
+    contents:
+      /etc/ld.so.conf.d/*-linux-*.conf:
+
+  libs:
+    essential:
+      # Although not declared as a dependency in the libc6 deb, base-files is
+      # an essential package assumed to already exist as a core part of the distro.
+      # In this case, libc6 clearly depends on the library paths set by base-files
+      # and as such, we create this explicit dependency between the two slices.
+      # Ref: https://github.com/canonical/chisel-releases/pull/171
+      - base-files_lib
+    contents:
+      /usr/lib*/ld*.so.*:
+      /usr/lib/*-linux-*/ld*.so.*:
+      /usr/lib/*-linux-*/libBrokenLocale.so.*:
+      /usr/lib/*-linux-*/libanl.so.*:
+      /usr/lib/*-linux-*/libc.so.*:
+      /usr/lib/*-linux-*/libc_malloc_debug.so.*:
+      /usr/lib/*-linux-*/libdl.so.*:
+      /usr/lib/*-linux-*/libm.so.*:
+      /usr/lib/*-linux-*/libmemusage.so:
+      /usr/lib/*-linux-*/libmvec.so.*: {arch: [amd64, arm64]}
+      /usr/lib/*-linux-*/libnsl.so.1:
+      /usr/lib/*-linux-*/libnss_compat.so.*:
+      /usr/lib/*-linux-*/libnss_dns.so.*:
+      /usr/lib/*-linux-*/libnss_files.so.*:
+      /usr/lib/*-linux-*/libnss_hesiod.so.*:
+      /usr/lib/*-linux-*/libpcprofile.so:
+      /usr/lib/*-linux-*/libpthread.so.*:
+      /usr/lib/*-linux-*/libresolv.so.*:
+      /usr/lib/*-linux-*/librt.so.*:
+      /usr/lib/*-linux-*/libthread_db.so.*:
+      /usr/lib/*-linux-*/libutil.so.*:
+
+  gconv:
+    contents:
+      /usr/lib/*-linux-*/gconv/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/libc6/copyright:

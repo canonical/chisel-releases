@@ -1,0 +1,15 @@
+package: libmpg123-0t64
+
+essential:
+  - libmpg123-0t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libmpg123.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmpg123-0t64/copyright:

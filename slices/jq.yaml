@@ -1,0 +1,15 @@
+package: jq
+
+essential:
+  - jq_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libjq1_libs
+    contents:
+      /usr/bin/jq:
+  copyright:
+    contents:
+      /usr/share/doc/jq/copyright:

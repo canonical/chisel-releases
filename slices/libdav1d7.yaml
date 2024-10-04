@@ -1,0 +1,15 @@
+package: libdav1d7
+
+essential:
+  - libdav1d7_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libdav1d.so.7*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdav1d7/copyright:

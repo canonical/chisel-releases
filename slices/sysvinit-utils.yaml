@@ -1,0 +1,25 @@
+package: sysvinit-utils
+
+essential:
+  - sysvinit-utils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/pidof:
+      /usr/lib/init/init-d-script:
+      /usr/lib/init/vars.sh:
+      /usr/lib/lsb/init-functions:
+      /usr/sbin/fstab-decode:
+      /usr/sbin/killall5:
+
+  config:
+    contents:
+      /usr/lib/lsb/init-functions.d/00-verbose:
+      /usr/lib/lsb/init-functions.d/50-ubuntu-logging:
+
+  copyright:
+    contents:
+      /usr/share/doc/sysvinit-utils/copyright:

@@ -1,0 +1,10 @@
+summary: Integration tests for apparmor
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices bash_bins coreutils_bins passwd_config apparmor_bins)"
+  
+  # Run a smoke test for the apparmor_parser to verify that
+  # it does not throw an error
+  chroot "${rootfs}/" apparmor_parser -p /etc/apparmor.d/Discord

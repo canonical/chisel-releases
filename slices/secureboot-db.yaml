@@ -1,0 +1,20 @@
+package: secureboot-db
+
+essential:
+  - secureboot-db_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/secureboot/updates/dbx/dbxupdate_*.bin:
+
+  services:
+    essential:
+      - sbsigntool_bins
+      - secureboot-db_data
+    contents:
+      /usr/lib/systemd/system/secureboot-db.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/secureboot-db/copyright:
