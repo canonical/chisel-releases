@@ -9,10 +9,6 @@ slices:
       - gpgconf_gpg-connect-agent
       - gpgconf_gpgconf
 
-  copyright:
-    contents:
-      /usr/share/doc/gpgconf/copyright:
-
   gpg-connect-agent:
     essential:
       - libassuan0_libs
@@ -30,3 +26,7 @@ slices:
       - libgpg-error0_libs
     contents:
       /usr/bin/gpgconf:
+
+  copyright:
+    contents:
+      /usr/share/doc/gpgconf/copyright:
