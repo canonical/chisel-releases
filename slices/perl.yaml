@@ -1,0 +1,89 @@
+package: perl
+
+essential:
+  - perl_copyright
+
+slices:
+  bins:
+    essential:
+      - perl_encodings
+      - perl_misc
+      - perl_pod
+      - perl_ptar
+      - perl_utils
+      - perl_zip
+
+  encodings:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_bins
+    contents:
+      /usr/bin/enc2xs:
+      /usr/bin/encguess:
+      /usr/bin/json_pp:
+      /usr/bin/piconv:
+
+  ptar:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_bins
+    contents:
+      /usr/bin/ptar:
+      /usr/bin/ptardiff:
+      /usr/bin/ptargrep:
+
+  pod:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_bins
+    contents:
+      /usr/bin/pod2html:
+      /usr/bin/pod2man:
+      /usr/bin/pod2text:
+      /usr/bin/pod2usage:
+      /usr/bin/podchecker:
+
+  zip:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_bins
+    contents:
+      /usr/bin/streamzip:
+      /usr/bin/zipdetails:
+
+  utils:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_bins
+    contents:
+      /usr/bin/h2ph:
+      /usr/bin/h2xs:
+      /usr/bin/instmodsh:
+      /usr/bin/perlbug:
+      /usr/bin/perldoc:
+      /usr/bin/perlivp:
+      # hard link
+      /usr/bin/perlthanks: {copy: /usr/bin/perlbug}
+      /usr/bin/pl2pm:
+      /usr/bin/splain:
+      /usr/bin/xsubpp:
+
+  misc:
+    essential:
+      - libperl5.38t64_standard
+      - perl-base_bins
+      - perl_config
+    contents:
+      /usr/bin/corelist:
+      /usr/bin/cpan:
+      /usr/bin/libnetcfg:
+      /usr/bin/prove:
+      /usr/bin/shasum:
+
+  config:
+    contents:
+      /etc/perl/Net/libnet.cfg:
+
+  copyright:
+    contents:
+      /usr/share/doc/perl/copyright:
