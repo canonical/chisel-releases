@@ -67,7 +67,6 @@ slices:
       /usr/lib/jvm/java-11-openjdk-*/lib/jli/libjli.so:
       /usr/lib/jvm/java-11-openjdk-*/lib/jspawnhelper:
       /usr/lib/jvm/java-11-openjdk-*/lib/jvm.cfg:
-      /usr/lib/jvm/java-11-openjdk-*/lib/jvm.cfg-default:
       /usr/lib/jvm/java-11-openjdk-*/lib/libextnet.so:
       /usr/lib/jvm/java-11-openjdk-*/lib/libjava.so:
       # lib/modules support
