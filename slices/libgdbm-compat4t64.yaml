@@ -1,0 +1,16 @@
+package: libgdbm-compat4t64
+
+essential:
+  - libgdbm-compat4t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgdbm6t64_libs
+    contents:
+      /usr/lib/*-linux-*/libgdbm_compat.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgdbm-compat4t64/copyright:
