@@ -1,0 +1,11 @@
+summary: Integration tests for wget
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices ca-certificates_data wget_bins)"
+  cp /etc/resolv.conf "${rootfs}/etc/"
+
+  # Download README.md from repo and compare to a known hash.
+  chroot "${rootfs}/" wget https://raw.githubusercontent.com/canonical/chisel-releases/refs/heads/ubuntu-24.04/README.md
+  [[ $(sha256sum "${rootfs}/README.md" | cut -d' ' -f1) == e3323f69dc6bc6bf41a45dc0d550a3882b7ed1dcb49e4f1f125b3cb5f2cfab8f ]]
