@@ -1,0 +1,31 @@
+summary: Integration tests for util-linux
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices util-linux_bins)"
+
+  # we need dev/sys mounted for some of them
+  mkdir "${rootfs}"/dev
+  mkdir "${rootfs}"/sys
+
+  mount --rbind /dev "${rootfs}"/dev
+  mount --rbind /sys "${rootfs}"/sys
+
+  # smoke test a couple of the bundled applications
+  chroot "${rootfs}" lsblk | grep "loop0"
+  chroot "${rootfs}" lsipc | grep "MSGMNI"
+  chroot "${rootfs}" lsmem | grep "Total online memory"
+  chroot "${rootfs}" whereis lsblk | grep "/usr/bin/lsblk"
+
+  # cleanup
+  umount -l "${rootfs}"/dev
+  umount -l "${rootfs}"/sys
+
+  # ensure expected links are generated
+  if ! [ -e "${rootfs}"/usr/bin/pager ]; then
+    echo "expected /usr/bin/pager to be generated"
+    exit 1
+  fi
