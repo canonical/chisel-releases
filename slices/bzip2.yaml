@@ -1,0 +1,27 @@
+package: bzip2
+
+essential:
+  - bzip2_copyright
+
+slices:
+  bins:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+    contents:
+      /usr/bin/bunzip2:
+      /usr/bin/bzcat: { symlink: /usr/bin/bunzip2 }
+      /usr/bin/bzcmp:
+      /usr/bin/bzdiff:
+      /usr/bin/bzegrep:
+      /usr/bin/bzexe:
+      /usr/bin/bzfgrep:
+      /usr/bin/bzgrep:
+      /usr/bin/bzip2: { symlink: /usr/bin/bunzip2 }
+      /usr/bin/bzip2recover:
+      /usr/bin/bzless:
+      /usr/bin/bzmore:
+
+  copyright:
+    contents:
+      /usr/share/doc/bzip2/copyright:
