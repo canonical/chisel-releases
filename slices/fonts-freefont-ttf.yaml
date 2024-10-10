@@ -1,0 +1,13 @@
+package: fonts-freefont-ttf
+
+essential:
+  - fonts-freefont-ttf_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/freefont/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-freefont-ttf/copyright:

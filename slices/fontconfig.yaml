@@ -1,0 +1,26 @@
+package: fontconfig
+
+essential:
+  - fontconfig_copyright
+
+slices:
+  bins:
+    essential:
+      - fontconfig-config_config
+      - libc6_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+    contents:
+      /usr/bin/fc-cache:
+      /usr/bin/fc-cat:
+      /usr/bin/fc-conflist:
+      /usr/bin/fc-list:
+      /usr/bin/fc-match:
+      /usr/bin/fc-pattern:
+      /usr/bin/fc-query:
+      /usr/bin/fc-scan:
+      /usr/bin/fc-validate:
+
+  copyright:
+    contents:
+      /usr/share/doc/fontconfig/copyright:
