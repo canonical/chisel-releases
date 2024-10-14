@@ -11,6 +11,10 @@ slices:
       - apparmor_config
       - apparmor_profiles
       - libc6_libs
+      # Although lsb-base is not a dependency of apparmor in Oracular, the
+      # /etc/init.d/apparmor script references the /lib/lsb/init-functions.
+      # Thus, lsb-base_bins is listed as an essential here.
+      - lsb-base_bins
     contents:
       /etc/init.d/apparmor:
       /sbin/apparmor_parser:
