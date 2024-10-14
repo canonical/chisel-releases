@@ -8,4 +8,4 @@ execute: |
 
   # Download Chisel release and compare to a known hash.
   chroot "${rootfs}/" wget https://github.com/canonical/chisel/releases/download/v1.0.0/chisel_v1.0.0_linux_amd64.tar.gz
-  [[ $(sha256sum "${rootfs}/README.md" | cut -d' ' -f1) == 655ca8f45e6f052ab60a4acfeca5017c7d992035e0e4a01f78881c0fe45f2103ce2f18a352ddc8f5fb88bfdd1ed8cc6b ]]
+  [[ $(sha384sum "${rootfs}/README.md" | cut -d' ' -f1) == 655ca8f45e6f052ab60a4acfeca5017c7d992035e0e4a01f78881c0fe45f2103ce2f18a352ddc8f5fb88bfdd1ed8cc6b ]]
