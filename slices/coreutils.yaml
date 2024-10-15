@@ -24,34 +24,34 @@ slices:
   # The bins slice contains all of the binaries in the coreutils package.
   bins:
     essential:
-      - coreutils_basic-ops
-      - coreutils_char-ops
-      - coreutils_chattr
-      - coreutils_cmd-invocation
+      - coreutils_basic-operations
+      - coreutils_changing-file-attributes
       - coreutils_conditions
       - coreutils_delaying
-      - coreutils_dir-listing
-      - coreutils_field-ops
-      - coreutils_file-parts
-      - coreutils_fname-manip
-      - coreutils_formatting
-      - coreutils_numeric
-      - coreutils_printing
+      - coreutils_directory-listing
+      - coreutils_file-name-manipulation
+      - coreutils_file-space-usage
+      - coreutils_formatting-file-contents
+      - coreutils_modified-command-invocation
+      - coreutils_numeric-operations
+      - coreutils_operating-on-characters
+      - coreutils_operating-on-fields
+      - coreutils_operating-on-sorted-files
+      - coreutils_output-of-entire-files
+      - coreutils_output-of-parts-of-files
+      - coreutils_printing-text
       - coreutils_redirection
-      - coreutils_rw-entire-files
-      - coreutils_selinux
-      - coreutils_sort-ops
-      - coreutils_space-usage
-      - coreutils_special-types
-      - coreutils_summarizing
-      - coreutils_sys-info
-      - coreutils_user-info
+      - coreutils_selinux-context
+      - coreutils_special-file-types
+      - coreutils_summarizing-files
+      - coreutils_system-context
+      - coreutils_user-information
       - coreutils_working-context
 
   # Output of entire files -- These commands read and write entire files,
   # possibly transforming them in some way.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
-  rw-entire-files:
+  output-of-entire-files:
     essential:
       - libc6_libs
     contents:
@@ -65,7 +65,7 @@ slices:
 
   # Formatting file contents -- These commands reformat the contents of files.
   # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-contents.html
-  formatting:
+  formatting-file-contents:
     essential:
       - libc6_libs
     contents:
@@ -75,7 +75,7 @@ slices:
 
   # Output of parts of files -- These commands output pieces of the input.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
-  file-parts:
+  output-of-parts-of-files:
     essential:
       - libc6_libs
     contents:
@@ -87,7 +87,7 @@ slices:
   # Summarizing files -- These commands generate just a few numbers representing
   # entire contents of files.
   # https://www.gnu.org/software/coreutils/manual/html_node/Summarizing-files.html
-  summarizing:
+  summarizing-files:
     essential:
       - libc6_libs
       - libssl3t64_libs
@@ -107,7 +107,7 @@ slices:
   # Operating on sorted files -- These commands work with (or produce) sorted
   # files.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-sorted-files.html
-  sort-ops:
+  operating-on-sorted-files:
     essential:
       - libc6_libs
       - libssl3t64_libs
@@ -121,7 +121,7 @@ slices:
 
   # Operating on fields.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
-  field-ops:
+  operating-on-fields:
     essential:
       - libc6_libs
     contents:
@@ -131,7 +131,7 @@ slices:
 
   # Operating on characters -- These commands operate on individual characters.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
-  char-ops:
+  operating-on-characters:
     essential:
       - libc6_libs
     contents:
@@ -142,7 +142,7 @@ slices:
   # Directory listing -- This slice contains the ls command and its variants dir
   # and vdir, which list information about files.
   # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
-  dir-listing:
+  directory-listing:
     essential:
       - libc6_libs
       - libselinux1_libs
@@ -155,7 +155,7 @@ slices:
   # Basic operations -- This slice contains the commands for basic file
   # manipulation: copying, moving (renaming), and deleting (removing).
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
-  basic-ops:
+  basic-operations:
     essential:
       - libacl1_libs
       - libattr1_libs
@@ -173,7 +173,7 @@ slices:
   # types of files (and rmdir, which removes directories, one special file
   # type).
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
-  special-types:
+  special-file-types:
     essential:
       - libc6_libs
       - libselinux1_libs
@@ -189,7 +189,7 @@ slices:
 
   # Changing file attributes -- These commands change file attributes.
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
-  chattr:
+  changing-file-attributes:
     essential:
       - libc6_libs
     contents:
@@ -202,7 +202,7 @@ slices:
   # available, report other file and file status information, and write buffers
   # to file systems.
   # https://www.gnu.org/software/coreutils/manual/html_node/File-space-usage.html
-  space-usage:
+  file-space-usage:
     essential:
       - libc6_libs
       - libselinux1_libs
@@ -215,7 +215,7 @@ slices:
 
   # Printing text -- This slice contains commands that display text strings.
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
-  printing:
+  printing-text:
     essential:
       - libc6_libs
     contents:
@@ -249,7 +249,7 @@ slices:
   # File name manipulation -- This slice contains commands that manipulate file
   # names.
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
-  fname-manip:
+  file-name-manipulation:
     essential:
       - libc6_libs
     contents:
@@ -275,7 +275,7 @@ slices:
   # User information -- This slice contains commands that print user-related
   # information: logins, groups, and so forth.
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
-  user-info:
+  user-information:
     essential:
       - libc6_libs
       - libselinux1_libs
@@ -291,7 +291,7 @@ slices:
   # System context -- This slice contains commands that print or change
   # system-wide information.
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
-  sys-info:
+  system-context:
     essential:
       - libc6_libs
     contents:
@@ -304,7 +304,7 @@ slices:
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
   # https://www.gnu.org/software/coreutils/manual/html_node/SELinux-context.html
-  selinux:
+  selinux-context:
     essential:
       - libc6_libs
       - libselinux1_libs
@@ -316,7 +316,7 @@ slices:
   # commands in some context different than the current one: a modified
   # environment, as a different user, etc.
   # https://www.gnu.org/software/coreutils/manual/html_node/Modified-command-invocation.html
-  cmd-invocation:
+  modified-command-invocation:
     essential:
       - coreutils_libs
       - libc6_libs
@@ -338,7 +338,7 @@ slices:
 
   # Numeric operations -- These programs do numerically-related operations.
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
-  numeric:
+  numeric-operations:
     essential:
       - libc6_libs
       - libgmp10_libs
