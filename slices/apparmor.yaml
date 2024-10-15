@@ -1,0 +1,323 @@
+package: apparmor
+
+essential:
+  - apparmor_copyright
+
+slices:
+  # Also relies on debconf, however it is solely used by install hook
+  # to determine if any non default homedir has been configured.
+  bins:
+    essential:
+      - apparmor_config
+      - apparmor_profiles
+      - libc6_libs
+      # Although lsb-base is not a dependency of apparmor in Oracular, the
+      # /etc/init.d/apparmor script references the /lib/lsb/init-functions.
+      # Thus, lsb-base_bins is listed as an essential here.
+      - lsb-base_bins
+    contents:
+      /etc/init.d/apparmor:
+      /sbin/apparmor_parser:
+      /usr/bin/aa-enabled:
+      /usr/bin/aa-exec:
+      /usr/bin/aa-features-abi:
+      /usr/sbin/aa-load:
+      /usr/sbin/aa-remove-unknown:
+      /usr/sbin/aa-status:
+      /usr/sbin/aa-teardown:
+      /usr/sbin/apparmor_status:
+
+  config:
+    contents:
+      /etc/apparmor/parser.conf:
+      /usr/lib/sysctl.d/10-apparmor.conf:
+
+  extras:
+    contents:
+      /lib/apparmor/apparmor.systemd:
+      /lib/apparmor/profile-load:
+      /lib/apparmor/rc.apparmor.functions:
+      /usr/lib/systemd/system/apparmor.service:
+
+  profiles:
+    contents:
+      /etc/apparmor.d/1password:
+      /etc/apparmor.d/Discord:
+      /etc/apparmor.d/MongoDB_Compass:
+      /etc/apparmor.d/QtWebEngineProcess:
+      /etc/apparmor.d/abi/3.0:
+      /etc/apparmor.d/abi/4.0:
+      /etc/apparmor.d/abi/kernel-5.4-outoftree-network:
+      /etc/apparmor.d/abi/kernel-5.4-vanilla:
+      /etc/apparmor.d/abstractions/X:
+      /etc/apparmor.d/abstractions/apache2-common:
+      /etc/apparmor.d/abstractions/apparmor_api/change_profile:
+      /etc/apparmor.d/abstractions/apparmor_api/examine:
+      /etc/apparmor.d/abstractions/apparmor_api/find_mountpoint:
+      /etc/apparmor.d/abstractions/apparmor_api/introspect:
+      /etc/apparmor.d/abstractions/apparmor_api/is_enabled:
+      /etc/apparmor.d/abstractions/aspell:
+      /etc/apparmor.d/abstractions/audio:
+      /etc/apparmor.d/abstractions/authentication:
+      /etc/apparmor.d/abstractions/base:
+      /etc/apparmor.d/abstractions/bash:
+      /etc/apparmor.d/abstractions/consoles:
+      /etc/apparmor.d/abstractions/crypto:
+      /etc/apparmor.d/abstractions/cups-client:
+      /etc/apparmor.d/abstractions/dbus:
+      /etc/apparmor.d/abstractions/dbus-accessibility:
+      /etc/apparmor.d/abstractions/dbus-accessibility-strict:
+      /etc/apparmor.d/abstractions/dbus-network-manager-strict:
+      /etc/apparmor.d/abstractions/dbus-session:
+      /etc/apparmor.d/abstractions/dbus-session-strict:
+      /etc/apparmor.d/abstractions/dbus-strict:
+      /etc/apparmor.d/abstractions/dconf:
+      /etc/apparmor.d/abstractions/dovecot-common:
+      /etc/apparmor.d/abstractions/dri-common:
+      /etc/apparmor.d/abstractions/dri-enumerate:
+      /etc/apparmor.d/abstractions/enchant:
+      /etc/apparmor.d/abstractions/exo-open:
+      /etc/apparmor.d/abstractions/fcitx:
+      /etc/apparmor.d/abstractions/fcitx-strict:
+      /etc/apparmor.d/abstractions/fonts:
+      /etc/apparmor.d/abstractions/freedesktop.org:
+      /etc/apparmor.d/abstractions/gio-open:
+      /etc/apparmor.d/abstractions/gnome:
+      /etc/apparmor.d/abstractions/gnupg:
+      /etc/apparmor.d/abstractions/groff:
+      /etc/apparmor.d/abstractions/gtk:
+      /etc/apparmor.d/abstractions/gvfs-open:
+      /etc/apparmor.d/abstractions/hosts_access:
+      /etc/apparmor.d/abstractions/ibus:
+      /etc/apparmor.d/abstractions/kde:
+      /etc/apparmor.d/abstractions/kde-globals-write:
+      /etc/apparmor.d/abstractions/kde-icon-cache-write:
+      /etc/apparmor.d/abstractions/kde-language-write:
+      /etc/apparmor.d/abstractions/kde-open5:
+      /etc/apparmor.d/abstractions/kerberosclient:
+      /etc/apparmor.d/abstractions/ldapclient:
+      /etc/apparmor.d/abstractions/libpam-systemd:
+      /etc/apparmor.d/abstractions/likewise:
+      /etc/apparmor.d/abstractions/mdns:
+      /etc/apparmor.d/abstractions/mesa:
+      /etc/apparmor.d/abstractions/mir:
+      /etc/apparmor.d/abstractions/mozc:
+      /etc/apparmor.d/abstractions/mysql:
+      /etc/apparmor.d/abstractions/nameservice:
+      /etc/apparmor.d/abstractions/nis:
+      /etc/apparmor.d/abstractions/nss-systemd:
+      /etc/apparmor.d/abstractions/nvidia:
+      /etc/apparmor.d/abstractions/opencl:
+      /etc/apparmor.d/abstractions/opencl-common:
+      /etc/apparmor.d/abstractions/opencl-intel:
+      /etc/apparmor.d/abstractions/opencl-mesa:
+      /etc/apparmor.d/abstractions/opencl-nvidia:
+      /etc/apparmor.d/abstractions/opencl-pocl:
+      /etc/apparmor.d/abstractions/openssl:
+      /etc/apparmor.d/abstractions/orbit2:
+      /etc/apparmor.d/abstractions/p11-kit:
+      /etc/apparmor.d/abstractions/perl:
+      /etc/apparmor.d/abstractions/php:
+      /etc/apparmor.d/abstractions/php-worker:
+      /etc/apparmor.d/abstractions/php5:
+      /etc/apparmor.d/abstractions/postfix-common:
+      /etc/apparmor.d/abstractions/private-files:
+      /etc/apparmor.d/abstractions/private-files-strict:
+      /etc/apparmor.d/abstractions/python:
+      /etc/apparmor.d/abstractions/qt5:
+      /etc/apparmor.d/abstractions/qt5-compose-cache-write:
+      /etc/apparmor.d/abstractions/qt5-settings-write:
+      /etc/apparmor.d/abstractions/recent-documents-write:
+      /etc/apparmor.d/abstractions/ruby:
+      /etc/apparmor.d/abstractions/samba:
+      /etc/apparmor.d/abstractions/samba-rpcd:
+      /etc/apparmor.d/abstractions/smbpass:
+      /etc/apparmor.d/abstractions/snap_browsers:
+      /etc/apparmor.d/abstractions/ssl_certs:
+      /etc/apparmor.d/abstractions/ssl_keys:
+      /etc/apparmor.d/abstractions/svn-repositories:
+      /etc/apparmor.d/abstractions/trash:
+      /etc/apparmor.d/abstractions/ubuntu-bittorrent-clients:
+      /etc/apparmor.d/abstractions/ubuntu-browsers:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/chromium-browser:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/java:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/kde:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/mailto:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/multimedia:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/plugins-common:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/productivity:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/text-editors:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration-xul:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/user-files:
+      /etc/apparmor.d/abstractions/ubuntu-console-browsers:
+      /etc/apparmor.d/abstractions/ubuntu-console-email:
+      /etc/apparmor.d/abstractions/ubuntu-email:
+      /etc/apparmor.d/abstractions/ubuntu-feed-readers:
+      /etc/apparmor.d/abstractions/ubuntu-gnome-terminal:
+      /etc/apparmor.d/abstractions/ubuntu-helpers:
+      /etc/apparmor.d/abstractions/ubuntu-konsole:
+      /etc/apparmor.d/abstractions/ubuntu-media-players:
+      /etc/apparmor.d/abstractions/ubuntu-unity7-base:
+      /etc/apparmor.d/abstractions/ubuntu-unity7-launcher:
+      /etc/apparmor.d/abstractions/ubuntu-unity7-messaging:
+      /etc/apparmor.d/abstractions/ubuntu-xterm:
+      /etc/apparmor.d/abstractions/user-download:
+      /etc/apparmor.d/abstractions/user-mail:
+      /etc/apparmor.d/abstractions/user-manpages:
+      /etc/apparmor.d/abstractions/user-tmp:
+      /etc/apparmor.d/abstractions/user-write:
+      /etc/apparmor.d/abstractions/video:
+      /etc/apparmor.d/abstractions/vulkan:
+      /etc/apparmor.d/abstractions/wayland:
+      /etc/apparmor.d/abstractions/web-data:
+      /etc/apparmor.d/abstractions/winbind:
+      /etc/apparmor.d/abstractions/wutmp:
+      /etc/apparmor.d/abstractions/xad:
+      /etc/apparmor.d/abstractions/xdg-desktop:
+      /etc/apparmor.d/abstractions/xdg-open:
+      /etc/apparmor.d/brave:
+      /etc/apparmor.d/buildah:
+      /etc/apparmor.d/busybox:
+      /etc/apparmor.d/cam:
+      /etc/apparmor.d/ch-checkns:
+      /etc/apparmor.d/ch-run:
+      /etc/apparmor.d/chrome:
+      /etc/apparmor.d/code:
+      /etc/apparmor.d/crun:
+      /etc/apparmor.d/devhelp:
+      /etc/apparmor.d/element-desktop:
+      /etc/apparmor.d/epiphany:
+      /etc/apparmor.d/evolution:
+      /etc/apparmor.d/firefox:
+      /etc/apparmor.d/flatpak:
+      /etc/apparmor.d/geary:
+      /etc/apparmor.d/github-desktop:
+      /etc/apparmor.d/goldendict:
+      /etc/apparmor.d/ipa_verify:
+      /etc/apparmor.d/kchmviewer:
+      /etc/apparmor.d/keybase:
+      /etc/apparmor.d/lc-compliance:
+      /etc/apparmor.d/libcamerify:
+      /etc/apparmor.d/linux-sandbox:
+      /etc/apparmor.d/local/README:
+      /etc/apparmor.d/local/lsb_release: { text: '' }
+      /etc/apparmor.d/local/nvidia_modprobe: { text: '' }
+      /etc/apparmor.d/loupe:
+      /etc/apparmor.d/lsb_release:
+      /etc/apparmor.d/lxc-attach:
+      /etc/apparmor.d/lxc-create:
+      /etc/apparmor.d/lxc-destroy:
+      /etc/apparmor.d/lxc-execute:
+      /etc/apparmor.d/lxc-stop:
+      /etc/apparmor.d/lxc-unshare:
+      /etc/apparmor.d/lxc-usernsexec:
+      /etc/apparmor.d/mmdebstrap:
+      /etc/apparmor.d/msedge:
+      /etc/apparmor.d/nautilus:
+      /etc/apparmor.d/notepadqq:
+      /etc/apparmor.d/nvidia_modprobe:
+      /etc/apparmor.d/obsidian:
+      /etc/apparmor.d/opam:
+      /etc/apparmor.d/opera:
+      /etc/apparmor.d/pageedit:
+      /etc/apparmor.d/plasmashell:
+      /etc/apparmor.d/podman:
+      /etc/apparmor.d/polypane:
+      /etc/apparmor.d/privacybrowser:
+      /etc/apparmor.d/qcam:
+      /etc/apparmor.d/qmapshack:
+      /etc/apparmor.d/qutebrowser:
+      /etc/apparmor.d/rootlesskit:
+      /etc/apparmor.d/rpm:
+      /etc/apparmor.d/rssguard:
+      /etc/apparmor.d/runc:
+      /etc/apparmor.d/sbuild:
+      /etc/apparmor.d/sbuild-abort:
+      /etc/apparmor.d/sbuild-adduser:
+      /etc/apparmor.d/sbuild-apt:
+      /etc/apparmor.d/sbuild-checkpackages:
+      /etc/apparmor.d/sbuild-clean:
+      /etc/apparmor.d/sbuild-createchroot:
+      /etc/apparmor.d/sbuild-destroychroot:
+      /etc/apparmor.d/sbuild-distupgrade:
+      /etc/apparmor.d/sbuild-hold:
+      /etc/apparmor.d/sbuild-shell:
+      /etc/apparmor.d/sbuild-unhold:
+      /etc/apparmor.d/sbuild-update:
+      /etc/apparmor.d/sbuild-upgrade:
+      /etc/apparmor.d/scide:
+      /etc/apparmor.d/signal-desktop:
+      /etc/apparmor.d/slack:
+      /etc/apparmor.d/slirp4netns:
+      /etc/apparmor.d/steam:
+      /etc/apparmor.d/stress-ng:
+      /etc/apparmor.d/surfshark:
+      /etc/apparmor.d/systemd-coredump:
+      /etc/apparmor.d/thunderbird:
+      /etc/apparmor.d/toybox:
+      /etc/apparmor.d/trinity:
+      /etc/apparmor.d/tunables/alias:
+      /etc/apparmor.d/tunables/apparmorfs:
+      /etc/apparmor.d/tunables/dovecot:
+      /etc/apparmor.d/tunables/etc:
+      /etc/apparmor.d/tunables/global:
+      /etc/apparmor.d/tunables/home:
+      /etc/apparmor.d/tunables/home.d/site.local:
+      /etc/apparmor.d/tunables/home.d/ubuntu:
+        text: |
+          # This file is auto-generated. It is recommended you update it using:
+          # $ sudo dpkg-reconfigure apparmor
+          #
+          # The following is a space-separated list of where additional user home
+          # directories are stored, each must have a trailing '/'. Directories added
+          # here are appended to @{HOMEDIRS}.  See tunables/home for details.
+          #@{HOMEDIRS}+=
+        until: mutate
+      /etc/apparmor.d/tunables/kernelvars:
+      /etc/apparmor.d/tunables/multiarch:
+      /etc/apparmor.d/tunables/multiarch.d/site.local:
+      /etc/apparmor.d/tunables/proc:
+      /etc/apparmor.d/tunables/run:
+      /etc/apparmor.d/tunables/securityfs:
+      /etc/apparmor.d/tunables/share:
+      /etc/apparmor.d/tunables/sys:
+      /etc/apparmor.d/tunables/xdg-user-dirs:
+      /etc/apparmor.d/tunables/xdg-user-dirs.d/site.local:
+        text: |
+          # ------------------------------------------------------------------
+          #
+          #    Copyright (C) 2014 Canonical Ltd.
+          #    This program is free software; you can redistribute it and/or
+          #    modify it under the terms of version 2 of the GNU General Public
+          #    License published by the Free Software Foundation.
+          #
+          # ------------------------------------------------------------------
+          # The following may be used to add additional entries such as for
+          # translations. See tunables/xdg-user-dirs for details. Eg:
+          #@{XDG_MUSIC_DIR}+="Musique"
+          #@{XDG_DESKTOP_DIR}+=""
+          #@{XDG_DOWNLOAD_DIR}+=""
+          #@{XDG_TEMPLATES_DIR}+=""
+          #@{XDG_PUBLICSHARE_DIR}+=""
+          #@{XDG_DOCUMENTS_DIR}+=""
+          #@{XDG_MUSIC_DIR}+=""
+          #@{XDG_PICTURES_DIR}+=""
+          #@{XDG_VIDEOS_DIR}+=""
+        until: mutate
+      /etc/apparmor.d/tup:
+      /etc/apparmor.d/tuxedo-control-center:
+      /etc/apparmor.d/unix-chkpwd:
+      /etc/apparmor.d/unprivileged_userns:
+      /etc/apparmor.d/userbindmount:
+      /etc/apparmor.d/uwsgi-core:
+      /etc/apparmor.d/vdens:
+      /etc/apparmor.d/virtiofsd:
+      /etc/apparmor.d/vivaldi-bin:
+      /etc/apparmor.d/vpnns:
+      /etc/apparmor.d/wpcom:
+      /var/cache/apparmor/:
+
+  copyright:
+    contents:
+      /usr/share/doc/apparmor/copyright:

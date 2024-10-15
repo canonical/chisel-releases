@@ -1,0 +1,12 @@
+summary: Integration tests for passwd
+
+execute: |
+  rootfs="$(install-slices passwd_bins)"
+
+  # create user
+  chroot "${rootfs}"/ useradd -M foo
+  cat "${rootfs}/etc/passwd" | grep -q foo
+
+  # delete user
+  chroot "${rootfs}"/ userdel foo
+  cat "${rootfs}/etc/passwd" | grep -vqz foo
