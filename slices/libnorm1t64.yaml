@@ -1,0 +1,17 @@
+package: libnorm1t64
+
+essential:
+  - libnorm1t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libnorm.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnorm1t64/copyright:
