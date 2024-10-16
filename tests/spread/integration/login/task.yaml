@@ -1,0 +1,12 @@
+summary: Integration tests for Erlang
+
+execute: |
+  rootfs="$(install-slices login_bins)"
+  chroot "$rootfs" touch /var/log/faillog
+  chroot "$rootfs" touch /var/log/lastlog
+  chroot "$rootfs" login -p -f root
+  chroot "$rootfs" nologin | grep "not available"
+  chroot "$rootfs" faillog
+  chroot "$rootfs" lastlog
+  chroot "$rootfs" newgrp root
+  chroot "$rootfs" sg root

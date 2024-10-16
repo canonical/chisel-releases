@@ -1,0 +1,22 @@
+summary: Integration tests for Erlang
+
+execute: |
+  rootfs="$(install-slices erlang-base_bins erlang-inets_scripts erlang-os-mon_bins erlang-crypto_modules erlang-eldap_modules erlang-mnesia_modules erlang-parsetools_modules erlang-public-key_modules erlang-runtime-tools_modules erlang-ssl_modules erlang-syntax-tools_modules erlang-tools_modules erlang-xmerl_modules)"
+
+  cp /bin/sh "$rootfs"/bin/
+  cp /etc/resolv.conf "$rootfs"/etc/
+  cp /etc/nsswitch.conf "$rootfs"/etc/
+  chroot "$rootfs" mkdir /dev
+  chroot "$rootfs" touch /dev/null
+  chroot "$rootfs" chmod 777 /dev/null
+  # test epmd daemon
+  chroot "$rootfs" /usr/bin/epmd -daemon
+  # test erl eval
+  chroot "$rootfs" /usr/bin/erl -noshell -eval 'io:format("Erlang OK~n"), halt().' | grep "Erlang OK"
+  # test erl_call by connecting to an erl server
+  chroot "$rootfs" nohup erl -sname test -setcookie cookie &
+  chroot "$rootfs" /usr/bin/erl_call -sname test -a 'erlang node []'
+  # test escript by executing a simple script
+  chroot "$rootfs" echo '#!/usr/bin/escript' > test_script && echo 'main(_) -> io:format("escript OK~n").' >> test_script && chmod +x test_script && /usr/bin/escript test_script
+  # test start_embedded to start the embedded environment
+  chroot "$rootfs" /usr/bin/start_embedded
