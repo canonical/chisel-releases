@@ -7,11 +7,12 @@ slices:
   bins:
     essential:
       - erlang-base_bins
-      - erlang-crypto_libs
-      - erlang-mnesia_libs
-      - erlang-runtime-tools_libs
+      - erlang-crypto_modules
+      - erlang-mnesia_modules
+      - erlang-runtime-tools_modules
       - erlang-snmp_config
-      - erlang-snmp_libs
+      - erlang-snmp_data
+      - erlang-snmp_modules
     contents:
       /usr/bin/snmpc:
       /usr/lib/erlang/lib/snmp-*/bin/snmpc:
@@ -20,12 +21,15 @@ slices:
     contents:
       /usr/lib/erlang/lib/snmp-*/priv/conf/**:
 
-  libs:
+  data:
+    contents:
+      /usr/lib/erlang/lib/snmp-*/mibs/**:
+      /usr/lib/erlang/lib/snmp-*/priv/mibs/**:
+
+  modules:
     contents:
       /usr/lib/erlang/lib/snmp-*/ebin/**:
       /usr/lib/erlang/lib/snmp-*/include/**:
-      /usr/lib/erlang/lib/snmp-*/mibs/**:
-      /usr/lib/erlang/lib/snmp-*/priv/mibs/**:
 
   copyright:
     contents:

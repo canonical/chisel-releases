@@ -125,6 +125,17 @@ slices:
       /usr/lib/systemd/system/fstrim.service:
       /usr/lib/systemd/system/fstrim.timer:
 
+  su-only:
+    essential:
+      - libc6_libs
+      - libcap-ng0_libs
+      - libpam0g_libs
+      - libselinux1_libs
+      - libtinfo6_libs
+      - util-linux_pam-profile
+    contents:
+      /usr/bin/su:
+
   copyright:
     contents:
       /usr/share/doc/util-linux/copyright:

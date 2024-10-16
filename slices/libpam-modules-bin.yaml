@@ -23,6 +23,10 @@ slices:
       /usr/sbin/unix_chkpwd:
       /usr/sbin/unix_update:
 
+  services:
+    contents:
+      /usr/lib/systemd/system/pam_namespace.service:
+
   copyright:
     contents:
       /usr/share/doc/libpam-modules-bin/copyright:

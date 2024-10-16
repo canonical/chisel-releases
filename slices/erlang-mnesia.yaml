@@ -4,7 +4,7 @@ essential:
   - erlang-mnesia_copyright
 
 slices:
-  libs:
+  modules:
     essential:
       - erlang-base_bins
     contents:

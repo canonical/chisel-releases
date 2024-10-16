@@ -6,7 +6,7 @@ essential:
 slices:
   bins:
     essential:
-      - erlang-base_libs
+      - erlang-base_modules
       - libc6_libs
       - libgcc-s1_libs
       - libstdc++6_libs
@@ -26,7 +26,7 @@ slices:
       /usr/lib/erlang/erts-*/bin/**:
       /usr/lib/erlang/lib/erl_interface-*/bin/erl_call:
 
-  libs:
+  modules:
     contents:
       /usr/lib/erlang/lib/compiler-*/ebin/**:
       /usr/lib/erlang/lib/erts-*/ebin/**:

@@ -6,14 +6,14 @@ essential:
 slices:
   bins:
     essential:
-      - erlang-os-mon_libs
+      - erlang-os-mon_modules
     contents:
       /usr/lib/erlang/lib/os_mon-*/priv/**:
 
-  libs:
+  modules:
     essential:
       - erlang-base_bins
-      - erlang-mnesia_libs
+      - erlang-mnesia_modules
       - erlang-snmp_bins
       - libc6_libs
     contents:

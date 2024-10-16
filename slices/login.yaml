@@ -20,7 +20,6 @@ slices:
       /usr/bin/newgrp:
       /usr/bin/sg:
       /usr/sbin/nologin:
-      /usr/share/apport/package-hooks/source_shadow.py:
 
   config:
     contents:

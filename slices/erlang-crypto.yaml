@@ -4,7 +4,7 @@ essential:
   - erlang-crypto_copyright
 
 slices:
-  libs:
+  modules:
     essential:
       - erlang-base_bins
       - libc6_libs

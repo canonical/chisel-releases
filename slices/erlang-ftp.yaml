@@ -4,11 +4,11 @@ essential:
   - erlang-ftp_copyright
 
 slices:
-  libs:
+  modules:
     essential:
       - erlang-base_bins
-      - erlang-runtime-tools_libs
-      - erlang-ssl_libs
+      - erlang-runtime-tools_modules
+      - erlang-ssl_modules
     contents:
       /usr/lib/erlang/lib/ftp-*/ebin/**:
 

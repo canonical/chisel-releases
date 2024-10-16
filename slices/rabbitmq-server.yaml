@@ -3,6 +3,8 @@ package: rabbitmq-server
 essential:
   - rabbitmq-server_copyright
 
+# erlang* packages do not exist for i386
+## for all other archs, uncomment all those slices below
 slices:
   autocomplete:
     contents:
@@ -14,10 +16,8 @@ slices:
       - base-passwd_data
       - bash_bins
       - coreutils_bins
-      ## erlang* packages do not exist for i386
-      ## for all other archs, uncomment all those slices below
       # - erlang-base_bins
-      # - erlang-inets_bins
+      # - erlang-inets_scripts
       # - erlang-os-mon_bins
       - grep_bins
       - libc-bin_locale
@@ -30,7 +30,7 @@ slices:
       - python3.12_standard
       - rabbitmq-server_libs
       - sed_bins
-      - util-linux_bins
+      - util-linux_su-only
     contents:
       /usr/bin/rabbitmqadmin:
       /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
@@ -93,8 +93,6 @@ slices:
 
   libs:
     essential:
-      ## erlang* packages do not exist for i386
-      ## for all other archs, uncomment all those slices below
       # - erlang-crypto_libs
       # - erlang-eldap_libs
       # - erlang-mnesia_libs

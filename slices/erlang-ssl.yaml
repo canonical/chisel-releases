@@ -4,12 +4,12 @@ essential:
   - erlang-ssl_copyright
 
 slices:
-  libs:
+  modules:
     essential:
       - erlang-base_bins
-      - erlang-crypto_libs
-      - erlang-public-key_libs
-      - erlang-runtime-tools_libs
+      - erlang-crypto_modules
+      - erlang-public-key_modules
+      - erlang-runtime-tools_modules
     contents:
       /usr/lib/erlang/lib/ssl-*/ebin/**:
 

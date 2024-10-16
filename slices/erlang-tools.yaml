@@ -4,10 +4,10 @@ essential:
   - erlang-tools_copyright
 
 slices:
-  libs:
+  modules:
     essential:
       - erlang-base_bins
-      - erlang-runtime-tools_libs
+      - erlang-runtime-tools_modules
     contents:
       /usr/lib/erlang/lib/tools-*/ebin/**:
       /usr/lib/erlang/lib/tools-*/emacs/**:

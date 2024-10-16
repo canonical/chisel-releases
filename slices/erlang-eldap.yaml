@@ -4,11 +4,11 @@ essential:
   - erlang-eldap_copyright
 
 slices:
-  libs:
+  modules:
     essential:
-      - erlang-asn1_libs
+      - erlang-asn1_modules
       - erlang-base_bins
-      - erlang-ssl_libs
+      - erlang-ssl_modules
     contents:
       /usr/lib/erlang/lib/eldap-*/ebin/**:
 
