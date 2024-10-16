@@ -63,7 +63,7 @@ slices:
       /usr/bin/resizepart:
       /usr/bin/rev:
       /usr/bin/s390: {arch: [s390x]}
-      /usr/bin/s390x:  arch: [s390x]}
+      /usr/bin/s390x: {arch: [s390x]}
       /usr/bin/setarch:
       /usr/bin/setpriv:
       /usr/bin/setsid:
