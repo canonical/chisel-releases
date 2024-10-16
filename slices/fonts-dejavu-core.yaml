@@ -5,6 +5,8 @@ essential:
 
 slices:
   fonts:
+    essential:
+      - fonts-dejavu-mono_fonts
     contents:
       /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:

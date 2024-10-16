@@ -1,0 +1,13 @@
+package: fonts-croscore
+
+essential:
+  - fonts-croscore_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/croscore/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-croscore/copyright:
