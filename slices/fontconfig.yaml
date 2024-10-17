@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       - fontconfig-config_config
-      - fontconfig_config
+      - fontconfig_cache
       - libc6_libs
       - libfontconfig1_libs
       - libfreetype6_libs
@@ -22,11 +22,10 @@ slices:
       /usr/bin/fc-scan:
       /usr/bin/fc-validate:
 
-  config:
+  cache:
     contents:
-      # a post-install script normally runs fc-cache
-      # to regenerate the fonts cache and populate
-      # that directory
+      # The postinst script runs fc-cache to regenerate
+      # the fonts cache and populate that directory
       /var/cache/fontconfig/: {make: true}
 
   copyright:
