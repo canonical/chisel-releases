@@ -82,7 +82,7 @@ slices:
         { copy: /usr/share/rabbitmq/rabbitmq-env.conf, mode: 0644 }
 
   modules:
-    #essential:
+    # essential:
     # - erlang-crypto_modules
     # - erlang-eldap_modules
     # - erlang-mnesia_modules
