@@ -1,12 +1,12 @@
 summary: Integration tests for Erlang
 
 execute: |
-  rootfs="$(install-slices login_bins bash_bins base-files_base base-passwd_data)"
+  rootfs="$(install-slices login_bins bash_bins base-files_base base-passwd_data grep_bins)"
   mkdir "$rootfs"/dev
   touch "$rootfs"/dev/log
   touch "$rootfs"/var/log/faillog
   touch "$rootfs"/var/log/lastlog
-  chroot "$rootfs" nologin
+  chroot "$rootfs" nologin | grep "not available"
   chroot "$rootfs" faillog
   chroot "$rootfs" lastlog
   chroot "$rootfs" newgrp root
