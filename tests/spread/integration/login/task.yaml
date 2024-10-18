@@ -3,6 +3,7 @@ summary: Integration tests for Erlang
 execute: |
   rootfs="$(install-slices login_bins bash_bins base-files_base base-passwd_data grep_bins)"
   mkdir "$rootfs"/dev
+  cp "$rootfs"/bin/bash "$rootfs"/bin/sync
   touch "$rootfs"/dev/log
   touch "$rootfs"/var/log/faillog
   touch "$rootfs"/var/log/lastlog
@@ -11,4 +12,4 @@ execute: |
   chroot "$rootfs" lastlog
   chroot "$rootfs" newgrp root
   chroot "$rootfs" sg root
-  chroot "$rootfs" login -p -f root
+  chroot "$rootfs" login -p -f sync

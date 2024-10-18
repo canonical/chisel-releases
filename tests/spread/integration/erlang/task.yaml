@@ -1,7 +1,7 @@
 summary: Integration tests for Erlang
 
 execute: |
-  rootfs="$(install-slices erlang-base_bins erlang-inets_scripts erlang-os-mon_bins erlang-crypto_modules erlang-eldap_modules erlang-mnesia_modules erlang-parsetools_modules erlang-public-key_modules erlang-runtime-tools_modules erlang-ssl_modules erlang-syntax-tools_modules erlang-tools_modules erlang-xmerl_modules coreutils_bins)"
+  rootfs="$(install-slices erlang-base_bins erlang-inets_scripts erlang-os-mon_bins erlang-crypto_modules erlang-eldap_modules erlang-mnesia_modules erlang-parsetools_modules erlang-public-key_modules erlang-runtime-tools_modules erlang-ssl_modules erlang-syntax-tools_modules erlang-tools_modules erlang-xmerl_modules bash_bins coreutils_bins)"
 
   mkdir -p "$rootfs"/bin "$rootfs"/etc "$rootfs"/dev
   cp /bin/sh "$rootfs"/bin/
@@ -9,6 +9,8 @@ execute: |
   cp /etc/nsswitch.conf "$rootfs"/etc/
   touch "$rootfs"/dev/null
   chmod 777 "$rootfs"/dev/null
+  chroot "$rootfs" echo "cookie" > ~/.erlang.cookie
+  chroot "$rootfs" chmod 400 ~/.erlang.cookie
   # test epmd daemon
   chroot "$rootfs" /usr/bin/epmd -daemon
   # test erl eval
