@@ -9,6 +9,7 @@ execute: |
   cp /etc/nsswitch.conf "$rootfs"/etc/
   touch "$rootfs"/dev/null
   chmod 777 "$rootfs"/dev/null
+  chroot "$rootfs" touch ~/.erlang.cookie
   chroot "$rootfs" echo "cookie" > ~/.erlang.cookie
   chroot "$rootfs" chmod 400 ~/.erlang.cookie
   # test epmd daemon
