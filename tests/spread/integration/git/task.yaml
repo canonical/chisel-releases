@@ -1,0 +1,30 @@
+summary: Integration tests for git
+
+environment:
+  EXTRA_SLICES: ""  # No extra slices by default.
+  SLICE/core_bins: git_core-bins
+  SLICE/net_bins: git_net-bins
+  EXTRA_SLICES/net_bins: ca-certificates_data
+  SLICE/gitweb: git_gitweb
+  EXTRA_SLICES/gitweb: python3.10_standard curl_bins
+
+execute: |
+  rootfs="$(install-slices $SLICE $EXTRA_SLICES)"
+
+  # Basic configuration of extra things not in the packages.
+  # Git uses /dev/null
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+
+  # Make domain resolution work
+  mkdir -p "${rootfs}/etc"
+  cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
+
+  # Give root a homedir in the fs (for git config)
+  mkdir -p "${rootfs}/root"
+
+  # Run the test script for this slice.
+  "./test-${SLICE}.sh" "${rootfs}"
+
+  # Clean up
+  umount "${rootfs}/dev"
