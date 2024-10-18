@@ -1,0 +1,16 @@
+package: libcdio-cdda2t64
+
+essential:
+  - libcdio-cdda2t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcdio19t64_libs
+    contents:
+      /usr/lib/*-linux-*/libcdio_cdda.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcdio-cdda2t64/copyright:
