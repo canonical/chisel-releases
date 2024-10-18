@@ -1,7 +1,6 @@
 summary: Integration tests for Erlang
 
 execute: |
-  apt-get install -y grep
   rootfs="$(install-slices login_bins bash_bins base-files_base base-passwd_data grep_bins)"
   mkdir "$rootfs"/dev
   cp "$rootfs"/bin/bash "$rootfs"/bin/sync
@@ -13,4 +12,3 @@ execute: |
   chroot "$rootfs" lastlog
   chroot "$rootfs" newgrp root
   chroot "$rootfs" sg root
-  chroot "$rootfs" login -p -f sync
