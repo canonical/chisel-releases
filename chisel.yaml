@@ -2,6 +2,7 @@ format: v1
 
 archives:
   ubuntu:
+    default: true
     version: 24.10
     components: [main, universe]
     suites: [oracular, oracular-security, oracular-updates]
