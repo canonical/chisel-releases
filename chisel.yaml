@@ -2,6 +2,7 @@ format: v1
 
 archives:
   ubuntu:
+    default: true
     version: 24.04
     components: [main, universe]
     suites: [noble, noble-security, noble-updates]
