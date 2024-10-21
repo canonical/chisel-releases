@@ -1,0 +1,55 @@
+package: git
+# These slices do not provide a full form of the git package. Notable absences:
+# - The git-man dependency is not included here (this package only contains man pages)
+# - Some scripts (e.g. git-add--interactive) are excluded because they're perl scripts.
+#   This should not affect core functionality, but will limit extended functions.
+# - Perl modules are excluded
+# - Git-web is excluded as it depends on perl.
+#
+# Once perl slices are available, perl portions can be added.
+
+essential:
+  - git_copyright
+
+slices:
+  bins:
+    # Pseudo slice to just get all binaries.
+    essential:
+      - git_core-bins
+      - git_daemon
+      - git_net-bins
+
+  core-bins:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - zlib1g_libs
+      # This doesn't include perl dependencies.
+    contents:
+      /usr/bin/git:
+
+  daemon:
+    essential:
+      - git_core-bins
+    contents:
+      /usr/lib/git-core/git-daemon:
+
+  net-bins:
+    # Binaries used with networking. Not needed if git is only being used for local
+    # items.
+    essential:
+      - git_core-bins
+      - libcurl3-gnutls_libs
+      - libexpat1_libs
+      # While ca-certificates_data isn't strictly a dependency, it is often needed for https.
+    contents:
+      /usr/bin/git-receive-pack:
+      /usr/bin/git-upload-archive:
+      /usr/bin/git-upload-pack:
+      /usr/lib/git-core/git-http-*:
+      /usr/lib/git-core/git-imap-send:
+      /usr/lib/git-core/git-remote-*:
+
+  copyright:
+    contents:
+      /usr/share/doc/git/copyright:
