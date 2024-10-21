@@ -1,4 +1,75 @@
 summary: Integration tests for git
 
+#  mkdir "${rootfs}"/dev
+#   mount --bind /dev "${rootfs}"/dev
+
 execute: |
-  rootfs=$(install-slices git_bins)
+
+  function setup(){
+
+    mkdir -p "$1/dev/"
+    mkdir -p "$1/etc/"
+
+    # fake essentials
+    touch "$1/dev/null"
+    head -c 500 /dev/urandom > "$1/dev/urandom"
+    cp /etc/resolv.conf $1/etc/
+
+    # link busybox
+    pushd "$1/usr/bin/"
+    for TARGET in ash mkdir
+    do
+      ln -sf busybox $TARGET
+    done
+    popd
+
+  }
+
+  rootfs_bins=$(install-slices git_bins busybox_bins)
+  setup "$rootfs_bins"
+
+  chroot "$rootfs_bins"  ash << EOF
+    set -ex
+
+    mkdir repo
+    cd repo
+
+    git init
+
+    git config  user.email "you@example.com"
+    git config  user.name "Your Name"
+    git config  core.pager cat
+
+    echo hello_world > test_file
+    git add test_file
+    git commit -m "hello hello_world"
+
+    git status
+    git log
+
+    git blame -L 1,1 test_file
+
+    git checkout -b test
+
+    echo foo_bar >> test_file
+    git add test_file
+    git commit -m "hello foo_bar"
+
+    git diff master
+    
+    git branch
+    git checkout master
+    git merge test
+  EOF
+
+
+  # Testing for http-clone
+  rootfs_core=$(install-slices git_http-clone busybox_bins ca-certificates_data)
+  setup "$rootfs_core" 
+
+  chroot "$rootfs_core" ash << EOF
+  set -e
+
+  git clone https://github.com/cmatsuoka/figlet.git "$rootfs_bins/figlet"
+
+  EOF
