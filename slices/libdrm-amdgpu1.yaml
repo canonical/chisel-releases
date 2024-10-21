@@ -1,0 +1,16 @@
+package: libdrm-amdgpu1
+
+essential:
+  - libdrm-amdgpu1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdrm2_libs
+    contents:
+      /usr/lib/*-linux-*/libdrm_amdgpu.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdrm-amdgpu1/copyright:
