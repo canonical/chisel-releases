@@ -2,6 +2,7 @@ format: v1
 
 archives:
   ubuntu:
+    default: true
     version: 20.04
     components: [main, universe]
     suites: [focal, focal-security, focal-updates]
