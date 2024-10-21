@@ -1,0 +1,17 @@
+package: mysql-client-8.0
+essential:
+  - mysql-client-8.0_copyright
+slices:
+  bins:
+    essential:
+      - mysql-client-core-8.0_bins
+      - mysql-common_config
+    contents:
+      /usr/bin/mysqlanalyze:
+      /usr/bin/mysqloptimize:
+      /usr/bin/mysqlrepair:
+      /usr/bin/mysqlreport:
+
+  copyright:
+    contents:
+      /usr/share/doc/mysql-client-8.0/copyright:
