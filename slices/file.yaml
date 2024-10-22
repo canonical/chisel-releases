@@ -1,0 +1,17 @@
+package: file
+
+essential:
+  - file_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libmagic1t64_config
+      - libmagic1t64_libs
+    contents:
+      /usr/bin/file:
+
+  copyright:
+    contents:
+      /usr/share/doc/file/copyright:
