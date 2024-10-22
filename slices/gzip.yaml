@@ -1,0 +1,28 @@
+package: gzip
+
+essential:
+  - gzip_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gunzip:
+      /usr/bin/gzexe:
+      /usr/bin/gzip:
+      /usr/bin/uncompress:
+      /usr/bin/zcat:
+      /usr/bin/zcmp:
+      /usr/bin/zdiff:
+      /usr/bin/zegrep:
+      /usr/bin/zfgrep:
+      /usr/bin/zforce:
+      /usr/bin/zgrep:
+      /usr/bin/zless:
+      /usr/bin/zmore:
+      /usr/bin/znew:
+
+  copyright:
+    contents:
+      /usr/share/doc/gzip/copyright:
