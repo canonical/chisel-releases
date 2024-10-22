@@ -1,0 +1,39 @@
+package: git
+
+essential:
+  - git_copyright
+
+slices:
+  bins:
+    # basic functionality including:
+    # - init
+    # - config
+    # - add
+    # - commit
+    # - status
+    # - log
+    # - checkout
+    # - blame
+    # - diff
+    # - merge
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/git:
+
+  http-clone:
+    # requirements for cloning over http`git clone https://`:
+    essential:
+      - git_bins
+      - libcurl3t64-gnutls_libs
+      - libexpat1_libs
+      - libpcre2-8-0_libs
+    contents:
+      /usr/lib/git-core/git-remote-http:
+      /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
+
+  copyright:
+    contents:
+      /usr/share/doc/git/copyright:
