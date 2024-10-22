@@ -32,7 +32,7 @@ slices:
       - libpcre2-8-0_libs
     contents:
       /usr/lib/git-core/git-remote-http:
-      /usr/lib/git-core/git-remote-https: # links to point to git-remote-http
+      /usr/lib/git-core/git-remote-https: # link pointing to git-remote-http
 
   copyright:
     contents:

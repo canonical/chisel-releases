@@ -1,8 +1,5 @@
 summary: Integration tests for git
 
-#  mkdir "${rootfs}"/dev
-#   mount --bind /dev "${rootfs}"/dev
-
 execute: |
 
   function setup(){
@@ -68,8 +65,8 @@ execute: |
   setup "$rootfs_core" 
 
   chroot "$rootfs_core" ash << EOF
-  set -e
+    set -ex
 
-  git clone https://github.com/cmatsuoka/figlet.git "$rootfs_bins/figlet"
+    git clone https://github.com/cmatsuoka/figlet.git "$rootfs_bins/figlet"
 
   EOF
