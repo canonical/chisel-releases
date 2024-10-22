@@ -25,6 +25,14 @@ slices:
       /etc/udev/iocost.conf:
       /etc/udev/udev.conf:
 
+  # This provides neccesary functionality to generate the hwdb
+  # for udev. In the postinst script the following command is run
+  # /usr/bin/systemd-hwdb --usr update.
+  # Currently we have the same challenge in terms of emulating what
+  # systemd-hwdb is doing, as it's writing very carefully constructed
+  # binary data to binary files. For more info on this we can check
+  # PR: https://github.com/canonical/chisel-releases/pull/329 where a
+  # similar challenge is.
   generator:
     essential:
       - libc6_libs
@@ -67,18 +75,6 @@ slices:
       /usr/lib/udev/hwdb.d/70-sound-card.hwdb:
       /usr/lib/udev/hwdb.d/70-touchpad.hwdb:
       /usr/lib/udev/hwdb.d/80-ieee1394-unit-function.hwdb:
-
-  # this also depends on initramfs-tools-core, however there will be
-  # a circular dependency back to udev in this case.
-  initramfs-tools:
-    essential:
-      - coreutils_bins
-      - findutils_bins
-      - udev_systemd-udevd
-    contents:
-      /usr/share/initramfs-tools/hooks/udev:
-      /usr/share/initramfs-tools/scripts/init-bottom/udev:
-      /usr/share/initramfs-tools/scripts/init-top/udev:
 
   device-helpers:
     contents:
