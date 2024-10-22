@@ -1,0 +1,25 @@
+package: glib-networking
+
+essential:
+  - glib-networking_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libglib2.0-0_libs
+      - libgnutls30_libs
+      - libproxy1v5_libs
+      - gsettings-desktop-schemas_data
+    contents:
+      /usr/lib/*-linux-*/gio/modules/libgioenvironmentproxy.so:
+      /usr/lib/*-linux-*/gio/modules/libgiognomeproxy.so:
+      /usr/lib/*-linux-*/gio/modules/libgiognutls.so:
+      /usr/lib/*-linux-*/gio/modules/libgiolibproxy.so:
+
+  copyright:
+    essential:
+      - glib-networking-common_copyright
+      - glib-networking-services_copyright
+    contents:
+      /usr/share/doc/glib-networking/copyright:

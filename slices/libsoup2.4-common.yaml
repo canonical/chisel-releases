@@ -1,0 +1,9 @@
+package: libsoup2.4-common
+
+essential:
+  - libsoup2.4-common_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libsoup2.4-common/copyright:
