@@ -1,0 +1,180 @@
+package: udev
+
+essential:
+  - udev_copyright
+
+slices:
+  bins:
+    essential:
+      - libacl1_libs
+      - libblkid1_libs
+      - libc6_libs
+      - libcap2_libs
+      - libkmod2_libs
+      - libselinux1_libs
+      - libudev1_libs
+      - udev_config
+      - udev_rules
+    contents:
+      /usr/bin/udevadm:
+
+  config:
+    essential:
+      - udev_modprobe-config
+    contents:
+      /etc/udev/iocost.conf:
+      /etc/udev/udev.conf:
+
+  generator:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libselinux1_libs
+      - udev_hwdb
+    contents:
+      /usr/bin/systemd-hwdb:
+      /etc/udev/: { make: true }
+
+  hwdb:
+    contents:
+      /usr/lib/udev/hwdb.d/20-OUI.hwdb:
+      /usr/lib/udev/hwdb.d/20-acpi-vendor.hwdb:
+      /usr/lib/udev/hwdb.d/20-bluetooth-vendor-product.hwdb:
+      /usr/lib/udev/hwdb.d/20-dmi-id.hwdb:
+      /usr/lib/udev/hwdb.d/20-net-ifname.hwdb:
+      /usr/lib/udev/hwdb.d/20-pci-classes.hwdb:
+      /usr/lib/udev/hwdb.d/20-pci-vendor-model.hwdb:
+      /usr/lib/udev/hwdb.d/20-sdio-classes.hwdb:
+      /usr/lib/udev/hwdb.d/20-sdio-vendor-model.hwdb:
+      /usr/lib/udev/hwdb.d/20-usb-classes.hwdb:
+      /usr/lib/udev/hwdb.d/20-usb-vendor-model.hwdb:
+      /usr/lib/udev/hwdb.d/20-vmbus-class.hwdb:
+      /usr/lib/udev/hwdb.d/60-autosuspend-chromiumos.hwdb:
+      /usr/lib/udev/hwdb.d/60-autosuspend-fingerprint-reader.hwdb:
+      /usr/lib/udev/hwdb.d/60-autosuspend.hwdb:
+      /usr/lib/udev/hwdb.d/60-evdev.hwdb:
+      /usr/lib/udev/hwdb.d/60-input-id.hwdb:
+      /usr/lib/udev/hwdb.d/60-keyboard.hwdb:
+      /usr/lib/udev/hwdb.d/60-seat.hwdb:
+      /usr/lib/udev/hwdb.d/60-sensor.hwdb:
+      /usr/lib/udev/hwdb.d/70-analyzers.hwdb:
+      /usr/lib/udev/hwdb.d/70-av-production.hwdb:
+      /usr/lib/udev/hwdb.d/70-cameras.hwdb:
+      /usr/lib/udev/hwdb.d/70-joystick.hwdb:
+      /usr/lib/udev/hwdb.d/70-mouse.hwdb:
+      /usr/lib/udev/hwdb.d/70-pda.hwdb:
+      /usr/lib/udev/hwdb.d/70-pointingstick.hwdb:
+      /usr/lib/udev/hwdb.d/70-sound-card.hwdb:
+      /usr/lib/udev/hwdb.d/70-touchpad.hwdb:
+      /usr/lib/udev/hwdb.d/80-ieee1394-unit-function.hwdb:
+
+  # this also depends on initramfs-tools-core, however there will be
+  # a circular dependency back to udev in this case.
+  initramfs-tools:
+    essential:
+      - coreutils_bins
+      - findutils_bins
+      - udev_systemd-udevd
+    contents:
+      /usr/share/initramfs-tools/hooks/udev:
+      /usr/share/initramfs-tools/scripts/init-bottom/udev:
+      /usr/share/initramfs-tools/scripts/init-top/udev:
+
+  device-helpers:
+    contents:
+      /usr/lib/udev/ata_id:
+      /usr/lib/udev/cdrom_id:
+      /usr/lib/udev/dmi_memory_id:
+      /usr/lib/udev/fido_id:
+      /usr/lib/udev/iocost:
+      /usr/lib/udev/mtd_probe:
+      /usr/lib/udev/scsi_id:
+      /usr/lib/udev/v4l_id:
+
+  modprobe-config:
+    contents:
+      /usr/lib/modprobe.d/fbdev-blacklist.conf:
+
+  rules:
+    essential:
+      - udev_device-helpers
+    contents:
+      /usr/lib/udev/rules.d/40-vm-hotadd.rules:
+      /usr/lib/udev/rules.d/50-firmware.rules:
+      /usr/lib/udev/rules.d/50-udev-default.rules:
+      /usr/lib/udev/rules.d/60-autosuspend.rules:
+      /usr/lib/udev/rules.d/60-block.rules:
+      /usr/lib/udev/rules.d/60-cdrom_id.rules:
+      /usr/lib/udev/rules.d/60-dmi-id.rules:
+      /usr/lib/udev/rules.d/60-drm.rules:
+      /usr/lib/udev/rules.d/60-evdev.rules:
+      /usr/lib/udev/rules.d/60-fido-id.rules:
+      /usr/lib/udev/rules.d/60-infiniband.rules:
+      /usr/lib/udev/rules.d/60-input-id.rules:
+      /usr/lib/udev/rules.d/60-persistent-alsa.rules:
+      /usr/lib/udev/rules.d/60-persistent-input.rules:
+      /usr/lib/udev/rules.d/60-persistent-storage-mtd.rules:
+      /usr/lib/udev/rules.d/60-persistent-storage-tape.rules:
+      /usr/lib/udev/rules.d/60-persistent-storage.rules:
+      /usr/lib/udev/rules.d/60-persistent-v4l.rules:
+      /usr/lib/udev/rules.d/60-sensor.rules:
+      /usr/lib/udev/rules.d/60-serial.rules:
+      /usr/lib/udev/rules.d/61-persistent-storage-android.rules:
+      /usr/lib/udev/rules.d/64-btrfs.rules:
+      /usr/lib/udev/rules.d/70-camera.rules:
+      /usr/lib/udev/rules.d/70-joystick.rules:
+      /usr/lib/udev/rules.d/70-memory.rules:
+      /usr/lib/udev/rules.d/70-mouse.rules:
+      /usr/lib/udev/rules.d/70-power-switch.rules:
+      /usr/lib/udev/rules.d/70-touchpad.rules:
+      /usr/lib/udev/rules.d/71-power-switch-proliant.rules:
+      /usr/lib/udev/rules.d/73-special-net-names.rules:
+      /usr/lib/udev/rules.d/75-net-description.rules:
+      /usr/lib/udev/rules.d/75-probe_mtd.rules:
+      /usr/lib/udev/rules.d/78-graphics-card.rules:
+      /usr/lib/udev/rules.d/78-sound-card.rules:
+      /usr/lib/udev/rules.d/80-debian-compat.rules:
+      /usr/lib/udev/rules.d/80-drivers.rules:
+      /usr/lib/udev/rules.d/80-net-setup-link.rules:
+      /usr/lib/udev/rules.d/81-net-dhcp.rules:
+      /usr/lib/udev/rules.d/90-iocost.rules:
+
+  systemd-udevd:
+    essential:
+      - systemd_bins
+      - systemd-dev_dbus-interfaces
+      - udev_bins
+      - udev_config
+      - udev_generator
+      - udev_rules
+      - udev_sysusers-config
+      - udev_tmpfiles-config
+    contents:
+      /usr/lib/systemd/network/73-usb-net-by-mac.link:
+      /usr/lib/systemd/network/99-default.link:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-udevd-control.socket:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-udevd-kernel.socket:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-hwdb-update.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-udev-trigger.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-udevd.service:
+      /usr/lib/systemd/system/systemd-hwdb-update.service:
+      /usr/lib/systemd/system/systemd-udev-settle.service:
+      /usr/lib/systemd/system/systemd-udev-trigger.service:
+      /usr/lib/systemd/system/systemd-udevd-control.socket:
+      /usr/lib/systemd/system/systemd-udevd-kernel.socket:
+      /usr/lib/systemd/system/systemd-udevd.service:
+      /usr/lib/systemd/system/systemd-udevd.service.d/syscall-architecture.conf:
+      /usr/lib/systemd/system/udev.service:
+      /usr/lib/systemd/systemd-udevd:
+
+  sysusers-config:
+    contents:
+      /usr/lib/sysusers.d/debian-udev.conf:
+
+  tmpfiles-config:
+    contents:
+      /usr/lib/tmpfiles.d/static-nodes-permissions.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/udev/copyright:
