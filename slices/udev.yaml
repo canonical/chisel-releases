@@ -80,7 +80,7 @@ slices:
     contents:
       /usr/lib/udev/ata_id:
       /usr/lib/udev/cdrom_id:
-      /usr/lib/udev/dmi_memory_id:
+      /usr/lib/udev/dmi_memory_id: { arch: [amd64, i386, armhf, arm64] }
       /usr/lib/udev/fido_id:
       /usr/lib/udev/iocost:
       /usr/lib/udev/mtd_probe:
@@ -119,7 +119,7 @@ slices:
       /usr/lib/udev/rules.d/64-btrfs.rules:
       /usr/lib/udev/rules.d/70-camera.rules:
       /usr/lib/udev/rules.d/70-joystick.rules:
-      /usr/lib/udev/rules.d/70-memory.rules:
+      /usr/lib/udev/rules.d/70-memory.rules: { arch: [amd64, i386, armhf, arm64] }
       /usr/lib/udev/rules.d/70-mouse.rules:
       /usr/lib/udev/rules.d/70-power-switch.rules:
       /usr/lib/udev/rules.d/70-touchpad.rules:
