@@ -1,0 +1,18 @@
+package: erlang-ssl
+
+essential:
+  - erlang-ssl_copyright
+
+slices:
+  modules:
+    essential:
+      - erlang-base_bins
+      - erlang-crypto_modules
+      - erlang-public-key_modules
+      - erlang-runtime-tools_modules
+    contents:
+      /usr/lib/erlang/lib/ssl-*/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-ssl/copyright:

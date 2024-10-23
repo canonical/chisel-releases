@@ -1,0 +1,18 @@
+package: erlang-tools
+
+essential:
+  - erlang-tools_copyright
+
+slices:
+  modules:
+    essential:
+      - erlang-base_bins
+      - erlang-runtime-tools_modules
+    contents:
+      /usr/lib/erlang/lib/tools-*/ebin/**:
+      /usr/lib/erlang/lib/tools-*/emacs/**:
+      /usr/lib/erlang/lib/tools-*/priv/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-tools/copyright:
