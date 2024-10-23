@@ -40,8 +40,8 @@ slices:
       - libselinux1_libs
       - udev_hwdb
     contents:
-      /usr/bin/systemd-hwdb:
       /etc/udev/: { make: true }
+      /usr/bin/systemd-hwdb:
 
   hwdb:
     contents:
@@ -137,8 +137,8 @@ slices:
 
   systemd-udevd:
     essential:
-      - systemd_bins
       - systemd-dev_dbus-interfaces
+      - systemd_bins
       - udev_bins
       - udev_config
       - udev_generator
