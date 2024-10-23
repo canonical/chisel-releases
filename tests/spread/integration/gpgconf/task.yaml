@@ -1,0 +1,12 @@
+summary: Integration tests for gpgconf
+
+execute: |
+  rootfs="$(install-slices gpgconf_gpgconf)"
+
+  # Basic check
+  chroot "${rootfs}/" gpgconf --list-components
+
+  rootfs="$(install-slices dash_bins gpgconf_gpg-connect-agent)"
+  chroot "${rootfs}/" gpg-connect-agent --version
+  output=$(! chroot "${rootfs}/" sh -c 'gpg-connect-agent /help 2>&1')
+  [[ "$output" == *'No agent running' ]]
