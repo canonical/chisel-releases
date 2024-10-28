@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      - fontconfig_cache
       - fontconfig-config_config
+      - fontconfig_cache
       - libc6_libs
       - libfontconfig1_libs
       - libfreetype6_libs
