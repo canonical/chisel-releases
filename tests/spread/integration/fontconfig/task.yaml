@@ -1,15 +1,28 @@
 summary: Integration tests for fontconfig
 
 execute: |
-  rootfs="$(install-slices bash_bins fontconfig_bins coreutils_bins fonts-dejavu-core_fonts)"
+  rootfs="$(install-slices fontconfig_bins)"
 
-  mkdir -p $rootfs/tmp
-  mkdir -p $rootfs/dev
+  # Test fc-cache
+  chroot ${rootfs} fc-cache
 
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cache && echo $?') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-cat 1>/dev/null 2>/dev/null && echo $?') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-conflist 2>/dev/null | wc -l') -gt 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-list 2>/dev/null | wc -l') -gt 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-match') == 'DejaVuSans.ttf: "DejaVu Sans" "Book"' ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-query /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf 1>/dev/null 2>/dev/null && echo $?') -eq 0 ]]
-  [[ $(chroot "$rootfs" /usr/bin/bash -c 'HOME=/tmp fc-scan /usr/share/fonts/truetype/dejavu/ 1>/dev/null && echo $?') -eq 0 ]]
+  # Test fc-cat
+  chroot ${rootfs} fc-cat
+
+  # Test fc-conflist
+  chroot ${rootfs} fc-conflist
+
+  # Test fc-list
+  chroot ${rootfs} fc-list
+
+  # Test fc-pattern
+  chroot ${rootfs} fc-pattern /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf | grep 'Pattern has 1 elts'
+
+  # Test fc-query
+  chroot ${rootfs} fc-query /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf | grep 'fullname: "DejaVu Serif"'
+
+  # Test fc-scan
+  chroot ${rootfs} fc-scan /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf | grep 'fullname: "DejaVu Sans Mono Oblique"'
+
+  # Test fc-validate
+  chroot ${rootfs} fc-validate /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf | grep 'Satisfy the coverage for en language'
