@@ -6,8 +6,8 @@ essential:
 slices:
   config:
     contents:
-      /etc/fonts/conf.d/61-urw*:
-      /usr/share/fontconfig/conf.avail/urw-*:
+      /etc/fonts/conf.d/61-urw-*.conf:
+      /usr/share/fontconfig/conf.avail/urw-*.conf:
 
   fonts:
     contents:
