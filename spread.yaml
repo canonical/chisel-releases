@@ -89,7 +89,7 @@ prepare: |
 
   apt install -y curl wget
   curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
-    | awk "/browser_download_url/ && /chisel_v/ && /$arch/" \
+    | awk "/browser_download_url/ && /chisel_v/ && /_$arch\./" \
     | cut -d : -f 2,3 \
     | tr -d \" \
     | xargs wget
