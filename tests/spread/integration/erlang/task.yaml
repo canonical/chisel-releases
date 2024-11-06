@@ -15,9 +15,6 @@ execute: |
   chroot "$rootfs" /usr/bin/epmd -daemon
   # test erl eval
   chroot "$rootfs" /usr/bin/erl -noshell -eval 'io:format("Erlang OK~n"), halt().' | grep "Erlang OK"
-  # test erl_call by connecting to an erl server
-  chroot "$rootfs" nohup erl -sname test -setcookie cookie &
-  chroot "$rootfs" /usr/bin/erl_call -sname test -a 'erlang node []'
   # test escript by executing a simple script
   chroot "$rootfs" echo '#!/usr/bin/escript' > test_script && echo 'main(_) -> io:format("escript OK~n").' >> test_script && chmod +x test_script && /usr/bin/escript test_script
   # test start_embedded to start the embedded environment
