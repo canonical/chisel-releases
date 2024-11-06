@@ -16,7 +16,11 @@ execute: |
   # test erl eval
   chroot "$rootfs" /usr/bin/erl -noshell -eval 'io:format("Erlang OK~n"), halt().' | grep "Erlang OK"
   # test escript by executing a simple script
-  chroot "$rootfs" echo '#!/usr/bin/escript' > test_script && echo 'main(_) -> io:format("escript OK~n").' >> test_script && chmod +x test_script && /usr/bin/escript test_script
+  echo '#!/usr/bin/escript' > test_script
+  echo 'main(_) -> io:format("escript OK~n").' >> test_script
+  chmod +x test_script
+  mv test_script "$rootfs"
+  chroot "$rootfs" /usr/bin/escript test_script
   # test start_embedded to start the embedded environment
   chroot "$rootfs" /usr/bin/start_embedded
   # test runcgi.sh from erlang-inets
