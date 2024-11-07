@@ -1,0 +1,44 @@
+summary: Integration tests for bins in perl
+
+execute: |
+  set -ex
+  # Test 1: ptar
+  rootfs=$(install-slices perl_ptar)
+  touch "$rootfs/file1.txt"
+  tar -cf "$rootfs/archive.tar" "$rootfs/file1.txt"
+
+  out=$(chroot "$rootfs" /usr/bin/ptar -tvf archive.tar 2>null)
+  test "/$out" = "$rootfs/file1.txt"
+
+  # Test 2: pod
+  rootfs=$(install-slices perl_pod coreutils_bins)
+  in=$(cat "test.pod")
+  cp test.pod "$rootfs/"
+  chroot "$rootfs" /usr/bin/pod2html --infile=/test.pod --outfile=test.html 2>null
+  test -f "$rootfs/test.html"
+  chroot "$rootfs" /usr/bin/pod2man /test.pod 2>null
+  chroot "$rootfs" /usr/bin/pod2text /test.pod 2>null
+  chroot "$rootfs" /usr/bin/podchecker /test.pod 2>null
+
+  # Test 3: zip
+  rootfs=$(install-slices perl_zip)
+  cp archive.zip "$rootfs/"
+  chroot "$rootfs" /usr/bin/zipdetails "archive.zip" 2>null
+
+  # Test 4: encodings
+  rootfs=$(install-slices perl_encodings)
+  in='锟斤拷'
+  tmp=$(chroot "$rootfs" /usr/bin/piconv -f utf-8 -t gbk -s $in 2>null)
+  out=$(chroot "$rootfs" /usr/bin/piconv -f gbk -t utf-8 -s $tmp 2>null)
+  test "$out" = "$in"
+
+  # Test 5: misc
+  rootfs=$(install-slices perl_misc)
+  out=$(chroot "$rootfs" /usr/bin/corelist -d 2024-07-26 2>null)
+  test "$out" = """
+  Data for 2023-11-29
+  2024-07-26 was first released with perl v5.19.5"""
+
+  echo "1234" > "$rootfs/file1.txt"
+  out=$(chroot "$rootfs" /usr/bin/shasum file1.txt 2>null)
+  test "$out" = "1be168ff837f043bde17c0314341c84271047b31  file1.txt"

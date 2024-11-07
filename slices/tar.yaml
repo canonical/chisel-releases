@@ -1,0 +1,31 @@
+package: tar
+
+essential:
+  - tar_copyright
+
+slices:
+  bins:
+    essential:
+      - tar_rmt
+      - tar_tar
+    contents:
+      /usr/sbin/tarcat:
+
+  copyright:
+    contents:
+      /usr/share/doc/tar/copyright:
+
+  rmt:
+    essential:
+      - libc6_libs
+    contents:
+      /etc/rmt: {symlink: /usr/sbin/rmt-tar}
+      /usr/sbin/rmt-tar:
+
+  tar:
+    essential:
+      - libacl1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/tar:

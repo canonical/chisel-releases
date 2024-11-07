@@ -1,0 +1,15 @@
+package: libpcsclite1
+
+essential:
+  - libpcsclite1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libpcsclite.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpcsclite1/copyright:

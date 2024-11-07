@@ -84,16 +84,16 @@ backends:
 prepare: |
   # Deb arch to GOARCH
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
-  chisel_tar="chisel.tar.gz"
 
   apt install -y curl wget
   curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
-    | awk "/browser_download_url/ && /chisel_v/ && /$arch/" \
+    | awk "/browser_download_url/ && /chisel_v/ && /_$arch\./" \
     | cut -d : -f 2,3 \
     | tr -d \" \
-    | xargs wget -O $chisel_tar
+    | xargs wget
 
-  tar -xf $chisel_tar -C /usr/local/bin
+  sha384sum -c chisel_v*sha384
+  tar -xf chisel_v*tar.gz -C /usr/local/bin
 
 prepare-each: chisel version
 
