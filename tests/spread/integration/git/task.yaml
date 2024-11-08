@@ -14,7 +14,7 @@ execute: |
 
     # link busybox
     pushd "$1/usr/bin/"
-    for TARGET in ash mkdir
+    for TARGET in ash mkdir cat sleep nc
     do
       ln -sf busybox $TARGET
     done
@@ -33,9 +33,9 @@ execute: |
 
     git init
 
-    git config  user.email "you@example.com"
-    git config  user.name "Your Name"
-    git config  core.pager cat
+    git config user.email "you@example.com"
+    git config user.name "Your Name"
+    git config core.pager cat
 
     echo hello_world > test_file
     git add test_file
@@ -53,20 +53,100 @@ execute: |
     git commit -m "hello foo_bar"
 
     git diff master
-    
+
     git branch
     git checkout master
     git merge test
+
   EOF
 
 
   # Testing for http-clone
-  rootfs_core=$(install-slices git_http-clone busybox_bins ca-certificates_data)
-  setup "$rootfs_core" 
+  rootfs_http=$(install-slices git_http-clone busybox_bins ca-certificates_data)
+  setup "$rootfs_http"
 
-  chroot "$rootfs_core" ash << EOF
+  chroot "$rootfs_http" ash << EOF
     set -ex
 
+    # TODO: should we replace this with locally hosted server?
     git clone https://github.com/cmatsuoka/figlet.git "$rootfs_bins/figlet"
+
+  EOF
+
+  # Testing for daemon clone
+  rootfs_daemon=$(install-slices git_daemon busybox_bins)
+  setup "$rootfs_daemon"
+
+  chroot "$rootfs_daemon" ash << EOF
+    set -xe
+
+    # create a test repo
+    repo_name=daemon-src
+    repo_path=/srv/git/\$repo_name
+    mkdir -p \$repo_path
+    cd \$repo_path
+
+    git init .
+    echo foo_bar >> test_file
+    git add test_file
+    git config user.email "you@example.com"
+    git config user.name "Your Name"
+    git commit -m "hello foo_bar"
+
+    # start the daemon in the background
+    cd ..
+    /usr/lib/git-core/git-daemon \\
+      --base-path=. \\
+      --reuseaddr \\
+      --listen=127.0.0.1 \\
+      --verbose \\
+      --export-all &
+    daemon_pid=\$!
+
+    # wait for server port to become available
+    while ! echo -n | nc 127.0.0.1 9418
+    do
+      sleep 1
+    done
+
+    # clone the repo
+    git clone git://localhost/\$repo_name daemon-dst
+
+    # cleanup
+    kill \$daemon_pid
+
+  EOF
+
+  # Testing for ftp-clone
+  rootfs_ftp=$(install-slices git_ftp-clone busybox_bins python3-pyftpdlib_libs)
+  setup "$rootfs_ftp"
+
+  chroot "$rootfs_ftp" ash << EOF
+    set -xe
+
+      # create a test repo
+      repo_name=ftp-src
+      repo_path=/srv/git/\$repo_name
+      mkdir -p \$repo_path
+      cd \$repo_path
+
+      git init --bare
+      git update-server-info
+
+      cd ..
+      /usr/bin/python3.12 -m pyftpdlib -V &
+      pyftpdlib_pid=\$!
+
+      # wait for server port to become available
+      while ! echo -n | nc 127.0.0.1 2121
+      do
+        sleep 1
+      done
+
+      # clone the repo
+      git clone ftp://localhost:2121/\$repo_name ftp-dst
+
+      # cleanup
+      kill \$pyftpdlib_pid
 
   EOF
