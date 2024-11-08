@@ -1,0 +1,41 @@
+package: erlang-base
+
+essential:
+  - erlang-base_copyright
+
+slices:
+  bins:
+    essential:
+      - erlang-base_modules
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libsystemd0_libs
+      - libtinfo6_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/epmd:
+      /usr/bin/erl:
+      /usr/bin/erl_call:
+      /usr/bin/erlc:
+      /usr/bin/escript:
+      /usr/bin/run_erl:
+      /usr/bin/start_embedded:
+      /usr/bin/to_erl:
+      /usr/lib/erlang/bin/**:
+      /usr/lib/erlang/erts-*/bin/**:
+      /usr/lib/erlang/lib/erl_interface-*/bin/erl_call:
+
+  modules:
+    contents:
+      /usr/lib/erlang/lib/compiler-*/ebin/**:
+      /usr/lib/erlang/lib/erts-*/ebin/**:
+      /usr/lib/erlang/lib/kernel-*/ebin/**:
+      /usr/lib/erlang/lib/sasl-*/ebin/**:
+      /usr/lib/erlang/lib/stdlib-*/ebin/**:
+      /usr/lib/erlang/lib/stdlib-*/include/**:
+      /usr/lib/erlang/releases/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-base/copyright:
