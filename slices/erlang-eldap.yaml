@@ -1,0 +1,17 @@
+package: erlang-eldap
+
+essential:
+  - erlang-eldap_copyright
+
+slices:
+  modules:
+    essential:
+      - erlang-asn1_modules
+      - erlang-base_bins
+      - erlang-ssl_modules
+    contents:
+      /usr/lib/erlang/lib/eldap-*/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-eldap/copyright:
