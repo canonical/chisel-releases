@@ -21,9 +21,8 @@ slices:
       - libpcre2-8-0_libs
       - zlib1g_libs
     contents:
-      # /usr/bin/git:
-      /usr/lib/git-core/git:
       /usr/bin/git: {symlink: /usr/lib/git-core/git}
+      /usr/lib/git-core/git:
 
   daemon:
     # support for git daemon
