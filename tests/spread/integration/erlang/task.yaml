@@ -24,4 +24,4 @@ execute: |
   # test start_embedded to start the embedded environment
   chroot "$rootfs" /usr/bin/start_embedded
   # test runcgi.sh from erlang-inets
-  chroot "$rootfs" /usr/lib/erlang/lib/inets-8.3.1.2/priv/bin/runcgi.sh /bin
+  chroot "$rootfs" /usr/lib/erlang/lib/inets-8.3.1.3/priv/bin/runcgi.sh /bin
