@@ -4,14 +4,18 @@ essential:
   - erlang-crypto_copyright
 
 slices:
-  modules:
+  libs:
     essential:
-      - erlang-base_bins
       - libc6_libs
       - libssl3t64_libs
     contents:
-      /usr/lib/erlang/lib/crypto-*/ebin/**:
       /usr/lib/erlang/lib/crypto-*/priv/lib/**:
+
+  modules:
+    essential:
+      - erlang-base_bins
+    contents:
+      /usr/lib/erlang/lib/crypto-*/ebin/**:
 
   copyright:
     contents:

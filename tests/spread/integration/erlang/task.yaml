@@ -1,8 +1,26 @@
 summary: Integration tests for Erlang
 
 execute: |
-  rootfs="$(install-slices erlang-base_bins erlang-inets_scripts erlang-os-mon_bins erlang-crypto_modules erlang-eldap_modules erlang-mnesia_modules erlang-parsetools_modules erlang-public-key_modules erlang-runtime-tools_modules erlang-ssl_modules erlang-syntax-tools_modules erlang-tools_modules erlang-xmerl_modules base-files_base bash_bins coreutils_bins)"
+  # install slices
+  rootfs="$(install-slices \
+  erlang-base_bins \
+  erlang-inets_scripts \
+  erlang-os-mon_bins \
+  erlang-crypto_libs \
+  erlang-crypto_modules \
+  erlang-eldap_modules \
+  erlang-mnesia_modules \
+  erlang-parsetools_modules \
+  erlang-public-key_modules \
+  erlang-runtime-tools_libs \
+  erlang-runtime-tools_modules \
+  erlang-ssl_modules \
+  erlang-syntax-tools_modules \
+  erlang-tools_modules \
+  erlang-xmerl_modules \
+  base-files_base)"
 
+  # preparing the test environment
   mkdir -p "$rootfs"/bin "$rootfs"/etc "$rootfs"/dev "$rootfs"/root
   cp /bin/sh "$rootfs"/bin/
   cp /etc/resolv.conf "$rootfs"/etc/
@@ -11,17 +29,22 @@ execute: |
   chmod 777 "$rootfs"/dev/null
   echo "cookie" > "$rootfs"/root/.erlang.cookie
   chroot "$rootfs" chmod 400 /root/.erlang.cookie
+
   # test epmd daemon
   chroot "$rootfs" /usr/bin/epmd -daemon
+
   # test erl eval
   chroot "$rootfs" /usr/bin/erl -noshell -eval 'io:format("Erlang OK~n"), halt().' | grep "Erlang OK"
+
   # test escript by executing a simple script
   echo '#!/usr/bin/escript' > test_script
   echo 'main(_) -> io:format("escript OK~n").' >> test_script
   chmod +x test_script
   mv test_script "$rootfs"
   chroot "$rootfs" /usr/bin/escript test_script
+
   # test start_embedded to start the embedded environment
   chroot "$rootfs" /usr/bin/start_embedded
+
   # test runcgi.sh from erlang-inets
   chroot "$rootfs" /usr/lib/erlang/lib/inets-8.3.1.2/priv/bin/runcgi.sh /bin

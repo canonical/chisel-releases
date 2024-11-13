@@ -4,14 +4,18 @@ essential:
   - erlang-runtime-tools_copyright
 
 slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/erlang/lib/runtime_tools-*/priv/**:
+
   modules:
     essential:
       - erlang-base_bins
       - erlang-mnesia_modules
-      - libc6_libs
     contents:
       /usr/lib/erlang/lib/runtime_tools-*/ebin/**:
-      /usr/lib/erlang/lib/runtime_tools-*/priv/**:
 
   copyright:
     contents:

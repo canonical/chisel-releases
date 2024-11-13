@@ -5,8 +5,6 @@ essential:
 
 slices:
   scripts:
-    essential:
-      - erlang-inets_modules
     contents:
       /usr/lib/erlang/lib/inets-*/priv/bin/runcgi.sh:
 
@@ -15,6 +13,7 @@ slices:
       - erlang-base_bins
       - erlang-ftp_modules
       - erlang-mnesia_modules
+      - erlang-runtime-tools_libs
       - erlang-runtime-tools_modules
       - erlang-ssl_modules
       - erlang-tftp_modules

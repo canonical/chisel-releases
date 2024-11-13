@@ -4,13 +4,17 @@ essential:
   - erlang-asn1_copyright
 
 slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/erlang/lib/asn1-*/priv/**:
+
   modules:
     essential:
       - erlang-base_bins
-      - libc6_libs
     contents:
       /usr/lib/erlang/lib/asn1-*/ebin/**:
-      /usr/lib/erlang/lib/asn1-*/priv/**:
 
   copyright:
     contents:

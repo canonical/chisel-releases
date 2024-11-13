@@ -7,6 +7,7 @@ slices:
   modules:
     essential:
       - erlang-base_bins
+      - erlang-runtime-tools_libs
       - erlang-runtime-tools_modules
       - erlang-ssl_modules
     contents:
