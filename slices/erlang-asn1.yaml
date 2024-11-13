@@ -16,7 +16,6 @@ slices:
       - erlang-base_modules
     contents:
       /usr/lib/erlang/lib/asn1-*/ebin/**:
-      /usr/lib/erlang/lib/asn1-*/priv/**:
 
   copyright:
     contents:
