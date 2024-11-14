@@ -2,6 +2,7 @@ format: v1
 
 archives:
   ubuntu:
+    default: true
     version: 22.04
     components: [main, universe]
     suites: [jammy, jammy-security, jammy-updates]
