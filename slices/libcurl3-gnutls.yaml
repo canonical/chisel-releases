@@ -20,8 +20,7 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libcurl-gnutls.so.3:
-      /usr/lib/*-linux-*/libcurl-gnutls.so.4*:
+      /usr/lib/*-linux-*/libcurl-gnutls.so.*:
 
   copyright:
     contents:
