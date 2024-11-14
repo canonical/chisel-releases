@@ -1,176 +1,53 @@
 package: git
-# Note: These slices do not currently include gitweb.
 
 essential:
   - git_copyright
 
 slices:
   bins:
-    # Pseudo slice to just get all binaries.
+    # basic functionality including:
+    # - init
+    # - config
+    # - add
+    # - commit
+    # - status
+    # - log
+    # - checkout
+    # - blame
+    # - diff
+    # - merge
     essential:
-      - git_core-bins
-      - git_net-bins
-
-  core-bins:
-    essential:
-      # libc6 libcurl3-gnutls libexpat1 libpcre2-8-0 zlib1g perl liberror-perl git-man
       - libc6_libs
       - libpcre2-8-0_libs
       - zlib1g_libs
-      # While CA certificates aren't necessarily needed for git, installing
     contents:
-      /usr/bin/git:
-      /usr/bin/git-receive-pack:
-      /usr/bin/git-shell:
-      /usr/bin/git-upload-archive:
-      /usr/bin/git-upload-pack:
+      /usr/bin/git: {symlink: /usr/lib/git-core/git}
       /usr/lib/git-core/git:
-      /usr/lib/git-core/git-add*:
-      /usr/lib/git-core/git-annotate:
-      /usr/lib/git-core/git-apply:
-      /usr/lib/git-core/git-archive:
-      /usr/lib/git-core/git-bisect*:
-      /usr/lib/git-core/git-blame:
-      /usr/lib/git-core/git-branch:
-      /usr/lib/git-core/git-bugreport:
-      /usr/lib/git-core/git-bundle:
-      /usr/lib/git-core/git-cat-file:
-      /usr/lib/git-core/git-check-*:
-      /usr/lib/git-core/git-checkout*:
-      /usr/lib/git-core/git-cherry*:
-      /usr/lib/git-core/git-clean:
-      /usr/lib/git-core/git-clone:
-      /usr/lib/git-core/git-column:
-      /usr/lib/git-core/git-commit*:
-      /usr/lib/git-core/git-config:
-      /usr/lib/git-core/git-count-objects:
-      /usr/lib/git-core/git-credential*:
-      /usr/lib/git-core/git-describe:
-      /usr/lib/git-core/git-diff:
-      /usr/lib/git-core/git-diff-*:
-      /usr/lib/git-core/git-difftool:
-      /usr/lib/git-core/git-difftool--helper:
-      /usr/lib/git-core/git-env--helper:
-      /usr/lib/git-core/git-fast-*:
-      /usr/lib/git-core/git-fetch*:
-      /usr/lib/git-core/git-filter-branch:
-      /usr/lib/git-core/git-fmt-merge-msg:
-      /usr/lib/git-core/git-for-each-*:
-      /usr/lib/git-core/git-format-patch:
-      /usr/lib/git-core/git-fsck*:
-      /usr/lib/git-core/git-gc:
-      /usr/lib/git-core/git-get-tar-commit-id:
-      /usr/lib/git-core/git-grep:
-      /usr/lib/git-core/git-hash-object:
-      /usr/lib/git-core/git-help:
-      /usr/lib/git-core/git-index-pack:
-      /usr/lib/git-core/git-init:
-      /usr/lib/git-core/git-init-db:
-      /usr/lib/git-core/git-interpret-trailers:
-      /usr/lib/git-core/git-log:
-      /usr/lib/git-core/git-ls-*:
-      /usr/lib/git-core/git-mailinfo:
-      /usr/lib/git-core/git-mailsplit:
-      /usr/lib/git-core/git-maintenance:
-      /usr/lib/git-core/git-merge:
-      /usr/lib/git-core/git-merge-base:
-      /usr/lib/git-core/git-merge-file:
-      /usr/lib/git-core/git-merge-index:
-      /usr/lib/git-core/git-merge-octopus:
-      /usr/lib/git-core/git-merge-one-file:
-      /usr/lib/git-core/git-merge-ours:
-      /usr/lib/git-core/git-merge-recursive:
-      /usr/lib/git-core/git-merge-resolve:
-      /usr/lib/git-core/git-merge-subtree:
-      /usr/lib/git-core/git-merge-tree:
-      /usr/lib/git-core/git-mktag:
-      /usr/lib/git-core/git-mktree:
-      /usr/lib/git-core/git-multi-pack-index:
-      /usr/lib/git-core/git-mv:
-      /usr/lib/git-core/git-name-rev:
-      /usr/lib/git-core/git-notes:
-      /usr/lib/git-core/git-pack-*:
-      /usr/lib/git-core/git-patch-id:
-      /usr/lib/git-core/git-prune:
-      /usr/lib/git-core/git-prune-packed:
-      /usr/lib/git-core/git-pull:
-      /usr/lib/git-core/git-push:
-      /usr/lib/git-core/git-quiltimport:
-      /usr/lib/git-core/git-range-diff:
-      /usr/lib/git-core/git-read-tree:
-      /usr/lib/git-core/git-rebase:
-      /usr/lib/git-core/git-receive-pack:
-      /usr/lib/git-core/git-reflog:
-      /usr/lib/git-core/git-remote:
-      /usr/lib/git-core/git-remote-ext:
-      /usr/lib/git-core/git-remote-fd:
-      /usr/lib/git-core/git-repack:
-      /usr/lib/git-core/git-replace:
-      /usr/lib/git-core/git-request-pull:
-      /usr/lib/git-core/git-rerere:
-      /usr/lib/git-core/git-reset:
-      /usr/lib/git-core/git-restore:
-      /usr/lib/git-core/git-rev-list:
-      /usr/lib/git-core/git-rev-parse:
-      /usr/lib/git-core/git-rm:
-      /usr/lib/git-core/git-send-pack:
-      /usr/lib/git-core/git-sh-i18n:
-      /usr/lib/git-core/git-sh-i18n--envsubst:
-      /usr/lib/git-core/git-sh-prompt:
-      /usr/lib/git-core/git-sh-setup:
-      /usr/lib/git-core/git-shell:
-      /usr/lib/git-core/git-shortlog:
-      /usr/lib/git-core/git-show:
-      /usr/lib/git-core/git-show-branch:
-      /usr/lib/git-core/git-show-index:
-      /usr/lib/git-core/git-show-ref:
-      /usr/lib/git-core/git-sparse-checkout:
-      /usr/lib/git-core/git-stage:
-      /usr/lib/git-core/git-stash:
-      /usr/lib/git-core/git-status:
-      /usr/lib/git-core/git-stripspace:
-      /usr/lib/git-core/git-submodule:
-      /usr/lib/git-core/git-submodule--helper:
-      /usr/lib/git-core/git-subtree:
-      /usr/lib/git-core/git-switch:
-      /usr/lib/git-core/git-symbolic-ref:
-      /usr/lib/git-core/git-tag:
-      /usr/lib/git-core/git-unpack-file:
-      /usr/lib/git-core/git-unpack-objects:
-      /usr/lib/git-core/git-update-index:
-      /usr/lib/git-core/git-update-ref:
-      /usr/lib/git-core/git-update-server-info:
-      /usr/lib/git-core/git-upload-archive:
-      /usr/lib/git-core/git-upload-pack:
-      /usr/lib/git-core/git-var:
-      /usr/lib/git-core/git-verify-commit:
-      /usr/lib/git-core/git-verify-pack:
-      /usr/lib/git-core/git-verify-tag:
-      /usr/lib/git-core/git-whatchanged:
-      /usr/lib/git-core/git-worktree:
-      /usr/lib/git-core/git-write-tree:
 
   daemon:
+    # support for git daemon
     essential:
-      - git_core-bins
+      - git_bins
     contents:
       /usr/lib/git-core/git-daemon:
 
-  net-bins:
-    # Binaries used with networking. Not needed if git is only being used for local
-    # items.
+  http-clone:
+    # requirements for cloning over http `git clone https://`:
     essential:
-      - git_core-bins
+      - git_bins
       - libcurl3-gnutls_libs
       - libexpat1_libs
-      # While ca-certificates_data isn't strictly a dependency, it is generally needed if you use https.
+      - libpcre2-8-0_libs
     contents:
-      /usr/bin/git-receive-pack:
-      /usr/bin/git-upload-archive:
-      /usr/bin/git-upload-pack:
-      /usr/lib/git-core/git-http-*:
-      /usr/lib/git-core/git-imap-send:
-      /usr/lib/git-core/git-remote-*:
+      /usr/lib/git-core/git-remote-http:
+      /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
+
+  ftp-clone:
+    # requirements for cloning over ftp `git clone ftp://`:
+    essential:
+      - git_http-clone
+    contents:
+      /usr/lib/git-core/git-remote-ftp:
 
   copyright:
     contents:
