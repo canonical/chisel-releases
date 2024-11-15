@@ -25,9 +25,9 @@ slices:
       - zlib1g_libs
     contents:
       /usr/bin/git: { symlink: /usr/lib/git-core/git }
+      /usr/lib/git-core/git:
       /usr/lib/git-core/git-rev-list:
       /usr/lib/git-core/git-upload-pack:
-      /usr/lib/git-core/git:
 
   daemon:
     essential:
