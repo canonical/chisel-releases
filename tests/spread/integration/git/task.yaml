@@ -1,9 +1,36 @@
 summary: Integration tests for git
 
+environment:
+  EXTRA_SLICES: "" # No extra slices by default.
+
+  # test git_bins
+  RUN/bins: test_bins
+  SLICE/bins: git_bins
+
+  # test git_http-clone
+  RUN/http_clone: test_http_clone
+  SLICE/http_clone: git_http-clone
+  EXTRA_SLICES/http_clone: ca-certificates_data
+
+  # test git_ftp-clone
+  RUN/ftp_clone: test_ftp_clone
+  SLICE/ftp_clone: git_ftp-clone
+
+  # test git_daemon
+  RUN/daemon_clone: test_daemon_clone
+  SLICE/daemon_clone: git_daemon
+
 execute: |
 
-  function setup(){
+  git_rootfs="/"
+  function chroot_git(){
+    # execute git within chroot. We use -C to cd since
+    # we have no $SHELL to navigate with. 
+    repo="$(realpath -e --relative-to="$git_rootfs" "$PWD")"
+    chroot "$git_rootfs" /usr/bin/git -C "$repo" "$@"
+  }
 
+  function setup(){
     mkdir -p "$1/dev/"
     mkdir -p "$1/etc/"
 
@@ -11,142 +38,120 @@ execute: |
     touch "$1/dev/null"
     head -c 500 /dev/urandom > "$1/dev/urandom"
     cp /etc/resolv.conf $1/etc/
+    mkdir "$1/root"
 
-    # link busybox
-    pushd "$1/usr/bin/"
-    for TARGET in ash mkdir cat sleep nc
-    do
-      ln -sf busybox $TARGET
-    done
+    # configure
+    git_rootfs="$1"
+
+  }
+
+  function test_bins(){
+
+    chroot_git init
+    chroot_git config user.email "root@localhost"
+    chroot_git config user.name "Test Runner"
+
+    echo "Test" > "$1/test.txt"
+    chroot_git add test.txt
+    chroot_git commit -m 'test commit'
+
+    chroot_git --no-pager status
+    chroot_git --no-pager log
+
+    chroot_git blame -L 1,1 test.txt
+    [[ $(chroot_git ls-files) == "test.txt" ]]
+
+    chroot_git checkout -b test
+
+    chroot_git --no-pager diff master
+    chroot_git branch
+    chroot_git checkout master
+    chroot_git merge test
+  }
+
+  function test_http_clone(){
+
+    pushd $1
+    chroot_git clone --depth 1 https://git.launchpad.net/ubuntu/+source/hello hello
+    cd $_
+
+    chroot_git --no-pager log
+    chroot_git fetch origin
+    chroot_git --no-pager  branch --remotes --contains $(chroot_git rev-list -n 1 HEAD)
     popd
 
   }
 
-  rootfs_bins=$(install-slices git_bins busybox_bins)
-  setup "$rootfs_bins"
+  function test_ftp_clone(){
+    ftp_root=$(install-slices python3-pyftpdlib_libs)
 
-  chroot "$rootfs_bins"  ash << EOF
-    set -ex
+    mkdir -p $ftp_root/srv/git/ftp-src
 
-    mkdir repo
-    cd repo
+    pushd $1/srv/git/ftp-src
+    chroot_git init --bare
+    chroot_git update-server-info
+    popd
 
-    git init
+    cp -r $1/srv $ftp_root
 
-    git config user.email "you@example.com"
-    git config user.name "Your Name"
-    git config core.pager cat
-
-    echo hello_world > test_file
-    git add test_file
-    git commit -m "hello hello_world"
-
-    git status
-    git log
-
-    git blame -L 1,1 test_file
-
-    git checkout -b test
-
-    echo foo_bar >> test_file
-    git add test_file
-    git commit -m "hello foo_bar"
-
-    git diff master
-
-    git branch
-    git checkout master
-    git merge test
-
-  EOF
-
-
-  # Testing for http-clone
-  rootfs_http=$(install-slices git_http-clone busybox_bins ca-certificates_data)
-  setup "$rootfs_http"
-
-  chroot "$rootfs_http" ash << EOF
-    set -ex
-
-    # TODO: should we replace this with locally hosted server?
-    git clone https://github.com/cmatsuoka/figlet.git "$rootfs_bins/figlet"
-
-  EOF
-
-  # Testing for daemon clone
-  rootfs_daemon=$(install-slices git_daemon busybox_bins)
-  setup "$rootfs_daemon"
-
-  chroot "$rootfs_daemon" ash << EOF
-    set -xe
-
-    # create a test repo
-    repo_name=daemon-src
-    repo_path=/srv/git/\$repo_name
-    mkdir -p \$repo_path
-    cd \$repo_path
-
-    git init .
-    echo foo_bar >> test_file
-    git add test_file
-    git config user.email "you@example.com"
-    git config user.name "Your Name"
-    git commit -m "hello foo_bar"
-
-    # start the daemon in the background
-    cd ..
-    /usr/lib/git-core/git-daemon \\
-      --base-path=. \\
-      --reuseaddr \\
-      --listen=127.0.0.1 \\
-      --verbose \\
-      --export-all &
-    daemon_pid=\$!
+    pushd $ftp_root/srv/git
+    chroot $ftp_root /usr/bin/python3.12 -m pyftpdlib -V -p 2121 -d /srv/git &
+    pyftpdlib_pid=$!
+    popd
 
     # wait for server port to become available
-    while ! echo -n | nc 127.0.0.1 9418
+    while ! fuser 2121/tcp > /dev/null 2>&1
     do
+      test -d /proc/$pyftpdlib_pid || echo "pyftpdlib exited early"
       sleep 1
     done
 
-    # clone the repo
-    git clone git://localhost/\$repo_name daemon-dst
+    # Test cloning the repo
+    pushd $1
+    chroot_git clone ftp://localhost:2121/ftp-src ftp-dst
+    popd
 
     # cleanup
-    kill \$daemon_pid
+    kill -TERM $(fuser 2121/tcp  2>/dev/null)
+  }
 
-  EOF
+  function test_daemon_clone(){
+    mkdir -p $1/srv/git/daemon-src
 
-  # Testing for ftp-clone
-  rootfs_ftp=$(install-slices git_ftp-clone busybox_bins python3-pyftpdlib_libs)
-  setup "$rootfs_ftp"
+    pushd $1/srv/git/daemon-src
+    git init
+    touch test-file
+    chroot_git add test-file
+    chroot_git config user.email "root@localhost"
+    chroot_git config user.name "Test Runner"
+    chroot_git commit -m "Hello daemon"
+    popd
 
-  chroot "$rootfs_ftp" ash << EOF
-    set -xe
+    chroot_git daemon \
+      --base-path=/srv/git \
+      --reuseaddr \
+      --listen=127.0.0.1 \
+      --verbose \
+      --export-all &
+    daemon_pid=$!
 
-      # create a test repo
-      repo_name=ftp-src
-      repo_path=/srv/git/\$repo_name
-      mkdir -p \$repo_path
-      cd \$repo_path
 
-      git init --bare
-      git update-server-info
+    # Wait for daemon to start
+    while ! fuser 9418/tcp > /dev/null 2>&1
+    do
+      test -d /proc/$daemon_pid || (echo "daemon exited early"; exit 1)
+      sleep 1
+    done
 
-      cd ..
-      /usr/bin/python3.12 -m pyftpdlib -V &
-      pyftpdlib_pid=\$!
+    pushd $1
+    # Test cloning the repo
+    chroot_git clone git://localhost/daemon-src daemon-dst
+    popd
 
-      # wait for server port to become available
-      while ! echo -n | nc 127.0.0.1 2121
-      do
-        sleep 1
-      done
+    # Cleanup. TERM or KILL cause git to return an en error.
+    kill -INT $(fuser 9418/tcp  2>/dev/null)
+  }
 
-      # clone the repo
-      git clone ftp://localhost:2121/\$repo_name ftp-dst
-
-      # cleanup
-      kill \$pyftpdlib_pid
-
-  EOF
+  rootfs=$(install-slices $SLICE $EXTRA_SLICES)
+  setup $rootfs
+  $RUN $rootfs
