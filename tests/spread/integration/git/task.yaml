@@ -39,7 +39,6 @@ execute: |
     # configure
     git_rootfs="$1"
     pushd "$1"
-    set +x
 
   }
 
@@ -82,9 +81,8 @@ execute: |
   function test_ftp_clone(){
     ftp_root=$(install-slices python3-pyftpdlib_libs)
 
-    mkdir -p $ftp_root/srv/git/ftp-src
-
-    pushd $1/srv/git/ftp-src
+    mkdir -p srv/git/ftp-src
+    pushd $_
     chroot_git init --bare
     chroot_git update-server-info
     popd
