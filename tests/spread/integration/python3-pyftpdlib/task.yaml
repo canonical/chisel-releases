@@ -1,0 +1,64 @@
+summary: Integration tests for python3-pyftpdlib
+
+execute: |
+  function wait_for_ftp(){
+    sleep 0.3
+    while ! nc -z 127.0.0.1 2121
+    do
+      test -d /proc/$pyftpdlib_pid || (echo "pyftpdlib exited early"; exit 1)
+      sleep 1
+    done
+  }
+  function cleanup(){
+    while [[ -d /proc/$pyftpdlib_pid ]]; do
+      kill $pyftpdlib_pid || true
+      sleep 0.1
+    done
+  }
+  # Still run the cleanup even on test failure.
+  trap cleanup EXIT
+
+  rootfs="$(install-slices python3-pyftpdlib_libs)"
+  mkdir "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  mkdir -p "${rootfs}"/srv/subdir
+  echo "Test file" > "${rootfs}"/srv/subdir/test-file
+
+  # Basic install smoke test
+
+  chroot "${rootfs}" python3.10 -m pyftpdlib --help
+
+  # Anonymous hosting
+
+  chroot "${rootfs}" /usr/bin/python3.10 -m pyftpdlib \
+    --verbose \
+    --interface=127.0.0.1 \
+    --port=2121 \
+    --directory=/srv &
+  export pyftpdlib_pid=$!
+  wait_for_ftp
+
+  [[ "$(curl ftp://127.0.0.1:2121/subdir/test-file)" == "Test file" ]]
+
+  cleanup
+
+  # With login and file upload.
+
+  chroot "${rootfs}" /usr/bin/python3.10 -m pyftpdlib \
+    --verbose \
+    --interface=127.0.0.1 \
+    --port=2121 \
+    --directory=/srv \
+    --write \
+    --username=testy \
+    --password=testy &
+  export pyftpdlib_pid=$!
+  wait_for_ftp
+
+  [[ "$(curl ftp://testy:testy@127.0.0.1:2121/subdir/test-file)" == "Test file" ]]
+
+  echo "Test upload" > test-upload
+  curl -T test-upload ftp://testy:testy@127.0.0.1:2121/test-upload
+  [[ "$(cat "${rootfs}/srv/test-upload")" == "$(cat test-upload)" ]]
+
+  cleanup
