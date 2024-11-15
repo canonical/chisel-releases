@@ -26,8 +26,6 @@ slices:
     contents:
       /usr/bin/git: { symlink: /usr/lib/git-core/git }
       /usr/lib/git-core/git:
-      /usr/lib/git-core/git-rev-list:
-      /usr/lib/git-core/git-upload-pack:
 
   daemon:
     essential:
