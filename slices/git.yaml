@@ -45,7 +45,7 @@ slices:
       - libpcre2-8-0_libs
     contents:
       /usr/lib/git-core/git-remote-http:
-      /usr/lib/git-core/git-remote-https: # link pointing to git-remote-http
+      /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
 
   ftp-clone:
     # requirements for cloning over ftp`git clone ftp://`:
