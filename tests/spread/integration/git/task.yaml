@@ -2,20 +2,16 @@ summary: Integration tests for git
 
 environment:
   EXTRA_SLICES: "" # No extra slices by default.
-
   # test git_bins
   RUN/bins: test_bins
   SLICE/bins: git_bins
-
   # test git_http-clone
   RUN/http_clone: test_http_clone
   SLICE/http_clone: git_http-clone
   EXTRA_SLICES/http_clone: ca-certificates_data
-
   # test git_ftp-clone
   RUN/ftp_clone: test_ftp_clone
   SLICE/ftp_clone: git_ftp-clone
-
   # test git_daemon
   RUN/daemon_clone: test_daemon_clone
   SLICE/daemon_clone: git_daemon
@@ -102,7 +98,11 @@ execute: |
     # wait for server port to become available
     while ! fuser 2121/tcp > /dev/null 2>&1
     do
-      test -d /proc/$pyftpdlib_pid || echo "pyftpdlib exited early"
+      if ! test -d /proc/$pyftpdlib_pid 
+      then
+        echo "pyftpdlib exited early"
+        exit 1
+      fi
       sleep 1
     done
 
@@ -139,7 +139,11 @@ execute: |
     # Wait for daemon to start
     while ! fuser 9418/tcp > /dev/null 2>&1
     do
-      test -d /proc/$daemon_pid || (echo "daemon exited early"; exit 1)
+      if ! test -d /proc/$daemon_pid 
+      then
+        echo "daemon exited early"
+        exit 1
+      fi
       sleep 1
     done
 
