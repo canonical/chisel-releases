@@ -38,11 +38,16 @@ execute: |
 
     # configure
     git_rootfs="$1"
+    pushd "$1"
+    set +x
 
   }
 
-  function test_bins(){
+  function cleanup(){
+    popd
+  }
 
+  function test_bins(){
     chroot_git init
     chroot_git config user.email "root@localhost"
     chroot_git config user.name "Test Runner"
@@ -66,16 +71,12 @@ execute: |
   }
 
   function test_http_clone(){
-
-    pushd $1
     chroot_git clone --depth 1 https://git.launchpad.net/ubuntu/+source/hello hello
     cd $_
 
     chroot_git --no-pager log
     chroot_git fetch origin
     chroot_git --no-pager  branch --remotes --contains $(chroot_git rev-list -n 1 HEAD)
-    popd
-
   }
 
   function test_ftp_clone(){
@@ -107,9 +108,7 @@ execute: |
     done
 
     # Test cloning the repo
-    pushd $1
     chroot_git clone ftp://localhost:2121/ftp-src ftp-dst
-    popd
 
     # cleanup
     kill -TERM $(fuser 2121/tcp  2>/dev/null)
@@ -147,10 +146,8 @@ execute: |
       sleep 1
     done
 
-    pushd $1
     # Test cloning the repo
     chroot_git clone git://localhost/daemon-src daemon-dst
-    popd
 
     # Cleanup. TERM or KILL cause git to return an en error.
     kill -INT $(fuser 9418/tcp  2>/dev/null)
@@ -159,3 +156,4 @@ execute: |
   rootfs=$(install-slices $SLICE $EXTRA_SLICES)
   setup $rootfs
   $RUN $rootfs
+  cleanup
