@@ -10,6 +10,8 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libstdc++6_libs
+      - openjdk-8-jre-headless_client-vm
+      - openjdk-8-jre-headless_server-vm
       - zlib1g_libs
     contents:
       /etc/java-8-openjdk/calendars.properties:
@@ -20,8 +22,6 @@ slices:
       # various classes and how they can interact with the system.
       /etc/java-8-openjdk/security/java.policy:
       /usr/lib/jvm/java-8-openjdk-*/jre/bin/java:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjsig.so: {arch: armhf}
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjvm.so: {arch: armhf}
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jli/libjli.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/jvm.cfg-default:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava.so:
@@ -30,17 +30,6 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libnio.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libverify.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libzip.so:
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - s390x
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/calendars.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/content-types.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/currency.data:
@@ -52,6 +41,33 @@ slices:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/rt.jar:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/security/java.policy:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/tzdb.dat:
+
+  client-vm:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjsig.so: {arch: armhf}
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjvm.so: {arch: armhf}
+
+  server-vm:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+      /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - s390x
 
   locale:
     essential:
