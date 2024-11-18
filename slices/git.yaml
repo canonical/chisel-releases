@@ -32,7 +32,6 @@ slices:
       - git_bins
     contents:
       /usr/lib/git-core/git-daemon:
-      /usr/lib/git-core/git-upload-pack:
 
   http-clone:
     # requirements for cloning over http`git clone https://`:
