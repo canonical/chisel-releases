@@ -1,0 +1,24 @@
+package: dosfstools
+
+essential:
+  - dosfstools_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/sbin/dosfsck:
+      /usr/sbin/dosfslabel:
+      /usr/sbin/fatlabel:
+      /usr/sbin/fsck.fat:
+      /usr/sbin/fsck.msdos:
+      /usr/sbin/fsck.vfat:
+      /usr/sbin/mkdosfs:
+      /usr/sbin/mkfs.fat:
+      /usr/sbin/mkfs.msdos:
+      /usr/sbin/mkfs.vfat:
+
+  copyright:
+    contents:
+      /usr/share/doc/dosfstools/copyright:
