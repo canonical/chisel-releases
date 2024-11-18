@@ -1,0 +1,24 @@
+package: fonts-liberation
+
+essential:
+  - fonts-liberation_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf:
+      /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-liberation/copyright:
