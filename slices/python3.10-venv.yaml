@@ -1,5 +1,8 @@
 package: python3.10-venv
 
+essential:
+  - python3.10-venv_copyright
+
 slices:
   ensurepip:
     essential:
@@ -9,3 +12,9 @@ slices:
       - python3.10_standard
     contents:
       /usr/lib/python3.10/ensurepip/*.py:
+
+  copyright:
+    essential:
+      - python3.10_copyright
+    contents:
+      /usr/share/doc/python3.10-venv/: { symlink: /usr/share/doc/python3.10/ }
