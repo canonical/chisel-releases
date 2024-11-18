@@ -1,0 +1,20 @@
+summary: Integration tests for util-linux
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices util-linux_bins)"
+  # we need dev/sys mounted for some of them
+  mkdir "${rootfs}"/dev
+  mkdir "${rootfs}"/sys
+  mount --rbind /dev "${rootfs}"/dev
+  mount --rbind /sys "${rootfs}"/sys
+  # smoke test a couple of the bundled applications
+  chroot "${rootfs}" lsblk | grep "loop0"
+  chroot "${rootfs}" lsipc | grep "MSGMNI"
+  chroot "${rootfs}" lsmem | grep "Total online memory"
+  chroot "${rootfs}" whereis lsblk | grep "/usr/bin/lsblk"
+  chroot "${rootfs}" su --version | grep "su from util-linux"
+

@@ -1,0 +1,18 @@
+package: erlang-runtime-tools
+
+essential:
+  - erlang-runtime-tools_copyright
+
+slices:
+  modules:
+    essential:
+      - erlang-base_bins
+      - erlang-mnesia_modules
+      - libc6_libs
+    contents:
+      /usr/lib/erlang/lib/runtime_tools-*/ebin/**:
+      /usr/lib/erlang/lib/runtime_tools-*/priv/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-runtime-tools/copyright:
