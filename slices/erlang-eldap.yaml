@@ -8,6 +8,7 @@ slices:
     essential:
       - erlang-asn1_modules
       - erlang-base_bins
+      - erlang-base_modules
       - erlang-ssl_modules
     contents:
       /usr/lib/erlang/lib/eldap-*/ebin/**:

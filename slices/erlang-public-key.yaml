@@ -8,6 +8,8 @@ slices:
     essential:
       - erlang-asn1_modules
       - erlang-base_bins
+      - erlang-base_modules
+      - erlang-crypto_libs
       - erlang-crypto_modules
     contents:
       /usr/lib/erlang/lib/public_key-*/ebin/**:
