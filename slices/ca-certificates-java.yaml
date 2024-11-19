@@ -7,7 +7,6 @@ slices:
   data:
     essential:
       - ca-certificates_data
-      - libnss3_nss
     contents:
       /etc/default/cacerts:
       /etc/ssl/certs/java/:
