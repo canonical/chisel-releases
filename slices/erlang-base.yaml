@@ -34,6 +34,7 @@ slices:
       /usr/lib/erlang/lib/compiler-*/ebin/**:
       /usr/lib/erlang/lib/erts-*/ebin/**:
       /usr/lib/erlang/lib/kernel-*/ebin/**:
+      /usr/lib/erlang/lib/kernel-*/include/**:
       /usr/lib/erlang/lib/sasl-*/ebin/**:
       /usr/lib/erlang/lib/stdlib-*/ebin/**:
       /usr/lib/erlang/lib/stdlib-*/include/**:

@@ -7,6 +7,7 @@ slices:
   bins:
     essential:
       - erlang-base_bins
+      - erlang-base_modules
       - erlang-crypto_libs
       - erlang-crypto_modules
       - erlang-mnesia_modules

@@ -13,6 +13,7 @@ slices:
   modules:
     essential:
       - erlang-base_bins
+      - erlang-base_modules
       - erlang-mnesia_modules
     contents:
       /usr/lib/erlang/lib/runtime_tools-*/ebin/**:

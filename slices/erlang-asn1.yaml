@@ -13,6 +13,7 @@ slices:
   modules:
     essential:
       - erlang-base_bins
+      - erlang-base_modules
     contents:
       /usr/lib/erlang/lib/asn1-*/ebin/**:
 
