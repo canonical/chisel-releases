@@ -13,6 +13,8 @@ slices:
   standard:
     essential:
       - python3.12_standard
+    contents:
+      /usr/bin/python3: {symlink: /usr/bin/python3.12}
 
   utils:
     essential:
