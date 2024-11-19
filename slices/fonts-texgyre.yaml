@@ -1,0 +1,18 @@
+package: fonts-texgyre
+
+essential:
+  - fonts-texgyre_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/texmf/fonts/opentype/public/tex-gyre/*:
+
+  config:
+    contents:
+      /etc/fonts/conf.avail/65-fonts-texgyre.conf:
+      /etc/fonts/conf.d/65-fonts-texgyre.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-texgyre/copyright:
