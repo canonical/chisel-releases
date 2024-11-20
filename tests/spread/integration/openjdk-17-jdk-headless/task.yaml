@@ -22,6 +22,9 @@ execute: |
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-17-jdk-headless_${SLICE} dash_bins)"
   cp *.java ${rootfs}/
+
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.17.0*
   cp all.policy ${rootfs}/
   javac *.java
 
