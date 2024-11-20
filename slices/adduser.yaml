@@ -8,7 +8,11 @@ slices:
     essential:
       - adduser_config
       - adduser_modules
+      - bsdutils_bins
+      - libperl5.38t64_system-utils
       - passwd_bins
+      - perl-base_bins
+      - perl-base_modules
     contents:
       /usr/sbin/addgroup:
       /usr/sbin/adduser:
