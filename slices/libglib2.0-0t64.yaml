@@ -13,6 +13,7 @@ slices:
 
   core:
     essential:
+      - libatomic1_libs
       - libc6_libs
       - libpcre2-8-0_libs
     contents:

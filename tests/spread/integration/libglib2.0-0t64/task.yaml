@@ -8,5 +8,5 @@ execute: |
   fi
 
   chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/gio-querymodules' 2| grep -q 'Usage: gio-querymodules'
-  chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/glib-compile-schemas --version' | grep -q '2\.80\.0'
+  chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/glib-compile-schemas --version' | grep -q '2\.82'
   chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/gio-launch-desktop sh -c "echo Testing"' | grep -q Testing
