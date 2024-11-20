@@ -1,0 +1,7 @@
+summary: Integration tests for perl-base
+
+execute: |
+  rootfs=$(install-slices base-files_base bash_bins coreutils_bins perl-base_bins)
+  mkdir -p "$rootfs/dev"
+  mount --bind /dev "$rootfs/dev"
+  chroot "$rootfs" perl -e 'print "hello world\n";' | grep "hello world"

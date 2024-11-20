@@ -1,0 +1,16 @@
+package: libfontenc1
+
+essential:
+  - libfontenc1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libfontenc.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfontenc1/copyright:
