@@ -11,6 +11,7 @@ execute: |
     for pid in "${pids[@]}"; do
       kill "$pid" || true
     done
+    apt remove --purge -y openjdk-11-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
