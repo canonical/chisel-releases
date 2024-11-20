@@ -27,11 +27,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnss3.so:
       /usr/lib/*-linux-*/libnssutil3.so:
-      # Checksum files (.chk) are required for the NSS softoken to operate in
-      # FIPS 140 mode.
-      # https://www-archive.mozilla.org/projects/security/pki/nss/tech-notes/tn6
-      /usr/lib/*-linux-*/nss/libsoftokn3.chk:
-      /usr/lib/*-linux-*/nss/libsoftokn3.so:
 
   smime:
     essential:
