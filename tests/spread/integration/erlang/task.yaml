@@ -27,7 +27,6 @@ execute: |
   cp /etc/nsswitch.conf "$rootfs"/etc/
   touch "$rootfs"/dev/null
   echo "cookie" > "$rootfs"/root/.erlang.cookie
-  chroot "$rootfs" chmod 400 /root/.erlang.cookie
 
   # test epmd daemon
   chroot "$rootfs" /usr/bin/epmd -daemon
@@ -38,7 +37,6 @@ execute: |
   # test escript by executing a simple script
   echo '#!/usr/bin/escript' > test_script
   echo 'main(_) -> io:format("escript OK~n").' >> test_script
-  chmod +x test_script
   mv test_script "$rootfs"
   chroot "$rootfs" /usr/bin/escript test_script
 
