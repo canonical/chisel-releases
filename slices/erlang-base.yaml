@@ -7,11 +7,10 @@ slices:
   bins:
     essential:
       - bash_bins
-      - coreutils_bins
+      - coreutils_env
       - erlang-base_modules
       - libc6_libs
       - libgcc-s1_libs
-      - libreadline8t64_libs
       - libstdc++6_libs
       - libsystemd0_libs
       - libtinfo6_libs
