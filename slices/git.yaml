@@ -39,7 +39,6 @@ slices:
       - git_bins
       - libcurl3t64-gnutls_libs
       - libexpat1_libs
-      - libpcre2-8-0_libs
     contents:
       /usr/lib/git-core/git-remote-http:
       /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
