@@ -1,0 +1,29 @@
+package: python3-minimal
+
+essential:
+  - python3-minimal_copyright
+
+slices:
+  bins:
+    essential:
+      - python3-minimal_config
+      - python3-minimal_modules
+      - python3.12-minimal_bins
+    contents:
+      /usr/bin/py3clean:
+      /usr/bin/py3compile:
+      /usr/bin/py3versions:
+      /usr/bin/python3:
+
+  config:
+    contents:
+      /usr/share/python3/debian_defaults:
+
+  modules:
+    contents:
+      /usr/share/python3/debpython/*:
+      /usr/share/python3/py3versions.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-minimal/copyright:
