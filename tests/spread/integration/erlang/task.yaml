@@ -26,7 +26,6 @@ execute: |
   cp /etc/resolv.conf "$rootfs"/etc/
   cp /etc/nsswitch.conf "$rootfs"/etc/
   touch "$rootfs"/dev/null
-  chmod 777 "$rootfs"/dev/null
   echo "cookie" > "$rootfs"/root/.erlang.cookie
   chroot "$rootfs" chmod 400 /root/.erlang.cookie
 
