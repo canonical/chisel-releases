@@ -5,16 +5,16 @@ environment:
   # test git_bins
   RUN/bins: test_bins
   SLICE/bins: git_bins
-  # test git_http-clone
-  RUN/http_clone: test_http_clone
-  SLICE/http_clone: git_http-clone
-  EXTRA_SLICES/http_clone: ca-certificates_data
-  # test git_ftp-clone
-  RUN/ftp_clone: test_ftp_clone
-  SLICE/ftp_clone: git_ftp-clone
+  # test git_http-support
+  RUN/http_support: test_http_support
+  SLICE/http_support: git_http-support
+  EXTRA_SLICES/http_support: ca-certificates_data
+  # test git_ftp-support
+  RUN/ftp_support: test_ftp_support
+  SLICE/ftp_support: git_ftp-support
   # test git_daemon
-  RUN/daemon_clone: test_daemon_clone
-  SLICE/daemon_clone: git_daemon
+  RUN/daemon_support: test_daemon_support
+  SLICE/daemon_support: git_daemon
 
 execute: |
 
@@ -69,7 +69,7 @@ execute: |
     chroot_git merge test
   }
 
-  function test_http_clone(){
+  function test_http_support(){
     chroot_git clone --depth 1 https://git.launchpad.net/ubuntu/+source/hello hello
     cd $_
 
@@ -78,7 +78,7 @@ execute: |
     chroot_git --no-pager  branch --remotes --contains $(chroot_git rev-list -n 1 HEAD)
   }
 
-  function test_ftp_clone(){
+  function test_ftp_support(){
     ftp_root=$(install-slices python3-pyftpdlib_libs)
 
     mkdir -p srv/git/ftp-src
@@ -112,7 +112,7 @@ execute: |
     kill -TERM $(fuser 2121/tcp  2>/dev/null)
   }
 
-  function test_daemon_clone(){
+  function test_daemon_support(){
     mkdir -p $1/srv/git/daemon-src
 
     pushd $1/srv/git/daemon-src

@@ -33,7 +33,7 @@ slices:
     contents:
       /usr/lib/git-core/git-daemon:
 
-  http-clone:
+  http-support:
     # requirements for cloning over http`git clone https://`:
     essential:
       - git_bins
@@ -43,10 +43,10 @@ slices:
       /usr/lib/git-core/git-remote-http:
       /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
 
-  ftp-clone:
+  ftp-support:
     # requirements for cloning over ftp`git clone ftp://`:
     essential:
-      - git_http-clone
+      - git_http-support
     contents:
       /usr/lib/git-core/git-remote-ftp:
 
