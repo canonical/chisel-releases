@@ -38,8 +38,8 @@ slices:
       - libpython3-stdlib_pydoc
       - libpython3-stdlib_text
       - libpython3-stdlib_unix
-      - python3_core
       - python3.12_standard
+      - python3_core
 
   utils:
     essential:
