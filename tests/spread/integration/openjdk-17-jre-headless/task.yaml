@@ -63,4 +63,4 @@ execute: |
     esac
   done
 
-restore: apt remove -y openjdk-11-jre-headless
+restore: apt remove -y openjdk-11-jdk-headless
