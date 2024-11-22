@@ -6,22 +6,24 @@ essential:
 slices:
   bins:
     essential:
-      - python3-minimal_config
-      - python3-minimal_modules
       - python3.12-minimal_bins
+    contents:
+      /usr/bin/python3:
+
+  py3compile:
+    essential:
+      - python3-minimal_bins
     contents:
       /usr/bin/py3clean:
       /usr/bin/py3compile:
-      /usr/bin/py3versions:
-      /usr/bin/python3:
-
-  config:
-    contents:
-      /usr/share/python3/debian_defaults:
-
-  modules:
-    contents:
       /usr/share/python3/debpython/*:
+
+  py3versions:
+    essential:
+      - python3-minimal_bins
+    contents:
+      /usr/bin/py3versions:
+      /usr/share/python3/debian_defaults:
       /usr/share/python3/py3versions.py:
 
   copyright:

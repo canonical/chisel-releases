@@ -15,7 +15,6 @@ slices:
       - libpython3-stdlib_aix-support
       - libpython3-stdlib_all-os
       - libpython3-stdlib_concurrency
-      - libpython3-stdlib_core
       - libpython3-stdlib_crypto
       - libpython3-stdlib_custom-interpreters
       - libpython3-stdlib_data-persistence
@@ -39,7 +38,7 @@ slices:
       - libpython3-stdlib_pydoc
       - libpython3-stdlib_text
       - libpython3-stdlib_unix
-      - python3-minimal_bins
+      - python3_core
       - python3.12_standard
 
   utils:
