@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       - bash_bins
-      - coreutils_modified-command-invocation
+      - coreutils_env
       - erlang-base_modules
       - libc6_libs
       - libgcc-s1_libs
