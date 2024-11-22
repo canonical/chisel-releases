@@ -12,7 +12,7 @@ slices:
 
   py3compile:
     essential:
-      - python3-minimal_bins
+      - python3-minimal_python3
     contents:
       /usr/bin/py3clean:
       /usr/bin/py3compile:
@@ -21,7 +21,7 @@ slices:
 
   py3versions:
     essential:
-      - python3-minimal_bins
+      - python3-minimal_python3
     contents:
       /usr/bin/py3versions:
       /usr/share/python3/debian_defaults:
