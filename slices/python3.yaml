@@ -7,7 +7,7 @@ slices:
   core:
     essential:
       - libpython3-stdlib_core
-      - python3-minimal_bins
+      - python3-minimal_python3
       - python3.12_core
 
   standard:
@@ -15,7 +15,6 @@ slices:
       - libpython3-stdlib_aix-support
       - libpython3-stdlib_all-os
       - libpython3-stdlib_concurrency
-      - libpython3-stdlib_core
       - libpython3-stdlib_crypto
       - libpython3-stdlib_custom-interpreters
       - libpython3-stdlib_data-persistence
@@ -41,6 +40,7 @@ slices:
       - libpython3-stdlib_unix
       - python3-minimal_bins
       - python3.12_standard
+      - python3_core
 
   utils:
     essential:
