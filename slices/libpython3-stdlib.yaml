@@ -1,5 +1,8 @@
 package: libpython3-stdlib
 
+essential:
+  - libpython3-stdlib_copyright
+
 slices:
   core:
     essential:
@@ -108,3 +111,7 @@ slices:
   extras:
     essential:
       - libpython3.12-stdlib_extras
+
+  copyright:
+    contents:
+      /usr/share/doc/libpython3-stdlib/copyright:
