@@ -7,7 +7,7 @@ slices:
   core:
     essential:
       - libpython3-stdlib_core
-      - python3-minimal_bins
+      - python3-minimal_python3
       - python3.12_core
 
   standard:
@@ -38,6 +38,7 @@ slices:
       - libpython3-stdlib_pydoc
       - libpython3-stdlib_text
       - libpython3-stdlib_unix
+      - python3-minimal_bins
       - python3.12_standard
       - python3_core
 
