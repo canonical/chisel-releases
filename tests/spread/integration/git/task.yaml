@@ -90,7 +90,7 @@ execute: |
     cp -r $1/srv $ftp_root
 
     pushd $ftp_root/srv/git
-    chroot $ftp_root /usr/bin/python3.12 -m pyftpdlib -V -p 2121 -d /srv/git &
+    chroot $ftp_root /usr/bin/python3 -m pyftpdlib -V -p 2121 -d /srv/git &
     pyftpdlib_pid=$!
     popd
 

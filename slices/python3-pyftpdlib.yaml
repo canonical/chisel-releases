@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      - python3.12_standard
+      - python3_standard
     contents:
       /usr/lib/python3/dist-packages/pyftpdlib/*.py:
 

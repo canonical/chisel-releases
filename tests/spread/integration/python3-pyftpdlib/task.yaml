@@ -26,11 +26,11 @@ execute: |
 
   # Basic install smoke test
 
-  chroot "${rootfs}" python3.12 -m pyftpdlib --help
+  chroot "${rootfs}" python3 -m pyftpdlib --help
 
   # Anonymous hosting
 
-  chroot "${rootfs}" /usr/bin/python3.12 -m pyftpdlib \
+  chroot "${rootfs}" /usr/bin/python3 -m pyftpdlib \
     --verbose \
     --interface=127.0.0.1 \
     --port=2121 \
@@ -44,7 +44,7 @@ execute: |
 
   # With login and file upload.
 
-  chroot "${rootfs}" /usr/bin/python3.12 -m pyftpdlib \
+  chroot "${rootfs}" /usr/bin/python3 -m pyftpdlib \
     --verbose \
     --interface=127.0.0.1 \
     --port=2121 \
