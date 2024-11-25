@@ -5,7 +5,7 @@ essential:
 
 slices:
   bins:
-    # basic functionality including:
+    # Basic functionality including:
     # - add
     # - blame
     # - branch
@@ -28,13 +28,14 @@ slices:
       /usr/lib/git-core/git:
 
   daemon:
+    # Adds support for cloning over git daemon
     essential:
       - git_bins
     contents:
       /usr/lib/git-core/git-daemon:
 
   http-support:
-    # requirements for cloning over http`git clone https://`:
+    # Adds support for cloning over HTTP e.g. git clone https://...
     essential:
       - git_bins
       - libcurl3t64-gnutls_libs
@@ -44,7 +45,7 @@ slices:
       /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
 
   ftp-support:
-    # requirements for cloning over ftp`git clone ftp://`:
+    # Adds support for cloning over FTP e.g. git clone ftp://...
     essential:
       - git_http-support
     contents:
