@@ -24,6 +24,9 @@ slices:
       - libpcre2-8-0_libs
       - zlib1g_libs
     contents:
+      # /usr/bin/git is a regular file in the package, but shares
+      # the same hash of /usr/lib/git-core/git. That's why this
+      # is added as a symlink to reduce space.
       /usr/bin/git: { symlink: /usr/lib/git-core/git }
       /usr/lib/git-core/git:
 
