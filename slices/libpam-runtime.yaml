@@ -27,11 +27,11 @@ slices:
       - libpam-runtime_var
     contents:
       /etc/pam.conf:
-      /etc/pam.d/common-account: {text: '', mutable: true}
-      /etc/pam.d/common-auth: {text: '', mutable: true}
-      /etc/pam.d/common-password: {text: '', mutable: true}
-      /etc/pam.d/common-session: {text: '', mutable: true}
-      /etc/pam.d/common-session-noninteractive: {text: '', mutable: true}
+      /etc/pam.d/common-account: { text: "", mutable: true }
+      /etc/pam.d/common-auth: { text: "", mutable: true }
+      /etc/pam.d/common-password: { text: "", mutable: true }
+      /etc/pam.d/common-session: { text: "", mutable: true }
+      /etc/pam.d/common-session-noninteractive: { text: "", mutable: true }
       /etc/pam.d/other:
       /usr/share/pam-configs/unix: { until: mutate }
       /usr/share/pam/common-account: { until: mutate }
@@ -138,8 +138,17 @@ slices:
       /usr/share/pam-configs/unix:
 
   pam-defaults:
-    essential:
-      - libpam-runtime_config
+    contents:
+      /usr/share/pam/common-account:
+      /usr/share/pam/common-account.md5sums:
+      /usr/share/pam/common-auth:
+      /usr/share/pam/common-auth.md5sums:
+      /usr/share/pam/common-password:
+      /usr/share/pam/common-password.md5sums:
+      /usr/share/pam/common-session:
+      /usr/share/pam/common-session-noninteractive:
+      /usr/share/pam/common-session-noninteractive.md5sums:
+      /usr/share/pam/common-session.md5sums:
 
   # folders expected by libpam to exist
   var:
