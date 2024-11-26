@@ -119,7 +119,6 @@ slices:
       /usr/bin/su:
       /usr/sbin/runuser:
 
-
   # the following emulates the post-install script
   generated:
     essential:
