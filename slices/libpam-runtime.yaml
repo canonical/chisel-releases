@@ -20,7 +20,7 @@ slices:
 
   # Emulate in part what pam-auth-update does. There is a short coming right now, we
   # cannot include other files from other slices that install into
-  # /usr/share/pam-configs/*
+  #   /usr/share/pam-configs/*
   # since this mutation script wont be able to access them as of writing.
   config:
     essential:
