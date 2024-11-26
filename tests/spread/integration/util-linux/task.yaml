@@ -20,6 +20,13 @@ execute: |
   chroot "${rootfs}" lsmem | grep "Total online memory"
   chroot "${rootfs}" whereis lsblk | grep "/usr/bin/lsblk"
 
+  # Test the su and runuser binaries
+  cp /etc/passwd "${rootfs}"/etc/passwd
+  echo "foo:x:1001:1001:Test user,,,:/tmp:/bin/bash" >>"${rootfs}"/etc/passwd
+  cp /usr/bin/whoami "${rootfs}"/usr/bin/
+  chroot "${rootfs}" su foo -c whoami | grep "foo"
+  chroot "${rootfs}" runuser foo -c whoami | grep "foo"
+
   # cleanup
   umount -l "${rootfs}"/dev
   umount -l "${rootfs}"/sys

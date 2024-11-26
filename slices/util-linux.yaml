@@ -19,6 +19,7 @@ slices:
       - libudev1_libs
       - libuuid1_libs
       - util-linux_generated
+      - util-linux_su-support
       - zlib1g_libs
     contents:
       /usr/bin/addpart:
@@ -67,7 +68,6 @@ slices:
       /usr/bin/setpriv:
       /usr/bin/setsid:
       /usr/bin/setterm:
-      /usr/bin/su:
       /usr/bin/taskset:
       /usr/bin/uclampset:
       /usr/bin/unshare:
@@ -100,28 +100,46 @@ slices:
       /usr/sbin/pivot_root:
       /usr/sbin/readprofile:
       /usr/sbin/rtcwake:
-      /usr/sbin/runuser:
       /usr/sbin/sulogin:
       /usr/sbin/swaplabel:
       /usr/sbin/switch_root:
       /usr/sbin/wipefs:
       /usr/sbin/zramctl:
 
+  # Contains the binaries which supports running commands with substitute user
+  # and group IDs.
+  su-support:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libpam0g_libs
+      - util-linux_pam-profiles
+    contents:
+      /usr/bin/su:
+      /usr/sbin/runuser:
+
+
   # the following emulates the post-install script
   generated:
+    essential:
+      # Since the more binary is located at ./usr/bin/more and /bin in noble
+      # points to /usr/bin via base-files, the base-files_bin slice is included
+      # here.
+      - base-files_bin
     contents:
-      /usr/bin/pager: {symlink: /usr/bin/more}
+      /usr/bin/pager: {symlink: /bin/more}
 
   mime:
     contents:
       /usr/lib/mime/packages/util-linux:
 
-  pam-profile:
+  pam-profiles:
     contents:
-    /etc/pam.d/runuser:
-    /etc/pam.d/runuser-l:
-    /etc/pam.d/su:
-    /etc/pam.d/su-l:
+      /etc/pam.d/runuser:
+      /etc/pam.d/runuser-l:
+      /etc/pam.d/su:
+      /etc/pam.d/su-l:
 
   services:
     essential:
