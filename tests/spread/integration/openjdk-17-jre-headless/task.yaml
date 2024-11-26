@@ -16,6 +16,8 @@ execute: |
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-17-jre-headless_${SLICE} dash_bins)"
   apt install --update -y openjdk-11-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
   javac *.java
   jar cvf test.jar *.java
   cp *.jar ${rootfs}/
@@ -60,3 +62,6 @@ execute: |
       ;;
     esac
   done
+
+restore: |
+  apt remove -y --purge openjdk-11-jdk-headless
