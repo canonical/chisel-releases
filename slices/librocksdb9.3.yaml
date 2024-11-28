@@ -1,0 +1,23 @@
+package: librocksdb9.3
+
+essential:
+  - librocksdb9.3_copyright
+
+slices:
+  libs:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libgflags2.2_libs
+      - liblz4-1_libs
+      - libsnappy1v5_libs
+      - libstdc++6_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/librocksdb.so.9.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/librocksdb9.3/copyright:
