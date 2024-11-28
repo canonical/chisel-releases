@@ -48,6 +48,13 @@ slices:
       - coreutils_user-information
       - coreutils_working-context
 
+  # separate slice for env binary
+  env:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/env:
+
   # Output of entire files -- These commands read and write entire files,
   # possibly transforming them in some way.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
