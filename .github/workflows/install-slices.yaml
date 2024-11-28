@@ -22,7 +22,7 @@ on:
 env:
   # Package architectures and chisel-releases branches to test on.
   ARCHES: ${{ toJson('["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]') }}
-  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04"]') }}
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04","ubuntu-24.10"]') }}
 
 jobs:
   prepare-install:
