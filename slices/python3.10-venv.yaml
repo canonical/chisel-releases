@@ -17,4 +17,4 @@ slices:
     essential:
       - python3.10_copyright
     contents:
-      /usr/share/doc/python3.10-venv/: { symlink: /usr/share/doc/python3.10/ }
+      /usr/share/doc/python3.10-venv/:
