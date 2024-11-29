@@ -17,4 +17,4 @@ slices:
     essential:
       - python3.11_copyright
     contents:
-      /usr/share/doc/python3.11-venv/:
+      /usr/share/doc/python3.11-venv:
