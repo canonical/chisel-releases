@@ -1,0 +1,16 @@
+package: libxext6
+
+essential:
+  - libxext6_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libx11-6_libs
+    contents:
+      /usr/lib/*-linux-*/libXext.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxext6/copyright:

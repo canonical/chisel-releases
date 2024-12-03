@@ -1,0 +1,23 @@
+summary: Integration tests for gpg
+
+execute: |
+  rootfs="$(install-slices gpg_bins)"
+
+  # Create a key-generation script
+  echo << EOF > "${rootfs}/keygen-script"
+    Key-Type: default
+    Key-Length: 2048
+    Subkey-Type: default
+    Subkey-Length: 2048
+    Name-Real: Root Superuser
+    Name-Email: example@example.com
+    Expire-Date: 0
+    %no-protection
+  EOF
+  # Needs a root homedir
+  mkdir -p "${rootfs}/root"
+
+  chroot "${rootfs}/" gpg --version
+  chroot "${rootfs}/" gpg --list-secret-keys
+  # Generate a key
+  chroot "${rootfs}/" gpg --batch --generate-key /keygen-script

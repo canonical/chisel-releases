@@ -1,0 +1,19 @@
+package: fonts-noto-mono
+
+essential:
+  - fonts-noto-mono_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/noto/NotoMono-Regular.ttf:
+      /usr/share/fonts/truetype/noto/NotoSansMono-Bold.ttf:
+      /usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf:
+
+  config:
+    contents:
+      /etc/fonts/conf.avail/30-droid-noto-mono.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-noto-mono/copyright:
