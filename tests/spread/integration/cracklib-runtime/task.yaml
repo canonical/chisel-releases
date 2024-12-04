@@ -1,0 +1,31 @@
+summary: Integration tests for cracklib-runtime
+
+systems:
+  - -ubuntu-24.04-ppc64le
+  - -ubuntu-24.04-s390x
+
+execute: |
+  rootfs="$(install-slices bash_bins base-files_base coreutils_bins cracklib-runtime_bins)"
+
+  chroot "$rootfs" ln -s /usr/bin/bash /bin/sh
+  chroot "$rootfs" /usr/sbin/update-cracklib
+
+  if ! [ -e "$rootfs"/var/cache/cracklib/cracklib_dict.hwm ]; then
+    echo "expected /var/cache/cracklib/cracklib_dict.hwm to exist"
+    exit -1
+  fi
+
+  if ! [ -e "$rootfs"/var/cache/cracklib/cracklib_dict.pwd ]; then
+    echo "expected /var/cache/cracklib/cracklib_dict.pwd to exist"
+    exit -1
+  fi
+
+  if ! [ -e "$rootfs"/var/cache/cracklib/cracklib_dict.pwi ]; then
+    echo "expected /var/cache/cracklib/cracklib_dict.pwi to exist"
+    exit -1
+  fi
+
+  if ! [ -e "$rootfs"/var/cache/cracklib/src-dicts ]; then
+    echo "expected /var/cache/cracklib/src-dicts to exist"
+    exit -1
+  fi
