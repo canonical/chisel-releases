@@ -8,3 +8,4 @@ slices:
       # libs slice and is thus omitted.
     contents:
       /usr/lib/*-linux-*/libatomic.so.1*:
+

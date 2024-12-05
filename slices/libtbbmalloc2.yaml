@@ -1,5 +1,8 @@
 package: libtbbmalloc2
 
+essential:
+  - libtbbmalloc2_copyright
+
 slices:
   libs:
     essential:
@@ -9,3 +12,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libtbbmalloc.so.2*:
       /usr/lib/*-linux-*/libtbbmalloc_proxy.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtbbmalloc2/copyright:

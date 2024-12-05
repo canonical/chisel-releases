@@ -1,5 +1,8 @@
 package: libtbb2
 
+essential:
+  - libtbb2_copyright
+
 slices:
   libs:
     essential:
@@ -10,3 +13,7 @@ slices:
       - libtbbmalloc2_libs
     contents:
       /usr/lib/*-linux-*/libtbb.so.2:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtbb2/copyright:
