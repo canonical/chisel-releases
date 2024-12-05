@@ -1,0 +1,122 @@
+summary: Integration tests for git
+
+environment:
+  EXTRA_SLICES: ""  # No extra slices by default.
+  RUN/bins: test_bins
+  SLICE/bins: git_bins
+  RUN/http_clone: test_http_clone
+  SLICE/http_clone: git_http-clone
+  EXTRA_SLICES/http_clone: ca-certificates_data
+  RUN/ftp_clone: test_ftp_clone
+  SLICE/ftp_clone: git_ftp-clone
+  RUN/daemon_clone: test_daemon_clone
+  SLICE/daemon_clone: git_daemon
+
+execute: |
+  function setup(){
+    mkdir -p "$1/dev/"
+    mkdir -p "$1/etc/"
+
+    # fake essentials
+    touch "$1/dev/null"
+    head -c 500 /dev/urandom > "$1/dev/urandom"
+    cp /etc/resolv.conf $1/etc/
+    mkdir "$1/root"
+
+    # Configure git inside the chroot.
+    chroot "$1" git config --global user.email "root@localhost"
+    chroot "$1" git config --global user.name "Test Runner"
+  }
+
+  function test_bins(){
+    chroot "$1" git init
+    echo "Test" > "$1/test.txt"
+    chroot "$1" git add test.txt
+    chroot "$1" git commit -m 'test commit'
+
+    chroot "$1" git --no-pager status
+    chroot "$1" git --no-pager log
+
+    chroot "$1" git blame -L 1,1 test.txt
+    [[ $(chroot "$1" git ls-files) == "test.txt" ]]
+
+    chroot "$1" git checkout -b test
+
+    chroot "$1" git --no-pager diff master
+    chroot "$1" git branch
+    chroot "$1" git checkout master
+    chroot "$1" git merge test
+  }
+
+  function test_http_clone(){
+    chroot "$1" git clone --depth 1 https://git.launchpad.net/ubuntu/+source/hello
+  }
+
+  function test_ftp_clone(){
+    ftp_root=$(install-slices python3-pyftpdlib_libs busybox_bins)
+    mkdir $ftp_root/dev
+    mount --bind /dev "${ftp_root}/dev"
+    mkdir -p "$1/etc/"
+    cp /etc/resolv.conf $1/etc/
+
+    mkdir -p $ftp_root/srv/git/ftp-src
+
+    pushd $ftp_root/srv/git/ftp-src
+    git init --bare
+    git update-server-info
+    popd
+    pushd $ftp_root/srv/git
+    chroot $ftp_root /usr/bin/python3.10 -m pyftpdlib -V -p 2121 -d /srv/git &
+    export pyftpdlib_pid=$!
+
+    # wait for server port to become available
+    while ! nc -z 127.0.0.1 2121
+    do
+      test -d /proc/$pyftpdlib_pid || (echo "pyftpdlib exited early"; exit 1)
+      sleep 1
+    done
+
+    # Test cloning the repo
+    chroot $1 git clone ftp://localhost:2121/ftp-src ftp-dst
+
+    # cleanup
+    kill $pyftpdlib_pid
+  }
+
+  function test_daemon_clone(){
+    mkdir -p $1/srv/git/daemon-src
+
+    pushd $1/srv/git/daemon-src
+    git init
+    touch test-file
+    git add test-file
+    git config user.email "root@localhost"
+    git config user.name "Test Runner"
+    git commit -m "Hello daemon"
+    popd
+
+    chroot "$1" /usr/lib/git-core/git-daemon \
+      --base-path=/srv/git \
+      --reuseaddr \
+      --listen=127.0.0.1 \
+      --verbose \
+      --export-all &
+    daemon_pid=$!
+
+    # Wait for daemon to start
+    while ! nc -z 127.0.0.1 9418
+    do
+      test -d /proc/$daemon_pid || (echo "daemon exited early"; exit 1)
+      sleep 1
+    done
+
+    # Test cloning the repo
+    chroot $1 git clone git://localhost/daemon-src daemon-dst
+
+    # Cleanup
+    kill $daemon_pid
+  }
+
+  rootfs=$(install-slices $SLICE $EXTRA_SLICES)
+  setup $rootfs
+  $RUN $rootfs
