@@ -1,0 +1,12 @@
+package: libtbb2
+
+slices:
+  libs:
+    essential:
+      - libatomic1_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libtbbmalloc2_libs
+    contents:
+      /usr/lib/*-linux-*/libtbb.so.2:
