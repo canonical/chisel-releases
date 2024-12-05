@@ -1,0 +1,15 @@
+package: publicsuffix
+
+essential:
+  - publicsuffix_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/publicsuffix/effective_tld_names.dat:
+      /usr/share/publicsuffix/public_suffix_list.dafsa:
+      /usr/share/publicsuffix/public_suffix_list.dat:
+
+  copyright:
+    contents:
+      /usr/share/doc/publicsuffix/copyright:
