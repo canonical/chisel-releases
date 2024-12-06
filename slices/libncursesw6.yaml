@@ -1,5 +1,8 @@
 package: libncursesw6
 
+essential:
+  - libncursesw6_copyright
+
 slices:
   libs:
     essential:
@@ -10,3 +13,8 @@ slices:
       /usr/lib/*-linux-*/libmenuw.so.6*:
       /usr/lib/*-linux-*/libncursesw.so.6*:
       /usr/lib/*-linux-*/libpanelw.so.6*:
+  copyright:
+    essential:
+      - libtinfo6_copyright
+    contents:
+      /usr/share/doc/libncursesw6:
