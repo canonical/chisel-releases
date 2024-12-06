@@ -259,6 +259,7 @@ slices:
       - tzdata-legacy_chile
       - tzdata-legacy_etc
       - tzdata-legacy_eurasia
+      - tzdata-legacy_iceland
       - tzdata-legacy_indian
       - tzdata-legacy_mexico
       - tzdata-legacy_pacific
