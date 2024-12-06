@@ -27,6 +27,8 @@ the moment, the officially supported Chisel releases are:
 \- Mantic (EOL)
 - [ubuntu-24.04](https://github.com/canonical/chisel-releases/tree/ubuntu-24.04)
 \- Noble
+- [ubuntu-24.10](https://github.com/canonical/chisel-releases/tree/ubuntu-24.10)
+\- Oracular
 
 In each release branch, you'll find a `chisel.yaml` file that defines the Chisel
 release, plus a `slices` folder with all the Slice Definitions Files (SDFs) for
