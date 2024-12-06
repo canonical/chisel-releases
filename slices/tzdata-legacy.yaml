@@ -152,7 +152,6 @@ slices:
 
   eurasia:
     essential:
-      - tzdata-legacy_atlantic
       - tzdata_eurasia
     contents:
       /usr/share/zoneinfo/Asia/Ashkhabad:
@@ -173,7 +172,6 @@ slices:
       /usr/share/zoneinfo/GB:
       /usr/share/zoneinfo/GB-Eire:
       /usr/share/zoneinfo/Hongkong:
-      /usr/share/zoneinfo/Iceland:
       /usr/share/zoneinfo/Iran:
       /usr/share/zoneinfo/Israel:
       /usr/share/zoneinfo/Japan:
@@ -191,7 +189,6 @@ slices:
       /usr/share/zoneinfo/right/GB:
       /usr/share/zoneinfo/right/GB-Eire:
       /usr/share/zoneinfo/right/Hongkong:
-      /usr/share/zoneinfo/right/Iceland:
       /usr/share/zoneinfo/right/Iran:
       /usr/share/zoneinfo/right/Israel:
       /usr/share/zoneinfo/right/Japan:
@@ -203,6 +200,13 @@ slices:
       /usr/share/zoneinfo/right/Singapore:
       /usr/share/zoneinfo/right/Turkey:
       /usr/share/zoneinfo/right/W-SU:
+
+  iceland:
+    essential:
+      - tzdata-legacy_atlantic
+    contents:
+      /usr/share/zoneinfo/Iceland:
+      /usr/share/zoneinfo/right/Iceland:
 
   indian:
     essential:
