@@ -1,0 +1,8 @@
+summary: Integration tests for redis-server
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices redis-server_bins)"
+
+  chroot "${rootfs}/" redis-server -v
