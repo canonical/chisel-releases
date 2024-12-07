@@ -1,0 +1,32 @@
+package: redis-server
+
+essential:
+  - redis-server_copyright
+
+slices:
+  bins:
+    essential:
+      - init-system-helpers_bins
+      - redis-server_config
+      - redis-tools_bins
+      - sysvinit-utils_bins
+    contents:
+      /etc/init.d/redis-server:
+      /usr/bin/redis-server:
+
+  config:
+    contents:
+      /etc/default/redis-server:
+      /etc/logrotate.d/redis-server:
+      /etc/redis/redis.conf:
+
+  services:
+    essential:
+      - redis-server_bins
+    contents:
+      /usr/lib/systemd/system/redis-server.service:
+      /usr/lib/systemd/system/redis-server@.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/redis-server/copyright:
