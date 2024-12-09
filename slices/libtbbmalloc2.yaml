@@ -10,7 +10,8 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libtbbmalloc*.so.2*:
+      /usr/lib/*-linux-*/libtbbmalloc.so.2*:
+      /usr/lib/*-linux-*/libtbbmalloc_proxy.so.2*:
 
   copyright:
     contents:
