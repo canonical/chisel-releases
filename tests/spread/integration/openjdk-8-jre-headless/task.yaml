@@ -1,0 +1,16 @@
+summary: Integration tests for openjdk-8-jre-headless
+
+environment:
+  SLICE/core: "core"
+
+execute: |
+  # Test core slice installation
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-8-jre-headless_${SLICE})"
+
+  cd ${rootfs}
+  mkdir -p proc/self
+  for java in `find usr/lib/jvm -name java`; do
+      ln -sf /${java} proc/self/exe
+      chroot . ${java} -version
+  done
