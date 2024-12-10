@@ -1,7 +1,8 @@
 format: v1
 
 archives:
-  # archive.ubuntu.com/ubuntu/
+  # archive.ubuntu.com/ubuntu/      (amd64, i386)
+  # ports.ubuntu.com/ubuntu-ports/  (other arch)
   ubuntu:
     default: true
     priority: 10
@@ -10,6 +11,7 @@ archives:
     suites: [jammy, jammy-security, jammy-updates]
     public-keys: [ubuntu-archive-key-2018]
 
+v2-archives:
   # esm.ubuntu.com/fips-updates/ubuntu/
   ubuntu-fips-updates:
     pro: fips-updates
