@@ -1,10 +1,7 @@
 summary: Integration tests for python3-pip
 
 execute: |
-  rootfs="$(install-slices python3-pip_bins3-12)"
-
-  # pip depends on python3.
-  ln -s /usr/bin/python3.12 ${rootfs}/usr/bin/python3
+  rootfs="$(install-slices python3-pip_bins)"
 
   # Smoke tests.
   chroot ${rootfs} /usr/bin/pip --version

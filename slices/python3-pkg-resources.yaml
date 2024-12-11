@@ -5,9 +5,8 @@ essential:
 
 slices:
   libs:
-    # Although pkg-resources requires python3, python3.x slices are not listed
-    # as an essential here because we might choose to install
-    # python3-pkg-resources with different versions of python3.
+    essential:
+      - python3_standard
     contents:
       /usr/lib/python3/dist-packages/pkg_resources/**:
 

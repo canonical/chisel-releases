@@ -5,11 +5,9 @@ essential:
 
 slices:
   libs:
-    # Although setuptools requires python3, python3.x slices are not listed as
-    # an essential here because we might choose to install python3-setuptools
-    # with different versions of python3.
     essential:
       - python3-pkg-resources_libs
+      - python3_standard
     contents:
       /usr/lib/python3/dist-packages/_distutils_hack/**:
       /usr/lib/python3/dist-packages/setuptools-*.egg-info/**:

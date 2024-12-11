@@ -5,10 +5,6 @@ essential:
 
 slices:
   bins:
-    # Although pip requires python3, python3.x slices are not listed as an
-    # essential here because we might choose to install python3-pip with
-    # different versions of python3.
-    # For pip with python3.12, please use the "bins3-12" slice.
     essential:
       - python3-pip_libs
     contents:
@@ -20,15 +16,10 @@ slices:
       - ca-certificates_data
       - python3-setuptools_libs
       - python3-wheel_libs
+      - python3_standard
     contents:
       /usr/lib/python3/dist-packages/pip-*.dist-info/**:
       /usr/lib/python3/dist-packages/pip/**:
-
-  # pip binaries with python3.12.
-  bins3-12:
-    essential:
-      - python3-pip_bins
-      - python3.12_standard
 
   copyright:
     contents:
