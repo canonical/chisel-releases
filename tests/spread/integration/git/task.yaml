@@ -80,6 +80,8 @@ execute: |
 
   function test_ftp_support(){
     ftp_root=$(install-slices python3-pyftpdlib_libs)
+    mkdir $ftp_root/dev
+    mount --bind /dev "${ftp_root}/dev"
 
     mkdir -p srv/git/ftp-src
     pushd $_
