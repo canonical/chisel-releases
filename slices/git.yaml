@@ -5,17 +5,20 @@ essential:
 
 slices:
   bins:
-    # basic functionality including:
-    # - init
-    # - config
+    # Basic functionality including:
     # - add
-    # - commit
-    # - status
-    # - log
-    # - checkout
     # - blame
+    # - branch
+    # - checkout
+    # - commit
+    # - config
     # - diff
+    # - fetch
+    # - init
+    # - log
     # - merge
+    # - rev-list
+    # - status
     essential:
       - libc6_libs
       - libpcre2-8-0_libs
@@ -31,8 +34,8 @@ slices:
     contents:
       /usr/lib/git-core/git-daemon:
 
-  http-clone:
-    # requirements for cloning over http `git clone https://`:
+  http-support:
+    # Adds support for cloning over HTTP e.g. git clone https://...
     essential:
       - git_bins
       - libcurl3-gnutls_libs
@@ -42,10 +45,10 @@ slices:
       /usr/lib/git-core/git-remote-http:
       /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
 
-  ftp-clone:
-    # requirements for cloning over ftp `git clone ftp://`:
+  ftp-support:
+    # Adds support for cloning over FTP e.g. git clone ftp://...
     essential:
-      - git_http-clone
+      - git_http-support
     contents:
       /usr/lib/git-core/git-remote-ftp:
 

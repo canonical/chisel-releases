@@ -1,18 +1,31 @@
 summary: Integration tests for git
 
 environment:
-  EXTRA_SLICES: ""  # No extra slices by default.
+  EXTRA_SLICES: "" # No extra slices by default.
+  # test git_bins
   RUN/bins: test_bins
   SLICE/bins: git_bins
-  RUN/http_clone: test_http_clone
-  SLICE/http_clone: git_http-clone
-  EXTRA_SLICES/http_clone: ca-certificates_data
-  RUN/ftp_clone: test_ftp_clone
-  SLICE/ftp_clone: git_ftp-clone
-  RUN/daemon_clone: test_daemon_clone
-  SLICE/daemon_clone: git_daemon
+  # test git_http-support
+  RUN/http_support: test_http_support
+  SLICE/http_support: git_http-support
+  EXTRA_SLICES/http_support: ca-certificates_data
+  # test git_ftp-support
+  RUN/ftp_support: test_ftp_support
+  SLICE/ftp_support: git_ftp-support
+  # test git_daemon
+  RUN/daemon_support: test_daemon_support
+  SLICE/daemon_support: git_daemon
 
 execute: |
+
+  git_rootfs="/"
+  function chroot_git(){
+    # execute git within chroot. We use -C to cd since
+    # we have no $SHELL to navigate with.
+    repo="$(realpath -e --relative-to="$git_rootfs" "$PWD")"
+    chroot "$git_rootfs" /usr/bin/git -C "$repo" "$@"
+  }
+
   function setup(){
     mkdir -p "$1/dev/"
     mkdir -p "$1/etc/"
@@ -23,79 +36,95 @@ execute: |
     cp /etc/resolv.conf $1/etc/
     mkdir "$1/root"
 
-    # Configure git inside the chroot.
-    chroot "$1" git config --global user.email "root@localhost"
-    chroot "$1" git config --global user.name "Test Runner"
+    # configure
+    git_rootfs="$1"
+    pushd "$1"
+
+  }
+
+  function cleanup(){
+    popd
   }
 
   function test_bins(){
-    chroot "$1" git init
+    chroot_git init
+    chroot_git config user.email "root@localhost"
+    chroot_git config user.name "Test Runner"
+
     echo "Test" > "$1/test.txt"
-    chroot "$1" git add test.txt
-    chroot "$1" git commit -m 'test commit'
+    chroot_git add test.txt
+    chroot_git commit -m 'test commit'
 
-    chroot "$1" git --no-pager status
-    chroot "$1" git --no-pager log
+    chroot_git --no-pager status
+    chroot_git --no-pager log
 
-    chroot "$1" git blame -L 1,1 test.txt
-    [[ $(chroot "$1" git ls-files) == "test.txt" ]]
+    chroot_git blame -L 1,1 test.txt
+    [[ $(chroot_git ls-files) == "test.txt" ]]
 
-    chroot "$1" git checkout -b test
+    chroot_git checkout -b test
 
-    chroot "$1" git --no-pager diff master
-    chroot "$1" git branch
-    chroot "$1" git checkout master
-    chroot "$1" git merge test
+    chroot_git --no-pager diff master
+    chroot_git branch
+    chroot_git checkout master
+    chroot_git merge test
   }
 
-  function test_http_clone(){
-    chroot "$1" git clone --depth 1 https://git.launchpad.net/ubuntu/+source/hello
+  function test_http_support(){
+    chroot_git clone --depth 1 https://git.launchpad.net/ubuntu/+source/hello hello
+    cd $_
+
+    chroot_git --no-pager log
+    chroot_git fetch origin
+    chroot_git --no-pager  branch --remotes --contains $(chroot_git rev-list -n 1 HEAD)
   }
 
-  function test_ftp_clone(){
-    ftp_root=$(install-slices python3-pyftpdlib_libs busybox_bins)
-    mkdir $ftp_root/dev
-    mount --bind /dev "${ftp_root}/dev"
-    mkdir -p "$1/etc/"
-    cp /etc/resolv.conf $1/etc/
+  function test_ftp_support(){
+    ftp_root=$(install-slices python3-pyftpdlib_libs)
 
-    mkdir -p $ftp_root/srv/git/ftp-src
-
-    pushd $ftp_root/srv/git/ftp-src
-    git init --bare
-    git update-server-info
+    mkdir -p srv/git/ftp-src
+    pushd $_
+    chroot_git init --bare
+    chroot_git update-server-info
     popd
+
+    cp -r $1/srv $ftp_root
+
     pushd $ftp_root/srv/git
     chroot $ftp_root /usr/bin/python3.10 -m pyftpdlib -V -p 2121 -d /srv/git &
-    export pyftpdlib_pid=$!
+    pyftpdlib_pid=$!
+    popd
 
     # wait for server port to become available
-    while ! nc -z 127.0.0.1 2121
+    while ! fuser 2121/tcp > /dev/null 2>&1
     do
-      test -d /proc/$pyftpdlib_pid || (echo "pyftpdlib exited early"; exit 1)
+      if ! test -d /proc/$pyftpdlib_pid
+      then
+        echo "pyftpdlib exited early"
+        exit 1
+      fi
       sleep 1
     done
 
     # Test cloning the repo
-    chroot $1 git clone ftp://localhost:2121/ftp-src ftp-dst
+    chroot_git clone ftp://localhost:2121/ftp-src ftp-dst
 
     # cleanup
-    kill $pyftpdlib_pid
+    kill -TERM $(fuser 2121/tcp  2>/dev/null)
   }
 
-  function test_daemon_clone(){
+  function test_daemon_support(){
     mkdir -p $1/srv/git/daemon-src
 
     pushd $1/srv/git/daemon-src
     git init
     touch test-file
-    git add test-file
-    git config user.email "root@localhost"
-    git config user.name "Test Runner"
-    git commit -m "Hello daemon"
+    chroot_git add test-file
+    chroot_git config user.email "root@localhost"
+    chroot_git config user.name "Test Runner"
+    chroot_git commit -m "Hello daemon"
     popd
 
-    chroot "$1" /usr/lib/git-core/git-daemon \
+    chroot_git daemon \
       --base-path=/srv/git \
       --reuseaddr \
       --listen=127.0.0.1 \
@@ -103,20 +132,26 @@ execute: |
       --export-all &
     daemon_pid=$!
 
+
     # Wait for daemon to start
-    while ! nc -z 127.0.0.1 9418
+    while ! fuser 9418/tcp > /dev/null 2>&1
     do
-      test -d /proc/$daemon_pid || (echo "daemon exited early"; exit 1)
+      if ! test -d /proc/$daemon_pid
+      then
+        echo "daemon exited early"
+        exit 1
+      fi
       sleep 1
     done
 
     # Test cloning the repo
-    chroot $1 git clone git://localhost/daemon-src daemon-dst
+    chroot_git clone git://localhost/daemon-src daemon-dst
 
-    # Cleanup
-    kill $daemon_pid
+    # Cleanup. TERM or KILL cause git to return an en error.
+    kill -INT $(fuser 9418/tcp  2>/dev/null)
   }
 
   rootfs=$(install-slices $SLICE $EXTRA_SLICES)
   setup $rootfs
   $RUN $rootfs
+  cleanup
