@@ -13,8 +13,6 @@ slices:
 
   config:
     contents:
-      /etc/default/redis-server:
-      /etc/logrotate.d/redis-server:
       /etc/redis/redis.conf:
 
   services:
