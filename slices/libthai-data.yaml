@@ -1,0 +1,13 @@
+package: libthai-data
+
+essential:
+  - libthai-data_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/libthai/thbrk.tri:
+
+  copyright:
+    contents:
+      /usr/share/doc/libthai-data/copyright:

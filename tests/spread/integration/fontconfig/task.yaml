@@ -1,0 +1,28 @@
+summary: Integration tests for fontconfig
+
+execute: |
+  rootfs="$(install-slices fontconfig_bins)"
+
+  # Test fc-cache
+  chroot ${rootfs} fc-cache
+
+  # Test fc-cat
+  chroot ${rootfs} fc-cat
+
+  # Test fc-conflist
+  chroot ${rootfs} fc-conflist
+
+  # Test fc-list
+  chroot ${rootfs} fc-list
+
+  # Test fc-pattern
+  chroot ${rootfs} fc-pattern /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf | grep 'Pattern has 1 elts'
+
+  # Test fc-query
+  chroot ${rootfs} fc-query /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf | grep 'fullname: "DejaVu Serif"'
+
+  # Test fc-scan
+  chroot ${rootfs} fc-scan /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf | grep 'fullname: "DejaVu Sans Mono Oblique"'
+
+  # Test fc-validate
+  chroot ${rootfs} fc-validate /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf | grep 'Satisfy the coverage for en language'
