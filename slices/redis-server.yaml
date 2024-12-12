@@ -6,12 +6,9 @@ essential:
 slices:
   bins:
     essential:
-      - init-system-helpers_bins
       - redis-server_config
       - redis-tools_bins
-      - sysvinit-utils_bins
     contents:
-      /etc/init.d/redis-server:
       /usr/bin/redis-server:
 
   config:
