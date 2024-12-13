@@ -1,0 +1,12 @@
+summary: Integration tests for libglib2.0-0t64
+
+execute: |
+  if [[ $(uname -m) == "arm32v7" ]]; then
+    rootfs="$(install-slices dash_bins libgcc-s1_libs libglib2.0-0t64_bins)"
+  else
+    rootfs="$(install-slices dash_bins libglib2.0-0t64_bins)"
+  fi
+
+  chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/gio-querymodules' 2| grep -q 'Usage: gio-querymodules'
+  chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/glib-compile-schemas --version' | grep -q '2\.82'
+  chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/gio-launch-desktop sh -c "echo Testing"' | grep -q Testing
