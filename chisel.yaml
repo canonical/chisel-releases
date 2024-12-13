@@ -4,7 +4,6 @@ archives:
   # archive.ubuntu.com/ubuntu/      (amd64, i386)
   # ports.ubuntu.com/ubuntu-ports/  (other arch)
   ubuntu:
-    default: true
     priority: 10
     version: 22.04
     components: [main, universe]
