@@ -8,9 +8,9 @@ slices:
     essential:
       - dotnet-runtime-9.0_libs
     contents:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/.version:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/**.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/**.json:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/.version:
 
   notice:
     contents:
