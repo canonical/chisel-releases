@@ -1,0 +1,14 @@
+package: geoip-database
+
+essential:
+  - geoip-database_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/GeoIP/GeoIP.dat:
+      /usr/share/GeoIP/GeoIPv6.dat:
+
+  copyright:
+    contents:
+      /usr/share/doc/geoip-database/copyright:
