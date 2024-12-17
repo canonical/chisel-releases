@@ -1,0 +1,21 @@
+summary: Integration tests for .NET 9 Runtime 
+
+execute: |
+  # install slices
+  rootfs="$(install-slices dotnet-runtime-9.0_libs base-files_base bash_bins coreutils_directory-listing)"
+  mv $rootfs/usr/lib/dotnet/dotnet9 $rootfs/usr/lib/dotnet/dotnet
+  ln -s ../lib/dotnet/dotnet $rootfs/usr/bin/dotnet
+
+  # smoking test the .NET runtime
+  chroot "$rootfs" /usr/bin/dotnet --info
+
+  # preparing the test data
+  apt update && apt install -y dotnet-sdk-9.0
+  cp -r app_helloworld $rootfs/app_helloworld
+  dotnet publish $rootfs/app_helloworld/Hello.csproj --no-self-contained
+
+  mkdir -p "${rootfs}"/proc
+  mount --bind /proc "${rootfs}"/proc
+
+  # test the helloworld app
+  chroot "$rootfs" dotnet /app_helloworld/bin/Release/net9.0/Hello.dll
