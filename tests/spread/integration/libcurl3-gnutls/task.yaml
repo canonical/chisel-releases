@@ -1,0 +1,9 @@
+summary: Integration tests for libcurl3-gnutls
+
+execute: |
+  rootfs="$(install-slices libcurl3-gnutls_libs)"
+
+  arch=$(uname -m)
+
+  test -f ${rootfs}/usr/lib/${arch}-linux-gnu/libcurl-gnutls.so.3
+  test -f ${rootfs}/usr/lib/${arch}-linux-gnu/libcurl-gnutls.so.4
