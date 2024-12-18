@@ -71,7 +71,7 @@ slices:
           elif vals[0] == "Session-Interactive-Only":
             if vals[1].strip() == "yes":
               m = "session"
-          elif vals[0] in ["Auth-Initial", "Account-Initial", 
+          elif vals[0] in ["Auth-Initial", "Account-Initial",
                            "Session-Initial", "Password-Initial"]:
             d = []
             for j in range(i + 1, len(lines)):
