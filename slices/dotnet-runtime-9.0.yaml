@@ -1,0 +1,24 @@
+package: dotnet-runtime-9.0
+
+essential:
+  - dotnet-runtime-9.0_copyright
+
+slices:
+  libs:
+    essential:
+      - dotnet-hostfxr-9.0_libs
+      - libbrotli1_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libicu74_libs
+      - liblttng-ust1t64_libs
+      - libssl3t64_libs
+      - libstdc++6_libs
+      - libunwind8_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/9.0*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-runtime-9.0/copyright:

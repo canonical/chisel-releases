@@ -1,0 +1,22 @@
+package: aspnetcore-runtime-9.0
+
+essential:
+  - aspnetcore-runtime-9.0_copyright
+
+slices:
+  libs:
+    essential:
+      - dotnet-runtime-9.0_libs
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/**.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/**.json:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/.version:
+
+  notice:
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0.0/THIRD-PARTY-NOTICES.txt:
+      /usr/share/doc/aspnetcore-runtime-9.0/NOTICE.txt.gz:
+
+  copyright:
+    contents:
+      /usr/share/doc/aspnetcore-runtime-9.0/copyright:

@@ -1,0 +1,10 @@
+summary: Integration tests for .NET 9 Host 
+
+execute: |
+  # install slices
+  rootfs="$(install-slices dotnet-host-9.0_bins dotnet-hostfxr-9.0_libs base-files_base)"
+  mv "${rootfs}"/usr/lib/dotnet/dotnet9 "${rootfs}"/usr/lib/dotnet/dotnet
+  ln -s ../lib/dotnet/dotnet "${rootfs}"/usr/bin/dotnet
+
+  # smoking test the .NET host
+  chroot "${rootfs}" /usr/bin/dotnet --info
