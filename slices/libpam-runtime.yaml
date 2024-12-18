@@ -130,9 +130,9 @@ slices:
         template = template.replace(idnames[i] + "_additional", ab)
         content.write("/etc/pam.d/common-" + fn, template)
 
-  # the following two slices are kept for backwards-compatibility
-  # however the pam-defaults have been modified to deliver correct
-  # files instead of templates
+  # The following two slices are kept for backwards compatibility.
+  # However, the pam-defaults have been modified to deliver correct
+  # files instead of templates.
   pam-config:
     contents:
       /usr/share/pam-configs/unix:
