@@ -1,0 +1,11 @@
+summary: Integration tests for gosu
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices gosu_bins)"
+
+  mkdir -p "${rootfs}"/proc/self
+  ln -sf /usr/sbin/gosu "${rootfs}"/proc/self/exe
+
+  chroot "${rootfs}/" gosu -h

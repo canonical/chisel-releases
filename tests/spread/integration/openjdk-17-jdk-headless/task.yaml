@@ -11,11 +11,14 @@ execute: |
     for pid in "${pids[@]}"; do
       kill "$pid" || true
     done
+    apt remove --purge -y openjdk-17-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
   apt install --update -y openjdk-17-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.17.0*
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
