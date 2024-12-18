@@ -2,7 +2,7 @@ summary: Integration tests for .NET 9 Runtime
 
 execute: |
   # install slices
-  rootfs="$(install-slices dotnet-runtime-9.0_libs base-files_base bash_bins coreutils_directory-listing)"
+  rootfs="$(install-slices dotnet-runtime-9.0_libs base-files_base)"
   mv "${rootfs}"/usr/lib/dotnet/dotnet9 "${rootfs}"/usr/lib/dotnet/dotnet
   ln -s ../lib/dotnet/dotnet "${rootfs}"/usr/bin/dotnet
 
