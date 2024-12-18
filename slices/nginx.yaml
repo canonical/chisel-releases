@@ -14,6 +14,7 @@ slices:
       - libpcre2-8-0_libs
       - libssl3t64_libs
       - nginx-common_config
+      - nginx-common_modules
       - zlib1g_libs
     contents:
       /usr/sbin/nginx:
