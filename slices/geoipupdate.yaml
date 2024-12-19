@@ -1,0 +1,26 @@
+package: geoipupdate
+
+essential:
+  - geoipupdate_copyright
+
+slices:
+  bins:
+    essential:
+      - ca-certificates_data
+      - geoipupdate_config
+      - libc6_libs
+    contents:
+      /usr/bin/geoipupdate:
+
+  config:
+    contents:
+      /etc/GeoIP.conf:
+
+  services:
+    contents:
+      /usr/lib/systemd/system/geoipupdate.service:
+      /usr/lib/systemd/system/geoipupdate.timer:
+
+  copyright:
+    contents:
+      /usr/share/doc/geoipupdate/copyright:
