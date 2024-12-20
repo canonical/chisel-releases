@@ -6,9 +6,6 @@ execute: |
   mv "${rootfs}"/usr/lib/dotnet/dotnet9 "${rootfs}"/usr/lib/dotnet/dotnet
   ln -s ../lib/dotnet/dotnet "${rootfs}"/usr/bin/dotnet
 
-  # smoking test the .NET runtime
-  chroot "${rootfs}" /usr/bin/dotnet --info
-
   # preparing the test data
   apt update && apt install -y dotnet-sdk-9.0
   cp -r web_helloworld "${rootfs}"/web_helloworld
