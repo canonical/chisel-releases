@@ -13,10 +13,28 @@ execute: |
 
   mkdir -p "${rootfs}"/proc
   mount --bind /proc "${rootfs}"/proc
+  mkdir -p "${rootfs}"/dev
+  head -c 500 /dev/urandom > "${rootfs}"/dev/random
+  head -c 500 /dev/urandom > "${rootfs}"/dev/urandom
 
   # test the helloworld web app
-  chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net9.0/Hello.dll --urls="http://0.0.0.0:5108" &
-  sleep 5
+  chroot "${rootfs}" dotnet /web_helloworld/bin/Release/net9.0/Hello.dll --urls="http://0.0.0.0:5108" &
+  app_pid=$!
+
+  # Wait for the web app to start
+  while ! fuser 5108/tcp > /dev/null 2>&1; do
+    if ! test -d /proc/$app_pid; then
+      echo "dotnet exited quickly"
+      exit 1
+    fi
+    sleep 1
+  done
+
   # Send a request to the web app and verify the result
   ret=0
   curl http://localhost:5108/ | grep "Hello World!" || ret=1
+
+
+  # Cleanup
+  kill $app_pid
+  exit $ret
