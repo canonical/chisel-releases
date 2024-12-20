@@ -1,0 +1,26 @@
+package: libnginx-mod-stream
+
+essential:
+  - libnginx-mod-stream_copyright
+
+slices:
+  modules:
+    essential:
+      # libnginx-mod-stream depends on nginx-abi, which is a virtual package
+      # provided by nginx, hence the dependency on nginx_bins.
+      - libc6_libs
+      - libnginx-mod-stream_config
+      - nginx_bins
+    contents:
+      /usr/lib/nginx/modules/ngx_stream_module.so:
+
+  config:
+    contents:
+      # This symlink is created by the maintainer scipts
+      /etc/nginx/modules-enabled/50-mod-stream.conf:
+        symlink: /usr/share/nginx/modules-available/mod-stream.conf
+      /usr/share/nginx/modules-available/mod-stream.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnginx-mod-stream/copyright:
