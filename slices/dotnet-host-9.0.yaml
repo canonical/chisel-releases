@@ -1,0 +1,27 @@
+package: dotnet-host-9.0
+
+essential:
+  - dotnet-host-9.0_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      # This copy is done to avoid Chisel's current handling of conflicts, as
+      # it flags a conflict between this slice and .NET8's, even if the two
+      # are not being installed at the same time.
+      # Override the installed slice using the following commands:
+      # ```
+      # mv ${rootfs}/usr/lib/dotnet/dotnet9 ${rootfs}/usr/lib/dotnet/dotnet
+      # ln -s ../lib/dotnet/dotnet ${rootfs}/usr/bin/dotnet
+      # ```
+      # TODO: once Chisel can cope with duplicate contents within the same
+      # release, this copy can be suppressed
+      /usr/lib/dotnet/dotnet9: {copy: /usr/lib/dotnet/dotnet}
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-host-9.0/copyright:
