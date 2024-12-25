@@ -1,0 +1,17 @@
+package: libswresample5
+
+essential:
+  - libswresample5_copyright
+
+slices:
+  libs:
+    essential:
+      - libavutil59_libs
+      - libc6_libs
+      - libsoxr0_libs
+    contents:
+      /usr/lib/*-linux-*/libswresample.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libswresample5/copyright:
