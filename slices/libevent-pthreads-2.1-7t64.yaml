@@ -1,0 +1,16 @@
+package: libevent-pthreads-2.1-7t64
+
+essential:
+  - libevent-pthreads-2.1-7t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libevent-core-2.1-7t64_libs
+    contents: 
+      /usr/lib/*-linux-*/libevent_pthreads-2.1.so.7*:
+
+  copyright:
+    contents: 
+      /usr/share/doc/libevent-pthreads-2.1-7t64/copyright:

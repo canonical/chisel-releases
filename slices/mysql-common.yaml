@@ -1,0 +1,15 @@
+package: mysql-common
+
+essential:
+  - mysql-common_copyright
+
+slices:
+  config:
+    contents: 
+      /etc/mysql/conf.d/mysql.cnf:
+      /etc/mysql/conf.d/mysqldump.cnf:
+      /etc/mysql/my.cnf.fallback:
+
+  copyright:
+    contents:
+      /usr/share/doc/mysql-common/copyright:
