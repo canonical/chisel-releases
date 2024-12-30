@@ -1,0 +1,18 @@
+package: libgearman8t64
+
+essential:
+  - libgearman8t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libuuid1_libs
+    contents: 
+      /usr/lib/*-linux-*/libgearman.so.8*:
+
+  copyright:
+    contents: 
+      /usr/share/doc/libgearman8t64/copyright:

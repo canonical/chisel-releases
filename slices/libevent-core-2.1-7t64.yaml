@@ -1,0 +1,15 @@
+package: libevent-core-2.1-7t64
+
+essential:
+  - libevent-core-2.1-7t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libevent_core-2.1.so.7*:
+  
+  copyright:
+    contents: 
+      /usr/share/doc/libevent-core-2.1-7t64/copyright:
