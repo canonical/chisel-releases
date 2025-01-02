@@ -1,0 +1,17 @@
+package: bind9-host
+
+essential:
+  - bind9-host_copyright
+
+slices:
+  bins:
+    essential:
+      - bind9-libs_libs
+      - libc6_libs
+      - libidn2-0_libs
+    contents:
+      /usr/bin/host:
+
+  copyright:
+    contents:
+      /usr/share/doc/bind9-host/copyright:
