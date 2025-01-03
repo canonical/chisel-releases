@@ -1,0 +1,16 @@
+package: cpio
+
+essential:
+  - cpio_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cpio:
+      /usr/bin/mt-gnu:
+
+  copyright:
+    contents:
+      /usr/share/doc/cpio/copyright:

@@ -1,0 +1,16 @@
+package: mmdb-bin
+
+essential:
+  - mmdb-bin_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libmaxminddb0_libs
+    contents:
+      /usr/bin/mmdblookup:
+
+  copyright:
+    contents:
+      /usr/share/doc/mmdb-bin/copyright:
