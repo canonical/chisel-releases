@@ -1,0 +1,16 @@
+package: bc
+
+essential:
+  - bc_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libreadline8t64_libs
+    contents:
+      /usr/bin/bc:
+
+  copyright:
+    contents:
+      /usr/share/doc/bc/copyright:
