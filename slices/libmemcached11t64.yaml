@@ -1,4 +1,4 @@
-package: libmemcached11t64 
+package: libmemcached11t64
 
 essential:
   - libmemcached11t64_copyright
@@ -11,9 +11,9 @@ slices:
       - libhashkit2t64_libs
       - libsasl2-2_libs
       - libstdc++6_libs
-    contents: 
+    contents:
       /usr/lib/*-linux-*/libmemcached.so.11*:
-  
+
   copyright:
-    contents: 
+    contents:
       /usr/share/doc/libmemcached11t64/copyright:

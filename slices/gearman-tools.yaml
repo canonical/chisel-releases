@@ -11,10 +11,10 @@ slices:
       - libgearman8t64_libs
       - libgcc-s1_libs
       - libstdc++6_libs
-    contents: 
+    contents:
       /usr/bin/gearadmin:
       /usr/bin/gearman:
 
   copyright:
-    contents: 
+    contents:
       /usr/share/doc/gearman-tools/copyright:
