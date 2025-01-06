@@ -8,8 +8,8 @@ slices:
     essential:
       - libboost-program-options1.83.0_libs
       - libc6_libs
-      - libgearman8t64_libs
       - libgcc-s1_libs
+      - libgearman8t64_libs
       - libstdc++6_libs
     contents:
       /usr/bin/gearadmin:
