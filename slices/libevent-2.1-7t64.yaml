@@ -7,9 +7,9 @@ slices:
   libs:
     essential:
       - libc6_libs
-    contents: 
+    contents:
       /usr/lib/*linux-*/libevent-2.1.so.7*:
 
   copyright:
-    contents: 
+    contents:
       /usr/share/doc/libevent-2.1-7t64/copyright:

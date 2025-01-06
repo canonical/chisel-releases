@@ -10,9 +10,9 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
       - libuuid1_libs
-    contents: 
+    contents:
       /usr/lib/*-linux-*/libgearman.so.8*:
 
   copyright:
-    contents: 
+    contents:
       /usr/share/doc/libgearman8t64/copyright:
