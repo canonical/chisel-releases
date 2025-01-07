@@ -3,4 +3,4 @@ summary: Integration tests for iputils-ping
 execute: |
   rootfs="$(install-slices iputils-ping_bins)"
 
-  chroot "${rootfs}/" ping -c 2 localhost
+  chroot "${rootfs}/" ping -c 2 127.0.0.1
