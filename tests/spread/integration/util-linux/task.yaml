@@ -5,7 +5,7 @@ systems:
   - -ubuntu-24.04-s390x
 
 execute: |
-  rootfs="$(install-slices util-linux_bins)"
+  rootfs="$(install-slices util-linux_bins base-files_base bash_bins)"
 
   # we need dev/sys mounted for some of them
   mkdir "${rootfs}"/dev
@@ -22,8 +22,9 @@ execute: |
 
   # Test the su and runuser binaries
   cp /etc/passwd "${rootfs}"/etc/passwd
-  echo "foo:x:1001:1001:Test user,,,:/tmp:/bin/bash" >>"${rootfs}"/etc/passwd
+  echo "foo:!:1001:1001:Test user,,,:/tmp:/bin/bash" >> "${rootfs}"/etc/passwd
   cp /usr/bin/whoami "${rootfs}"/usr/bin/
+  chmod 755 "${rootfs}"/
   chroot "${rootfs}" su foo -c whoami | grep "foo"
   chroot "${rootfs}" runuser foo -c whoami | grep "foo"
 

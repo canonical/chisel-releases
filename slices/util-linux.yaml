@@ -11,6 +11,8 @@ slices:
       - libcap-ng0_libs
       - libcrypt1_libs
       - libmount1_libs
+      # su reads the configs in /etc/pam.d to authenticate the user.
+      - libpam-runtime_config
       - libpam0g_libs
       - libselinux1_libs
       - libsmartcols1_libs
@@ -19,6 +21,7 @@ slices:
       - libudev1_libs
       - libuuid1_libs
       - util-linux_generated
+      - util-linux_pam-profile
       - util-linux_su-support
       - zlib1g_libs
     contents:
@@ -113,6 +116,9 @@ slices:
       - libaudit1_libs
       - libc6_libs
       - libcap-ng0_libs
+      # Libs from libpam-modules are required as the 
+      # libpam-runtime configs reference them.
+      - libpam-modules_libs
       - libpam0g_libs
       - util-linux_pam-profiles
     contents:
