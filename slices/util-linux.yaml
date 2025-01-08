@@ -21,7 +21,7 @@ slices:
       - libudev1_libs
       - libuuid1_libs
       - util-linux_generated
-      - util-linux_pam-profile
+      - util-linux_pam-profiles
       - util-linux_su-support
       - zlib1g_libs
     contents:
@@ -116,7 +116,7 @@ slices:
       - libaudit1_libs
       - libc6_libs
       - libcap-ng0_libs
-      # Libs from libpam-modules are required as the 
+      # Libs from libpam-modules are required as the
       # libpam-runtime configs reference them.
       - libpam-modules_libs
       - libpam0g_libs
