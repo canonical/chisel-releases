@@ -25,6 +25,11 @@ execute: |
       chroot "${rootfs}" lsipc | grep "MSGMNI"
       chroot "${rootfs}" lsmem | grep "Total online memory"
       chroot "${rootfs}" whereis lsblk | grep "/usr/bin/lsblk"
+      # ensure expected links are generated
+      if ! [ -e "${rootfs}"/usr/bin/pager ]; then
+        echo "expected /usr/bin/pager to be generated"
+        exit 1
+      fi
     ;;
     su-support)
       # Test the su and runuser binaries
@@ -40,9 +45,3 @@ execute: |
   # cleanup
   umount -l "${rootfs}"/dev
   umount -l "${rootfs}"/sys
-
-  # ensure expected links are generated
-  if ! [ -e "${rootfs}"/usr/bin/pager ]; then
-    echo "expected /usr/bin/pager to be generated"
-    exit 1
-  fi
