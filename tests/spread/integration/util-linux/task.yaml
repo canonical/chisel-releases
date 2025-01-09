@@ -4,8 +4,12 @@ systems:
   - -ubuntu-24.04-ppc64le
   - -ubuntu-24.04-s390x
 
+environment:
+  SLICE/bins: "bins"
+  SLICE/su: "su-support"
+
 execute: |
-  rootfs="$(install-slices util-linux_bins base-files_base bash_bins)"
+  rootfs="$(install-slices util-linux_${SLICE} base-files_base bash_bins)"
 
   # we need dev/sys mounted for some of them
   mkdir "${rootfs}"/dev
@@ -14,19 +18,24 @@ execute: |
   mount --rbind /dev "${rootfs}"/dev
   mount --rbind /sys "${rootfs}"/sys
 
-  # smoke test a couple of the bundled applications
-  chroot "${rootfs}" lsblk | grep "loop0"
-  chroot "${rootfs}" lsipc | grep "MSGMNI"
-  chroot "${rootfs}" lsmem | grep "Total online memory"
-  chroot "${rootfs}" whereis lsblk | grep "/usr/bin/lsblk"
-
-  # Test the su and runuser binaries
-  cp /etc/passwd "${rootfs}"/etc/passwd
-  echo "foo:!:1001:1001:Test user,,,:/tmp:/bin/bash" >> "${rootfs}"/etc/passwd
-  cp /usr/bin/whoami "${rootfs}"/usr/bin/
-  chmod 755 "${rootfs}"/
-  chroot "${rootfs}" su foo -c whoami | grep "foo"
-  chroot "${rootfs}" runuser foo -c whoami | grep "foo"
+  case ${SLICE} in
+    bins)
+      # smoke test a couple of the bundled applications
+      chroot "${rootfs}" lsblk | grep "loop0"
+      chroot "${rootfs}" lsipc | grep "MSGMNI"
+      chroot "${rootfs}" lsmem | grep "Total online memory"
+      chroot "${rootfs}" whereis lsblk | grep "/usr/bin/lsblk"
+    ;;
+    su-support)
+      # Test the su and runuser binaries
+      cp /etc/passwd "${rootfs}"/etc/passwd
+      echo "foo:!:1001:1001:Test user,,,:/tmp:/bin/bash" >> "${rootfs}"/etc/passwd
+      cp /usr/bin/whoami "${rootfs}"/usr/bin/
+      chmod 755 "${rootfs}"/
+      chroot "${rootfs}" su foo -c whoami | grep "foo"
+      chroot "${rootfs}" runuser foo -c whoami | grep "foo"
+    ;;
+  esac
 
   # cleanup
   umount -l "${rootfs}"/dev

@@ -11,8 +11,6 @@ slices:
       - libcap-ng0_libs
       - libcrypt1_libs
       - libmount1_libs
-      # su reads the configs in /etc/pam.d to authenticate the user.
-      - libpam-runtime_config
       - libpam0g_libs
       - libselinux1_libs
       - libsmartcols1_libs
@@ -113,19 +111,20 @@ slices:
   # and group IDs.
   su-support:
     essential:
-      - libaudit1_libs
       - libc6_libs
       - libcap-ng0_libs
-      # Libs from libpam-modules are required as the
-      # libpam-runtime configs reference them.
+      # Libraries from libpam-modules are required as the libpam-runtime
+      # configs reference them.
       - libpam-modules_libs
+      # su reads the configs in /etc/pam.d to authenticate the user.
+      - libpam-runtime_config
       - libpam0g_libs
       - util-linux_pam-profiles
     contents:
       /usr/bin/su:
       /usr/sbin/runuser:
 
-  # the following emulates the post-install script
+  # The following emulates the post-install script.
   generated:
     essential:
       # Since the more binary is located at ./usr/bin/more and /bin in noble
