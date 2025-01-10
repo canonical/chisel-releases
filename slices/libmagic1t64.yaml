@@ -15,6 +15,7 @@ slices:
       /etc/magic:
       /etc/magic.mime:
       /usr/lib/*-linux-*/libmagic.so.1*:
+      /usr/share/misc/magic:
 
   copyright:
     contents:
