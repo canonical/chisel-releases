@@ -4,11 +4,16 @@ essential:
   - cpio_copyright
 
 slices:
-  bins:
+  cpio:
     essential:
       - libc6_libs
     contents:
       /usr/bin/cpio:
+
+  mt-gnu:
+    essential:
+      - libc6_libs
+    contents:
       /usr/bin/mt-gnu:
 
   copyright:
