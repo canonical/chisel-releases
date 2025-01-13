@@ -8,3 +8,5 @@ execute: |
   chroot "${rootfs}/" mdig -v
   chroot "${rootfs}/" nslookup -version
   chroot "${rootfs}/" nsupdate -V
+  chroot "${rootfs}/" dig +short -x 127.0.0.1
+  chroot "${rootfs}/" nslookup 127.0.0.1
