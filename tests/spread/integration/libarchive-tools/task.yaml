@@ -24,6 +24,6 @@ execute: |
     exit 1
   fi
   mv "${rootfs}/testfile.txt" "${rootfs}/testfile_comp.txt"
-  chroot "${rootfs}/" bsdcpio -i < testfile.cpio
-  test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_comp.txt)"
+  chroot "${rootfs}/" bsdcpio -i < "${rootfs}/testfile.cpio"
+  test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_comp.txt)"
   rm "${rootfs}/testfile*"
