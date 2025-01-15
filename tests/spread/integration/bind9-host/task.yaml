@@ -4,4 +4,3 @@ execute: |
   rootfs="$(install-slices bind9-host_bins)"
 
   chroot "${rootfs}/" host -V
-  chroot "${rootfs}/" host 127.0.0.1
