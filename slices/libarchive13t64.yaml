@@ -17,7 +17,6 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libarchive.so.13*:
-      /usr/share/lintian/overrides/libarchive13t64:
 
   copyright:
     contents:
