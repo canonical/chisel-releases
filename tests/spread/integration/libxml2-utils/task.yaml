@@ -1,0 +1,15 @@
+summary: Integration tests for libxml2-utils
+
+execute: |
+  rootfs="$(install-slices libxml2-utils_bins)"
+
+  chroot "${rootfs}/" xmllint --help
+  chroot "${rootfs}/" xmlcatalog --help
+  test "$(echo '<foo></foo>' | xmllint --format -)" = \
+    "$(printf '<?xml version="1.0"?>\n<foo/>')"
+  
+  chroot "${rootfs}/" xmlcatalog --noout --create catalog.xml
+  chroot "${rootfs}/" --noout --add rewriteURI 'http://www.example.org/' \
+  'file:///foo/' catalog.xml
+  test "$(chroot "${rootfs}/" xmlcatalog catalog.xml 'http://www.example.org/' \
+  | tail -n1 )" = "file:///foo/"
