@@ -9,12 +9,12 @@ execute: |
   chroot "${rootfs}/" bsdunzip --version
   echo "Hello, World" > "${rootfs}/testfile.txt"
   test "$(chroot "${rootfs}/" bsdcat testfile.txt)" = "Hello, World"
-  chroot "${rootfs}/" bsdtar -cf testfile.tar testfile.txt
+  chroot "${rootfs}/" bsdtar -cf /testfile.tar /testfile.txt
   if [ ! -f "${rootfs}/testfile.tar" ]; then 
     echo "bsdtar failed to create archive: testfile.tar"
     exit 1
   fi
-  mv "${rootfs}/testfile.txt" "${rootfs}/testfile_tar.txt"
+  cp "${rootfs}/testfile.txt" "${rootfs}/testfile_tar.txt"
   chroot "${rootfs}/" bsdtar -xf testfile.tar
   test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_tar.txt)"
   echo "testfile.txt" | chroot "${rootfs}/" bsdcpio -o -c \
