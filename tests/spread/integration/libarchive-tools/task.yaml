@@ -2,19 +2,18 @@ summary: Integration tests for libarchive-tools
 
 execute: |
   rootfs="$(install-slices libarchive-tools_bins)"
-
   chroot "${rootfs}/" bsdcat --version
   chroot "${rootfs}/" bsdcpio --version
   chroot "${rootfs}/" bsdtar --version
   chroot "${rootfs}/" bsdunzip --version
   echo "Hello, World" > "${rootfs}/testfile.txt"
   test "$(chroot "${rootfs}/" bsdcat testfile.txt)" = "Hello, World"
-  chroot "${rootfs}/" bsdtar -cf testfile.tar testfile.txt
+  chroot "${rootfs}/" bsdtar -cf /testfile.tar /testfile.txt
   if [ ! -f "${rootfs}/testfile.tar" ]; then 
     echo "bsdtar failed to create archive: testfile.tar"
     exit 1
   fi
-  mv "${rootfs}/testfile.txt" "${rootfs}/testfile_tar.txt"
+  cp "${rootfs}/testfile.txt" "${rootfs}/testfile_tar.txt"
   chroot "${rootfs}/" bsdtar -xf testfile.tar
   test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_tar.txt)"
   echo "testfile.txt" | chroot "${rootfs}/" bsdcpio -o -c \
@@ -24,6 +23,5 @@ execute: |
     exit 1
   fi
   mv "${rootfs}/testfile.txt" "${rootfs}/testfile_comp.txt"
-  chroot "${rootfs}/" bsdcpio -i < testfile.cpio
-  test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_comp.txt)"
-  rm "${rootfs}/testfile*"
+  chroot "${rootfs}/" bsdcpio -i < "${rootfs}/testfile.cpio"
+  test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_comp.txt)"
