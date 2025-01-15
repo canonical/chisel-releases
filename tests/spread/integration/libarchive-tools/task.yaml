@@ -2,7 +2,7 @@ summary: Integration tests for libarchive-tools
 
 execute: |
   rootfs="$(install-slices libarchive-tools_bins)"
-
+  
   chroot "${rootfs}/" bsdcat --version
   chroot "${rootfs}/" bsdcpio --version
   chroot "${rootfs}/" bsdtar --version
@@ -26,4 +26,3 @@ execute: |
   mv "${rootfs}/testfile.txt" "${rootfs}/testfile_comp.txt"
   chroot "${rootfs}/" bsdcpio -i < "${rootfs}/testfile.cpio"
   test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_comp.txt)"
-  rm "${rootfs}/testfile*"
