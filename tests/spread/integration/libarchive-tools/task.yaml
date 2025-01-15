@@ -8,7 +8,7 @@ execute: |
   chroot "${rootfs}/" bsdtar --version
   chroot "${rootfs}/" bsdunzip --version
   echo "Hello, World" > "${rootfs}/testfile.txt"
-  test "$(chroot foo bsdcat testfile.txt)" = "Hello, World"
+  test "$(chroot "${rootfs}/" bsdcat testfile.txt)" = "Hello, World"
   chroot "${rootfs}/" bsdtar -cf testfile.tar testfile.txt
   if [ ! -f "${rootfs}/testfile.tar" ]; then 
     echo "bsdtar failed to create archive: testfile.tar"
