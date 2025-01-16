@@ -1,0 +1,11 @@
+summary: Integration tests for patch
+
+execute: |
+  rootfs="$(install-slices diffutils_bins patch_bins)"
+
+  chroot "${rootfs}/" patch --help
+  echo "Hello, World" > "${rootfs}/testfile.txt"
+  echo "This is a Patched Input" > "${rootfs}/patchfile.txt"
+  chroot "${rootfs}/" diff -u testfile.txt patchfile.txt > tmp.patch
+  chroot "${rootfs}/" patch < tmp.patch
+  test "$(cat "${rootfs}/testfile.txt")" = "This is a Patched Input"
