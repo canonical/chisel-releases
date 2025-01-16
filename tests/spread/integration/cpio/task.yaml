@@ -1,0 +1,26 @@
+summary: Integration tests for cpio
+
+environment:
+  SLICE/cpio: "cpio"
+  SLICE/mt: "mt-gnu"
+
+execute: |
+  rootfs="$(install-slices cpio_${SLICE})"
+  case ${SLICE} in
+    cpio)
+      chroot "${rootfs}/" cpio --help
+      mkdir "${rootfs}/foo"
+      echo "xyz" > "${rootfs}/testfile"
+      echo "testfile" | \
+      chroot "${rootfs}/" cpio -ov | \
+      chroot "${rootfs}/" cpio -iv -D foo
+      if [ ! -e "${rootfs}/foo/testfile" ]; then
+        echo "cpio failed"
+        exit 1
+      fi
+      test "$(cat ${rootfs}/testfile)" = "$(cat ${rootfs}/foo/testfile)"
+    ;;
+    mt-gnu)
+      chroot "${rootfs}/" mt-gnu --help
+    ;;
+  esac
