@@ -1,0 +1,26 @@
+package: unzip
+
+essential:
+  - unzip_copyright
+
+slices:
+  bins:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+    contents:
+      /usr/bin/funzip:
+      /usr/bin/unzip:
+      /usr/bin/unzipsfx:
+      # Should be a hard link, but Chisel does not yet support hard links
+      /usr/bin/zipinfo: {symlink: /usr/bin/unzip}
+
+  scripts:
+    essential:
+      - unzip_bins
+    contents:
+      /usr/bin/zipgrep:
+
+  copyright:
+    contents:
+      /usr/share/doc/unzip/copyright:
