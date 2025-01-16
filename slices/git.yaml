@@ -1,0 +1,60 @@
+package: git
+
+essential:
+  - git_copyright
+
+slices:
+  bins:
+    # Basic functionality including:
+    # - add
+    # - blame
+    # - branch
+    # - checkout
+    # - commit
+    # - config
+    # - diff
+    # - fetch
+    # - init
+    # - log
+    # - merge
+    # - rev-list
+    # - status
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - zlib1g_libs
+    contents:
+      # /usr/bin/git is a regular file in the package, but shares
+      # the same hash of /usr/lib/git-core/git. That's why this
+      # is added as a symlink to reduce space.
+      /usr/bin/git: {symlink: /usr/lib/git-core/git}
+      /usr/lib/git-core/git:
+
+  daemon:
+    # support for git daemon
+    essential:
+      - git_bins
+    contents:
+      /usr/lib/git-core/git-daemon:
+
+  http-support:
+    # Adds support for cloning over HTTP e.g. git clone https://...
+    essential:
+      - git_bins
+      - libcurl3-gnutls_libs
+      - libexpat1_libs
+      - libpcre2-8-0_libs
+    contents:
+      /usr/lib/git-core/git-remote-http:
+      /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
+
+  ftp-support:
+    # Adds support for cloning over FTP e.g. git clone ftp://...
+    essential:
+      - git_http-support
+    contents:
+      /usr/lib/git-core/git-remote-ftp:
+
+  copyright:
+    contents:
+      /usr/share/doc/git/copyright:
