@@ -1,0 +1,14 @@
+summary: Integration tests for pwgen
+
+execute: |
+  rootfs="$(install-slices pwgen_bins)"
+
+  chroot "${rootfs}/" pwgen -h
+  # pwgen requires /dev/urandom & /dev/random
+  mkdir "${rootfs}/dev"
+  mount --bind /dev "${rootfs/dev}"
+
+  chroot "${rootfs}/" pwgen -h
+  test $(chroot "${rootfs}/" pwgen -C1 12 | wc -m) -eq 13
+
+  umount "${rootfs}/dev" 
