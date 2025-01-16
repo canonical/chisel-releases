@@ -2,7 +2,6 @@ summary: Integration tests for libarchive-tools
 
 execute: |
   rootfs="$(install-slices libarchive-tools_bins)"
-  
   chroot "${rootfs}/" bsdcat --version
   chroot "${rootfs}/" bsdcpio --version
   chroot "${rootfs}/" bsdtar --version
@@ -14,15 +13,14 @@ execute: |
     echo "bsdtar failed to create archive: testfile.tar"
     exit 1
   fi
-  cp "${rootfs}/testfile.txt" "${rootfs}/testfile_tar.txt"
+  cp "${rootfs}/testfile.txt" "${rootfs}/testfile_orig.txt"
   chroot "${rootfs}/" bsdtar -xf testfile.tar
-  test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_tar.txt)"
+  test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_orig.txt)"
   echo "testfile.txt" | chroot "${rootfs}/" bsdcpio -o -c \
     > "${rootfs}/testfile.cpio"
   if [ ! -e "${rootfs}/testfile.cpio" ]; then
     echo "bsdcpio failed"
     exit 1
   fi
-  mv "${rootfs}/testfile.txt" "${rootfs}/testfile_comp.txt"
   chroot "${rootfs}/" bsdcpio -i < "${rootfs}/testfile.cpio"
-  test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_comp.txt)"
+  test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_orig.txt)"
