@@ -13,7 +13,7 @@ execute: |
     echo "bsdtar failed to create archive: testfile.tar"
     exit 1
   fi
-  cp "${rootfs}/testfile.txt" "${rootfs}/testfile_tar.txt"
+  cp "${rootfs}/testfile.txt" "${rootfs}/testfile_orig.txt"
   chroot "${rootfs}/" bsdtar -xf testfile.tar
   test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_tar.txt)"
   echo "testfile.txt" | chroot "${rootfs}/" bsdcpio -o -c \
@@ -22,6 +22,5 @@ execute: |
     echo "bsdcpio failed"
     exit 1
   fi
-  mv "${rootfs}/testfile.txt" "${rootfs}/testfile_comp.txt"
   chroot "${rootfs}/" bsdcpio -i < "${rootfs}/testfile.cpio"
-  test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_comp.txt)"
+  test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_orig.txt)"
