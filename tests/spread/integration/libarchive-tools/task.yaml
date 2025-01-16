@@ -15,7 +15,7 @@ execute: |
   fi
   cp "${rootfs}/testfile.txt" "${rootfs}/testfile_orig.txt"
   chroot "${rootfs}/" bsdtar -xf testfile.tar
-  test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_tar.txt)"
+  test "$(cat ${rootfs}/testfile.txt)" = "$( cat ${rootfs}/testfile_orig.txt)"
   echo "testfile.txt" | chroot "${rootfs}/" bsdcpio -o -c \
     > "${rootfs}/testfile.cpio"
   if [ ! -e "${rootfs}/testfile.cpio" ]; then
