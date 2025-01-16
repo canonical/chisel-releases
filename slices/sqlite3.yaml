@@ -1,0 +1,18 @@
+package: sqlite3
+
+essential:
+  - sqlite3_bins
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libreadline8t64_libs
+      - libsqlite3-0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/sqlite3:
+
+  copyright:
+    contents:
+      /usr/share/doc/sqlite3/copyright:
