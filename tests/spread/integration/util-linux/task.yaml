@@ -13,9 +13,11 @@ execute: |
 
   # we need dev/sys mounted for some of them
   mkdir "${rootfs}"/dev
+  mkdir "${rootfs}"/proc
   mkdir "${rootfs}"/sys
 
   mount --rbind /dev "${rootfs}"/dev
+  mount --rbind /proc "${rootfs}"/proc
   mount --rbind /sys "${rootfs}"/sys
 
   case ${SLICE} in
