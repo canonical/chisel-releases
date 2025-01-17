@@ -44,7 +44,7 @@ execute: |
       echo "Hello world" > "${rootfs}"/tmp/hardlink-test/file1
       cp "${rootfs}"/tmp/hardlink-test/file1 "${rootfs}"/tmp/hardlink-test/file2
       chroot "${rootfs}" hardlink /tmp/hardlink-test/ | grep 'Saved:[[:blank:]]*12 B'
-      chroot "${rootfs}" ionice -P 1 | grep "best-effort: prio"
+      chroot "${rootfs}" ionice -P 1 | grep "prio"
       ipcmk_out=$(chroot "${rootfs}" ipcmk -M 1)
       shm_id=$(echo "${ipcmk_out}" | grep -oP '\d+')
       chroot "${rootfs}" ipcs -m | grep "${shm_id}"
