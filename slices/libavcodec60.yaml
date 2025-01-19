@@ -22,6 +22,7 @@ slices:
       # The librav1e0_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
+      # needed for: not i386
       - librsvg2-2_libs
       - libshine3_libs
       - libsnappy1v5_libs
@@ -36,6 +37,7 @@ slices:
       # The libvpl2_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
+      # needed for: amd64
       - libvpx9_libs
       - libwebp7_libs
       - libwebpmux3_libs

@@ -15,6 +15,7 @@ slices:
       # The libvpl2_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
+      # needed for: amd64
       - libx11-6_libs
       - ocl-icd-libopencl1_libs
     contents:
