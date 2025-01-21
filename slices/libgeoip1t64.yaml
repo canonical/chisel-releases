@@ -1,0 +1,15 @@
+package: libgeoip1t64
+
+essential:
+  - libgeoip1t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libGeoIP.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgeoip1t64/copyright:
