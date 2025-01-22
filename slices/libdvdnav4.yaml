@@ -1,0 +1,16 @@
+package: libdvdnav4
+
+essential:
+  - libdvdnav4_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdvdread8t64_libs
+    contents:
+      /usr/lib/*-linux-*/libdvdnav.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdvdnav4/copyright:
