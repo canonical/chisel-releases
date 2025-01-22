@@ -4,3 +4,4 @@ execute: |
   rootfs="$(install-slices bind9-host_bins)"
 
   chroot "${rootfs}/" host -V
+  chroot "${rootfs}/" host example.com 8.8.8.8 | grep -P 'example.com [has|mail]'
