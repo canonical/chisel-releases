@@ -116,8 +116,8 @@ slices:
   # The following emulates the post-install script.
   generated:
     essential:
-      # Since the more binary is located at ./usr/bin/more and /bin in noble
-      # points to /usr/bin via base-files, the base-files_bin slice is included
+      # Since the more binary is located at ./usr/bin/more and /bin points
+      # to /usr/bin via base-files, the base-files_bin slice is included
       # here.
       - base-files_bin
     contents:
