@@ -16,9 +16,9 @@ execute: |
   mkdir "${rootfs}"/proc
   mkdir "${rootfs}"/sys
 
-  mount --rbind /dev "${rootfs}"/dev
-  mount --rbind /proc "${rootfs}"/proc
-  mount --rbind /sys "${rootfs}"/sys
+  mount /dev "${rootfs}"/dev
+  mount /proc "${rootfs}"/proc
+  mount /sys "${rootfs}"/sys
 
   case ${SLICE} in
     bins)
