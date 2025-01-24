@@ -8,6 +8,10 @@ execute: |
   chroot "${rootfs}/" mdig -v
   chroot "${rootfs}/" nslookup -version
   chroot "${rootfs}/" nsupdate -V
+  cat "/etc/resolv.conf"
+  echo "$(iptables -L)"
+  echo "$(ufw status)"
+  chroot "${rootfs}/" delv +tcp @8.8.8.8
   chroot "${rootfs}/" delv @8.8.8.8 | grep -P '[a-m].root-servers.net'
   chroot "${rootfs}/" dig @8.8.8.8 example.com | grep ';; ANSWER SECTION:'
   chroot "${rootfs}/" mdig @8.8.8.8 example.com | grep ';; ANSWER SECTION:'
