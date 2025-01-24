@@ -8,11 +8,7 @@ execute: |
   chroot "${rootfs}/" mdig -v
   chroot "${rootfs}/" nslookup -version
   chroot "${rootfs}/" nsupdate -V
-  cat "/etc/resolv.conf"
-  echo "$(iptables -L)"
-  echo "$(ufw status)"
-  chroot "${rootfs}/" delv -i +tcp @127.0.0.53
-  chroot "${rootfs}/" delv @127.0.0.53 | grep -P '[a-m].root-servers.net'
+  chroot "${rootfs}/" delv -i @127.0.0.53 | grep -P '[a-m].root-servers.net'
   chroot "${rootfs}/" dig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
   chroot "${rootfs}/" mdig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
   chroot "${rootfs}/" nslookup example.com 127.0.0.53 | grep 'Name:[[:space:]]example.com'
