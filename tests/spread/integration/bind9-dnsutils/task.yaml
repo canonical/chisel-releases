@@ -8,7 +8,7 @@ execute: |
   chroot "${rootfs}/" mdig -v
   chroot "${rootfs}/" nslookup -version
   chroot "${rootfs}/" nsupdate -V
-  chroot "${rootfs}/" delv @8.8.8.8 | grep -P '[a-m].root-servers.net'
-  chroot "${rootfs}/" dig @8.8.8.8 example.com | grep ';; ANSWER SECTION:'
-  chroot "${rootfs}/" mdig @8.8.8.8 example.com | grep ';; ANSWER SECTION:'
-  chroot "${rootfs}/" nslookup example.com 8.8.8.8 | grep 'Name:[[:space:]]example.com'
+  chroot "${rootfs}/" delv -i @127.0.0.53 | grep -P '[a-m].root-servers.net'
+  chroot "${rootfs}/" dig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
+  chroot "${rootfs}/" mdig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
+  chroot "${rootfs}/" nslookup example.com 127.0.0.53 | grep 'Name:[[:space:]]example.com'
