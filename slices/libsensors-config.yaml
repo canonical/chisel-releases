@@ -1,0 +1,13 @@
+package: libsensors-config
+
+essential:
+  - libsensors-config_copyright
+
+slices:
+  config:
+    contents:
+      /etc/sensors3.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsensors-config/copyright:
