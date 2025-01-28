@@ -7,7 +7,6 @@ slices:
   bins:
     essential:
       - python3-pytest_libs
-      - python3_standard
     contents:
       /usr/bin/py.test:
       /usr/bin/py.test-3:
@@ -27,6 +26,7 @@ slices:
       /usr/lib/python3/dist-packages/_pytest/**:
       /usr/lib/python3/dist-packages/py.py:
       /usr/lib/python3/dist-packages/pytest-*.dist-info/**:
+      /usr/lib/python3/dist-packages/pytest/**:
 
   copyright:
     contents:
