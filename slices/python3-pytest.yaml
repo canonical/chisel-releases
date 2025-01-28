@@ -1,0 +1,33 @@
+package: python3-pytest
+
+essential:
+  - python3-pytest_copyright
+
+slices:
+  bins:
+    essential:
+      - python3_standard
+      - python3-pytest_libs
+    contents:
+      /usr/bin/py.test:
+      /usr/bin/py.test-3:
+      /usr/bin/pytest:
+      /usr/bin/pytest-3:
+
+  libs:
+    essential:
+      - python3_standard
+      - python3-exceptiongroup_libs
+      - python3-importlib-metadata_libs
+      - python3-iniconfig_libs
+      - python3-packaging_libs
+      - python3-pluggy_libs
+      - python3-tomli_libs
+    contents:
+      /usr/lib/python3/dist-packages/_pytest/**:
+      /usr/lib/python3/dist-packages/py.py:
+      /usr/lib/python3/dist-packages/pytest-*.dist-info/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-pytest/copyright:

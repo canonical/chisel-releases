@@ -1,0 +1,17 @@
+package: python3-zipp
+
+essential:
+  - python3-zipp_copyright
+
+slices:
+  libs:
+    essential:
+      - python3_standard
+      - python3-more-itertools_libs
+    contents:
+      /usr/lib/python3/dist-packages/zipp-*.dist-info/**:
+      /usr/lib/python3/dist-packages/zipp.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-zipp/copyright:
