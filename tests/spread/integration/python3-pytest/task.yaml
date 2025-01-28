@@ -1,0 +1,7 @@
+summary: Integration tests for python3-pytest
+
+execute: |
+  rootfs="$(install-slices python3-pytest_bins)"
+
+  mv test_sample.py "$rootfs/"
+  chroot ${rootfs} /usr/bin/pytest | grep "1 passed"
