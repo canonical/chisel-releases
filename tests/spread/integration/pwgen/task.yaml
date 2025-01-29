@@ -5,7 +5,7 @@ execute: |
 
   # pwgen requires /dev/urandom & /dev/random
   mkdir "${rootfs}/dev"
-  mount --bind /dev "${rootfs/dev}"
+  mount --rbind /dev "${rootfs}/dev"
   test $(chroot "${rootfs}/" pwgen -C1 12 | wc -m) -eq 13
 
-  umount "${rootfs}/dev" 
+  umount -l "${rootfs}/dev" 
