@@ -3,7 +3,10 @@ package: util-linux
 essential:
   - util-linux_copyright
 
+
 slices:
+  # Note: Not all executables are currently testable in CI. Such files
+  # are commented as we do not yet know if they are stable.
   bins:
     essential:
       - libblkid1_libs
@@ -12,100 +15,30 @@ slices:
       - libcrypt1_libs
       - libmount1_libs
       - libpam0g_libs
-      - libselinux1_libs
+      - libselinux1_lib
       - libsmartcols1_libs
       - libsystemd0_libs
       - libtinfo6_libs
       - libudev1_libs
       - libuuid1_libs
+      - util-linux_blk-dev
+      - util-linux_file
+      - util-linux_file-system
       - util-linux_generated
+      - util-linux_ipc
+      - util-linux_kernel
+      - util-linux_login
+      - util-linux_misc
+      - util-linux_namespace
       - util-linux_pam-profiles
+      - util-linux_proc
+      - util-linux_setarch
+      - util-linux_shell
       - util-linux_su-support
+      - util-linux_text-dev
+      - util-linux_timers
       - zlib1g_libs
-    contents:
-      /usr/bin/addpart:
-      /usr/bin/choom:
-      /usr/bin/chrt:
-      /usr/bin/delpart:
-      /usr/bin/dmesg:
-      /usr/bin/fallocate:
-      /usr/bin/findmnt:
-      /usr/bin/flock:
-      /usr/bin/getopt:
-      /usr/bin/hardlink:
-      /usr/bin/i386: { arch: [i386, amd64] }
-      /usr/bin/ionice:
-      /usr/bin/ipcmk:
-      /usr/bin/ipcrm:
-      /usr/bin/ipcs:
-      /usr/bin/last:
-      /usr/bin/lastb:
-      /usr/bin/linux32:
-      /usr/bin/linux64:
-      /usr/bin/lsblk:
-      /usr/bin/lscpu:
-      /usr/bin/lsipc:
-      /usr/bin/lslocks:
-      /usr/bin/lslogins:
-      /usr/bin/lsmem:
-      /usr/bin/lsns:
-      /usr/bin/mcookie:
-      /usr/bin/mesg:
-      /usr/bin/more:
-      /usr/bin/mountpoint:
-      /usr/bin/namei:
-      /usr/bin/nsenter:
-      /usr/bin/partx:
-      /usr/bin/ppc: { arch: [ppc64el] }
-      /usr/bin/ppc32: { arch: [ppc64el] }
-      /usr/bin/ppc64: { arch: [ppc64el] }
-      /usr/bin/prlimit:
-      /usr/bin/rename.ul:
-      /usr/bin/resizepart:
-      /usr/bin/rev:
-      /usr/bin/s390: { arch: [s390x] }
-      /usr/bin/s390x: { arch: [s390x] }
-      /usr/bin/setarch:
-      /usr/bin/setpriv:
-      /usr/bin/setsid:
-      /usr/bin/setterm:
-      /usr/bin/taskset:
-      /usr/bin/uclampset:
-      /usr/bin/unshare:
-      /usr/bin/utmpdump:
-      /usr/bin/wdctl:
-      /usr/bin/whereis:
-      /usr/bin/x86_64: { arch: [amd64] }
-      /usr/sbin/agetty:
-      /usr/sbin/blkdiscard:
-      /usr/sbin/blkid:
-      /usr/sbin/blkzone:
-      /usr/sbin/blockdev:
-      /usr/sbin/chcpu:
-      /usr/sbin/chmem:
-      /usr/sbin/ctrlaltdel:
-      /usr/sbin/findfs:
-      /usr/sbin/fsck:
-      /usr/sbin/fsck.cramfs:
-      /usr/sbin/fsck.minix:
-      /usr/sbin/fsfreeze:
-      /usr/sbin/fstrim:
-      /usr/sbin/getty:
-      /usr/sbin/isosize:
-      /usr/sbin/ldattach:
-      /usr/sbin/mkfs:
-      /usr/sbin/mkfs.bfs:
-      /usr/sbin/mkfs.cramfs:
-      /usr/sbin/mkfs.minix:
-      /usr/sbin/mkswap:
-      /usr/sbin/pivot_root:
-      /usr/sbin/readprofile:
-      /usr/sbin/rtcwake:
-      /usr/sbin/sulogin:
-      /usr/sbin/swaplabel:
-      /usr/sbin/switch_root:
-      /usr/sbin/wipefs:
-      /usr/sbin/zramctl:
+
 
   # Contains the binaries which supports running commands with substitute user
   # and group IDs.
@@ -124,15 +57,6 @@ slices:
       /usr/bin/su:
       /usr/sbin/runuser:
 
-  # The following emulates the post-install script.
-  generated:
-    essential:
-      # Since the more binary is located at ./usr/bin/more and /bin in noble
-      # points to /usr/bin via base-files, the base-files_bin slice is included
-      # here.
-      - base-files_bin
-    contents:
-      /usr/bin/pager: {symlink: /bin/more}
 
   mime:
     contents:
@@ -155,3 +79,143 @@ slices:
   copyright:
     contents:
       /usr/share/doc/util-linux/copyright:
+
+  blk-dev:
+    content:
+      /usr/sbin/blkid:
+      /usr/bin/lsblk:
+      # /usr/bin/addpart:
+      # /usr/bin/delpart:
+      # /usr/bin/partx:
+      # /usr/bin/resizepart:
+      # /usr/sbin/blkdiscard:
+      # /usr/sbin/blkzone:
+      # /usr/sbin/blockdev:
+      # /usr/sbin/zramctl:
+
+  file:
+    content:
+      /usr/bin/fallocate:
+      /usr/bin/hardlink:
+      /usr/bin/flock:
+      /usr/bin/lslocks:
+      /usr/bin/more:
+      /usr/bin/rename.ul:
+
+  file-system:
+    content:
+      /usr/sbin/fsck:
+      /usr/sbin/fsck.cramfs:
+      /usr/sbin/fsck.minix:
+      /usr/sbin/fstrim:
+      /usr/sbin/mkfs:
+      /usr/sbin/mkfs.bfs:
+      /usr/sbin/mkfs.cramfs:
+      /usr/bin/findmnt:
+      /usr/sbin/mkfs.minix:
+      /usr/bin/mountpoint:
+      # /usr/sbin/findfs:
+      # /usr/sbin/fsfreeze:
+      # /usr/sbin/mkswap:
+      # /usr/sbin/wipefs:
+      # /usr/sbin/isosize:
+      # /usr/sbin/switch_root:
+      # /usr/sbin/swaplabel:
+
+  # The following emulates the post-install script.
+  generated:
+    essential:
+      # Since the more binary is located at ./usr/bin/more and /bin in noble
+      # points to /usr/bin via base-files, the base-files_bin slice is included
+      # here.
+      - base-files_bin
+    contents:
+      /usr/bin/pager: {symlink: /bin/more}
+
+
+  setarch:
+    content:
+      /usr/bin/i386: { arch: [i386, amd64] }
+      /usr/bin/linux32:
+      /usr/bin/linux64:
+      /usr/bin/ppc: { arch: [ppc64el] }
+      /usr/bin/ppc32: { arch: [ppc64el] }
+      /usr/bin/ppc64: { arch: [ppc64el] }
+      /usr/bin/s390: { arch: [s390x] }
+      /usr/bin/s390x: { arch: [s390x] }
+      /usr/bin/setarch:
+      /usr/bin/x86_64: { arch: [amd64] }
+
+
+
+
+  proc:
+    content:
+      /usr/bin/choom:
+      /usr/bin/chrt:
+      /usr/bin/ionice:
+      /usr/bin/prlimit:
+      /usr/bin/setpriv:
+      /usr/bin/setsid:
+      /usr/bin/taskset:
+      /usr/bin/uclampset:
+    
+
+
+  # text-dev:
+  #   content:
+  #     /usr/bin/setterm:
+  #     /usr/sbin/agetty:
+  #     /usr/sbin/getty:
+  #     /usr/sbin/ldattach:
+
+
+
+  namespace:
+    content:
+      /usr/bin/lsns:
+      /usr/bin/nsenter:
+      /usr/bin/unshare:
+
+  # kernel:
+  #   content:
+  #     /usr/bin/dmesg:
+  #     /usr/sbin/readprofile:
+
+  login:
+    content:
+      /usr/bin/last: 
+      /usr/bin/lastb:
+      /usr/bin/lslogins:
+      /usr/sbin/sulogin:
+      # /usr/bin/utmpdump:
+
+  # timers:
+  #   content:
+  #     /usr/bin/wdctl:
+  #     /usr/sbin/rtcwake:
+
+  shell:
+    content:
+      /usr/bin/getopt:
+      /usr/bin/namei:
+      /usr/bin/rev:
+      /usr/bin/whereis:
+
+  ipc:
+    content:
+      /usr/bin/ipcmk:
+      /usr/bin/ipcrm:
+      /usr/bin/ipcs:
+      /usr/bin/lsipc:
+
+  misc:
+    content:
+      /usr/bin/lscpu:
+      /usr/bin/lsmem:
+      /usr/bin/mcookie:
+      /usr/sbin/ctrlaltdel:
+      # /usr/bin/mesg:
+      # /usr/sbin/chcpu:
+      # /usr/sbin/chmem:
+      # /usr/sbin/pivot_root:
