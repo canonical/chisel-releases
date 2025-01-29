@@ -9,18 +9,17 @@ slices:
   # are commented as we do not yet know if they are stable.
   bins:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libcap-ng0_libs
-      - libcrypt1_libs
-      - libmount1_libs
-      - libpam0g_libs
-      - libselinux1_lib
-      - libsmartcols1_libs
-      - libsystemd0_libs
-      - libtinfo6_libs
-      - libudev1_libs
-      - libuuid1_libs
+      # - libc6_libs
+      # - libcap-ng0_libs
+      # - libcrypt1_libs
+      # - libmount1_libs
+      # - libpam0g_libs
+      # - libselinux1_lib
+      # - libsmartcols1_libs
+      # - libsystemd0_libs
+      # - libtinfo6_libs
+      # - libudev1_libs
+      # - libuuid1_libs
       - util-linux_blk-dev
       - util-linux_file
       - util-linux_file-system
@@ -37,7 +36,6 @@ slices:
       - util-linux_su-support
       - util-linux_text-dev
       - util-linux_timers
-      - zlib1g_libs
 
 
   # Contains the binaries which supports running commands with substitute user
@@ -81,6 +79,15 @@ slices:
       /usr/share/doc/util-linux/copyright:
 
   blk-dev:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libmount1_libs
+      - libpcre2-8-0_libs
+      - libselinux1_lib
+      - libsmartcols1_libs
+      - libudev1_libs
     content:
       /usr/sbin/blkid:
       /usr/bin/lsblk:
@@ -94,6 +101,14 @@ slices:
       # /usr/sbin/zramctl:
 
   file:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libmount1_libs
+      - libpcre2-8-0_libs
+      - libselinux1_lib
+      - libsmartcols1_libs
+      - libtinfo6_libs
     content:
       /usr/bin/fallocate:
       /usr/bin/hardlink:
@@ -103,6 +118,16 @@ slices:
       /usr/bin/rename.ul:
 
   file-system:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libmount1_libs
+      - libpcre2-8-0_libs
+      - libselinux1_lib
+      - libsmartcols1_libs
+      - libudev1_libs
+      - zlib1g_libs
     content:
       /usr/sbin/fsck:
       /usr/sbin/fsck.cramfs:
@@ -132,8 +157,9 @@ slices:
     contents:
       /usr/bin/pager: {symlink: /bin/more}
 
-
   setarch:
+    essential:
+      - libc6_libs
     content:
       /usr/bin/i386: { arch: [i386, amd64] }
       /usr/bin/linux32:
@@ -146,10 +172,11 @@ slices:
       /usr/bin/setarch:
       /usr/bin/x86_64: { arch: [amd64] }
 
-
-
-
   proc:
+    essential:
+      - libc6_libs
+      - libcap-ng0_libs
+      - libsmartcols1_libs
     content:
       /usr/bin/choom:
       /usr/bin/chrt:
@@ -172,6 +199,13 @@ slices:
 
 
   namespace:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libmount1_libs
+      - libpcre2-8-0_libs
+      - libselinux1_lib
+      - libsmartcols1_libs
     content:
       /usr/bin/lsns:
       /usr/bin/nsenter:
@@ -183,6 +217,19 @@ slices:
   #     /usr/sbin/readprofile:
 
   login:
+    essential:
+      - libc6_libs
+      - libcap-ng0_libs
+      - libcrypt1_libs
+      - libgcrypt20_libs
+      - libgpg-error0_libs
+      - liblz4-1_libs
+      - liblzma5_libs
+      - libpcre2-8-0_libs
+      - libselinux1_lib
+      - libsmartcols1_libs
+      - libsystemd0_libs
+      - libzstd1_libs
     content:
       /usr/bin/last: 
       /usr/bin/lastb:
@@ -196,6 +243,10 @@ slices:
   #     /usr/sbin/rtcwake:
 
   shell:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libselinux1_lib
     content:
       /usr/bin/getopt:
       /usr/bin/namei:
@@ -203,6 +254,9 @@ slices:
       /usr/bin/whereis:
 
   ipc:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
     content:
       /usr/bin/ipcmk:
       /usr/bin/ipcrm:
@@ -210,6 +264,9 @@ slices:
       /usr/bin/lsipc:
 
   misc:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
     content:
       /usr/bin/lscpu:
       /usr/bin/lsmem:
@@ -219,3 +276,7 @@ slices:
       # /usr/sbin/chcpu:
       # /usr/sbin/chmem:
       # /usr/sbin/pivot_root:
+
+
+
+
