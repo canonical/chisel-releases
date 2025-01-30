@@ -12,7 +12,8 @@ slices:
       /usr/bin/funzip:
       /usr/bin/unzip:
       /usr/bin/unzipsfx:
-      /usr/bin/zipinfo:
+      # Should be a hard link, but Chisel does not yet support hard links
+      /usr/bin/zipinfo: {symlink: /usr/bin/unzip}
 
   scripts:
     essential:
