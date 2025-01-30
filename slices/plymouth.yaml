@@ -1,0 +1,89 @@
+package: plymouth
+
+essential:
+  - plymouth_copyright
+
+slices:
+  bins:
+    essential:
+      - init-system-helpers_bins
+      - libc6_libs
+      - libdrm2_libs
+      - libplymouth5_libs
+      - plymouth_logrotate-config
+      - plymouth_theme
+      - systemd_bins
+      - sysvinit-utils_bins
+      - udev_bins
+    contents:
+      /usr/bin/plymouth:
+      /usr/libexec/plymouth/*:
+      /usr/sbin/plymouthd:
+
+  logrotate-config:
+    contents:
+      /etc/logrotate.d/bootlog:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/plymouth/details.so:
+      /usr/lib/*-linux-*/plymouth/renderers/drm.so:
+      /usr/lib/*-linux-*/plymouth/renderers/frame-buffer.so:
+      /usr/lib/*-linux-*/plymouth/script.so:
+      /usr/lib/*-linux-*/plymouth/text.so:
+      /usr/lib/*-linux-*/plymouth/tribar.so:
+
+  # init.d shell scripts
+  initd-scripts:
+    essential:
+      - plymouth_bins
+      - sysvinit-utils_bins
+    contents:
+      /etc/init.d/plymouth:
+      /etc/init.d/plymouth-log:
+      /usr/lib/lsb/init-functions.d/99-plymouth:
+
+  systemd-services:
+    essential:
+      - plymouth_bins
+    contents:
+      /usr/lib/systemd/system/halt.target.wants/plymouth-halt.service:
+      /usr/lib/systemd/system/halt.target.wants/plymouth-switch-root-initramfs.service:
+      /usr/lib/systemd/system/initrd-switch-root.target.wants/plymouth-start.service:
+      /usr/lib/systemd/system/initrd-switch-root.target.wants/plymouth-switch-root.service:
+      /usr/lib/systemd/system/kexec.target.wants/plymouth-kexec.service:
+      /usr/lib/systemd/system/kexec.target.wants/plymouth-switch-root-initramfs.service:
+      /usr/lib/systemd/system/multi-user.target.wants/plymouth-quit-wait.service:
+      /usr/lib/systemd/system/multi-user.target.wants/plymouth-quit.service:
+      /usr/lib/systemd/system/plymouth-halt.service:
+      /usr/lib/systemd/system/plymouth-kexec.service:
+      /usr/lib/systemd/system/plymouth-log.service:
+      /usr/lib/systemd/system/plymouth-poweroff.service:
+      /usr/lib/systemd/system/plymouth-quit-wait.service:
+      /usr/lib/systemd/system/plymouth-quit.service:
+      /usr/lib/systemd/system/plymouth-read-write.service:
+      /usr/lib/systemd/system/plymouth-reboot.service:
+      /usr/lib/systemd/system/plymouth-start.service:
+      /usr/lib/systemd/system/plymouth-switch-root-initramfs.service:
+      /usr/lib/systemd/system/plymouth-switch-root.service:
+      /usr/lib/systemd/system/plymouth.service:
+      /usr/lib/systemd/system/poweroff.target.wants/plymouth-poweroff.service:
+      /usr/lib/systemd/system/poweroff.target.wants/plymouth-switch-root-initramfs.service:
+      /usr/lib/systemd/system/reboot.target.wants/plymouth-reboot.service:
+      /usr/lib/systemd/system/reboot.target.wants/plymouth-switch-root-initramfs.service:
+      /usr/lib/systemd/system/sysinit.target.wants/plymouth-read-write.service:
+      /usr/lib/systemd/system/sysinit.target.wants/plymouth-start.service:
+      /usr/lib/systemd/system/systemd-ask-password-plymouth.path:
+      /usr/lib/systemd/system/systemd-ask-password-plymouth.service:
+
+  theme:
+    contents:
+      /usr/share/plymouth/themes/details/details.plymouth:
+      /usr/share/plymouth/themes/spinner/watermark.png:
+      /usr/share/plymouth/themes/text/text.plymouth:
+      /usr/share/plymouth/themes/tribar/tribar.plymouth:
+      /usr/share/plymouth/ubuntu-logo.png:
+
+  copyright:
+    contents:
+      /usr/share/doc/plymouth/copyright:
