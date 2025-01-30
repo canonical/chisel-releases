@@ -13,6 +13,6 @@ execute: |
   chroot "${rootfs}" zipnote testfile.zip > foo.tmp
   echo -e "@ This is a test comment" >> foo.tmp
   chroot "${rootfs}" zipnote -w testfile.zip < foo.tmp
-  test "$(chroot foo zipnote testfile.zip | tail -n1)" = "\@ this is a test comment"
+  test "$(chroot "${rootfs}" zipnote testfile.zip | tail -n1)" = "\@ This is a test comment"
   chroot "${rootfs}" zipsplit testfile.zip
   test "$(chroot "${rootfs}" unzip -p testfil1.zip testfile.txt)" = "Hello, World"
