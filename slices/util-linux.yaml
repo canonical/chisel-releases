@@ -14,12 +14,10 @@ slices:
       # - libcrypt1_libs
       # - libmount1_libs
       # - libpam0g_libs
-      # - libselinux1_lib
+      # - libselinux1_libs
       # - libsmartcols1_libs
       # - libsystemd0_libs
-      # - libtinfo6_libs
       # - libudev1_libs
-      # - libuuid1_libs
       - util-linux_blk-dev
       - util-linux_file
       - util-linux_file-system
@@ -85,20 +83,20 @@ slices:
       - libcap-ng0_libs
       - libmount1_libs
       - libpcre2-8-0_libs
-      - libselinux1_lib
+      - libselinux1_libs
       - libsmartcols1_libs
       - libudev1_libs
-    content:
-      /usr/sbin/blkid:
+    contents:
+      /usr/bin/addpart:
+      /usr/bin/delpart:
       /usr/bin/lsblk:
-      # /usr/bin/addpart:
-      # /usr/bin/delpart:
-      # /usr/bin/partx:
-      # /usr/bin/resizepart:
-      # /usr/sbin/blkdiscard:
-      # /usr/sbin/blkzone:
-      # /usr/sbin/blockdev:
-      # /usr/sbin/zramctl:
+      /usr/bin/partx:
+      /usr/bin/resizepart:
+      /usr/sbin/blkdiscard:
+      /usr/sbin/blkid:
+      /usr/sbin/blkzone:
+      /usr/sbin/blockdev:
+      /usr/sbin/zramctl:
 
   file:
     essential:
@@ -106,13 +104,13 @@ slices:
       - libc6_libs
       - libmount1_libs
       - libpcre2-8-0_libs
-      - libselinux1_lib
+      - libselinux1_libs
       - libsmartcols1_libs
       - libtinfo6_libs
-    content:
+    contents:
       /usr/bin/fallocate:
-      /usr/bin/hardlink:
       /usr/bin/flock:
+      /usr/bin/hardlink:
       /usr/bin/lslocks:
       /usr/bin/more:
       /usr/bin/rename.ul:
@@ -124,28 +122,29 @@ slices:
       - libcap-ng0_libs
       - libmount1_libs
       - libpcre2-8-0_libs
-      - libselinux1_lib
+      - libselinux1_libs
       - libsmartcols1_libs
       - libudev1_libs
+      - libuuid1_libs
       - zlib1g_libs
-    content:
+    contents:
+      /usr/bin/findmnt:
+      /usr/bin/mountpoint:
+      /usr/sbin/findfs:
       /usr/sbin/fsck:
       /usr/sbin/fsck.cramfs:
       /usr/sbin/fsck.minix:
+      /usr/sbin/fsfreeze:
       /usr/sbin/fstrim:
+      /usr/sbin/isosize:
       /usr/sbin/mkfs:
       /usr/sbin/mkfs.bfs:
       /usr/sbin/mkfs.cramfs:
-      /usr/bin/findmnt:
       /usr/sbin/mkfs.minix:
-      /usr/bin/mountpoint:
-      # /usr/sbin/findfs:
-      # /usr/sbin/fsfreeze:
-      # /usr/sbin/mkswap:
-      # /usr/sbin/wipefs:
-      # /usr/sbin/isosize:
-      # /usr/sbin/switch_root:
-      # /usr/sbin/swaplabel:
+      /usr/sbin/mkswap:
+      /usr/sbin/swaplabel:
+      /usr/sbin/switch_root:
+      /usr/sbin/wipefs:
 
   # The following emulates the post-install script.
   generated:
@@ -154,13 +153,14 @@ slices:
       # points to /usr/bin via base-files, the base-files_bin slice is included
       # here.
       - base-files_bin
+      - util-linux_file
     contents:
       /usr/bin/pager: {symlink: /bin/more}
 
   setarch:
     essential:
       - libc6_libs
-    content:
+    contents:
       /usr/bin/i386: { arch: [i386, amd64] }
       /usr/bin/linux32:
       /usr/bin/linux64:
@@ -177,7 +177,7 @@ slices:
       - libc6_libs
       - libcap-ng0_libs
       - libsmartcols1_libs
-    content:
+    contents:
       /usr/bin/choom:
       /usr/bin/chrt:
       /usr/bin/ionice:
@@ -186,17 +186,16 @@ slices:
       /usr/bin/setsid:
       /usr/bin/taskset:
       /usr/bin/uclampset:
-    
 
-
-  # text-dev:
-  #   content:
-  #     /usr/bin/setterm:
-  #     /usr/sbin/agetty:
-  #     /usr/sbin/getty:
-  #     /usr/sbin/ldattach:
-
-
+  text-dev:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/setterm:
+      /usr/sbin/agetty:
+      /usr/sbin/getty:
+      /usr/sbin/ldattach:
 
   namespace:
     essential:
@@ -204,17 +203,20 @@ slices:
       - libc6_libs
       - libmount1_libs
       - libpcre2-8-0_libs
-      - libselinux1_lib
+      - libselinux1_libs
       - libsmartcols1_libs
-    content:
+    contents:
       /usr/bin/lsns:
       /usr/bin/nsenter:
       /usr/bin/unshare:
 
-  # kernel:
-  #   content:
-  #     /usr/bin/dmesg:
-  #     /usr/sbin/readprofile:
+  kernel:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/dmesg:
+      /usr/sbin/readprofile:
 
   login:
     essential:
@@ -226,28 +228,31 @@ slices:
       - liblz4-1_libs
       - liblzma5_libs
       - libpcre2-8-0_libs
-      - libselinux1_lib
+      - libselinux1_libs
       - libsmartcols1_libs
       - libsystemd0_libs
       - libzstd1_libs
-    content:
+    contents:
       /usr/bin/last: 
       /usr/bin/lastb:
       /usr/bin/lslogins:
+      /usr/bin/utmpdump:
       /usr/sbin/sulogin:
-      # /usr/bin/utmpdump:
 
-  # timers:
-  #   content:
-  #     /usr/bin/wdctl:
-  #     /usr/sbin/rtcwake:
+  timers:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/wdctl:
+      /usr/sbin/rtcwake:
 
   shell:
     essential:
       - libc6_libs
       - libpcre2-8-0_libs
-      - libselinux1_lib
-    content:
+      - libselinux1_libs
+    contents:
       /usr/bin/getopt:
       /usr/bin/namei:
       /usr/bin/rev:
@@ -257,7 +262,7 @@ slices:
     essential:
       - libc6_libs
       - libsmartcols1_libs
-    content:
+    contents:
       /usr/bin/ipcmk:
       /usr/bin/ipcrm:
       /usr/bin/ipcs:
@@ -267,16 +272,12 @@ slices:
     essential:
       - libc6_libs
       - libsmartcols1_libs
-    content:
+    contents:
       /usr/bin/lscpu:
       /usr/bin/lsmem:
       /usr/bin/mcookie:
+      /usr/bin/mesg:
+      /usr/sbin/chcpu:
+      /usr/sbin/chmem:
       /usr/sbin/ctrlaltdel:
-      # /usr/bin/mesg:
-      # /usr/sbin/chcpu:
-      # /usr/sbin/chmem:
-      # /usr/sbin/pivot_root:
-
-
-
-
+      /usr/sbin/pivot_root:
