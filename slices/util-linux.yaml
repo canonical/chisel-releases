@@ -3,21 +3,11 @@ package: util-linux
 essential:
   - util-linux_copyright
 
-
 slices:
   # Note: Not all executables are currently testable in CI. Such files
   # are commented as we do not yet know if they are stable.
   bins:
     essential:
-      # - libc6_libs
-      # - libcap-ng0_libs
-      # - libcrypt1_libs
-      # - libmount1_libs
-      # - libpam0g_libs
-      # - libselinux1_libs
-      # - libsmartcols1_libs
-      # - libsystemd0_libs
-      # - libudev1_libs
       - util-linux_blk-dev
       - util-linux_file
       - util-linux_file-system
@@ -35,7 +25,6 @@ slices:
       - util-linux_text-dev
       - util-linux_timers
 
-
   # Contains the binaries which supports running commands with substitute user
   # and group IDs.
   su-support:
@@ -52,7 +41,6 @@ slices:
     contents:
       /usr/bin/su:
       /usr/sbin/runuser:
-
 
   mime:
     contents:
@@ -233,7 +221,7 @@ slices:
       - libsystemd0_libs
       - libzstd1_libs
     contents:
-      /usr/bin/last: 
+      /usr/bin/last:
       /usr/bin/lastb:
       /usr/bin/lslogins:
       /usr/bin/utmpdump:
