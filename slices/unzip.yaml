@@ -1,0 +1,25 @@
+package: unzip
+
+essential:
+  - unzip_copyright
+
+slices:
+  bins:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+    contents:
+      /usr/bin/funzip:
+      /usr/bin/unzip:
+      /usr/bin/unzipsfx:
+      /usr/bin/zipinfo:
+
+  scripts:
+    essential:
+      - unzip_bins
+    contents:
+      /usr/bin/zipgrep:
+
+  copyright:
+    contents:
+      /usr/share/doc/unzip/copyright:
