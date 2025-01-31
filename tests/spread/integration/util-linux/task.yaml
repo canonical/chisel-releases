@@ -1,22 +1,33 @@
 summary: Integration tests for util-linux
 
 environment:
-  SLICE/bins: "bins"
-  SLICE/su: "su-support"
-  SLICE/blk: "blk-dev"
-  SLICE/file: "file"
+  SLICE/blk: "block-devices"
+  SLICE/cli: "cli-helpers"
+  SLICE/cpu: "cpu"
+  SLICE/ctrlaltdel: "ctrlaltdel"
+  SLICE/file: "file-manipulation"
   SLICE/fs: "file-system"
-  SLICE/setarch: "setarch"
-  SLICE/proc: "proc"
-  SLICE/textdev: "text-dev"
-  SLICE/namespace: "namespace"
-  SLICE/kernel: "kernel"
-  SLICE/login: "login"
-  SLICE/timers: "timers"
-  SLICE/shell: "shell"
-  SLICE/ipc: "ipc"
-  SLICE/misc: "misc"
   SLICE/generated: "generated"
+  SLICE/ipc: "ipc"
+  SLICE/kernel: "kernel"
+  SLICE/lock: "lock"
+  SLICE/login: "login"
+  SLICE/mcookie: "mcookie"
+  SLICE/mem: "memory"
+  SLICE/namespace: "namespace"
+  SLICE/proc: "process"
+  SLICE/setarch: "set-arch"
+  SLICE/su: "su-support"
+  SLICE/timer: "timer"
+  SLICE/tty: "tty"
+
+# Binaries involving disk, partition and device operations are only tested with
+# the `--help` command as the smoke test.
+# Some of the binaries are not possible to be tested with their functionalities
+# due to the limitation of the spread test environment.
+# Some of the binaries neither changes the status of the system, nor have
+# deterministic outputs across different systems. They are tested without
+# assertions.
 
 execute: |
   rootfs="$(install-slices util-linux_${SLICE} base-files_base bash_bins)"
@@ -31,30 +42,7 @@ execute: |
   mount --bind /sys "${rootfs}"/sys
 
   case ${SLICE} in
-    bins)
-      # Binaries involving disk, partition and device operations are only tested with
-      # the `--help` command as the smoke test.
-      # Some of the binaries are not possible to be tested with their functionalities
-      # due to the limitation of the spread test environment.
-      # Some of the binaries neither changes the status of the system, nor have
-      # deterministic outputs across different systems. They are tested without
-      # assertions.
-      # ensure expected links are generated
-      if ! [ -e "${rootfs}"/usr/bin/pager ]; then
-        echo "expected /usr/bin/pager to be generated"
-        exit 1
-      fi
-    ;;
-    su-support)
-      # Test the su and runuser binaries
-      cp /etc/passwd "${rootfs}"/etc/passwd
-      echo "foo:!:1001:1001:Test user,,,:/tmp:/bin/bash" >> "${rootfs}"/etc/passwd
-      cp /usr/bin/whoami "${rootfs}"/usr/bin/
-      chmod 755 "${rootfs}"/
-      chroot "${rootfs}" su foo -c whoami | grep "foo"
-      chroot "${rootfs}" runuser foo -c whoami | grep "foo"
-    ;;
-    blk-dev)
+    block-devices)
       chroot "${rootfs}" addpart --help
       chroot "${rootfs}" delpart --help
       chroot "${rootfs}" lsblk | grep "loop0"
@@ -64,12 +52,23 @@ execute: |
       chroot "${rootfs}" blkzone --help
       chroot "${rootfs}" blockdev --help
       chroot "${rootfs}" zramctl --help
-
     ;;
-    file)
+    cli-helpers)
+      chroot "${rootfs}" getopt Hello world | grep " -- world"
+      chroot "${rootfs}" namei /bin/bash | grep "l bin -> usr/bin"
+      echo "Hello" | chroot "${rootfs}" rev | grep "olleH"
+      chroot "${rootfs}" whereis getopt | grep "/usr/bin/getopt"
+    ;;
+    cpu)
+      chroot "${rootfs}" lscpu | grep "Architecture"
+      chroot "${rootfs}" chcpu --help
+    ;;
+    ctrlaltdel)
+      chroot "${rootfs}" ctrlaltdel | grep -P '[soft|hard]'
+    ;;
+    file-manipulation)
       chroot "${rootfs}" fallocate -l 1M /tmp/fallocate-test
       test -f "${rootfs}"/tmp/fallocate-test
-      chroot "${rootfs}" flock /tmp/bash.lock -c "exit 0"
       mkdir -p "${rootfs}"/tmp/hardlink-test
       echo "Hello world" > "${rootfs}"/tmp/hardlink-test/file1
       cp "${rootfs}"/tmp/hardlink-test/file1 "${rootfs}"/tmp/hardlink-test/file2
@@ -107,36 +106,29 @@ execute: |
       chroot "${rootfs}" swaplabel --help
       chroot "${rootfs}" switch_root --help
       chroot "${rootfs}" wipefs --help
+      chroot "${rootfs}" pivot_root --help
     ;;
-    setarch)
-      # i386, ppc, ppc32, ppc64, s390, s390x and x86_64 are symlinks to setarch.
-      chroot "${rootfs}" setarch --list | grep "linux32"
+    generated)
+      # ensure expected links are generated
+      if ! [ -e "${rootfs}"/usr/bin/pager ]; then
+        echo "expected /usr/bin/pager to be generated"
+        exit 1
+      fi
     ;;
-    proc)
-      chroot "${rootfs}" choom -p 1
-      chroot "${rootfs}" chrt -p 1
-      chroot "${rootfs}" ionice -P 1 | grep "prio"
-      chroot "${rootfs}" prlimit | grep "CPU"
-      chroot "${rootfs}" setpriv bash -c "exit 0"
-      chroot "${rootfs}" setsid bash -c "exit 0"
-      chroot "${rootfs}" taskset -p 1 | grep "pid 1's current affinity mask:"
-      chroot "${rootfs}" uclampset -p 1 | grep "util_clamp: min: "
-    ;;
-    text-dev)
-      chroot "${rootfs}" setterm --help
-      chroot "${rootfs}" agetty --help
-      chroot "${rootfs}" ldattach --help
-      chroot "${rootfs}" getty --help
-    ;;
-    namespace)
-      chroot "${rootfs}" lsns | grep "init"
-      chroot "${rootfs}" nsenter bash -c "exit 0"
-      chroot "${rootfs}" unshare bash -c "exit 0"
+    ipc)
+      ipcmk_out=$(chroot "${rootfs}" ipcmk -M 1)
+      shm_id=$(echo "${ipcmk_out}" | grep -oP '\d+')
+      chroot "${rootfs}" ipcs -m | grep "${shm_id}"
+      chroot "${rootfs}" ipcrm shm "${shm_id}"
+      chroot "${rootfs}" lsipc | grep "MSGMNI"
     ;;
     kernel)
       # Accessing kernel dmesg is not permitted in LXD.
       chroot "${rootfs}" dmesg --help
       chroot "${rootfs}" readprofile --help
+    ;;
+    lock)
+      chroot "${rootfs}" flock /tmp/bash.lock -c "lslocks" | grep "/tmp/bash.lock"
     ;;
     login)
       cp /var/log/wtmp "${rootfs}"/var/log/wtmp
@@ -147,32 +139,51 @@ execute: |
       # Set timeout to let it exit without keyboard inputs after 1 second.
       chroot "${rootfs}" sulogin -t 1
     ;;
-    timers)
+    mcookie)
+      chroot "${rootfs}" mcookie | grep -E '^[0-9a-f]{32}$'
+    ;;
+    memory)
+      chroot "${rootfs}" lsmem | grep "Total online memory"
+      chroot "${rootfs}" chmem --help
+    ;;
+    namespace)
+      chroot "${rootfs}" lsns | grep "init"
+      chroot "${rootfs}" nsenter bash -c "exit 0"
+      chroot "${rootfs}" unshare bash -c "exit 0"
+    ;;
+    process)
+      chroot "${rootfs}" choom -p 1
+      chroot "${rootfs}" chrt -p 1
+      chroot "${rootfs}" ionice -P 1 | grep "prio"
+      chroot "${rootfs}" prlimit | grep "CPU"
+      chroot "${rootfs}" setpriv bash -c "exit 0"
+      chroot "${rootfs}" setsid bash -c "exit 0"
+      chroot "${rootfs}" taskset -p 1 | grep "pid 1's current affinity mask:"
+      chroot "${rootfs}" uclampset -p 1 | grep "util_clamp: min: "
+    ;;
+    set-arch)
+      # i386, ppc, ppc32, ppc64, s390, s390x and x86_64 are symlinks to setarch.
+      chroot "${rootfs}" setarch --list | grep "linux32"
+    ;;
+    su-support)
+      # Test the su and runuser binaries
+      cp /etc/passwd "${rootfs}"/etc/passwd
+      echo "foo:!:1001:1001:Test user,,,:/tmp:/bin/bash" >> "${rootfs}"/etc/passwd
+      cp /usr/bin/whoami "${rootfs}"/usr/bin/
+      chmod 755 "${rootfs}"/
+      chroot "${rootfs}" su foo -c whoami | grep "foo"
+      chroot "${rootfs}" runuser foo -c whoami | grep "foo"
+    ;;
+    timer)
       chroot "${rootfs}" wdctl --help
       chroot "${rootfs}" rtcwake --help
     ;;
-    shell)
-      chroot "${rootfs}" getopt Hello world | grep " -- world"
-      chroot "${rootfs}" namei /bin/bash | grep "l bin -> usr/bin"
-      echo "Hello" | chroot "${rootfs}" rev | grep "olleH"
-      chroot "${rootfs}" whereis getopt | grep "/usr/bin/getopt"
-    ;;
-    ipc)
-      ipcmk_out=$(chroot "${rootfs}" ipcmk -M 1)
-      shm_id=$(echo "${ipcmk_out}" | grep -oP '\d+')
-      chroot "${rootfs}" ipcs -m | grep "${shm_id}"
-      chroot "${rootfs}" ipcrm shm "${shm_id}"
-      chroot "${rootfs}" lsipc | grep "MSGMNI"
-    ;;
-    misc)
-      chroot "${rootfs}" lscpu | grep "Architecture"
-      chroot "${rootfs}" lsmem | grep "Total online memory"
-      chroot "${rootfs}" mcookie | grep -E '^[0-9a-f]{32}$'
+    tty)
+      chroot "${rootfs}" setterm --help
+      chroot "${rootfs}" agetty --help
+      chroot "${rootfs}" ldattach --help
+      chroot "${rootfs}" getty --help
       chroot "${rootfs}" mesg --help
-      chroot "${rootfs}" chcpu --help
-      chroot "${rootfs}" chmem --help
-      chroot "${rootfs}" ctrlaltdel | grep -P '[soft|hard]'
-      chroot "${rootfs}" pivot_root --help
     ;;
   esac
 
