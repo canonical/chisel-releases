@@ -1,7 +1,7 @@
 summary: Integration tests for patch
 
 execute: |
-  rootfs="$(install-slices diffutils_bins patch_bins)"
+  rootfs="$(install-slices patch_bins)"
 
   chroot "${rootfs}/" patch --help
   echo "Hello, World" > "${rootfs}/testfile.txt"
