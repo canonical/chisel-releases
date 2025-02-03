@@ -257,8 +257,8 @@ slices:
   tty:
     essential:
       - libc6_libs
-      - libtinfo6_libs
       - libsystemd0_libs
+      - libtinfo6_libs
     contents:
       /usr/bin/mesg:
       /usr/bin/setterm:
