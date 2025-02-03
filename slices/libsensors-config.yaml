@@ -6,7 +6,7 @@ essential:
 slices:
   config:
     contents:
-      /etc/sensors.d/: {make: true}
+      /etc/sensors.d/:
       /etc/sensors3.conf:
 
   copyright:
