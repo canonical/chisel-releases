@@ -164,7 +164,6 @@ slices:
       - libselinux1_libs
       - libsmartcols1_libs
       - libsystemd0_libs
-    contents:
       /usr/bin/last:
       /usr/bin/lastb:
       /usr/bin/lslogins:
