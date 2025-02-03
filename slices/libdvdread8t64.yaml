@@ -1,0 +1,15 @@
+package: libdvdread8t64
+
+essential:
+  - libdvdread8t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libdvdread.so.8*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdvdread8t64/copyright:
