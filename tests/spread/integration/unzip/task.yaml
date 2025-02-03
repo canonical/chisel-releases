@@ -1,8 +1,7 @@
 summary: Integration tests for unzip
 
 execute: |
-  rootfs="$(install-slices base-files_bin dash_bins grep_bins grep_deprecated \
-    sed_bins unzip_bins unzip_scripts zip_bins)"
+  rootfs="$(install-slices base-files_bin unzip_bins unzip_scripts zip_bins)"
 
   chroot "${rootfs}/" unzip -hh
   chroot "${rootfs}/" unzipsfx -hh
