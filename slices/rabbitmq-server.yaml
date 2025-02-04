@@ -12,10 +12,14 @@ slices:
 
   bins:
     essential:
-      - base-files_base
+      - base-files_bin
+      - base-files_etc
+      - base-files_home
+      - base-files_var
       - base-passwd_data
       - bash_bins
       - coreutils_bins
+      # Uncomment the following lines if not on i386
       # - erlang-base_bins
       # - erlang-inets_scripts
       # - erlang-os-mon_bins
@@ -82,17 +86,18 @@ slices:
         { copy: /usr/share/rabbitmq/rabbitmq-env.conf, mode: 0644 }
 
   modules:
+    # Uncomment the following lines if not on i386
     # essential:
-    # - erlang-crypto_modules
-    # - erlang-eldap_modules
-    # - erlang-mnesia_modules
-    # - erlang-parsetools_modules
-    # - erlang-public-key_modules
-    # - erlang-runtime-tools_modules
-    # - erlang-ssl_modules
-    # - erlang-syntax-tools_modules
-    # - erlang-tools_modules
-    # - erlang-xmerl_modules
+    #   - erlang-crypto_modules
+    #   - erlang-eldap_modules
+    #   - erlang-mnesia_modules
+    #   - erlang-parsetools_modules
+    #   - erlang-public-key_modules
+    #   - erlang-runtime-tools_modules
+    #   - erlang-ssl_modules
+    #   - erlang-syntax-tools_modules
+    #   - erlang-tools_modules
+    #   - erlang-xmerl_modules
     contents:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/plugins/**:
 
