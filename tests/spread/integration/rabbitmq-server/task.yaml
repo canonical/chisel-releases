@@ -1,0 +1,13 @@
+summary: Integration tests for RabbitMQ
+
+execute: |
+  # rootfs="$(install-slices rabbitmq-server_bins erlang-base_bins erlang-inets_scripts erlang-os-mon_bins erlang-crypto_modules erlang-eldap_modules erlang-mnesia_modules erlang-parsetools_modules erlang-public-key_modules erlang-runtime-tools_modules erlang-ssl_modules erlang-syntax-tools_modules erlang-tools_modules erlang-xmerl_modules)"
+  rootfs="$(install-slices rabbitmq-server_bins erlang-base_bins erlang-inets_scripts erlang-os-mon_bins erlang-mnesia_modules erlang-parsetools_modules erlang-runtime-tools_modules erlang-syntax-tools_modules erlang-tools_modules erlang-xmerl_modules)"
+  cp /bin/sh "$rootfs"/bin/
+  chroot "$rootfs" mkdir /dev
+  chroot "$rootfs" touch /dev/null
+  chroot "$rootfs" chmod 777 /dev/null
+  chroot "$rootfs" mkdir -p /var/lib/rabbitmq/mnesia /var/log/rabbitmq /etc/rabbitmq
+  chroot "$rootfs" useradd -r -d /var/lib/rabbitmq rabbitmq
+  chroot "$rootfs" chown -R rabbitmq /var/lib/rabbitmq /var/log/rabbitmq /etc/rabbitmq
+  chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl version
