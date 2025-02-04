@@ -1,0 +1,31 @@
+package: zstd
+
+essential:
+  - zstd_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - liblz4-1_libs
+      - liblzma5_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/pzstd:
+      /usr/bin/unzstd: {symlink: /usr/bin/zstd}
+      /usr/bin/zstd:
+      /usr/bin/zstdcat: {symlink: /usr/bin/zstd}
+      /usr/bin/zstdmt: {symlink: /usr/bin/zstd}
+
+  scripts:
+    essential:
+      - zstd_bins
+    contents:
+      /usr/bin/zstdgrep:
+      /usr/bin/zstdless:
+
+  copyright:
+    contents:
+      /usr/share/doc/zstd/copyright:

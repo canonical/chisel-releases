@@ -1,0 +1,26 @@
+summary: Integration tests for zstd
+
+execute: |
+  rootfs="$(install-slices base-files_bin dash_bins grep_bins ncurses-base_terminfo \
+    zstd_bins less_bins zstd_scripts)"
+  
+  chroot "${rootfs}/" pzstd -h
+  chroot "${rootfs}/" unzstd -H
+  chroot "${rootfs}/" zstd -H
+  chroot "${rootfs}/" zstdcat -H
+  chroot "${rootfs}/" zstdless --version
+  chroot "${rootfs}/" zstdmt -H
+  chroot "${rootfs}/" zstd 
+  echo "Hello, World" > "${rootfs}/testfile_orig.txt"
+  chroot "${rootfs}/" zstd testfile_orig.txt -o testfile.zst
+  chroot "${rootfs}/" unzstd testfile.zst -o testfile_new.txt
+  test "$(cat "${rootfs}/"/testfile_new.txt)" = "$(cat "${rootfs}/"/testfile_orig.txt)"
+  chroot "${rootfs}/" pzstd -p 4 testfile.txt
+  chroot "${rootfs}/" unzstd testfile.txt.zst -o testfile_pzstd.txt
+  test "$(cat "${rootfs}/"/testfile_pzstd.txt)" = "$(cat "${rootfs}/"/testfile_orig.txt)"
+  echo "It's Linux" > "${rootfs}/testfile_new.txt"
+  chroot "${rootfs}/" zstd testfile_orig.txt -o testfile_orig.zst
+  chroot "${rootfs}/" zstd testfile_new.txt -o testfile_new.zst
+  chroot "${rootfs}/" zstdcat testfile_orig.zst testfile_new.zst > "${rootfs}/testfile_cat.txt"
+  test "$(chroot "${rootfs}/" zstdgrep "Hello, World" testfile_cat.txt)" = "Hello, World"
+  test "$(chroot "${rootfs}/" zstdless -F -X -R  testfile_orig.zst)" = "Hello, World"
