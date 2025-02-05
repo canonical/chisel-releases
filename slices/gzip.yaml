@@ -8,10 +8,24 @@ slices:
     essential:
       - libc6_libs
     contents:
+      /usr/bin/gzip:
+
+  scripts:
+    essential:
+      - base-files_bin
+      - base-files_tmp
+      - bash_bins
+      - coreutils_bins
+      - diffutils_bins
+      - grep_bins
+      - gzip_bins
+      - less_bins
+      - sed_bins
+      - util-linux_more
+    contents:
       /usr/bin/gunzip:
       /usr/bin/gzexe:
-      /usr/bin/gzip:
-      /usr/bin/uncompress:
+      /usr/bin/uncompress: {copy: /usr/bin/gunzip}
       /usr/bin/zcat:
       /usr/bin/zcmp:
       /usr/bin/zdiff:
