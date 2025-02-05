@@ -13,18 +13,24 @@ slices:
       /usr/bin/lessecho:
       # lesskey is deprecated since version 582.
 
-  scripts:
-    essential:
-      - less_bins
-    contents:
-      /usr/bin/lesspipe:
+  # scripts slice is not added since `lessfile`
+  # is a script contains unlisted dependencies
+  # making it difficult to test thoroughly.
+  # scripts:
+  #  essential:
+  #    - less_bins
+  #  contents:
+  #    /usr/bin/lessfile:
+  #    /usr/bin/lesspipe:
 
-  pager:
-    essential:
-      - less_bins
-    # pager conflicts with the one generated in util-linux_generated.
-    # Manually link pager to less if required.
-    contents:
+  # pager conflicts with the one generated in util-linux_generated.
+  # Manually link pager to less if required.
+  # TODO: Add `prefer` to /usr/bin/pager when conflict resolution
+  # is merged for chisel.
+  # pager:
+  #  essential:
+  #    - less_bins
+  # contents:
     #  /usr/bin/pager: {symlink: /usr/bin/less}
 
   copyright:
