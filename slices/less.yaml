@@ -1,0 +1,32 @@
+package: less
+
+essential:
+  - less_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/less:
+      /usr/bin/lessecho:
+      # lesskey is deprecated since version 582.
+
+  scripts:
+    essential:
+      - less_bins
+    contents:
+      /usr/bin/lesspipe:
+
+  pager:
+    essential:
+      - less_bins
+    # pager conflicts with the one generated in util-linux_generated.
+    # Manually link pager to less if required.
+    contents:
+    #  /usr/bin/pager: {symlink: /usr/bin/less}
+
+  copyright:
+    contents:
+      /usr/share/doc/less/copyright:

@@ -1,0 +1,11 @@
+summary: Integration tests for less
+
+execute: |
+  rootfs="$(install-slices less_bins)"
+
+  chroot "${rootfs}" less /usr/share/doc/less/copyright > copyright.txt
+
+  cmp copyright.txt "${rootfs}"/usr/share/doc/less/copyright
+
+  test "$(chroot ${rootfs} lessecho -a hello world)" = '"hello" "world"'
+
