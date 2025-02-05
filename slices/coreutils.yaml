@@ -12,6 +12,7 @@ slices:
 
   bins:
     essential:
+      - coreutils_env
       - coreutils_expr
       - coreutils_libs
       - coreutils_mkdir
@@ -49,7 +50,6 @@ slices:
       /usr/bin/dirname:
       /usr/bin/du:
       /usr/bin/echo:
-      /usr/bin/env:
       /usr/bin/expand:
       /usr/bin/factor:
       /usr/bin/false:
@@ -128,6 +128,12 @@ slices:
       /usr/bin/whoami:
       /usr/bin/yes:
       /usr/sbin/chroot:
+
+  env:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/env:
 
   expr:
     essential:

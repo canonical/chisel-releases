@@ -118,7 +118,7 @@ slices:
   # Security configuration files and native libraries
   security:
     essential:
-      - libnss3_libs
+      - libnss3_nss
       - libpcsclite1_libs
       - openjdk-17-jre-headless_core
     contents:
