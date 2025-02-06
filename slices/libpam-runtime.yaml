@@ -131,13 +131,8 @@ slices:
         template = template.replace(idnames[i] + "_additional", ab)
         content.write("/etc/pam.d/common-" + fn, template)
 
-  # folders expected by libpam to exist
-  var:
-    contents:
-      /var/lib/pam/:
-
   # The following two slices are kept for backwards compatibility.
-  # However, the config have been modified to deliver correct
+  # However, the pam-defaults have been modified to deliver correct
   # files instead of templates.
   pam-config:
     contents:
@@ -155,6 +150,11 @@ slices:
       /usr/share/pam/common-session-noninteractive:
       /usr/share/pam/common-session-noninteractive.md5sums:
       /usr/share/pam/common-session.md5sums:
+
+  # folders expected by libpam to exist
+  var:
+    contents:
+      /var/lib/pam/:
 
   copyright:
     contents:
