@@ -1,0 +1,261 @@
+package: libgl1-mesa-dri
+
+essential:
+  - libgl1-mesa-dri_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdrm-amdgpu1_libs
+      # The libdrm-intel1_libs dependency is currently ommited, it can be
+      # added again once chisel supports per-arch package dependencies,
+      # see https://github.com/canonical/chisel/issues/93
+      # needed for: amd64 and i386
+      - libdrm-nouveau2_libs
+      - libdrm-radeon1_libs
+      - libdrm2_libs
+      - libelf1t64_libs
+      - libexpat1_libs
+      - libgcc-s1_libs
+      - libgl1-mesa-dri_config
+      - libglapi-mesa_libs
+      - libllvm17t64_libs
+      - libsensors5_libs
+      - libstdc++6_libs
+      - libvulkan1_libs
+      - libxcb-dri3-0_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/dri/armada-drm_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/crocus_dri.so:
+        arch:
+          - amd64
+          - i386
+      /usr/lib/*-linux-*/dri/d3d12_dri.so:
+        arch:
+          - amd64
+          - arm64
+      /usr/lib/*-linux-*/dri/etnaviv_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/exynos_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/gm12u320_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/hdlcd_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/hx8357d_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/i915_dri.so:
+        arch:
+          - amd64
+          - i386
+      /usr/lib/*-linux-*/dri/ili9163_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/ili9225_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/ili9341_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/ili9486_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/imx-dcss_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/imx-drm_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/imx-lcdif_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/ingenic-drm_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/iris_dri.so:
+        arch:
+          - amd64
+          - i386
+      /usr/lib/*-linux-*/dri/kgsl_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/kirin_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/kms_swrast_dri.so:
+      /usr/lib/*-linux-*/dri/komeda_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/lima_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/mali-dp_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/mcde_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/mediatek_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/meson_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/mi0283qt_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/msm_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/mxsfb-drm_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/nouveau_dri.so:
+      /usr/lib/*-linux-*/dri/panel-mipi-dbi_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/panfrost_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/pl111_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/r300_dri.so:
+      /usr/lib/*-linux-*/dri/r600_dri.so:
+      /usr/lib/*-linux-*/dri/radeonsi_dri.so:
+      /usr/lib/*-linux-*/dri/rcar-du_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/repaper_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/rockchip_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/st7586_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/st7735r_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/sti_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/stm_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/sun4i-drm_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/swrast_dri.so:
+      /usr/lib/*-linux-*/dri/tegra_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/udl_dri.so:
+        arch:
+          - arm64
+          - armhf
+          - riscv64
+      /usr/lib/*-linux-*/dri/v3d_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/vc4_dri.so:
+        arch:
+          - arm64
+          - armhf
+      /usr/lib/*-linux-*/dri/virtio_gpu_dri.so:
+      /usr/lib/*-linux-*/dri/vmwgfx_dri.so:
+        arch:
+          - amd64
+          - arm64
+          - armhf
+          - i386
+      /usr/lib/*-linux-*/dri/zink_dri.so:
+
+  config:
+    contents:
+      /usr/share/drirc.d/00-mesa-defaults.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgl1-mesa-dri/copyright:
