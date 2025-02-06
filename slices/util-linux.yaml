@@ -29,7 +29,6 @@ slices:
     essential:
       - libblkid1_libs
       - libc6_libs
-      - libcap-ng0_libs
       - libmount1_libs
       - libselinux1_libs
       - libsmartcols1_libs
@@ -80,13 +79,11 @@ slices:
     essential:
       - libblkid1_libs
       - libc6_libs
-      - libcap-ng0_libs
       - libmount1_libs
       - libselinux1_libs
       - libsmartcols1_libs
       - libudev1_libs
       - libuuid1_libs
-      - zlib1g_libs
     contents:
       /usr/bin/findmnt:
       /usr/bin/mountpoint:
@@ -105,7 +102,7 @@ slices:
   # The following emulates the post-install script.
   generated:
     essential:
-      # Since the more binary is located at ./usr/bin/more and /bin in points
+      # Since the more binary is located at ./usr/bin/more and /bin points
       # to /usr/bin via base-files, the base-files_bin slice is included
       # here.
       - base-files_bin
@@ -145,7 +142,6 @@ slices:
   login:
     essential:
       - libc6_libs
-      - libcap-ng0_libs
       - libcrypt1_libs
       - libselinux1_libs
       - libsmartcols1_libs
