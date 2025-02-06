@@ -1,0 +1,5 @@
+summary: Integration tests for vim-tiny
+
+execute: |
+  rootfs="$(install-slices vim-tiny)"
+  chroot "${rootfs}/" vim.tiny --version
