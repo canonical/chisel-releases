@@ -77,10 +77,16 @@ execute: |
       chroot "${rootfs}" findfs --help
       # Dry run, outputs differ across different system configurations
       chroot "${rootfs}" fsck -N
-      # fsck.cramfs and fsck.minix are tested together with mkfs.cramfs and mkfs.minix
       chroot "${rootfs}" fsfreeze --help
       chroot "${rootfs}" fstrim --help
       chroot "${rootfs}" isosize --help
+      # Test mkfs with an image file and verify it with fsck
+      # Using the mkfs.vfat from the host, as `mkfs.*` is not shipped
+      # by util-linux package any more since Ubuntu 24.10.
+      cp /usr/sbin/mkfs.vfat "${rootfs}"/usr/sbin/mkfs.vfat
+      fallocate -l 16M "${rootfs}"/tmp/mkfs-test
+      chroot "${rootfs}" mkfs -t vfat /tmp/mkfs-test
+      chroot "${rootfs}" fsck -n /tmp/mkfs-test
       chroot "${rootfs}" mkswap --help
       chroot "${rootfs}" swaplabel --help
       chroot "${rootfs}" switch_root --help
