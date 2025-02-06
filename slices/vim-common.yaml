@@ -1,0 +1,13 @@
+package: vim-common
+
+essential:
+  - vim-common_copyright
+
+slices:
+  config:
+    contents:
+      /etc/vim/vimrc:
+
+  copyright:
+    contents:
+      /usr/share/doc/vim-common/copyright:
