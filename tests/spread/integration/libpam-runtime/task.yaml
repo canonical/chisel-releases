@@ -1,0 +1,13 @@
+summary: Integration tests for libpam-runtime
+
+execute: |
+  rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts coreutils_bins sudo_bins)"
+
+  # test that libpam correctly generated things
+  cat "$rootfs"/etc/pam.d/common-account | grep -E "account\s+\[success=1 new_authtok_reqd=done default=ignore\]\s+pam_unix\.so"
+  cat "$rootfs"/etc/pam.d/common-auth | grep -E "auth\s+\[success=1 default=ignore\]\s+pam_unix\.so\s+nullok"
+  cat "$rootfs"/etc/pam.d/common-password | grep -E "password\s+\[success=1 default=ignore\]\s+pam_unix\.so\s+obscure\s+yescrypt"
+  cat "$rootfs"/etc/pam.d/common-session | grep -E "session\s+\[default=1\]\s+pam_permit\.so"
+  cat "$rootfs"/etc/pam.d/common-session | grep -E "session\s+required\s+pam_unix\.so"
+  cat "$rootfs"/etc/pam.d/common-session-noninteractive | grep -E "session\s+\[default=1\]\s+pam_permit\.so"
+  cat "$rootfs"/etc/pam.d/common-session-noninteractive | grep -E "session\s+required\s+pam_unix\.so"
