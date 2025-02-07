@@ -9,7 +9,7 @@ slices:
       - libbsd0_libs
       - libc6_libs
     contents:
-      /bin/nc.openbsd:
+      /usr/bin/nc.openbsd:
 
   copyright:
     contents:
