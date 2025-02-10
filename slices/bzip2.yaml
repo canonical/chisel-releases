@@ -16,9 +16,9 @@ slices:
 
   scripts:
     essential:
-      - bzip2_bins
       - base-files_bin
       - base-files_tmp
+      - bzip2_bins
       - coreutils_bins
       - diffutils_bins
       - grep_bins
