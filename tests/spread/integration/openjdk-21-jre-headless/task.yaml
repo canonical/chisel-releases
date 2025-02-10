@@ -1,0 +1,64 @@
+summary: Integration tests for openjdk-21-jre-headless
+
+environment:
+  SLICE/classdatasharing: "class-data-sharing"
+  SLICE/core: "core"
+  SLICE/prefs: "prefs"
+#  SLICE/rmi: "rmi" # Tested in management slice
+#  SLICE/console: "console" # This test requires /dev/pty. Skip it.
+  SLICE/debug: "debug"
+  SLICE/management: "management"
+  SLICE/jfr: "jfr"
+  SLICE/security: "security"
+  SLICE/tools: "tools"
+
+execute: |
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
+  apt install --update -y openjdk-21-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
+  javac *.java
+  cp *.java ${rootfs}/
+  cp *.class ${rootfs}/
+  cd ${rootfs}
+  mkdir -p proc/self
+  for java in `find usr/lib/jvm -name java`; do
+    ln -sf /${java} proc/self/exe
+    chroot . ${java} --version
+    case ${SLICE} in
+      class-data-sharing)
+        chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
+      ;;
+      core)
+        chroot . ${java} /Main.java
+      ;;
+      prefs)
+        chroot . ${java} /PrefsTest.java put
+        chroot . ${java} /PrefsTest.java get
+      ;;
+      debug)
+        chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
+      ;;
+      management)
+        chroot . ${java} -Dcom.sun.management.jmxremote.port=5000 \
+          -Dcom.sun.management.jmxremote.authenticate=false \
+          -Dcom.sun.management.jmxremote=true \
+          -Dcom.sun.management.jmxremote.ssl=false  -cp . TestJMX
+      ;;
+      jfr)
+        chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
+      ;;
+      security)
+        chroot . ${java} /ReadCertificate.java
+      ;;
+      tools)
+        DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
+        chroot . $(dirname ${java})/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME"
+      ;;
+    esac
+  done
+
+restore: |
+  apt remove -y --purge openjdk-21-jdk-headless

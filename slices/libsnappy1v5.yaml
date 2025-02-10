@@ -1,0 +1,18 @@
+package: libsnappy1v5
+
+essential:
+  - libsnappy1v5_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      # libsnappy1v5 depends on libgcc-s1 on riscv64 and armhf
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libsnappy.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsnappy1v5/copyright:
