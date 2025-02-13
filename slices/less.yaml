@@ -13,7 +13,7 @@ slices:
       /usr/bin/lessecho:
       # Note that lesskey is deprecated since less version 582.
       /usr/bin/lesskey:
-  
+
   # pager conflicts with the one generated in util-linux_generated slice.
   # Manually link pager to less if required.
   # TODO: Add `prefer` to /usr/bin/pager when conflict resolution
