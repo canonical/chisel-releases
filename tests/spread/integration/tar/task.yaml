@@ -1,0 +1,33 @@
+summary: Integration tests for tar
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices tar_tar)"
+
+  mkdir "${rootfs}/test"
+
+  echo "This is a test file" > "${rootfs}/test/test.txt"
+  touch --date=2020-01-01T00:00:00Z "${rootfs}/test/test.txt"
+  touch --date=2020-01-01T00:00:00Z "${rootfs}/test/"
+
+  # Create an uncompressed tarball and compare to a known hash.
+  chroot "${rootfs}/" tar -cf test.tar /test/
+  [[ $(sha256sum "${rootfs}/test.tar" | cut -d' ' -f1) == f5893661db55f15954c90dee860ee6c93042ea482c303f5f162c8078cdc79928 ]]
+
+  # Decompress back to a new directory and ensure the file is correct.
+  mkdir "${rootfs}/test-result"
+  chroot "${rootfs}/" tar -xf test.tar -C /test-result
+  [[ "$(cat ${rootfs}/test/test.txt)" == "$(cat ${rootfs}/test-result/test/test.txt)" ]]
+  # Check modification times
+  [[ $(stat -c %Y ${rootfs}/test-result/test) == 1577836800 ]]
+  [[ $(stat -c %Y ${rootfs}/test-result/test) == 1577836800 ]]
+
+  # Expect an error gzipping a tarball since gzip is not installed in the chroot.
+  ! chroot "${rootfs}/" tar -czf test.tar.gz /test/ 2| grep -q "tar (child): gzip: Cannot exec: No such file or directory"
+
+  # New environment for rmt slice.
+  rootfs="$(install-slices tar_rmt)"
+
+  # We can't really do much with rmt, so just check that the executable works.
+  chroot "${rootfs}/" rmt-tar --version
