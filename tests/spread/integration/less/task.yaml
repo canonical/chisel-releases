@@ -1,0 +1,10 @@
+summary: Integration tests for less
+
+execute: |
+  rootfs="$(install-slices less_bins)"
+
+  chroot "${rootfs}/" less --version
+  chroot "${rootfs}/" lesskey --version
+  echo "Hello, World" > "${rootfs}/testfile.txt"
+  test "$(chroot "${rootfs}/" less -F -X -R testfile.txt)" = "Hello, World"
+  test "$(chroot "${rootfs}/" lessecho -m: a:b )" = "a\:b"
