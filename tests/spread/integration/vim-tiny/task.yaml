@@ -3,3 +3,6 @@ summary: Integration tests for vim-tiny
 execute: |
   rootfs="$(install-slices vim-tiny_bins)"
   chroot "${rootfs}/" vim.tiny --version
+  echo "hello world" > "$rootfs/test"
+  chroot "$rootfs" vim.tiny -c ":s/hello/bye/" -c ":wq" test
+  test "$(cat "$rootfs/test")" = "bye world"

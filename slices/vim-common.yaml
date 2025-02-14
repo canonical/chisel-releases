@@ -4,10 +4,20 @@ essential:
   - vim-common_copyright
 
 slices:
+  addons:  
+    contents:  
+      /var/lib/vim/addons/:
+
   config:
+    essential:
+      - vim-common_runtime
     contents:
       /etc/vim/vimrc:
 
   copyright:
     contents:
       /usr/share/doc/vim-common/copyright:
+
+  runtime:
+    contents:
+      /usr/share/vim/vim91/debian.vim:
