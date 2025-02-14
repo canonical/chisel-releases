@@ -1,0 +1,24 @@
+package: libllvm19
+
+essential:
+  - libllvm19_copyright
+
+slices:
+  libs:
+    essential:
+      - libatomic1_libs
+      - libc6_libs
+      - libedit2_libs
+      - libffi8_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libxml2_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libLLVM-19.so:
+      /usr/lib/*-linux-*/libLLVM.so.19.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libllvm19/copyright:
