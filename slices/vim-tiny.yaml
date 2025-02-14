@@ -1,0 +1,24 @@
+package: vim-tiny
+
+essential:
+  - vim-tiny_copyright
+
+slices:
+  bins:
+    essential:
+      - libacl1_libs
+      - libc6_libs
+      - libselinux1_libs
+      - libtinfo6_libs
+      - vim-common_config
+      - vim-tiny_config
+    contents:
+      /usr/bin/vim.tiny:
+
+  config:
+    contents:
+      /etc/vim/vimrc.tiny:
+
+  copyright:
+    contents:
+      /usr/share/doc/vim-tiny/copyright:
