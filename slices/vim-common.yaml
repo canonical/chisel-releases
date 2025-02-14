@@ -4,8 +4,8 @@ essential:
   - vim-common_copyright
 
 slices:
-  addons:  
-    contents:  
+  addons:
+    contents:
       /var/lib/vim/addons/:
 
   config:
