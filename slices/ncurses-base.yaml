@@ -6,59 +6,14 @@ essential:
 slices:
   tabset:
     contents:
-      /usr/share/tabset/std:
-      /usr/share/tabset/stdcrt:
-      /usr/share/tabset/vt100:
-      /usr/share/tabset/vt300:
+      /usr/share/tabset/**:
 
   terminfo:
     essential:
       - ncurses-base_tabset
     contents:
-      /usr/share/terminfo/E/Eterm:
-      /usr/share/terminfo/E/Eterm-color: {symlink: /usr/share/terminfo/E/Eterm}
-      /usr/share/terminfo/a/ansi:
-      /usr/share/terminfo/c/cons25:
-      /usr/share/terminfo/c/cygwin:
-      /usr/share/terminfo/d/dumb:
-      /usr/share/terminfo/h/hurd:
-      /usr/share/terminfo/l/linux:
-      /usr/share/terminfo/m/mach:
-      /usr/share/terminfo/m/mach-bold:
-      /usr/share/terminfo/m/mach-color:
-      /usr/share/terminfo/m/mach-gnu:
-      /usr/share/terminfo/m/mach-gnu-color:
-      /usr/share/terminfo/p/pcansi:
-      /usr/share/terminfo/r/rxvt:
-      /usr/share/terminfo/r/rxvt-basic:
-      /usr/share/terminfo/r/rxvt-m: {symlink: /usr/share/terminfo/r/rxvt-basic}
-      /usr/share/terminfo/r/rxvt-unicode:
-      /usr/share/terminfo/r/rxvt-unicode-256color:
-      /usr/share/terminfo/s/screen:
-      /usr/share/terminfo/s/screen-256color:
-      /usr/share/terminfo/s/screen-256color-bce:
-      /usr/share/terminfo/s/screen-bce:
-      /usr/share/terminfo/s/screen-s:
-      /usr/share/terminfo/s/screen-w:
-      /usr/share/terminfo/s/screen.xterm-256color:
-      /usr/share/terminfo/s/sun:
-      /usr/share/terminfo/t/tmux:
-      /usr/share/terminfo/t/tmux-256color:
-      /usr/share/terminfo/v/vt100:
-      /usr/share/terminfo/v/vt102:
-      /usr/share/terminfo/v/vt220:
-      /usr/share/terminfo/v/vt52:
-      /usr/share/terminfo/w/wsvt25:
-      /usr/share/terminfo/w/wsvt25m:
-      /usr/share/terminfo/x/xterm:
-      /usr/share/terminfo/x/xterm-256color:
-      /usr/share/terminfo/x/xterm-color:
-      /usr/share/terminfo/x/xterm-debian: {symlink: /usr/share/terminfo/x/xterm}
-      /usr/share/terminfo/x/xterm-mono:
-      /usr/share/terminfo/x/xterm-r5:
-      /usr/share/terminfo/x/xterm-r6:
-      /usr/share/terminfo/x/xterm-vt220:
-      /usr/share/terminfo/x/xterm-xfree86:
+      /usr/share/terminfo/**:
+
 
   copyright:
     contents:
