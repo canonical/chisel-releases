@@ -14,7 +14,6 @@ slices:
     contents:
       /usr/share/terminfo/**:
 
-
   copyright:
     contents:
       /usr/share/doc/ncurses-base/copyright:
