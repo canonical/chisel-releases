@@ -9,10 +9,10 @@ slices:
       - libbz2-1.0_libs
       - libc6_libs
     contents:
-      /usr/bin/bunzip2: 
+      /usr/bin/bunzip2:
       /usr/bin/bzcat: { symlink: /usr/bin/bunzip2 }
       /usr/bin/bzip2: { symlink: /usr/bin/bunzip2 }
-      /usr/bin/bzip2recover: 
+      /usr/bin/bzip2recover:
 
   scripts:
     essential:
@@ -27,14 +27,14 @@ slices:
       - sed_bins
       - util-linux_more
     contents:
-      /usr/bin/bzcmp: 
-      /usr/bin/bzdiff: 
-      /usr/bin/bzegrep: 
-      /usr/bin/bzexe: 
-      /usr/bin/bzfgrep: 
-      /usr/bin/bzgrep: 
-      /usr/bin/bzless: 
-      /usr/bin/bzmore: 
+      /usr/bin/bzcmp:
+      /usr/bin/bzdiff:
+      /usr/bin/bzegrep:
+      /usr/bin/bzexe:
+      /usr/bin/bzfgrep:
+      /usr/bin/bzgrep:
+      /usr/bin/bzless:
+      /usr/bin/bzmore:
 
   copyright:
     contents:
