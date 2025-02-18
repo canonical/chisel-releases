@@ -1,0 +1,56 @@
+package: sudo
+
+essential:
+  - sudo_copyright
+
+slices:
+  bins:
+    essential:
+      - libapparmor1_libs
+      - libaudit1_libs
+      - libc6_libs
+      - libpam-modules_libs
+      - libpam0g_libs
+      - libselinux1_libs
+      - libssl3t64_libs
+      - sudo_config
+      - sudo_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/cvtsudoers:
+      /usr/bin/sudo:
+      /usr/bin/sudoedit:
+      /usr/bin/sudoreplay:
+      /usr/libexec/sudo/sesh:
+      /usr/sbin/sudo_logsrvd:
+      /usr/sbin/sudo_sendlog:
+      /usr/sbin/visudo:
+
+  config:
+    contents:
+      /etc/pam.d/sudo:
+      /etc/pam.d/sudo-i:
+      /etc/sudo.conf:
+      /etc/sudo_logsrvd.conf:
+      /etc/sudoers:
+      /usr/lib/tmpfiles.d/sudo.conf:
+
+  services:
+    essential:
+      - sudo_bins
+    contents:
+      /usr/lib/systemd/system/sudo.service:
+
+  libs:
+    contents:
+      /usr/libexec/sudo/audit_json.so:
+      /usr/libexec/sudo/group_file.so:
+      /usr/libexec/sudo/libsudo_util.so*:
+      /usr/libexec/sudo/sudo_intercept.so:
+      /usr/libexec/sudo/sudo_noexec.so:
+      /usr/libexec/sudo/sudoers.so:
+      /usr/libexec/sudo/system_group.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/sudo/copyright:

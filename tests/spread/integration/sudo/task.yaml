@@ -1,0 +1,10 @@
+summary: Integration tests for sudo
+execute: |
+  rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts coreutils_bins sudo_bins)"
+  host=$(hostname)
+  
+  # setup /etc/hosts for the current hostname, otherwise
+  # sudo will be confused
+  sed -i "/127.0.0.1\tlocalhost/a 127.0.0.1\t$host" "$rootfs"/etc/hosts
+  # ensure sudo correctly runs and provides the output "root"
+  chroot "$rootfs" sudo whoami | grep "root"
