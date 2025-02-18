@@ -17,6 +17,8 @@ execute: |
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
   apt install --update -y openjdk-21-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
   javac *.java
   cp *.java ${rootfs}/
   cp *.class ${rootfs}/
@@ -57,3 +59,6 @@ execute: |
       ;;
     esac
   done
+
+restore: |
+  apt remove -y --purge openjdk-21-jdk-headless

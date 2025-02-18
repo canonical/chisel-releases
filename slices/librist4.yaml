@@ -1,0 +1,17 @@
+package: librist4
+
+essential:
+  - librist4_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcjson1_libs
+      - libmbedcrypto7t64_libs
+    contents:
+      /usr/lib/*-linux-*/librist.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/librist4/copyright:

@@ -1,0 +1,8 @@
+summary: Integration tests for gearman-job-server
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices gearman-job-server_bins)"
+
+  chroot "${rootfs}/" gearmand -h
