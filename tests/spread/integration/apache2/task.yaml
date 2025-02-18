@@ -1,0 +1,30 @@
+summary: Integration tests for apache2
+
+execute: |
+  rootfs="$(apache2_bins dash_bins base-files_bin coreutils_bins adduser_bins curl_bins)"
+
+  mkdir -p "${rootfs}/dev"
+  mknod -m 666 "${rootfs}/dev/null" c 1 3
+  mkdir -p "${rootfs}/var/run/apache2"
+  mkdir -p "${rootfs}/var/lock/apache2"
+  mkdir -p "${rootfs}/var/log/apache2"
+  mkdir -p "${rootfs}/var/www/html"
+  mkdir -p "${rootfs}/dev/shm"
+  chown www-data:www-data "${rootfs}/var/run/apache2"
+  chown www-data:www-data "${rootfs}/var/lock/apache2"
+  chown www-data:www-data "${rootfs}/var/log/apache2"
+  chown -R www-data:www-data "${rootfs}/var/www"
+  chmod 755 "${rootfs}/var/run/apache2"
+  chmod 755 "${rootfs}/var/lock/apache2"
+  chmod 755 "${rootfs}/var/log/apache2"
+  chmod 1777 "${rootfs}/dev/shm"
+  chmod -R 755 "${rootfs}/var/www"
+  mknod -m 644 "${rootfs}/dev/urandom" c 1 9
+  chown root:root "${rootfs}/dev/urandom"
+  echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
+  echo "127.0.0.1 localhost" >> "${rootfs}/etc/hosts"
+  echo "Mutex posixsem" >> "${rootfs}/etc/apache2/apache2.conf"
+  echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
+  chroot foo apachectl start
+    
+  test "$(chroot foo curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1)" = "200"

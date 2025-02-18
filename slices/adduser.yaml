@@ -1,0 +1,27 @@
+package: adduser
+
+essential:
+  - adduser_copyright
+
+slices:
+  bins:
+    essential:
+      - adduser_configs
+      - passwd_bins
+    contents:
+      /usr/sbin/addgroup: {symlink: /usr/sbin/addgroup}
+      /usr/sbin/adduser:
+      /usr/sbin/delgroup: {symlink: usr/sbin/deluser}
+      /usr/sbin/deluser:
+
+  configs:
+    contents:
+      /etc/adduser.conf:
+      /etc/deluser.conf:
+      /usr/share/perl5/Debian/AdduserCommon.pm:
+      /usr/share/perl5/Debian/AdduserLogging.pm:
+      /usr/share/perl5/Debian/AdduserRetvalues.pm:
+
+  copyright:
+    contents:
+      /usr/share/doc/adduser/copyright:

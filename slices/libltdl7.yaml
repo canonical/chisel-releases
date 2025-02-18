@@ -1,0 +1,15 @@
+package: libltdl7
+
+essential:
+  - libltdl7_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libltdl.so.7*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libltdl7/copyright:

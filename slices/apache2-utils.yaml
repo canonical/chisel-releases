@@ -1,0 +1,30 @@
+package: apache2-utils
+
+essential:
+  - apache2-utils_copyright
+
+slices:
+  bins:
+    essential:
+      - libapr1t64_libs
+      - libaprutil1t64_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libssl3t64_libs
+    contents:
+      /usr/bin/ab:
+      /usr/bin/checkgid:
+      /usr/bin/fcgistarter:
+      /usr/bin/htcacheclean:
+      /usr/bin/htdbm:
+      /usr/bin/htdigest:
+      /usr/bin/htpasswd:
+      /usr/bin/logresolve:
+      /usr/bin/rotatelogs:
+      /usr/sbin/check_forensic:
+      /usr/sbin/httxt2dbm:
+      /usr/sbin/split-logfile:
+
+  copyright:
+    contents:
+      /usr/share/doc/apache2-utils/copyright:

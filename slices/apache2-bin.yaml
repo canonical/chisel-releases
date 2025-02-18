@@ -1,0 +1,41 @@
+package: apache2-bin
+
+essential:
+  - apache2-bin_copyright
+
+slices:
+  bins:
+    essential:
+      - apache2-bin_libs
+    contents:
+      /usr/sbin/apache2:
+      /usr/share/apport/package-hooks/apache2.py:
+      /usr/share/bug/apache2-bin/script:
+      /usr/share/lintian/overrides/apache2-bin:
+
+  libs:
+    essential:
+      - libapr1t64_libs
+      - libaprutil1-dbd-sqlite3_libs
+      - libaprutil1-ldap_libs
+      - libaprutil1t64_libs
+      - libbrotli1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libcurl4t64_libs
+      - libjansson4_libs
+      - libldap2_libs
+      - liblua5.4-0_libs
+      - libnghttp2-14_libs
+      - libpcre2-8-0_libs
+      - libssl3t64_libs
+      - libxml2_libs
+      - perl_bins
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/apache2-bin/copyright:
