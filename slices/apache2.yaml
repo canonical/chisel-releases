@@ -11,9 +11,6 @@ slices:
       - apache2-data_data
       - apache2-utils_bins
       - media-types_data
-      - init-system-helpers_bins
-      - init-system-helpers_config
-      - init-system-helpers_var
       - perl_bins
       - procps_bins
     contents:
@@ -311,17 +308,6 @@ slices:
       {symlink: /etc/apache2/mods-available/xml2enc.load}
       /etc/apache2/ports.conf:
       /etc/apache2/sites-available/**:
-      /etc/cron.daily/apache2:
-      /etc/default/apache-htcacheclean:
-      /etc/init.d/apache-htcacheclean:
-      /etc/init.d/apache2:
-      /etc/logrotate.d/apache2:
-      /etc/ufw/applications.d/apache2-utils.ufw.profile:
-      /usr/share/apache2/ask-for-passphrase:
-      /usr/lib/systemd/system/apache-htcacheclean.service:
-      /usr/lib/systemd/system/apache-htcacheclean@.service:
-      /usr/lib/systemd/system/apache2.service:
-      /usr/lib/systemd/system/apache2@.service:
 
   copyright:
     contents:

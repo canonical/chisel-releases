@@ -6,14 +6,11 @@ essential:
 slices:
   bins:
     essential:
-      - apache2-bin_libs
+      - apache2-bin_modules
     contents:
       /usr/sbin/apache2:
-      /usr/share/apport/package-hooks/apache2.py:
-      /usr/share/bug/apache2-bin/script:
-      /usr/share/lintian/overrides/apache2-bin:
 
-  libs:
+  modules:
     essential:
       - libapr1t64_libs
       - libaprutil1-dbd-sqlite3_libs
@@ -30,7 +27,6 @@ slices:
       - libpcre2-8-0_libs
       - libssl3t64_libs
       - libxml2_libs
-      - perl_bins
       - zlib1g_libs
     contents:
       /usr/lib/apache2/modules/httpd.exp:

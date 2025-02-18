@@ -22,9 +22,7 @@ slices:
   error:
     contents:
       /usr/share/apache2/error/*.html.var:
-      /usr/share/apache2/error/include/bottom.html:
-      /usr/share/apache2/error/include/spacer.html:
-      /usr/share/apache2/error/include/top.html:
+      /usr/share/apache2/error/include/*.html:
 
   icons:
     contents:
