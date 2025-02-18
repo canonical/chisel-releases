@@ -1,0 +1,17 @@
+package: libpwquality1
+
+essential:
+  - libpwquality1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libcrack2_libs
+      - libpwquality-common_config
+    contents:
+      /usr/lib/*-linux-*/libpwquality.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpwquality1/copyright:
