@@ -1,10 +1,11 @@
-summary: Integration tests for openjdk-17-jre-headless
+summary: Integration tests for openjdk-21-jre-headless
 
 environment:
   SLICE/classdatasharing: "class-data-sharing"
   SLICE/core: "core"
   SLICE/prefs: "prefs"
 #  SLICE/rmi: "rmi" # Tested in management slice
+#  SLICE/console: "console" # This test requires /dev/pty. Skip it.
   SLICE/debug: "debug"
   SLICE/management: "management"
   SLICE/jfr: "jfr"
@@ -14,16 +15,13 @@ environment:
 execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-17-jre-headless_${SLICE} dash_bins)"
-  apt install --update -y openjdk-11-jdk-headless
+  rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
+  apt install --update -y openjdk-21-jdk-headless
   # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
+  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
   javac *.java
-  jar cvf test.jar *.java
-  cp *.jar ${rootfs}/
   cp *.java ${rootfs}/
   cp *.class ${rootfs}/
-  cp certificate.pem ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
@@ -31,18 +29,17 @@ execute: |
     chroot . ${java} --version
     case ${SLICE} in
       class-data-sharing)
-        chroot . ${java} -Xshare:dump
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
       core)
-        chroot . ${java} -cp . Main
+        chroot . ${java} /Main.java
       ;;
       prefs)
-        chroot . ${java} -cp . PrefsTest put
-        chroot . ${java} -cp . PrefsTest get
+        chroot . ${java} /PrefsTest.java put
+        chroot . ${java} /PrefsTest.java get
       ;;
       debug)
-        chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -cp . Main
+        chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
       ;;
       management)
         chroot . ${java} -Dcom.sun.management.jmxremote.port=5000 \
@@ -51,10 +48,10 @@ execute: |
           -Dcom.sun.management.jmxremote.ssl=false  -cp . TestJMX
       ;;
       jfr)
-        chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr -cp . Main
+        chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
       ;;
       security)
-        chroot . ${java} -cp . ReadCertificate
+        chroot . ${java} /ReadCertificate.java
       ;;
       tools)
         DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
@@ -64,4 +61,4 @@ execute: |
   done
 
 restore: |
-  apt remove -y --purge openjdk-11-jdk-headless
+  apt remove -y --purge openjdk-21-jdk-headless

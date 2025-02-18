@@ -1,4 +1,4 @@
-summary: Integration tests for openjdk-11-jdk-headless
+summary: Integration tests for openjdk-21-jdk-headless
 
 environment:
   SLICE/core: "core"
@@ -9,31 +9,25 @@ execute: |
   pids=()
   cleanup() {
     for pid in "${pids[@]}"; do
-      kill "$pid" || true
+      kill "$pid" 2>/dev/null
     done
-    apt remove --purge -y openjdk-11-jdk-headless
+    apt remove -y --purge openjdk-21-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
-  apt install --update -y openjdk-11-jdk-headless
+  apt install --update -y openjdk-21-jdk-headless curl
   # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
-
-  # Test different slice installations
-  echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-11-jdk-headless_${SLICE} dash_bins)"
-  cp *.java ${rootfs}/
-  cp all.policy ${rootfs}/
-
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
-  javac *.java
-
-  nohup java -cp . MonitoringTest &
+  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
+  nohup java MonitoringTest.java &
   pid=$!
   pids+=("$pid")
 
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins)"
+  cp *.java ${rootfs}/
+  javac *.java
   cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc sys tmp
@@ -44,55 +38,58 @@ execute: |
     core)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
-        # /usr/lib/jvm/java-11-openjdk-*/bin/javac:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/javac:
         chroot . ${home}/javac /Main.java -d /
-        # /usr/lib/jvm/java-11-openjdk-*/bin/javadoc:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
         chroot . ${home}/javadoc /Main.java
-        # /usr/lib/jvm/java-11-openjdk-*/bin/javap:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/javap:
         chroot . ${home}/javap -l /Main.class
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jdeprscan:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jdeprscan:
         chroot . ${home}/jdeprscan --class-path . Main
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jdeps:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
         chroot . ${home}/jdeps -m java.base
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jimage:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
         chroot . ${home}/jimage info ${home}/../lib/modules
-        # /usr/lib/jvm/java-11-openjdk-*/bin/serialver:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
         chroot . ${home}/serialver -classpath / SerializableObject
       done
       ;;
     standard)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jar:
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jarsigner:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
         chroot . ${home}/jar cvf test.jar *.java
         DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
         chroot . ${home}/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
         chroot . ${home}/jarsigner -keystore foo -storepass barbar test.jar foo
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jdb:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
         chroot . /usr/bin/sh -c "echo run | ${home}/jdb Main.java"
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jcmd:
-        chroot . ${home}/jcmd MonitoringTest VM.version
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jhsdb:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
+        chroot . ${home}/jcmd jdk.compiler/com.sun.tools.javac.launcher.Main VM.version
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
         if [ -f ${home}/jhsdb ]; then
           chroot . ${home}/jhsdb jstack --pid ${pid}
         fi
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jfr:
-        chroot . ${home}/jcmd ${pid} JFR.start name=recording maxsize=1MB
-        chroot . ${home}/jcmd ${pid} JFR.dump name=recording filename=/tmp/recording.jfr
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
+        chroot . ${home}/jcmd ${pid} JFR.start maxsize=1MB
+        chroot . ${home}/jcmd ${pid} JFR.stop
+        chroot . ${home}/jcmd ${pid} JFR.dump filename=/tmp/recording.jfr
         chroot . ${home}/jfr print /tmp/recording.jfr > /dev/null
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jinfo:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
         chroot . ${home}/jinfo ${pid}
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jrunscript:
-        chroot . /usr/bin/sh -c "echo 'exit()' | ${home}/jrunscript"
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jshell:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
         chroot . /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jstack:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
+        chroot . ${home}/jmap ${pid}
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jps:
+        chroot . ${home}/jps -l
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
         chroot . ${home}/jstack ${pid}
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jstat:
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
-        # /usr/lib/jvm/java-11-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd -J-Djava.security.policy=all.policy > ./jstatd.log &
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
+        nohup chroot . ${home}/jstatd > ./jstatd.log &
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
           if [ ${retry} -eq 5 ]; then
@@ -101,8 +98,19 @@ execute: |
           grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
           sleep 10
         done
-        # /usr/lib/jvm/java-11-openjdk-*/bin/rmic
-        chroot . ${home}/rmic -classpath . RemoteInterface
+        # /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
+        nohup chroot . ${home}/jwebserver &
+        sleep 10
+        pids+=($!)
+        for retry in 0 1 2 3 4 5; do
+          if [ ${retry} -eq 5 ]; then
+            exit 1
+          fi
+          curl http://127.0.0.1:8000 && break
+          sleep 10
+        done
+        # /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
+        ${home}/jrunscript -q
       done
       ;;
     modules)
