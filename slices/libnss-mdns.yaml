@@ -7,14 +7,14 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libnss-mdns_full
+      - libnss-mdns_standard
       - libnss-mdns_minimal
 
-  full:
+  standard:
     essential:
-      - libnss-mdns_mdns-full
-      - libnss-mdns_mdns4-full
-      - libnss-mdns_mdns6-full
+      - libnss-mdns_mdns-standard
+      - libnss-mdns_mdns4-standard
+      - libnss-mdns_mdns6-standard
 
   minimal:
     essential:
@@ -26,7 +26,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnss_mdns_minimal.so.*:
 
-  mdns-full:
+  mdns-standard:
     contents:
       /usr/lib/*-linux-*/libnss_mdns.so.*:
 
@@ -34,7 +34,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnss_mdns4_minimal.so.*:
 
-  mdns4-full:
+  mdns4-standard:
     contents:
       /usr/lib/*-linux-*/libnss_mdns4.so.*:
 
@@ -42,7 +42,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnss_mdns6_minimal.so.*:
 
-  mdns6-full:
+  mdns6-standard:
     contents:
       /usr/lib/*-linux-*/libnss_mdns6.so.*:
 
