@@ -1,0 +1,26 @@
+package: less
+
+essential:
+  - less_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/less:
+      /usr/bin/lessecho:
+      /usr/bin/lesskey:
+
+  scripts:
+    essential:
+      - less_bins
+    contents:
+      # symlink to lesspipe
+      /usr/bin/lessfile: {symlink: /usr/bin/lesspipe }
+      /usr/bin/lesspipe:
+
+  copyright:
+    contents:
+      /usr/share/doc/less/copyright:
