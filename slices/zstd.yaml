@@ -14,13 +14,18 @@ slices:
       - zlib1g_libs
     contents:
       /usr/bin/pzstd:
-      /usr/bin/unzstd: {symlink: /usr/bin/zstd}
+      /usr/bin/unzstd:
       /usr/bin/zstd:
-      /usr/bin/zstdcat: {symlink: /usr/bin/zstd}
-      /usr/bin/zstdmt: {symlink: /usr/bin/zstd}
+      /usr/bin/zstdcat:
+      /usr/bin/zstdmt:
 
   scripts:
     essential:
+      # shebang in scripts reference interpreter in /bin not /usr/bin  
+      - base-files_bin  
+      - bash_bins  # needed for zstdless  
+      - grep_bins  # needed for zstdgrep  
+      - less_bins  # needed for zstdless 
       - zstd_bins
     contents:
       /usr/bin/zstdgrep:

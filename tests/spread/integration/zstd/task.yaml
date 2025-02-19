@@ -13,11 +13,14 @@ execute: |
   chroot "${rootfs}/" zstd 
   echo "Hello, World" > "${rootfs}/testfile_orig.txt"
   chroot "${rootfs}/" zstd testfile_orig.txt -o testfile.zst
+  chroot "${rootfs}/" zstdmt testfile_orig.txt -o testfile_mt.zst
   chroot "${rootfs}/" unzstd testfile.zst -o testfile_new.txt
-  test "$(cat "${rootfs}/"/testfile_new.txt)" = "$(cat "${rootfs}/"/testfile_orig.txt)"
+  chroot "${rootfs}/" unzstd testfile_mt.zst -o testfile_mt.txt
+  test "$(cat "${rootfs}/testfile_new.txt")" = "$(cat "${rootfs}/testfile_orig.txt")"
+  test "$(cat "${rootfs}/testfile_mt.txt")" = "$(cat "${rootfs}/testfile_orig.txt")"
   chroot "${rootfs}/" pzstd -p 4 testfile_orig.txt
   chroot "${rootfs}/" unzstd testfile_orig.txt.zst -o testfile_pzstd.txt
-  test "$(cat "${rootfs}/"/testfile_pzstd.txt)" = "$(cat "${rootfs}/"/testfile_orig.txt)"
+  test "$(cat "${rootfs}/testfile_pzstd.txt")" = "$(cat "${rootfs}/testfile_orig.txt")"
   echo "It's Linux" > "${rootfs}/testfile_new.txt"
   chroot "${rootfs}/" zstd testfile_orig.txt -o testfile_orig.zst
   chroot "${rootfs}/" zstd testfile_new.txt -o testfile_new.zst
