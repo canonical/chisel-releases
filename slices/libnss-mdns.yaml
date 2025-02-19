@@ -7,8 +7,8 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libnss-mdns_standard
       - libnss-mdns_minimal
+      - libnss-mdns_standard
 
   standard:
     essential:
