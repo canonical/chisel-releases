@@ -1,0 +1,51 @@
+package: libnss-mdns
+
+essential:
+  - libnss-mdns_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libnss-mdns_minimal
+      - libnss-mdns_standard
+
+  standard:
+    essential:
+      - libnss-mdns_mdns-standard
+      - libnss-mdns_mdns4-standard
+      - libnss-mdns_mdns6-standard
+
+  minimal:
+    essential:
+      - libnss-mdns_mdns-minimal
+      - libnss-mdns_mdns4-minimal
+      - libnss-mdns_mdns6-minimal
+
+  mdns-minimal:
+    contents:
+      /usr/lib/*-linux-*/libnss_mdns_minimal.so.*:
+
+  mdns-standard:
+    contents:
+      /usr/lib/*-linux-*/libnss_mdns.so.*:
+
+  mdns4-minimal:
+    contents:
+      /usr/lib/*-linux-*/libnss_mdns4_minimal.so.*:
+
+  mdns4-standard:
+    contents:
+      /usr/lib/*-linux-*/libnss_mdns4.so.*:
+
+  mdns6-minimal:
+    contents:
+      /usr/lib/*-linux-*/libnss_mdns6_minimal.so.*:
+
+  mdns6-standard:
+    contents:
+      /usr/lib/*-linux-*/libnss_mdns6.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnss-mdns/copyright:
