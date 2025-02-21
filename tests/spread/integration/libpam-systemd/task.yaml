@@ -1,0 +1,10 @@
+summary: Integration tests for libpam-systemd
+
+execute: |
+  rootfs="$(install-slices libpam-systemd_libs)"
+
+  apt install -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/pam_systemd.so
+  test -f ${rootfs}/usr/lib/${arch}/pam_systemd_loadkey.so
