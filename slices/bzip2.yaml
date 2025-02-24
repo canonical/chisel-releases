@@ -10,8 +10,8 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/bunzip2:
-      /usr/bin/bzcat: { symlink: /usr/bin/bunzip2 }
-      /usr/bin/bzip2: { symlink: /usr/bin/bunzip2 }
+      /usr/bin/bzcat:
+      /usr/bin/bzip2:
       /usr/bin/bzip2recover:
 
   scripts:
