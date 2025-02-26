@@ -27,6 +27,8 @@ the moment, the officially supported Chisel releases are:
 \- Mantic (EOL)
 - [ubuntu-24.04](https://github.com/canonical/chisel-releases/tree/ubuntu-24.04)
 \- Noble
+- [ubuntu-24.10](https://github.com/canonical/chisel-releases/tree/ubuntu-24.10)
+\- Oracular
 
 In each release branch, you'll find a `chisel.yaml` file that defines the Chisel
 release, plus a `slices` folder with all the Slice Definitions Files (SDFs) for
@@ -34,14 +36,14 @@ that release.
 
 For more information on the SDFs' YAML schema and how to install slices, please
 refer to the
-[Chisel documentation](https://github.com/canonical/chisel/blob/main/README.md).
+[Chisel documentation](https://documentation.ubuntu.com/chisel/en/latest/).
 
 ## Using a Specific Chisel Release
 
 Chisel releases are meant to be used with the `chisel` CLI. Many of the `chisel`
 commands have a `--release` optional argument (to know which commands support
 this option, please refer to the
-[Chisel documentation](https://github.com/canonical/chisel/blob/main/README.md)).
+[Chisel documentation](https://documentation.ubuntu.com/chisel/en/latest/).
 
 When running a `chisel` command where `--release` is supported,
 

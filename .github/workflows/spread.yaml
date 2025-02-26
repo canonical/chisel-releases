@@ -28,9 +28,9 @@ jobs:
             slices:
               - added|modified: 'slices/**/*.yaml'
           list-files: shell
-      
+
       - name: Check changed test directories
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@v45
         id: changed-tests
         with:
           separator: " "
