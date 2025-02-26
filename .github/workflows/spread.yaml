@@ -11,8 +11,9 @@ jobs:
         runner:
           - name: X64
             runs-on: ubuntu-latest
-          # Execution of arm64 github runners on forked branches was disabled due to a recently found attack vector.
-          # see https://warthogs.atlassian.net/browse/ROCKS-1890
+          # Execution of arm64 github runners on forked branches was disabled
+          # due to a recently found attack vector.
+          # TODO re-enable this runner once the above mentioned issue is fixed.
           # - name: ARM64
           #   runs-on: [noble, ARM64, large]
     name: Run Spread tests | ${{ matrix.runner.name }}
