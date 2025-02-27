@@ -10,7 +10,7 @@ execute: |
   chroot "${rootfs}/" zstdcat -H
   chroot "${rootfs}/" zstdless --version
   chroot "${rootfs}/" zstdmt -H
-  chroot "${rootfs}/" zstd 
+  chroot "${rootfs}/" zstd
   echo "Hello, World" > "${rootfs}/testfile_orig.txt"
   chroot "${rootfs}/" zstd testfile_orig.txt -o testfile.zst
   chroot "${rootfs}/" zstdmt testfile_orig.txt -o testfile_mt.zst
