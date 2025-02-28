@@ -1,0 +1,182 @@
+package: openjdk-21-jre-headless
+
+essential:
+  - openjdk-21-jre-headless_copyright
+
+slices:
+
+  # A set of slices to run headless openjdk runtime
+  standard:
+    essential:
+      - openjdk-21-jre-headless_class-data-sharing
+      - openjdk-21-jre-headless_console
+      - openjdk-21-jre-headless_core
+      - openjdk-21-jre-headless_debug
+      - openjdk-21-jre-headless_jfr
+      - openjdk-21-jre-headless_management
+      - openjdk-21-jre-headless_prefs
+      - openjdk-21-jre-headless_rmi
+      - openjdk-21-jre-headless_security
+      - openjdk-21-jre-headless_tools
+
+  # List of classes required to create the Class Data Sharing archive
+  class-data-sharing:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/classlist:
+
+  # A minimal set of files to run a Java application
+  # excluded dependencies:
+  # - ca-certificates-java_essential - needs chisel support to run
+  #                                    maintainer scripts.
+  # - java-common                    - provides update-alternatives,
+  #                                    not relevant.
+  # - util-linux                     - needed for bash completion
+  #                                    not relevant.
+  # - libjpeg8                       - used in awt, not relevant
+  # - liblcms2-2                     - used in awt, not relevant
+  core:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /etc/java-21-openjdk/jaxp.properties:
+      /etc/java-21-openjdk/jvm-*.cfg:
+      /etc/java-21-openjdk/logging.properties:
+      /etc/java-21-openjdk/net.properties:
+      /etc/java-21-openjdk/security/java.policy:
+      /etc/java-21-openjdk/security/java.security:
+      /usr/lib/jvm/java-21-openjdk-*/bin/java:
+      /usr/lib/jvm/java-21-openjdk-*/conf/jaxp.properties:
+      /usr/lib/jvm/java-21-openjdk-*/conf/logging.properties:
+      /usr/lib/jvm/java-21-openjdk-*/conf/net.properties:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/java.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/java.security:
+      /usr/lib/jvm/java-21-openjdk-*/lib/jexec:
+      /usr/lib/jvm/java-21-openjdk-*/lib/jspawnhelper:
+      /usr/lib/jvm/java-21-openjdk-*/lib/jvm.cfg:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libextnet.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjava.so:
+      # lib/modules support
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjimage.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjli.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjsig.so:
+      # required for IO.
+      /usr/lib/jvm/java-21-openjdk-*/lib/libnet.so:
+      # required for IO.
+      /usr/lib/jvm/java-21-openjdk-*/lib/libnio.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libverify.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libzip.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/modules:
+      /usr/lib/jvm/java-21-openjdk-*/lib/server/libjsig.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/server/libjvm.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/tzdb.dat:
+
+  # Native part of jdk.prefs modules
+  prefs:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libprefs.so:
+
+  # Native part of java.rmi
+  rmi:
+    essential:
+      - openjdk-21-jre-headless_security
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/rmiregistry:
+      /usr/lib/jvm/java-21-openjdk-*/lib/librmi.so:
+
+  # Native part of the console support
+  console:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/lible.so:
+
+  # Debug support
+  debug:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libattach.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libdt_socket.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libinstrument.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjdwp.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libsaproc.so:
+        arch:
+          - amd64
+          - arm64
+          - armhf
+          - ppc64el
+          - riscv64
+
+  # Configuration and native part of Java Management Extensions
+  management:
+    essential:
+      - openjdk-21-jre-headless_rmi
+    contents:
+      /etc/java-21-openjdk/management/jmxremote.access:
+      /etc/java-21-openjdk/management/management.properties:
+      /usr/lib/jvm/java-21-openjdk-*/conf/management/jmxremote.access:
+      /usr/lib/jvm/java-21-openjdk-*/conf/management/management.properties:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libmanagement.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libmanagement_agent.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libmanagement_ext.so:
+
+  # Security configuration files and native libraries
+  security:
+    essential:
+      - libnss3_nss
+      - libpcsclite1_libs
+      - openjdk-21-jre-headless_core
+    contents:
+      /etc/java-21-openjdk/security/blocked.certs:
+      /etc/java-21-openjdk/security/default.policy:
+      /etc/java-21-openjdk/security/nss.cfg:
+      /etc/java-21-openjdk/security/policy/limited/default_US_export.policy:
+      /etc/java-21-openjdk/security/policy/limited/default_local.policy:
+      /etc/java-21-openjdk/security/policy/limited/exempt_local.policy:
+      /etc/java-21-openjdk/security/policy/unlimited/default_US_export.policy:
+      /etc/java-21-openjdk/security/policy/unlimited/default_local.policy:
+      /etc/java-21-openjdk/security/public_suffix_list.dat:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/nss.cfg:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/default_US_export.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/default_local.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/limited/exempt_local.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/unlimited/default_US_export.policy:
+      /usr/lib/jvm/java-21-openjdk-*/conf/security/policy/unlimited/default_local.policy:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libj2gss.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libj2pcsc.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libj2pkcs11.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjaas.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/security/blocked.certs:
+      /usr/lib/jvm/java-21-openjdk-*/lib/security/cacerts:
+      /usr/lib/jvm/java-21-openjdk-*/lib/security/default.policy:
+      /usr/lib/jvm/java-21-openjdk-*/lib/security/public_suffix_list.dat:
+
+  # OpenJDK tools
+  tools:
+    essential:
+      - openjdk-21-jre-headless_security
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jpackage:
+      /usr/lib/jvm/java-21-openjdk-*/bin/keytool:
+
+  # Java Flight Recorder configuration and jar file
+  jfr:
+    essential:
+      - openjdk-21-jre-headless_core
+    contents:
+      /etc/java-21-openjdk/jfr/default.jfc:
+      /etc/java-21-openjdk/jfr/profile.jfc:
+      /usr/lib/jvm/java-21-openjdk-*/lib/jfr/default.jfc:
+      /usr/lib/jvm/java-21-openjdk-*/lib/jfr/profile.jfc:
+      /usr/lib/jvm/java-21-openjdk-*/lib/jrt-fs.jar:
+
+  copyright:
+    contents:
+      /usr/share/doc/openjdk-21-jre-headless/copyright:
