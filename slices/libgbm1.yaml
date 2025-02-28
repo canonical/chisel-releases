@@ -11,6 +11,9 @@ slices:
       - libexpat1_libs
       - libwayland-server0_libs
       - libxcb-randr0_libs
+      # On arm64 systems this slice also requires mesa-libgallium
+      # Please include it when cutting the root filesystem.
+      # - mesa-libgallium
     contents:
       /usr/lib/*-linux-*/libgbm.so.1*:
 
