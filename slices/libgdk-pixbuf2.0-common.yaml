@@ -1,0 +1,10 @@
+package: libgdk-pixbuf2.0-common
+
+essential:
+  - libgdk-pixbuf2.0-common_copyright
+
+slices:
+  copyright:
+    # This package has no dependencies and only contains a changelog and copyright file.
+    contents:
+      /usr/share/doc/libgdk-pixbuf2.0-common/copyright:

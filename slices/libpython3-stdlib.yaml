@@ -1,0 +1,117 @@
+package: libpython3-stdlib
+
+essential:
+  - libpython3-stdlib_copyright
+
+slices:
+  core:
+    essential:
+      - libpython3.12-stdlib_core
+
+  aix-support:
+    essential:
+      - libpython3.12-stdlib_aix-support
+
+  all-os:
+    essential:
+      - libpython3.12-stdlib_all-os
+
+  concurrency:
+    essential:
+      - libpython3.12-stdlib_concurrency
+
+  crypto:
+    essential:
+      - libpython3.12-stdlib_crypto
+
+  custom-interpreters:
+    essential:
+      - libpython3.12-stdlib_custom-interpreters
+
+  data-persistence:
+    essential:
+      - libpython3.12-stdlib_data-persistence
+
+  data-types:
+    essential:
+      - libpython3.12-stdlib_data-types
+
+  debug:
+    essential:
+      - libpython3.12-stdlib_debug
+
+  development-tools:
+    essential:
+      - libpython3.12-stdlib_development-tools
+
+  distribution:
+    essential:
+      - libpython3.12-stdlib_distribution
+
+  file-formats:
+    essential:
+      - libpython3.12-stdlib_file-formats
+
+  filesys:
+    essential:
+      - libpython3.12-stdlib_filesys
+
+  frameworks:
+    essential:
+      - libpython3.12-stdlib_frameworks
+
+  importing:
+    essential:
+      - libpython3.12-stdlib_importing
+
+  internet:
+    essential:
+      - libpython3.12-stdlib_internet
+
+  ipc:
+    essential:
+      - libpython3.12-stdlib_ipc
+
+  language:
+    essential:
+      - libpython3.12-stdlib_language
+
+  markup-tools:
+    essential:
+      - libpython3.12-stdlib_markup-tools
+
+  multimedia:
+    essential:
+      - libpython3.12-stdlib_multimedia
+
+  net-data:
+    essential:
+      - libpython3.12-stdlib_net-data
+
+  numeric:
+    essential:
+      - libpython3.12-stdlib_numeric
+
+  osx-support:
+    essential:
+      - libpython3.12-stdlib_osx-support
+
+  pydoc:
+    essential:
+      - libpython3.12-stdlib_pydoc
+
+  text:
+    essential:
+      - libpython3.12-stdlib_text
+
+  unix:
+    essential:
+      - libpython3.12-stdlib_unix
+
+  extras:
+    essential:
+      - libpython3.12-stdlib_extras
+
+  copyright:
+    contents:
+      /usr/share/doc/libpython3-stdlib/copyright:
