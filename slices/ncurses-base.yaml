@@ -1,0 +1,19 @@
+package: ncurses-base
+
+essential:
+  - ncurses-base_copyright
+
+slices:
+  tabset:
+    contents:
+      /usr/share/tabset/**:
+
+  terminfo:
+    essential:
+      - ncurses-base_tabset
+    contents:
+      /usr/share/terminfo/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/ncurses-base/copyright:
