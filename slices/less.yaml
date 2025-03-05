@@ -1,0 +1,29 @@
+package: less
+
+essential:
+  - less_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/less:
+      /usr/bin/lessecho:
+      # Note that lesskey is deprecated since less version 582.
+      /usr/bin/lesskey:
+
+  # pager conflicts with the one generated in util-linux_generated slice.
+  # Manually link pager to less if required.
+  # TODO: Add `prefer` to /usr/bin/pager when conflict resolution
+  # is merged for chisel.
+  # pager:
+  #   essential:
+  #     - less_bins
+  #   contents:
+  #     /usr/bin/pager: {symlink: /usr/bin/less}
+
+  copyright:
+    contents:
+      /usr/share/doc/less/copyright:
