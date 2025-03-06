@@ -3,8 +3,8 @@ package: rabbitmq-server
 essential:
   - rabbitmq-server_copyright
 
-# erlang* packages do not exist for i386
-## for all other archs, uncomment all those slices below
+# erlang* packages do not exist for i386,
+# so the _bins and _modules slices are not installable on i386
 slices:
   autocomplete:
     contents:
@@ -19,10 +19,9 @@ slices:
       - base-passwd_data
       - bash_bins
       - coreutils_bins
-      # Uncomment the following lines if not on i386
-      # - erlang-base_bins
-      # - erlang-inets_scripts
-      # - erlang-os-mon_bins
+      - erlang-base_bins
+      - erlang-inets_scripts
+      - erlang-os-mon_bins
       - grep_bins
       - libc-bin_locale
       - libc-bin_nsswitch
@@ -47,29 +46,17 @@ slices:
       # TODO: the files below are hardlinks
       # To be fixed when hardlinks are supported
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-plugins:
-        {
-          copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-        }
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-queues:
-        {
-          copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-        }
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-streams:
-        {
-          copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-        }
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-upgrade:
-        {
-          copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-        }
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmqctl:
-        {
-          copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-        }
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
       /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/vmware-rabbitmq:
-        {
-          copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-        }
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
       /usr/sbin/rabbitmq*:
       /var/lib/rabbitmq/:
       # The following is a cookie file necessary for rabbitmq-server to work
@@ -83,21 +70,21 @@ slices:
     contents:
       /etc/default/rabbitmq-server:
       /etc/rabbitmq/rabbitmq-env.conf:
-        { copy: /usr/share/rabbitmq/rabbitmq-env.conf, mode: 0644 }
+        copy: /usr/share/rabbitmq/rabbitmq-env.conf
+        mode: 0644
 
   modules:
-    # Uncomment the following lines if not on i386
-    # essential:
-    #   - erlang-crypto_modules
-    #   - erlang-eldap_modules
-    #   - erlang-mnesia_modules
-    #   - erlang-parsetools_modules
-    #   - erlang-public-key_modules
-    #   - erlang-runtime-tools_modules
-    #   - erlang-ssl_modules
-    #   - erlang-syntax-tools_modules
-    #   - erlang-tools_modules
-    #   - erlang-xmerl_modules
+    essential:
+      - erlang-crypto_modules
+      - erlang-eldap_modules
+      - erlang-mnesia_modules
+      - erlang-parsetools_modules
+      - erlang-public-key_modules
+      - erlang-runtime-tools_modules
+      - erlang-ssl_modules
+      - erlang-syntax-tools_modules
+      - erlang-tools_modules
+      - erlang-xmerl_modules
     contents:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/plugins/**:
 
