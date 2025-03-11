@@ -1,0 +1,28 @@
+package: influxdb
+
+essential:
+  - influxdb_copyright
+
+slices:
+  bins:
+    # influxdb actually depends on adduser as well to create and remove
+    # a user during package install/removal - however we don't support this
+    # currently so adduser is not added here.
+    essential:
+      - lsb-base_bins
+      - libc6_libs
+      - influxdb_config
+    contents:
+      /usr/bin/influxd:
+      /usr/lib/systemd/system/influxdb.service:
+      /var/lib/influxdb/:
+      /var/log/influxdb/:
+  config:
+    contents:
+      /etc/influxdb/influxdb.conf:
+      /etc/init.d/influxdb:
+      /etc/logrotate.d/influxdb:
+    
+  copyright:
+    contents:
+      /usr/share/doc/influxdb/copyright:
