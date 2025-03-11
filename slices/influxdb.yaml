@@ -22,7 +22,7 @@ slices:
       /etc/influxdb/influxdb.conf:
       /etc/init.d/influxdb:
       /etc/logrotate.d/influxdb:
-    
+
   copyright:
     contents:
       /usr/share/doc/influxdb/copyright:
