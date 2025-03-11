@@ -9,9 +9,9 @@ slices:
     # a user during package install/removal - however we don't support this
     # currently so adduser is not added here.
     essential:
-      - lsb-base_bins
-      - libc6_libs
       - influxdb_config
+      - libc6_libs
+      - lsb-base_bins
     contents:
       /usr/bin/influxd:
       /usr/lib/systemd/system/influxdb.service:
