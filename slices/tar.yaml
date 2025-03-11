@@ -8,6 +8,17 @@ slices:
     essential:
       - tar_rmt
       - tar_tar
+      - tar_tarcat
+  
+  tarcat:
+    essential:
+      - base-files_bin
+      - coreutils_bins
+      - dash_bins
+      - tar_tar
+    contents:
+      /usr/sbin/tarcat:
+
     contents:
       /usr/sbin/tarcat:
 
@@ -19,7 +30,8 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /etc/rmt: {symlink: /usr/sbin/rmt-tar}
+      /etc/rmt:
+      /usr/sbin/rmt: {symlink: /usr/sbin/rmt-tar}
       /usr/sbin/rmt-tar:
 
   tar:

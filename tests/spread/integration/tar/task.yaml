@@ -31,3 +31,24 @@ execute: |
 
   # We can't really do much with rmt, so just check that the executable works.
   chroot "${rootfs}/" rmt-tar --version
+
+  # New environment for tarcat
+  rootfs="$(install-slices tar_tarcat)"
+  mkdir -p "${rootfs}/dev/"
+  touch "${rootfs}/dev/null"
+
+  # create a long test file and split into multiple volumes with tar
+  printf  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod \
+    tempor incididunt ut labore et dolore magna aliqua. %.0s" {0..1000} > "${rootfs}/test.txt"
+  chroot "${rootfs}/" tar -c --tape-length=60K --file=test-{0..2}.tar test.txt
+
+  # move the original for later verification
+  mv "${rootfs}/test.txt" "${rootfs}/test_org.txt"
+
+  # use tarcat to join volumes together and extract result
+  chroot "${rootfs}/" /usr/sbin/tarcat test-{0..2}.tar > "${rootfs}/test.tar"
+  chroot "${rootfs}/" tar -xf test.tar 
+
+  # verify result
+  cmp "${rootfs}/test.txt" "${rootfs}/test_org.txt"
+
