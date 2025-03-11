@@ -19,9 +19,6 @@ slices:
     contents:
       /usr/sbin/tarcat:
 
-    contents:
-      /usr/sbin/tarcat:
-
   copyright:
     contents:
       /usr/share/doc/tar/copyright:
