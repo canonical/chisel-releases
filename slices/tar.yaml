@@ -9,7 +9,7 @@ slices:
       - tar_rmt
       - tar_tar
       - tar_tarcat
-  
+
   tarcat:
     essential:
       - base-files_bin
