@@ -21,8 +21,15 @@ on:
 
 env:
   # Package architectures and chisel-releases branches to test on.
-  ARCHES: ${{ toJson('["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]') }}
-  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04","ubuntu-24.10"]') }}
+  ARCHES: '["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]'
+  # TODO this is just an example.
+  RELEASES: |
+    [
+      {"ref": "ubuntu-20.04", "chisel-versions": ["main"]},
+      {"ref": "ubuntu-22.04", "chisel-versions": ["main"]},
+      {"ref": "ubuntu-24.04", "chisel-versions": ["main"]},
+      {"ref": "ubuntu-24.10", "chisel-versions": ["v1.0.0", "v1.1.0", "main"]}
+    ]
 
 jobs:
   prepare-install:
@@ -31,29 +38,49 @@ jobs:
     outputs:
       install-all: ${{ steps.set-output.outputs.install_all }}
       matrix: ${{ steps.set-output.outputs.matrix }}
-      checkout-main-ref: ${{ steps.set-output.outputs.checkout_main_ref }}
+      checkout-main-ref: ${{ steps.set-main-ref.outputs.checkout_main_ref }}
     steps:
-      - name: Set output
-        id: set-output
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set reference to main branch
+        id: set-main-ref
         run: |
-          set -ex
-
-          if [[
-            "${{ github.base_ref || github.ref_name }}" == "main" ||
-            "${{ github.event_name }}" == "schedule"
-          ]]; then
-            echo "matrix={\"ref\":${{ env.RELEASES }},\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
-            echo "install_all=true" >> $GITHUB_OUTPUT
-          else
-            echo "matrix={\"arch\":${{ env.ARCHES }}}" >> $GITHUB_OUTPUT
-          fi
-
           if [[ "${{ github.base_ref }}" == "main" ]]; then
             # For PRs to main, use the updated files.
             # Leaving checkout_main_ref unset will checkout the PR head_ref.
             echo "checkout_main_ref=" >> $GITHUB_OUTPUT
           else
             echo "checkout_main_ref=main" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.set-main-ref.outputs.checkout_main_ref }}
+
+      - name: Set output
+        id: set-output
+        run: |
+          set -ex
+
+          ln -s ".github/scripts/install-slices/version-matrix.py" version-matrix
+
+          if [[
+            "${{ github.base_ref || github.ref_name }}" == "main" ||
+            "${{ github.event_name }}" == "schedule"
+          ]]; then
+            MATRIX=$(./version-matrix)
+            echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
+
+            echo "install_all=true" >> $GITHUB_OUTPUT
+          else
+            # Filter the releases to only the affected branch.
+            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.base_ref }}")]')
+            MATRIX=$(./version-matrix)
+            echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           fi
 
   # The "install" job tests the slices by installing them.
@@ -121,7 +148,7 @@ jobs:
           set -ex
 
           # Install chisel
-          go install github.com/canonical/chisel/cmd/chisel@main
+          go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
 
           # Install dependencies of the install_slices script
           sudo apt-get -y update
