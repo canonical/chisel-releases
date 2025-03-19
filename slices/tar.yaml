@@ -1,0 +1,47 @@
+package: tar
+
+essential:
+  - tar_copyright
+
+slices:
+  bins:
+    essential:
+      - tar_rmt
+      - tar_tar
+      - tar_tarcat
+
+  tarcat:
+    essential:
+      - base-files_bin
+      # For dd
+      - coreutils_basic-operations
+      # For tr
+      - coreutils_operating-on-characters
+      # For cut
+      - coreutils_operating-on-fields
+      # For cat
+      - coreutils_output-of-entire-files
+      - dash_bins
+      - tar_tar
+    contents:
+      /usr/sbin/tarcat:
+
+  copyright:
+    contents:
+      /usr/share/doc/tar/copyright:
+
+  rmt:
+    essential:
+      - libc6_libs
+    contents:
+      /etc/rmt:
+      /usr/sbin/rmt: {symlink: /usr/sbin/rmt-tar}
+      /usr/sbin/rmt-tar:
+
+  tar:
+    essential:
+      - libacl1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/tar:
