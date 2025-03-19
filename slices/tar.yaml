@@ -13,7 +13,12 @@ slices:
   tarcat:
     essential:
       - base-files_bin
-      - coreutils_bins
+      # For dd
+      - coreutils_basic-operations
+      # For tr
+      - coreutils_operating-on-characters
+      # For cut
+      - coreutils_operating-on-fields
       - dash_bins
       - tar_tar
     contents:
