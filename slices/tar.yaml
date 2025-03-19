@@ -19,6 +19,8 @@ slices:
       - coreutils_operating-on-characters
       # For cut
       - coreutils_operating-on-fields
+      # For cat
+      - coreutils_output-of-entire-files
       - dash_bins
       - tar_tar
     contents:
