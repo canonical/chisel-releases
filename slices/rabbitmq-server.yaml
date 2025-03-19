@@ -3,8 +3,9 @@ package: rabbitmq-server
 essential:
   - rabbitmq-server_copyright
 
-# erlang* packages do not exist for i386,
-# so the _bins and _modules slices are not installable on i386
+# NOTE: erlang* packages do not exist for i386.
+# The following commented slices should be manually included when cutting the
+# slices for rabbitmq-server.
 slices:
   autocomplete:
     contents:
@@ -19,9 +20,11 @@ slices:
       - base-passwd_data
       - bash_bins
       - coreutils_bins
-      - erlang-base_bins
-      - erlang-inets_scripts
-      - erlang-os-mon_bins
+      # TODO: Uncomment the following lines when chisel support arch-specific
+      # slices/dependencies
+      # - erlang-base_bins
+      # - erlang-inets_scripts
+      # - erlang-os-mon_bins
       - grep_bins
       - libc-bin_locale
       - libc-bin_nsswitch
@@ -74,17 +77,19 @@ slices:
         mode: 0644
 
   modules:
-    essential:
-      - erlang-crypto_modules
-      - erlang-eldap_modules
-      - erlang-mnesia_modules
-      - erlang-parsetools_modules
-      - erlang-public-key_modules
-      - erlang-runtime-tools_modules
-      - erlang-ssl_modules
-      - erlang-syntax-tools_modules
-      - erlang-tools_modules
-      - erlang-xmerl_modules
+    # TODO: Uncomment the following lines when chisel support arch-specific
+    # slices/dependencies
+    # essential:
+    #   - erlang-crypto_modules
+    #   - erlang-eldap_modules
+    #   - erlang-mnesia_modules
+    #   - erlang-parsetools_modules
+    #   - erlang-public-key_modules
+    #   - erlang-runtime-tools_modules
+    #   - erlang-ssl_modules
+    #   - erlang-syntax-tools_modules
+    #   - erlang-tools_modules
+    #   - erlang-xmerl_modules
     contents:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/plugins/**:
 

@@ -1,7 +1,7 @@
 summary: Integration tests for RabbitMQ
 
 execute: |
-  rootfs="$(install-slices rabbitmq-server_bins)"
+  rootfs="$(install-slices rabbitmq-server_bins erlang-base_bins)"
   cp /bin/sh "$rootfs"/bin/
   chroot "$rootfs" mkdir /dev
   chroot "$rootfs" touch /dev/null
