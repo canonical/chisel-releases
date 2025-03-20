@@ -4,8 +4,8 @@ essential:
   - rabbitmq-server_copyright
 
 # NOTE: erlang* packages do not exist for i386.
-# The following commented slices should be manually included when cutting the
-# slices for rabbitmq-server.
+# IMPORTANT:the following commented essentials should be manually included when cutting the
+# slices for rabbitmq-server on non-i386 systems.
 slices:
   autocomplete:
     contents:
