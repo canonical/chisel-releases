@@ -21,7 +21,7 @@ slices:
 
   data:
     contents:
-      /var/lib/influxdb:
+      /var/lib/influxdb/:
 
   logging:
     contents:
