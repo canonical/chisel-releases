@@ -14,13 +14,18 @@ slices:
       - lsb-base_bins
     contents:
       /usr/bin/influxd:
-      /usr/lib/systemd/system/influxdb.service:
-      /var/lib/influxdb/:
-      /var/log/influxdb/:
+
   config:
     contents:
       /etc/influxdb/influxdb.conf:
-      /etc/init.d/influxdb:
+
+  data:
+    contents:
+      /var/lib/influxdb:
+
+  logging:
+    contents:
+      /var/log/influxdb/:
       /etc/logrotate.d/influxdb:
 
   copyright:
