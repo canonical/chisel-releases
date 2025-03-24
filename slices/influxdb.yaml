@@ -10,22 +10,19 @@ slices:
     # currently so adduser is not added here.
     essential:
       - influxdb_config
+      - influxdb_vars
       - libc6_libs
-      - lsb-base_bins
     contents:
       /usr/bin/influxd:
 
   config:
     contents:
       /etc/influxdb/influxdb.conf:
+      /etc/logrotate.d/influxdb:
 
-  data:
+  vars:
     contents:
       /var/lib/influxdb/:
-
-  logging:
-    contents:
-      /etc/logrotate.d/influxdb:
       /var/log/influxdb/:
 
   copyright:
