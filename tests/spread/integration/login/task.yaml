@@ -1,0 +1,10 @@
+summary: Integration tests for login
+
+execute: |
+  rootfs="$(install-slices login_bins bash_bins base-files_base base-passwd_data)"
+  mkdir "$rootfs"/dev
+  cp "$rootfs"/bin/bash "$rootfs"/bin/sync
+  touch "$rootfs"/dev/log
+  chroot "$rootfs" nologin | grep "not available"
+  chroot "$rootfs" newgrp root
+  chroot "$rootfs" sg root
