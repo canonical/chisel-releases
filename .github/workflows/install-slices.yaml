@@ -22,13 +22,12 @@ on:
 env:
   # Package architectures and chisel-releases branches to test on.
   ARCHES: '["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]'
-  # TODO this is just an example.
   RELEASES: |
     [
-      {"ref": "ubuntu-20.04", "chisel-versions": ["main"]},
-      {"ref": "ubuntu-22.04", "chisel-versions": ["main"]},
-      {"ref": "ubuntu-24.04", "chisel-versions": ["main"]},
-      {"ref": "ubuntu-24.10", "chisel-versions": ["v1.0.0", "v1.1.0", "main"]}
+      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.0.0","main"]},
+      {"ref": "ubuntu-22.04", "chisel-versions": ["v1.0.0","main"]},
+      {"ref": "ubuntu-24.04", "chisel-versions": ["v1.0.0","main"]},
+      {"ref": "ubuntu-24.10", "chisel-versions": ["v1.0.0","main"]}
     ]
 
 jobs:
