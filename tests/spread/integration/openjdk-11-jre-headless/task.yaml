@@ -1,0 +1,68 @@
+summary: Integration tests for openjdk-11-jre-headless
+
+environment:
+  SLICE/classdatasharing: "class-data-sharing"
+  SLICE/core: "core"
+  SLICE/prefs: "prefs"
+#  SLICE/rmi: "rmi" # Tested in management slice
+  SLICE/debug: "debug"
+  SLICE/management: "management"
+  SLICE/jfr: "jfr"
+  SLICE/security: "security"
+  SLICE/tools: "tools"
+
+execute: |
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-11-jre-headless_${SLICE} dash_bins)"
+  apt-get update && apt-get install -y openjdk-11-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
+  javac *.java
+  jar cvf test.jar *.java
+  cp *.jar ${rootfs}/
+  cp *.java ${rootfs}/
+  cp *.class ${rootfs}/
+  cp certificate.pem ${rootfs}/
+  cd ${rootfs}
+  mkdir -p proc/self
+  for java in `find usr/lib/jvm -name java`; do
+    ln -sf /${java} proc/self/exe
+    chroot . ${java} --version
+    case ${SLICE} in
+      class-data-sharing)
+        chroot . ${java} -Xshare:dump
+      ;;
+      core)
+        chroot . ${java} -cp . Main
+      ;;
+      prefs)
+        chroot . ${java} -cp . PrefsTest put
+        chroot . ${java} -cp . PrefsTest get
+      ;;
+      debug)
+        chroot . ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -cp . Main
+      ;;
+      management)
+        chroot . ${java} -Dcom.sun.management.jmxremote.port=5000 \
+          -Dcom.sun.management.jmxremote.authenticate=false \
+          -Dcom.sun.management.jmxremote=true \
+          -Dcom.sun.management.jmxremote.ssl=false  -cp . TestJMX
+      ;;
+      jfr)
+        chroot . ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr -cp . Main
+      ;;
+      security)
+        chroot . ${java} -cp . ReadCertificate
+      ;;
+      tools)
+        DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
+        chroot . $(dirname ${java})/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME"
+        chroot . $(dirname ${java})/pack200 foo.pack.gz test.jar
+        chroot . $(dirname ${java})/unpack200 foo.pack.gz test1.jar
+      ;;
+    esac
+  done
+
+restore: |
+  apt remove -y --purge openjdk-11-jdk-headless
