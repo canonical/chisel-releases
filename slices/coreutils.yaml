@@ -150,6 +150,12 @@ slices:
     contents:
       /usr/bin/mkdir:
 
+  cat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cat:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
