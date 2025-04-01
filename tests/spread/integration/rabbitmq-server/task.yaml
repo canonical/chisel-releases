@@ -21,7 +21,7 @@ execute: |
   # Server test
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status || echo "RabbitMQ not running"
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmq-server -detached
-  sleep 5
+  sleep 10
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status && echo "RabbitMQ is running now!"
 
 restore: |
