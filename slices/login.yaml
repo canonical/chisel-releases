@@ -13,7 +13,6 @@ slices:
       - libpam-modules_libs
       - libpam-runtime_config
       - libpam0g_libs
-      - libselinux1_libs
       - libsystemd0_libs
       - login_config
     contents:
