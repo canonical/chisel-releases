@@ -5,6 +5,10 @@ execute: |
   mkdir "$rootfs"/dev
   cp "$rootfs"/bin/bash "$rootfs"/bin/sync
   touch "$rootfs"/dev/log
+  touch "$rootfs"/var/log/faillog
+  touch "$rootfs"/var/log/lastlog
   chroot "$rootfs" nologin | grep "not available"
+  chroot "$rootfs" faillog
+  chroot "$rootfs" lastlog
   chroot "$rootfs" newgrp root
   chroot "$rootfs" sg root
