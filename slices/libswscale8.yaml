@@ -1,0 +1,16 @@
+package: libswscale8
+
+essential:
+  - libswscale8_copyright
+
+slices:
+  libs:
+    essential:
+      - libavutil59_libs
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libswscale.so.8*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libswscale8/copyright:
