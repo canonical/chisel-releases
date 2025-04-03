@@ -52,34 +52,6 @@ slices:
           return ["password", strippedValue]
         return []
 
-      confs_dir = "/usr/share/pam-configs/"
-      confs = content.list(confs_dir)
-      confdata = {}
-      for x in confs:
-        conf = content.read(confs_dir + x)
-        lines = conf.splitlines()
-
-        m = ""
-        p = ""
-        t = ""
-        for i in range(len(lines)):
-          vals = lines[i].split(":")
-          if vals[0] == "Priority":
-            p = vals[1].strip()
-          elif vals[0] in ["Auth-Type", "Account-Type", "Session-Type", "Password-Type"]:
-            m, t = parse_type(vals)
-          elif vals[0] == "Session-Interactive-Only":
-            if vals[1].strip() == "yes":
-              m = "session"
-          elif vals[0] in ["Auth-Initial", "Account-Initial",
-                           "Session-Initial", "Password-Initial"]:
-            d = []
-            for j in range(i + 1, len(lines)):
-              if ":" in lines[j]:
-                break
-              d.append(lines[j])
-            confdata[m] = {t: {p: d}}
-
       def reconfigure_data_line(section, line, i):
         res = ""
         upd = line.replace("success=end", "success=" + str(i))
@@ -115,21 +87,52 @@ slices:
       fnames = ["account", "auth", "password", "session", "session-noninteractive"]
       idnames = ["$account", "$auth", "$password", "$session", "$session_nonint"]
 
-      for i in range(len(fnames)):
-        fn = fnames[i]
-        template = content.read("/usr/share/pam/common-" + fn)
-        pb = build_block(confdata, fn, "Primary", "")
-        ab = build_block(confdata, fn, "Additional", "")
+      def process_pam_profiles():
+        confs_dir = "/usr/share/pam-configs/"
+        confs = content.list(confs_dir)
+        confdata = {}
+        for x in confs:
+          conf = content.read(confs_dir + x)
+          lines = conf.splitlines()
 
-        # session also includes settings from the session-noninteractive,
-        # but not the other way around
-        if fn == "session":
-          pb = build_block(confdata, "session-noninteractive", "Primary", pb)
-          ab = build_block(confdata, "session-noninteractive", "Additional", ab)
+          m = ""
+          p = ""
+          t = ""
+          for i in range(len(lines)):
+            vals = lines[i].split(":")
+            if vals[0] == "Priority":
+              p = vals[1].strip()
+            elif vals[0] in ["Auth-Type", "Account-Type", "Session-Type", "Password-Type"]:
+              m, t = parse_type(vals)
+            elif vals[0] == "Session-Interactive-Only":
+              if vals[1].strip() == "yes":
+                m = "session"
+            elif vals[0] in ["Auth-Initial", "Account-Initial",
+                            "Session-Initial", "Password-Initial"]:
+              d = []
+              for j in range(i + 1, len(lines)):
+                if ":" in lines[j]:
+                  break
+                d.append(lines[j])
+              confdata[m] = {t: {p: d}}
 
-        template = template.replace(idnames[i] + "_primary", pb)
-        template = template.replace(idnames[i] + "_additional", ab)
-        content.write("/etc/pam.d/common-" + fn, template)
+        for i in range(len(fnames)):
+          fn = fnames[i]
+          template = content.read("/usr/share/pam/common-" + fn)
+          pb = build_block(confdata, fn, "Primary", "")
+          ab = build_block(confdata, fn, "Additional", "")
+
+          # session also includes settings from the session-noninteractive,
+          # but not the other way around
+          if fn == "session":
+            pb = build_block(confdata, "session-noninteractive", "Primary", pb)
+            ab = build_block(confdata, "session-noninteractive", "Additional", ab)
+
+          template = template.replace(idnames[i] + "_primary", pb)
+          template = template.replace(idnames[i] + "_additional", ab)
+          content.write("/etc/pam.d/common-" + fn, template)
+
+      process_pam_profiles()
 
   # The following two slices are kept for backwards compatibility.
   # However, the pam-defaults have been modified to deliver correct
