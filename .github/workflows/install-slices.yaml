@@ -71,6 +71,11 @@ jobs:
             "${{ github.base_ref || github.ref_name }}" == "main" ||
             "${{ github.event_name }}" == "schedule"
           ]]; then
+            # When installing all the slices only use the main version of
+            # chisel to avoid expensive CI jobs. We are testing that slices can
+            # be installed together so using a single version of chisel is
+            # enough.
+            export RELEASES=$(echo "$RELEASES" | jq 'map(.["chisel-versions"] |= ["main"])')
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
 
