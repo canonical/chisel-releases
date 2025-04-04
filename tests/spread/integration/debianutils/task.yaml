@@ -1,0 +1,29 @@
+summary: Integration tests for debianutils
+
+execute: |
+  rootfs="$(install-slices bash_bins base-files_base coreutils_bins debianutils_bins debianutils_which)"
+
+  # ischroot needs proc mounted
+  mkdir -p "${rootfs}"/proc
+  mount --bind /proc "${rootfs}"/proc
+
+  # some executables are scripts that need /bin/sh
+  chroot "$rootfs" ln -s /usr/bin/bash /bin/sh
+
+  # smoke test some of the binaries
+  chroot "${rootfs}" /usr/bin/ischroot
+  chroot "${rootfs}" /usr/bin/which savelog | grep "/usr/bin/savelog"
+  chroot "${rootfs}" /usr/bin/run-parts --list --regex 'shell$' /usr/sbin | tr '\n' ' ' | grep "/usr/sbin/add-shell /usr/sbin/remove-shell"
+
+  # run the update-shells to generate the shells file, this
+  # will output an error due to missing dpkg-realpath
+  chroot "${rootfs}" /usr/sbin/update-shells || true
+
+  # still expect the file to be generated
+  if ! [ -e "${rootfs}/etc/shells" ]; then
+    echo "expected shells file to be generated"
+    exit 1
+  fi
+
+  # cleanup
+  umount "${rootfs}"/proc
