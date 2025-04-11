@@ -29,5 +29,7 @@ slices:
       /usr/lib/ssl/cert.pem:
 
   copyright:
+    essential:
+      - libssl3t64_copyright
     contents:
       /usr/share/doc/openssl/copyright:
