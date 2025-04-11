@@ -31,5 +31,7 @@ slices:
       /usr/lib/ssl/cert.pem: {symlink: /etc/ssl/certs/ca-certificates.crt}
 
   copyright:
+    essential:
+      - libssl3_copyright
     contents:
       /usr/share/doc/openssl/copyright:
