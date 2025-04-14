@@ -30,11 +30,11 @@ slices:
 
   data:
     contents:
-      /etc/ssl/private/:
-      /usr/lib/ssl/private:
       /etc/ssl/certs/:
+      /etc/ssl/private/:
       /usr/lib/ssl/certs:
       /usr/lib/ssl/cert.pem:
+      /usr/lib/ssl/private:
 
   copyright:
     essential:
