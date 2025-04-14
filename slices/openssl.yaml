@@ -17,15 +17,23 @@ slices:
 
   config:
     contents:
+      # TODO: this is not a config, but data. Remove it for future releases.
       /etc/ssl/certs/:
       /etc/ssl/openssl.cnf:
+      # TODO: this is not a config, but data. Remove it for future releases.
       /etc/ssl/private/:
+      # TODO: this is not a config, but data. Remove it for future releases.
       /usr/lib/ssl/certs:
       /usr/lib/ssl/openssl.cnf:
+      # TODO: this is not a config, but data. Remove it for future releases.
       /usr/lib/ssl/private:
 
   data:
     contents:
+      /etc/ssl/private/:
+      /usr/lib/ssl/private:
+      /etc/ssl/certs/:
+      /usr/lib/ssl/certs:
       /usr/lib/ssl/cert.pem:
 
   copyright:
