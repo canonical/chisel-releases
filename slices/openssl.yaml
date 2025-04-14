@@ -32,8 +32,8 @@ slices:
     contents:
       /etc/ssl/certs/:
       /etc/ssl/private/:
-      /usr/lib/ssl/certs:
       /usr/lib/ssl/cert.pem:
+      /usr/lib/ssl/certs:
       /usr/lib/ssl/private:
 
   copyright:
