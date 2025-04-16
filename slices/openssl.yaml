@@ -12,8 +12,13 @@ slices:
       - openssl_config
       - openssl_data
     contents:
-      /usr/bin/c_rehash:
       /usr/bin/openssl:
+
+  scripts:
+    essential:
+      - perl-base_bins
+    contents:
+      /usr/bin/c_rehash:
 
   config:
     contents:
