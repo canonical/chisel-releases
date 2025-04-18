@@ -1,0 +1,38 @@
+summary: Integration tests for apache2-utils
+
+execute: |
+  # Installing nginx_bins to be able to do a benchmark test using ab util
+  rootfs="$(install-slices apache2-utils_bins apache2-utils_scripts nginx_bins \
+          base-files_var base-passwd_data)"
+
+  mkdir -p "${rootfs}/dev"
+  mount --rbind /dev "${rootfs}/dev"
+  test "$(chroot "${rootfs}/" htdbm -cb test.htdbm user1 password123)" = \
+    "Database test.htdbm created."
+  test "$(chroot "${rootfs}/" htpasswd -cb test.htpasswd user1 passwd123 2>&1)" = \
+    "Adding password for user user1"
+  test "$(chroot "${rootfs}/"  htpasswd -vb test.htpasswd user1 passwd123 2>&1)" = \
+    "Password for user user1 correct."
+  echo "192.168.1.1 - - [26/Feb/2025:10:00:00 +0000] \"GET /index.html HTTP/1.1\" 200 1024" \
+    > "${rootfs}/test.log"
+  awk '{print $1}' "${rootfs}/test.log" | chroot "${rootfs}/" logresolve > "${rootfs}/resolved.log"
+  test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
+
+  echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
+  chroot "${rootfs}" nginx
+  test "$(chroot "${rootfs}" ab -n 1 -c 1 http://127.0.0.1/index.html 2>/dev/null | \
+  grep -o "Requests per second")" = "Requests per second"
+  chroot "${rootfs}" nginx -s stop
+  test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
+  test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
+  cat <<'EOF' > /tmp/fake-fcgi.sh
+  #!/bin/bash
+  while true; do echo "Fake FastCGI Running"; sleep 5; done
+  EOF
+  chmod +x /tmp/fake-fcgi.sh
+  chroot "${rootfs}/" fcgistarter -c ../tmp/fake-fcgi.sh -p 9000
+  test "$(ps aux | grep -o fake-fcgi.sh)" = "fake-fcgi.sh"
+  mkdir -p "${rootfs}/var/cache/apache2"
+  chmod 755 "${rootfs}/var/cache/apache2"
+  test "$(chroot "${rootfs}" htcacheclean -n -v -p var/cache/apache2 -l 100M 2>&1 | \
+  grep -o "Cleaned")" = "Cleaned"

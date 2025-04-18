@@ -1,0 +1,26 @@
+summary: Integration tests for apache2
+
+execute: |
+  rootfs="$(install-slices apache2_bins base-passwd_data)"
+
+  mkdir -p "${rootfs}/dev"
+  mount --rbind /dev "${rootfs}/dev"
+  echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
+  test "$(chroot "${rootfs}" a2query -M)" = "event"
+  # Enabling mpm_prefork since it causes a coredump and can't locate libgcc_s.so.1
+  # AH00051: child pid 1890 exit signal Abort (6), possible coredump in /etc/apache2
+  # libgcc_s.so.1 must be installed for pthread_exit to work
+  test "$(chroot "${rootfs}" a2dismod mpm_event | head -n 1)" = "Module mpm_event disabled."
+  test "$(chroot "${rootfs}" a2enmod mpm_prefork | grep -o "Enabling module mpm_prefork." )" = \
+  "Enabling module mpm_prefork."
+  test "$(chroot "${rootfs}" a2dissite 000-default | head -n 1)" = "Site 000-default disabled."
+  test "$(chroot "${rootfs}" a2ensite 000-default | head -n 1)" = "Enabling site 000-default."
+  test "$(chroot "${rootfs}" a2disconf charset | head -n 1)" = "Conf charset disabled."
+  test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
+  mkdir -p "${rootfs}/var/www/html"
+  # Setting rootfs mode to 755 to allow Apache2 traverse path to DocumentRoot.
+  chmod 755 "${rootfs}"
+  chroot "${rootfs}" apache2ctl start
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1)" = "200"
+  chroot "${rootfs}" apache2ctl stop
+  umount -l "${rootfs}/dev"

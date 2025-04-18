@@ -38,8 +38,11 @@ slices:
   var:
     contents:
       /run/:
+      /run/lock/: {make: true, mode: 01777}
       /var/cache/:
       /var/lib/:
+      # The /var/lock symlink is enforced by the package's maintainer scripts
+      /var/lock/: {symlink: /run/lock}
       /var/log/:
       # The /var/run symlink is enforced by the package's maintainer scripts
       /var/run/: {symlink: /run}

@@ -9,6 +9,8 @@ slices:
   # handled differently in Chisel.
   # There's also no need (yet) for any init- and systemd-related files.
   config:
+    essential:
+      - apache2_documentroot
     contents:
       /etc/logrotate.d/nginx:
       /etc/nginx/fastcgi.conf:
@@ -32,7 +34,6 @@ slices:
       /var/log/nginx/: {make: true, mode: 0755}
       /var/log/nginx/access.log: {text: "", mode: 0640}
       /var/log/nginx/error.log: {text: "", mode: 0640}
-      /var/www/html/: {make: true}
 
   ufw-config:
     contents:
@@ -43,6 +44,8 @@ slices:
       /usr/share/apport/package-hooks/source_nginx.py:
 
   index:
+    essential:
+      - apache2_documentroot
     contents:
       /usr/share/nginx/html/index.html:
       /var/www/html/index.nginx-debian.html:

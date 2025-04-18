@@ -1,0 +1,18 @@
+package: libaprutil1-dbd-mysql
+
+essential:
+  - libaprutil1-dbd-mysql_copyright
+
+slices:
+  libs:
+    essential:
+      - libaprutil1t64_libs
+      - libc6_libs
+      - libmysqlclient21_libs
+    contents:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbd_mysql-1.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbd_mysql.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libaprutil1-dbd-mysql/copyright:

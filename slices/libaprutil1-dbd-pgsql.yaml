@@ -1,0 +1,18 @@
+package: libaprutil1-dbd-pgsql
+
+essential:
+  - libaprutil1-dbd-pgsql_copyright
+
+slices:
+  libs:
+    essential:
+      - libaprutil1t64_libs
+      - libc6_libs
+      - libpq5_libs
+    contents:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbd_pgsql-1.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbd_pgsql.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libaprutil1-dbd-pgsql/copyright:
