@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - libreadline8t64_libs
+      - libreadline8_libs
     contents:
       /usr/bin/lua:
         symlink: /usr/bin/lua5.4
