@@ -10,9 +10,9 @@ jobs:
       matrix:
         runner:
           - name: X64
-            runs-on: ubuntu-latest
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "X64", "large"]') || 'ubuntu-24.04' }}
           - name: ARM64
-            runs-on: [noble, ARM64, large]
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
     steps:
