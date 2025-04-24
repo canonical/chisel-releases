@@ -23,6 +23,12 @@ slices:
       /usr/lib/locale/C.utf8/LC_TELEPHONE:
       /usr/lib/locale/C.utf8/LC_TIME:
 
+  getconf:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/getconf:
+
   copyright:
     contents:
       /usr/share/doc/libc-bin/copyright:
