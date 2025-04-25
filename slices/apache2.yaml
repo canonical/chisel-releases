@@ -1,0 +1,168 @@
+package: apache2
+
+essential:
+  - apache2_copyright
+
+slices:
+  bins:
+    essential:
+      - apache2-bin_bins
+      - apache2-utils_bins
+      - apache2_config
+      - base-files_bin
+      - base-files_var
+      - coreutils_bins
+      - dash_bins
+      - findutils_bins
+      - media-types_data
+      - perl-base_bins
+      - perl-base_modules
+      - perl-modules-5.38_core
+      - perl-modules-5.38_system-utils
+      - procps_bins
+    contents:
+      /usr/sbin/a2disconf:
+      /usr/sbin/a2dismod:
+      /usr/sbin/a2dissite:
+      /usr/sbin/a2enconf:
+      /usr/sbin/a2enmod:
+      /usr/sbin/a2ensite:
+      /usr/sbin/a2query:
+      /usr/sbin/apache2ctl:
+      /usr/sbin/apachectl:
+
+  config:
+    essential:
+      - apache2-data_data
+      - apache2_documentroot
+    contents:
+      /etc/apache2/apache2.conf:
+      /etc/apache2/conf-available/**:
+      /etc/apache2/conf-enabled/charset.conf:
+        symlink: /etc/apache2/conf-available/charset.conf
+      /etc/apache2/conf-enabled/localized-error-pages.conf:
+        symlink: /etc/apache2/conf-available/localized-error-pages.conf
+      /etc/apache2/conf-enabled/other-vhosts-access-log.conf:
+        symlink: /etc/apache2/conf-available/other-vhosts-access-log.conf
+      /etc/apache2/conf-enabled/security.conf:
+        symlink: /etc/apache2/conf-available/security.conf
+      /etc/apache2/conf-enabled/serve-cgi-bin.conf:
+        symlink: /etc/apache2/conf-available/serve-cgi-bin.conf
+      /etc/apache2/envvars:
+      /etc/apache2/magic:
+      /etc/apache2/mods-available/**:
+      /etc/apache2/mods-enabled/access_compat.load:
+        symlink: /etc/apache2/mods-available/access_compat.load
+      /etc/apache2/mods-enabled/alias.conf:
+        symlink: /etc/apache2/mods-available/alias.conf
+      /etc/apache2/mods-enabled/alias.load:
+        symlink: /etc/apache2/mods-available/alias.load
+      /etc/apache2/mods-enabled/auth_basic.load:
+        symlink: /etc/apache2/mods-available/auth_basic.load
+      /etc/apache2/mods-enabled/authn_file.load:
+        symlink: /etc/apache2/mods-available/authn_file.load
+      /etc/apache2/mods-enabled/authz_core.load:
+        symlink: /etc/apache2/mods-available/authz_core.load
+      /etc/apache2/mods-enabled/authz_host.load:
+        symlink: /etc/apache2/mods-available/authz_host.load
+      /etc/apache2/mods-enabled/authz_user.load:
+        symlink: /etc/apache2/mods-available/authz_user.load
+      /etc/apache2/mods-enabled/autoindex.conf:
+        symlink: /etc/apache2/mods-available/autoindex.conf
+      /etc/apache2/mods-enabled/autoindex.load:
+        symlink: /etc/apache2/mods-available/autoindex.load
+      /etc/apache2/mods-enabled/deflate.conf:
+        symlink: /etc/apache2/mods-available/deflate.conf
+      /etc/apache2/mods-enabled/deflate.load:
+        symlink: /etc/apache2/mods-available/deflate.load
+      /etc/apache2/mods-enabled/dir.conf:
+        symlink: /etc/apache2/mods-available/dir.conf
+      /etc/apache2/mods-enabled/dir.load:
+        symlink: /etc/apache2/mods-available/dir.load
+      /etc/apache2/mods-enabled/env.load:
+        symlink: /etc/apache2/mods-available/env.load
+      /etc/apache2/mods-enabled/filter.load:
+        symlink: /etc/apache2/mods-available/filter.load
+      /etc/apache2/mods-enabled/mime.conf:
+        symlink: /etc/apache2/mods-available/mime.conf
+      /etc/apache2/mods-enabled/mime.load:
+        symlink: /etc/apache2/mods-available/mime.load
+      /etc/apache2/mods-enabled/mpm_event.conf:
+        symlink: /etc/apache2/mods-available/mpm_event.conf
+      /etc/apache2/mods-enabled/mpm_event.load:
+        symlink: /etc/apache2/mods-available/mpm_event.load
+      /etc/apache2/mods-enabled/negotiation.conf:
+        symlink: /etc/apache2/mods-available/negotiation.conf
+      /etc/apache2/mods-enabled/negotiation.load:
+        symlink: /etc/apache2/mods-available/negotiation.load
+      /etc/apache2/mods-enabled/reqtimeout.conf:
+        symlink: /etc/apache2/mods-available/reqtimeout.conf
+      /etc/apache2/mods-enabled/reqtimeout.load:
+        symlink: /etc/apache2/mods-available/reqtimeout.load
+      /etc/apache2/mods-enabled/setenvif.conf:
+        symlink: /etc/apache2/mods-available/setenvif.conf
+      /etc/apache2/mods-enabled/setenvif.load:
+        symlink: /etc/apache2/mods-available/setenvif.load
+      /etc/apache2/mods-enabled/status.conf:
+        symlink: /etc/apache2/mods-available/status.conf
+      /etc/apache2/mods-enabled/status.load:
+        symlink: /etc/apache2/mods-available/status.load
+      /etc/apache2/ports.conf:
+      /etc/apache2/sites-available/**:
+      /etc/apache2/sites-enabled/000-default.conf:
+        symlink: /etc/apache2/sites-available/000-default.conf
+      /usr/share/apache2/ask-for-passphrase:
+      /var/cache/apache2/mod_cache_disk/:
+      /var/lib/apache2/conf/: {make: true, mode: 0755}
+      /var/lib/apache2/conf/enabled_by_maint/: {make: true, mode: 0755}
+      /var/lib/apache2/conf/enabled_by_maint/charset: {text: "", mode: 0644}
+      /var/lib/apache2/conf/enabled_by_maint/localized-error-pages: {text: "", mode: 0644}
+      /var/lib/apache2/conf/enabled_by_maint/other-vhosts-access-log: {text: "", mode: 0644}
+      /var/lib/apache2/conf/enabled_by_maint/security: {text: "", mode: 0644}
+      /var/lib/apache2/conf/enabled_by_maint/serve-cgi-bin: {text: "", mode: 0644}
+      /var/lib/apache2/module/: {make: true, mode: 0755}
+      /var/lib/apache2/module/enabled_by_maint/: {make: true, mode: 0755}
+      /var/lib/apache2/module/enabled_by_maint/access_compat: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/alias: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/auth_basic: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/authn_core: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/authn_file: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/authz_core: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/authz_host: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/authz_user: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/autoindex: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/deflate: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/dir: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/env: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/filter: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/mime: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/mpm_event: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/negotiation: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/reqtimeout: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/setenvif: {text: "", mode: 0644}
+      /var/lib/apache2/module/enabled_by_maint/status: {text: "", mode: 0644}
+      /var/lib/apache2/site/: {make: true, mode: 0755}
+      /var/lib/apache2/site/enabled_by_maint/: {make: true, mode: 0755}
+      /var/lib/apache2/site/enabled_by_maint/000-default: {text: "", mode: 0644}
+      /var/log/apache2/:
+      /var/log/apache2/access.log: {text: "", mode: 0640}
+      /var/log/apache2/error.log: {text: "", mode: 0640}
+      /var/log/apache2/other_vhosts_access.log: {text: "", mode: 0640}
+
+  copyright:
+    contents:
+      /usr/share/doc/apache2/copyright:
+
+  index:
+    essential:
+      - apache2-data_default-site
+      - apache2_documentroot
+    contents:
+      /var/www/html/index.html: {text: FIXME, mutable: true, mode: 0644}
+    mutate: |
+      index = content.read("/usr/share/apache2/default-site/index.html")
+      content.write("/var/www/html/index.html", index)
+
+  documentroot:
+    contents:
+      /var/www/html/: {make: true, mode: 0755}
