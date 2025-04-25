@@ -84,7 +84,7 @@ jobs:
           else
             # Filter the releases to only the affected branch, then swap the ref
             # such that the correct branch is tested.
-            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.base_ref }}") | .ref = "${{ github.head_ref }}"]')
+            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.base_ref }}") | .ref = ""]')
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           fi

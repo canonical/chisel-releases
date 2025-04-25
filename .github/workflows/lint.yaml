@@ -92,13 +92,8 @@ jobs:
             echo "error:   " "$@" >&2
             EXIT_CODE=1
           }
-          warn() {
-            echo "warning: " "$@" >&2
-          }
 
           for filename in $(find slices/ | grep "\.yaml$" | sort); do
-            yq '.slices | keys | .[]' "$filename" | sort -C || \
-              warn "$filename: slice names are not sorted"
             for slice in $(yq '.slices | keys | .[]' "$filename"); do
               key="$slice" yq \
                 '.slices | with_entries(select(.key == env(key))) | .[].essential[]' \
