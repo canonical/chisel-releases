@@ -29,6 +29,7 @@ backends:
       do
         sleep 5
       done
+      lxc exec $SPREAD_SYSTEM -- apt-get update
       lxc exec $SPREAD_SYSTEM -- systemctl enable --now ssh
       lxc exec $SPREAD_SYSTEM -- sed -i 's/^\s*#\?\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/\1 yes/' /etc/ssh/sshd_config
       lxc exec $SPREAD_SYSTEM -- bash -c "sed -i 's/^\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/# COMMENTED OUT BY SPREAD: \0/' /etc/ssh/sshd_config.d/* || true"
