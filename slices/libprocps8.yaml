@@ -1,0 +1,16 @@
+package: libprocps8
+
+essential:
+  - libprocps8_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libsystemd0_libs
+    contents:
+      /lib/*-linux-*/libprocps.so.8*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libprocps8/copyright:

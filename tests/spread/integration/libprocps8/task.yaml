@@ -1,0 +1,8 @@
+summary: Integration tests for libprocps8
+
+execute: |
+  rootfs="$(install-slices libprocps8_libs)"
+
+  arch=$(uname -m)
+
+  test -f ${rootfs}/lib/${arch}-linux-gnu/libprocps.so.8
