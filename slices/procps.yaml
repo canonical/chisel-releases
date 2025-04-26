@@ -10,7 +10,6 @@ slices:
       - libncurses6_libs
       - libncursesw6_libs
       - libprocps8_libs
-      - libsystemd0_libs
       - libtinfo6_libs
     contents:
       /bin/kill:
