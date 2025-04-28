@@ -52,7 +52,6 @@ slices:
       /usr/lib/*-linux-*/perl-base/base.pm:
       /usr/lib/*-linux-*/perl-base/builtin.pm:
       /usr/lib/*-linux-*/perl-base/bytes.pm:
-      /usr/lib/*-linux-*/perl-base/bytes_heavy.pl:
       /usr/lib/*-linux-*/perl-base/constant.pm:
       /usr/lib/*-linux-*/perl-base/feature.pm:
       /usr/lib/*-linux-*/perl-base/fields.pm:
