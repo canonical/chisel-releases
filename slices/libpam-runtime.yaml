@@ -40,96 +40,106 @@ slices:
       /usr/share/pam/common-session: { until: mutate }
       /usr/share/pam/common-session-noninteractive: { until: mutate }
     mutate: |
-      def parse_type(t):
-        strippedValue = t[1].strip()
-        if t[0] == "Auth-Type":
-            return ["auth", strippedValue]
-        elif t[0] == "Account-Type":
-          return ["account", strippedValue]
-        elif t[0] == "Session-Type":
-          return ["session-noninteractive", strippedValue]
-        elif t[0] == "Password-Type":
-          return ["password", strippedValue]
-        return []
+      defaults_dir = "/usr/share/pam-configs/"
+      template_dir = "/usr/share/pam/"
+      config_dir = "/etc/pam.d/"
+      default_line = "[default=1]\t\t\tpam_permit.so"
 
-      confs_dir = "/usr/share/pam-configs/"
-      confs = content.list(confs_dir)
-      confdata = {}
-      for x in confs:
-        conf = content.read(confs_dir + x)
-        lines = conf.splitlines()
+      type_map = {
+          "Auth-Type": "auth",
+          "Account-Type": "account",
+          "Session-Type": "session-noninteractive",
+          "Password-Type": "password",
+      }
 
-        m = ""
-        p = ""
-        t = ""
-        for i in range(len(lines)):
-          vals = lines[i].split(":")
-          if vals[0] == "Priority":
-            p = vals[1].strip()
-          elif vals[0] in ["Auth-Type", "Account-Type", "Session-Type", "Password-Type"]:
-            m, t = parse_type(vals)
-          elif vals[0] == "Session-Interactive-Only":
-            if vals[1].strip() == "yes":
-              m = "session"
-          elif vals[0] in ["Auth-Initial", "Account-Initial",
-                           "Session-Initial", "Password-Initial"]:
-            d = []
-            for j in range(i + 1, len(lines)):
-              if ":" in lines[j]:
-                break
-              d.append(lines[j])
-            confdata[m] = {t: {p: d}}
+      template_map = {
+        "account": "$account",
+        "auth": "$auth",
+        "password": "$password",
+        "session": "$session",
+        "session-noninteractive": "$session_nonint",
+       }
 
-      def reconfigure_data_line(section, line, i):
-        res = ""
-        upd = line.replace("success=end", "success=" + str(i))
-        if section == "session-noninteractive":
-          res += "session" + upd + "\n"
-        else:
-          res += section + upd + "\n"
-        return res
+      initial_sections = [
+        "Auth-Initial",
+        "Account-Initial",
+        "Session-Initial",
+        "Password-Initial"
+      ]
 
-      def build_block(data, section, block, existing):
-        si = 1
-        res = existing
-        if section in data:
-          types = data[section]
-          if block in types:
-            # get the keys (which are the priorities) and
-            # then reverse sort them to get the highest priority
-            # first
-            itemsByPriority = types[block]
-            keys = itemsByPriority.keys()
-            keys = sorted(keys, reverse=True)
-            for p in keys:
-              for d in itemsByPriority[p]:
-                res = reconfigure_data_line(section, d, si) + "\n"
-                si += 1
+      def get_template(config_type):
+          return content.read(template_dir + "common-" + config_type)
 
-        # no primary block, so output a stock pam_permit line
-        # to keep the stack intact
-        if res == "" and block == "Primary":
-          return reconfigure_data_line(section, "\t[default=1]\t\t\tpam_permit.so\n", 1);
-        return res
+      def set_config(config_type, config_content):
+          return content.write(config_dir + "common-" + config_type, config_content)
 
-      fnames = ["account", "auth", "password", "session", "session-noninteractive"]
-      idnames = ["$account", "$auth", "$password", "$session", "$session_nonint"]
+      def parse_config(lines):
+          config_data = {}
+          current_section = ""
+          current_type = ""
+          priority = ""
+          for line_no, line in enumerate(lines):
+              parts = line.split(":", 1)
+              key = parts[0].strip()
+              value = parts[1].strip() if len(parts) > 1 else ""  # default to empty string
+              if key == "priority":
+                  priority = value
+              elif key in type_map:
+                  current_section = type_map[key]
+                  current_type = value
+              elif key == "Session-Interactive-Only" and value == "yes":
+                  current_section = "session"
+              elif key in initial_sections:
+                  data = []
+                  for subline in lines[line_no + 1 :]:
+                      if ":" in subline:
+                          break
+                      data.append(subline.strip())
+                  config_data[current_section] = {current_type: {priority: data}}
+          return config_data
 
-      for i in range(len(fnames)):
-        fn = fnames[i]
-        template = content.read("/usr/share/pam/common-" + fn)
-        pb = build_block(confdata, fn, "Primary", "")
-        ab = build_block(confdata, fn, "Additional", "")
+      def reconfigure_data_line(section, line, index):
+          updated_line = line.replace("success=end", "success=" + str(index))
+          if section == "session-noninteractive":
+              section = "session"
+          return section + "\t" + updated_line + "\n\n"
 
-        # session also includes settings from the session-noninteractive,
-        # but not the other way around
-        if fn == "session":
-          pb = build_block(confdata, "session-noninteractive", "Primary", pb)
-          ab = build_block(confdata, "session-noninteractive", "Additional", ab)
+      def build_block(data, section, block, existing=""):
+          result = existing
+          if section in data and block in data[section]:
+              items_by_priority = data[section][block]
+              for priority in sorted(items_by_priority.keys(), reverse=True):
+                  for line in items_by_priority[priority]:
+                      result += reconfigure_data_line(
+                          section, line, len(result.splitlines()) + 1
+                      )
+          if result == "" and block == "Primary":
+              return reconfigure_data_line(section, default_line, 1)
+          return result
 
-        template = template.replace(idnames[i] + "_primary", pb)
-        template = template.replace(idnames[i] + "_additional", ab)
-        content.write("/etc/pam.d/common-" + fn, template)
+      # load configuration defaults
+      config_data = {}
+      for conf_file in content.list(defaults_dir):
+          conf_content = content.read(defaults_dir + conf_file)
+          config_data.update(parse_config(conf_content.splitlines()))
+
+      # write configs from templates
+      for config_type, var_stem in template_map.items():
+          template = get_template(config_type)
+          primary_block = build_block(config_data, config_type, "Primary")
+          additional_block = build_block(config_data, config_type, "Additional")
+
+          if config_type == "session":
+              primary_block = build_block(
+                  config_data, "session-noninteractive", "Primary", primary_block
+              )
+              additional_block = build_block(
+                  config_data, "session-noninteractive", "Additional", additional_block
+              )
+
+          config_content = template.replace(var_stem + "_primary", primary_block)
+          config_content = config_content.replace(var_stem + "_additional", additional_block)
+          set_config(config_type, config_content)
 
   # The following two slices are kept for backwards compatibility.
   # However, the pam-defaults have been modified to deliver correct
