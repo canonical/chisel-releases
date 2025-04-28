@@ -8,14 +8,14 @@ slices:
     essential:
       - libc6_libs
       - libzstd1_libs
+      - openssl-provider-legacy_libs
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/engines-3/afalg.so:
       /usr/lib/*-linux-*/engines-3/loader_attic.so:
-      /usr/lib/*-linux-*/engines-3/padlock.so:
+      # /usr/lib/*-linux-*/engines-3/padlock.so: # only available on arm64 and i386
       /usr/lib/*-linux-*/libcrypto.so.*:
       /usr/lib/*-linux-*/libssl.so.*:
-      /usr/lib/*-linux-*/ossl-modules/legacy.so:
 
   copyright:
     contents:
