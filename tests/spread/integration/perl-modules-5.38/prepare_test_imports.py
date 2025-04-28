@@ -8,7 +8,7 @@ NO_IMPORT = {"feature"}
 PROJECT_PATH = os.environ.get("PROJECT_PATH", os.getcwd())
 
 slice_def = yaml.safe_load(
-    open(os.path.join(PROJECT_PATH, "slices/perl-modules-5.38.yaml"), encoding="utf-8")
+    open(os.path.join(PROJECT_PATH, "slices/perl-modules-5.40.yaml"), encoding="utf-8")
 )
 
 slices = slice_def.get("slices", [])
@@ -41,7 +41,7 @@ for slice_name, chisel_slice in slices.items():
         continue
 
     test_dir = os.path.join(
-        PROJECT_PATH, "tests/spread/integration/perl-modules-5.38/cases"
+        PROJECT_PATH, "tests/spread/integration/perl-modules-5.40/cases"
     )
     os.makedirs(test_dir, exist_ok=True)
     filepath = os.path.join(test_dir, "{}.pm".format(slice_name))

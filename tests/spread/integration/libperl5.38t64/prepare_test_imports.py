@@ -8,7 +8,7 @@ NO_IMPORT = {"feature"}
 PROJECT_PATH = os.environ.get("PROJECT_PATH", os.getcwd())
 
 slice_def = yaml.safe_load(
-    open(os.path.join(PROJECT_PATH, "slices/libperl5.38t64.yaml"), encoding="utf-8")
+    open(os.path.join(PROJECT_PATH, "slices/libperl5.40.yaml"), encoding="utf-8")
 )
 
 slices = slice_def.get("slices", [])
@@ -40,9 +40,7 @@ for slice_name, chisel_slice in slices.items():
     if len(slice_deps) == 0:
         continue
 
-    test_dir = os.path.join(
-        PROJECT_PATH, "tests/spread/integration/libperl5.38t64/cases"
-    )
+    test_dir = os.path.join(PROJECT_PATH, "tests/spread/integration/libperl5.40/cases")
     os.makedirs(test_dir, exist_ok=True)
     filepath = os.path.join(test_dir, "{}.pm".format(slice_name))
     with open(filepath, "w", encoding="utf-8") as f:

@@ -1,4 +1,4 @@
-summary: The integration test of the libperl5.38t64 package slices
+summary: The integration test of the libperl5.40 package slices
 
 execute: |
   apt update
@@ -7,7 +7,7 @@ execute: |
 
   for slice in $(ls cases); do
     slice_name=$(echo $slice | cut -d'.' -f1)
-    rootfs=$(install-slices libperl5.38t64_$slice_name base-files_base perl-base_bins)
+    rootfs=$(install-slices libperl5.40_$slice_name base-files_base perl-base_bins)
     cp cases/$slice $rootfs/
     chroot $rootfs /usr/bin/perl $slice
   done
