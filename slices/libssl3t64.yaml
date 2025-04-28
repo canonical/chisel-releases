@@ -8,8 +8,8 @@ slices:
     essential:
       - libc6_libs
       - libzstd1_libs
-      - zlib1g_libs
       - openssl-provider-legacy_libs
+      - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/engines-3/afalg.so:
       /usr/lib/*-linux-*/engines-3/loader_attic.so:
