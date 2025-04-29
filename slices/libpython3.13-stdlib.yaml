@@ -180,8 +180,6 @@ slices:
       /usr/lib/python3.13/lib-dynload/_testinternalcapi.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/_testmultiphase.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/_testsinglephase.cpython-313-*-linux-*.so:
-      /usr/lib/python3.13/lib-dynload/_xxinterpchannels.cpython-313-*-linux-*.so:
-      /usr/lib/python3.13/lib-dynload/_xxsubinterpreters.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/_xxtestfuzz.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/xxlimited.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/xxlimited_35.cpython-313-*-linux-*.so:
@@ -305,8 +303,6 @@ slices:
       - libpython3.13-stdlib_core
     contents:
       /usr/lib/python3.13/colorsys.py:
-      /usr/lib/python3.13/lib-dynload/audioop.cpython-313-*-linux-*.so:
-      /usr/lib/python3.13/lib-dynload/ossaudiodev.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/wave.py:
 
   # Internet Data Handling
@@ -396,7 +392,6 @@ slices:
       - libpython3.13-stdlib_core
       - libpython3.13-stdlib_frameworks
     contents:
-      /usr/lib/python3.13/lib-dynload/_crypt.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/resource.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/termios.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/pty.py:
@@ -413,5 +408,4 @@ slices:
     contents:
       /usr/lib/python3.13/__hello__.py:
       /usr/lib/python3.13/antigravity.py:
-      /usr/lib/python3.13/lib-dynload/nis.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/this.py:

@@ -9,7 +9,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libmbedcrypto.so.3*:
-      /usr/lib/*-linux-*/libmbedcrypto.so.7:
+      /usr/lib/*-linux-*/libmbedcrypto.so.16:
 
   copyright:
     contents:

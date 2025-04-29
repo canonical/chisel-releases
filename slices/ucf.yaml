@@ -10,7 +10,6 @@ slices:
     essential:
       - sensible-utils_bins
     contents:
-      /usr/bin/lcf:
       /usr/bin/ucf:
       /usr/bin/ucfq:
       /usr/bin/ucfr:
