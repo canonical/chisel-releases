@@ -14,7 +14,7 @@ slices:
       - libdav1d7_libs
       - libglib2.0-0t64_libs
       - libgsm1_libs
-      - libjxl0.10_libs
+      - libjxl0.11_libs
       - liblzma5_libs
       - libmp3lame0_libs
       - libopenjp2-7_libs
@@ -42,7 +42,7 @@ slices:
       - libwebp7_libs
       - libwebpmux3_libs
       - libx264-164_libs
-      - libx265-209_libs
+      - libx265-215_libs
       - libxvidcore4_libs
       - libzvbi0t64_libs
       - zlib1g_libs

@@ -1,7 +1,7 @@
-package: libjxl0.10
+package: libjxl0.11
 
 essential:
-  - libjxl0.10_copyright
+  - libjxl0.11_copyright
 
 slices:
   libs:
@@ -16,11 +16,10 @@ slices:
       - libpng16-16t64_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libjxl.so.0.10*:
-      /usr/lib/*-linux-*/libjxl_cms.so.0.10*:
-      /usr/lib/*-linux-*/libjxl_extras_codec.so.0.10*:
-      /usr/lib/*-linux-*/libjxl_threads.so.0.10*:
+      /usr/lib/*-linux-*/libjxl.so.0.11*:
+      /usr/lib/*-linux-*/libjxl_cms.so.0.11*:
+      /usr/lib/*-linux-*/libjxl_threads.so.0.11*:
 
   copyright:
     contents:
-      /usr/share/doc/libjxl0.10/copyright:
+      /usr/share/doc/libjxl0.11/copyright:
