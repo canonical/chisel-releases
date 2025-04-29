@@ -8,7 +8,7 @@ slices:
     essential:
       - libpython3-stdlib_core
       - python3-minimal_python3
-      - python3.12_core
+      - python3.13_core
 
   standard:
     essential:
@@ -39,14 +39,14 @@ slices:
       - libpython3-stdlib_text
       - libpython3-stdlib_unix
       - python3-minimal_bins
-      - python3.12_standard
+      - python3.13_standard
       - python3_core
 
   utils:
     essential:
       - libpython3-stdlib_debug
       - libpython3-stdlib_pydoc
-      - python3.12_utils
+      - python3.13_utils
     contents:
       /usr/bin/pdb3:
       /usr/bin/pydoc3:

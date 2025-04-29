@@ -1,0 +1,417 @@
+package: libpython3.13-stdlib
+
+# The slices in this package have been grouped with inspiration from the
+# Python 3.13 Standard Library
+# (https://docs.python.org/3.13/library/index.html).
+#
+# Aside from the "core" slice which contains the minimal libraries that
+# should come from this package and the "extra" slice which contains
+# miscellaneous libraries, all the other slice definitions are sorted by
+# their names. The "core" slice is placed at the very beginning and the
+# "extra" slice at the very end.
+slices:
+  # The "core" slice provides a very minimal libpython3.13-stdlib
+  core:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      # Adding libgcc-s1 here because it is required for the arm arch.
+      # In practice, libc6 should bring it anyway, BUT, there is a circular
+      # dependency in the archives, where libc6 depends on libgcc-s1 and
+      # vice versa. We don't allow that circular dependency to exist in Chisel
+      # and libgcc-s1 already depends on libc6, so we'll have to include this
+      # line here, explicitly.
+      - libgcc-s1_libs
+      - liblzma5_libs
+      - libpython3.13-minimal_libs
+      - media-types_data
+      - netbase_config
+    contents:
+      /usr/lib/python3.13/_compression.py:
+      /usr/lib/python3.13/_pydatetime.py:
+      /usr/lib/python3.13/_pylong.py:
+      /usr/lib/python3.13/bz2.py:
+      /usr/lib/python3.13/contextvars.py:
+      /usr/lib/python3.13/gettext.py:
+      /usr/lib/python3.13/gzip.py:
+      /usr/lib/python3.13/http/__init__.py:
+      /usr/lib/python3.13/http/client.py:
+      /usr/lib/python3.13/lib-dynload/_bz2.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_codecs_*.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_contextvars.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_lzma.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_multibytecodec.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_queue.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/mmap.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lzma.py:
+      /usr/lib/python3.13/mimetypes.py:
+      /usr/lib/python3.13/ntpath.py:
+      /usr/lib/python3.13/queue.py:
+      /usr/lib/python3.13/shutil.py:
+      /usr/lib/python3.13/socketserver.py:
+      /usr/lib/python3.13/tarfile.py:
+
+  # Shared AIX (IBM) support functions
+  aix-support:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_aix_support.py:
+
+  # Generic Operating System Services
+  # https://docs.python.org/3.13/library/allos.html
+  all-os:
+    essential:
+      - libffi8_libs
+      - libncursesw6_libs
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_unix
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.13/_pyio.py:
+      /usr/lib/python3.13/ctypes/**:
+      /usr/lib/python3.13/curses/**:
+      /usr/lib/python3.13/getpass.py:
+      /usr/lib/python3.13/lib-dynload/_ctypes*.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_curses*.cpython-313-*-linux-*.so:
+
+  # Concurrent Execution
+  # https://docs.python.org/3.13/library/concurrency.html
+  concurrency:
+    essential:
+      - libpython3.13-stdlib_all-os
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_crypto
+    contents:
+      /usr/lib/python3.13/concurrent/**:
+      /usr/lib/python3.13/lib-dynload/_multiprocessing.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_posixshmem.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/multiprocessing/**:
+      /usr/lib/python3.13/sched.py:
+
+  # Cryptographic Services
+  # https://docs.python.org/3.13/library/crypto.html
+  crypto:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/hmac.py:
+      /usr/lib/python3.13/secrets.py:
+
+  # Custom Python Interpreters
+  # https://docs.python.org/3.13/library/custominterp.html
+  custom-interpreters:
+    essential:
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_text
+    contents:
+      /usr/lib/python3.13/code.py:
+      /usr/lib/python3.13/codeop.py:
+
+  # Data Persistence
+  # https://docs.python.org/3.13/library/persistence.html
+  data-persistence:
+    essential:
+      - libdb5.3t64_libs
+      - libpython3.13-stdlib_core
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/python3.13/dbm/**:
+      /usr/lib/python3.13/lib-dynload/_dbm.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_sqlite3.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/shelve.py:
+      /usr/lib/python3.13/sqlite3/**:
+
+  # Data Types
+  # https://docs.python.org/3.13/library/datatypes.html
+  data-types:
+    essential:
+      - libpython3.13-stdlib_core
+      - tzdata_zoneinfo
+    contents:
+      /usr/lib/python3.13/graphlib.py:
+      /usr/lib/python3.13/lib-dynload/_zoneinfo.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/pprint.py:
+      /usr/lib/python3.13/zoneinfo/**:
+
+  # Debugging and Profiling
+  # https://docs.python.org/3.13/library/debug.html
+  debug:
+    essential:
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_custom-interpreters
+      - libpython3.13-stdlib_data-types
+      - libpython3.13-stdlib_frameworks
+      - libpython3.13-stdlib_text
+    contents:
+      /usr/lib/python3.13/bdb.py:
+      /usr/lib/python3.13/cProfile.py:
+      /usr/lib/python3.13/lib-dynload/_lsprof.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/pdb.py:
+      /usr/lib/python3.13/profile.py:
+      /usr/lib/python3.13/pstats.py:
+      /usr/lib/python3.13/timeit.py:
+      /usr/lib/python3.13/trace.py:
+
+  # Development Tools
+  # https://docs.python.org/3.13/library/development.html
+  development-tools:
+    essential:
+      - libpython3.13-stdlib_all-os
+      - libpython3.13-stdlib_concurrency
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_data-types
+      - libpython3.13-stdlib_debug
+      - libpython3.13-stdlib_distribution
+      - libpython3.13-stdlib_internet
+      - libpython3.13-stdlib_ipc
+      - libpython3.13-stdlib_markup-tools
+      - libpython3.13-stdlib_net-data
+      - libpython3.13-stdlib_numeric
+      - libpython3.13-stdlib_text
+      - libpython3.13-stdlib_unix
+    contents:
+      /usr/lib/python3.13/__phello__/**:
+      /usr/lib/python3.13/doctest.py:
+      /usr/lib/python3.13/lib-dynload/_testbuffer.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_testcapi.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_testclinic.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_testimportmultiple.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_testinternalcapi.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_testmultiphase.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_testsinglephase.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_xxinterpchannels.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_xxsubinterpreters.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_xxtestfuzz.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/xxlimited.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/xxlimited_35.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/xxsubtype.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/test/**:
+      /usr/lib/python3.13/unittest/**:
+
+  # Software Packaging and Distribution
+  # https://docs.python.org/3.13/library/distribution.html
+  distribution:
+    essential:
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_osx-support
+    contents:
+      /usr/lib/python3.13/_distutils_system_mod.py:
+      /usr/lib/python3.13/venv/**:
+      /usr/lib/python3.13/zipapp.py:
+
+  # File Formats
+  # https://docs.python.org/3.13/library/fileformats.html
+  file-formats:
+    essential:
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_frameworks
+      - libpython3.13-stdlib_markup-tools
+    contents:
+      /usr/lib/python3.13/netrc.py:
+      /usr/lib/python3.13/plistlib.py:
+      /usr/lib/python3.13/tomllib/**:
+
+  # File and Directory Access
+  # https://docs.python.org/3.13/library/filesys.html
+  filesys:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/fileinput.py:
+
+  # Program Frameworks
+  # https://docs.python.org/3.13/library/frameworks.html
+  frameworks:
+    essential:
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_text
+    contents:
+      /usr/lib/python3.13/cmd.py:
+      /usr/lib/python3.13/shlex.py:
+      /usr/lib/python3.13/turtle.py:
+
+  # Importing Modules
+  # https://docs.python.org/3.13/library/modules.html
+  importing:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/modulefinder.py:
+
+  # Internet Protocols and Support
+  # https://docs.python.org/3.13/library/internet.html
+  internet:
+    essential:
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_crypto
+      - libpython3.13-stdlib_file-formats
+      - libpython3.13-stdlib_frameworks
+      - libpython3.13-stdlib_ipc
+      - libpython3.13-stdlib_markup-tools
+      - libpython3.13-stdlib_numeric
+      - libpython3.13-stdlib_pydoc
+      - libuuid1_libs
+    contents:
+      /usr/lib/python3.13/ftplib.py:
+      /usr/lib/python3.13/http/cookiejar.py:
+      /usr/lib/python3.13/http/cookies.py:
+      /usr/lib/python3.13/http/server.py:
+      /usr/lib/python3.13/imaplib.py:
+      /usr/lib/python3.13/lib-dynload/_uuid.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/nturl2path.py:
+      /usr/lib/python3.13/poplib.py:
+      /usr/lib/python3.13/smtplib.py:
+      /usr/lib/python3.13/uuid.py:
+      /usr/lib/python3.13/webbrowser.py:
+      /usr/lib/python3.13/wsgiref/**:
+      /usr/lib/python3.13/xmlrpc/**:
+
+  # Networking and Interprocess Communication
+  # https://docs.python.org/3.13/library/ipc.html
+  ipc:
+    essential:
+      - libpython3.13-stdlib_concurrency
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/asyncio/**:
+      /usr/lib/python3.13/lib-dynload/_asyncio.cpython-313-*-linux-*.so:
+
+  # Python Language Services
+  # https://docs.python.org/3.13/library/language.html
+  language:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/pickletools.py:
+      /usr/lib/python3.13/pyclbr.py:
+      /usr/lib/python3.13/symtable.py:
+      /usr/lib/python3.13/tabnanny.py:
+
+  # Structured Markup Processing Tools (HTML, XML)
+  # https://docs.python.org/3.13/library/markup.html
+  markup-tools:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_markupbase.py:
+      /usr/lib/python3.13/html/**:
+      /usr/lib/python3.13/xml/**:
+
+  # Multimedia Services
+  # https://docs.python.org/3.13/library/mm.html
+  multimedia:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/colorsys.py:
+      /usr/lib/python3.13/lib-dynload/audioop.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/ossaudiodev.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/wave.py:
+
+  # Internet Data Handling
+  # https://docs.python.org/3.13/library/netdata.html
+  net-data:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/mailbox.py:
+
+  # Numeric and Mathematical Modules
+  # https://docs.python.org/3.13/library/numeric.html
+  numeric:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_pydecimal.py:
+      /usr/lib/python3.13/decimal.py:
+      /usr/lib/python3.13/fractions.py:
+      /usr/lib/python3.13/lib-dynload/_decimal.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/numbers.py:
+      /usr/lib/python3.13/statistics.py:
+
+  # Shared OS X support functions
+  osx-support:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_osx_support.py:
+
+  # Shared Apple support functions
+  apple-support:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_apple_support.py:
+
+  # Shared IOS support functions
+  ios-support:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_ios_support.py:
+
+  # Shared Android support functions
+  android-support:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_android_support.py:
+
+  # pydoc - Documentation generator and online help system
+  # https://docs.python.org/3.13/library/pydoc.html
+  pydoc:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/pydoc.py:
+      /usr/lib/python3.13/pydoc_data/**:
+
+  # pyrepl:
+  #   essential:
+  #     - libpython3.13-stdlib_core
+  #     - TODO: ADD ADDITIONAL DEPENDANCIES
+  #   contents:
+  #     /usr/lib/python3.13/pydoc.py:
+  #     /usr/lib/python3.13/_pyrepl/**:
+ 
+
+  # Text Processing Services
+  # https://docs.python.org/3.13/library/text.html
+  text:
+    essential:
+      - libpython3.13-stdlib_core
+      - libreadline8t64_libs
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.13/difflib.py:
+      /usr/lib/python3.13/lib-dynload/readline.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/rlcompleter.py:
+
+  # Unix Specific Services
+  # https://docs.python.org/3.13/library/unix.html
+  unix:
+    essential:
+      - libcrypt1_libs
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_frameworks
+    contents:
+      /usr/lib/python3.13/lib-dynload/_crypt.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/resource.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/termios.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/pty.py:
+      /usr/lib/python3.13/tty.py:
+
+  # Outliers and Deprecated Modules
+  # The "extra" slice consists of easter-eggs and deprecated modules
+  extras:
+    essential:
+      - libnsl2_libs
+      - libpython3.13-stdlib_core
+      - libpython3.13-stdlib_internet
+      - libtirpc3t64_libs
+    contents:
+      /usr/lib/python3.13/__hello__.py:
+      /usr/lib/python3.13/antigravity.py:
+      /usr/lib/python3.13/lib-dynload/nis.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/this.py:

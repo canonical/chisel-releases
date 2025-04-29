@@ -1,0 +1,123 @@
+package: libpython3.13-minimal
+
+# Most of the python3.13 standard libraries are split into
+# two major packages:
+# - libpython3.13-minimal (this one)
+# - libpython3.13-stdlib
+# While the libpython3.13-stdlib package has been chiselled logically
+# into granular slices, the same hasn't been done for this package.
+# The reason is simple, the libraries in this package are tightly
+# dependent upon each other.
+essential:
+  - libpython3.13-minimal_copyright
+
+slices:
+  config:
+    contents:
+      /etc/python3.13/sitecustomize.py:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libpython3.13-minimal_config
+      - libssl3t64_libs
+    contents:
+      /usr/lib/python3.13/__future__.py:
+      /usr/lib/python3.13/_colorize.py:
+      /usr/lib/python3.13/_opcode_metadata.py:
+      /usr/lib/python3.13/_sysconfigdata__linux_x86_64-linux-gnu.py:
+      /usr/lib/python3.13/dataclasses.py:
+      /usr/lib/python3.13/json/**:
+      /usr/lib/python3.13/_collections_abc.py:
+      /usr/lib/python3.13/_compat_pickle.py:
+      /usr/lib/python3.13/_py_abc.py:
+      /usr/lib/python3.13/_sitebuiltins.py:
+      /usr/lib/python3.13/_strptime.py:
+      /usr/lib/python3.13/_sysconfigdata__*-linux-*.py:
+      /usr/lib/python3.13/_threading_local.py:
+      /usr/lib/python3.13/_weakrefset.py:
+      /usr/lib/python3.13/abc.py:
+      /usr/lib/python3.13/argparse.py:
+      /usr/lib/python3.13/ast.py:
+      /usr/lib/python3.13/base64.py:
+      /usr/lib/python3.13/bisect.py:
+      /usr/lib/python3.13/calendar.py:
+      /usr/lib/python3.13/codecs.py:
+      /usr/lib/python3.13/collections/**:
+      /usr/lib/python3.13/compileall.py:
+      /usr/lib/python3.13/configparser.py:
+      /usr/lib/python3.13/contextlib.py:
+      /usr/lib/python3.13/copy.py:
+      /usr/lib/python3.13/copyreg.py:
+      /usr/lib/python3.13/csv.py:
+      /usr/lib/python3.13/datetime.py:
+      /usr/lib/python3.13/dis.py:
+      /usr/lib/python3.13/email/**:
+      /usr/lib/python3.13/encodings/**:
+      /usr/lib/python3.13/enum.py:
+      /usr/lib/python3.13/filecmp.py:
+      /usr/lib/python3.13/fnmatch.py:
+      /usr/lib/python3.13/functools.py:
+      /usr/lib/python3.13/genericpath.py:
+      /usr/lib/python3.13/getopt.py:
+      /usr/lib/python3.13/glob.py:
+      /usr/lib/python3.13/hashlib.py:
+      /usr/lib/python3.13/heapq.py:
+      /usr/lib/python3.13/importlib/**:
+      /usr/lib/python3.13/inspect.py:
+      /usr/lib/python3.13/io.py:
+      /usr/lib/python3.13/ipaddress.py:
+      /usr/lib/python3.13/keyword.py:
+      /usr/lib/python3.13/lib-dynload/_hashlib.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/lib-dynload/_ssl.cpython-313-*-linux-*.so:
+      /usr/lib/python3.13/linecache.py:
+      /usr/lib/python3.13/locale.py:
+      /usr/lib/python3.13/logging/**:
+      /usr/lib/python3.13/opcode.py:
+      /usr/lib/python3.13/operator.py:
+      /usr/lib/python3.13/optparse.py:
+      /usr/lib/python3.13/os.py:
+      /usr/lib/python3.13/pathlib/**:
+      /usr/lib/python3.13/pickle.py:
+      /usr/lib/python3.13/pkgutil.py:
+      /usr/lib/python3.13/platform.py:
+      /usr/lib/python3.13/posixpath.py:
+      /usr/lib/python3.13/py_compile.py:
+      /usr/lib/python3.13/quopri.py:
+      /usr/lib/python3.13/random.py:
+      /usr/lib/python3.13/re/**:
+      /usr/lib/python3.13/reprlib.py:
+      /usr/lib/python3.13/runpy.py:
+      /usr/lib/python3.13/selectors.py:
+      /usr/lib/python3.13/signal.py:
+      /usr/lib/python3.13/site.py:
+      /usr/lib/python3.13/sitecustomize.py:
+      /usr/lib/python3.13/socket.py:
+      /usr/lib/python3.13/sre_compile.py:
+      /usr/lib/python3.13/sre_constants.py:
+      /usr/lib/python3.13/sre_parse.py:
+      /usr/lib/python3.13/ssl.py:
+      /usr/lib/python3.13/stat.py:
+      /usr/lib/python3.13/string.py:
+      /usr/lib/python3.13/stringprep.py:
+      /usr/lib/python3.13/struct.py:
+      /usr/lib/python3.13/subprocess.py:
+      /usr/lib/python3.13/sysconfig/**:
+      /usr/lib/python3.13/tempfile.py:
+      /usr/lib/python3.13/textwrap.py:
+      /usr/lib/python3.13/threading.py:
+      /usr/lib/python3.13/token.py:
+      /usr/lib/python3.13/tokenize.py:
+      /usr/lib/python3.13/traceback.py:
+      /usr/lib/python3.13/tracemalloc.py:
+      /usr/lib/python3.13/types.py:
+      /usr/lib/python3.13/typing.py:
+      /usr/lib/python3.13/urllib/**:
+      /usr/lib/python3.13/warnings.py:
+      /usr/lib/python3.13/weakref.py:
+      /usr/lib/python3.13/zipfile/**:
+      /usr/lib/python3.13/zipimport.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpython3.13-minimal/copyright:
