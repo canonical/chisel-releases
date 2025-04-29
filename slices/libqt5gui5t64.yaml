@@ -1,0 +1,49 @@
+package: libqt5gui5t64
+
+essential:
+  - libqt5gui5t64_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libqt5gui5t64/copyright:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libQt5EglFS*.so*:
+      /usr/lib/*-linux-*/libQt5Gui.so*:
+      /usr/lib/*-linux-*/libQt5XcbQpa.so*:
+      /usr/lib/*-linux-*/qt5/plugins/egldeviceintegrations/libqeglfs*.so*:
+      /usr/lib/*-linux-*/qt5/plugins/generic/**:
+      /usr/lib/*-linux-*/qt5/plugins/imageformats/**:
+      /usr/lib/*-linux-*/qt5/plugins/platforminputcontexts/**:
+      /usr/lib/*-linux-*/qt5/plugins/platforms/libq*.so*:
+      /usr/lib/*-linux-*/qt5/plugins/xcbglintegrations/libqxcb-*-integration.so*:
+    essential:
+      - libc6_libs
+      - libdrm2_libs
+      - libfontconfig1_libs
+      - libgbm1_libs
+      - libgcc-s1_libs
+      - libgl1_libs
+      - libglib2.0-0t64_libs
+      - libharfbuzz0b_libs
+      - libmd4c0_libs
+      - libpng16-16t64_libs
+      - libqt5core5t64_libs
+      - libqt5dbus5t64_libs
+      - libqt5network5t64_libs
+      - libstdc++6_libs
+      - libudev1_libs
+      - libx11-6_libs
+      - libx11-xcb1_libs
+      - libxcb-glx0_libs
+      - libxcb-randr0_libs
+      - libxcb-render0_libs
+      - libxcb-shape0_libs
+      - libxcb-shm0_libs
+      - libxcb-sync1_libs
+      - libxcb-xfixes0_libs
+      - libxcb1_libs
+      - libxrender1_libs
+      - zlib1g_libs

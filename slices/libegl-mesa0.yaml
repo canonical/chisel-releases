@@ -1,0 +1,12 @@
+package: libegl-mesa0
+
+essential:
+  - libegl-mesa0_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libegl-mesa0/copyright:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libEGL_mesa.so*:

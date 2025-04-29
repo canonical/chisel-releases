@@ -1,0 +1,29 @@
+package: libqt5core5t64
+
+essential:
+  - libqt5core5t64_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libqt5core5t64/copyright:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libQt5Core.so*:
+    essential:
+      - libc6_libs
+      - libdouble-conversion3_libs
+      - libgcc-s1_libs
+      - libglib2.0-0t64_libs
+      - libicu74_libs
+      - libpcre2-16-0_libs
+      - libstdc++6_libs
+      - libzstd1_libs
+      - shared-mime-info_bins
+      - shared-mime-info_data
+      - zlib1g_libs
+
+  doc:
+    contents:
+      /usr/share/doc/libqt5core5t64/**:

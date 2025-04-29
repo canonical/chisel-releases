@@ -1,0 +1,28 @@
+package: qtcreator
+
+essential:
+  - qtcreator_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/qtcreator/copyright:
+
+  bins:
+    contents:
+      /usr/bin/qtcreator:
+    essential:
+      - qtcreator_libs
+      - qtcreator_plugins
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/qtcreator/**:
+      /usr/libexec/qtcreator/**:
+    essential:
+      - libqt6core6t64_libs
+      - libqt6gui6_libs
+
+  plugins:
+    contents:
+      /usr/lib/*-linux-*/qtcreator/plugins/**:
