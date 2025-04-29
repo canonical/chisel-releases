@@ -1,7 +1,7 @@
-package: libglapi-mesa
+package: libglapi-amber
 
 essential:
-  - libglapi-mesa_copyright
+  - libglapi-amber_copyright
 
 slices:
   libs:
@@ -12,4 +12,4 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/libglapi-mesa/copyright:
+      /usr/share/doc/libglapi-amber/copyright:
