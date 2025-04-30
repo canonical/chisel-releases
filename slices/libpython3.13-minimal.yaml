@@ -23,13 +23,10 @@ slices:
       - libssl3t64_libs
     contents:
       /usr/lib/python3.13/__future__.py:
-      /usr/lib/python3.13/_colorize.py:
-      /usr/lib/python3.13/_opcode_metadata.py:
-      /usr/lib/python3.13/_sysconfigdata__*-linux-*.py:
-      /usr/lib/python3.13/dataclasses.py:
-      /usr/lib/python3.13/json/**:
       /usr/lib/python3.13/_collections_abc.py:
+      /usr/lib/python3.13/_colorize.py:
       /usr/lib/python3.13/_compat_pickle.py:
+      /usr/lib/python3.13/_opcode_metadata.py:
       /usr/lib/python3.13/_py_abc.py:
       /usr/lib/python3.13/_sitebuiltins.py:
       /usr/lib/python3.13/_strptime.py:
@@ -50,6 +47,7 @@ slices:
       /usr/lib/python3.13/copy.py:
       /usr/lib/python3.13/copyreg.py:
       /usr/lib/python3.13/csv.py:
+      /usr/lib/python3.13/dataclasses.py:
       /usr/lib/python3.13/datetime.py:
       /usr/lib/python3.13/dis.py:
       /usr/lib/python3.13/email/**:
@@ -67,6 +65,7 @@ slices:
       /usr/lib/python3.13/inspect.py:
       /usr/lib/python3.13/io.py:
       /usr/lib/python3.13/ipaddress.py:
+      /usr/lib/python3.13/json/**:
       /usr/lib/python3.13/keyword.py:
       /usr/lib/python3.13/lib-dynload/_hashlib.cpython-313-*-linux-*.so:
       /usr/lib/python3.13/lib-dynload/_ssl.cpython-313-*-linux-*.so:
