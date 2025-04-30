@@ -1,0 +1,16 @@
+package: python3-standard-asynchat
+
+essential:
+  - python3-standard-asynchat_copyright
+
+slices:
+  libs:
+    essential:
+      - python3_standard
+      - python3-pyasyncore_libs
+    contents:
+      /usr/lib/python3/dist-packages/asynchat/*.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-standard-asynchat/copyright:
