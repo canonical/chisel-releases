@@ -25,7 +25,7 @@ slices:
       /usr/lib/python3.13/__future__.py:
       /usr/lib/python3.13/_colorize.py:
       /usr/lib/python3.13/_opcode_metadata.py:
-      /usr/lib/python3.13/_sysconfigdata__linux_x86_64-linux-gnu.py:
+      /usr/lib/python3.13/_sysconfigdata__*-linux-*.py:
       /usr/lib/python3.13/dataclasses.py:
       /usr/lib/python3.13/json/**:
       /usr/lib/python3.13/_collections_abc.py:
