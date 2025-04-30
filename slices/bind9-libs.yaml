@@ -8,6 +8,7 @@ slices:
     essential:
       - libc6_libs
       - libgssapi-krb5-2_libs
+      - libjemalloc2_libs
       - libjson-c5_libs
       - libkrb5-3_libs
       - liblmdb0_libs
