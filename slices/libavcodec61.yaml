@@ -29,7 +29,8 @@ slices:
       - libspeex1_libs
       - libsvtav1enc2_libs
       - libswresample5_libs
-      - libtheora0_libs
+      - libtheoradec1_libs
+      - libtheoraenc1_libs
       - libtwolame0_libs
       - libva2_libs
       - libvorbis0a_libs
