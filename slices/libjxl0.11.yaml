@@ -9,11 +9,8 @@ slices:
       - libbrotli1_libs
       - libc6_libs
       - libgcc-s1_libs
-      - libgif7_libs
       - libhwy1t64_libs
-      - libjpeg8_libs
       - liblcms2-2_libs
-      - libpng16-16t64_libs
       - libstdc++6_libs
     contents:
       /usr/lib/*-linux-*/libjxl.so.0.11*:
