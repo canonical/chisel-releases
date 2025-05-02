@@ -37,10 +37,14 @@ slices:
   profiles:
     contents:
       /etc/apparmor.d/1password:
+      /etc/apparmor.d/Discord:
+      /etc/apparmor.d/MongoDB_Compass:
+      /etc/apparmor.d/QtWebEngineProcess:
       /etc/apparmor.d/abi/3.0:
       /etc/apparmor.d/abi/4.0:
       /etc/apparmor.d/abi/kernel-5.4-outoftree-network:
       /etc/apparmor.d/abi/kernel-5.4-vanilla:
+      /etc/apparmor.d/abstractions/X:
       /etc/apparmor.d/abstractions/apache2-common:
       /etc/apparmor.d/abstractions/apparmor_api/change_profile:
       /etc/apparmor.d/abstractions/apparmor_api/examine:
@@ -55,27 +59,27 @@ slices:
       /etc/apparmor.d/abstractions/consoles:
       /etc/apparmor.d/abstractions/crypto:
       /etc/apparmor.d/abstractions/cups-client:
-      /etc/apparmor.d/abstractions/dbus-accessibility-strict:
-      /etc/apparmor.d/abstractions/dbus-accessibility:
-      /etc/apparmor.d/abstractions/dbus-network-manager-strict:
-      /etc/apparmor.d/abstractions/dbus-session-strict:
-      /etc/apparmor.d/abstractions/dbus-session:
-      /etc/apparmor.d/abstractions/dbus-strict:
       /etc/apparmor.d/abstractions/dbus:
+      /etc/apparmor.d/abstractions/dbus-accessibility:
+      /etc/apparmor.d/abstractions/dbus-accessibility-strict:
+      /etc/apparmor.d/abstractions/dbus-network-manager-strict:
+      /etc/apparmor.d/abstractions/dbus-session:
+      /etc/apparmor.d/abstractions/dbus-session-strict:
+      /etc/apparmor.d/abstractions/dbus-strict:
       /etc/apparmor.d/abstractions/dconf:
-      /etc/apparmor.d/abstractions/devices-usb-read:
       /etc/apparmor.d/abstractions/devices-usb:
+      /etc/apparmor.d/abstractions/devices-usb-read:
       /etc/apparmor.d/abstractions/dovecot-common:
       /etc/apparmor.d/abstractions/dri-common:
       /etc/apparmor.d/abstractions/dri-enumerate:
       /etc/apparmor.d/abstractions/enchant:
       /etc/apparmor.d/abstractions/exo-open:
-      /etc/apparmor.d/abstractions/fcitx-strict:
       /etc/apparmor.d/abstractions/fcitx:
+      /etc/apparmor.d/abstractions/fcitx-strict:
       /etc/apparmor.d/abstractions/fonts:
       /etc/apparmor.d/abstractions/freedesktop.org:
-      /etc/apparmor.d/abstractions/frr-snmp:
       /etc/apparmor.d/abstractions/frr:
+      /etc/apparmor.d/abstractions/frr-snmp:
       /etc/apparmor.d/abstractions/gio-open:
       /etc/apparmor.d/abstractions/gnome:
       /etc/apparmor.d/abstractions/gnupg:
@@ -84,11 +88,11 @@ slices:
       /etc/apparmor.d/abstractions/gvfs-open:
       /etc/apparmor.d/abstractions/hosts_access:
       /etc/apparmor.d/abstractions/ibus:
+      /etc/apparmor.d/abstractions/kde:
       /etc/apparmor.d/abstractions/kde-globals-write:
       /etc/apparmor.d/abstractions/kde-icon-cache-write:
       /etc/apparmor.d/abstractions/kde-language-write:
       /etc/apparmor.d/abstractions/kde-open5:
-      /etc/apparmor.d/abstractions/kde:
       /etc/apparmor.d/abstractions/kerberosclient:
       /etc/apparmor.d/abstractions/ldapclient:
       /etc/apparmor.d/abstractions/libpam-systemd:
@@ -98,38 +102,38 @@ slices:
       /etc/apparmor.d/abstractions/mir:
       /etc/apparmor.d/abstractions/mozc:
       /etc/apparmor.d/abstractions/mysql:
-      /etc/apparmor.d/abstractions/nameservice-strict:
       /etc/apparmor.d/abstractions/nameservice:
+      /etc/apparmor.d/abstractions/nameservice-strict:
       /etc/apparmor.d/abstractions/nis:
       /etc/apparmor.d/abstractions/nss-systemd:
       /etc/apparmor.d/abstractions/nvidia:
+      /etc/apparmor.d/abstractions/opencl:
       /etc/apparmor.d/abstractions/opencl-common:
       /etc/apparmor.d/abstractions/opencl-intel:
       /etc/apparmor.d/abstractions/opencl-mesa:
       /etc/apparmor.d/abstractions/opencl-nvidia:
       /etc/apparmor.d/abstractions/opencl-pocl:
-      /etc/apparmor.d/abstractions/opencl:
       /etc/apparmor.d/abstractions/openssl:
       /etc/apparmor.d/abstractions/orbit2:
       /etc/apparmor.d/abstractions/p11-kit:
       /etc/apparmor.d/abstractions/perl:
-      /etc/apparmor.d/abstractions/php-worker:
       /etc/apparmor.d/abstractions/php:
+      /etc/apparmor.d/abstractions/php-worker:
       /etc/apparmor.d/abstractions/php5:
       /etc/apparmor.d/abstractions/postfix-common:
-      /etc/apparmor.d/abstractions/private-files-strict:
       /etc/apparmor.d/abstractions/private-files:
+      /etc/apparmor.d/abstractions/private-files-strict:
       /etc/apparmor.d/abstractions/python:
+      /etc/apparmor.d/abstractions/qt5:
       /etc/apparmor.d/abstractions/qt5-compose-cache-write:
       /etc/apparmor.d/abstractions/qt5-settings-write:
-      /etc/apparmor.d/abstractions/qt5:
+      /etc/apparmor.d/abstractions/qt6:
       /etc/apparmor.d/abstractions/qt6-compose-cache-write:
       /etc/apparmor.d/abstractions/qt6-settings-write:
-      /etc/apparmor.d/abstractions/qt6:
       /etc/apparmor.d/abstractions/recent-documents-write:
       /etc/apparmor.d/abstractions/ruby:
-      /etc/apparmor.d/abstractions/samba-rpcd:
       /etc/apparmor.d/abstractions/samba:
+      /etc/apparmor.d/abstractions/samba-rpcd:
       /etc/apparmor.d/abstractions/smbpass:
       /etc/apparmor.d/abstractions/snap_browsers:
       /etc/apparmor.d/abstractions/ssl_certs:
@@ -147,8 +151,8 @@ slices:
       /etc/apparmor.d/abstractions/ubuntu-browsers.d/plugins-common:
       /etc/apparmor.d/abstractions/ubuntu-browsers.d/productivity:
       /etc/apparmor.d/abstractions/ubuntu-browsers.d/text-editors:
-      /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration-xul:
       /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration:
+      /etc/apparmor.d/abstractions/ubuntu-browsers.d/ubuntu-integration-xul:
       /etc/apparmor.d/abstractions/ubuntu-browsers.d/user-files:
       /etc/apparmor.d/abstractions/ubuntu-console-browsers:
       /etc/apparmor.d/abstractions/ubuntu-console-email:
@@ -173,7 +177,6 @@ slices:
       /etc/apparmor.d/abstractions/web-data:
       /etc/apparmor.d/abstractions/winbind:
       /etc/apparmor.d/abstractions/wutmp:
-      /etc/apparmor.d/abstractions/X:
       /etc/apparmor.d/abstractions/xad:
       /etc/apparmor.d/abstractions/xdg-desktop:
       /etc/apparmor.d/abstractions/xdg-open:
@@ -194,7 +197,6 @@ slices:
       /etc/apparmor.d/crun:
       /etc/apparmor.d/devhelp:
       /etc/apparmor.d/disable/: {make: true}
-      /etc/apparmor.d/Discord:
       /etc/apparmor.d/dnstracer:
       /etc/apparmor.d/eigrpd:
       /etc/apparmor.d/element-desktop:
@@ -234,7 +236,6 @@ slices:
       /etc/apparmor.d/lxc-usernsexec:
       /etc/apparmor.d/mbsync:
       /etc/apparmor.d/mmdebstrap:
-      /etc/apparmor.d/MongoDB_Compass:
       /etc/apparmor.d/mosquitto:
       /etc/apparmor.d/msedge:
       /etc/apparmor.d/nc.openbsd:
@@ -259,7 +260,6 @@ slices:
       /etc/apparmor.d/privacybrowser:
       /etc/apparmor.d/qcam:
       /etc/apparmor.d/qmapshack:
-      /etc/apparmor.d/QtWebEngineProcess:
       /etc/apparmor.d/qutebrowser:
       /etc/apparmor.d/remmina:
       /etc/apparmor.d/ripd:
@@ -269,6 +269,7 @@ slices:
       /etc/apparmor.d/rssguard:
       /etc/apparmor.d/runc:
       /etc/apparmor.d/rygel:
+      /etc/apparmor.d/sbuild:
       /etc/apparmor.d/sbuild-abort:
       /etc/apparmor.d/sbuild-adduser:
       /etc/apparmor.d/sbuild-apt:
@@ -282,7 +283,6 @@ slices:
       /etc/apparmor.d/sbuild-unhold:
       /etc/apparmor.d/sbuild-update:
       /etc/apparmor.d/sbuild-upgrade:
-      /etc/apparmor.d/sbuild:
       /etc/apparmor.d/scide:
       /etc/apparmor.d/signal-desktop:
       /etc/apparmor.d/slack:
@@ -350,8 +350,8 @@ slices:
       /etc/apparmor.d/vivaldi-bin:
       /etc/apparmor.d/vpnns:
       /etc/apparmor.d/vrrpd:
-      /etc/apparmor.d/wg-quick:
       /etc/apparmor.d/wg:
+      /etc/apparmor.d/wg-quick:
       /etc/apparmor.d/wike:
       /etc/apparmor.d/wpcom:
       /etc/apparmor.d/znc:

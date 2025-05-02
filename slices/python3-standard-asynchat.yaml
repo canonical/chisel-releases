@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      - python3_standard
       - python3-pyasyncore_libs
+      - python3_standard
     contents:
       /usr/lib/python3/dist-packages/asynchat/*.py:
 
