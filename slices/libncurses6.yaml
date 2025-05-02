@@ -13,7 +13,7 @@ slices:
       /usr/lib/*-linux-*/libform.so.6*:
       /usr/lib/*-linux-*/libmenu.so.6*:
       /usr/lib/*-linux-*/libpanel.so.6*:
-      
+
   copyright:
     contents:
       /usr/share/doc/libncurses6/copyright:
