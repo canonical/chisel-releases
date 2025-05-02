@@ -1,0 +1,82 @@
+summary: Integration tests for dash
+
+execute: |
+
+  # TODO: we split procps_bins into multiple slices.
+  rootfs="$(install-slices procps_bins)"
+
+  function chroot_with_test_proc {
+    local rootfs="$1"
+    shift
+    local cmd="$@"
+
+    test_bin=sleep
+    test_args=1
+
+    $test_bin $test_args &
+    test_proc=$!
+    eval "cmd_expanded=\"$cmd\""
+    chroot "${rootfs}" $cmd_expanded
+    kill $test_proc || true # ignore error if already killed
+  }
+
+
+  cd ${rootfs}
+  mkdir -p proc sys
+  mount --bind /proc proc
+  mount --bind /sys sys
+
+  # Test kill
+
+  # Test ps
+  chroot "${rootfs}" ps
+
+  # Test sysctl
+  chroot "${rootfs}" sysctl -a > /dev/null
+
+  # Test free
+  chroot "${rootfs}" free
+
+  # Test pgrep
+  chroot_with_test_proc "${rootfs}" pgrep sleep
+
+  # Test pidwait
+  # we use sleep as a test process
+  chroot_with_test_proc "${rootfs}" 'pidwait $test_bin'
+
+  # Test pkill
+  chroot_with_test_proc "${rootfs}" pkill sleep
+
+  # Test pmap
+  chroot "${rootfs}" pmap $$  > /dev/null
+
+  # Test pwdx
+  chroot "${rootfs}" pwdx $$
+
+  # Test skill
+  chroot_with_test_proc "${rootfs}" 'skill -KILL $test_bin'
+
+  # Test slabtop. This is a TUI, just run smoke test.
+  chroot "${rootfs}" slabtop -h
+
+  # Test snice
+  # note quotes to prevent $! from being expanded
+  chroot_with_test_proc "${rootfs}" 'snice -n 4 $!' 
+
+  # Test tload. This is a TUI, just run smoke test.
+  chroot "${rootfs}" tload -h
+
+  # Test top. This is a TUI, just run smoke test.
+  chroot "${rootfs}" top -v
+
+  # Test uptime
+  chroot "${rootfs}" uptime
+
+  # Test vmstat
+  chroot "${rootfs}" vmstat
+
+  # Test w
+  chroot "${rootfs}" w
+
+  # Test watch. This is a TUI, just run smoke test.
+  chroot "${rootfs}" watch -v
