@@ -16,7 +16,7 @@ slices:
       - libgcc-s1_libs
       - libhiredis1.1.0_libs
       - libmemcached11t64_libs
-      - libmysqlclient21_libs
+      - libmysqlclient24_libs
       - libpq5_libs
       - libsqlite3-0_libs
       - libstdc++6_libs

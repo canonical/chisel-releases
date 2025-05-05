@@ -1,7 +1,7 @@
-package: librocksdb9.3
+package: librocksdb9.10
 
 essential:
-  - librocksdb9.3_copyright
+  - librocksdb9.10_copyright
 
 slices:
   libs:
@@ -16,8 +16,8 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/librocksdb.so.9.3*:
+      /usr/lib/*-linux-*/librocksdb.so.9.10*:
 
   copyright:
     contents:
-      /usr/share/doc/librocksdb9.3/copyright:
+      /usr/share/doc/librocksdb9.10/copyright:

@@ -33,7 +33,7 @@ slices:
 
   config:
     contents:
-      /etc/sysctl.conf:
+      # /etc/sysctl.conf: # TODO: this is missing, is it scripted now?
       /etc/sysctl.d/10-console-messages.conf:
       /etc/sysctl.d/10-ipv6-privacy.conf:
       /etc/sysctl.d/10-kernel-hardening.conf:
@@ -42,7 +42,6 @@ slices:
       /etc/sysctl.d/10-network-security.conf:
       /etc/sysctl.d/10-ptrace.conf:
       /etc/sysctl.d/10-zeropage.conf:
-      /usr/lib/sysctl.d/99-protect-links.conf:
 
   copyright:
     contents:

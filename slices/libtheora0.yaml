@@ -11,8 +11,6 @@ slices:
       - libogg0_libs
     contents:
       /usr/lib/*-linux-*/libtheora.so.0*:
-      /usr/lib/*-linux-*/libtheoradec.so.1*:
-      /usr/lib/*-linux-*/libtheoraenc.so.1*:
 
   copyright:
     contents:

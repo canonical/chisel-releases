@@ -1,7 +1,7 @@
-package: libassuan0
+package: libassuan9
 
 essential:
-  - libassuan0_copyright
+  - libassuan9_copyright
 
 slices:
   libs:
@@ -9,8 +9,8 @@ slices:
       - libc6_libs
       - libgpg-error0_libs
     contents:
-      /usr/lib/*-linux-*/libassuan.so.0*:
+      /usr/lib/*-linux-*/libassuan.so.9*:
 
   copyright:
     contents:
-      /usr/share/doc/libassuan0/copyright:
+      /usr/share/doc/libassuan9/copyright:

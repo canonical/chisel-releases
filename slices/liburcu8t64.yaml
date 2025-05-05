@@ -14,7 +14,6 @@ slices:
       /usr/lib/*-linux-*/liburcu-mb.so.8*:
       /usr/lib/*-linux-*/liburcu-memb.so.8*:
       /usr/lib/*-linux-*/liburcu-qsbr.so.8*:
-      /usr/lib/*-linux-*/liburcu-signal.so.8*:
       /usr/lib/*-linux-*/liburcu.so.8*:
 
   copyright:

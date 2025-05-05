@@ -10,18 +10,7 @@ slices:
   # observes EET.
   base:
     contents:
-      /usr/share/zoneinfo/CET:
-      /usr/share/zoneinfo/CST6CDT:
-      /usr/share/zoneinfo/EET:
-      /usr/share/zoneinfo/EST:
-      /usr/share/zoneinfo/EST5EDT:
       /usr/share/zoneinfo/Factory:
-      /usr/share/zoneinfo/HST:
-      /usr/share/zoneinfo/MET:
-      /usr/share/zoneinfo/MST:
-      /usr/share/zoneinfo/MST7MDT:
-      /usr/share/zoneinfo/PST8PDT:
-      /usr/share/zoneinfo/WET:
       /usr/share/zoneinfo/iso3166.tab:
       /usr/share/zoneinfo/leap-seconds.list:
       /usr/share/zoneinfo/leapseconds:

@@ -17,7 +17,7 @@ slices:
       - libelf1t64_libs
       - libexpat1_libs
       - libgcc-s1_libs
-      - libglapi-mesa_libs
+      - libglapi-amber_libs
       - libllvm19_libs
       - libsensors5_libs
       - libstdc++6_libs

@@ -11,6 +11,10 @@ slices:
   base:
     essential:
       - tzdata_base
+      # TODO: should we copy the necessary from these slices?
+      - tzdata-legacy_eurasia # /usr/share/zoneinfo/right/CET -> Europe/Brussels
+      - tzdata-legacy_america # /usr/share/zoneinfo/right/CST6CDT -> America/Chicago
+      - tzdata-legacy_pacific # /usr/share/zoneinfo/right/HST -> Pacific/Honolulu broken
     contents:
       /usr/share/zoneinfo/right/CET:
       /usr/share/zoneinfo/right/CST6CDT:
