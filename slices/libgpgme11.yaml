@@ -1,0 +1,20 @@
+package: libgpgme11
+
+essential:
+  - libgpgme11_copyright
+
+slices:
+  libs:
+    essential:
+      - gpg_bins
+      - libassuan0_libs
+      - libgpg-error0_libs
+      - libc6_libs
+    contents:
+      /usr/lib/x86_64-linux-gnu/libgpgme.so.11*:
+      /usr/lib/x86_64-linux-gnu/libgpgme-pthread.so.11:
+      /usr/lib/x86_64-linux-gnu/libgpgme.so.11:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgpgme11/copyright:

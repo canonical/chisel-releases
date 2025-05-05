@@ -1,0 +1,20 @@
+package: gpgconf
+
+essential:
+  - gpgconf_copyright
+
+slices:
+  bins:
+    essential:
+      - libassuan0_libs
+      - libc6_libs
+      - libgcrypt20_libs
+      - libgpg-error0_libs
+      - libreadline8_libs
+    contents:
+      /usr/bin/gpg-connect-agent:
+      /usr/bin/gpgconf:
+
+  copyright:
+    contents:
+      /usr/share/doc/gpgconf/copyright:

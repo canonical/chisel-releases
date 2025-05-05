@@ -1,0 +1,23 @@
+package: runc
+
+essential:
+  - runc_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libseccomp2_libs
+    contents:
+      /usr/bin/recvtty:
+      /usr/bin/runc:
+      /usr/bin/sd-helper:
+      /usr/bin/seccompagent:
+      /usr/sbin/recvtty:
+      /usr/sbin/runc:
+      /usr/sbin/sd-helper:
+      /usr/sbin/seccompagent:
+
+  copyright:
+    contents:
+      /usr/share/doc/runc/copyright:

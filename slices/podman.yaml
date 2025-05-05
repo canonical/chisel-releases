@@ -1,0 +1,18 @@
+package: podman
+
+essential:
+  - podman_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libdevmapper1.02.1_libs
+      - libgpgme11_libs
+      - libseccomp2_libs
+    contents:
+      /usr/bin/podman:
+
+  copyright:
+    contents:
+      /usr/share/doc/podman/copyright:
