@@ -16,6 +16,7 @@ slices:
 
   scripts:
     essential:
+      - openssl_bins
       - perl-base_bins
     contents:
       /usr/bin/c_rehash:
