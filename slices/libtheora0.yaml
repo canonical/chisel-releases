@@ -9,6 +9,9 @@ slices:
       - libc6_libs
       - libcairo2_libs
       - libogg0_libs
+      # NOTE: Although the libtheoradec1 and libtheoraenc1 packages are listed
+      # as dependencies, the shared objects do not seem to need any from them.
+      # Thus they are skipped.
     contents:
       /usr/lib/*-linux-*/libtheora.so.0*:
 

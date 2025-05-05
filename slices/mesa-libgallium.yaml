@@ -12,19 +12,17 @@ slices:
       # added again once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: amd64 and i386
-      - libdrm-radeon1_libs
       - libdrm2_libs
       - libelf1t64_libs
       - libexpat1_libs
       - libgcc-s1_libs
-      - libglapi-amber_libs
       - libllvm19_libs
       - libsensors5_libs
       - libstdc++6_libs
       - libx11-xcb1_libs
-      - libxcb-dri2-0_libs
       - libxcb-dri3-0_libs
       - libxcb-present0_libs
+      - libxcb-randr0_libs
       - libxcb-sync1_libs
       - libxcb-xfixes0_libs
       - libxcb1_libs

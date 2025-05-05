@@ -1,0 +1,15 @@
+package: libtheoraenc1
+
+essential:
+  - libtheoraenc1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libogg0_libs
+    contents:
+      /usr/lib/*-linux-*/libtheoraenc.so.1*:
+  copyright:
+    contents:
+      /usr/share/doc/libtheoraenc1/copyright:
