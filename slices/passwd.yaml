@@ -28,8 +28,6 @@ slices:
       /usr/bin/passwd:
       /usr/sbin/chgpasswd:
       /usr/sbin/chpasswd:
-      /usr/sbin/cpgr:
-      /usr/sbin/cppw:
       /usr/sbin/groupadd:
       /usr/sbin/groupdel:
       # groupmems is no longer present in the latest deb. Unsure whether this

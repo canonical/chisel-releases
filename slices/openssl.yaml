@@ -22,17 +22,19 @@ slices:
 
   config:
     contents:
-      /etc/ssl/certs/:
       /etc/ssl/openssl.cnf:
-      /etc/ssl/private/:
-      /usr/lib/ssl/certs:
       /usr/lib/ssl/openssl.cnf:
-      /usr/lib/ssl/private:
 
   data:
     contents:
+      /etc/ssl/certs/:
+      /etc/ssl/private/:
       /usr/lib/ssl/cert.pem:
+      /usr/lib/ssl/certs:
+      /usr/lib/ssl/private:
 
   copyright:
+    essential:
+      - libssl3t64_copyright
     contents:
       /usr/share/doc/openssl/copyright:

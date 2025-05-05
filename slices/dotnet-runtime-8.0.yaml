@@ -9,7 +9,7 @@ slices:
       - dotnet-hostfxr-8.0_libs
       - libc6_libs
       - libgcc-s1_libs
-      - libicu74_libs
+      - libicu76_libs
       - liblttng-ust1t64_libs
       - libssl3t64_libs
       - libstdc++6_libs

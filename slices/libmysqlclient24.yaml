@@ -1,7 +1,7 @@
-package: libmysqlclient21
+package: libmysqlclient24
 
 essential:
-  - libmysqlclient21_copyright
+  - libmysqlclient24_copyright
 
 slices:
   libs:
@@ -14,8 +14,8 @@ slices:
       - mysql-common_config
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libmysqlclient.so.21*:
+      /usr/lib/*-linux-*/libmysqlclient.so.24*:
 
   copyright:
     contents:
-      /usr/share/doc/libmysqlclient21/copyright:
+      /usr/share/doc/libmysqlclient24/copyright:

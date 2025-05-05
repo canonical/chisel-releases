@@ -11,7 +11,7 @@ slices:
 
   gpg-connect-agent:
     essential:
-      - libassuan0_libs
+      - libassuan9_libs
       - libc6_libs
       - libgcrypt20_libs
       - libgpg-error0_libs

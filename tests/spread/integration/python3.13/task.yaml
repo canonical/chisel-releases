@@ -1,4 +1,4 @@
-summary: Integration tests for Python3.12
+summary: Integration tests for python3.13
 
 environment:
   SLICE/core: "core"
@@ -8,7 +8,7 @@ execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
 
-  rootfs="$(install-slices python3.12_${SLICE})"
+  rootfs="$(install-slices python3.13_${SLICE})"
 
   cp test_${SLICE}.py "${rootfs}/"
-  chroot "$rootfs" python3.12 /test_${SLICE}.py
+  chroot "$rootfs" python3.13 /test_${SLICE}.py

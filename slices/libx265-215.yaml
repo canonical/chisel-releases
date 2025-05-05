@@ -1,7 +1,7 @@
-package: libx265-209
+package: libx265-215
 
 essential:
-  - libx265-209_copyright
+  - libx265-215_copyright
 
 slices:
   libs:
@@ -10,8 +10,8 @@ slices:
       - libnuma1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libx265.so.209*:
+      /usr/lib/*-linux-*/libx265.so.215*:
 
   copyright:
     contents:
-      /usr/share/doc/libx265-209/copyright:
+      /usr/share/doc/libx265-215/copyright:

@@ -10,7 +10,6 @@ slices:
   # There's also no need (yet) for any init- and systemd-related files.
   config:
     contents:
-      /etc/logrotate.d/nginx:
       /etc/nginx/fastcgi.conf:
       /etc/nginx/fastcgi_params:
       /etc/nginx/koi-utf:

@@ -11,13 +11,7 @@ slices:
       - apparmor_config
       - apparmor_profiles
       - libc6_libs
-      # Although lsb-base is not a dependency of apparmor in Oracular, the
-      # /etc/init.d/apparmor script references the /lib/lsb/init-functions.
-      # Thus, lsb-base_bins is listed as an essential here.
-      - lsb-base_bins
     contents:
-      /etc/init.d/apparmor:
-      /sbin/apparmor_parser:
       /usr/bin/aa-enabled:
       /usr/bin/aa-exec:
       /usr/bin/aa-features-abi:
@@ -25,6 +19,7 @@ slices:
       /usr/sbin/aa-remove-unknown:
       /usr/sbin/aa-status:
       /usr/sbin/aa-teardown:
+      /usr/sbin/apparmor_parser:
       /usr/sbin/apparmor_status:
 
   config:
@@ -34,9 +29,9 @@ slices:
 
   extras:
     contents:
-      /lib/apparmor/apparmor.systemd:
-      /lib/apparmor/profile-load:
-      /lib/apparmor/rc.apparmor.functions:
+      /usr/lib/apparmor/apparmor.systemd:
+      /usr/lib/apparmor/profile-load:
+      /usr/lib/apparmor/rc.apparmor.functions:
       /usr/lib/systemd/system/apparmor.service:
 
   profiles:
@@ -72,6 +67,8 @@ slices:
       /etc/apparmor.d/abstractions/dbus-session-strict:
       /etc/apparmor.d/abstractions/dbus-strict:
       /etc/apparmor.d/abstractions/dconf:
+      /etc/apparmor.d/abstractions/devices-usb:
+      /etc/apparmor.d/abstractions/devices-usb-read:
       /etc/apparmor.d/abstractions/dovecot-common:
       /etc/apparmor.d/abstractions/dri-common:
       /etc/apparmor.d/abstractions/dri-enumerate:
@@ -81,6 +78,8 @@ slices:
       /etc/apparmor.d/abstractions/fcitx-strict:
       /etc/apparmor.d/abstractions/fonts:
       /etc/apparmor.d/abstractions/freedesktop.org:
+      /etc/apparmor.d/abstractions/frr:
+      /etc/apparmor.d/abstractions/frr-snmp:
       /etc/apparmor.d/abstractions/gio-open:
       /etc/apparmor.d/abstractions/gnome:
       /etc/apparmor.d/abstractions/gnupg:
@@ -104,6 +103,7 @@ slices:
       /etc/apparmor.d/abstractions/mozc:
       /etc/apparmor.d/abstractions/mysql:
       /etc/apparmor.d/abstractions/nameservice:
+      /etc/apparmor.d/abstractions/nameservice-strict:
       /etc/apparmor.d/abstractions/nis:
       /etc/apparmor.d/abstractions/nss-systemd:
       /etc/apparmor.d/abstractions/nvidia:
@@ -127,6 +127,9 @@ slices:
       /etc/apparmor.d/abstractions/qt5:
       /etc/apparmor.d/abstractions/qt5-compose-cache-write:
       /etc/apparmor.d/abstractions/qt5-settings-write:
+      /etc/apparmor.d/abstractions/qt6:
+      /etc/apparmor.d/abstractions/qt6-compose-cache-write:
+      /etc/apparmor.d/abstractions/qt6-settings-write:
       /etc/apparmor.d/abstractions/recent-documents-write:
       /etc/apparmor.d/abstractions/ruby:
       /etc/apparmor.d/abstractions/samba:
@@ -136,6 +139,7 @@ slices:
       /etc/apparmor.d/abstractions/ssl_certs:
       /etc/apparmor.d/abstractions/ssl_keys:
       /etc/apparmor.d/abstractions/svn-repositories:
+      /etc/apparmor.d/abstractions/transmission-common:
       /etc/apparmor.d/abstractions/trash:
       /etc/apparmor.d/abstractions/ubuntu-bittorrent-clients:
       /etc/apparmor.d/abstractions/ubuntu-browsers:
@@ -176,35 +180,53 @@ slices:
       /etc/apparmor.d/abstractions/xad:
       /etc/apparmor.d/abstractions/xdg-desktop:
       /etc/apparmor.d/abstractions/xdg-open:
+      /etc/apparmor.d/alsamixer:
+      /etc/apparmor.d/babeld:
+      /etc/apparmor.d/balena-etcher:
+      /etc/apparmor.d/bfdd:
+      /etc/apparmor.d/bgpd:
       /etc/apparmor.d/brave:
       /etc/apparmor.d/buildah:
-      /etc/apparmor.d/busybox:
+      /etc/apparmor.d/bwrap-userns-restrict:
       /etc/apparmor.d/cam:
       /etc/apparmor.d/ch-checkns:
       /etc/apparmor.d/ch-run:
       /etc/apparmor.d/chrome:
+      /etc/apparmor.d/chromium:
       /etc/apparmor.d/code:
       /etc/apparmor.d/crun:
       /etc/apparmor.d/devhelp:
+      /etc/apparmor.d/disable/: {make: true}
+      /etc/apparmor.d/dnstracer:
+      /etc/apparmor.d/eigrpd:
       /etc/apparmor.d/element-desktop:
       /etc/apparmor.d/epiphany:
       /etc/apparmor.d/evolution:
+      /etc/apparmor.d/fabricd:
       /etc/apparmor.d/firefox:
       /etc/apparmor.d/flatpak:
+      /etc/apparmor.d/foliate:
+      /etc/apparmor.d/force-complain/: {make: true}
+      /etc/apparmor.d/fusermount3:
       /etc/apparmor.d/geary:
       /etc/apparmor.d/github-desktop:
       /etc/apparmor.d/goldendict:
+      /etc/apparmor.d/iotop-c:
       /etc/apparmor.d/ipa_verify:
+      /etc/apparmor.d/irssi:
+      /etc/apparmor.d/isisd:
       /etc/apparmor.d/kchmviewer:
       /etc/apparmor.d/keybase:
       /etc/apparmor.d/lc-compliance:
+      /etc/apparmor.d/ldpd:
       /etc/apparmor.d/libcamerify:
+      /etc/apparmor.d/linux-boot-prober:
       /etc/apparmor.d/linux-sandbox:
-      /etc/apparmor.d/local/README:
-      /etc/apparmor.d/local/lsb_release: { text: '' }
-      /etc/apparmor.d/local/nvidia_modprobe: { text: '' }
+      /etc/apparmor.d/local/: {make: true}
       /etc/apparmor.d/loupe:
       /etc/apparmor.d/lsb_release:
+      /etc/apparmor.d/lsblk:
+      /etc/apparmor.d/lsusb:
       /etc/apparmor.d/lxc-attach:
       /etc/apparmor.d/lxc-create:
       /etc/apparmor.d/lxc-destroy:
@@ -212,15 +234,26 @@ slices:
       /etc/apparmor.d/lxc-stop:
       /etc/apparmor.d/lxc-unshare:
       /etc/apparmor.d/lxc-usernsexec:
+      /etc/apparmor.d/mbsync:
       /etc/apparmor.d/mmdebstrap:
+      /etc/apparmor.d/mosquitto:
       /etc/apparmor.d/msedge:
-      /etc/apparmor.d/nautilus:
+      /etc/apparmor.d/nc.openbsd:
+      /etc/apparmor.d/nhrpd:
       /etc/apparmor.d/notepadqq:
       /etc/apparmor.d/nvidia_modprobe:
       /etc/apparmor.d/obsidian:
       /etc/apparmor.d/opam:
+      /etc/apparmor.d/openvpn:
       /etc/apparmor.d/opera:
+      /etc/apparmor.d/os-prober:
+      /etc/apparmor.d/ospf6d:
+      /etc/apparmor.d/ospfd:
       /etc/apparmor.d/pageedit:
+      /etc/apparmor.d/pathd:
+      /etc/apparmor.d/pbrd:
+      /etc/apparmor.d/pim6d:
+      /etc/apparmor.d/pimd:
       /etc/apparmor.d/plasmashell:
       /etc/apparmor.d/podman:
       /etc/apparmor.d/polypane:
@@ -228,10 +261,14 @@ slices:
       /etc/apparmor.d/qcam:
       /etc/apparmor.d/qmapshack:
       /etc/apparmor.d/qutebrowser:
+      /etc/apparmor.d/remmina:
+      /etc/apparmor.d/ripd:
+      /etc/apparmor.d/ripngd:
       /etc/apparmor.d/rootlesskit:
       /etc/apparmor.d/rpm:
       /etc/apparmor.d/rssguard:
       /etc/apparmor.d/runc:
+      /etc/apparmor.d/rygel:
       /etc/apparmor.d/sbuild:
       /etc/apparmor.d/sbuild-abort:
       /etc/apparmor.d/sbuild-adduser:
@@ -250,13 +287,18 @@ slices:
       /etc/apparmor.d/signal-desktop:
       /etc/apparmor.d/slack:
       /etc/apparmor.d/slirp4netns:
+      /etc/apparmor.d/staticd:
       /etc/apparmor.d/steam:
       /etc/apparmor.d/stress-ng:
       /etc/apparmor.d/surfshark:
       /etc/apparmor.d/systemd-coredump:
       /etc/apparmor.d/thunderbird:
+      /etc/apparmor.d/tinyproxy:
+      /etc/apparmor.d/tnftp:
       /etc/apparmor.d/toybox:
+      /etc/apparmor.d/transmission:
       /etc/apparmor.d/trinity:
+      /etc/apparmor.d/tshark:
       /etc/apparmor.d/tunables/alias:
       /etc/apparmor.d/tunables/apparmorfs:
       /etc/apparmor.d/tunables/dovecot:
@@ -264,24 +306,16 @@ slices:
       /etc/apparmor.d/tunables/global:
       /etc/apparmor.d/tunables/home:
       /etc/apparmor.d/tunables/home.d/site.local:
-      /etc/apparmor.d/tunables/home.d/ubuntu:
-        text: |
-          # This file is auto-generated. It is recommended you update it using:
-          # $ sudo dpkg-reconfigure apparmor
-          #
-          # The following is a space-separated list of where additional user home
-          # directories are stored, each must have a trailing '/'. Directories added
-          # here are appended to @{HOMEDIRS}.  See tunables/home for details.
-          #@{HOMEDIRS}+=
-        until: mutate
       /etc/apparmor.d/tunables/kernelvars:
       /etc/apparmor.d/tunables/multiarch:
       /etc/apparmor.d/tunables/multiarch.d/site.local:
       /etc/apparmor.d/tunables/proc:
       /etc/apparmor.d/tunables/run:
+      /etc/apparmor.d/tunables/rygel:
       /etc/apparmor.d/tunables/securityfs:
       /etc/apparmor.d/tunables/share:
       /etc/apparmor.d/tunables/sys:
+      /etc/apparmor.d/tunables/system:
       /etc/apparmor.d/tunables/xdg-user-dirs:
       /etc/apparmor.d/tunables/xdg-user-dirs.d/site.local:
         text: |
@@ -315,7 +349,21 @@ slices:
       /etc/apparmor.d/virtiofsd:
       /etc/apparmor.d/vivaldi-bin:
       /etc/apparmor.d/vpnns:
+      /etc/apparmor.d/vrrpd:
+      /etc/apparmor.d/wg:
+      /etc/apparmor.d/wg-quick:
+      /etc/apparmor.d/wike:
       /etc/apparmor.d/wpcom:
+      /etc/apparmor.d/znc:
+        text: |
+          # This file is auto-generated. It is recommended you update it using:
+          # $ sudo dpkg-reconfigure apparmor
+          #
+          # The following is a space-separated list of where additional user home
+          # directories are stored, each must have a trailing '/'. Directories added
+          # here are appended to @{HOMEDIRS}.  See tunables/home for details.
+          #@{HOMEDIRS}+=
+        until: mutate
       /var/cache/apparmor/:
 
   copyright:

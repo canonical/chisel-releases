@@ -1,0 +1,16 @@
+package: libmbedcrypto16
+
+essential:
+  - libmbedcrypto16_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libmbedcrypto.so.16:
+      /usr/lib/*-linux-*/libmbedcrypto.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmbedcrypto16/copyright:

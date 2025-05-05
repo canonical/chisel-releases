@@ -7,7 +7,7 @@ execute: |
 
   # test py3versions
   rootfs_py3versions="$(install-slices python3-minimal_py3versions)"
-  chroot "$rootfs_py3versions" py3versions -d | grep "python3.12"
+  chroot "$rootfs_py3versions" py3versions -d | grep "python3.13"
 
   # test py3compile
   rootfs_py3compile="$(install-slices python3-minimal_py3compile)"

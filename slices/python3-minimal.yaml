@@ -29,7 +29,7 @@ slices:
 
   python3:
     essential:
-      - python3.12-minimal_bins
+      - python3.13-minimal_bins
     contents:
       /usr/bin/python3:
 

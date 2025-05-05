@@ -1,0 +1,275 @@
+package: tzdata-legacy
+
+essential:
+  - tzdata-legacy_copyright
+
+slices:
+  # The "base" slice contains Canonical timezone abbreviations. These are
+  # primary, preferred zone names that are often used as abbreviations for
+  # location-specific timezones across the globe. Example: Europe/Sofia observes
+  # EET.
+  base:
+    essential:
+      # TODO: should we copy the necessary from these slices?
+      - tzdata-legacy_america  # /usr/share/zoneinfo/right/CST6CDT -> America/Chicago
+      - tzdata-legacy_eurasia  # /usr/share/zoneinfo/right/CET -> Europe/Brussels
+      - tzdata-legacy_pacific  # /usr/share/zoneinfo/right/HST -> Pacific/Honolulu broken
+      - tzdata_base
+    contents:
+      /usr/share/zoneinfo/right/CET:
+      /usr/share/zoneinfo/right/CST6CDT:
+      /usr/share/zoneinfo/right/EET:
+      /usr/share/zoneinfo/right/EST:
+      /usr/share/zoneinfo/right/EST5EDT:
+      /usr/share/zoneinfo/right/Factory:
+      /usr/share/zoneinfo/right/HST:
+      /usr/share/zoneinfo/right/MET:
+      /usr/share/zoneinfo/right/MST:
+      /usr/share/zoneinfo/right/MST7MDT:
+      /usr/share/zoneinfo/right/PST8PDT:
+      /usr/share/zoneinfo/right/WET:
+
+  africa:
+    essential:
+      - tzdata_africa
+    contents:
+      /usr/share/zoneinfo/Africa/Asmera:
+      /usr/share/zoneinfo/Egypt:
+      /usr/share/zoneinfo/Libya:
+      /usr/share/zoneinfo/right/Africa/**:
+      /usr/share/zoneinfo/right/Egypt:
+      /usr/share/zoneinfo/right/Libya:
+
+  america:
+    essential:
+      - tzdata_america
+    contents:
+      /usr/share/zoneinfo/America/Argentina/ComodRivadavia:
+      /usr/share/zoneinfo/America/Buenos_Aires:
+      /usr/share/zoneinfo/America/Catamarca:
+      /usr/share/zoneinfo/America/Cordoba:
+      /usr/share/zoneinfo/America/Fort_Wayne:
+      /usr/share/zoneinfo/America/Godthab:
+      /usr/share/zoneinfo/America/Indianapolis:
+      /usr/share/zoneinfo/America/Jujuy:
+      /usr/share/zoneinfo/America/Knox_IN:
+      /usr/share/zoneinfo/America/Louisville:
+      /usr/share/zoneinfo/America/Mendoza:
+      /usr/share/zoneinfo/America/Rosario:
+      /usr/share/zoneinfo/Cuba:
+      /usr/share/zoneinfo/Jamaica:
+      /usr/share/zoneinfo/Navajo:
+      /usr/share/zoneinfo/right/America/**:
+      /usr/share/zoneinfo/right/Cuba:
+      /usr/share/zoneinfo/right/Jamaica:
+      /usr/share/zoneinfo/right/Navajo:
+
+  antarctica:
+    essential:
+      - tzdata_antarctica
+    contents:
+      /usr/share/zoneinfo/Antarctica/South_Pole:
+      /usr/share/zoneinfo/right/Antarctica/**:
+
+  arctic:
+    essential:
+      - tzdata-legacy_eurasia
+      - tzdata_arctic
+    contents:
+      /usr/share/zoneinfo/right/Arctic/*:
+
+  atlantic:
+    essential:
+      - tzdata-legacy_eurasia
+      - tzdata_atlantic
+    contents:
+      /usr/share/zoneinfo/Atlantic/Faeroe:
+      /usr/share/zoneinfo/right/Atlantic/**:
+
+  australia:
+    essential:
+      - tzdata_australia
+    contents:
+      /usr/share/zoneinfo/Australia/ACT:
+      /usr/share/zoneinfo/Australia/LHI:
+      /usr/share/zoneinfo/Australia/NSW:
+      /usr/share/zoneinfo/Australia/North:
+      /usr/share/zoneinfo/Australia/Queensland:
+      /usr/share/zoneinfo/Australia/South:
+      /usr/share/zoneinfo/Australia/Tasmania:
+      /usr/share/zoneinfo/Australia/Victoria:
+      /usr/share/zoneinfo/Australia/West:
+      /usr/share/zoneinfo/right/Australia/**:
+
+  # Some countries, although geographically belonging to a continent, are kept
+  # in their own slice since that is how they are structured in the tzdata deb.
+  brazil:
+    essential:
+      - tzdata-legacy_america
+    contents:
+      /usr/share/zoneinfo/Brazil/Acre:
+      /usr/share/zoneinfo/Brazil/DeNoronha:
+      /usr/share/zoneinfo/Brazil/East:
+      /usr/share/zoneinfo/Brazil/West:
+      /usr/share/zoneinfo/right/Brazil/**:
+
+  canada:
+    essential:
+      - tzdata-legacy_america
+    contents:
+      /usr/share/zoneinfo/Canada/**:
+      /usr/share/zoneinfo/right/Canada/**:
+
+  chile:
+    essential:
+      - tzdata-legacy_america
+      - tzdata-legacy_pacific
+    contents:
+      /usr/share/zoneinfo/Chile/**:
+      /usr/share/zoneinfo/right/Chile/**:
+
+  # "Etc" is meant to provide "timezones" that don't fit with the standard
+  # timezones.  As an example, UTC isn't actually a timezone, but a standard.
+  # Like Zulu and others, most of these can be used for time information, but
+  # derive from different domains (like the military). Same for others.
+  etc:
+    essential:
+      - tzdata_etc
+    contents:
+      /usr/share/zoneinfo/GMT+0:
+      /usr/share/zoneinfo/GMT-0:
+      /usr/share/zoneinfo/GMT0:
+      /usr/share/zoneinfo/Greenwich:
+      /usr/share/zoneinfo/UCT:
+      /usr/share/zoneinfo/Universal:
+      /usr/share/zoneinfo/Zulu:
+      /usr/share/zoneinfo/right/Etc/**:
+      /usr/share/zoneinfo/right/GMT:
+      /usr/share/zoneinfo/right/GMT+0:
+      /usr/share/zoneinfo/right/GMT-0:
+      /usr/share/zoneinfo/right/GMT0:
+      /usr/share/zoneinfo/right/Greenwich:
+      /usr/share/zoneinfo/right/UCT:
+      /usr/share/zoneinfo/right/UTC:
+      /usr/share/zoneinfo/right/Universal:
+      /usr/share/zoneinfo/right/Zulu:
+
+  eurasia:
+    essential:
+      - tzdata_eurasia
+    contents:
+      /usr/share/zoneinfo/Asia/Ashkhabad:
+      /usr/share/zoneinfo/Asia/Calcutta:
+      /usr/share/zoneinfo/Asia/Chungking:
+      /usr/share/zoneinfo/Asia/Dacca:
+      /usr/share/zoneinfo/Asia/Katmandu:
+      /usr/share/zoneinfo/Asia/Macao:
+      /usr/share/zoneinfo/Asia/Rangoon:
+      /usr/share/zoneinfo/Asia/Saigon:
+      /usr/share/zoneinfo/Asia/Thimbu:
+      /usr/share/zoneinfo/Asia/Ujung_Pandang:
+      /usr/share/zoneinfo/Asia/Ulan_Bator:
+      /usr/share/zoneinfo/Eire:
+      /usr/share/zoneinfo/Europe/Kiev:
+      /usr/share/zoneinfo/Europe/Uzhgorod:
+      /usr/share/zoneinfo/Europe/Zaporozhye:
+      /usr/share/zoneinfo/GB:
+      /usr/share/zoneinfo/GB-Eire:
+      /usr/share/zoneinfo/Hongkong:
+      /usr/share/zoneinfo/Iran:
+      /usr/share/zoneinfo/Israel:
+      /usr/share/zoneinfo/Japan:
+      /usr/share/zoneinfo/PRC:
+      /usr/share/zoneinfo/Poland:
+      /usr/share/zoneinfo/Portugal:
+      /usr/share/zoneinfo/ROC:
+      /usr/share/zoneinfo/ROK:
+      /usr/share/zoneinfo/Singapore:
+      /usr/share/zoneinfo/Turkey:
+      /usr/share/zoneinfo/W-SU:
+      /usr/share/zoneinfo/right/Asia/**:
+      /usr/share/zoneinfo/right/Eire:
+      /usr/share/zoneinfo/right/Europe/**:
+      /usr/share/zoneinfo/right/GB:
+      /usr/share/zoneinfo/right/GB-Eire:
+      /usr/share/zoneinfo/right/Hongkong:
+      /usr/share/zoneinfo/right/Iran:
+      /usr/share/zoneinfo/right/Israel:
+      /usr/share/zoneinfo/right/Japan:
+      /usr/share/zoneinfo/right/PRC:
+      /usr/share/zoneinfo/right/Poland:
+      /usr/share/zoneinfo/right/Portugal:
+      /usr/share/zoneinfo/right/ROC:
+      /usr/share/zoneinfo/right/ROK:
+      /usr/share/zoneinfo/right/Singapore:
+      /usr/share/zoneinfo/right/Turkey:
+      /usr/share/zoneinfo/right/W-SU:
+
+  iceland:
+    essential:
+      - tzdata-legacy_atlantic
+    contents:
+      /usr/share/zoneinfo/Iceland:
+      /usr/share/zoneinfo/right/Iceland:
+
+  indian:
+    essential:
+      - tzdata_indian
+    contents:
+      /usr/share/zoneinfo/right/Indian/**:
+
+  mexico:
+    essential:
+      - tzdata-legacy_america
+    contents:
+      /usr/share/zoneinfo/Mexico/*:
+      /usr/share/zoneinfo/right/Mexico/*:
+
+  pacific:
+    essential:
+      - tzdata_pacific
+    contents:
+      /usr/share/zoneinfo/Kwajalein:
+      /usr/share/zoneinfo/NZ:
+      /usr/share/zoneinfo/NZ-CHAT:
+      /usr/share/zoneinfo/Pacific/Enderbury:
+      /usr/share/zoneinfo/Pacific/Ponape:
+      /usr/share/zoneinfo/Pacific/Truk:
+      /usr/share/zoneinfo/right/Kwajalein:
+      /usr/share/zoneinfo/right/NZ:
+      /usr/share/zoneinfo/right/NZ-CHAT:
+      /usr/share/zoneinfo/right/Pacific/**:
+
+  united-states:
+    essential:
+      - tzdata-legacy_america
+      - tzdata-legacy_pacific
+    contents:
+      /usr/share/zoneinfo/US/*:
+      /usr/share/zoneinfo/right/US/*:
+
+  # Install all timezones.
+  zoneinfo:
+    essential:
+      - tzdata-legacy_africa
+      - tzdata-legacy_america
+      - tzdata-legacy_antarctica
+      - tzdata-legacy_arctic
+      - tzdata-legacy_atlantic
+      - tzdata-legacy_australia
+      - tzdata-legacy_base
+      - tzdata-legacy_brazil
+      - tzdata-legacy_canada
+      - tzdata-legacy_chile
+      - tzdata-legacy_etc
+      - tzdata-legacy_eurasia
+      - tzdata-legacy_iceland
+      - tzdata-legacy_indian
+      - tzdata-legacy_mexico
+      - tzdata-legacy_pacific
+      - tzdata-legacy_united-states
+      - tzdata_zoneinfo
+
+  copyright:
+    contents:
+      /usr/share/doc/tzdata-legacy/copyright:

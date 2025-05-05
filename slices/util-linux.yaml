@@ -148,7 +148,6 @@ slices:
       - libsystemd0_libs
     contents:
       /usr/bin/lslogins:
-      /usr/bin/utmpdump:
       /usr/sbin/sulogin:
 
   mcookie:
@@ -256,7 +255,6 @@ slices:
       - libsystemd0_libs
       - libtinfo6_libs
     contents:
-      /usr/bin/mesg:
       /usr/bin/setterm:
       /usr/sbin/agetty:
       /usr/sbin/getty:
