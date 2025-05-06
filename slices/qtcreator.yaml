@@ -4,10 +4,6 @@ essential:
   - qtcreator_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/qtcreator/copyright:
-
   bins:
     contents:
       /usr/bin/qtcreator:
@@ -24,3 +20,7 @@ slices:
   plugins:
     contents:
       /usr/lib/*-linux-*/qtcreator/plugins/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/qtcreator/copyright:

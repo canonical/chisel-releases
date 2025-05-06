@@ -4,10 +4,6 @@ essential:
   - libqt5core5t64_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt5core5t64/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5Core.so*:
@@ -24,6 +20,6 @@ slices:
       - shared-mime-info_data
       - zlib1g_libs
 
-  doc:
+  copyright:
     contents:
-      /usr/share/doc/libqt5core5t64/**:
+      /usr/share/doc/libqt5core5t64/copyright:

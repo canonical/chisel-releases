@@ -4,10 +4,6 @@ essential:
   - libqt5gui5t64_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt5gui5t64/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5EglFS*.so*:
@@ -47,3 +43,7 @@ slices:
       - libxcb1_libs
       - libxrender1_libs
       - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5gui5t64/copyright:

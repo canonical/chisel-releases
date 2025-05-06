@@ -4,10 +4,6 @@ essential:
   - dlt-viewer_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/dlt-viewer/copyright:
-
   bins:
     contents:
       /usr/bin/dlt-parser:
@@ -39,3 +35,7 @@ slices:
   plugins:
     contents:
       /usr/lib/*-linux-*/dlt-viewer/plugins/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dlt-viewer/copyright:

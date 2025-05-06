@@ -4,10 +4,6 @@ essential:
   - libqt5widgets5t64_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt5widgets5t64/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5Widgets.so*:
@@ -16,3 +12,7 @@ slices:
       - libgcc-s1_libs
       - libqt5core5t64_libs
       - libstdc++6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5widgets5t64/copyright:

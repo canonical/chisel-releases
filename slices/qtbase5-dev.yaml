@@ -4,10 +4,6 @@ essential:
   - qtbase5-dev_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/qtbase5-dev/copyright:
-
   core:
     contents:
       /usr/include/*-linux-*/qt5/**:
@@ -25,3 +21,7 @@ slices:
     contents:
       /usr/share/doc/qtbase5-dev/changelog.Debian.gz:
       /usr/share/qt5/doc/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/qtbase5-dev/copyright:

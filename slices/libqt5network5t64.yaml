@@ -4,10 +4,6 @@ essential:
   - libqt5network5t64_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt5network5t64/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5Network.so*:
@@ -23,3 +19,7 @@ slices:
       - libqt5dbus5t64_libs
       - libstdc++6_libs
       - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5network5t64/copyright:
