@@ -4,10 +4,6 @@ essential:
   - libqt6network6_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt6network6/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt6Network.so*:
@@ -25,3 +21,7 @@ slices:
       - libstdc++6_libs
       - libzstd1_libs
       - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt6network6/copyright:

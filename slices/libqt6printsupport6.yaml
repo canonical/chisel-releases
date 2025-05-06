@@ -4,10 +4,6 @@ essential:
   - libqt6printsupport6_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt6printsupport6/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt6PrintSupport.so*:
@@ -20,3 +16,7 @@ slices:
       - libqt6dbus6_libs
       - libstdc++6_libs
       - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt6printsupport6/copyright:

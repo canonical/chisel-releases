@@ -4,10 +4,6 @@ essential:
   - libqt6widgets6_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt6widgets6/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt6Widgets.so*:
@@ -16,3 +12,7 @@ slices:
       - libgcc-s1_libs
       - libqt6core6t64_libs
       - libstdc++6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt6widgets6/copyright:

@@ -4,12 +4,12 @@ essential:
   - libxkbcommon0_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libxkbcommon0/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libxkbcommon.so*:
     essential:
       - libc6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxkbcommon0/copyright:

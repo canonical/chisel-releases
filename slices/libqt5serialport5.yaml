@@ -4,10 +4,6 @@ essential:
   - libqt5serialport5_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libqt5serialport5/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5SerialPort.so*:
@@ -17,3 +13,7 @@ slices:
       - libqt5core5t64_libs
       - libstdc++6_libs
       - libudev1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5serialport5/copyright:
