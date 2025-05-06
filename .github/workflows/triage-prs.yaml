@@ -19,5 +19,5 @@ jobs:
             /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
             -f "team_reviewers[]=${{ env.REVIEWERS }}"
 
-          # Canno use `gh pr edit`:
+          # Cannot use `gh pr edit`:
           # https://github.com/cli/cli/issues/4844
