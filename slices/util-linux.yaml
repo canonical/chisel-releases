@@ -1,0 +1,592 @@
+package: util-linux
+
+essential:
+  - util-linux_copyright
+
+# TODO: tests need to be resolved!
+slices:
+  bins:
+    essential:
+      - util-linux_block-devices
+      - util-linux_cli-helpers
+      - util-linux_cpu
+      - util-linux_ctrlaltdel
+      - util-linux_file-manipulation
+      - util-linux_file-system
+      - util-linux_generated
+      - util-linux_ipc
+      - util-linux_kernel
+      - util-linux_login
+      - util-linux_mcookie
+      - util-linux_memory
+      - util-linux_namespace
+      - util-linux_pam-profiles
+      - util-linux_process
+      - util-linux_set-arch
+      - util-linux_su-support
+      - util-linux_timer
+      - util-linux_tty
+
+  block-devices:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libmount1_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+      - libudev1_libs
+    contents:
+      /usr/bin/addpart:
+      /usr/bin/delpart:
+      /bin/lsblk:
+      /usr/bin/partx:
+      /usr/bin/resizepart:
+      /sbin/blkdiscard:
+      /sbin/blkid:
+      /sbin/blkzone:
+      /sbin/blockdev:
+      /sbin/zramctl:
+
+  cli-helpers:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/getopt:
+      /usr/bin/namei:
+      /usr/bin/rev:
+      /usr/bin/whereis:
+
+  cpu:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/lscpu:
+      /sbin/chcpu:
+
+  ctrlaltdel:
+    essential:
+      - libc6_libs
+    contents:
+      /sbin/ctrlaltdel:
+
+  file-manipulation:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libmount1_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/fallocate:
+      /usr/bin/hardlink:
+      /bin/more:
+
+  file-system:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libcap-ng0_libs
+      - libmount1_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+      - libudev1_libs
+      - libuuid1_libs
+      - zlib1g_libs
+    contents:
+      /bin/findmnt:
+      /bin/mountpoint:
+      /sbin/findfs:
+      /sbin/fsck:
+      /sbin/fsck.cramfs:
+      /sbin/fsck.minix:
+      /sbin/fsfreeze:
+      /sbin/fstrim:
+      /sbin/isosize:
+      /sbin/mkfs:
+      /sbin/mkfs.bfs:
+      /sbin/mkfs.cramfs:
+      /sbin/mkfs.minix:
+      /sbin/mkswap:
+      /sbin/pivot_root:
+      /sbin/swaplabel:
+      /sbin/switch_root:
+      /sbin/wipefs:
+
+  # The following emulates the post-install script.
+  generated:
+    essential:
+      # Since the more binary is located at ./usr/bin/more and /bin in noble
+      # points to /usr/bin via base-files, the base-files_bin slice is included
+      # here.
+      - base-files_bin
+      - util-linux_file-manipulation
+    contents:
+      /usr/bin/pager: {symlink: /bin/more}
+
+  ipc:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/ipcmk:
+      /usr/bin/ipcrm:
+      /usr/bin/ipcs:
+      /usr/bin/lsipc:
+
+  kernel:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /bin/dmesg:
+      /usr/sbin/readprofile:
+
+  lock:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libmount1_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/flock:
+      /usr/bin/lslocks:
+
+  login:
+    essential:
+      - libc6_libs
+      - libcap-ng0_libs
+      - libcrypt1_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/last:
+      /usr/bin/lastb:
+      /usr/bin/lslogins:
+      /usr/bin/utmpdump:
+      /sbin/sulogin:
+
+  mcookie:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/mcookie:
+
+  memory:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/lsmem:
+      /usr/sbin/chmem:
+
+  mime:
+    contents:
+      /usr/lib/mime/packages/util-linux:
+
+  namespace:
+    essential:
+      - libblkid1_libs
+      - libc6_libs
+      - libmount1_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/lsns:
+      /usr/bin/nsenter:
+      /usr/bin/unshare:
+
+  pam-profiles:
+    contents:
+      /etc/pam.d/runuser:
+      /etc/pam.d/runuser-l:
+      /etc/pam.d/su:
+      /etc/pam.d/su-l:
+
+  process:
+    essential:
+      - libc6_libs
+      - libcap-ng0_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/bin/choom:
+      /usr/bin/chrt:
+      /usr/bin/ionice:
+      /usr/bin/prlimit:
+      /usr/bin/setpriv:
+      /usr/bin/setsid:
+      /usr/bin/taskset:
+      /usr/bin/uclampset:
+
+  services:
+    essential:
+      - util-linux_bins
+    contents:
+      /lib/systemd/system/fstrim.service:
+      /lib/systemd/system/fstrim.timer:
+
+  set-arch:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/i386: { arch: [i386, amd64] }
+      /usr/bin/linux32:
+      /usr/bin/linux64:
+      /usr/bin/ppc: { arch: [ppc64el] }
+      /usr/bin/ppc32: { arch: [ppc64el] }
+      /usr/bin/ppc64: { arch: [ppc64el] }
+      /usr/bin/s390: { arch: [s390x] }
+      /usr/bin/s390x: { arch: [s390x] }
+      /usr/bin/setarch:
+      /usr/bin/x86_64: { arch: [amd64] }
+
+  # Contains the binaries which supports running commands with substitute user
+  # and group IDs.
+  su-support:
+    essential:
+      - libc6_libs
+      - libcap-ng0_libs
+      # Libraries from libpam-modules are required as the libpam-runtime
+      # configs reference them.
+      - libpam-modules_libs
+      # su reads the configs in /etc/pam.d to authenticate the user.
+      - libpam-runtime_config
+      - libpam0g_libs
+      - util-linux_pam-profiles
+    contents:
+      /bin/su:
+      /sbin/runuser:
+
+  timer:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+    contents:
+      /bin/wdctl:
+      /usr/sbin/rtcwake:
+
+  tty:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/mesg:
+      /usr/bin/setterm:
+      /sbin/agetty:
+      /sbin/getty:
+      /usr/sbin/ldattach:
+
+  copyright:
+    contents:
+      /usr/share/doc/util-linux/copyright:
+
+
+# TODO: Fix the paths above accodring to the listing below
+# util-linux: /bin/dmesg                    
+# util-linux: /bin/findmnt
+# util-linux: /bin/lsblk
+# util-linux: /bin/more
+# util-linux: /bin/mountpoint
+# util-linux: /bin/su
+# util-linux: /bin/wdctl
+# util-linux: /etc/init.d/hwclock.sh
+# util-linux: /etc/pam.d/runuser
+# util-linux: /etc/pam.d/runuser-l
+# util-linux: /etc/pam.d/su
+# util-linux: /etc/pam.d/su-l
+# util-linux: /lib/systemd/system/fstrim.service
+# util-linux: /lib/systemd/system/fstrim.timer
+# util-linux: /sbin/agetty
+# util-linux: /sbin/blkdiscard
+# util-linux: /sbin/blkid
+# util-linux: /sbin/blkzone
+# util-linux: /sbin/blockdev
+# util-linux: /sbin/chcpu
+# util-linux: /sbin/ctrlaltdel
+# util-linux: /sbin/findfs
+# util-linux: /sbin/fsck
+# util-linux: /sbin/fsck.cramfs
+# util-linux: /sbin/fsck.minix
+# util-linux: /sbin/fsfreeze
+# util-linux: /sbin/fstrim
+# util-linux: /sbin/getty
+# util-linux: /sbin/hwclock
+# util-linux: /sbin/isosize
+# util-linux: /sbin/mkfs
+# util-linux: /sbin/mkfs.bfs
+# util-linux: /sbin/mkfs.cramfs
+# util-linux: /sbin/mkfs.minix
+# util-linux: /sbin/mkswap
+# util-linux: /sbin/pivot_root
+# util-linux: /sbin/runuser
+# util-linux: /sbin/sulogin
+# util-linux: /sbin/swaplabel
+# util-linux: /sbin/switch_root
+# util-linux: /sbin/wipefs
+# util-linux: /sbin/zramctl
+# util-linux: /usr/bin/addpart
+# util-linux: /usr/bin/choom
+# util-linux: /usr/bin/chrt
+# util-linux: /usr/bin/delpart
+# util-linux: /usr/bin/fallocate
+# util-linux: /usr/bin/fincore
+# util-linux: /usr/bin/flock
+# util-linux: /usr/bin/getopt
+# util-linux: /usr/bin/hardlink
+# util-linux: /usr/bin/i386
+# util-linux: /usr/bin/ionice
+# util-linux: /usr/bin/ipcmk
+# util-linux: /usr/bin/ipcrm
+# util-linux: /usr/bin/ipcs
+# util-linux: /usr/bin/last
+# util-linux: /usr/bin/lastb
+# util-linux: /usr/bin/linux32
+# util-linux: /usr/bin/linux64
+# util-linux: /usr/bin/lscpu
+# util-linux: /usr/bin/lsipc
+# util-linux: /usr/bin/lslocks
+# util-linux: /usr/bin/lslogins
+# util-linux: /usr/bin/lsmem
+# util-linux: /usr/bin/lsns
+# util-linux: /usr/bin/mcookie
+# util-linux: /usr/bin/mesg
+# util-linux: /usr/bin/namei
+# util-linux: /usr/bin/nsenter
+# util-linux: /usr/bin/partx
+# util-linux: /usr/bin/prlimit
+# util-linux: /usr/bin/resizepart
+# util-linux: /usr/bin/rev
+# util-linux: /usr/bin/setarch
+# util-linux: /usr/bin/setpriv
+# util-linux: /usr/bin/setsid
+# util-linux: /usr/bin/setterm
+# util-linux: /usr/bin/taskset
+# util-linux: /usr/bin/uclampset
+# util-linux: /usr/bin/unshare
+# util-linux: /usr/bin/utmpdump
+# util-linux: /usr/bin/whereis
+# util-linux: /usr/bin/x86_64
+# util-linux: /usr/lib/mime/packages/util-linux
+# util-linux: /usr/lib/udev/hwclock-set
+# util-linux: /usr/sbin/chmem
+# util-linux: /usr/sbin/ldattach
+# util-linux: /usr/sbin/readprofile
+# util-linux: /usr/sbin/rtcwake
+# util-linux: /usr/share/bash-completion/completions/addpart
+# util-linux: /usr/share/bash-completion/completions/blkdiscard
+# util-linux: /usr/share/bash-completion/completions/blkid
+# util-linux: /usr/share/bash-completion/completions/blkzone
+# util-linux: /usr/share/bash-completion/completions/blockdev
+# util-linux: /usr/share/bash-completion/completions/chcpu
+# util-linux: /usr/share/bash-completion/completions/chmem
+# util-linux: /usr/share/bash-completion/completions/chrt
+# util-linux: /usr/share/bash-completion/completions/ctrlaltdel
+# util-linux: /usr/share/bash-completion/completions/delpart
+# util-linux: /usr/share/bash-completion/completions/dmesg
+# util-linux: /usr/share/bash-completion/completions/fallocate
+# util-linux: /usr/share/bash-completion/completions/fincore
+# util-linux: /usr/share/bash-completion/completions/findfs
+# util-linux: /usr/share/bash-completion/completions/findmnt
+# util-linux: /usr/share/bash-completion/completions/flock
+# util-linux: /usr/share/bash-completion/completions/fsck
+# util-linux: /usr/share/bash-completion/completions/fsck.cramfs
+# util-linux: /usr/share/bash-completion/completions/fsck.minix
+# util-linux: /usr/share/bash-completion/completions/fsfreeze
+# util-linux: /usr/share/bash-completion/completions/fstrim
+# util-linux: /usr/share/bash-completion/completions/getopt
+# util-linux: /usr/share/bash-completion/completions/hardlink
+# util-linux: /usr/share/bash-completion/completions/hwclock
+# util-linux: /usr/share/bash-completion/completions/ionice
+# util-linux: /usr/share/bash-completion/completions/ipcmk
+# util-linux: /usr/share/bash-completion/completions/ipcrm
+# util-linux: /usr/share/bash-completion/completions/ipcs
+# util-linux: /usr/share/bash-completion/completions/isosize
+# util-linux: /usr/share/bash-completion/completions/last
+# util-linux: /usr/share/bash-completion/completions/ldattach
+# util-linux: /usr/share/bash-completion/completions/lsblk
+# util-linux: /usr/share/bash-completion/completions/lscpu
+# util-linux: /usr/share/bash-completion/completions/lsipc
+# util-linux: /usr/share/bash-completion/completions/lslocks
+# util-linux: /usr/share/bash-completion/completions/lslogins
+# util-linux: /usr/share/bash-completion/completions/lsmem
+# util-linux: /usr/share/bash-completion/completions/lsns
+# util-linux: /usr/share/bash-completion/completions/mcookie
+# util-linux: /usr/share/bash-completion/completions/mesg
+# util-linux: /usr/share/bash-completion/completions/mkfs
+# util-linux: /usr/share/bash-completion/completions/mkfs.bfs
+# util-linux: /usr/share/bash-completion/completions/mkfs.cramfs
+# util-linux: /usr/share/bash-completion/completions/mkfs.minix
+# util-linux: /usr/share/bash-completion/completions/mkswap
+# util-linux: /usr/share/bash-completion/completions/more
+# util-linux: /usr/share/bash-completion/completions/mountpoint
+# util-linux: /usr/share/bash-completion/completions/namei
+# util-linux: /usr/share/bash-completion/completions/nsenter
+# util-linux: /usr/share/bash-completion/completions/partx
+# util-linux: /usr/share/bash-completion/completions/pivot_root
+# util-linux: /usr/share/bash-completion/completions/prlimit
+# util-linux: /usr/share/bash-completion/completions/readprofile
+# util-linux: /usr/share/bash-completion/completions/resizepart
+# util-linux: /usr/share/bash-completion/completions/rev
+# util-linux: /usr/share/bash-completion/completions/rtcwake
+# util-linux: /usr/share/bash-completion/completions/runuser
+# util-linux: /usr/share/bash-completion/completions/setarch
+# util-linux: /usr/share/bash-completion/completions/setpriv
+# util-linux: /usr/share/bash-completion/completions/setsid
+# util-linux: /usr/share/bash-completion/completions/setterm
+# util-linux: /usr/share/bash-completion/completions/su
+# util-linux: /usr/share/bash-completion/completions/swaplabel
+# util-linux: /usr/share/bash-completion/completions/taskset
+# util-linux: /usr/share/bash-completion/completions/uclampset
+# util-linux: /usr/share/bash-completion/completions/unshare
+# util-linux: /usr/share/bash-completion/completions/utmpdump
+# util-linux: /usr/share/bash-completion/completions/wdctl
+# util-linux: /usr/share/bash-completion/completions/whereis
+# util-linux: /usr/share/bash-completion/completions/wipefs
+# util-linux: /usr/share/bash-completion/completions/zramctl
+# util-linux: /usr/share/doc/util-linux/00-about-docs.txt
+# util-linux: /usr/share/doc/util-linux/AUTHORS.gz
+# util-linux: /usr/share/doc/util-linux/NEWS.Debian.gz
+# util-linux: /usr/share/doc/util-linux/PAM-configuration.txt
+# util-linux: /usr/share/doc/util-linux/README.Debian
+# util-linux: /usr/share/doc/util-linux/blkid.txt
+# util-linux: /usr/share/doc/util-linux/cal.txt
+# util-linux: /usr/share/doc/util-linux/changelog.Debian.gz
+# util-linux: /usr/share/doc/util-linux/col.txt
+# util-linux: /usr/share/doc/util-linux/copyright
+# util-linux: /usr/share/doc/util-linux/deprecated.txt
+# util-linux: /usr/share/doc/util-linux/examples/getopt-example.bash
+# util-linux: /usr/share/doc/util-linux/examples/getopt-example.tcsh
+# util-linux: /usr/share/doc/util-linux/getopt.txt
+# util-linux: /usr/share/doc/util-linux/getopt_changelog.txt
+# util-linux: /usr/share/doc/util-linux/howto-build-sys.txt
+# util-linux: /usr/share/doc/util-linux/howto-compilation.txt
+# util-linux: /usr/share/doc/util-linux/howto-contribute.txt.gz
+# util-linux: /usr/share/doc/util-linux/howto-debug.txt
+# util-linux: /usr/share/doc/util-linux/howto-man-page.txt
+# util-linux: /usr/share/doc/util-linux/howto-pull-request.txt.gz
+# util-linux: /usr/share/doc/util-linux/howto-tests.txt.gz
+# util-linux: /usr/share/doc/util-linux/howto-usage-function.txt.gz
+# util-linux: /usr/share/doc/util-linux/hwclock.txt
+# util-linux: /usr/share/doc/util-linux/modems-with-agetty.txt
+# util-linux: /usr/share/doc/util-linux/mount.txt
+# util-linux: /usr/share/doc/util-linux/parse-date.txt.gz
+# util-linux: /usr/share/doc/util-linux/pg.txt
+# util-linux: /usr/share/doc/util-linux/poeigl.txt.gz
+# util-linux: /usr/share/doc/util-linux/release-schedule.txt
+# util-linux: /usr/share/doc/util-linux/releases/v2.13-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.14-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.15-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.16-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.17-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.18-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.19-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.20-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.21-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.22-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.23-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.24-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.25-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.26-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.27-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.28-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.29-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.30-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.31-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.32-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.33-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.34-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.35-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.36-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.37-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.37.1-ReleaseNotes.gz
+# util-linux: /usr/share/doc/util-linux/releases/v2.37.2-ReleaseNotes
+# util-linux: /usr/share/lintian/overrides/util-linux
+# util-linux: /usr/share/man/man1/choom.1.gz
+# util-linux: /usr/share/man/man1/chrt.1.gz
+# util-linux: /usr/share/man/man1/dmesg.1.gz
+# util-linux: /usr/share/man/man1/fallocate.1.gz
+# util-linux: /usr/share/man/man1/fincore.1.gz
+# util-linux: /usr/share/man/man1/flock.1.gz
+# util-linux: /usr/share/man/man1/getopt.1.gz
+# util-linux: /usr/share/man/man1/hardlink.1.gz
+# util-linux: /usr/share/man/man1/ionice.1.gz
+# util-linux: /usr/share/man/man1/ipcmk.1.gz
+# util-linux: /usr/share/man/man1/ipcrm.1.gz
+# util-linux: /usr/share/man/man1/ipcs.1.gz
+# util-linux: /usr/share/man/man1/last.1.gz
+# util-linux: /usr/share/man/man1/lastb.1.gz
+# util-linux: /usr/share/man/man1/lscpu.1.gz
+# util-linux: /usr/share/man/man1/lsipc.1.gz
+# util-linux: /usr/share/man/man1/lslogins.1.gz
+# util-linux: /usr/share/man/man1/lsmem.1.gz
+# util-linux: /usr/share/man/man1/mcookie.1.gz
+# util-linux: /usr/share/man/man1/mesg.1.gz
+# util-linux: /usr/share/man/man1/more.1.gz
+# util-linux: /usr/share/man/man1/mountpoint.1.gz
+# util-linux: /usr/share/man/man1/namei.1.gz
+# util-linux: /usr/share/man/man1/nsenter.1.gz
+# util-linux: /usr/share/man/man1/prlimit.1.gz
+# util-linux: /usr/share/man/man1/rev.1.gz
+# util-linux: /usr/share/man/man1/runuser.1.gz
+# util-linux: /usr/share/man/man1/setpriv.1.gz
+# util-linux: /usr/share/man/man1/setsid.1.gz
+# util-linux: /usr/share/man/man1/setterm.1.gz
+# util-linux: /usr/share/man/man1/su.1.gz
+# util-linux: /usr/share/man/man1/taskset.1.gz
+# util-linux: /usr/share/man/man1/uclampset.1.gz
+# util-linux: /usr/share/man/man1/unshare.1.gz
+# util-linux: /usr/share/man/man1/utmpdump.1.gz
+# util-linux: /usr/share/man/man1/whereis.1.gz
+# util-linux: /usr/share/man/man5/adjtime_config.5.gz
+# util-linux: /usr/share/man/man5/hwclock.5.gz
+# util-linux: /usr/share/man/man5/terminal-colors.d.5.gz
+# util-linux: /usr/share/man/man8/addpart.8.gz
+# util-linux: /usr/share/man/man8/agetty.8.gz
+# util-linux: /usr/share/man/man8/blkdiscard.8.gz
+# util-linux: /usr/share/man/man8/blkid.8.gz
+# util-linux: /usr/share/man/man8/blkzone.8.gz
+# util-linux: /usr/share/man/man8/blockdev.8.gz
+# util-linux: /usr/share/man/man8/chcpu.8.gz
+# util-linux: /usr/share/man/man8/chmem.8.gz
+# util-linux: /usr/share/man/man8/ctrlaltdel.8.gz
+# util-linux: /usr/share/man/man8/delpart.8.gz
+# util-linux: /usr/share/man/man8/findfs.8.gz
+# util-linux: /usr/share/man/man8/findmnt.8.gz
+# util-linux: /usr/share/man/man8/fsck.8.gz
+# util-linux: /usr/share/man/man8/fsck.cramfs.8.gz
+# util-linux: /usr/share/man/man8/fsck.minix.8.gz
+# util-linux: /usr/share/man/man8/fsfreeze.8.gz
+# util-linux: /usr/share/man/man8/fstrim.8.gz
+# util-linux: /usr/share/man/man8/getty.8.gz
+# util-linux: /usr/share/man/man8/hwclock.8.gz
+# util-linux: /usr/share/man/man8/i386.8.gz
+# util-linux: /usr/share/man/man8/isosize.8.gz
+# util-linux: /usr/share/man/man8/ldattach.8.gz
+# util-linux: /usr/share/man/man8/linux32.8.gz
+# util-linux: /usr/share/man/man8/linux64.8.gz
+# util-linux: /usr/share/man/man8/lsblk.8.gz
+# util-linux: /usr/share/man/man8/lslocks.8.gz
+# util-linux: /usr/share/man/man8/lsns.8.gz
+# util-linux: /usr/share/man/man8/mkfs.8.gz
+# util-linux: /usr/share/man/man8/mkfs.bfs.8.gz
+# util-linux: /usr/share/man/man8/mkfs.cramfs.8.gz
+# util-linux: /usr/share/man/man8/mkfs.minix.8.gz
+# util-linux: /usr/share/man/man8/mkswap.8.gz
+# util-linux: /usr/share/man/man8/partx.8.gz
+# util-linux: /usr/share/man/man8/pivot_root.8.gz
+# util-linux: /usr/share/man/man8/readprofile.8.gz
+# util-linux: /usr/share/man/man8/resizepart.8.gz
+# util-linux: /usr/share/man/man8/rtcwake.8.gz
+# util-linux: /usr/share/man/man8/setarch.8.gz
+# util-linux: /usr/share/man/man8/sulogin.8.gz
+# util-linux: /usr/share/man/man8/swaplabel.8.gz
+# util-linux: /usr/share/man/man8/switch_root.8.gz
+# util-linux: /usr/share/man/man8/wdctl.8.gz
+# util-linux: /usr/share/man/man8/wipefs.8.gz
+# util-linux: /usr/share/man/man8/x86_64.8.gz
+# util-linux: /usr/share/man/man8/zramctl.8.gz

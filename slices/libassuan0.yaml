@@ -1,0 +1,17 @@
+package: libassuan0
+
+essential:
+  - libassuan0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgpg-error0_libs
+    contents:
+      /usr/lib/x86_64-linux-gnu/libassuan.so.0*:
+      /usr/lib/x86_64-linux-gnu/libassuan.so.0:
+
+  copyright:
+    contents:
+      /usr/share/doc/libassuan0/copyright:

@@ -1,0 +1,23 @@
+package: gpg
+
+essential:
+  - gpg_copyright
+
+slices:
+  bins:
+    essential:
+      - gpgconf_bins
+      - libassuan0_libs
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libgcrypt20_libs
+      - libgpg-error0_libs
+      - libreadline8_libs
+      - libsqlite3-0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/gpg:
+
+  copyright:
+    contents:
+      /usr/share/doc/gpg/copyright:

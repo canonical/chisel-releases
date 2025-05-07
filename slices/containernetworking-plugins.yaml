@@ -1,0 +1,37 @@
+package: containernetworking-plugins
+
+essential:
+  - containernetworking-plugins_copyright
+
+slices:
+  bins:
+    essential: # TODO: why iptables?
+      # needs libfakechroot.so?
+      - libc6_libs
+    contents:
+      /usr/lib/cni/bandwidth:
+      /usr/lib/cni/bridge:
+      /usr/lib/cni/dhcp:
+      /usr/lib/cni/firewall:
+      /usr/lib/cni/flannel:
+      /usr/lib/cni/host-device:
+      /usr/lib/cni/host-local:
+      /usr/lib/cni/ipvlan:
+      /usr/lib/cni/loopback:
+      /usr/lib/cni/macvlan:
+      /usr/lib/cni/portmap:
+      /usr/lib/cni/ptp:
+      /usr/lib/cni/sbr:
+      /usr/lib/cni/static:
+      /usr/lib/cni/tuning:
+      /usr/lib/cni/vlan:
+      /usr/lib/cni/vrf:
+
+  config:
+    contents:
+      /lib/systemd/system/cni-dhcp.socket:
+      /lib/systemd/system/cni-dhcp.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/containernetworking-plugins/copyright:
