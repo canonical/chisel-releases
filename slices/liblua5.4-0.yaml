@@ -9,8 +9,8 @@ slices:
       - libc6_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/liblua5.4.so.*:
       /usr/lib/*-linux-*/liblua5.4-c++.so.*:
+      /usr/lib/*-linux-*/liblua5.4.so.*:
 
   copyright:
     contents:
