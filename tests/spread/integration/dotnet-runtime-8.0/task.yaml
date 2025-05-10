@@ -1,0 +1,16 @@
+summary: Integration tests for .NET 8 Runtime 
+
+execute: |
+  # install slices
+  rootfs="$(install-slices dotnet-runtime-8.0_libs base-files_base)"
+
+  # preparing the test data
+  apt update && apt install -y dotnet-sdk-8.0
+  cp -r app_helloworld "${rootfs}"/app_helloworld
+  dotnet publish "${rootfs}"/app_helloworld/Hello.csproj --no-self-contained
+
+  mkdir -p "${rootfs}"/proc
+  mount --bind /proc "${rootfs}"/proc
+
+  # test the helloworld app
+  chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net8.0/Hello.dll
