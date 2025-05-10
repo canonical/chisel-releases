@@ -1,0 +1,8 @@
+summary: Integration tests for .NET 8 Host 
+
+execute: |
+  # install slices
+  rootfs="$(install-slices dotnet-host-8.0_bins dotnet-hostfxr-8.0_libs base-files_base)"
+  
+  # smoking test the .NET host
+  chroot "${rootfs}" /usr/bin/dotnet --info
