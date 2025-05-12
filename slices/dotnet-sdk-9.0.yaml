@@ -13,7 +13,7 @@ slices:
       # chisel does not support adding a slice only for amd64 and arm64
       # Until support for this is added we have to remove this
       # recommended dependency
-      #- dotnet-sdk-aot-9.0_libs
+      # - dotnet-sdk-aot-9.0_libs
       - dotnet-targeting-pack-9.0_libs
       - dotnet-templates-9.0_libs
       - netstandard-targeting-pack-2.1-9.0_libs
