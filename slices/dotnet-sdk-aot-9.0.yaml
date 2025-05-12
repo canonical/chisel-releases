@@ -1,7 +1,7 @@
 package: dotnet-sdk-aot-9.0
 
 essential:
-  - dotnet-templates-9.0_copyright
+  - dotnet-sdk-aot-9.0_copyright
 
 slices:
   libs:
