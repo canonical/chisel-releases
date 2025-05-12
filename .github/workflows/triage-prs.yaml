@@ -6,6 +6,7 @@ on:
 
 jobs:
   add-reviewers:
+    if: github.repository_owner == 'canonical'
     runs-on: ubuntu-latest
     steps:
       - env:
