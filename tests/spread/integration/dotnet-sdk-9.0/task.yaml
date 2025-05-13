@@ -1,0 +1,53 @@
+summary: Integration tests for .NET 9 SDK 
+
+execute: |
+  # install slices
+  rootfs="$(install-slices dotnet-sdk-9.0_libs base-files_base)"
+  mv "${rootfs}"/usr/lib/dotnet/dotnet9 "${rootfs}"/usr/lib/dotnet/dotnet
+  ln -s ../lib/dotnet/dotnet "${rootfs}"/usr/bin/dotnet
+  
+  # needed by the SDK to determine system information
+  mkdir -p "${rootfs}"/proc
+  mount --bind /proc "${rootfs}"/proc
+  
+  # needed by crypto libraries e.g. to generate a GUID's
+  mkdir -p "${rootfs}"/dev
+  head -c 500 /dev/urandom > "${rootfs}"/dev/random
+  head -c 500 /dev/urandom > "${rootfs}"/dev/urandom
+
+  # smoke test the .NET host:
+  chroot "${rootfs}" /usr/bin/dotnet --info
+
+  # smoke test the F# interpreter:
+  cp helloworld.fsx "${rootfs}"/helloworld.fsx
+  chroot "${rootfs}" /usr/bin/dotnet fsi /helloworld.fsx
+
+  # When building a .NET application MSBuild is used.
+  # MSBuild tries to read the username (see: https://github.com/dotnet/dotnet/blob/85778473549347b3e4bad3ea009e9438df7b11bb/src/msbuild/src/Shared/TempFileUtilities.cs#L44).
+  # On Unix systems (including Ubuntu) the implementation tries to read the username from /etc/passwd (see: https://github.com/dotnet/dotnet/blob/85778473549347b3e4bad3ea009e9438df7b11bb/src/runtime/src/libraries/System.Private.CoreLib/src/System/Environment.Unix.cs#L27).
+  cp /etc/passwd "${rootfs}"/etc/passwd
+
+  # Disable noisy help text for users who run .NET for the first time.
+  export DOTNET_NOLOGO=true
+  export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
+
+  # The .NET SDK creates config files in the users home directory.
+  export HOME=/root
+  mkdir -p "${rootfs}${HOME}"
+
+  # Set the user config to not use nuget.org, because sometimes dotnet restore is
+  # flaky and hangs indefinitely. Also, we do not need depenencies from the internet.
+  mkdir -p "${rootfs}${HOME}/.nuget/NuGet"
+  cp NuGet.Config "${rootfs}${HOME}/.nuget/NuGet/NuGet.Config"
+
+  # Create a C# Hello World .NET app from templates
+  # Using --no-restore flag, because dotnet new hangs indefinitely at restoring (related to: https://github.com/dotnet/core/issues/8057)
+  chroot "${rootfs}" /usr/bin/dotnet new console --output /app_helloworld --no-restore
+
+  # Build the C# Hello World .NET app
+  chroot "${rootfs}" /usr/bin/dotnet restore /app_helloworld/app_helloworld.csproj
+  chroot "${rootfs}" /usr/bin/dotnet build /app_helloworld/app_helloworld.csproj --configuration Release --no-restore
+  chroot "${rootfs}" /usr/bin/dotnet publish /app_helloworld/app_helloworld.csproj --no-restore --no-build
+  
+  # Run the C# Hello World .NET app
+  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net9.0/publish/app_helloworld.dll
