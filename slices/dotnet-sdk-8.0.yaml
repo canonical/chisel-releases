@@ -17,9 +17,9 @@ slices:
       /usr/lib/dotnet/metadata/workloads/8.0.100/userlocal:
       /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/8.0*/**:
       /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.*/8.0*/**:
-      /usr/lib/dotnet/sdk/8.0*/**:
       /usr/lib/dotnet/sdk-manifests/8.0.100/microsoft.net.sdk.aspire/8.0.0-preview.*/**:
       /usr/lib/dotnet/sdk-manifests/8.0.100/microsoft.net.workload.*/**:
+      /usr/lib/dotnet/sdk/8.0*/**:
 
   copyright:
     contents:
