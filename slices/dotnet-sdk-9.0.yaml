@@ -23,9 +23,9 @@ slices:
       /usr/lib/dotnet/metadata/workloads/9.0.100/userlocal:
       /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/9.0*/**:
       /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.*/9.0*/**:
-      /usr/lib/dotnet/sdk/9.0*/**:
       /usr/lib/dotnet/sdk-manifests/8.0.100/microsoft.net.sdk.aspire/8.2.2/**:
       /usr/lib/dotnet/sdk-manifests/9.0.100/microsoft.net.workload.*/**:
+      /usr/lib/dotnet/sdk/9.0*/**:
 
   copyright:
     contents:
