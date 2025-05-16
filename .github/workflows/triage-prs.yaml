@@ -1,0 +1,24 @@
+name: Triage PRs
+
+on:
+  pull_request_target:
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  add-reviewers:
+    if: github.repository_owner == 'canonical'
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
+          REVIEWERS: "slice-reviewers-guild"
+        run: |
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
+            -f "team_reviewers[]=${{ env.REVIEWERS }}"
+
+          # Cannot use `gh pr edit`:
+          # https://github.com/cli/cli/issues/4844
