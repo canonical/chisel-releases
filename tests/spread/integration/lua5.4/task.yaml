@@ -1,0 +1,6 @@
+summary: Integration tests for lua5.4
+
+execute: |
+  rootfs="$(install-slices lua5.4_bins)"
+
+  chroot "${rootfs}/" lua -e 'print("Hello, Lua!")'
