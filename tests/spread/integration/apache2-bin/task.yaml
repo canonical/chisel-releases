@@ -1,6 +1,9 @@
 summary: Integration tests for apache2-bin
 
 execute: |
+  apt update
+  apt install grep
+
   rootfs="$(install-slices apache2-bin_bins base-passwd_data)"
 
   chroot "${rootfs}/" apache2 -v
@@ -50,3 +53,66 @@ execute: |
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
   chroot "${rootfs}" apache2 -k stop
   umount -l "${rootfs}/dev"
+
+  python3 prepare_test_imports.py
+  for slice in $(ls cases/*.deps); do
+      slice_name=$(basename "$slice" .deps)
+      module_name=$(echo "${slice_name#mod-}" | tr '-' '_')
+      module_var=${module_name}_module
+      file_name=$(echo "$slice_name" | tr '-' '_').so
+      deps=$(grep -v '^[[:space:]]*$' "cases/$slice_name.deps" | tr '\n' ' ')
+      rootfs=$(install-slices apache2-bin_${slice_name} apache2-bin_bins \
+               base-passwd_data $deps)
+      cp cases/$slice_name.deps $rootfs/
+
+      mkdir -p "${rootfs}/dev" "${rootfs}/proc"
+      mount --rbind /dev "${rootfs}/dev"
+      mount -t proc proc "${rootfs}/proc"
+      mkdir -p "${rootfs}/etc/apache2"
+      mkdir -p "${rootfs}/etc/apache2/logs"
+      mkdir -p "${rootfs}/var/run/apache2"
+      mkdir -p "${rootfs}/var/lock/apache2"
+      mkdir -p "${rootfs}/var/log/apache2"
+      mkdir -p "${rootfs}/var/www/html"
+
+      chown www-data:www-data "${rootfs}/var/run/apache2"
+      chown www-data:www-data "${rootfs}/var/lock/apache2"
+      chown www-data:www-data "${rootfs}/var/log/apache2"
+      chown -R www-data:www-data "${rootfs}/var/www"
+
+      chmod 755 "${rootfs}/var/run/apache2"
+      chmod 755 "${rootfs}/var/lock/apache2"
+      chmod 755 "${rootfs}/var/log/apache2"
+      chmod -R 755 "${rootfs}/var/www"
+      chmod 755 "${rootfs}"
+
+      cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
+  DefaultRuntimeDir /var/run/apache2
+  ServerRoot "/etc/apache2"
+  ServerName localhost
+  Listen 8080
+  LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
+  LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
+  LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
+  LoadModule $module_var /usr/lib/apache2/modules/$file_name
+  ErrorLog /etc/apache2/logs/error.log
+  User www-data
+  Group www-data
+  DocumentRoot "/var/www/html"
+  <Directory "/var/www/html">
+      Options Indexes FollowSymLinks
+      AllowOverride None
+      Require all granted
+  </Directory>
+  EOF
+      echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
+      if chroot foo apache2 -f /etc/apache2/apache2.conf -M | grep -q "$module_var"; then
+        echo "[OK] $slice_name loaded"
+      else
+          echo "[FAIL] $slice_name not loaded"
+          break
+      fi
+      chroot "${rootfs}" apache2 -f /etc/apache2/apache2.conf -D FOREGROUND & APACHE_PID=$!
+      test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
+      chroot "${rootfs}" apache2 -k stop
+  done
