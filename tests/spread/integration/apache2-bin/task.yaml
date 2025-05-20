@@ -53,7 +53,7 @@ execute: |
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
   chroot "${rootfs}" apache2 -k stop
   umount -l "${rootfs}/dev"
-
+  ls
   python3 prepare_test_imports.py
   for slice in $(ls cases/*.deps); do
       slice_name=$(basename "$slice" .deps)
