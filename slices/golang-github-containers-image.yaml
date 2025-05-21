@@ -1,0 +1,15 @@
+package: golang-github-containers-image
+
+essential:
+  - golang-github-containers-image_copyright
+
+slices:
+  config:
+    essential:
+      - golang-github-containers-common_config
+    contents:
+      /etc/containers/registries.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-github-containers-image/copyright:

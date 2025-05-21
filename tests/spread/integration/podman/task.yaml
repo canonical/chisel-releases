@@ -1,0 +1,31 @@
+summary: Integration tests for openssl
+
+execute: |
+  rootfs="$(install-slices podman_bins conmon_bins runc_bins dash_bins busybox_bins containernetworking-plugins_bins util-linux_namespace golang-github-containers-image_config crun_bins base-files_base)"
+
+  pushd ${rootfs}
+  mkdir -p dev proc sys tmp
+  mount --bind /dev dev
+  mount --bind /proc proc
+  mount --bind /sys sys
+  mount --bind /tmp tmp
+  popd
+
+  echo "roofs=${rootfs}"
+
+  cp hello.tar ${rootfs}
+  false
+#   chroot "$rootfs" busybox --install
+#   chroot "$rootfs" podman --cgroup-manager=cgroupfs load -i hello.tar
+#   # chroot "$rootfs" podman --cgroup-manager=cgroupfs run hello:1
+#   # chroot "$rootfs" podman --cgroup-manager=cgroupfs run quay.io/podman/hello
+
+# fakechroot chroot "$rootfs" podman --log-level=debug --cgroup-manager=cgroupfs load -i hello.tar
+
+
+# podman run --network networkless --privileged --cgroup-manager=cgroupfs hello:1 hello
+# podman run --privileged --cgroup-manager=cgroupfs hello:1
+# podman run --privileged hello:1
+
+
+# unshare --root=${rootfs}
