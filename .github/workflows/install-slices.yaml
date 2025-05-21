@@ -105,8 +105,6 @@ jobs:
       matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
     env:
       install-all: ${{ needs.prepare-install.outputs.install-all }}
-      main-branch-ref: ${{ needs.prepare-install.outputs.checkout-main-ref }}
-      main-branch-path: files-from-main
     steps:
       - uses: actions/checkout@v4
         with:
@@ -133,16 +131,11 @@ jobs:
 
       - name: Setup Go environment
         uses: actions/setup-go@v5
-
-      - name: Checkout main branch
-        uses: actions/checkout@v4
         with:
-          ref: ${{ env.main-branch-ref }}
-          path: ${{ env.main-branch-path }}
+          go-version: '>=1.24'
+          check-latest: true
 
       - name: Install dependencies
-        env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/install-slices"
         run: |
           set -ex
 
@@ -156,7 +149,7 @@ jobs:
 
           # Install additional apt dependencies.
           sudo apt-get -y update
-          sudo apt-get install -y $(cat "${{ env.script-dir }}/deb-requirements.txt")
+          sudo apt-get install -y devscripts # for rmadison
 
       # TODO: As we are installing the slices for every (ref, arch), when
       #   installing all slices, we are also checking the existence of every
