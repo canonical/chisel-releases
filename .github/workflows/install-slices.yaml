@@ -6,13 +6,11 @@ on:
       - "main"
     paths:
       - ".github/scripts/install-slices/**"
-      - ".github/workflows/install-slices.yaml"
   pull_request:
     branches:
       - "main"
     paths:
       - ".github/scripts/install-slices/**"
-      - ".github/workflows/install-slices.yaml"
   schedule:
     # Run at 00:00 every day.
     # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
@@ -107,8 +105,6 @@ jobs:
       matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
     env:
       install-all: ${{ needs.prepare-install.outputs.install-all }}
-      main-branch-ref: ${{ needs.prepare-install.outputs.checkout-main-ref }}
-      main-branch-path: files-from-main
     steps:
       - uses: actions/checkout@v4
         with:
@@ -135,34 +131,25 @@ jobs:
 
       - name: Setup Go environment
         uses: actions/setup-go@v5
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-
-      - name: Checkout main branch
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ env.main-branch-ref }}
-          path: ${{ env.main-branch-path }}
+          go-version: '>=1.24'
+          check-latest: true
 
       - name: Install dependencies
-        env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/install-slices"
         run: |
           set -ex
 
           # Install chisel
           go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
 
-          # Install dependencies of the install_slices script
-          sudo apt-get -y update
-          sudo apt-get install -y $(cat "${{ env.script-dir }}/deb-requirements.txt")
-          pip install -r "${{ env.script-dir }}/requirements.txt"
+          # Install sdf (from rebornplusplus' chisel-tools).
+          # TODO we would like to move this to rocks-toolbox.
+          git clone "https://github.com/rebornplusplus/chisel-tools.git"
+          cd chisel-tools && go install ./...
 
-          # Configure the path of install_slices script
-          ln -s "${{ env.script-dir }}/install_slices.py" install-slices
+          # Install additional apt dependencies.
+          sudo apt-get -y update
+          sudo apt-get install -y devscripts # for rmadison
 
       # TODO: As we are installing the slices for every (ref, arch), when
       #   installing all slices, we are also checking the existence of every
@@ -172,6 +159,8 @@ jobs:
       #   future and propose improvements.
       #   See also https://github.com/canonical/chisel-releases/pull/119#discussion_r1494785644
       - name: Install slices
+        env:
+          WORKERS: 20
         run: |
           set -ex
           if [[
@@ -181,14 +170,18 @@ jobs:
             # Install all slices in slices/ dir.
             # We need to enable globstar to use the ** patterns below.
             shopt -s globstar
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+            sdf install --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --prune \
+              --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+            sdf install --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --prune \
+              --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
           fi
