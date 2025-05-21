@@ -160,7 +160,7 @@ jobs:
       #   See also https://github.com/canonical/chisel-releases/pull/119#discussion_r1494785644
       - name: Install slices
         env:
-          WORKERS: 30
+          WORKERS: 20
         run: |
           set -ex
           if [[
