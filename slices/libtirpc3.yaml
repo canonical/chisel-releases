@@ -1,0 +1,17 @@
+package: libtirpc3
+
+essential:
+  - libtirpc3_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgssapi-krb5-2_libs
+      - libtirpc-common_config
+    contents:
+      /lib/*-linux-*/libtirpc.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtirpc3/copyright:

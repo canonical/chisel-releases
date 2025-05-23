@@ -1,0 +1,82 @@
+package: iproute2
+
+essential:
+  - iproute2_copyright
+
+slices:
+  # iproute2 is a utility package which typically could be split into
+  # utility-specific slices. The `bins` slice however brings in all the
+  # utilities for cases where iproute2 is used as a dependency for another
+  # package (eg. nginx), where we can't easily know which utilities are
+  # actually going to be needed.
+  bins:
+    # Leaving the debconf dependency out as we don't currently need pkg mgmt.
+    # Also, debconf is used by the pkg's maintainer scripts, which are handled
+    # differently in Chisel.
+    essential:
+      - iproute2_config
+      - iproute2_libs
+      - libcap2-bin_bins
+    contents:
+      /bin/ip:
+      /bin/ss:
+      /sbin/bridge:
+      /sbin/dcb:
+      /sbin/devlink:
+      /sbin/ip:
+      /sbin/rtacct:
+      /sbin/rtmon:
+      # "tc" is an obvious candidate for getting its own "traffic-control"
+      # slice in the future, if needed.
+      /sbin/tc:
+      /sbin/tipc:
+      /sbin/vdpa:
+      /usr/bin/ctstat:
+      /usr/bin/lnstat:
+      /usr/bin/nstat:
+      /usr/bin/rdma:
+      /usr/bin/routel:
+      /usr/bin/rtstat:
+      /usr/sbin/arpd:
+      /usr/sbin/genl:
+
+  config:
+    # Corresponds to the pkg's conffiles
+    contents:
+      /etc/iproute2/bpf_pinning:
+      /etc/iproute2/ematch_map:
+      /etc/iproute2/group:
+      /etc/iproute2/nl_protos:
+      /etc/iproute2/rt_dsfield:
+      /etc/iproute2/rt_protos:
+      /etc/iproute2/rt_protos.d/:
+      /etc/iproute2/rt_realms:
+      /etc/iproute2/rt_scopes:
+      /etc/iproute2/rt_tables:
+      /etc/iproute2/rt_tables.d/:
+
+  libs:
+    essential:
+      - libbpf1_libs
+      - libbsd0_libs
+      - libc6_libs
+      - libcap2_libs
+      - libdb5.3_libs
+      - libelf1_libs
+      - libmnl0_libs
+      - libselinux1_libs
+      - libtirpc3_libs
+      - libxtables12_libs
+    contents:
+      /usr/include/iproute2/bpf_elf.h:
+      /usr/lib/*-linux-*/tc/experimental.dist:
+      /usr/lib/*-linux-*/tc/m_ipt.so:
+      /usr/lib/*-linux-*/tc/m_xt.so:
+      /usr/lib/*-linux-*/tc/normal.dist:
+      /usr/lib/*-linux-*/tc/pareto.dist:
+      /usr/lib/*-linux-*/tc/paretonormal.dist:
+      /usr/lib/*-linux-*/tc/q_atm.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/iproute2/copyright:

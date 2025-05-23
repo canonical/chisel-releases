@@ -1,0 +1,28 @@
+summary: Integration tests for squashfs-tools
+
+execute: |
+  rootfs="$(install-slices squashfs-tools_bins)"
+
+  # create a test folder to squash
+  mkdir -p "${rootfs}/test/dir1"
+  mkdir -p "${rootfs}/test/dir2"
+
+  echo "test file with some content" > "${rootfs}/test/dir1/text"
+  echo "second test file with some content" > "${rootfs}/test/dir2/second"
+
+  # squash it
+  chroot "${rootfs}" mksquashfs /test test.sq
+
+  # test sqfscat
+  chroot "${rootfs}" sqfscat test.sq dir1/text | grep "test file"
+
+  # unsquash it again
+  chroot "${rootfs}" unsquashfs test.sq
+
+  # compare files inside
+  cmp "${rootfs}/test/dir1/text" "${rootfs}/squashfs-root/dir1/text"
+  cmp "${rootfs}/test/dir2/second" "${rootfs}/squashfs-root/dir2/second"
+
+  # test sqfstar
+  tar -cvf test.tar "${rootfs}"/test
+  chroot "${rootfs}" sqfstar test2.squashfs < test.tar

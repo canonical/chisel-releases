@@ -1,0 +1,19 @@
+package: ubuntu-keyring
+
+essential:
+  - ubuntu-keyring_copyright
+
+slices:
+  keys:
+    contents:
+      /etc/apt/trusted.gpg.d/ubuntu-keyring-2012-cdimage.gpg:
+      /etc/apt/trusted.gpg.d/ubuntu-keyring-2018-archive.gpg:
+      /usr/share/keyrings/ubuntu-archive-keyring.gpg:
+      /usr/share/keyrings/ubuntu-archive-removed-keys.gpg:
+      /usr/share/keyrings/ubuntu-cloudimage-keyring.gpg:
+      /usr/share/keyrings/ubuntu-cloudimage-removed-keys.gpg:
+      /usr/share/keyrings/ubuntu-master-keyring.gpg:
+
+  copyright:
+    contents:
+      /usr/share/doc/ubuntu-keyring/copyright:
