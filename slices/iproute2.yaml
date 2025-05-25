@@ -65,7 +65,7 @@ slices:
       - libelf1t64_libs
       - libmnl0_libs
       - libselinux1_libs
-      - libtirpc3_libs
+      - libtirpc3t64_libs
       - libxtables12_libs
     contents:
       /usr/include/iproute2/bpf_elf.h:
