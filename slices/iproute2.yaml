@@ -61,8 +61,8 @@ slices:
       - libbsd0_libs
       - libc6_libs
       - libcap2_libs
-      - libdb5.3_libs
-      - libelf1_libs
+      - libdb5.3t64_libs
+      - libelf1t64_libs
       - libmnl0_libs
       - libselinux1_libs
       - libtirpc3_libs

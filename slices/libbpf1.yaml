@@ -7,7 +7,7 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libelf1_libs
+      - libelf1t64_libs
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libbpf.so.1*:
