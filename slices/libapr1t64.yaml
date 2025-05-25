@@ -1,7 +1,7 @@
-package: libapr1
+package: libapr1t64
 
 essential:
-  - libapr1_copyright
+  - libapr1t64_copyright
 
 slices:
   libs:
@@ -13,4 +13,4 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/libapr1/copyright:
+      /usr/share/doc/libapr1t64/copyright:
