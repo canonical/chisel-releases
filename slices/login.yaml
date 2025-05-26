@@ -14,8 +14,6 @@ slices:
       - libpam0g_libs
       - login_config
     contents:
-      /usr/bin/faillog:
-      /usr/bin/lastlog:
       /usr/bin/login:
       /usr/bin/newgrp:
       /usr/bin/sg:
@@ -23,7 +21,6 @@ slices:
 
   config:
     contents:
-      /etc/login.defs:
       /etc/pam.d/login:
 
   copyright:
