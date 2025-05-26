@@ -3,6 +3,8 @@ package: iproute2
 essential:
   - iproute2_copyright
 
+
+
 slices:
   # iproute2 is a utility package which typically could be split into
   # utility-specific slices. The `bins` slice however brings in all the
@@ -18,42 +20,42 @@ slices:
       - iproute2_libs
       - libcap2-bin_bins
     contents:
-      /bin/ip:
-      /bin/ss:
-      /sbin/bridge:
-      /sbin/dcb:
-      /sbin/devlink:
-      /sbin/ip:
-      /sbin/rtacct:
-      /sbin/rtmon:
-      # "tc" is an obvious candidate for getting its own "traffic-control"
-      # slice in the future, if needed.
-      /sbin/tc:
-      /sbin/tipc:
-      /sbin/vdpa:
       /usr/bin/ctstat:
+      /usr/bin/ip:
       /usr/bin/lnstat:
       /usr/bin/nstat:
       /usr/bin/rdma:
       /usr/bin/routel:
       /usr/bin/rtstat:
+      /usr/bin/ss:
       /usr/sbin/arpd:
+      /usr/sbin/bridge:
+      /usr/sbin/dcb:
+      /usr/sbin/devlink:
       /usr/sbin/genl:
+      /usr/sbin/ip:
+      /usr/sbin/rtacct:
+      /usr/sbin/rtmon:
+      # "tc" is an obvious candidate for getting its own "traffic-control"
+      # slice in the future, if needed.
+      /usr/sbin/tc:
+      /usr/sbin/tipc:
+      /usr/sbin/vdpa:
 
   config:
     # Corresponds to the pkg's conffiles
     contents:
-      /etc/iproute2/bpf_pinning:
-      /etc/iproute2/ematch_map:
-      /etc/iproute2/group:
-      /etc/iproute2/nl_protos:
-      /etc/iproute2/rt_dsfield:
-      /etc/iproute2/rt_protos:
-      /etc/iproute2/rt_protos.d/:
-      /etc/iproute2/rt_realms:
-      /etc/iproute2/rt_scopes:
-      /etc/iproute2/rt_tables:
-      /etc/iproute2/rt_tables.d/:
+      /usr/share/iproute2/bpf_pinning:
+      /usr/share/iproute2/ematch_map:
+      /usr/share/iproute2/group:
+      /usr/share/iproute2/nl_protos:
+      /usr/share/iproute2/rt_dsfield:
+      /usr/share/iproute2/rt_protos:
+      /usr/share/iproute2/rt_protos.d/:
+      /usr/share/iproute2/rt_realms:
+      /usr/share/iproute2/rt_scopes:
+      /usr/share/iproute2/rt_tables:
+      /usr/share/iproute2/rt_tables.d/:
 
   libs:
     essential:
