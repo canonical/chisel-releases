@@ -17,7 +17,7 @@ slices:
     # differently in Chisel.
     essential:
       - iproute2_config
-      - iproute2_libs
+      - iproute2_dist
       - libcap2-bin_bins
     contents:
       /usr/bin/ctstat:
@@ -28,6 +28,7 @@ slices:
       /usr/bin/routel:
       /usr/bin/rtstat:
       /usr/bin/ss:
+      /usr/include/iproute2/bpf_elf.h:
       /usr/sbin/arpd:
       /usr/sbin/bridge:
       /usr/sbin/dcb:
@@ -51,33 +52,16 @@ slices:
       /usr/share/iproute2/nl_protos:
       /usr/share/iproute2/rt_dsfield:
       /usr/share/iproute2/rt_protos:
-      /usr/share/iproute2/rt_protos.d/:
       /usr/share/iproute2/rt_realms:
       /usr/share/iproute2/rt_scopes:
       /usr/share/iproute2/rt_tables:
-      /usr/share/iproute2/rt_tables.d/:
 
-  libs:
-    essential:
-      - libbpf1_libs
-      - libbsd0_libs
-      - libc6_libs
-      - libcap2_libs
-      - libdb5.3t64_libs
-      - libelf1t64_libs
-      - libmnl0_libs
-      - libselinux1_libs
-      - libtirpc3t64_libs
-      - libxtables12_libs
+  dist:
     contents:
-      /usr/include/iproute2/bpf_elf.h:
       /usr/lib/*-linux-*/tc/experimental.dist:
-      /usr/lib/*-linux-*/tc/m_ipt.so:
-      /usr/lib/*-linux-*/tc/m_xt.so:
       /usr/lib/*-linux-*/tc/normal.dist:
       /usr/lib/*-linux-*/tc/pareto.dist:
       /usr/lib/*-linux-*/tc/paretonormal.dist:
-      /usr/lib/*-linux-*/tc/q_atm.so:
 
   copyright:
     contents:
