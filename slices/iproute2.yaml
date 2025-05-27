@@ -3,8 +3,6 @@ package: iproute2
 essential:
   - iproute2_copyright
 
-
-
 slices:
   # iproute2 is a utility package which typically could be split into
   # utility-specific slices. The `bins` slice however brings in all the
