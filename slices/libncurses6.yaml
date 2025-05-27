@@ -9,9 +9,9 @@ slices:
       - libc6_libs
       - libtinfo6_libs
     contents:
-      /usr/lib/*-linux-*/libncurses.so.6*:
       /usr/lib/*-linux-*/libform.so.6*:
       /usr/lib/*-linux-*/libmenu.so.6*:
+      /usr/lib/*-linux-*/libncurses.so.6*:
       /usr/lib/*-linux-*/libpanel.so.6*:
 
   copyright:
