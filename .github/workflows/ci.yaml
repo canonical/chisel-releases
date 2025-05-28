@@ -26,4 +26,4 @@ jobs:
 
   removed-slices:
     name: Removed slices
-    uses: rebornplusplus/chisel-releases/.github/workflows/removed-slices.yaml@main
+    uses: canonical/chisel-releases/.github/workflows/removed-slices.yaml@main
