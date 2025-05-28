@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# This script takes in a git ref and checks if any slices present in the former
+# ref (commit, branch etc) were removed. Must be run in the chisel-releases
+# root directory. It exits with an error (1) if removals found.
+#
+# Note: there may be errors if the current git status is dirty, since this
+#       script does "git checkout" to the old ref and back.
+#
+# Deps: yq (https://github.com/mikefarah/yq).
+
+set -eu
+
+if (( $# != 1 )); then
+  echo -e "Usage:\n\t$(basename "$0") <old-git-ref>"
+  exit 1
+fi
+
+export LC_COLLATE="C"
+oldref="$1"
+curref="$(git rev-parse --short HEAD)"
+
+# Revert to the current git ref on exit.
+revert() {
+  git checkout -q "$curref"
+}
+trap revert EXIT
+
+# Lists all the slices in the 'slices/' directory.
+list() {
+  local pkg f
+  echo "Checking slices in $(git rev-parse --short HEAD)..." >&2
+  # Iterate over the files in a sorted order to produce deterministic order.
+  for f in $(find "slices/" -name "*.yaml" | sort); do
+    pkg="$(yq '.package' "$f")"
+    # Get the slice names from the file, prefix with package name and an
+    # underscore and finally, sort.
+    yq '.slices | keys | .[]' "$f"    \
+      | sed "s/^/$pkg\_/"             \
+      | sort
+  done
+}
+
+# List of slices in current ref, in a file.
+cur="$(list)"
+
+# List of slices in old ref, in a file.
+git checkout -q "$oldref"
+old="$(list)"
+
+# Check which slices are removed.
+# The following 'diff' syntax only reports the deletions from the 'old' file.
+echo "The following slices from $oldref have been removed:"
+diff --changed-group-format='%<' --unchanged-group-format='' \
+  <(echo "$old") <(echo "$cur")                              \
+  && echo "None"
