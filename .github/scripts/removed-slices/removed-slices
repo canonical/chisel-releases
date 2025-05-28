@@ -20,6 +20,11 @@ export LC_COLLATE="C"
 oldref="$1"
 curref="$(git rev-parse --short HEAD)"
 
+if ! git diff-index --quiet HEAD; then
+  echo "error: there are uncommitted changes"
+  exit 1
+fi
+
 # Revert to the current git ref on exit.
 revert() {
   git checkout -q "$curref"
