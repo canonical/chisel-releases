@@ -24,6 +24,7 @@ slices:
       # slices/dependencies
       # - erlang-base_bins
       # - erlang-inets_scripts
+      - erlang-inets_modules
       # - erlang-os-mon_bins
       - grep_bins
       - libc-bin_locale
@@ -33,7 +34,7 @@ slices:
       - netbase_default-hosts
       - netbase_default-networks
       - passwd_bins
-      - python3.12_standard
+      - python3.13_standard
       - rabbitmq-server_config
       - rabbitmq-server_modules
       - sed_bins
@@ -48,18 +49,18 @@ slices:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/sbin/vmware-rabbitmq:
       # TODO: the files below are hardlinks
       # To be fixed when hardlinks are supported
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-plugins:
-        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-queues:
-        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-streams:
-        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-upgrade:
-        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmqctl:
-        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
-      /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/vmware-rabbitmq:
-        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-3.12.1/escript/rabbitmq-diagnostics
+      /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-plugins:
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-diagnostics
+      /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-queues:
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-diagnostics
+      /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-streams:
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-diagnostics
+      /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-upgrade:
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-diagnostics
+      /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmqctl:
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-diagnostics
+      /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/vmware-rabbitmq:
+        copy: /usr/lib/rabbitmq/lib/rabbitmq_server-4.0.5/escript/rabbitmq-diagnostics
       /usr/sbin/rabbitmq*:
       /var/lib/rabbitmq/:
       # The following is a cookie file necessary for rabbitmq-server to work
