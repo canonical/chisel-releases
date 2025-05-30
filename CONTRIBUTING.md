@@ -93,6 +93,8 @@ all checks are green,
 - do not force push once you already have review comments,
 - when needed, update your PR by merging the latest changes from the target
 branch,
+- be holistic! I.e. you should avoid proposing multiple
+uncorrelated slice definitions in the same PR,
 - you can close a review comment if you applied the proposed change. Otherwise,
 or when in doubt, you should simply reply and let the reviewers resolve it.
 
