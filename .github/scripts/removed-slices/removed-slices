@@ -22,15 +22,19 @@ fi
 export LC_COLLATE="C"
 oldref="$1"
 curref="$(git rev-parse --short HEAD)"
+exitcode=0
 
 # Check for deleted or renamed slice definition files and error out early.
-del="$(git diff --name-only --diff-filter=DR "$oldref" "$curref" -- slices/)"
-if [ -n "$del" ]; then
+deleted_files=()
+while IFS= read -r f; do
+  deleted_files+=( "$f" )
+done < <(git diff --name-only --diff-filter=DR "$oldref" "$curref" -- slices/)
+if (( ${#deleted_files[@]} )); then
   echo "The following slice definition files have been deleted or renamed:"
-  while IFS= read -r f; do
+  for f in "${deleted_files[@]}"; do
     echo "- $f"
-  done <<< "$del"
-  exit 1
+  done
+  exitcode=1
 fi
 
 # Determine the list of files that have been modified between the two refs.
@@ -51,16 +55,17 @@ list() {
       echo "error: file $f not found in $ref" >&2
       exit 1
     fi
-    # Get the slice names from the file, prefix with "- <pkg>_" (dash, space,
-    # package name and an underscore) and sort.
+    # Get the slice names from the file, prefix with "<pkg>_"
+    # (package name and an underscore) and sort.
     pkg="$(yq '.package' "$f")"
-    yq '.slices | keys | .[]' "$f"    \
-      | sed "s/^/- $pkg\_/"           \
-      | sort
+    yq '.slices | keys | .[]' "$f"  |
+      sed "s/^/$pkg\_/"             |
+      sort
   done
 }
 
 # Revert to the current git ref on exit.
+# shellcheck disable=SC2317  # Don't warn about unreachable commands.
 revert() {
   git checkout -q "$curref"
 }
@@ -75,7 +80,19 @@ old="$(list)"
 
 # Check which slices are removed.
 # The following diff command only reports the deletions from the [old] value.
-echo "The following slices have been removed:"
-diff --changed-group-format='%<' --unchanged-group-format='' \
-  <(echo "$old") <(echo "$cur")                              \
-  && echo "None"
+removed_slices=()
+while IFS= read -r f; do
+  removed_slices+=( "$f" )
+done < <(
+  diff --changed-group-format='%<' --unchanged-group-format='' \
+    <(echo "$old") <(echo "$cur")
+)
+if (( "${#removed_slices[@]}" )); then
+  echo "The following slices have been removed:"
+  for s in "${removed_slices[@]}"; do
+    echo "- $s"
+  done
+  exitcode=1
+fi
+
+exit "$exitcode"
