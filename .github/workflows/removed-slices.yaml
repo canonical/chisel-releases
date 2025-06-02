@@ -38,8 +38,10 @@ jobs:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
 
+      - uses: actions/setup-go@v5
+
       - name: "Install yq"
-        uses: mikefarah/yq@v4.45.4
+        run: go install github.com/mikefarah/yq/v4@latest
 
       - name: "Check for removed slices"
         run: |
