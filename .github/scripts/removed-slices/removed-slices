@@ -24,7 +24,7 @@ oldref="$1"
 curref="$(git rev-parse --short HEAD)"
 exitcode=0
 
-# Check for deleted or renamed slice definition files and error out early.
+# Check for deleted or renamed slice definition files.
 deleted_files=()
 while IFS= read -r f; do
   deleted_files+=( "$f" )
