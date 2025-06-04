@@ -1,0 +1,28 @@
+package: login
+
+essential:
+  - login_copyright
+
+slices:
+  bins:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libpam-modules_libs
+      - libpam-runtime_config
+      - libpam0g_libs
+      - login_config
+    contents:
+      /usr/bin/login:
+      /usr/bin/newgrp:
+      /usr/bin/sg:
+      /usr/sbin/nologin:
+
+  config:
+    contents:
+      /etc/pam.d/login:
+
+  copyright:
+    contents:
+      /usr/share/doc/login/copyright:

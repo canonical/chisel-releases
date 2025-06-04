@@ -1,0 +1,15 @@
+package: tzdata-icu
+
+essential:
+  - tzdata-icu_copyright
+
+slices:
+  # Specific for applications that use the ICU library.
+  zoneinfo-icu:
+    contents:
+      /usr/share/zoneinfo-icu/44/be/*:
+      /usr/share/zoneinfo-icu/44/le/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/tzdata-icu/copyright:
