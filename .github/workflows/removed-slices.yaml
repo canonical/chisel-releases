@@ -41,7 +41,8 @@ jobs:
       - name: "Check for removed slices"
         run: |
           ln -s "${{ env.files_main }}/.github/scripts/removed-slices/removed-slices" .
-          # For pull request events, use github.base_ref as the old git ref.
+          # For pull request events, use github.event.pull_request.base.sha as
+          # the old git ref.
           # For push events, the github.event.before value contains the SHA of
           # the most recent commit on ref before the push.
-          ./removed-slices "${{ github.base_ref || github.event.before }}"
+          ./removed-slices "${{ github.event.pull_request.base.sha || github.event.before }}"
