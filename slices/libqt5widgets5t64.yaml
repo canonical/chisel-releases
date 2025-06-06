@@ -11,6 +11,7 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libqt5core5t64_libs
+      - libqt5gui5t64_libs
       - libstdc++6_libs
 
   copyright:

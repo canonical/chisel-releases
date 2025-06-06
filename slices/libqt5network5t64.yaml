@@ -7,18 +7,21 @@ slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5Network.so*:
-      /usr/lib/*-linux-*/qt5/plugins/bearer/libqconnmanbearer.so*:
-      /usr/lib/*-linux-*/qt5/plugins/bearer/libqgenericbearer.so*:
-      /usr/lib/*-linux-*/qt5/plugins/bearer/libqnmbearer.so*:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
       - libglib2.0-0t64_libs
       - libgssapi-krb5-2_libs
       - libqt5core5t64_libs
       - libqt5dbus5t64_libs
+      - libqt5network5t64_plugins
       - libstdc++6_libs
       - zlib1g_libs
+
+  plugins:
+    contents:
+      /usr/lib/*-linux-*/qt5/plugins/bearer/libqconnmanbearer.so*:
+      /usr/lib/*-linux-*/qt5/plugins/bearer/libqgenericbearer.so*:
+      /usr/lib/*-linux-*/qt5/plugins/bearer/libqnmbearer.so*:
 
   copyright:
     contents:

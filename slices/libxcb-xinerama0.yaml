@@ -1,0 +1,16 @@
+package: libxcb-xinerama0
+
+essential:
+  - libxcb-xinerama0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxcb-xinerama.so.0*:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-xinerama0/copyright:

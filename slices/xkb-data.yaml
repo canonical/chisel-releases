@@ -1,0 +1,13 @@
+package: xkb-data
+
+essential:
+  - xkb-data_copyright
+
+slices:
+  resources:
+    contents:
+      /usr/share/X11/xkb/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/xkb-data/copyright:

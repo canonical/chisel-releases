@@ -7,15 +7,19 @@ slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libQt5PrintSupport.so*:
-      /usr/lib/*-linux-*/qt5/plugins/printsupport/libcupsprintersupport.so*:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
+      - libcups2t64_libs
       - libglib2.0-0t64_libs
       - libqt5core5t64_libs
       - libqt5dbus5t64_libs
+      - libqt5printsupport5t64_plugins
       - libstdc++6_libs
       - zlib1g_libs
+
+  plugins:
+    contents:
+      /usr/lib/*-linux-*/qt5/plugins/printsupport/libcupsprintersupport.so*:
 
   copyright:
     contents:

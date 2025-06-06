@@ -1,0 +1,16 @@
+package: libavahi-common3
+
+essential:
+  - libavahi-common3_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libavahi-common.so.3*:
+    essential:
+      - libavahi-common-data_resources
+      - libc6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libavahi-common3/copyright:

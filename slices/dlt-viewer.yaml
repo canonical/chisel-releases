@@ -11,7 +11,6 @@ slices:
     essential:
       - dlt-viewer_libs
       - dlt-viewer_plugins
-      - qtcreator_bins
 
   data:
     contents:
@@ -20,6 +19,7 @@ slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libqdlt.so*:
+      /usr/lib/*-linux-*/dlt-viewer/plugins/**:
     essential:
       - libc6_libs
       - libgcc-s1_libs
@@ -29,12 +29,7 @@ slices:
       - libqt5printsupport5t64_libs
       - libqt5serialport5_libs
       - libqt5widgets5t64_libs
-      - libstdc++6_libs
-      - qtcreator_libs
-
-  plugins:
-    contents:
-      /usr/lib/*-linux-*/dlt-viewer/plugins/**:
+      - libstdc++6_libs  
 
   copyright:
     contents:

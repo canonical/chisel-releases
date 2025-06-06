@@ -1,0 +1,16 @@
+package: libxcb-keysyms1
+
+essential:
+  - libxcb-keysyms1_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxcb-keysyms.so.1*:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-keysyms1/copyright:

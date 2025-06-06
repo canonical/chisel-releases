@@ -6,43 +6,62 @@ essential:
 slices:
   libs:
     contents:
-      /usr/lib/*-linux-*/libQt5EglFS*.so*:
+      /usr/lib/*-linux-*/libQt5EglFs*.so*:
       /usr/lib/*-linux-*/libQt5Gui.so*:
       /usr/lib/*-linux-*/libQt5XcbQpa.so*:
+    essential:
+      - fontconfig_bins
+      - libc6_libs
+      - libdrm2_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libgbm1_libs
+      - libgcc-s1_libs
+      - libgl1_libs # TODO: mark as not needed for armhf
+      - libglib2.0-0t64_libs
+      - libharfbuzz0b_libs
+      - libice6_libs
+      - libjpeg8_libs
+      - libmd4c0_libs
+      - libmtdev1t64_libs
+      - libpng16-16t64_libs
+      - libqt5core5t64_libs
+      - libqt5dbus5t64_libs
+      - libqt5gui5t64_plugins
+      - libqt5network5t64_libs
+      - libsm6_libs
+      - libstdc++6_libs
+      - libudev1_libs
+      - libx11-6_libs
+      - libx11-xcb1_libs
+      - libxcb-glx0_libs # TODO: mark as not needed for armhf
+      - libxcb-icccm4_libs
+      - libxcb-image0_libs
+      - libxcb-keysyms1_libs
+      - libxcb-randr0_libs
+      - libxcb-render0_libs
+      - libxcb-render-util0_libs
+      - libxcb-shape0_libs
+      - libxcb-shm0_libs
+      - libxcb-sync1_libs
+      - libxcb-xfixes0_libs
+      - libxcb-xinerama0_libs
+      - libxcb-xinput0_libs
+      - libxcb-xkb1_libs
+      - libxcb1_libs
+      - libxkbcommon-x11-0_libs
+      - libxkbcommon0_libs
+      - libxrender1_libs
+      - zlib1g_libs
+
+  plugins:
+    contents:
       /usr/lib/*-linux-*/qt5/plugins/egldeviceintegrations/libqeglfs*.so*:
       /usr/lib/*-linux-*/qt5/plugins/generic/**:
       /usr/lib/*-linux-*/qt5/plugins/imageformats/**:
       /usr/lib/*-linux-*/qt5/plugins/platforminputcontexts/**:
       /usr/lib/*-linux-*/qt5/plugins/platforms/libq*.so*:
       /usr/lib/*-linux-*/qt5/plugins/xcbglintegrations/libqxcb-*-integration.so*:
-    essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libfontconfig1_libs
-      - libgbm1_libs
-      - libgcc-s1_libs
-      - libgl1_libs
-      - libglib2.0-0t64_libs
-      - libharfbuzz0b_libs
-      - libmd4c0_libs
-      - libpng16-16t64_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5network5t64_libs
-      - libstdc++6_libs
-      - libudev1_libs
-      - libx11-6_libs
-      - libx11-xcb1_libs
-      - libxcb-glx0_libs
-      - libxcb-randr0_libs
-      - libxcb-render0_libs
-      - libxcb-shape0_libs
-      - libxcb-shm0_libs
-      - libxcb-sync1_libs
-      - libxcb-xfixes0_libs
-      - libxcb1_libs
-      - libxrender1_libs
-      - zlib1g_libs
 
   copyright:
     contents:

@@ -9,7 +9,6 @@ slices:
       /usr/lib/*-linux-*/libQt5SerialPort.so*:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
       - libqt5core5t64_libs
       - libstdc++6_libs
       - libudev1_libs

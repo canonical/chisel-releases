@@ -4,12 +4,12 @@ essential:
   - libmd4c0_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libmd4c0/copyright:
-
   libs:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libmd4c.so.0*:
+  
+  copyright:
+    contents:
+      /usr/share/doc/libmd4c0/copyright:
