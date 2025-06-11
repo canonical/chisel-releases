@@ -34,6 +34,7 @@ slices:
       /usr/bin/localectl:
       /usr/bin/loginctl:
       /usr/bin/networkctl:
+      /usr/bin/run0:
       /usr/bin/systemctl:
       /usr/bin/systemd-ac-power:
       /usr/bin/systemd-analyze:
@@ -61,18 +62,15 @@ slices:
       /usr/bin/systemd-tmpfiles:
       /usr/bin/systemd-tty-ask-password-agent:
       /usr/bin/systemd-umount:
+      /usr/bin/systemd-vpick:
       /usr/bin/timedatectl:
       /usr/bin/varlinkctl:
-      /usr/bin/run0:
-      /usr/bin/systemd-vpick:
       /usr/lib/lsb/init-functions.d/40-systemd:
-      /usr/lib/systemd/systemd:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
       /usr/lib/systemd/systemd-binfmt:
       /usr/lib/systemd/systemd-boot-check-no-failures:
       /usr/lib/systemd/systemd-bsod:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/systemd-cgroups-agent:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-fsck:
@@ -88,8 +86,8 @@ slices:
       /usr/lib/systemd/systemd-measure: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/systemd-modules-load:
       /usr/lib/systemd/systemd-network-generator:
-      /usr/lib/systemd/systemd-networkd:
       /usr/lib/systemd/systemd-networkd-wait-online:
+      /usr/lib/systemd/systemd-networkd:
       /usr/lib/systemd/systemd-pcrextend: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/systemd-pcrlock: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/systemd-pstore:
@@ -101,6 +99,7 @@ slices:
       /usr/lib/systemd/systemd-shutdown:
       /usr/lib/systemd/systemd-sleep:
       /usr/lib/systemd/systemd-socket-proxyd:
+      /usr/lib/systemd/systemd-ssh-proxy:
       /usr/lib/systemd/systemd-storagetm:
       /usr/lib/systemd/systemd-sulogin-shell:
       /usr/lib/systemd/systemd-sysctl:
@@ -113,6 +112,8 @@ slices:
       /usr/lib/systemd/systemd-user-sessions:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
+      /usr/lib/systemd/systemd: 
+        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
 
   catalog:
     contents:
