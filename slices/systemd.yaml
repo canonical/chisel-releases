@@ -66,6 +66,7 @@ slices:
       /usr/bin/timedatectl:
       /usr/bin/varlinkctl:
       /usr/lib/lsb/init-functions.d/40-systemd:
+      /usr/lib/systemd/systemd:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
       /usr/lib/systemd/systemd-binfmt:
@@ -87,9 +88,9 @@ slices:
       /usr/lib/systemd/systemd-measure:
         arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-modules-load:
-      /usr/lib/systemd/systemd-network-generator:
-      /usr/lib/systemd/systemd-networkd-wait-online:
       /usr/lib/systemd/systemd-networkd:
+      /usr/lib/systemd/systemd-networkd-wait-online:
+      /usr/lib/systemd/systemd-network-generator:
       /usr/lib/systemd/systemd-pcrextend:
         arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-pcrlock:
@@ -117,7 +118,7 @@ slices:
       /usr/lib/systemd/systemd-user-sessions:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
-      /usr/lib/systemd/systemd:
+      
 
   catalog:
     contents:
