@@ -112,7 +112,7 @@ slices:
       /usr/lib/systemd/systemd-user-sessions:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
-      /usr/lib/systemd/systemd: 
+      /usr/lib/systemd/systemd:
         arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
 
   catalog:
