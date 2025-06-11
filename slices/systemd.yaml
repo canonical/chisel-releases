@@ -70,7 +70,8 @@ slices:
       /usr/lib/systemd/systemd-battery-check:
       /usr/lib/systemd/systemd-binfmt:
       /usr/lib/systemd/systemd-boot-check-no-failures:
-      /usr/lib/systemd/systemd-bsod: {arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]}
+      /usr/lib/systemd/systemd-bsod:
+        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/systemd-cgroups-agent:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-fsck:
@@ -83,13 +84,16 @@ slices:
       /usr/lib/systemd/systemd-localed:
       /usr/lib/systemd/systemd-logind:
       /usr/lib/systemd/systemd-makefs:
-      /usr/lib/systemd/systemd-measure: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/systemd-measure:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-modules-load:
       /usr/lib/systemd/systemd-network-generator:
       /usr/lib/systemd/systemd-networkd-wait-online:
       /usr/lib/systemd/systemd-networkd:
-      /usr/lib/systemd/systemd-pcrextend: {arch: [amd64, arm64, riscv64]}
-      /usr/lib/systemd/systemd-pcrlock: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/systemd-pcrextend:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/systemd-pcrlock:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-pstore:
       /usr/lib/systemd/systemd-quotacheck:
       /usr/lib/systemd/systemd-random-seed:
@@ -106,7 +110,8 @@ slices:
       /usr/lib/systemd/systemd-sysroot-fstab-check:
       /usr/lib/systemd/systemd-sysv-install:
       /usr/lib/systemd/systemd-timedated:
-      /usr/lib/systemd/systemd-tpm2-setup: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/systemd-tpm2-setup:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-update-done:
       /usr/lib/systemd/systemd-user-runtime-dir:
       /usr/lib/systemd/systemd-user-sessions:
@@ -235,8 +240,10 @@ slices:
       /usr/lib/systemd/system/initrd-usr-fs.target:
       /usr/lib/systemd/system/initrd.target:
       /usr/lib/systemd/system/initrd.target.wants/systemd-battery-check.service:
-      /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service: {arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]}
-      /usr/lib/systemd/system/initrd.target.wants/systemd-pcrphase-initrd.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service:
+        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
+      /usr/lib/systemd/system/initrd.target.wants/systemd-pcrphase-initrd.service:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/system/kexec.target:
       /usr/lib/systemd/system/kmod-static-nodes.service:
       /usr/lib/systemd/system/kmod.service:
@@ -293,8 +300,10 @@ slices:
       /usr/lib/systemd/system/sockets.target.wants/systemd-initctl.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journald.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket: {arch: [amd64, arm64, riscv64]}
-      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrlock.socket: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrlock.socket:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/system/sockets.target.wants/systemd-sysext.socket:
       /usr/lib/systemd/system/soft-reboot.target:
       /usr/lib/systemd/system/sound.target:
@@ -325,17 +334,22 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-journald.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-modules-load.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service: {arch: [amd64, arm64, riscv64]}
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase-sysinit.service: {arch: [amd64, arm64, riscv64]}
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase-sysinit.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup-early.service: {arch: [amd64, arm64, riscv64]}
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup-early.service:
+        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup.service:
+        arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
       /usr/lib/systemd/system/syslog.socket:
       /usr/lib/systemd/system/system-update-cleanup.service:
@@ -349,7 +363,8 @@ slices:
       /usr/lib/systemd/system/systemd-battery-check.service:
       /usr/lib/systemd/system/systemd-binfmt.service:
       /usr/lib/systemd/system/systemd-boot-check-no-failures.service:
-      /usr/lib/systemd/system/systemd-bsod.service: {arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]}
+      /usr/lib/systemd/system/systemd-bsod.service:
+        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/system/systemd-confext.service:
       /usr/lib/systemd/system/systemd-creds.socket:
       /usr/lib/systemd/system/systemd-creds@.service:
