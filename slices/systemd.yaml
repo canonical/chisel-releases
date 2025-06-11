@@ -70,7 +70,7 @@ slices:
       /usr/lib/systemd/systemd-battery-check:
       /usr/lib/systemd/systemd-binfmt:
       /usr/lib/systemd/systemd-boot-check-no-failures:
-      /usr/lib/systemd/systemd-bsod:
+      /usr/lib/systemd/systemd-bsod: {arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]}
       /usr/lib/systemd/systemd-cgroups-agent:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-fsck:
@@ -113,7 +113,6 @@ slices:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
       /usr/lib/systemd/systemd:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
 
   catalog:
     contents:
@@ -236,10 +235,8 @@ slices:
       /usr/lib/systemd/system/initrd-usr-fs.target:
       /usr/lib/systemd/system/initrd.target:
       /usr/lib/systemd/system/initrd.target.wants/systemd-battery-check.service:
-      /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
-      /usr/lib/systemd/system/initrd.target.wants/systemd-pcrphase-initrd.service:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service: {arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]}
+      /usr/lib/systemd/system/initrd.target.wants/systemd-pcrphase-initrd.service: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/system/kexec.target:
       /usr/lib/systemd/system/kmod-static-nodes.service:
       /usr/lib/systemd/system/kmod.service:
@@ -296,10 +293,8 @@ slices:
       /usr/lib/systemd/system/sockets.target.wants/systemd-initctl.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journald.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrlock.socket:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrlock.socket: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/system/sockets.target.wants/systemd-sysext.socket:
       /usr/lib/systemd/system/soft-reboot.target:
       /usr/lib/systemd/system/sound.target:
@@ -330,22 +325,17 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-journald.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-modules-load.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase-sysinit.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase-sysinit.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup-early.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup.service:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup-early.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup.service: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
       /usr/lib/systemd/system/syslog.socket:
       /usr/lib/systemd/system/system-update-cleanup.service:
@@ -359,8 +349,7 @@ slices:
       /usr/lib/systemd/system/systemd-battery-check.service:
       /usr/lib/systemd/system/systemd-binfmt.service:
       /usr/lib/systemd/system/systemd-boot-check-no-failures.service:
-      /usr/lib/systemd/system/systemd-bsod.service:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
+      /usr/lib/systemd/system/systemd-bsod.service: {arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]}
       /usr/lib/systemd/system/systemd-confext.service:
       /usr/lib/systemd/system/systemd-creds.socket:
       /usr/lib/systemd/system/systemd-creds@.service:
@@ -430,19 +419,17 @@ slices:
       /usr/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service:
       /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
-      /usr/lib/systemd/system/systemd-tpm2-setup-early.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-tpm2-setup.service:
-        arch: [amd64, arm64, riscv64]
+      /usr/lib/systemd/system/systemd-tpm2-setup-early.service: {arch: [amd64, arm64, riscv64]}
+      /usr/lib/systemd/system/systemd-tpm2-setup.service: {arch: [amd64, arm64, riscv64]}
       /usr/lib/systemd/system/systemd-update-done.service:
       /usr/lib/systemd/system/systemd-user-sessions.service:
       /usr/lib/systemd/system/systemd-volatile-root.service:
-      /usr/lib/systemd/system/tmp.mount:
-      /usr/lib/systemd/system/tpm2.target:
       /usr/lib/systemd/system/time-set.target:
       /usr/lib/systemd/system/time-sync.target:
       /usr/lib/systemd/system/timers.target:
       /usr/lib/systemd/system/timers.target.wants/systemd-tmpfiles-clean.timer:
+      /usr/lib/systemd/system/tmp.mount:
+      /usr/lib/systemd/system/tpm2.target:
       /usr/lib/systemd/system/umount.target:
       /usr/lib/systemd/system/usb-gadget.target:
       /usr/lib/systemd/system/user-.slice.d/10-defaults.conf:
@@ -611,6 +598,7 @@ slices:
 
   polkit:
     contents:
+      /usr/share/polkit-1/actions/io.systemd.credentials.policy:
       /usr/share/polkit-1/actions/org.freedesktop.hostname1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.locale1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.login1.policy:
@@ -618,7 +606,6 @@ slices:
       /usr/share/polkit-1/actions/org.freedesktop.systemd1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.timedate1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.timesync1.policy:
-      /usr/share/polkit-1/actions/io.systemd.credentials.policy:
       /usr/share/polkit-1/rules.d/10-systemd-logind-root-ignore-inhibitors.rules:
       /usr/share/polkit-1/rules.d/systemd-networkd.rules:
 
