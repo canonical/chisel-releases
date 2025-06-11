@@ -482,7 +482,6 @@ slices:
       /usr/lib/systemd/user/timers.target:
       /usr/lib/systemd/user/xdg-desktop-autostart.target:
 
-
   dbus-services:
     essential:
       - systemd-dev_dbus-interfaces
@@ -538,7 +537,6 @@ slices:
     contents:
       /usr/lib/sysctl.d/50-pid-max.conf:
         arch: [amd64, arm64, riscv64, s390x, ppc64el]
-
 
   modprobe-config:
     contents:
