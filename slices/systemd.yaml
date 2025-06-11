@@ -8,15 +8,7 @@ slices:
     essential:
       - libacl1_libs
       - libapparmor1_libs
-      - libaudit1_libs
-      - libblkid1_libs
       - libc6_libs
-      - libcap2_libs
-      - libcryptsetup12_libs
-      - libfdisk1_libs
-      - libgcrypt20_libs
-      - libkmod2_libs
-      - liblz4-1_libs
       - liblzma5_libs
       - libmount1_libs
       - libpam0g_libs
@@ -25,7 +17,6 @@ slices:
       - libssl3t64_libs
       - libsystemd-shared_libs
       - libsystemd0_libs
-      - libzstd1_libs
       - mount_bins
       - systemd_catalog
       - systemd_config
