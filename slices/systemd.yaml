@@ -159,7 +159,6 @@ slices:
     contents:
       /usr/lib/systemd/network/80-6rd-tunnel.link:
       /usr/lib/systemd/network/80-6rd-tunnel.network:
-      /usr/lib/systemd/network/80-auto-link-local.network.example:
       /usr/lib/systemd/network/80-container-host0-tun.network:
       /usr/lib/systemd/network/80-container-host0.network:
       /usr/lib/systemd/network/80-container-vb.link:
@@ -171,9 +170,6 @@ slices:
       /usr/lib/systemd/network/80-vm-vt.link:
       /usr/lib/systemd/network/80-vm-vt.network:
       /usr/lib/systemd/network/80-wifi-adhoc.network:
-      /usr/lib/systemd/network/80-wifi-ap.network.example:
-      /usr/lib/systemd/network/80-wifi-station.network.example:
-      /usr/lib/systemd/network/89-ethernet.network.example:
 
   system-generators:
     contents:
