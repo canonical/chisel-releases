@@ -1,9 +1,6 @@
 name: "Removed slices"
 
 on:
-  push:
-    paths:
-      - "slices/**"
   pull_request:
     paths:
       - "slices/**"
