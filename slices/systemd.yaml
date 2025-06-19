@@ -88,9 +88,9 @@ slices:
       /usr/lib/systemd/systemd-measure:
         arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-modules-load:
+      /usr/lib/systemd/systemd-network-generator:
       /usr/lib/systemd/systemd-networkd:
       /usr/lib/systemd/systemd-networkd-wait-online:
-      /usr/lib/systemd/systemd-network-generator:
       /usr/lib/systemd/systemd-pcrextend:
         arch: [amd64, arm64, riscv64]
       /usr/lib/systemd/systemd-pcrlock:
