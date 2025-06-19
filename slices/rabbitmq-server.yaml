@@ -21,7 +21,7 @@ slices:
       - bash_bins
       - coreutils_bins
       # TODO: The slices bellow are necessary to run RabbitMQ server for amd64 and arm64,
-      #       but are not included by default to avoid dependency issues with other 
+      #       but are not included by default to avoid dependency issues with other
       #       architectures such as i386.
       # - erlang-base_bins
       # - erlang-inets_scripts
