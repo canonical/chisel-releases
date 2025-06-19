@@ -20,11 +20,11 @@ slices:
       - base-passwd_data
       - bash_bins
       - coreutils_bins
-      # TODO: Uncomment the following lines when chisel support arch-specific
-      # slices/dependencies
+      # TODO: The slices bellow are necessary to run RabbitMQ server for amd64 and arm64,
+      #       but are not included by default to avoid dependency issues with other architectures such as i386.
       # - erlang-base_bins
       # - erlang-inets_scripts
-      - erlang-inets_modules
+      # - erlang-inets_modules
       # - erlang-os-mon_bins
       - grep_bins
       - libc-bin_locale
