@@ -119,7 +119,6 @@ slices:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
 
-
   catalog:
     contents:
       /usr/lib/systemd/catalog/systemd.be.catalog:
