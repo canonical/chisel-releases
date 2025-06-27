@@ -1,0 +1,13 @@
+package: libavahi-common-data
+
+essential:
+  - libavahi-common-data_copyright
+
+slices:
+  resources:
+    contents:
+      /usr/lib/*-linux-*/avahi/service-types.db:
+
+  copyright:
+    contents:
+      /usr/share/doc/libavahi-common-data/copyright:
