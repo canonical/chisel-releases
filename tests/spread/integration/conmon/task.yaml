@@ -1,0 +1,9 @@
+summary: Integration tests for conmon
+
+execute: |
+
+  # testing for only bins slice
+  rootfs_bins="$(install-slices conmon_bins)"
+
+  # TODO: test conmon with a running container
+  chroot "${rootfs_bins}" /usr/bin/conmon --version
