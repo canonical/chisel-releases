@@ -172,6 +172,8 @@ jobs:
       #   future and propose improvements.
       #   See also https://github.com/canonical/chisel-releases/pull/119#discussion_r1494785644
       - name: Install slices
+        env:
+          WORKERS: 20
         run: |
           set -ex
           if [[
@@ -184,11 +186,21 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
+          fi
+
+      - name: Check installation errors
+        run: |
+          if [ ! -s error.log ]; then
+            echo "Installation errors found:"
+            cat error.log
+            exit 1
           fi
