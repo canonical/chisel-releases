@@ -291,7 +291,8 @@ def install_slices(chunk: tuple, dry_run: bool, arch: str, release: str) -> None
         logging.info("Installing %s on %s...", slice_name, arch)
         if dry_run:
             continue
-        with tempfile.TemporaryDirectory() as tmpfs:
+        with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
+            os.environ["CHISEL_PKG_CACHE"] = str(cache_dir)
             res = subprocess.run(
                 args=[
                     "chisel",
@@ -395,7 +396,7 @@ def main() -> None:
         logging.info("No slices will be installed.")
         return
 
-    all_slices = [(pkg.package, slice) for slice in pkg.slices for pkg in packages]
+    all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
     chunks_of_slices = [
         (
