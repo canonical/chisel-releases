@@ -199,7 +199,7 @@ jobs:
 
       - name: Check installation errors
         run: |
-          if [ ! -s error.log ]; then
+          if [ -s error.log ]; then
             echo "Installation errors found:"
             cat error.log
             exit 1
