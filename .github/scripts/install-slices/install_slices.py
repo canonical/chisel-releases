@@ -308,6 +308,7 @@ def install_slices(chunk: tuple, dry_run: bool, arch: str, release: str) -> None
                 capture_output=True,
                 text=True,
                 check=False,
+                env=os.environ,
             )
             if res.returncode != 0:
                 logging.error(
