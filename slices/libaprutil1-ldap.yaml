@@ -1,0 +1,18 @@
+package: libaprutil1-ldap
+
+essential:
+  - libaprutil1-ldap_copyright
+
+slices:
+  libs:
+    essential:
+      - libaprutil1t64_libs
+      - libc6_libs
+      - libldap2_libs
+    contents:
+      /usr/lib/*-linux-*/apr-util-1/apr_ldap-1.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_ldap.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libaprutil1-ldap/copyright:
