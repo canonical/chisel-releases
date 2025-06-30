@@ -292,7 +292,7 @@ def install_slices(chunk: tuple, dry_run: bool, arch: str, release: str) -> None
         if dry_run:
             continue
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
-            os.environ["CHISEL_PKG_CACHE"] = str(cache_dir)
+            os.environ["XDG_CACHE_HOME"] = str(cache_dir)
             res = subprocess.run(
                 args=[
                     "chisel",
