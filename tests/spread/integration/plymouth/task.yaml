@@ -1,0 +1,21 @@
+summary: Integration tests for plymouth
+
+execute: |
+  rootfs="$(install-slices plymouth_bins)"
+
+  # we need proc mounted
+  mkdir -p "${rootfs}/proc" "${rootfs}/dev"
+  mount --bind /proc "${rootfs}/proc"
+  mount --bind /dev "${rootfs}/dev"
+
+  # spawn the daemon, the thing is there isn't a whole lot of
+  # visual indication things are working with '--debug', running
+  # the daemon with this we can verify things are minimally working
+  # without real tty
+  chroot /tmp/tmp.4CpJDTMEtu/ /usr/sbin/plymouthd &
+
+  # this should work fine, and if it does we can ping it from
+  # the client, and perform a few commands without any errors
+  chroot /tmp/tmp.4CpJDTMEtu/ /usr/bin/plymouth --ping
+  chroot /tmp/tmp.4CpJDTMEtu/ /usr/bin/plymouth update --status=hello
+  chroot /tmp/tmp.4CpJDTMEtu/ /usr/bin/plymouth quit
