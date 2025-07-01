@@ -282,13 +282,22 @@ def ignore_missing_packages(
     return filtered, ignored
 
 
-def install_slices(chunk: tuple, dry_run: bool, arch: str, release: str) -> None:
+def install_slices(
+    chunk: list[tuple], dry_run: bool, arch: str, release: str, worker: int
+) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    for pkg, slice in chunk:
+    for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
-        logging.info("Installing %s on %s...", slice_name, arch)
+        logging.info(
+            "Worker %d (%d/%d): Installing %s on %s...",
+            worker,
+            i,
+            len(chunk),
+            slice_name,
+            arch,
+        )
         if dry_run:
             continue
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
@@ -397,7 +406,14 @@ def main() -> None:
         logging.info("No slices will be installed.")
         return
 
+    # TODO: this list of slices can still be reduced, since many of these
+    # will come as essentials of other slices. We could simply crawl all essentials
+    # in the release, and remove them from the "all_slices" list (since they
+    # are going to get installed anyway). The problem here is accounting: I'd like
+    # to ensure that all slices are still installed nonetheless, even if indirectly,
+    # but that means `install_slices` will have to be aware of the nested essentials.
     all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
+
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
     chunks_of_slices = [
         (
@@ -405,6 +421,7 @@ def main() -> None:
             cli_args.dry_run,
             cli_args.arch,
             cli_args.release,
+            i // chunk_size + 1,  # worker number
         )
         for i in range(0, len(all_slices), chunk_size)
     ]
