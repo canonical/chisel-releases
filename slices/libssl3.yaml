@@ -13,7 +13,7 @@ slices:
       /usr/lib/*-linux-*/engines-3/padlock.so:
       /usr/lib/*-linux-*/libcrypto.so.*:
       /usr/lib/*-linux-*/libssl.so.*:
-      
+
       # Added wildcard to account for FIPS enabled package
       /usr/lib/*-linux-*/ossl-modules*/legacy.so:
 
