@@ -1,0 +1,19 @@
+package: golang-go
+
+essential:
+  - golang-go_copyright
+
+slices:
+  bins:
+    essential:
+      - base-files_tmp
+      - golang-1.22-go_bins
+    contents:
+      # These are symlinks to ../lib/go-1.22/bin
+      /usr/bin/go:
+      /usr/bin/gofmt:
+      /usr/lib/go:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-go/copyright:
