@@ -6,7 +6,7 @@ essential:
 slices:
   # TODO: We need to split the _*-all slices into mutually exclusive `src` and
   # `test` to avoid including test files in the sliced root filesystem.
-  # This requires the new feature from Chisel to avoid explicitly listing all 
+  # This requires the new feature from Chisel to avoid explicitly listing all
   # non-test files.
   all:
     essential:
@@ -140,13 +140,11 @@ slices:
     contents:
       /usr/share/go-1.22/test/**:
 
-
   api:
     contents:
       /usr/share/go-1.22/api/go*.txt:
 
   misc-src:
-    # TODO: Exclude test files
     contents:
       /usr/share/go-1.22/misc/cgo/gmp/*.go:
       /usr/share/go-1.22/misc/chrome/gophertool/*.html:
@@ -236,7 +234,7 @@ slices:
   bytes-tests:
     contents:
       /usr/share/go-1.22/src/bytes/*_test.go:
-  
+
   cmd-all:
     essential:
       - golang-1.22-src_cmd-tests
@@ -340,7 +338,7 @@ slices:
       /usr/share/go-1.22/src/cmd/vendor/**:
       # Note: Excluding the README file (without extension) under src/cmd/vet
       /usr/share/go-1.22/src/cmd/vet/**.*:
-  
+
   cmd-tests:
     contents:
       /usr/share/go-1.22/src/cmd/**test**:
@@ -375,7 +373,7 @@ slices:
   compress-tests:
     contents:
       /usr/share/go-1.22/src/compress/**test**:
-  
+
   container-src:
     contents:
       /usr/share/go-1.22/src/container/heap/heap.go:
@@ -675,9 +673,6 @@ slices:
       /usr/share/go-1.22/src/go/types/validtype.go:
       /usr/share/go-1.22/src/go/types/version.go:
       /usr/share/go-1.22/src/go/version/version.go:
-
-
-  # TODO: add `_go-src` slice
 
   go-tests:
     contents:
@@ -1048,7 +1043,7 @@ slices:
       /usr/share/go-1.22/src/log/syslog/syslog.go:
 
   log-tests:
-    contents: 
+    contents:
       /usr/share/go-1.22/src/log/**test**:
 
   maps-src:
@@ -1112,7 +1107,7 @@ slices:
       - golang-1.22-src_os-tests
     contents:
       /usr/share/go-1.22/src/os/**:
-  
+
   # TODO: add `_os-src` slice
 
   os-tests:
@@ -1191,7 +1186,7 @@ slices:
   regexp-tests:
     contents:
       /usr/share/go-1.22/src/regexp/**test**:
-  
+
   runtime-src:
     contents:
       /usr/share/go-1.22/src/runtime/**.c:

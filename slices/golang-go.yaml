@@ -8,6 +8,7 @@ slices:
     essential:
       - base-files_tmp
       - golang-1.22-go_bins
+      - golang-1.22-src_src
     contents:
       # These are symlinks to ../lib/go-1.22/bin
       /usr/bin/go:
