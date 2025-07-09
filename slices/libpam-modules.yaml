@@ -1,0 +1,83 @@
+package: libpam-modules
+
+essential:
+  - libpam-modules_copyright
+
+slices:
+  config:
+    contents:
+      /etc/security/access.conf:
+      /etc/security/faillock.conf:
+      /etc/security/group.conf:
+      /etc/security/limits.conf:
+      /etc/security/limits.d/:
+      /etc/security/namespace.conf:
+      /etc/security/namespace.d/:
+      /etc/security/namespace.init:
+      /etc/security/pam_env.conf:
+      /etc/security/sepermit.conf:
+      /etc/security/time.conf:
+
+  libs:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libpam0g_libs
+      - libselinux1_libs
+      - libsystemd0_libs
+    contents:
+      /lib/*-linux-*/security/pam_access.so:
+      /lib/*-linux-*/security/pam_debug.so:
+      /lib/*-linux-*/security/pam_deny.so:
+      /lib/*-linux-*/security/pam_echo.so:
+      /lib/*-linux-*/security/pam_env.so:
+      /lib/*-linux-*/security/pam_exec.so:
+      /lib/*-linux-*/security/pam_extrausers.so:
+      /lib/*-linux-*/security/pam_faildelay.so:
+      /lib/*-linux-*/security/pam_faillock.so:
+      /lib/*-linux-*/security/pam_filter.so:
+      /lib/*-linux-*/security/pam_ftp.so:
+      /lib/*-linux-*/security/pam_group.so:
+      /lib/*-linux-*/security/pam_issue.so:
+      /lib/*-linux-*/security/pam_keyinit.so:
+      /lib/*-linux-*/security/pam_limits.so:
+      /lib/*-linux-*/security/pam_listfile.so:
+      /lib/*-linux-*/security/pam_localuser.so:
+      /lib/*-linux-*/security/pam_loginuid.so:
+      /lib/*-linux-*/security/pam_mail.so:
+      /lib/*-linux-*/security/pam_mkhomedir.so:
+      /lib/*-linux-*/security/pam_motd.so:
+      /lib/*-linux-*/security/pam_namespace.so:
+      /lib/*-linux-*/security/pam_nologin.so:
+      /lib/*-linux-*/security/pam_permit.so:
+      /lib/*-linux-*/security/pam_pwhistory.so:
+      /lib/*-linux-*/security/pam_rhosts.so:
+      /lib/*-linux-*/security/pam_rootok.so:
+      /lib/*-linux-*/security/pam_securetty.so:
+      /lib/*-linux-*/security/pam_selinux.so:
+      /lib/*-linux-*/security/pam_sepermit.so:
+      /lib/*-linux-*/security/pam_setquota.so:
+      /lib/*-linux-*/security/pam_shells.so:
+      /lib/*-linux-*/security/pam_stress.so:
+      /lib/*-linux-*/security/pam_succeed_if.so:
+      /lib/*-linux-*/security/pam_time.so:
+      /lib/*-linux-*/security/pam_timestamp.so:
+      /lib/*-linux-*/security/pam_tty_audit.so:
+      /lib/*-linux-*/security/pam_umask.so:
+      /lib/*-linux-*/security/pam_unix.so:
+      /lib/*-linux-*/security/pam_usertype.so:
+      /lib/*-linux-*/security/pam_warn.so:
+      /lib/*-linux-*/security/pam_wheel.so:
+      /lib/*-linux-*/security/pam_xauth.so:
+
+  # Used by pam-auth-update to generate the pam.d/ config
+  # files inside etc. However pam-auth-update relies on
+  # debconf to actually work and discover these packages.
+  pam-config:
+    contents:
+      /usr/share/pam-configs/mkhomedir:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-modules/copyright:

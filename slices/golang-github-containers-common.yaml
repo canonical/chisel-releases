@@ -1,0 +1,16 @@
+package: golang-github-containers-common
+
+essential:
+  - golang-github-containers-common_copyright
+
+slices:
+  config:
+    contents:
+      /etc/containers/policy.json:
+      /etc/containers/registries.conf.d/shortnames.conf:
+      /usr/share/containers/containers.conf:
+      /usr/share/containers/seccomp.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-github-containers-common/copyright:
