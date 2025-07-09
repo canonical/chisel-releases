@@ -1,0 +1,15 @@
+package: libc-dev-bin
+
+essential:
+  - libc-dev-bin_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gencat:
+
+  copyright:
+    contents:
+      /usr/share/doc/libc-dev-bin/copyright:
