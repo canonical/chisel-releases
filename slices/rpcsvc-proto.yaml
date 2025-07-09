@@ -1,0 +1,23 @@
+package: rpcsvc-proto
+
+essential:
+  - rpcsvc-proto_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/rpcgen:
+
+  headers:
+    contents:
+      /usr/include/rpcsvc/*.h:
+
+  protos:
+    contents:
+      /usr/include/rpcsvc/*.x:
+
+  copyright:
+    contents:
+      /usr/share/doc/rpcsvc-proto/copyright:
