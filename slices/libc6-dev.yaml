@@ -170,8 +170,8 @@ slices:
       /usr/lib/*-linux-*/libc_nonshared.a:
       /usr/lib/*-linux-*/libdl.a:
       /usr/lib/*-linux-*/libg.a:
-      /usr/lib/*-linux-*/libm.a:
       /usr/lib/*-linux-*/libm-*.a: {arch: [amd64, arm64]}
+      /usr/lib/*-linux-*/libm.a:
       /usr/lib/*-linux-*/libm.so:
       /usr/lib/*-linux-*/libmcheck.a:
       # Symlink to libmvec.so.1
