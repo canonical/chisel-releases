@@ -1,0 +1,6 @@
+summary: libc-dev-bin
+
+execute: |
+  rootfs="$(install-slices libc-dev-bin_bins)"
+
+  chroot "${rootfs}" gencat --help

@@ -1,0 +1,197 @@
+package: libc6-dev
+
+essential:
+  - libc6-dev_copyright
+
+slices:
+  headers:
+    essential:
+      # Required by catgets function in nl_types.h
+      - libc-dev-bin_bins
+      - libcrypt-dev_headers
+      - linux-libc-dev_headers
+      - rpcsvc-proto_headers
+    contents:
+      /usr/include/*-linux-*/a.out.h:
+      /usr/include/*-linux-*/bits/**.h:
+      /usr/include/*-linux-*/bits/stab.def:
+      /usr/include/*-linux-*/fpu_control.h:
+      /usr/include/*-linux-*/gnu/**.h:
+      /usr/include/*-linux-*/ieee754.h:
+      /usr/include/*-linux-*/sys/**.h:
+      /usr/include/aio.h:
+      /usr/include/aliases.h:
+      /usr/include/alloca.h:
+      /usr/include/ar*.h:
+      /usr/include/arpa/**.h:
+      /usr/include/assert.h:
+      /usr/include/byteswap.h:
+      /usr/include/complex.h:
+      /usr/include/cpio.h:
+      /usr/include/ctype.h:
+      /usr/include/dirent.h:
+      /usr/include/dlfcn.h:
+      /usr/include/elf.h:
+      /usr/include/endian.h:
+      /usr/include/envz.h:
+      /usr/include/err.h:
+      /usr/include/errno.h:
+      /usr/include/error.h:
+      /usr/include/execinfo.h:
+      /usr/include/fcntl.h:
+      /usr/include/features-time64.h:
+      /usr/include/features.h:
+      /usr/include/fenv.h:
+      /usr/include/finclude/*-linux-*/math-vector-fortran.h:
+      /usr/include/fmtmsg.h:
+      /usr/include/fnmatch.h:
+      /usr/include/fstab.h:
+      /usr/include/fts.h:
+      /usr/include/ftw.h:
+      /usr/include/gconv.h:
+      /usr/include/getopt.h:
+      /usr/include/glob.h:
+      /usr/include/gnu-versions.h:
+      /usr/include/grp.h:
+      /usr/include/gshadow.h:
+      /usr/include/iconv.h:
+      /usr/include/ifaddrs.h:
+      /usr/include/inttypes.h:
+      /usr/include/langinfo.h:
+      /usr/include/lastlog.h:
+      /usr/include/libgen.h:
+      /usr/include/libintl.h:
+      /usr/include/limits.h:
+      /usr/include/link.h:
+      /usr/include/locale.h:
+      /usr/include/malloc.h:
+      /usr/include/math.h:
+      /usr/include/mcheck.h:
+      /usr/include/memory.h:
+      /usr/include/mntent.h:
+      /usr/include/monetary.h:
+      /usr/include/mqueue.h:
+      /usr/include/net/*.h:
+      /usr/include/netash/ash.h:
+      /usr/include/netatalk/at.h:
+      /usr/include/netax25/ax25.h:
+      /usr/include/netdb.h:
+      /usr/include/neteconet/ec.h:
+      /usr/include/netinet/*.h:
+      /usr/include/netipx/ipx.h:
+      /usr/include/netiucv/iucv.h:
+      /usr/include/netpacket/packet.h:
+      /usr/include/netrom/netrom.h:
+      /usr/include/netrose/rose.h:
+      /usr/include/nfs/nfs.h:
+      /usr/include/nl_types.h:
+      /usr/include/nss.h:
+      /usr/include/obstack.h:
+      /usr/include/paths.h:
+      /usr/include/poll.h:
+      /usr/include/printf.h:
+      /usr/include/proc_service.h:
+      /usr/include/protocols/*.h:
+      /usr/include/pthread.h:
+      /usr/include/pty.h:
+      /usr/include/pwd.h:
+      /usr/include/re_comp.h:
+      /usr/include/regex.h:
+      /usr/include/regexp.h:
+      /usr/include/resolv.h:
+      /usr/include/rpc/netdb.h:
+      /usr/include/sched.h:
+      /usr/include/scsi/scsi.h:
+      /usr/include/scsi/scsi_ioctl.h:
+      /usr/include/scsi/sg.h:
+      /usr/include/search.h:
+      /usr/include/semaphore.h:
+      /usr/include/setjmp.h:
+      /usr/include/sgtty.h:
+      /usr/include/shadow.h:
+      /usr/include/signal.h:
+      /usr/include/spawn.h:
+      /usr/include/stab.h:
+      /usr/include/stdbit.h:
+      /usr/include/stdc-predef.h:
+      /usr/include/stdint.h:
+      /usr/include/stdio.h:
+      /usr/include/stdio_ext.h:
+      /usr/include/stdlib.h:
+      /usr/include/string.h:
+      /usr/include/strings.h:
+      /usr/include/syscall.h:
+      /usr/include/sysexits.h:
+      /usr/include/syslog.h:
+      /usr/include/tar.h:
+      /usr/include/termio.h:
+      /usr/include/termios.h:
+      /usr/include/tgmath.h:
+      /usr/include/thread_db.h:
+      /usr/include/threads.h:
+      /usr/include/time.h:
+      /usr/include/ttyent.h:
+      /usr/include/uchar.h:
+      /usr/include/ucontext.h:
+      /usr/include/ulimit.h:
+      /usr/include/unistd.h:
+      /usr/include/utime.h:
+      /usr/include/utmp.h:
+      /usr/include/utmpx.h:
+      /usr/include/values.h:
+      /usr/include/wait.h:
+      /usr/include/wchar.h:
+      /usr/include/wctype.h:
+      /usr/include/wordexp.h:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libcrypt-dev_libs
+    contents:
+      /usr/lib/*-linux-*/Mcrt1.o:
+      /usr/lib/*-linux-*/Scrt1.o:
+      /usr/lib/*-linux-*/audit/sotruss-lib.so:
+      /usr/lib/*-linux-*/crt1.o:
+      /usr/lib/*-linux-*/crti.o:
+      /usr/lib/*-linux-*/crtn.o:
+      /usr/lib/*-linux-*/gcrt1.o:
+      /usr/lib/*-linux-*/grcrt1.o:
+      /usr/lib/*-linux-*/libBrokenLocale.a:
+      # Symlink to libBrokenLocale.so.1
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+      /usr/lib/*-linux-*/libanl.a:
+      # Symlink to libanl.so.1
+      /usr/lib/*-linux-*/libanl.so:
+      /usr/lib/*-linux-*/libc.a:
+      /usr/lib/*-linux-*/libc.so:
+      # Symlink to libc_malloc_debug.so.0
+      /usr/lib/*-linux-*/libc_malloc_debug.so:
+      /usr/lib/*-linux-*/libc_nonshared.a:
+      /usr/lib/*-linux-*/libdl.a:
+      /usr/lib/*-linux-*/libg.a:
+      /usr/lib/*-linux-*/libm-2.39.a:
+      /usr/lib/*-linux-*/libm.a:
+      /usr/lib/*-linux-*/libm.so:
+      /usr/lib/*-linux-*/libmcheck.a:
+      # Symlink to libmvec.so.1
+      /usr/lib/*-linux-*/libmvec.a:
+      /usr/lib/*-linux-*/libmvec.so:
+      # Symlink to libnss_compat.so.2
+      /usr/lib/*-linux-*/libnss_compat.so:
+      # Symlink to libnss_hesiod.so.2
+      /usr/lib/*-linux-*/libnss_hesiod.so:
+      /usr/lib/*-linux-*/libpthread.a:
+      /usr/lib/*-linux-*/libpthread_nonshared.a:
+      /usr/lib/*-linux-*/libresolv.a:
+      # Symlink to libresolv.so.2
+      /usr/lib/*-linux-*/libresolv.so:
+      /usr/lib/*-linux-*/librt.a:
+      # Symlink to libthread_db.so.1
+      /usr/lib/*-linux-*/libthread_db.so:
+      /usr/lib/*-linux-*/libutil.a:
+      /usr/lib/*-linux-*/rcrt1.o:
+
+  copyright:
+    contents:
+      /usr/share/doc/libc6-dev/copyright:
