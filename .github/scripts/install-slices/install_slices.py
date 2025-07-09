@@ -301,7 +301,8 @@ def install_slices(
         if dry_run:
             continue
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
-            os.environ["XDG_CACHE_HOME"] = str(cache_dir)
+            env = dict(os.environ)
+            env["XDG_CACHE_HOME"] = str(cache_dir)
             res = subprocess.run(
                 args=[
                     "chisel",
@@ -317,7 +318,7 @@ def install_slices(
                 capture_output=True,
                 text=True,
                 check=False,
-                env=os.environ,
+                env=env,
             )
             if res.returncode != 0:
                 logging.error(
