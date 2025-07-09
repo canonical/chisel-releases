@@ -20,9 +20,9 @@ slices:
       - golang-1.22-src_syscall-all
       - golang-1.22-src_tests
     contents:
-      /usr/share/go-1.22/src/Make.dist:
       /usr/share/go-1.22/src/go.mod:
       /usr/share/go-1.22/src/go.sum:
+      /usr/share/go-1.22/src/Make.dist:
 
   scripts:
     essential:
@@ -149,15 +149,15 @@ slices:
     # TODO: Exclude test files
     contents:
       /usr/share/go-1.22/misc/cgo/gmp/*.go:
-      /usr/share/go-1.22/misc/chrome/gophertool/manifest.json:
       /usr/share/go-1.22/misc/chrome/gophertool/*.html:
       /usr/share/go-1.22/misc/chrome/gophertool/*.js:
       /usr/share/go-1.22/misc/chrome/gophertool/*.png:
+      /usr/share/go-1.22/misc/chrome/gophertool/manifest.json:
       /usr/share/go-1.22/misc/editors:
-      /usr/share/go-1.22/misc/go.mod:
       /usr/share/go-1.22/misc/go_android_exec/*.go:
-      /usr/share/go-1.22/misc/ios/clangwrap.sh:
+      /usr/share/go-1.22/misc/go.mod:
       /usr/share/go-1.22/misc/ios/*.go:
+      /usr/share/go-1.22/misc/ios/clangwrap.sh:
       /usr/share/go-1.22/misc/linkcheck/linkcheck.go:
       /usr/share/go-1.22/misc/wasm/*wasm_exec*:
 
@@ -245,10 +245,8 @@ slices:
       /usr/share/go-1.22/src/cmd/addr2line/*.go:
       # Note: src/cmd/api contains all test files, should be excluded for `_cmd-src`
       /usr/share/go-1.22/src/cmd/api/**.go:
-      /usr/share/go-1.22/src/cmd/asm/doc.go:
       /usr/share/go-1.22/src/cmd/asm/**.go:
-      # Note: *.s files are for tests only
-      /usr/share/go-1.22/src/cmd/asm/**.s:
+      /usr/share/go-1.22/src/cmd/asm/doc.go:
       /usr/share/go-1.22/src/cmd/buildid/*.go:
       # Note: Explicitly listing the files in src/cmd/cgo to avoid conflicts with
       # `golang-1.22-go_cmd-src` which also includes files from src/cmd/cgo.
@@ -262,9 +260,6 @@ slices:
       /usr/share/go-1.22/src/cmd/compile/**.go:
       /usr/share/go-1.22/src/cmd/compile/**.pgo:
       /usr/share/go-1.22/src/cmd/compile/**.rules:
-      # Note: *.s and *nexts file are for tests only
-      /usr/share/go-1.22/src/cmd/compile/**.s:
-      /usr/share/go-1.22/src/cmd/compile/**.nexts:
       /usr/share/go-1.22/src/cmd/covdata/**.go:
       /usr/share/go-1.22/src/cmd/cover/**.go:
       /usr/share/go-1.22/src/cmd/cover/**.golden:
@@ -383,9 +378,9 @@ slices:
   
   container-src:
     contents:
-      /usr/share/go-1.22/src/container/ring/ring.go:
       /usr/share/go-1.22/src/container/heap/heap.go:
       /usr/share/go-1.22/src/container/list/list.go:
+      /usr/share/go-1.22/src/container/ring/ring.go:
 
   container-tests:
     contents:
@@ -484,14 +479,14 @@ slices:
       /usr/share/go-1.22/src/encoding/csv/writer.go:
       /usr/share/go-1.22/src/encoding/encoding.go:
       /usr/share/go-1.22/src/encoding/gob/debug.go:
-      /usr/share/go-1.22/src/encoding/gob/decgen.go:
       /usr/share/go-1.22/src/encoding/gob/dec_helpers.go:
+      /usr/share/go-1.22/src/encoding/gob/decgen.go:
       /usr/share/go-1.22/src/encoding/gob/decode.go:
       /usr/share/go-1.22/src/encoding/gob/decoder.go:
       /usr/share/go-1.22/src/encoding/gob/doc.go:
       /usr/share/go-1.22/src/encoding/gob/dump.go:
-      /usr/share/go-1.22/src/encoding/gob/encgen.go:
       /usr/share/go-1.22/src/encoding/gob/enc_helpers.go:
+      /usr/share/go-1.22/src/encoding/gob/encgen.go:
       /usr/share/go-1.22/src/encoding/gob/encode.go:
       /usr/share/go-1.22/src/encoding/gob/encoder.go:
       /usr/share/go-1.22/src/encoding/gob/error.go:
@@ -615,8 +610,8 @@ slices:
       /usr/share/go-1.22/src/go/token/serialize.go:
       /usr/share/go-1.22/src/go/token/token.go:
       /usr/share/go-1.22/src/go/types/alias.go:
-      /usr/share/go-1.22/src/go/types/api.go:
       /usr/share/go-1.22/src/go/types/api_predicates.go:
+      /usr/share/go-1.22/src/go/types/api.go:
       /usr/share/go-1.22/src/go/types/array.go:
       /usr/share/go-1.22/src/go/types/assignments.go:
       /usr/share/go-1.22/src/go/types/basic.go:
@@ -691,21 +686,21 @@ slices:
   hash-src:
     contents:
       /usr/share/go-1.22/src/hash/adler32/adler32.go:
+      /usr/share/go-1.22/src/hash/crc32/crc32_*.s:
       /usr/share/go-1.22/src/hash/crc32/crc32_amd64.go:
       /usr/share/go-1.22/src/hash/crc32/crc32_arm64.go:
       /usr/share/go-1.22/src/hash/crc32/crc32_generic.go:
-      /usr/share/go-1.22/src/hash/crc32/crc32.go:
       /usr/share/go-1.22/src/hash/crc32/crc32_otherarch.go:
       /usr/share/go-1.22/src/hash/crc32/crc32_ppc64le.go:
       /usr/share/go-1.22/src/hash/crc32/crc32_s390x.go:
-      /usr/share/go-1.22/src/hash/crc32/crc32_*.s:
+      /usr/share/go-1.22/src/hash/crc32/crc32.go:
       /usr/share/go-1.22/src/hash/crc32/gen_const_ppc64le.go:
       /usr/share/go-1.22/src/hash/crc64/crc64.go:
       /usr/share/go-1.22/src/hash/fnv/fnv.go:
       /usr/share/go-1.22/src/hash/hash.go:
-      /usr/share/go-1.22/src/hash/maphash/maphash.go:
       /usr/share/go-1.22/src/hash/maphash/maphash_purego.go:
       /usr/share/go-1.22/src/hash/maphash/maphash_runtime.go:
+      /usr/share/go-1.22/src/hash/maphash/maphash.go:
 
   hash-tests:
     contents:
@@ -715,8 +710,8 @@ slices:
     contents:
       /usr/share/go-1.22/src/html/entity.go:
       /usr/share/go-1.22/src/html/escape.go:
-      /usr/share/go-1.22/src/html/template/attr.go:
       /usr/share/go-1.22/src/html/template/attr_string.go:
+      /usr/share/go-1.22/src/html/template/attr.go:
       /usr/share/go-1.22/src/html/template/content.go:
       /usr/share/go-1.22/src/html/template/context.go:
       /usr/share/go-1.22/src/html/template/css.go:
@@ -726,8 +721,8 @@ slices:
       /usr/share/go-1.22/src/html/template/error.go:
       /usr/share/go-1.22/src/html/template/escape.go:
       /usr/share/go-1.22/src/html/template/html.go:
-      /usr/share/go-1.22/src/html/template/jsctx_string.go:
       /usr/share/go-1.22/src/html/template/js.go:
+      /usr/share/go-1.22/src/html/template/jsctx_string.go:
       /usr/share/go-1.22/src/html/template/state_string.go:
       /usr/share/go-1.22/src/html/template/template.go:
       /usr/share/go-1.22/src/html/template/transition.go:
@@ -770,8 +765,8 @@ slices:
   index-src:
     contents:
       /usr/share/go-1.22/src/index/suffixarray/gen.go:
-      /usr/share/go-1.22/src/index/suffixarray/sais2.go:
       /usr/share/go-1.22/src/index/suffixarray/sais.go:
+      /usr/share/go-1.22/src/index/suffixarray/sais2.go:
       /usr/share/go-1.22/src/index/suffixarray/suffixarray.go:
 
   index-tests:
@@ -780,16 +775,16 @@ slices:
 
   internal-src:
     contents:
-      /usr/share/go-1.22/src/internal/abi/abi.go:
       /usr/share/go-1.22/src/internal/abi/abi_amd64.go:
       /usr/share/go-1.22/src/internal/abi/abi_arm64.go:
       /usr/share/go-1.22/src/internal/abi/abi_generic.go:
       /usr/share/go-1.22/src/internal/abi/abi_loong64.go:
       /usr/share/go-1.22/src/internal/abi/abi_ppc64x.go:
       /usr/share/go-1.22/src/internal/abi/abi_riscv64.go:
+      /usr/share/go-1.22/src/internal/abi/abi.go:
       /usr/share/go-1.22/src/internal/abi/compiletype.go:
-      /usr/share/go-1.22/src/internal/abi/funcpc.go:
       /usr/share/go-1.22/src/internal/abi/funcpc_gccgo.go:
+      /usr/share/go-1.22/src/internal/abi/funcpc.go:
       /usr/share/go-1.22/src/internal/abi/map.go:
       /usr/share/go-1.22/src/internal/abi/stack.go:
       /usr/share/go-1.22/src/internal/abi/stub.s:
@@ -801,11 +796,11 @@ slices:
       /usr/share/go-1.22/src/internal/buildcfg/exp.go:
       /usr/share/go-1.22/src/internal/bytealg/*:
       /usr/share/go-1.22/src/internal/cfg/*:
-      /usr/share/go-1.22/src/internal/chacha8rand/chacha8.go:
       /usr/share/go-1.22/src/internal/chacha8rand/chacha8_amd64.s:
       /usr/share/go-1.22/src/internal/chacha8rand/chacha8_arm64.s:
       /usr/share/go-1.22/src/internal/chacha8rand/chacha8_generic.go:
       /usr/share/go-1.22/src/internal/chacha8rand/chacha8_stub.s:
+      /usr/share/go-1.22/src/internal/chacha8rand/chacha8.go:
       /usr/share/go-1.22/src/internal/coverage/*:
       /usr/share/go-1.22/src/internal/coverage/calloc/*:
       /usr/share/go-1.22/src/internal/coverage/cformat/format.go:
@@ -820,11 +815,7 @@ slices:
       /usr/share/go-1.22/src/internal/coverage/slicewriter/slicewriter.go:
       /usr/share/go-1.22/src/internal/coverage/stringtab/*:
       /usr/share/go-1.22/src/internal/coverage/uleb128/*:
-      /usr/share/go-1.22/src/internal/cpu/cpu.go:
-      /usr/share/go-1.22/src/internal/cpu/cpu.s:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm.go:
-      /usr/share/go-1.22/src/internal/cpu/cpu_arm64.go:
-      /usr/share/go-1.22/src/internal/cpu/cpu_arm64.s:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm64_android.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm64_darwin.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm64_freebsd.go:
@@ -832,21 +823,25 @@ slices:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm64_linux.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm64_openbsd.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_arm64_other.go:
+      /usr/share/go-1.22/src/internal/cpu/cpu_arm64.go:
+      /usr/share/go-1.22/src/internal/cpu/cpu_arm64.s:
       /usr/share/go-1.22/src/internal/cpu/cpu_loong64.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_mips.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_mips64x.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_mipsle.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_no_name.go:
-      /usr/share/go-1.22/src/internal/cpu/cpu_ppc64x.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_ppc64x_aix.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_ppc64x_linux.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_ppc64x_other.go:
+      /usr/share/go-1.22/src/internal/cpu/cpu_ppc64x.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_riscv64.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_s390x.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_s390x.s:
       /usr/share/go-1.22/src/internal/cpu/cpu_wasm.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_x86.go:
       /usr/share/go-1.22/src/internal/cpu/cpu_x86.s:
+      /usr/share/go-1.22/src/internal/cpu/cpu.go:
+      /usr/share/go-1.22/src/internal/cpu/cpu.s:
       /usr/share/go-1.22/src/internal/dag/alg.go:
       /usr/share/go-1.22/src/internal/dag/parse.go:
       /usr/share/go-1.22/src/internal/diff/diff.go:
@@ -887,7 +882,6 @@ slices:
       /usr/share/go-1.22/src/internal/poll/copy_file_range_linux.go:
       /usr/share/go-1.22/src/internal/poll/errno_unix.go:
       /usr/share/go-1.22/src/internal/poll/errno_windows.go:
-      /usr/share/go-1.22/src/internal/poll/fd.go:
       /usr/share/go-1.22/src/internal/poll/fd_fsync_darwin.go:
       /usr/share/go-1.22/src/internal/poll/fd_fsync_posix.go:
       /usr/share/go-1.22/src/internal/poll/fd_fsync_windows.go:
@@ -904,6 +898,7 @@ slices:
       /usr/share/go-1.22/src/internal/poll/fd_windows.go:
       /usr/share/go-1.22/src/internal/poll/fd_writev_libc.go:
       /usr/share/go-1.22/src/internal/poll/fd_writev_unix.go:
+      /usr/share/go-1.22/src/internal/poll/fd.go:
       /usr/share/go-1.22/src/internal/poll/file_plan9.go:
       /usr/share/go-1.22/src/internal/poll/hook_cloexec.go:
       /usr/share/go-1.22/src/internal/poll/hook_unix.go:
@@ -914,12 +909,12 @@ slices:
       /usr/share/go-1.22/src/internal/poll/sendfile_linux.go:
       /usr/share/go-1.22/src/internal/poll/sendfile_solaris.go:
       /usr/share/go-1.22/src/internal/poll/sendfile_windows.go:
-      /usr/share/go-1.22/src/internal/poll/sock_cloexec.go:
       /usr/share/go-1.22/src/internal/poll/sock_cloexec_accept.go:
-      /usr/share/go-1.22/src/internal/poll/sockopt.go:
+      /usr/share/go-1.22/src/internal/poll/sock_cloexec.go:
       /usr/share/go-1.22/src/internal/poll/sockopt_linux.go:
       /usr/share/go-1.22/src/internal/poll/sockopt_unix.go:
       /usr/share/go-1.22/src/internal/poll/sockopt_windows.go:
+      /usr/share/go-1.22/src/internal/poll/sockopt.go:
       /usr/share/go-1.22/src/internal/poll/sockoptip.go:
       /usr/share/go-1.22/src/internal/poll/splice_linux.go:
       /usr/share/go-1.22/src/internal/poll/strconv.go:
@@ -937,9 +932,9 @@ slices:
       /usr/share/go-1.22/src/internal/reflectlite/swapper.go:
       /usr/share/go-1.22/src/internal/reflectlite/type.go:
       /usr/share/go-1.22/src/internal/reflectlite/value.go:
-      /usr/share/go-1.22/src/internal/safefilepath/path.go:
       /usr/share/go-1.22/src/internal/safefilepath/path_other.go:
       /usr/share/go-1.22/src/internal/safefilepath/path_windows.go:
+      /usr/share/go-1.22/src/internal/safefilepath/path.go:
       /usr/share/go-1.22/src/internal/saferio/io.go:
       /usr/share/go-1.22/src/internal/singleflight/singleflight.go:
       /usr/share/go-1.22/src/internal/syscall/execenv/*:
@@ -1049,8 +1044,8 @@ slices:
       /usr/share/go-1.22/src/log/slog/text_handler.go:
       /usr/share/go-1.22/src/log/slog/value.go:
       /usr/share/go-1.22/src/log/syslog/doc.go:
-      /usr/share/go-1.22/src/log/syslog/syslog.go:
       /usr/share/go-1.22/src/log/syslog/syslog_unix.go:
+      /usr/share/go-1.22/src/log/syslog/syslog.go:
 
   log-tests:
     contents: 
@@ -1090,11 +1085,11 @@ slices:
       /usr/share/go-1.22/src/mime/quotedprintable/writer.go:
       /usr/share/go-1.22/src/mime/type_dragonfly.go:
       /usr/share/go-1.22/src/mime/type_freebsd.go:
-      /usr/share/go-1.22/src/mime/type.go:
       /usr/share/go-1.22/src/mime/type_openbsd.go:
       /usr/share/go-1.22/src/mime/type_plan9.go:
       /usr/share/go-1.22/src/mime/type_unix.go:
       /usr/share/go-1.22/src/mime/type_windows.go:
+      /usr/share/go-1.22/src/mime/type.go:
 
   mime-tests:
     contents:
@@ -1127,15 +1122,15 @@ slices:
   path-src:
     contents:
       /usr/share/go-1.22/src/path/filepath/match.go:
-      /usr/share/go-1.22/src/path/filepath/path.go:
       /usr/share/go-1.22/src/path/filepath/path_nonwindows.go:
       /usr/share/go-1.22/src/path/filepath/path_plan9.go:
       /usr/share/go-1.22/src/path/filepath/path_unix.go:
       /usr/share/go-1.22/src/path/filepath/path_windows.go:
-      /usr/share/go-1.22/src/path/filepath/symlink.go:
+      /usr/share/go-1.22/src/path/filepath/path.go:
       /usr/share/go-1.22/src/path/filepath/symlink_plan9.go:
       /usr/share/go-1.22/src/path/filepath/symlink_unix.go:
       /usr/share/go-1.22/src/path/filepath/symlink_windows.go:
+      /usr/share/go-1.22/src/path/filepath/symlink.go:
       /usr/share/go-1.22/src/path/match.go:
       /usr/share/go-1.22/src/path/path.go:
 
@@ -1146,8 +1141,8 @@ slices:
   plugin-src:
     contents:
       /usr/share/go-1.22/src/plugin/plugin_dlopen.go:
-      /usr/share/go-1.22/src/plugin/plugin.go:
       /usr/share/go-1.22/src/plugin/plugin_stubs.go:
+      /usr/share/go-1.22/src/plugin/plugin.go:
 
   plugin-tests:
     contents:
@@ -1155,6 +1150,7 @@ slices:
 
   reflect-src:
     contents:
+      /usr/share/go-1.22/src/reflect/*.s:
       /usr/share/go-1.22/src/reflect/abi.go:
       /usr/share/go-1.22/src/reflect/arena.go:
       /usr/share/go-1.22/src/reflect/deepequal.go:
@@ -1166,7 +1162,6 @@ slices:
       /usr/share/go-1.22/src/reflect/type.go:
       /usr/share/go-1.22/src/reflect/value.go:
       /usr/share/go-1.22/src/reflect/visiblefields.go:
-      /usr/share/go-1.22/src/reflect/*.s:
 
   reflect-examples:
     contents:
@@ -1199,14 +1194,21 @@ slices:
   
   runtime-src:
     contents:
-      /usr/share/go-1.22/src/runtime/Makefile:
+      /usr/share/go-1.22/src/runtime/**.c:
+      /usr/share/go-1.22/src/runtime/**.h:
+      /usr/share/go-1.22/src/runtime/**.s:
+      /usr/share/go-1.22/src/runtime/**.S:
       /usr/share/go-1.22/src/runtime/alg.go:
       /usr/share/go-1.22/src/runtime/arena.go:
       /usr/share/go-1.22/src/runtime/asan.go:
-      /usr/share/go-1.22/src/runtime/asan0.go:
       /usr/share/go-1.22/src/runtime/asan/*:
+      /usr/share/go-1.22/src/runtime/asan0.go:
       /usr/share/go-1.22/src/runtime/atomic_pointer.go:
       /usr/share/go-1.22/src/runtime/auxv_none.go:
+      /usr/share/go-1.22/src/runtime/cgo_mmap.go:
+      /usr/share/go-1.22/src/runtime/cgo_ppc64x.go:
+      /usr/share/go-1.22/src/runtime/cgo_sigaction.go:
+      /usr/share/go-1.22/src/runtime/cgo*.go:
       /usr/share/go-1.22/src/runtime/cgo/c*.go:
       /usr/share/go-1.22/src/runtime/cgo/dragonfly.go:
       /usr/share/go-1.22/src/runtime/cgo/freebsd.go:
@@ -1219,19 +1221,15 @@ slices:
       /usr/share/go-1.22/src/runtime/cgo/setenv.go:
       /usr/share/go-1.22/src/runtime/cgo/sigaction.go:
       /usr/share/go-1.22/src/runtime/cgo/signal_ios_arm64.go:
-      /usr/share/go-1.22/src/runtime/cgo_mmap.go:
-      /usr/share/go-1.22/src/runtime/cgo_ppc64x.go:
-      /usr/share/go-1.22/src/runtime/cgo_sigaction.go:
-      /usr/share/go-1.22/src/runtime/cgo*.go:
       /usr/share/go-1.22/src/runtime/chan.go:
       /usr/share/go-1.22/src/runtime/checkptr.go:
       /usr/share/go-1.22/src/runtime/compiler.go:
       /usr/share/go-1.22/src/runtime/complex.go:
       /usr/share/go-1.22/src/runtime/coro.go:
+      /usr/share/go-1.22/src/runtime/cover*.go:
       /usr/share/go-1.22/src/runtime/coverage/apis.go:
       /usr/share/go-1.22/src/runtime/coverage/emit.go:
       /usr/share/go-1.22/src/runtime/coverage/hooks.go:
-      /usr/share/go-1.22/src/runtime/cover*.go:
       /usr/share/go-1.22/src/runtime/cpu*.go:
       /usr/share/go-1.22/src/runtime/create_file_*.go:
       /usr/share/go-1.22/src/runtime/debug.go:
@@ -1272,8 +1270,8 @@ slices:
       /usr/share/go-1.22/src/runtime/internal/atomic/atomic_wasm.go:
       /usr/share/go-1.22/src/runtime/internal/atomic/doc.go:
       /usr/share/go-1.22/src/runtime/internal/atomic/stubs.go:
-      /usr/share/go-1.22/src/runtime/internal/atomic/types.go:
       /usr/share/go-1.22/src/runtime/internal/atomic/types_64bit.go:
+      /usr/share/go-1.22/src/runtime/internal/atomic/types.go:
       /usr/share/go-1.22/src/runtime/internal/atomic/unaligned.go:
       /usr/share/go-1.22/src/runtime/internal/math/math.go:
       /usr/share/go-1.22/src/runtime/internal/sys/consts*.go:
@@ -1285,14 +1283,15 @@ slices:
       /usr/share/go-1.22/src/runtime/lfstack.go:
       /usr/share/go-1.22/src/runtime/libfuzzer.go:
       /usr/share/go-1.22/src/runtime/lock_*.go:
-      /usr/share/go-1.22/src/runtime/lockrank.go:
       /usr/share/go-1.22/src/runtime/lockrank_off.go:
       /usr/share/go-1.22/src/runtime/lockrank_on.go:
+      /usr/share/go-1.22/src/runtime/lockrank.go:
+      /usr/share/go-1.22/src/runtime/Makefile:
       /usr/share/go-1.22/src/runtime/malloc.go:
-      /usr/share/go-1.22/src/runtime/map.go:
       /usr/share/go-1.22/src/runtime/map_fast32.go:
       /usr/share/go-1.22/src/runtime/map_fast64.go:
       /usr/share/go-1.22/src/runtime/map_faststr.go:
+      /usr/share/go-1.22/src/runtime/map.go:
       /usr/share/go-1.22/src/runtime/mbarrier.go:
       /usr/share/go-1.22/src/runtime/mbitmap*.go:
       /usr/share/go-1.22/src/runtime/mcache.go:
@@ -1323,9 +1322,9 @@ slices:
       /usr/share/go-1.22/src/runtime/mkpreempt.go:
       /usr/share/go-1.22/src/runtime/mksizeclasses.go:
       /usr/share/go-1.22/src/runtime/mmap.go:
-      /usr/share/go-1.22/src/runtime/mpagealloc.go:
       /usr/share/go-1.22/src/runtime/mpagealloc_32bit.go:
       /usr/share/go-1.22/src/runtime/mpagealloc_64bit.go:
+      /usr/share/go-1.22/src/runtime/mpagealloc.go:
       /usr/share/go-1.22/src/runtime/mpagecache.go:
       /usr/share/go-1.22/src/runtime/mpallocbits.go:
       /usr/share/go-1.22/src/runtime/mprof.go:
@@ -1340,7 +1339,6 @@ slices:
       /usr/share/go-1.22/src/runtime/nbpipe_pipe.go:
       /usr/share/go-1.22/src/runtime/nbpipe_pipe2.go:
       /usr/share/go-1.22/src/runtime/net_plan9.go:
-      /usr/share/go-1.22/src/runtime/netpoll.go:
       /usr/share/go-1.22/src/runtime/netpoll_aix.go:
       /usr/share/go-1.22/src/runtime/netpoll_epoll.go:
       /usr/share/go-1.22/src/runtime/netpoll_fake.go:
@@ -1349,6 +1347,7 @@ slices:
       /usr/share/go-1.22/src/runtime/netpoll_stub.go:
       /usr/share/go-1.22/src/runtime/netpoll_wasip1.go:
       /usr/share/go-1.22/src/runtime/netpoll_windows.go:
+      /usr/share/go-1.22/src/runtime/netpoll.go:
       /usr/share/go-1.22/src/runtime/nonwindows_stub.go:
       /usr/share/go-1.22/src/runtime/os*.go:
       /usr/share/go-1.22/src/runtime/pagetrace_*.go:
@@ -1361,14 +1360,14 @@ slices:
       /usr/share/go-1.22/src/runtime/pprof/label.go:
       /usr/share/go-1.22/src/runtime/pprof/map.go:
       /usr/share/go-1.22/src/runtime/pprof/pe.go:
-      /usr/share/go-1.22/src/runtime/pprof/pprof.go:
       /usr/share/go-1.22/src/runtime/pprof/pprof_norusage.go:
       /usr/share/go-1.22/src/runtime/pprof/pprof_rusage.go:
       /usr/share/go-1.22/src/runtime/pprof/pprof_windows.go:
-      /usr/share/go-1.22/src/runtime/pprof/proto.go:
+      /usr/share/go-1.22/src/runtime/pprof/pprof.go:
       /usr/share/go-1.22/src/runtime/pprof/proto_darwin.go:
       /usr/share/go-1.22/src/runtime/pprof/proto_other.go:
       /usr/share/go-1.22/src/runtime/pprof/proto_windows.go:
+      /usr/share/go-1.22/src/runtime/pprof/proto.go:
       /usr/share/go-1.22/src/runtime/pprof/protobuf.go:
       /usr/share/go-1.22/src/runtime/pprof/protomem.go:
       /usr/share/go-1.22/src/runtime/pprof/runtime.go:
@@ -1378,22 +1377,22 @@ slices:
       /usr/share/go-1.22/src/runtime/proc.go:
       /usr/share/go-1.22/src/runtime/profbuf.go:
       /usr/share/go-1.22/src/runtime/proflabel.go:
+      /usr/share/go-1.22/src/runtime/race.go:
       /usr/share/go-1.22/src/runtime/race/doc.go:
       /usr/share/go-1.22/src/runtime/race/internal/**:
-      /usr/share/go-1.22/src/runtime/race/race.go:
       /usr/share/go-1.22/src/runtime/race/race_darwin_*.go:
       /usr/share/go-1.22/src/runtime/race/race_linux_*.syso:
       /usr/share/go-1.22/src/runtime/race/race_v*_amd64.go:
+      /usr/share/go-1.22/src/runtime/race/race.go:
       /usr/share/go-1.22/src/runtime/race0.go:
-      /usr/share/go-1.22/src/runtime/race.go:
       /usr/share/go-1.22/src/runtime/rand.go:
       /usr/share/go-1.22/src/runtime/rdebug.go:
       /usr/share/go-1.22/src/runtime/retry.go:
+      /usr/share/go-1.22/src/runtime/runtime_boring.go:
       /usr/share/go-1.22/src/runtime/runtime-gdb.py:
       /usr/share/go-1.22/src/runtime/runtime.go:
       /usr/share/go-1.22/src/runtime/runtime1.go:
       /usr/share/go-1.22/src/runtime/runtime2.go:
-      /usr/share/go-1.22/src/runtime/runtime_boring.go:
       /usr/share/go-1.22/src/runtime/rwmutex.go:
       /usr/share/go-1.22/src/runtime/security_aix.go:
       /usr/share/go-1.22/src/runtime/security_issetugid.go:
@@ -1428,18 +1427,18 @@ slices:
       /usr/share/go-1.22/src/runtime/symtab.go:
       /usr/share/go-1.22/src/runtime/symtabinl.go:
       /usr/share/go-1.22/src/runtime/sys_*.go:
-      /usr/share/go-1.22/src/runtime/syscall2_solaris.go:
       /usr/share/go-1.22/src/runtime/syscall_aix.go:
       /usr/share/go-1.22/src/runtime/syscall_solaris.go:
       /usr/share/go-1.22/src/runtime/syscall_windows.go:
-      /usr/share/go-1.22/src/runtime/tagptr.go:
+      /usr/share/go-1.22/src/runtime/syscall2_solaris.go:
       /usr/share/go-1.22/src/runtime/tagptr_32bit.go:
       /usr/share/go-1.22/src/runtime/tagptr_64bit.go:
+      /usr/share/go-1.22/src/runtime/tagptr.go:
       /usr/share/go-1.22/src/runtime/textflag.h:
-      /usr/share/go-1.22/src/runtime/time.go:
       /usr/share/go-1.22/src/runtime/time_fake.go:
       /usr/share/go-1.22/src/runtime/time_nofake.go:
       /usr/share/go-1.22/src/runtime/time_windows.h:
+      /usr/share/go-1.22/src/runtime/time.go:
       /usr/share/go-1.22/src/runtime/timeasm.go:
       /usr/share/go-1.22/src/runtime/timestub.go:
       /usr/share/go-1.22/src/runtime/timestub*.go:
@@ -1460,10 +1459,6 @@ slices:
       /usr/share/go-1.22/src/runtime/wincallback.go:
       /usr/share/go-1.22/src/runtime/write_err*.go:
       /usr/share/go-1.22/src/runtime/zcallback_windows.go:
-      /usr/share/go-1.22/src/runtime/**.S:
-      /usr/share/go-1.22/src/runtime/**.c:
-      /usr/share/go-1.22/src/runtime/**.h:
-      /usr/share/go-1.22/src/runtime/**.s:
 
   runtime-tests:
     contents:
@@ -1485,9 +1480,9 @@ slices:
       /usr/share/go-1.22/src/sort/gen_sort_variants.go:
       /usr/share/go-1.22/src/sort/search.go:
       /usr/share/go-1.22/src/sort/slice.go:
-      /usr/share/go-1.22/src/sort/sort.go:
       /usr/share/go-1.22/src/sort/sort_impl_120.go:
       /usr/share/go-1.22/src/sort/sort_impl_go121.go:
+      /usr/share/go-1.22/src/sort/sort.go:
       /usr/share/go-1.22/src/sort/zsortfunc.go:
       /usr/share/go-1.22/src/sort/zsortinterface.go:
 
@@ -1501,8 +1496,8 @@ slices:
       /usr/share/go-1.22/src/strconv/atoc.go:
       /usr/share/go-1.22/src/strconv/atof.go:
       /usr/share/go-1.22/src/strconv/atoi.go:
-      /usr/share/go-1.22/src/strconv/bytealg.go:
       /usr/share/go-1.22/src/strconv/bytealg_bootstrap.go:
+      /usr/share/go-1.22/src/strconv/bytealg.go:
       /usr/share/go-1.22/src/strconv/ctoa.go:
       /usr/share/go-1.22/src/strconv/decimal.go:
       /usr/share/go-1.22/src/strconv/doc.go:
@@ -1547,8 +1542,8 @@ slices:
       /usr/share/go-1.22/src/sync/pool.go:
       /usr/share/go-1.22/src/sync/poolqueue.go:
       /usr/share/go-1.22/src/sync/runtime.go:
-      /usr/share/go-1.22/src/sync/runtime2.go:
       /usr/share/go-1.22/src/sync/runtime2_lockrank.go:
+      /usr/share/go-1.22/src/sync/runtime2.go:
       /usr/share/go-1.22/src/sync/rwmutex.go:
       /usr/share/go-1.22/src/sync/waitgroup.go:
 
@@ -1588,12 +1583,12 @@ slices:
       /usr/share/go-1.22/src/testing/match.go:
       /usr/share/go-1.22/src/testing/newcover.go:
       /usr/share/go-1.22/src/testing/quick/quick.go:
-      /usr/share/go-1.22/src/testing/run_example.go:
       /usr/share/go-1.22/src/testing/run_example_wasm.go:
+      /usr/share/go-1.22/src/testing/run_example.go:
       /usr/share/go-1.22/src/testing/slogtest/slogtest.go:
-      /usr/share/go-1.22/src/testing/testing.go:
       /usr/share/go-1.22/src/testing/testing_other.go:
       /usr/share/go-1.22/src/testing/testing_windows.go:
+      /usr/share/go-1.22/src/testing/testing.go:
 
   testing-tests:
     contents:
@@ -1620,8 +1615,8 @@ slices:
   time-src:
     contents:
       /usr/share/go-1.22/src/time/embed.go:
-      /usr/share/go-1.22/src/time/format.go:
       /usr/share/go-1.22/src/time/format_rfc3339.go:
+      /usr/share/go-1.22/src/time/format.go:
       /usr/share/go-1.22/src/time/genzabbrs.go:
       /usr/share/go-1.22/src/time/sleep.go:
       /usr/share/go-1.22/src/time/sys_plan9.go:
@@ -1630,7 +1625,6 @@ slices:
       /usr/share/go-1.22/src/time/tick.go:
       /usr/share/go-1.22/src/time/time.go:
       /usr/share/go-1.22/src/time/tzdata/tzdata.go:
-      /usr/share/go-1.22/src/time/zoneinfo.go:
       /usr/share/go-1.22/src/time/zoneinfo_abbrs_windows.go:
       /usr/share/go-1.22/src/time/zoneinfo_android.go:
       /usr/share/go-1.22/src/time/zoneinfo_goroot.go:
@@ -1641,6 +1635,7 @@ slices:
       /usr/share/go-1.22/src/time/zoneinfo_unix.go:
       /usr/share/go-1.22/src/time/zoneinfo_wasip1.go:
       /usr/share/go-1.22/src/time/zoneinfo_windows.go:
+      /usr/share/go-1.22/src/time/zoneinfo.go:
 
   time-tests:
     contents:
@@ -1665,8 +1660,6 @@ slices:
       /usr/share/go-1.22/src/unsafe/*:
   vendor-src:
     contents:
-      /usr/share/go-1.22/src/vendor/golang.org/x/crypto/LICENSE:
-      /usr/share/go-1.22/src/vendor/golang.org/x/crypto/PATENTS:
       /usr/share/go-1.22/src/vendor/golang.org/x/crypto/chacha20/*:
       /usr/share/go-1.22/src/vendor/golang.org/x/crypto/chacha20poly1305/*:
       /usr/share/go-1.22/src/vendor/golang.org/x/crypto/cryptobyte/*:
@@ -1674,6 +1667,8 @@ slices:
       /usr/share/go-1.22/src/vendor/golang.org/x/crypto/hkdf/*:
       /usr/share/go-1.22/src/vendor/golang.org/x/crypto/internal/alias/*:
       /usr/share/go-1.22/src/vendor/golang.org/x/crypto/internal/poly1305/*:
+      /usr/share/go-1.22/src/vendor/golang.org/x/crypto/LICENSE:
+      /usr/share/go-1.22/src/vendor/golang.org/x/crypto/PATENTS:
       /usr/share/go-1.22/src/vendor/golang.org/x/net/dns/dnsmessage/*:
       /usr/share/go-1.22/src/vendor/golang.org/x/net/http/httpguts/*:
       /usr/share/go-1.22/src/vendor/golang.org/x/net/http/httpproxy/*:
