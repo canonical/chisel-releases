@@ -3,7 +3,6 @@ package: libcrypt-dev
 essential:
   - libcrypt-dev_copyright
 
-
 slices:
   libs:
     essential:
@@ -15,7 +14,7 @@ slices:
   headers:
     contents:
       /usr/include/crypt.h:
-  
+
   copyright:
     contents:
       /usr/share/doc/libcrypt-dev/copyright:
