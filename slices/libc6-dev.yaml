@@ -156,7 +156,7 @@ slices:
       /usr/lib/*-linux-*/crti.o:
       /usr/lib/*-linux-*/crtn.o:
       /usr/lib/*-linux-*/gcrt1.o:
-      /usr/lib/*-linux-*/grcrt1.o:
+      /usr/lib/*-linux-*/grcrt1.o: {arch: [amd64, arm64]}
       /usr/lib/*-linux-*/libBrokenLocale.a:
       # Symlink to libBrokenLocale.so.1
       /usr/lib/*-linux-*/libBrokenLocale.so:
@@ -170,13 +170,13 @@ slices:
       /usr/lib/*-linux-*/libc_nonshared.a:
       /usr/lib/*-linux-*/libdl.a:
       /usr/lib/*-linux-*/libg.a:
-      /usr/lib/*-linux-*/libm-2.39.a:
       /usr/lib/*-linux-*/libm.a:
+      /usr/lib/*-linux-*/libm-*.a: {arch: [amd64, arm64]}
       /usr/lib/*-linux-*/libm.so:
       /usr/lib/*-linux-*/libmcheck.a:
       # Symlink to libmvec.so.1
-      /usr/lib/*-linux-*/libmvec.a:
-      /usr/lib/*-linux-*/libmvec.so:
+      /usr/lib/*-linux-*/libmvec.a: {arch: [amd64, arm64]}
+      /usr/lib/*-linux-*/libmvec.so: {arch: [amd64, arm64]}
       # Symlink to libnss_compat.so.2
       /usr/lib/*-linux-*/libnss_compat.so:
       # Symlink to libnss_hesiod.so.2
@@ -190,7 +190,7 @@ slices:
       # Symlink to libthread_db.so.1
       /usr/lib/*-linux-*/libthread_db.so:
       /usr/lib/*-linux-*/libutil.a:
-      /usr/lib/*-linux-*/rcrt1.o:
+      /usr/lib/*-linux-*/rcrt1.o: {arch: [amd64, arm64]}
 
   copyright:
     contents:
