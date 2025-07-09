@@ -183,6 +183,9 @@ slices:
       /usr/share/go-1.22/src/archive/**test**:
 
   arena-src:
+    essential:
+      - golang-1.22-src_internal-src
+      - golang-1.22-src_unsafe-src
     contents:
       /usr/share/go-1.22/src/arena/arena.go:
 
@@ -212,6 +215,12 @@ slices:
       /usr/share/go-1.22/src/run.bat:
 
   bufio-src:
+    essential:
+      - golang-1.22-src_bytes-src
+      - golang-1.22-src_errors-src
+      - golang-1.22-src_io-src
+      - golang-1.22-src_strings-src
+      - golang-1.22-src_unicode-src
     contents:
       /usr/share/go-1.22/src/bufio/bufio.go:
       /usr/share/go-1.22/src/bufio/scan.go:
@@ -222,10 +231,17 @@ slices:
 
   # _builtin does not have tests
   builtin-src:
+    essential:
+      - golang-1.22-src_builtin-src
     contents:
       /usr/share/go-1.22/src/builtin/builtin.go:
 
   bytes-src:
+    essential:
+      - golang-1.22-src_errors-src
+      - golang-1.22-src_internal-src
+      - golang-1.22-src_io-src
+      - golang-1.22-src_unicode-src
     contents:
       /usr/share/go-1.22/src/bytes/buffer.go:
       /usr/share/go-1.22/src/bytes/bytes.go:
@@ -352,6 +368,19 @@ slices:
       /usr/share/go-1.22/src/cmp/cmp_test.go:
 
   compress-src:
+    essential:
+      - golang-1.22-src_bytes-src
+      - golang-1.22-src_bufio-src
+      - golang-1.22-src_encoding-src
+      - golang-1.22-src_errors-src
+      - golang-1.22-src_fmt-src
+      - golang-1.22-src_hash-src
+      - golang-1.22-src_io-src
+      - golang-1.22-src_math-src
+      - golang-1.22-src_sort-src
+      - golang-1.22-src_strconv-src
+      - golang-1.22-src_sync-src
+      - golang-1.22-src_time-src
     contents:
       /usr/share/go-1.22/src/compress/bzip2/bit_reader.go:
       /usr/share/go-1.22/src/compress/bzip2/bzip2.go:
@@ -375,6 +404,8 @@ slices:
       /usr/share/go-1.22/src/compress/**test**:
 
   container-src:
+    essential:
+      - golang-1.22-src_sort-src
     contents:
       /usr/share/go-1.22/src/container/heap/heap.go:
       /usr/share/go-1.22/src/container/list/list.go:
@@ -385,6 +416,11 @@ slices:
       /usr/share/go-1.22/src/container/**test**:
 
   context-src:
+    essential:
+      - golang-1.22-src_errors-src
+      - golang-1.22-src_sync-src
+      - golang-1.22-src_internal-src
+      - golang-1.22-src_time-src
     contents:
       /usr/share/go-1.22/src/context/context.go:
 
