@@ -1,0 +1,13 @@
+package: binutils-common
+
+essential:
+  - binutils-common_copyright
+
+slices:
+  config:
+    contents:
+      /etc/gprofng.rc: {arch: [amd64, arm64, i386]}
+
+  copyright:
+    contents:
+      /usr/share/doc/binutils-common/copyright:
