@@ -1,0 +1,23 @@
+package: libbinutils
+
+essential:
+  - libbinutils_copyright
+
+slices:
+  libs:
+    essential:
+      - binutils-common_config
+      - libc6_libs
+      - libsframe1_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libbfd-2.42-system.so:
+      /usr/lib/*-linux-*/libopcodes-2.42-system.so:
+
+  copyright:
+    essential:
+      - binutils-common_copyright
+    contents:
+      # Symlink to binutils-common
+      /usr/share/doc/libbinutils:
