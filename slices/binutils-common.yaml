@@ -6,7 +6,7 @@ essential:
 slices:
   config:
     contents:
-      /etc/gprofng.rc:
+      /etc/gprofng.rc: {arch: [amd64, arm64, i386]}
 
   copyright:
     contents:

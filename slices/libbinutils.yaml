@@ -6,9 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      # Uncomment binutils-common_config for architectures
-      # amd64, arm64, and i386.
-      # - binutils-common_config
+      - binutils-common_config
       - libc6_libs
       - libsframe1_libs
       - libzstd1_libs
