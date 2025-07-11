@@ -1,0 +1,9 @@
+summary: Integration tests for ruby-xmlrpc
+
+execute: |
+  rootfs="$(install-slices ruby-xmlrpc_scripts ruby_core bash_bins)"
+
+  cp ruby_xmlrpc_test.rb "${rootfs}/"
+  chroot "$rootfs" \
+    bash -c \
+      'GEM_PATH="/usr/lib/ruby/gems/3.3.0/gems:/usr/share/rubygems-integration/all" ruby /ruby_xmlrpc_test.rb'

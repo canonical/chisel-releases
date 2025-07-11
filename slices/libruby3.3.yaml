@@ -279,6 +279,33 @@ slices:
 
       /usr/lib/ruby/vendor_ruby/3.3.0/:
 
+      ## RUBYGEMS
+      # This core slice does not include all rubygems nor its utilities, but
+      # since some gems are included above, we'll need basic 'rubygems' support,
+      # just to be able to set GEM_PATH and let the Ruby scripts load gems
+      # IMPORTANT: if installing this slice and wanting to use its gems, make
+      # sure to set the following env var:
+      # GEM_PATH="$GEM_PATH:/usr/lib/ruby/gems/3.3.0/gems:/usr/share/rubygems-integration/all"
+      /usr/lib/ruby/3.3.0/rubygems/defaults.rb:
+      /usr/lib/ruby/3.3.0/rubygems.rb:
+      /usr/lib/ruby/3.3.0/rubygems/compatibility.rb:
+      /usr/lib/ruby/3.3.0/rubygems/deprecate.rb:
+      /usr/lib/ruby/3.3.0/rubygems/errors.rb:
+      /usr/lib/ruby/3.3.0/rubygems/exceptions.rb:
+      /usr/lib/ruby/3.3.0/rubygems/unknown_command_spell_checker.rb:
+      /usr/lib/ruby/3.3.0/rubygems/specification.rb:
+      /usr/lib/ruby/3.3.0/rubygems/basic_specification.rb:
+      /usr/lib/ruby/3.3.0/rubygems/stub_specification.rb:
+      /usr/lib/ruby/3.3.0/rubygems/platform.rb:
+      /usr/lib/ruby/3.3.0/rubygems/specification_record.rb:
+      /usr/lib/ruby/3.3.0/rubygems/util/list.rb:
+      /usr/lib/ruby/3.3.0/rubygems/requirement.rb:
+      /usr/lib/ruby/3.3.0/rubygems/version.rb:
+      /usr/lib/ruby/3.3.0/rubygems/util.rb:
+      /usr/lib/ruby/3.3.0/rubygems/dependency.rb:
+      /usr/lib/ruby/3.3.0/rubygems/core_ext/*.rb:
+      /usr/lib/ruby/3.3.0/rubygems/path_support.rb:
+
   libs:
     essential:
       - libc6_libs

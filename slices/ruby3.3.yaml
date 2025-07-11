@@ -8,10 +8,10 @@ slices:
     essential:
       - libruby3.3_core
       - ruby3.3_ruby
-      - rubygems-integration_scripts
 
   ruby:
     essential:
+      - libruby3.3_core
       - ruby3.3_libs
     contents:
       /usr/bin/ruby3.3:
