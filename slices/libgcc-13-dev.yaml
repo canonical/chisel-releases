@@ -8,8 +8,8 @@ slices:
     essential:
       - libasan8_libs
       - libatomic1_libs
-      - libgcc-s1_libs
       - libgcc-13-dev_headers
+      - libgcc-s1_libs
       - libgomp1_libs
       # Uncomment the following line for amd64, arm64
       # - libhwasan0_libs
@@ -23,9 +23,11 @@ slices:
       # - libtsan2_libs
       - libubsan1_libs
     contents:
-      /usr/lib/gcc/*-linux-*/13/*.a:
       # Explicitly listing all files to prevent conflicts with the gcc-13-*-linux-* package.
+      /usr/lib/gcc/*-linux-*/13/*.a:
       /usr/lib/gcc/*-linux-*/13/crt*.o:
+      /usr/lib/gcc/*-linux-*/13/ecrti.o: {arch: [ppc64el]}
+      /usr/lib/gcc/*-linux-*/13/ecrtn.o: {arch: [ppc64el]}
       /usr/lib/gcc/*-linux-*/13/libasan.so:
       /usr/lib/gcc/*-linux-*/13/libasan_preinit.o:
       /usr/lib/gcc/*-linux-*/13/libatomic.so:
@@ -44,8 +46,6 @@ slices:
       /usr/lib/gcc/*-linux-*/13/libtsan.so: {arch: [amd64]}
       /usr/lib/gcc/*-linux-*/13/libtsan_preinit.o: {arch: [amd64, arm64, ppc64el]}
       /usr/lib/gcc/*-linux-*/13/libubsan.so:
-      /usr/lib/gcc/*-linux-*/13/ecrti.o: {arch: [ppc64el]}
-      /usr/lib/gcc/*-linux-*/13/ecrtn.o: {arch: [ppc64el]}
       /usr/lib/gcc/*-linux-*/13/ncrti.o: {arch: [ppc64el]}
       /usr/lib/gcc/*-linux-*/13/ncrtn.o: {arch: [ppc64el]}
 
