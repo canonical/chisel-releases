@@ -19,7 +19,7 @@ begin
   require "uri"
   require "net/http"
   require "timeout"
-  puts "Libraries loaded successfully ✅"
+  puts "Libraries loaded successfully"
 rescue LoadError => e
   puts "Libraries failed to load: #{e.message}"
   exit 1
@@ -67,7 +67,7 @@ begin
     raise "Socket error" unless response.include?("HTTP")
   end
 rescue => e
-  puts "⚠️ Networking test skipped or failed: #{e.class}: #{e.message}"
+  puts "Networking test skipped or failed: #{e.class}: #{e.message}"
 end
 
 puts "== End of tests =="
