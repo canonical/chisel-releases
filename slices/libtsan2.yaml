@@ -1,18 +1,19 @@
-package: libatomic1
+package: libtsan2
 
 essential:
-  - libatomic1_copyright
+  - libtsan2_copyright
 
 slices:
   libs:
     essential:
       - libc6_libs
+      - libgcc-s1_libs
     contents:
-      /usr/lib/*-linux-*/libatomic.so.1*:
+      /usr/lib/*-linux-*/libtsan.so.*:
 
   copyright:
     essential:
       - gcc-14-base_copyright
     contents:
       # Symlink to gcc-14-base
-      /usr/share/doc/libatomic1:
+      /usr/share/doc/libtsan2:

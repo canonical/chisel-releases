@@ -1,0 +1,60 @@
+package: libgcc-13-dev
+
+essential:
+  - libgcc-13-dev_copyright
+
+slices:
+  libs:
+    essential:
+      - libasan8_libs
+      - libatomic1_libs
+      - libgcc-s1_libs
+      - libgcc-13-dev_headers
+      - libgomp1_libs
+      # Uncomment the following line for amd64, arm64
+      # - libhwasan0_libs
+      # Uncomment the following line for amd64, arm64, i386, ppc64el, riscv64, s390x
+      # - libitm1_libs
+      # Uncomment the following line for amd64, arm64, ppc64el
+      # - liblsan0_libs
+      # Uncomment the following line for amd64, i386, ppc64el
+      # - libquadmath0_libs
+      # Uncomment the following line for amd64, arm64, ppc64el
+      # - libtsan2_libs
+      - libubsan1_libs
+    contents:
+      /usr/lib/gcc/*-linux-*/13/*.a:
+      # Explicitly listing 
+      /usr/lib/gcc/*-linux-*/13/crt*.o:
+      /usr/lib/gcc/*-linux-*/13/libasan.so:
+      /usr/lib/gcc/*-linux-*/13/libasan_preinit.o:
+      /usr/lib/gcc/*-linux-*/13/libatomic.so:
+      /usr/lib/gcc/*-linux-*/13/libbacktrace.a: {arch: [i386]}
+      /usr/lib/gcc/*-linux-*/13/libgcc.a: {arch: [i386]}
+      /usr/lib/gcc/*-linux-*/13/libgcc_eh.a: {arch: [i386]}
+      /usr/lib/gcc/*-linux-*/13/libgcc_s.so:
+      /usr/lib/gcc/*-linux-*/13/libgcov.a: {arch: [i386]}
+      /usr/lib/gcc/*-linux-*/13/libgomp.so:
+      /usr/lib/gcc/*-linux-*/13/libhwasan.so: {arch: [amd64]}
+      /usr/lib/gcc/*-linux-*/13/libitm.a: {arch: [i386]}
+      /usr/lib/gcc/*-linux-*/13/libitm.so: {arch: [amd64, arm64, i386, riscv64, ppc64el, s390x]}
+      /usr/lib/gcc/*-linux-*/13/liblsan.so: {arch: [amd64]}
+      /usr/lib/gcc/*-linux-*/13/liblsan_preinit.o: {arch: [amd64, arm64, ppc64el]}
+      /usr/lib/gcc/*-linux-*/13/libquadmath.so: {arch: [amd64, i386]}
+      /usr/lib/gcc/*-linux-*/13/libtsan.so: {arch: [amd64]}
+      /usr/lib/gcc/*-linux-*/13/libtsan_preinit.o: {arch: [amd64, arm64, ppc64el]}
+      /usr/lib/gcc/*-linux-*/13/libubsan.so:
+      /usr/lib/gcc/*-linux-*/13/ecrti.o: {arch: [ppc64el]}
+      /usr/lib/gcc/*-linux-*/13/ecrtn.o: {arch: [ppc64el]}
+      /usr/lib/gcc/*-linux-*/13/ncrti.o: {arch: [ppc64el]}
+      /usr/lib/gcc/*-linux-*/13/ncrtn.o: {arch: [ppc64el]}
+
+  headers:
+    contents:
+      /usr/lib/gcc/*-linux-*/13/include/**.h:
+
+  copyright:
+    essential:
+      - gcc-13-base_copyright
+    contents:
+      /usr/share/doc/libgcc-13-dev:
