@@ -1,0 +1,8 @@
+summary: Integration tests for busybox-static
+
+execute: |
+  rootfs="$(install-slices busybox-static_bins)"
+
+  chroot "${rootfs}" busybox echo "Success" > ./test
+
+  test $(cat ./test) == "Success"
