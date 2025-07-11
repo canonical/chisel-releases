@@ -1,0 +1,441 @@
+package: libruby3.3
+
+essential:
+  - libruby3.3_copyright
+
+# Slicing structure based on https://ruby-doc.org/3.3.7/
+slices:
+  # core: the minimum set of Ruby package contents that is required to have a
+  # production ready Ruby runtime. It doesn't contain development or interactive
+  # tools like:
+  # irb; rake; did-you-mean; minitest; test-unit; bundler; rubygems; font-lato fonts
+  core:
+    essential:
+      - libruby3.3_libs
+      - ruby-net-telnet_rubygems
+      - ruby-xmlrpc_scripts
+    contents:
+      /usr/lib/ruby/3.3.0/English.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/english-0.8.0/:
+      /usr/lib/ruby/3.3.0/abbrev.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/abbrev-0.1.2/:
+      /usr/lib/ruby/3.3.0/base64.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/base64-0.2.0/:
+      /usr/lib/ruby/3.3.0/benchmark.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/benchmark-0.3.0/:
+      
+      # BigDecimal is a standard library in Ruby 3.3.
+      /usr/lib/ruby/3.3.0/bigdecimal/*:
+      /usr/lib/ruby/3.3.0/bigdecimal.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/bigdecimal-3.1.5/:
+      
+      /usr/lib/ruby/3.3.0/bundled_gems.rb:
+
+      # CGI
+      /usr/lib/ruby/3.3.0/cgi/**:
+      /usr/lib/ruby/3.3.0/cgi.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/cgi-0.4.1/:
+      /usr/lib/ruby/3.3.0/coverage.rb:
+
+      # CSV
+      /usr/lib/ruby/3.3.0/csv/**:
+      /usr/lib/ruby/3.3.0/csv.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/csv-3.2.8/:
+
+      /usr/lib/ruby/3.3.0/date.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/date-3.3.4/:
+      /usr/lib/ruby/3.3.0/delegate.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/delegate-0.3.1/:
+      
+      # Digest: for cryptographic hash functions
+      /usr/lib/ruby/3.3.0/digest/**:
+      /usr/lib/ruby/3.3.0/digest.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/digest-3.1.1/:
+
+      # DRb (Distributed Ruby)
+      /usr/lib/ruby/3.3.0/drb/*:
+      /usr/lib/ruby/3.3.0/drb.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/drb-2.2.0/:
+
+      # ERB, the Embedded Ruby
+      /usr/lib/ruby/3.3.0/erb/*:
+      /usr/lib/ruby/3.3.0/erb.rb:
+
+      /usr/lib/ruby/gems/3.3.0/gems/etc-1.4.3/:
+      /usr/lib/ruby/3.3.0/expect.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/fcntl-1.1.0/:
+
+      # Fiddle: a foreign function interface for Ruby
+      /usr/lib/ruby/3.3.0/fiddle/*:
+      /usr/lib/ruby/3.3.0/fiddle.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/fiddle-1.1.2/:
+
+      /usr/lib/ruby/3.3.0/fileutils.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/fileutils-1.7.2/:
+      /usr/lib/ruby/3.3.0/find.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/find-0.2.0/:
+
+      # Forwardable: for delegating methods to other objects
+      /usr/lib/ruby/3.3.0/forwardable/*:
+      /usr/lib/ruby/3.3.0/forwardable.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/forwardable-1.3.3/:
+
+      # IO: for input/output operations
+      /usr/lib/ruby/3.3.0/io/**:
+      /usr/lib/ruby/gems/3.3.0/gems/io-console-0.7.1/:
+      /usr/lib/ruby/gems/3.3.0/gems/io-nonblock-0.3.0/:
+      /usr/lib/ruby/gems/3.3.0/gems/io-wait-0.3.1/:
+
+      /usr/lib/ruby/3.3.0/ipaddr.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/ipaddr-1.2.6/:
+
+      # JSON: for parsing and generating JSON data
+      /usr/lib/ruby/3.3.0/json/**:
+      /usr/lib/ruby/3.3.0/json.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/json-2.7.2/:
+
+      /usr/lib/ruby/3.3.0/kconv.rb:
+
+      # Logger: for logging messages
+      /usr/lib/ruby/3.3.0/logger/*:
+      /usr/lib/ruby/3.3.0/logger.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/logger-1.6.0:/:
+      
+      /usr/lib/ruby/3.3.0/mkmf.rb:
+      /usr/lib/ruby/3.3.0/monitor.rb:
+      /usr/lib/ruby/3.3.0/mutex_m.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/mutex_m-0.2.0/:
+
+      # Net: for network protocols
+      /usr/lib/ruby/3.3.0/net/**:
+      
+      /usr/lib/ruby/3.3.0/observer.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/observer-0.1.2/:
+      /usr/lib/ruby/3.3.0/open-uri.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/open-uri-0.4.1/:
+      # Open3: for running external commands
+      /usr/lib/ruby/3.3.0/open3/*:
+      /usr/lib/ruby/3.3.0/open3.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/open3-0.2.1/:
+
+      # OpenSSL: for cryptographic operations
+      /usr/lib/ruby/3.3.0/openssl/*:
+      /usr/lib/ruby/3.3.0/openssl.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/openssl-3.2.0/:
+
+      # OptionParser: for command-line option parsing
+      /usr/lib/ruby/3.3.0/getoptlong.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/getoptlong-0.2.1/:
+      /usr/lib/ruby/3.3.0/optionparser.rb:
+      /usr/lib/ruby/3.3.0/optparse/*:
+      /usr/lib/ruby/3.3.0/optparse.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/optparse-0.4.0/:
+
+      /usr/lib/ruby/3.3.0/ostruct.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/ostruct-0.6.0/:
+      /usr/lib/ruby/3.3.0/pathname.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/pathname-0.3.0/:
+      /usr/lib/ruby/3.3.0/pp.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/pp-0.5.0/:
+      /usr/lib/ruby/3.3.0/prettyprint.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/prettyprint-0.2.0/:
+
+      # Prism: a Ruby parser
+      /usr/lib/ruby/3.3.0/prism/**:
+      /usr/lib/ruby/3.3.0/prism.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/prism-0.19.0/:
+
+      /usr/lib/ruby/3.3.0/pstore.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/pstore-0.1.3/:
+
+      # Psych: YAML parser and emitter
+      /usr/lib/ruby/3.3.0/psych/**:
+      /usr/lib/ruby/3.3.0/psych.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/psych-5.1.2/:
+
+      # Random: for random number generation
+      /usr/lib/ruby/3.3.0/random/*:
+
+      # Rdoc: for Ruby documentation generation
+      /usr/lib/ruby/3.3.0/rdoc/**:
+      /usr/ib/ruby/3.3.0/rdoc.rb:
+
+      /usr/lib/ruby/3.3.0/resolv-replace.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/resolv-replace-0.1.1/:
+      /usr/lib/ruby/3.3.0/resolv.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/resolv-0.3.0/:
+
+      # Rinda: for distributed Ruby applications
+      /usr/lib/ruby/3.3.0/rinda/*:
+      /usr/lib/ruby/gems/3.3.0/gems/rinda-0.2.0/:
+
+      # Ripper: a Ruby parser
+      /usr/lib/ruby/3.3.0/ripper/*:
+      /usr/lib/ruby/3.3.0/ripper.rb:
+
+      /usr/lib/ruby/3.3.0/securerandom.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/securerandom-0.3.1/:
+      /usr/lib/ruby/3.3.0/set/sorted_set.rb:
+      /usr/lib/ruby/3.3.0/set.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/set-1.1.0/:
+      /usr/lib/ruby/3.3.0/shellwords.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/shellwords-0.2.0/:
+      /usr/lib/ruby/3.3.0/singleton.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/singleton-0.2.0/:
+      /usr/lib/ruby/3.3.0/socket.rb:
+
+      # Syslog: for system logging
+      /usr/lib/ruby/3.3.0/syslog/*:
+      /usr/lib/ruby/gems/3.3.0/gems/syslog-0.1.2/:
+
+      /usr/lib/ruby/3.3.0/tempfile.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/tempfile-0.2.1/:
+      /usr/lib/ruby/3.3.0/time.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/time-0.3.0/:
+      /usr/lib/ruby/3.3.0/timeout.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/timeout-0.4.1/:
+      /usr/lib/ruby/3.3.0/tmpdir.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/tmpdir-0.2.0/:
+      /usr/lib/ruby/3.3.0/tsort.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/tsort-0.2.0/:
+      /usr/lib/ruby/3.3.0/un.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/un-0.3.0/:
+
+      # UnicodeNormalize: for Unicode normalization
+      /usr/lib/ruby/3.3.0/unicode_normalize/*:
+
+      # URI: for Uniform Resource Identifier handling
+      /usr/lib/ruby/3.3.0/uri/*:
+      /usr/lib/ruby/3.3.0/uri.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/uri-0.13.1/:
+  
+      /usr/lib/ruby/3.3.0/weakref.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/weakref-0.1.3/:
+
+      # YAML: provides a Ruby interface for data serialization in YAML format.
+      /usr/lib/ruby/3.3.0/yaml/*:
+      /usr/lib/ruby/3.3.0/yaml.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/yaml-0.3.0/:
+
+      ## Gems
+      # native extensions for gems that require C compilation. Skip .build_complete files
+      /usr/lib/ruby/gems/3.3.0/extensions/*-linux-*/3.3.0/*/*.so:
+      /usr/lib/ruby/gems/3.3.0/extensions/*-linux-*/3.3.0/**/*.so:
+
+      # command-line tool that runs ERB scripts
+      /usr/lib/ruby/gems/3.3.0/gems/erb-4.0.3/**:
+
+      # basic matrix operations
+      /usr/lib/ruby/gems/3.3.0/gems/matrix-0.4.2/**:
+
+      # FTP client library
+      /usr/lib/ruby/gems/3.3.0/gems/net-ftp-0.3.4/**:
+      
+      /usr/lib/ruby/gems/3.3.0/gems/net-http-0.4.1/:
+
+      # IMAP client
+      /usr/lib/ruby/gems/3.3.0/gems/net-imap-0.4.9.1/**:
+
+      # POP3 client 
+      /usr/lib/ruby/gems/3.3.0/gems/net-pop-0.1.2/**:
+
+      /usr/lib/ruby/gems/3.3.0/gems/net-protocol-0.2.2/:
+
+      # SMTP client
+      /usr/lib/ruby/gems/3.3.0/gems/net-smtp-0.4.0.1/**:
+
+      /usr/lib/ruby/gems/3.3.0/gems/nkf-0.1.3/:
+
+      # work with prime numbers
+      /usr/lib/ruby/gems/3.3.0/gems/prime-0.1.2/**:
+
+      # built-in documentation tool
+      /usr/lib/ruby/gems/3.3.0/gems/rdoc-6.6.3.1/**:
+
+      # XML parser
+      /usr/lib/ruby/gems/3.3.0/gems/rexml-3.3.9/**:
+      
+      # parse, create, and manipulate RSS feeds
+      /usr/lib/ruby/gems/3.3.0/gems/rss-0.3.1/**:
+
+      /usr/lib/ruby/gems/3.3.0/gems/ruby2_keywords-0.0.5/:
+      /usr/lib/ruby/gems/3.3.0/gems/stringio-3.1.1/:
+      /usr/lib/ruby/gems/3.3.0/gems/strscan-3.0.9/:
+      /usr/lib/ruby/gems/3.3.0/gems/zlib-3.1.1/:
+
+      /usr/lib/ruby/gems/3.3.0/plugins/:
+
+      # Some of the .gemspecs under this path are unnecessarily included
+      # (e.g. did_you_mean, which is not part of this slice) just so we can
+      # use a glob. 
+      # These exception will be handle via https://github.com/canonical/chisel/issues/231
+      /usr/lib/ruby/gems/3.3.0/specifications/default/**:
+
+      /usr/lib/ruby/gems/3.3.0/specifications/matrix-0.4.2.gemspec:
+      /usr/lib/ruby/gems/3.3.0/specifications/net-*.gemspec:
+      /usr/lib/ruby/gems/3.3.0/specifications/prime-0.1.2.gemspec:
+      /usr/lib/ruby/gems/3.3.0/specifications/rexml-3.3.9.gemspec:
+      /usr/lib/ruby/gems/3.3.0/specifications/rss-0.3.1.gemspec:
+
+      /usr/lib/ruby/vendor_ruby/3.3.0/:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libcrypt1_libs
+      - libffi8_libs
+      - libgmp10_libs
+      - libssl3t64_libs
+      - libyaml-0-2_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libruby-3.3.so.3.3*:
+      /usr/lib/*-linux-*/ruby/**:
+      
+
+
+
+      
+  darkfish:
+    contents:
+      /usr/lib/ruby/3.3.0/rdoc/generator/template/darkfish/**:
+
+
+  standard:
+    essential:
+      - libruby3.3_core
+    contents:
+      # IRB (Interactive Ruby)
+      /usr/lib/ruby/3.3.0/irb/**:
+      /usr/lib/ruby/3.3.0/irb.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/irb-1.13.1/**:
+
+###############################################
+###############################################
+###############################################
+###############################################
+###############################################
+###############################################
+  rubygems:
+    essential:
+     - libruby3.3_bundler
+     - libruby3.3_core
+    contents:
+      # RubyGems: package management for Ruby 
+      # NOTE: rubygems.rb may require "bundler", which is in a separate slice
+      /usr/lib/ruby/3.3.0/rubygems/**:
+  bundler:
+    contents:
+      /usr/lib/ruby/3.3.0/bundler/*.rb:
+      /usr/lib/ruby/3.3.0/bundler/cli/*:
+      /usr/lib/ruby/3.3.0/bundler/compact_index_client/*:
+      /usr/lib/ruby/3.3.0/bundler/fetcher/*:
+      /usr/lib/ruby/3.3.0/bundler/installer/*:
+
+      # Skipping man files
+      # /usr/lib/ruby/3.3.0/bundler/man/*:
+
+      /usr/lib/ruby/3.3.0/bundler/plugin/**:
+      /usr/lib/ruby/3.3.0/bundler/resolver/:
+      /usr/lib/ruby/3.3.0/bundler/resolver/*:
+      /usr/lib/ruby/3.3.0/bundler/settings/*:
+      /usr/lib/ruby/3.3.0/bundler/source/**:
+
+      # Skipping templates, which should only be needed for development envs,
+      # with Bundler’s gem creation commands
+      # /usr/lib/ruby/3.3.0/bundler/templates/**:
+
+      /usr/lib/ruby/3.3.0/bundler/ui/*:
+      /usr/lib/ruby/3.3.0/bundler/vendor/**:
+      /usr/lib/ruby/3.3.0/bundler.rb:
+
+      /usr/lib/ruby/gems/3.3.0/gems/bundler-2.5.22/exe/*:
+
+  # For debugging and development purposes, so not needed in the std slice
+  objspace:
+    contents:
+      # ObjectSpace: for introspection and garbage collection
+      /usr/lib/ruby/3.3.0/objspace/*:
+      /usr/lib/ruby/3.3.0/objspace.rb:
+  gems-management:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/build_info/:
+      /usr/lib/ruby/gems/3.3.0/cache/:
+      /usr/lib/ruby/gems/3.3.0/doc/:
+  # Syntax Suggest : provides suggestions for typos in method names.
+  syntax-suggest:
+    contents:
+      /usr/lib/ruby/3.3.0/syntax_suggest/**:
+      /usr/lib/ruby/3.3.0/syntax_suggest.rb:
+  # Reline: a line editor for Ruby
+  reline:
+    contents:
+      /usr/lib/ruby/3.3.0/readline.rb:
+      /usr/lib/ruby/3.3.0/reline/**:
+      /usr/lib/ruby/3.3.0/reline.rb:
+      /usr/lib/ruby/gems/3.3.0/gems/readline-0.0.4/:
+      /usr/lib/ruby/gems/3.3.0/gems/reline-0.5.10/:
+
+  # Did You Mean? : provides suggestions for typos in method names.
+  did-you-mean:
+    essential:
+      - libruby3.3_standard
+    contents:
+      /usr/lib/ruby/3.3.0/did_you_mean/**:
+      /usr/lib/ruby/3.3.0/did_you_mean.rb:
+  # Error Highlight : syntax highlighting for Ruby errors.
+  error-highlight:
+    essential:
+      - libruby3.3_standard
+    contents:
+      /usr/lib/ruby/3.3.0/error_highlight/*:
+      /usr/lib/ruby/3.3.0/error_highlight.rb:
+  # Ruby VM : provides some access to MRI internals. 
+  # This module is for very limited purposes, such as debugging, prototyping,
+  # and research. Normal users must not use it.
+  # This module is not portable between Ruby implementations.
+  ruby-vm:
+    essential:
+      - libruby3.3_standard
+    contents:
+      /usr/lib/ruby/3.3.0/ruby_vm/**:
+  gems-debug:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/debug-1.9.2/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/debug-1.9.2.gemspec:
+  gems-minitest:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/minitest-5.20.0/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/minitest-5.20.0.gemspec:
+  gems-power-assert:
+    contents:
+      # enhances assertion failure messages in tests
+      /usr/lib/ruby/gems/3.3.0/gems/power_assert-2.0.3/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/power_assert-2.0.3.gemspec:
+  gems-racc:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/racc-1.7.3/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/racc-1.7.3.gemspec:
+  gems-rake:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/rake-13.1.0/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/rake-13.1.0.gemspec:
+  gems-rbs:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/rbs-3.4.0/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/rbs-3.4.0.gemspec:
+  gems-syntax-suggest:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/syntax_suggest-2.0.1/**:
+  gems-test-unit:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/test-unit-3.6.1/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/test-unit-3.6.1.gemspec:
+  gems-typeprof:
+    contents:
+      /usr/lib/ruby/gems/3.3.0/gems/typeprof-0.21.9/**:
+      /usr/lib/ruby/gems/3.3.0/specifications/typeprof-0.21.9.gemspec:
+
+  copyright:
+    contents:
+      /usr/share/doc/libruby3.3/copyright:

@@ -1,0 +1,22 @@
+package: ruby-xmlrpc
+
+essential:
+  - ruby-xmlrpc_copyright
+
+slices:
+  scripts:
+    essential:
+      - ruby-xmlrpc_rubygems
+    contents:
+      /usr/lib/ruby/vendor_ruby/xmlrpc/*:
+      /usr/lib/ruby/vendor_ruby/xmlrpc.rb:
+
+  rubygems:
+    essential:
+      - ruby-webrick_rubygems
+    contents:
+      /usr/share/rubygems-integration/all/:
+
+  copyright:
+    contents:
+      /usr/share/doc/ruby-xmlrpc/copyright:
