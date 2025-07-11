@@ -13,6 +13,7 @@ slices:
     essential:
       - libruby3.3_libs
       - ruby-net-telnet_rubygems
+      - ruby-webrick_rubygems
       - ruby-xmlrpc_scripts
     contents:
       /usr/lib/ruby/3.3.0/English.rb:
