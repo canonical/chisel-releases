@@ -99,7 +99,7 @@ slices:
       # Logger: for logging messages
       /usr/lib/ruby/3.3.0/logger/*:
       /usr/lib/ruby/3.3.0/logger.rb:
-      /usr/lib/ruby/gems/3.3.0/gems/logger-1.6.0:/:
+      /usr/lib/ruby/gems/3.3.0/gems/logger-1.6.0/:
       
       /usr/lib/ruby/3.3.0/mkmf.rb:
       /usr/lib/ruby/3.3.0/monitor.rb:
@@ -158,7 +158,7 @@ slices:
 
       # Rdoc: for Ruby documentation generation
       /usr/lib/ruby/3.3.0/rdoc/**:
-      /usr/ib/ruby/3.3.0/rdoc.rb:
+      /usr/lib/ruby/3.3.0/rdoc.rb:
 
       /usr/lib/ruby/3.3.0/resolv-replace.rb:
       /usr/lib/ruby/gems/3.3.0/gems/resolv-replace-0.1.1/:
