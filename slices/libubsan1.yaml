@@ -10,7 +10,7 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libubsan.so.1:
+      /usr/lib/*-linux-*/libubsan.so.1*:
 
   copyright:
     essential:
