@@ -7,6 +7,7 @@ slices:
   libs:
     essential:
       - libc6_libs
+      - libgcc-s1_libs
     contents:
       /usr/lib/*-linux-*/liblsan.so.0*:
 

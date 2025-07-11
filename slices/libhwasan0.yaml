@@ -15,4 +15,5 @@ slices:
     essential:
       - gcc-14-base_copyright
     contents:
+      # Symlink to gcc-14-base
       /usr/share/doc/libhwasan0:
