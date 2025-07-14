@@ -1,0 +1,39 @@
+summary: Integration tests for Python3
+
+environment:
+  SLICE/core: "core"
+  SLICE/standard: "standard"
+
+execute: |
+  echo "SLICE=${SLICE}"
+
+  rootfs="$(install-slices php_${SLICE})"
+
+  mkdir -p "${rootfs}/var/www/html"
+  cp test_${SLICE}.php "${rootfs}/var/www/html/index.php"
+
+  # Test CLI
+  chroot "$rootfs" php -r "echo 'hello, world!';"
+
+  # Start server
+  chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
+  php_pid=$!
+
+  # Ensure the server is killed when the script exits
+  cleanup() {
+      echo "Stopping PHP server..."
+      kill "$php_pid" 2>/dev/null || true
+      wait "$php_pid" 2>/dev/null || true
+  }
+  trap cleanup EXIT
+
+  # Give the server time to start
+  sleep 1
+
+  # Run test based on slice type
+  if [ "$SLICE" = "standard" ]; then
+    chroot "$rootfs" php -m | grep calendar
+    curl -s http://localhost:8080 | grep "February 2024 has 29 days."
+  else
+    curl -s http://localhost:8080 | grep "hello, world!"
+  fi
