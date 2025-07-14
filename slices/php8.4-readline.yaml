@@ -1,0 +1,17 @@
+package: php8.4-readline
+
+slices:
+  libs:
+    essential:
+      - php-common_bins
+      - ucf_bins
+      - php8.4-common_libs
+      - libc6_libs
+      - libedit2_libs
+      - php8.4-readline_config
+    contents:
+      /usr/lib/php/20230831/readline.so:
+
+  config:
+    contents: 
+      /etc/php/8.3/mods-available/readline.ini: { copy: /usr/share/php8.4-readline/readline/readline.ini }

@@ -1,0 +1,23 @@
+package: psmisc
+
+essential:
+  - psmisc_copyright
+
+slices:
+
+  bins:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/fuser:
+      /usr/bin/killall:
+      /usr/bin/peekfd:
+      /usr/bin/prtstat:
+      /usr/bin/pslog:
+      /usr/bin/pstree:
+      /usr/bin/pstree.x11: {symlink: /usr/bin/pstree}
+
+  copyright:
+    contents:
+      /usr/share/doc/psmisc/copyright:

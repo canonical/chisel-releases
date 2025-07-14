@@ -1,0 +1,61 @@
+package: php8.4-common
+
+essential:
+  - php8.4-common_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libffi8_libs
+      - libssl3t64_libs
+      - php-common_bins
+      - ucf_bins
+    contents:
+      /usr/lib/php/8.4/php.ini-production:
+
+  extensions:
+    essential:
+      - php8.4-common_extensions-libs
+    contents:
+      /etc/php/8.4/mods-available/calendar.ini: { copy: /usr/share/php8.4-common/common/calendar.ini }
+      /etc/php/8.4/mods-available/ctype.ini: { copy: /usr/share/php8.4-common/common/ctype.ini }
+      /etc/php/8.4/mods-available/exif.ini: { copy: /usr/share/php8.4-common/common/exif.ini }
+      /etc/php/8.4/mods-available/ffi.ini: { copy: /usr/share/php8.4-common/common/ffi.ini }
+      /etc/php/8.4/mods-available/fileinfo.ini: { copy: /usr/share/php8.4-common/common/fileinfo.ini }
+      /etc/php/8.4/mods-available/ftp.ini: { copy: /usr/share/php8.4-common/common/ftp.ini }
+      /etc/php/8.4/mods-available/gettext.ini: { copy: /usr/share/php8.4-common/common/gettext.ini }
+      /etc/php/8.4/mods-available/iconv.ini: { copy: /usr/share/php8.4-common/common/iconv.ini }
+      /etc/php/8.4/mods-available/pdo.ini: { copy: /usr/share/php8.4-common/common/pdo.ini }
+      /etc/php/8.4/mods-available/phar.ini: { copy: /usr/share/php8.4-common/common/phar.ini }
+      /etc/php/8.4/mods-available/posix.ini: { copy: /usr/share/php8.4-common/common/posix.ini }
+      /etc/php/8.4/mods-available/shmop.ini: { copy: /usr/share/php8.4-common/common/shmop.ini }
+      /etc/php/8.4/mods-available/sockets.ini: { copy: /usr/share/php8.4-common/common/sockets.ini }
+      /etc/php/8.4/mods-available/sysvmsg.ini: { copy: /usr/share/php8.4-common/common/sysvmsg.ini }
+      /etc/php/8.4/mods-available/sysvsem.ini: { copy: /usr/share/php8.4-common/common/sysvsem.ini }
+      /etc/php/8.4/mods-available/sysvshm.ini: { copy: /usr/share/php8.4-common/common/sysvshm.ini }
+      /etc/php/8.4/mods-available/tokenizer.ini: { copy: /usr/share/php8.4-common/common/tokenizer.ini }
+
+  extensions-libs:
+    contents: 
+      /usr/lib/php/20240924/calendar.so:
+      /usr/lib/php/20240924/ctype.so:
+      /usr/lib/php/20240924/exif.so:
+      /usr/lib/php/20240924/ffi.so:
+      /usr/lib/php/20240924/fileinfo.so:
+      /usr/lib/php/20240924/ftp.so:
+      /usr/lib/php/20240924/gettext.so:
+      /usr/lib/php/20240924/iconv.so:
+      /usr/lib/php/20240924/pdo.so:
+      /usr/lib/php/20240924/phar.so:
+      /usr/lib/php/20240924/posix.so:
+      /usr/lib/php/20240924/shmop.so:
+      /usr/lib/php/20240924/sockets.so:
+      /usr/lib/php/20240924/sysvmsg.so:
+      /usr/lib/php/20240924/sysvsem.so:
+      /usr/lib/php/20240924/sysvshm.so:
+      /usr/lib/php/20240924/tokenizer.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/php8.4-common/copyright:

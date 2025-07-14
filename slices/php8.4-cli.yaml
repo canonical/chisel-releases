@@ -1,0 +1,66 @@
+package: php8.4-cli
+
+slices:
+  core:
+    essential:
+      - libedit2_libs
+      - media-types_data
+      - php8.4-common_libs
+      - php8.4-opcache_libs
+      - tzdata_zoneinfo
+      - ucf_bins
+      - libargon2-1_libs
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libssl3t64_libs
+      - libxml2_libs
+      - zlib1g_libs
+      - php8.4-cli_config
+    contents:
+      /usr/bin/php8.4:
+      /usr/bin/php: { symlink: /usr/bin/php8.4 }
+      /usr/lib/php/8.4/sapi/cli:
+
+  standard:
+    essential:
+      - php8.4-cli_core
+      - php8.4-cli_extensions
+      - php8.4-readline_libs
+    contents:
+      /usr/bin/phar8.4.phar:
+      /usr/bin/phar.phar8.4: { symlink: phar8.4.phar }
+      /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.4}
+      /usr/bin/phar8.4: { symlink: phar8.4.phar }
+      /usr/bin/phar: { symlink: /usr/bin/phar8.4 }
+
+  config:
+    contents: 
+      /etc/php/8.4/cli/php.ini: { mutable: true, text: "" }
+    mutate: |
+      src = "/usr/lib/php/8.4/php.ini-production"
+      dst = "/etc/php/8.4/cli/php.ini"
+      data = content.read(src)
+      content.write(dst, data)
+
+  extensions:
+    essential:
+      - php8.4-common_extensions
+    contents:
+      /etc/php/8.4/cli/conf.d/calendar.ini: { symlink: /etc/php/8.4/mods-available/calendar.ini }
+      /etc/php/8.4/cli/conf.d/ctype.ini: { symlink: /etc/php/8.4/mods-available/ctype.ini }
+      /etc/php/8.4/cli/conf.d/exif.ini: { symlink: /etc/php/8.4/mods-available/exif.ini }
+      /etc/php/8.4/cli/conf.d/ffi.ini: { symlink: /etc/php/8.4/mods-available/ffi.ini }
+      /etc/php/8.4/cli/conf.d/fileinfo.ini: { symlink: /etc/php/8.4/mods-available/fileinfo.ini }
+      /etc/php/8.4/cli/conf.d/ftp.ini: { symlink: /etc/php/8.4/mods-available/ftp.ini }
+      /etc/php/8.4/cli/conf.d/gettext.ini: { symlink: /etc/php/8.4/mods-available/gettext.ini }
+      /etc/php/8.4/cli/conf.d/iconv.ini: { symlink: /etc/php/8.4/mods-available/iconv.ini }
+      /etc/php/8.4/cli/conf.d/pdo.ini: { symlink: /etc/php/8.4/mods-available/pdo.ini }
+      /etc/php/8.4/cli/conf.d/phar.ini: { symlink: /etc/php/8.4/mods-available/phar.ini }
+      /etc/php/8.4/cli/conf.d/posix.ini: { symlink: /etc/php/8.4/mods-available/posix.ini }
+      /etc/php/8.4/cli/conf.d/shmop.ini: { symlink: /etc/php/8.4/mods-available/shmop.ini }
+      /etc/php/8.4/cli/conf.d/sockets.ini: { symlink: /etc/php/8.4/mods-available/sockets.ini }
+      /etc/php/8.4/cli/conf.d/sysvmsg.ini: { symlink: /etc/php/8.4/mods-available/sysvmsg.ini }
+      /etc/php/8.4/cli/conf.d/sysvsem.ini: { symlink: /etc/php/8.4/mods-available/sysvsem.ini }
+      /etc/php/8.4/cli/conf.d/sysvshm.ini: { symlink: /etc/php/8.4/mods-available/sysvshm.ini }
+      /etc/php/8.4/cli/conf.d/tokenizer.ini: { symlink: /etc/php/8.4/mods-available/tokenizer.ini }

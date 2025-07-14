@@ -1,0 +1,17 @@
+package: php8.4-opcache
+
+slices:
+  libs:
+    essential:
+      - php-common_bins
+      - ucf_bins
+      - php8.4-common_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - php8.4-opcache_config
+    contents:
+      /usr/lib/php/20240924/opcache.so:
+
+  config:
+    contents: 
+      /etc/php/8.4/mods-available/opcache.ini: { copy: /usr/share/php8.4-opcache/opcache/opcache.ini }
