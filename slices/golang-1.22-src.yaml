@@ -9,7 +9,7 @@ slices:
   # easily without Chisel's support for negative wildcards.
   # To exclude the tests and test data, a command should be run after cutting
   # this slice:
-  #   find . -depth \( \
+  #   find ${rootfs}/usr/share/go-1.22 -depth \( \
   #      \( -path '*test*' ! -path '*src/testing*' \) -o \
   #      \( -path '*/testing/*' -name '*_test.go' \) \
   #      \) -exec rm -rf {} +
