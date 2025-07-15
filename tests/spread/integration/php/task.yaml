@@ -23,7 +23,7 @@ execute: |
     mkdir -p $rootfs/phar-file
     touch $rootfs/phar-file/test-content
 
-    chroot "$rootfs" phar pack -f test.phar har-file
+    chroot "$rootfs" phar pack -f test.phar phar-file
 
     cp test_${SLICE}.php $rootfs
     chroot "$rootfs" php test_${SLICE}.php | grep test-content
