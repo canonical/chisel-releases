@@ -1,0 +1,14 @@
+package: golang-1.22
+
+essential:
+  - golang-1.22-go_copyright
+
+slices:
+  all:
+    essential:
+      - golang-1.22-go_bins
+      - golang-1.22-src_all
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.22/copyright:
