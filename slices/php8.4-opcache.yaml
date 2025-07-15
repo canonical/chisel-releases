@@ -3,7 +3,7 @@ package: php8.4-opcache
 slices:
   libs:
     essential:
-      - php-common_bins
+      - php-common_libs
       - ucf_bins
       - php8.4-common_libs
       - libc6_libs

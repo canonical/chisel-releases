@@ -5,21 +5,20 @@ essential:
 
 slices:
 
-  bins:
-    essential:
-      - php-common_libs
-      - psmisc_bins
-    contents:
-      /usr/sbin/phpenmod:
-      /usr/sbin/phpquery:
-      /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
-
   libs:
+    essential:
+      - psmisc_bins
     contents:
       /usr/lib/php/php-fpm-socket-helper:
       /usr/lib/php/php-helper:
       /usr/lib/php/php-maintscript-helper:
       /usr/lib/php/sessionclean:
+
+  module-bins:
+    contents:
+      /usr/sbin/phpenmod:
+      /usr/sbin/phpquery:
+      /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
 
   copyright:
     contents:
