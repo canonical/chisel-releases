@@ -1,7 +1,7 @@
 package: golang-1.22
 
 essential:
-  - golang-1.22-go_copyright
+  - golang-1.22_copyright
 
 slices:
   all:
