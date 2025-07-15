@@ -25,16 +25,18 @@ slices:
   standard:
     essential:
       - php8.3-cli_core
-      - php8.3-cli_extensions
       - php8.3-readline_libs
+      - php-common_module-bins
     contents:
       /usr/bin/phar8.3.phar:
       /usr/bin/phar.phar8.3: { symlink: phar8.3.phar }
-      /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.3}
+      /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.3 }
       /usr/bin/phar8.3: { symlink: phar8.3.phar }
       /usr/bin/phar: { symlink: /usr/bin/phar8.3 }
 
   config:
+    essential:
+      - php8.3-cli_module-config
     contents: 
       /etc/php/8.3/cli/php.ini: { mutable: true, text: "" }
     mutate: |
@@ -43,9 +45,9 @@ slices:
       data = content.read(src)
       content.write(dst, data)
 
-  extensions:
+  module-config:
     essential:
-      - php8.3-common_extensions
+      - php8.3-common_modules
     contents:
       /etc/php/8.3/cli/conf.d/calendar.ini: { symlink: /etc/php/8.3/mods-available/calendar.ini }
       /etc/php/8.3/cli/conf.d/ctype.ini: { symlink: /etc/php/8.3/mods-available/ctype.ini }

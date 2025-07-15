@@ -1,4 +1,4 @@
-summary: Integration tests for Python3
+summary: Integration tests for PHP
 
 environment:
   SLICE/core: "core"
@@ -9,31 +9,45 @@ execute: |
 
   rootfs="$(install-slices php_${SLICE})"
 
-  mkdir -p "${rootfs}/var/www/html"
-  cp test_${SLICE}.php "${rootfs}/var/www/html/index.php"
-
   # Test CLI
-  chroot "$rootfs" php -r "echo 'hello, world!';"
-
-  # Start server
-  chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
-  php_pid=$!
-
-  # Ensure the server is killed when the script exits
-  cleanup() {
-      echo "Stopping PHP server..."
-      kill "$php_pid" 2>/dev/null || true
-      wait "$php_pid" 2>/dev/null || true
-  }
-  trap cleanup EXIT
-
-  # Give the server time to start
-  sleep 1
+  chroot "$rootfs" php -r "echo 'hello, world';"
 
   # Run test based on slice type
   if [ "$SLICE" = "standard" ]; then
-    chroot "$rootfs" php -m | grep calendar
-    curl -s http://localhost:8080 | grep "February 2024 has 29 days."
+    ls $rootfs/usr/sbin | grep phpenmod
+    ls $rootfs/usr/bin | grep phar
+
+    sed -i 's/^\s*;\?\s*phar\.readonly\s*=.*/phar.readonly = Off/' $rootfs/etc/php/8.3/cli/php.ini
+
+    mkdir -p $rootfs/tmp
+    mkdir -p $rootfs/phar-file
+    touch $rootfs/phar-file/test-content
+
+    chroot "$rootfs" phar pack -f test.phar phar-file
+
+    cp test_${SLICE}.php $rootfs
+    chroot "$rootfs" php test_${SLICE}.php | grep test-content
+
   else
-    curl -s http://localhost:8080 | grep "hello, world!"
+    mkdir -p "${rootfs}/var/www/html"
+    cp test_${SLICE}.php "${rootfs}/var/www/html/index.php"
+
+    # Start server
+    chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
+    php_pid=$!
+
+    # Ensure the server is killed when the script exits
+    cleanup() {
+        echo "Stopping PHP server..."
+        kill "$php_pid" 2>/dev/null || true
+        wait "$php_pid" 2>/dev/null || true
+    }
+    trap cleanup EXIT
+
+    # Give the server time to start
+    sleep 1
+
+    curl -s http://localhost:8080 | grep -i 'name='
+    curl -s -X POST http://localhost:8080 -d "" | grep -i 'name is required'
+    curl -s -X POST http://localhost:8080 -d "name=Alice" | grep -i 'Submitted name: Alice'
   fi

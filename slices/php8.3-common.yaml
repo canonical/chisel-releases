@@ -9,14 +9,14 @@ slices:
       - libc6_libs
       - libffi8_libs
       - libssl3t64_libs
-      - php-common_bins
+      - php-common_libs
       - ucf_bins
     contents:
       /usr/lib/php/8.3/php.ini-production:
 
-  extensions:
+  modules:
     essential:
-      - php8.3-common_extensions-libs
+      - php8.3-common_module-libs
     contents:
       /etc/php/8.3/mods-available/calendar.ini: { copy: /usr/share/php8.3-common/common/calendar.ini }
       /etc/php/8.3/mods-available/ctype.ini: { copy: /usr/share/php8.3-common/common/ctype.ini }
@@ -36,7 +36,7 @@ slices:
       /etc/php/8.3/mods-available/sysvshm.ini: { copy: /usr/share/php8.3-common/common/sysvshm.ini }
       /etc/php/8.3/mods-available/tokenizer.ini: { copy: /usr/share/php8.3-common/common/tokenizer.ini }
 
-  extensions-libs:
+  module-libs:
     contents: 
       /usr/lib/php/20230831/calendar.so:
       /usr/lib/php/20230831/ctype.so:

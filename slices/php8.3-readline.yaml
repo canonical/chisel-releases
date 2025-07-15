@@ -3,7 +3,6 @@ package: php8.3-readline
 slices:
   libs:
     essential:
-      - php-common_bins
       - ucf_bins
       - php8.3-common_libs
       - libc6_libs
