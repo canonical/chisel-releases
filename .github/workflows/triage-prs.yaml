@@ -1,8 +1,11 @@
 name: Triage PRs
 
 on:
-  pull_request_target:
-    types: [opened, reopened, ready_for_review]
+  # Using a schedule because events like pull_request only work if the workflow
+  # exists on the base (target) branch of the PR
+  schedule:
+    - cron: "* * * * *"
+  workflow_dispatch:
 
 jobs:
   add-reviewers:
@@ -13,12 +16,27 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
           REVIEWERS: "slice-reviewers-guild"
         run: |
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/requested_reviewers \
-            -f "team_reviewers[]=${{ env.REVIEWERS }}"
+          set -euxo pipefail
+          
+          for pr_number in `gh pr list -R ${{ github.repository }} \
+            --search "-review-requested:${{ env.REVIEWERS }}" --json number | jq -e '.[].number' \
+            || echo fail`
+            do
+              if [[ "$pr_number" == "fail" ]]
+              then
+                echo "ERR: couldn't search for PRs"
+                exit 1
+              fi
 
-          # Cannot use `gh pr edit`:
-          # https://github.com/cli/cli/issues/4844
+              echo "Requesting review from ${{ env.REVIEWERS }} on PR ${pr_number}"
+
+              gh api \
+                --method POST \
+                -H "Accept: application/vnd.github+json" \
+                -H "X-GitHub-Api-Version: 2022-11-28" \
+                /repos/${{ github.repository }}/pulls/${pr_number}/requested_reviewers \
+                -f "team_reviewers[]=${{ env.REVIEWERS }}"
+
+              # Cannot use `gh pr edit`:
+              # https://github.com/cli/cli/issues/4844
+          done
