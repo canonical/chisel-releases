@@ -17,8 +17,6 @@ slices:
       - libpython3.9-minimal_libs
       - mime-support_mime-types
     contents:
-      # _aix_support and _bootsubprocess are new in 3.9
-      /usr/lib/python3.9/_aix_support.py:
       /usr/lib/python3.9/_bootsubprocess.py:
       /usr/lib/python3.9/_compression.py:
       /usr/lib/python3.9/bz2.py:
@@ -43,6 +41,14 @@ slices:
       /usr/lib/python3.9/socketserver.py:
       /usr/lib/python3.9/tarfile.py:
       # Gone in 3.9: /usr/lib/python3.9/typing.py:
+
+  # Shared AIX (IBM) support functions
+  aix-support:
+    essential:
+      - libpython3.9-stdlib_core
+    contents:
+        # _aix_support and _bootsubprocess are new in 3.9
+      /usr/lib/python3.9/_aix_support.py:
 
   # Generic Operating System Services
   # https://docs.python.org/3.9/library/allos.html
