@@ -27,16 +27,16 @@ slices:
       - php8.3-cli_core
       - php8.3-readline_libs
     contents:
+      /usr/bin/phar: { symlink: /usr/bin/phar8.3 }
       /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.3 }
       /usr/bin/phar.phar8.3: { symlink: phar8.3.phar }
-      /usr/bin/phar: { symlink: /usr/bin/phar8.3 }
       /usr/bin/phar8.3: { symlink: phar8.3.phar }
       /usr/bin/phar8.3.phar:
 
   config:
     essential:
-      - php8.3-common_libs
       - php8.3-cli_module-config
+      - php8.3-common_libs
     contents:
       /etc/php/8.3/cli/php.ini: { mutable: true, text: "" }
     mutate: |
