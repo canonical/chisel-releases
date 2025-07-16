@@ -3,11 +3,11 @@ package: php8.4-readline
 slices:
   libs:
     essential:
-      - ucf_bins
-      - php8.4-common_libs
       - libc6_libs
       - libedit2_libs
+      - php8.4-common_libs
       - php8.4-readline_config
+      - ucf_bins
     contents:
       /usr/lib/php/20240924/readline.so:
 

@@ -3,36 +3,36 @@ package: php8.4-cli
 slices:
   core:
     essential:
-      - libedit2_libs
-      - media-types_data
-      - php8.4-common_libs
-      - php8.4-opcache_libs
-      - tzdata_zoneinfo
-      - ucf_bins
       - libargon2-1_libs
+      - libedit2_libs
       - libc6_libs
       - libpcre2-8-0_libs
       - libsodium23_libs
       - libssl3t64_libs
       - libxml2_libs
-      - zlib1g_libs
+      - media-types_data
       - php8.4-cli_config
+      - php8.4-common_libs
+      - php8.4-opcache_libs
+      - tzdata_zoneinfo
+      - ucf_bins
+      - zlib1g_libs
     contents:
-      /usr/bin/php8.4:
       /usr/bin/php: { symlink: /usr/bin/php8.4 }
+      /usr/bin/php8.4:
       /usr/lib/php/8.4/sapi/cli:
 
   standard:
     essential:
+      - php-common_module-bins
       - php8.4-cli_core
       - php8.4-readline_libs
-      - php-common_module-bins
     contents:
-      /usr/bin/phar8.4.phar:
-      /usr/bin/phar.phar8.4: { symlink: phar8.4.phar }
       /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.4 }
-      /usr/bin/phar8.4: { symlink: phar8.4.phar }
+      /usr/bin/phar.phar8.4: { symlink: phar8.4.phar }
       /usr/bin/phar: { symlink: /usr/bin/phar8.4 }
+      /usr/bin/phar8.4: { symlink: phar8.4.phar }
+      /usr/bin/phar8.4.phar:
 
   config:
     essential:

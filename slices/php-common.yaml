@@ -16,9 +16,9 @@ slices:
 
   module-bins:
     contents:
+      /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
       /usr/sbin/phpenmod:
       /usr/sbin/phpquery:
-      /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
 
   copyright:
     contents:
