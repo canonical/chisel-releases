@@ -18,26 +18,43 @@ slices:
     essential:
       - php8.3-common_module-libs
     contents:
-      /etc/php/8.3/mods-available/calendar.ini: { copy: /usr/share/php8.3-common/common/calendar.ini }
-      /etc/php/8.3/mods-available/ctype.ini: { copy: /usr/share/php8.3-common/common/ctype.ini }
-      /etc/php/8.3/mods-available/exif.ini: { copy: /usr/share/php8.3-common/common/exif.ini }
-      /etc/php/8.3/mods-available/ffi.ini: { copy: /usr/share/php8.3-common/common/ffi.ini }
-      /etc/php/8.3/mods-available/fileinfo.ini: { copy: /usr/share/php8.3-common/common/fileinfo.ini }
-      /etc/php/8.3/mods-available/ftp.ini: { copy: /usr/share/php8.3-common/common/ftp.ini }
-      /etc/php/8.3/mods-available/gettext.ini: { copy: /usr/share/php8.3-common/common/gettext.ini }
-      /etc/php/8.3/mods-available/iconv.ini: { copy: /usr/share/php8.3-common/common/iconv.ini }
-      /etc/php/8.3/mods-available/pdo.ini: { copy: /usr/share/php8.3-common/common/pdo.ini }
-      /etc/php/8.3/mods-available/phar.ini: { copy: /usr/share/php8.3-common/common/phar.ini }
-      /etc/php/8.3/mods-available/posix.ini: { copy: /usr/share/php8.3-common/common/posix.ini }
-      /etc/php/8.3/mods-available/shmop.ini: { copy: /usr/share/php8.3-common/common/shmop.ini }
-      /etc/php/8.3/mods-available/sockets.ini: { copy: /usr/share/php8.3-common/common/sockets.ini }
-      /etc/php/8.3/mods-available/sysvmsg.ini: { copy: /usr/share/php8.3-common/common/sysvmsg.ini }
-      /etc/php/8.3/mods-available/sysvsem.ini: { copy: /usr/share/php8.3-common/common/sysvsem.ini }
-      /etc/php/8.3/mods-available/sysvshm.ini: { copy: /usr/share/php8.3-common/common/sysvshm.ini }
-      /etc/php/8.3/mods-available/tokenizer.ini: { copy: /usr/share/php8.3-common/common/tokenizer.ini }
+      /etc/php/8.3/mods-available/calendar.ini:
+        { copy: /usr/share/php8.3-common/common/calendar.ini }
+      /etc/php/8.3/mods-available/ctype.ini:
+        { copy: /usr/share/php8.3-common/common/ctype.ini }
+      /etc/php/8.3/mods-available/exif.ini:
+        { copy: /usr/share/php8.3-common/common/exif.ini }
+      /etc/php/8.3/mods-available/ffi.ini:
+        { copy: /usr/share/php8.3-common/common/ffi.ini }
+      /etc/php/8.3/mods-available/fileinfo.ini:
+        { copy: /usr/share/php8.3-common/common/fileinfo.ini }
+      /etc/php/8.3/mods-available/ftp.ini:
+        { copy: /usr/share/php8.3-common/common/ftp.ini }
+      /etc/php/8.3/mods-available/gettext.ini:
+        { copy: /usr/share/php8.3-common/common/gettext.ini }
+      /etc/php/8.3/mods-available/iconv.ini:
+        { copy: /usr/share/php8.3-common/common/iconv.ini }
+      /etc/php/8.3/mods-available/pdo.ini:
+        { copy: /usr/share/php8.3-common/common/pdo.ini }
+      /etc/php/8.3/mods-available/phar.ini:
+        { copy: /usr/share/php8.3-common/common/phar.ini }
+      /etc/php/8.3/mods-available/posix.ini:
+        { copy: /usr/share/php8.3-common/common/posix.ini }
+      /etc/php/8.3/mods-available/shmop.ini:
+        { copy: /usr/share/php8.3-common/common/shmop.ini }
+      /etc/php/8.3/mods-available/sockets.ini:
+        { copy: /usr/share/php8.3-common/common/sockets.ini }
+      /etc/php/8.3/mods-available/sysvmsg.ini:
+        { copy: /usr/share/php8.3-common/common/sysvmsg.ini }
+      /etc/php/8.3/mods-available/sysvsem.ini:
+        { copy: /usr/share/php8.3-common/common/sysvsem.ini }
+      /etc/php/8.3/mods-available/sysvshm.ini:
+        { copy: /usr/share/php8.3-common/common/sysvshm.ini }
+      /etc/php/8.3/mods-available/tokenizer.ini:
+        { copy: /usr/share/php8.3-common/common/tokenizer.ini }
 
   module-libs:
-    contents: 
+    contents:
       /usr/lib/php/20230831/calendar.so:
       /usr/lib/php/20230831/ctype.so:
       /usr/lib/php/20230831/exif.so:
