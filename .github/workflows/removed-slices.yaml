@@ -1,0 +1,45 @@
+name: "Removed slices"
+
+on:
+  pull_request:
+    paths:
+      - "slices/**"
+  workflow_call:
+
+jobs:
+  check:
+    name: "Check for removed slices"
+    runs-on: "ubuntu-latest"
+    env:
+      files_main: "main-files"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # We do need to fetch all history for all branches.
+          fetch-depth: 0
+
+      - name: "Set reference to main branch"
+        id: set-main-ref
+        run: |
+          if [[ "${{ github.base_ref }}" == "main" ]]; then
+            # For PRs to main, use the updated files.
+            # Leaving checkout_main_ref unset will checkout the PR head_ref.
+            echo "ref_main=" >> $GITHUB_OUTPUT
+          else
+            echo "ref_main=main" >> $GITHUB_OUTPUT
+          fi
+
+      - name: "Checkout main branch"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.set-main-ref.outputs.ref_main }}
+          path: ${{ env.files_main }}
+
+      - name: "Check for removed slices"
+        run: |
+          ln -s "${{ env.files_main }}/.github/scripts/removed-slices/removed-slices" .
+          # For pull request events, use github.event.pull_request.base.sha as
+          # the old git ref.
+          # For push events, the github.event.before value contains the SHA of
+          # the most recent commit on ref before the push.
+          ./removed-slices "${{ github.event.pull_request.base.sha || github.event.before }}"
