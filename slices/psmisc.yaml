@@ -12,7 +12,7 @@ slices:
     contents:
       /usr/bin/fuser:
       /usr/bin/killall:
-      /usr/bin/peekfd:
+      /usr/bin/peekfd: { arch: [amd64, arm64, armhf, i386, ppc64el] }
       /usr/bin/prtstat:
       /usr/bin/pslog:
       /usr/bin/pstree:

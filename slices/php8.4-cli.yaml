@@ -4,15 +4,14 @@ slices:
   core:
     essential:
       - libargon2-1_libs
-      - libedit2_libs
       - libc6_libs
+      - libedit2_libs
       - libpcre2-8-0_libs
       - libsodium23_libs
       - libssl3t64_libs
       - libxml2_libs
       - media-types_data
       - php8.4-cli_config
-      - php8.4-common_libs
       - php8.4-opcache_libs
       - tzdata_zoneinfo
       - ucf_bins
@@ -28,15 +27,16 @@ slices:
       - php8.4-cli_core
       - php8.4-readline_libs
     contents:
+      /usr/bin/phar: { symlink: /usr/bin/phar8.4 }
       /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.4 }
       /usr/bin/phar.phar8.4: { symlink: phar8.4.phar }
-      /usr/bin/phar: { symlink: /usr/bin/phar8.4 }
       /usr/bin/phar8.4: { symlink: phar8.4.phar }
       /usr/bin/phar8.4.phar:
 
   config:
     essential:
       - php8.4-cli_module-config
+      - php8.4-common_libs
     contents:
       /etc/php/8.4/cli/php.ini: { mutable: true, text: "" }
     mutate: |
