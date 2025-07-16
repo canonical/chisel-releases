@@ -100,7 +100,7 @@ or when in doubt, you should simply reply and let the reviewers resolve it.
 
 > [!IMPORTANT]
 > All PRs must be forward ported! E.g. if opening a PR against
-> `ubuntu-24.04`, you must also forward port it to `ubuntu-24.10`, `ubuntu-25.04`,
+> `ubuntu-24.04`, you must also forward port it to `ubuntu-25.04`,
 > and so on, for all supported releases at the time of opening the PR.
 
 Please note that in order to get merged, PRs must first be approved at least by

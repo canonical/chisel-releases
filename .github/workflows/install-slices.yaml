@@ -27,7 +27,6 @@ env:
       {"ref": "ubuntu-20.04", "chisel-versions": ["v1.0.0","main"]},
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.0.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.0.0","main"]},
-      {"ref": "ubuntu-24.10", "chisel-versions": ["v1.0.0","main"]},
       {"ref": "ubuntu-25.04", "chisel-versions": ["v1.0.0","main"]}
     ]
 
