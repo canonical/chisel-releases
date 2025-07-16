@@ -12,5 +12,6 @@ slices:
       /usr/lib/php/20240924/readline.so:
 
   config:
-    contents: 
-      /etc/php/8.3/mods-available/readline.ini: { copy: /usr/share/php8.4-readline/readline/readline.ini }
+    contents:
+      /etc/php/8.3/mods-available/readline.ini:
+        { copy: /usr/share/php8.4-readline/readline/readline.ini }

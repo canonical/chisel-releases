@@ -37,7 +37,7 @@ slices:
   config:
     essential:
       - php8.4-cli_module-config
-    contents: 
+    contents:
       /etc/php/8.4/cli/php.ini: { mutable: true, text: "" }
     mutate: |
       src = "/usr/lib/php/8.4/php.ini-production"

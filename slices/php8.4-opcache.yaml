@@ -13,5 +13,6 @@ slices:
       /usr/lib/php/20240924/opcache.so:
 
   config:
-    contents: 
-      /etc/php/8.4/mods-available/opcache.ini: { copy: /usr/share/php8.4-opcache/opcache/opcache.ini }
+    contents:
+      /etc/php/8.4/mods-available/opcache.ini:
+        { copy: /usr/share/php8.4-opcache/opcache/opcache.ini }
