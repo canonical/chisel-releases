@@ -47,7 +47,7 @@ slices:
     essential:
       - libpython3.9-stdlib_core
     contents:
-        # _aix_support and _bootsubprocess are new in 3.9
+      # _aix_support and _bootsubprocess are new in 3.9
       /usr/lib/python3.9/_aix_support.py:
 
   # Generic Operating System Services
