@@ -1,0 +1,124 @@
+package: libpython3.9-minimal
+
+# Most of the Python3.9 standard libraries are split into
+# two major packages:
+# - libpython3.9-minimal (this one)
+# - libpython3.9-stdlib
+# While the libpython3.9-stdlib package has been chiselled logically
+# into granular slices, the same hasn't been done for this package.
+# The reason is simple, the libraries in this package are tightly
+# dependent upon each other.
+essential:
+  - libpython3.9-minimal_copyright
+
+slices:
+  config:
+    contents:
+      /etc/python3.9/sitecustomize.py:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libpython3.9-minimal_config
+      - libssl1.1_libs
+    contents:
+      /usr/lib/python3.9/__future__.py:
+      /usr/lib/python3.9/_bootlocale.py:
+      /usr/lib/python3.9/_collections_abc.py:
+      /usr/lib/python3.9/_compat_pickle.py:
+      /usr/lib/python3.9/_py_abc.py:
+      /usr/lib/python3.9/_sitebuiltins.py:
+      /usr/lib/python3.9/_strptime.py:
+      /usr/lib/python3.9/_sysconfigdata_*-linux-*.py:
+      /usr/lib/python3.9/_threading_local.py:
+      /usr/lib/python3.9/_weakrefset.py:
+      /usr/lib/python3.9/abc.py:
+      /usr/lib/python3.9/argparse.py:
+      /usr/lib/python3.9/ast.py:
+      /usr/lib/python3.9/base64.py:
+      /usr/lib/python3.9/bisect.py:
+      /usr/lib/python3.9/calendar.py:
+      /usr/lib/python3.9/codecs.py:
+      /usr/lib/python3.9/collections/**:
+      /usr/lib/python3.9/compileall.py:
+      /usr/lib/python3.9/configparser.py:
+      /usr/lib/python3.9/contextlib.py:
+      /usr/lib/python3.9/copy.py:
+      /usr/lib/python3.9/copyreg.py:
+      /usr/lib/python3.9/csv.py:
+      /usr/lib/python3.9/datetime.py:
+      /usr/lib/python3.9/dis.py:
+      /usr/lib/python3.9/email/**:
+      /usr/lib/python3.9/encodings/**:
+      /usr/lib/python3.9/enum.py:
+      # filecmp.py is new in 3.9
+      /usr/lib/python3.9/filecmp.py:
+      /usr/lib/python3.9/fnmatch.py:
+      /usr/lib/python3.9/functools.py:
+      /usr/lib/python3.9/genericpath.py:
+      /usr/lib/python3.9/getopt.py:
+      /usr/lib/python3.9/glob.py:
+      /usr/lib/python3.9/hashlib.py:
+      /usr/lib/python3.9/heapq.py:
+      /usr/lib/python3.9/imp.py:
+      /usr/lib/python3.9/importlib/**:
+      /usr/lib/python3.9/inspect.py:
+      /usr/lib/python3.9/io.py:
+      /usr/lib/python3.9/ipaddress.py:
+      /usr/lib/python3.9/keyword.py:
+      /usr/lib/python3.9/lib-dynload/_hashlib.cpython-39-*-linux-*.so:
+      /usr/lib/python3.9/lib-dynload/_opcode.cpython-39-*-linux-*.so:
+      /usr/lib/python3.9/lib-dynload/_ssl.cpython-39-*-linux-*.so:
+      /usr/lib/python3.9/linecache.py:
+      /usr/lib/python3.9/locale.py:
+      /usr/lib/python3.9/logging/**:
+      /usr/lib/python3.9/opcode.py:
+      /usr/lib/python3.9/operator.py:
+      /usr/lib/python3.9/optparse.py:
+      /usr/lib/python3.9/os.py:
+      /usr/lib/python3.9/pathlib.py:
+      /usr/lib/python3.9/pickle.py:
+      /usr/lib/python3.9/pkgutil.py:
+      /usr/lib/python3.9/platform.py:
+      /usr/lib/python3.9/posixpath.py:
+      /usr/lib/python3.9/py_compile.py:
+      /usr/lib/python3.9/quopri.py:
+      /usr/lib/python3.9/random.py:
+      /usr/lib/python3.9/re.py:
+      /usr/lib/python3.9/reprlib.py:
+      /usr/lib/python3.9/runpy.py:
+      /usr/lib/python3.9/selectors.py:
+      /usr/lib/python3.9/signal.py:
+      /usr/lib/python3.9/site.py:
+      /usr/lib/python3.9/sitecustomize.py:
+      /usr/lib/python3.9/socket.py:
+      /usr/lib/python3.9/sre_compile.py:
+      /usr/lib/python3.9/sre_constants.py:
+      /usr/lib/python3.9/sre_parse.py:
+      /usr/lib/python3.9/ssl.py:
+      /usr/lib/python3.9/stat.py:
+      /usr/lib/python3.9/string.py:
+      /usr/lib/python3.9/stringprep.py:
+      /usr/lib/python3.9/struct.py:
+      /usr/lib/python3.9/subprocess.py:
+      /usr/lib/python3.9/sysconfig.py:
+      /usr/lib/python3.9/tempfile.py:
+      /usr/lib/python3.9/textwrap.py:
+      /usr/lib/python3.9/threading.py:
+      /usr/lib/python3.9/token.py:
+      /usr/lib/python3.9/tokenize.py:
+      /usr/lib/python3.9/traceback.py:
+      /usr/lib/python3.9/tracemalloc.py:
+      /usr/lib/python3.9/types.py:
+      # typing.py is new in 3.9
+      /usr/lib/python3.9/typing.py:
+      /usr/lib/python3.9/urllib/**:
+      /usr/lib/python3.9/uu.py:
+      /usr/lib/python3.9/warnings.py:
+      /usr/lib/python3.9/weakref.py:
+      /usr/lib/python3.9/zipfile.py:
+      /usr/lib/python3.9/zipimport.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpython3.9-minimal/copyright:

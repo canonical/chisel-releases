@@ -1,0 +1,14 @@
+summary: Integration tests for Python3.9
+
+environment:
+  SLICE/core: "core"
+  SLICE/standard: "standard"
+
+execute: |
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+
+  rootfs="$(install-slices python3.9_${SLICE})"
+
+  cp test_${SLICE}.py "${rootfs}/"
+  chroot "$rootfs" python3.9 /test_${SLICE}.py

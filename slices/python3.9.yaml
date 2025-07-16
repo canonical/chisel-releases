@@ -1,0 +1,60 @@
+package: python3.9
+
+essential:
+  - python3.9_copyright
+
+slices:
+  # The "core" slice provides a very minimal, yet functioning Python3.9.
+  # It includes very few modules from the libpython3.9-stdlib package.
+  core:
+    essential:
+      - libpython3.9-stdlib_core
+      - mime-support_mime-types
+      - python3.9-minimal_bins
+
+  # The "standard" slice extends "core" with all the Python
+  # modules from the libpython3.9-stdlib package.
+  standard:
+    essential:
+      - libpython3.9-stdlib_all-os
+      - libpython3.9-stdlib_concurrency
+      - libpython3.9-stdlib_core
+      - libpython3.9-stdlib_crypto
+      - libpython3.9-stdlib_custom-interpreters
+      - libpython3.9-stdlib_data-persistence
+      - libpython3.9-stdlib_data-types
+      - libpython3.9-stdlib_debug
+      - libpython3.9-stdlib_development-tools
+      - libpython3.9-stdlib_distribution
+      - libpython3.9-stdlib_extras
+      - libpython3.9-stdlib_file-formats
+      - libpython3.9-stdlib_filesys
+      - libpython3.9-stdlib_frameworks
+      - libpython3.9-stdlib_importing
+      - libpython3.9-stdlib_internet
+      - libpython3.9-stdlib_ipc
+      - libpython3.9-stdlib_language
+      - libpython3.9-stdlib_markup-tools
+      - libpython3.9-stdlib_multimedia
+      - libpython3.9-stdlib_net-data
+      - libpython3.9-stdlib_numeric
+      - libpython3.9-stdlib_osx-support
+      - libpython3.9-stdlib_pydoc
+      - libpython3.9-stdlib_text
+      - libpython3.9-stdlib_unix
+      - python3.9_core
+
+  # The "utlis" slice extends "core" with various tools.
+  utils:
+    essential:
+      - libpython3.9-stdlib_debug
+      - libpython3.9-stdlib_pydoc
+      - python3.9_core
+    contents:
+      /usr/bin/pdb3.9:
+      /usr/bin/pydoc3.9:
+      /usr/bin/pygettext3.9:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.9/copyright:
