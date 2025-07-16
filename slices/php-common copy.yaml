@@ -1,0 +1,25 @@
+package: php-common
+
+essential:
+  - php-common_copyright
+
+slices:
+
+  libs:
+    essential:
+      - psmisc_bins
+    contents:
+      /usr/lib/php/php-fpm-socket-helper:
+      /usr/lib/php/php-helper:
+      /usr/lib/php/php-maintscript-helper:
+      /usr/lib/php/sessionclean:
+
+  module-bins:
+    contents:
+      /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
+      /usr/sbin/phpenmod:
+      /usr/sbin/phpquery:
+
+  copyright:
+    contents:
+      /usr/share/doc/php-common/copyright:
