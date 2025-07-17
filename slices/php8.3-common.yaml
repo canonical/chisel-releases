@@ -18,6 +18,10 @@ slices:
     essential:
       - php8.3-common_module-libs
     contents:
+      # PHP contain multiple modules that enable different functions
+      # (i.e date() by calendar.ini), these modules need to be copied
+      # into /mods-available so they can be enabled afterwards via
+      # phpenmod. This logic can be found in the maintainer scripts.
       /etc/php/8.3/mods-available/calendar.ini:
         { copy: /usr/share/php8.3-common/common/calendar.ini }
       /etc/php/8.3/mods-available/ctype.ini:
