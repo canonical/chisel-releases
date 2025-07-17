@@ -6,8 +6,6 @@ essential:
 slices:
 
   libs:
-    essential:
-      - psmisc_bins
     contents:
       /usr/lib/php/php-fpm-socket-helper:
       /usr/lib/php/php-helper:
