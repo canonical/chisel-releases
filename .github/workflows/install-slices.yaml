@@ -21,7 +21,7 @@ on:
 
 env:
   # Package architectures and chisel-releases branches to test on.
-  ARCHES: '["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]'
+  ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
   RELEASES: |
     [
       {"ref": "ubuntu-20.04", "chisel-versions": ["v1.0.0","main"]},
