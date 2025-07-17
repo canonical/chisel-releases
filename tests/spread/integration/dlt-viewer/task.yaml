@@ -1,0 +1,12 @@
+summary: Integration tests for dlt-viewer
+
+execute: |
+  rootfs="$(install-slices dlt-viewer_bins dlt-viewer_plugins)"
+
+  cp testfile.dlt "${rootfs}/"
+
+  export QT_QPA_PLATFORM=offscreen
+
+  chroot "$rootfs" dlt-viewer -csv -s -t -c output.csv testfile.dlt
+
+  test -f ${rootfs}/output.csv
