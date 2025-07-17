@@ -1,0 +1,20 @@
+package: libgo-14-dev
+
+essential:
+  - libgo-14-dev_copyright
+
+slices:
+  libs:
+    essential:
+      - libgcc-14-dev_libs
+      - libgo23_libs
+    contents:
+      /usr/lib/gcc/*-linux-*/14/libgo*.a:
+      /usr/lib/*-linux-*/go/14/*-linux-*/**.gox:
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      # Symlink to gcc-14-base
+      /usr/share/doc/libgo-14-dev:

@@ -1,0 +1,20 @@
+package: libgo23
+
+essential:
+  - libgo23_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libc
+      - libgcc-s1_libs
+    contents:
+      /usr/lib/*-linux-*/libgo.so.23*:
+  
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      # Symlink to gcc-14-base
+      /usr/share/doc/libgo23:
