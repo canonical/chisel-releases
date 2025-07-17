@@ -14,7 +14,7 @@ slices:
       /usr/lib/php/php-maintscript-helper:
       /usr/lib/php/sessionclean:
 
-  module-bins:
+  bins:
     contents:
       /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
       /usr/sbin/phpenmod:
