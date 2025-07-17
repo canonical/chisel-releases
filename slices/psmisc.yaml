@@ -16,7 +16,7 @@ slices:
       /usr/bin/prtstat:
       /usr/bin/pslog:
       /usr/bin/pstree:
-      /usr/bin/pstree.x11: {symlink: /usr/bin/pstree}
+      /usr/bin/pstree.x11:
 
   copyright:
     contents:
