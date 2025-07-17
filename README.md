@@ -27,8 +27,6 @@ the moment, the officially supported Chisel releases are:
 \- Mantic (EOL)
 - [ubuntu-24.04](https://github.com/canonical/chisel-releases/tree/ubuntu-24.04)
 \- Noble
-- [ubuntu-24.10](https://github.com/canonical/chisel-releases/tree/ubuntu-24.10)
-\- Oracular
 - [ubuntu-25.04](https://github.com/canonical/chisel-releases/tree/ubuntu-25.04)
 \- Plucky
 
