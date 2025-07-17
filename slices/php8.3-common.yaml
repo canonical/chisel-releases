@@ -10,13 +10,29 @@ slices:
       - libffi8_libs
       - libssl3t64_libs
       - php-common_libs
+      - php8.3-common_config
       - ucf_bins
     contents:
+      /usr/lib/php/20230831/calendar.so:
+      /usr/lib/php/20230831/ctype.so:
+      /usr/lib/php/20230831/exif.so:
+      /usr/lib/php/20230831/ffi.so:
+      /usr/lib/php/20230831/fileinfo.so:
+      /usr/lib/php/20230831/ftp.so:
+      /usr/lib/php/20230831/gettext.so:
+      /usr/lib/php/20230831/iconv.so:
+      /usr/lib/php/20230831/pdo.so:
+      /usr/lib/php/20230831/phar.so:
+      /usr/lib/php/20230831/posix.so:
+      /usr/lib/php/20230831/shmop.so:
+      /usr/lib/php/20230831/sockets.so:
+      /usr/lib/php/20230831/sysvmsg.so:
+      /usr/lib/php/20230831/sysvsem.so:
+      /usr/lib/php/20230831/sysvshm.so:
+      /usr/lib/php/20230831/tokenizer.so:
       /usr/lib/php/8.3/php.ini-production:
 
-  modules:
-    essential:
-      - php8.3-common_module-libs
+  config:
     contents:
       # PHP contain multiple modules that enable different functions
       # (i.e date() by calendar.ini), these modules need to be copied
@@ -56,26 +72,6 @@ slices:
         { copy: /usr/share/php8.3-common/common/sysvshm.ini }
       /etc/php/8.3/mods-available/tokenizer.ini:
         { copy: /usr/share/php8.3-common/common/tokenizer.ini }
-
-  module-libs:
-    contents:
-      /usr/lib/php/20230831/calendar.so:
-      /usr/lib/php/20230831/ctype.so:
-      /usr/lib/php/20230831/exif.so:
-      /usr/lib/php/20230831/ffi.so:
-      /usr/lib/php/20230831/fileinfo.so:
-      /usr/lib/php/20230831/ftp.so:
-      /usr/lib/php/20230831/gettext.so:
-      /usr/lib/php/20230831/iconv.so:
-      /usr/lib/php/20230831/pdo.so:
-      /usr/lib/php/20230831/phar.so:
-      /usr/lib/php/20230831/posix.so:
-      /usr/lib/php/20230831/shmop.so:
-      /usr/lib/php/20230831/sockets.so:
-      /usr/lib/php/20230831/sysvmsg.so:
-      /usr/lib/php/20230831/sysvsem.so:
-      /usr/lib/php/20230831/sysvshm.so:
-      /usr/lib/php/20230831/tokenizer.so:
 
   copyright:
     contents:

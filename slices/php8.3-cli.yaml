@@ -35,19 +35,7 @@ slices:
 
   config:
     essential:
-      - php8.3-cli_module-config
       - php8.3-common_libs
-    contents:
-      /etc/php/8.3/cli/php.ini: { mutable: true, text: "" }
-    mutate: |
-      src = "/usr/lib/php/8.3/php.ini-production"
-      dst = "/etc/php/8.3/cli/php.ini"
-      data = content.read(src)
-      content.write(dst, data)
-
-  module-config:
-    essential:
-      - php8.3-common_modules
     contents:
       /etc/php/8.3/cli/conf.d/calendar.ini: { symlink: /etc/php/8.3/mods-available/calendar.ini }
       /etc/php/8.3/cli/conf.d/ctype.ini: { symlink: /etc/php/8.3/mods-available/ctype.ini }
@@ -66,3 +54,9 @@ slices:
       /etc/php/8.3/cli/conf.d/sysvsem.ini: { symlink: /etc/php/8.3/mods-available/sysvsem.ini }
       /etc/php/8.3/cli/conf.d/sysvshm.ini: { symlink: /etc/php/8.3/mods-available/sysvshm.ini }
       /etc/php/8.3/cli/conf.d/tokenizer.ini: { symlink: /etc/php/8.3/mods-available/tokenizer.ini }
+      /etc/php/8.3/cli/php.ini: { mutable: true, text: "" }
+    mutate: |
+      src = "/usr/lib/php/8.3/php.ini-production"
+      dst = "/etc/php/8.3/cli/php.ini"
+      data = content.read(src)
+      content.write(dst, data)
