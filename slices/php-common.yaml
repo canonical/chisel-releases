@@ -16,7 +16,7 @@ slices:
 
   bins:
     contents:
-      /usr/sbin/phpdismod: {symlink: /usr/sbin/phpenmod}
+      /usr/sbin/phpdismod:
       /usr/sbin/phpenmod:
       /usr/sbin/phpquery:
 

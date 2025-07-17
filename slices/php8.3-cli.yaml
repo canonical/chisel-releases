@@ -29,8 +29,8 @@ slices:
     contents:
       /usr/bin/phar: { symlink: /usr/bin/phar8.3 }
       /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.3 }
-      /usr/bin/phar.phar8.3: { symlink: phar8.3.phar }
-      /usr/bin/phar8.3: { symlink: phar8.3.phar }
+      /usr/bin/phar.phar8.3:
+      /usr/bin/phar8.3:
       /usr/bin/phar8.3.phar:
 
   config:
