@@ -23,7 +23,7 @@ slices:
 
   standard:
     essential:
-      - php-common_module-bins
+      - php-common_bins
       - php8.3-cli_core
       - php8.3-readline_libs
     contents:
