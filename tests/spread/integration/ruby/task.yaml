@@ -7,6 +7,7 @@ environment:
 execute: |
   rootfs="$(install-slices ruby_${SLICE})"
   
+  mkdir "${rootfs}/run"
   mount --bind /run "${rootfs}/run"
   
   mkdir "${rootfs}/etc"
