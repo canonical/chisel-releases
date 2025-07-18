@@ -1,0 +1,71 @@
+package: golang-1.24-go
+
+essential:
+  - golang-1.24-go_copyright
+
+slices:
+  bins:
+    essential:
+      - golang-1.24-go_libs
+    contents:
+      /usr/lib/go-1.24/bin/go:
+      /usr/lib/go-1.24/bin/gofmt:
+
+  libs:
+    essential:
+      - golang-1.24-go_headers
+      - golang-1.24-go_src
+      - golang-1.24-go_symlinks
+      - golang-1.24-go_tools
+      - golang-1.24-src_all
+
+  tools:
+    contents:
+      /usr/lib/go-1.24/pkg/tool/linux_*/addr2line:
+      /usr/lib/go-1.24/pkg/tool/linux_*/asm:
+      /usr/lib/go-1.24/pkg/tool/linux_*/buildid:
+      /usr/lib/go-1.24/pkg/tool/linux_*/cgo:
+      /usr/lib/go-1.24/pkg/tool/linux_*/compile:
+      /usr/lib/go-1.24/pkg/tool/linux_*/covdata:
+      /usr/lib/go-1.24/pkg/tool/linux_*/cover:
+      /usr/lib/go-1.24/pkg/tool/linux_*/dist:
+      /usr/lib/go-1.24/pkg/tool/linux_*/distpack:
+      /usr/lib/go-1.24/pkg/tool/linux_*/doc:
+      /usr/lib/go-1.24/pkg/tool/linux_*/fix:
+      /usr/lib/go-1.24/pkg/tool/linux_*/link:
+      /usr/lib/go-1.24/pkg/tool/linux_*/nm:
+      /usr/lib/go-1.24/pkg/tool/linux_*/objdump:
+      /usr/lib/go-1.24/pkg/tool/linux_*/pack:
+      /usr/lib/go-1.24/pkg/tool/linux_*/pprof:
+      /usr/lib/go-1.24/pkg/tool/linux_*/preprofile:
+      /usr/lib/go-1.24/pkg/tool/linux_*/test2json:
+      /usr/lib/go-1.24/pkg/tool/linux_*/trace:
+      /usr/lib/go-1.24/pkg/tool/linux_*/vet:
+
+  headers:
+    contents:
+      /usr/share/go-1.24/pkg/include/*.h:
+
+  src:
+    contents:
+      /usr/share/go-1.24/src/cmd/cgo/zdefaultcc.go:
+      /usr/share/go-1.24/src/cmd/go/internal/cfg/zdefaultcc.go:
+      /usr/share/go-1.24/src/cmd/internal/objabi/zbootstrap.go:
+      /usr/share/go-1.24/src/go/build/zcgo.go:
+      /usr/share/go-1.24/src/internal/buildcfg/zbootstrap.go:
+      /usr/share/go-1.24/src/internal/runtime/sys/zversion.go:
+      /usr/share/go-1.24/src/time/tzdata/zzipdata.go:
+
+  symlinks:
+    contents:
+      # Symlinks to ../../share/go-1.24/<basename>
+      /usr/lib/go-1.24/api:
+      /usr/lib/go-1.24/lib:
+      /usr/lib/go-1.24/misc:
+      /usr/lib/go-1.24/pkg/include:
+      /usr/lib/go-1.24/src:
+      /usr/lib/go-1.24/test:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.24-go/copyright:
