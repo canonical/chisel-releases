@@ -1,0 +1,18 @@
+package: php8.3-opcache
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - php-common_libs
+      - php8.3-common_libs
+      - php8.3-opcache_config
+      - ucf_bins
+    contents:
+      /usr/lib/php/20230831/opcache.so:
+
+  config:
+    contents:
+      /etc/php/8.3/mods-available/opcache.ini:
+        { copy: /usr/share/php8.3-opcache/opcache/opcache.ini }
