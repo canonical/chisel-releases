@@ -17,15 +17,15 @@ execute: |
       dash_bins \
       coreutils_bins \
       findutils_bins \
-      sed_bins")
+      sed_bins)"
 
     # Test CLI
     chroot "$rootfs" php -r "echo 'hello, world';"
 
     # Test disable module and query
     chroot "$rootfs" phpdismod -r calendar
-    ! (chroot "$rootfs" phpquery -v 8.3 -s cli -M | grep calendar)
-    ! (chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar)
+    ! chroot "$rootfs" phpquery -v 8.3 -s cli -M | grep calendar
+    ! chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
 
     # Test enable module and query
     chroot "$rootfs" phpenmod -r calendar
