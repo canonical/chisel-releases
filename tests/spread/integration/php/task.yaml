@@ -12,7 +12,7 @@ execute: |
 
     # Install slices
     rootfs="$(install-slices \
-      php_${SLICE}
+      php_${SLICE} \
       base-files_base \
       dash_bins \
       coreutils_bins \
