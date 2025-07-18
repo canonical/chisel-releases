@@ -59,7 +59,7 @@ raise "Time test failed" unless Time.now.strftime("%Y").to_i > 2023
 
 # Networking
 begin
-  Timeout.timeout(2) do
+  Timeout.timeout(10) do
     socket = TCPSocket.new("ubuntu.com", 80)
     socket.puts "GET / HTTP/1.0\r\n\r\n"
     response = socket.read
