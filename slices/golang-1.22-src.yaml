@@ -203,6 +203,11 @@ slices:
       /usr/share/go-1.22/api/*.txt:
 
   bash-scripts:
+    essential:
+      - bash_bins
+      # - binutils_bins
+      - coreutils_bins
+      - grep_bins
     contents:
       /usr/share/go-1.22/src/all.bash:
       /usr/share/go-1.22/src/bootstrap.bash:
