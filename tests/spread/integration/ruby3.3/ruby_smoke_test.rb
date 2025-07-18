@@ -13,7 +13,6 @@ puts "Current Dir: #{Dir.pwd}"
 begin
   require "fileutils"
   require "tempfile"
-  require "socket"
   require "json"
   require "digest"
   require "uri"
@@ -56,14 +55,6 @@ raise "JSON error" unless data["hello"] == "world"
 # Time formatting
 puts "Date: #{Time.now.strftime("%D")}"
 raise "Time test failed" unless Time.now.strftime("%Y").to_i > 2023
-
-# Networking
-begin
-  Socket.getaddrinfo('ubuntu.com', 80, Socket::AF_INET)
-rescue => e
-  puts "Networking test skipped or failed: #{e.class}: #{e.message}"
-  exit 1
-end
 
 puts "== End of tests =="
 

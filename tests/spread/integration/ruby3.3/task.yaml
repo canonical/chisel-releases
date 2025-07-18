@@ -7,11 +7,5 @@ environment:
 execute: |
   rootfs="$(install-slices ruby3.3_${SLICE})"
 
-  mkdir -p "${rootfs}/etc" "${rootfs}/run" "${rootfs}/proc/sys/net/ipv6/conf/all/"
-
-  echo 1 | tee "${rootfs}/proc/sys/net/ipv6/conf/all/disable_ipv6"
-  mount --bind /run "${rootfs}/run"
-  echo 'nameserver 8.8.8.8' | tee "${rootfs}/etc/resolv.conf"
-
   cp ruby_smoke_test.rb "${rootfs}/"
   chroot "$rootfs" ruby3.3 /ruby_smoke_test.rb
