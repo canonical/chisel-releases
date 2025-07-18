@@ -5,18 +5,19 @@ essential:
 
 slices:
 
-  libs:
-    contents:
-      /usr/lib/php/php-fpm-socket-helper:
-      /usr/lib/php/php-helper:
-      /usr/lib/php/php-maintscript-helper:
-      /usr/lib/php/sessionclean:
-
   bins:
+    essential:
+      - php-common_libs
     contents:
       /usr/sbin/phpdismod:
       /usr/sbin/phpenmod:
       /usr/sbin/phpquery:
+
+  libs:
+    contents:
+      /usr/lib/php/php-fpm-socket-helper:
+      /usr/lib/php/php-helper:
+      /usr/lib/php/sessionclean:
 
   copyright:
     contents:
