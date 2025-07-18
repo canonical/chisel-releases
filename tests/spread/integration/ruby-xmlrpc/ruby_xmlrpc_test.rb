@@ -27,6 +27,7 @@ begin
   puts "2+3 - Client got result: #{result}\n"  # should print 5
 rescue => e
   puts "Error during test: #{e.class}: #{e.message}"
+  exit 1
 ensure
   # Shutdown the server thread gracefully
   Thread.kill(server_thread)

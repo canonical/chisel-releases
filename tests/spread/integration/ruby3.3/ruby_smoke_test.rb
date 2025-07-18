@@ -68,6 +68,7 @@ begin
   end
 rescue => e
   puts "Networking test skipped or failed: #{e.class}: #{e.message}"
+  exit 1
 end
 
 puts "== End of tests =="
