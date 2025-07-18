@@ -8,7 +8,6 @@ slices:
     essential:
       - libasan8_libs
       - libatomic1_libs
-      - libgcc-14-dev_headers
       - libgcc-s1_libs
       - libgomp1_libs
       # Uncomment the following line for amd64, arm64
