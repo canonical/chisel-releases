@@ -8,6 +8,7 @@ slices:
   bins:
     essential:
       - php-common_libs
+      - php-common_registry
     contents:
       /usr/sbin/phpdismod:
       /usr/sbin/phpenmod:
@@ -18,6 +19,30 @@ slices:
       /usr/lib/php/php-fpm-socket-helper:
       /usr/lib/php/php-helper:
       /usr/lib/php/sessionclean:
+
+  registry:
+    # This slice is only required for phpquery. When phpenmod or
+    # phpdismod are run with the -r flag. A new empty file is
+    # created in the registry location. These files are used by
+    # phpquery to track the modules currently enabled.
+    contents:
+      /var/lib/php/modules/8.4/registry/calendar: { text: "" }
+      /var/lib/php/modules/8.4/registry/ctype: { text: "" }
+      /var/lib/php/modules/8.4/registry/exif: { text: "" }
+      /var/lib/php/modules/8.4/registry/ffi: { text: "" }
+      /var/lib/php/modules/8.4/registry/fileinfo: { text: "" }
+      /var/lib/php/modules/8.4/registry/ftp: { text: "" }
+      /var/lib/php/modules/8.4/registry/gettext: { text: "" }
+      /var/lib/php/modules/8.4/registry/iconv: { text: "" }
+      /var/lib/php/modules/8.4/registry/pdo: { text: "" }
+      /var/lib/php/modules/8.4/registry/phar: { text: "" }
+      /var/lib/php/modules/8.4/registry/posix: { text: "" }
+      /var/lib/php/modules/8.4/registry/shmop: { text: "" }
+      /var/lib/php/modules/8.4/registry/sockets: { text: "" }
+      /var/lib/php/modules/8.4/registry/sysvmsg: { text: "" }
+      /var/lib/php/modules/8.4/registry/sysvsem: { text: "" }
+      /var/lib/php/modules/8.4/registry/sysvshm: { text: "" }
+      /var/lib/php/modules/8.4/registry/tokenizer: { text: "" }
 
   copyright:
     contents:
