@@ -7,16 +7,32 @@ environment:
 execute: |
   echo "SLICE=${SLICE}"
 
-  rootfs="$(install-slices php_${SLICE})"
-
-  # Test CLI
-  chroot "$rootfs" php -r "echo 'hello, world';"
-
   # Run test based on slice type
   if [ "$SLICE" = "standard" ]; then
-    ls $rootfs/usr/sbin | grep phpenmod
-    ls $rootfs/usr/bin | grep phar
 
+    # Install slices
+    rootfs="$(install-slices \
+      php_${SLICE} \
+      base-files_base \
+      dash_bins \
+      coreutils_bins \
+      findutils_bins \
+      sed_bins)"
+
+    # Test CLI
+    chroot "$rootfs" php -r "echo 'hello, world';"
+
+    # Test disable module and query
+    chroot "$rootfs" phpdismod -r calendar
+    ! chroot "$rootfs" phpquery -v 8.3 -s cli -M | grep calendar
+    ! chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
+
+    # Test enable module and query
+    chroot "$rootfs" phpenmod -r calendar
+    chroot "$rootfs" phpquery -v 8.3 -s cli -M | grep calendar
+    chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
+
+    # Test phar support
     sed -i 's/^\s*;\?\s*phar\.readonly\s*=.*/phar.readonly = Off/' $rootfs/etc/php/8.3/cli/php.ini
 
     mkdir -p $rootfs/tmp
@@ -29,6 +45,17 @@ execute: |
     chroot "$rootfs" php test_${SLICE}.php | grep test-content
 
   else
+
+    # Install core slice
+    rootfs="$(install-slices php_${SLICE})"
+
+    # Test CLI
+    chroot "$rootfs" php -r "echo 'hello, world';"
+
+    # Check modules are installed
+    chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
+
+    # Create files for the server
     mkdir -p "${rootfs}/var/www/html"
     cp test_${SLICE}.php "${rootfs}/var/www/html/index.php"
 

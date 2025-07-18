@@ -37,23 +37,43 @@ slices:
     essential:
       - php8.3-common_libs
     contents:
-      /etc/php/8.3/cli/conf.d/calendar.ini: { symlink: /etc/php/8.3/mods-available/calendar.ini }
-      /etc/php/8.3/cli/conf.d/ctype.ini: { symlink: /etc/php/8.3/mods-available/ctype.ini }
-      /etc/php/8.3/cli/conf.d/exif.ini: { symlink: /etc/php/8.3/mods-available/exif.ini }
-      /etc/php/8.3/cli/conf.d/ffi.ini: { symlink: /etc/php/8.3/mods-available/ffi.ini }
-      /etc/php/8.3/cli/conf.d/fileinfo.ini: { symlink: /etc/php/8.3/mods-available/fileinfo.ini }
-      /etc/php/8.3/cli/conf.d/ftp.ini: { symlink: /etc/php/8.3/mods-available/ftp.ini }
-      /etc/php/8.3/cli/conf.d/gettext.ini: { symlink: /etc/php/8.3/mods-available/gettext.ini }
-      /etc/php/8.3/cli/conf.d/iconv.ini: { symlink: /etc/php/8.3/mods-available/iconv.ini }
-      /etc/php/8.3/cli/conf.d/pdo.ini: { symlink: /etc/php/8.3/mods-available/pdo.ini }
-      /etc/php/8.3/cli/conf.d/phar.ini: { symlink: /etc/php/8.3/mods-available/phar.ini }
-      /etc/php/8.3/cli/conf.d/posix.ini: { symlink: /etc/php/8.3/mods-available/posix.ini }
-      /etc/php/8.3/cli/conf.d/shmop.ini: { symlink: /etc/php/8.3/mods-available/shmop.ini }
-      /etc/php/8.3/cli/conf.d/sockets.ini: { symlink: /etc/php/8.3/mods-available/sockets.ini }
-      /etc/php/8.3/cli/conf.d/sysvmsg.ini: { symlink: /etc/php/8.3/mods-available/sysvmsg.ini }
-      /etc/php/8.3/cli/conf.d/sysvsem.ini: { symlink: /etc/php/8.3/mods-available/sysvsem.ini }
-      /etc/php/8.3/cli/conf.d/sysvshm.ini: { symlink: /etc/php/8.3/mods-available/sysvshm.ini }
-      /etc/php/8.3/cli/conf.d/tokenizer.ini: { symlink: /etc/php/8.3/mods-available/tokenizer.ini }
+      # When a module is enabled in php (via phpenmod), the symlink is created with the format
+      # <priority>-<name>. The priority is defined inside the .ini file itself.
+      # It is important for them to have the correct name so they can be deactivated with phpdismod
+      /etc/php/8.3/cli/conf.d/10-pdo.ini:
+        { symlink: /etc/php/8.3/mods-available/pdo.ini }
+      /etc/php/8.3/cli/conf.d/20-calendar.ini:
+        { symlink: /etc/php/8.3/mods-available/calendar.ini }
+      /etc/php/8.3/cli/conf.d/20-ctype.ini:
+        { symlink: /etc/php/8.3/mods-available/ctype.ini }
+      /etc/php/8.3/cli/conf.d/20-exif.ini:
+        { symlink: /etc/php/8.3/mods-available/exif.ini }
+      /etc/php/8.3/cli/conf.d/20-ffi.ini:
+        { symlink: /etc/php/8.3/mods-available/ffi.ini }
+      /etc/php/8.3/cli/conf.d/20-fileinfo.ini:
+        { symlink: /etc/php/8.3/mods-available/fileinfo.ini }
+      /etc/php/8.3/cli/conf.d/20-ftp.ini:
+        { symlink: /etc/php/8.3/mods-available/ftp.ini }
+      /etc/php/8.3/cli/conf.d/20-gettext.ini:
+        { symlink: /etc/php/8.3/mods-available/gettext.ini }
+      /etc/php/8.3/cli/conf.d/20-iconv.ini:
+        { symlink: /etc/php/8.3/mods-available/iconv.ini }
+      /etc/php/8.3/cli/conf.d/20-phar.ini:
+        { symlink: /etc/php/8.3/mods-available/phar.ini }
+      /etc/php/8.3/cli/conf.d/20-posix.ini:
+        { symlink: /etc/php/8.3/mods-available/posix.ini }
+      /etc/php/8.3/cli/conf.d/20-shmop.ini:
+        { symlink: /etc/php/8.3/mods-available/shmop.ini }
+      /etc/php/8.3/cli/conf.d/20-sockets.ini:
+        { symlink: /etc/php/8.3/mods-available/sockets.ini }
+      /etc/php/8.3/cli/conf.d/20-sysvmsg.ini:
+        { symlink: /etc/php/8.3/mods-available/sysvmsg.ini }
+      /etc/php/8.3/cli/conf.d/20-sysvsem.ini:
+        { symlink: /etc/php/8.3/mods-available/sysvsem.ini }
+      /etc/php/8.3/cli/conf.d/20-sysvshm.ini:
+        { symlink: /etc/php/8.3/mods-available/sysvshm.ini }
+      /etc/php/8.3/cli/conf.d/20-tokenizer.ini:
+        { symlink: /etc/php/8.3/mods-available/tokenizer.ini }
       /etc/php/8.3/cli/php.ini: { mutable: true, text: "" }
     mutate: |
       src = "/usr/lib/php/8.3/php.ini-production"
