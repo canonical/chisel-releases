@@ -199,11 +199,6 @@ slices:
       /usr/share/go-1.24/src/w*/**:
       /usr/share/go-1.24/test/**:
 
-  scripts:
-    essential:
-      - golang-1.24-src_bash-scripts
-      - golang-1.24-src_bat-scripts
-
   api:
     contents:
       /usr/share/go-1.24/api/*.txt:
@@ -223,14 +218,6 @@ slices:
       /usr/share/go-1.24/src/make.bash:
       /usr/share/go-1.24/src/race.bash:
       /usr/share/go-1.24/src/run.bash:
-
-  bat-scripts:
-    contents:
-      /usr/share/go-1.24/src/all.bat:
-      /usr/share/go-1.24/src/clean.bat:
-      /usr/share/go-1.24/src/make.bat:
-      /usr/share/go-1.24/src/race.bat:
-      /usr/share/go-1.24/src/run.bat:
 
   libs:
     essential:
