@@ -1,18 +1,18 @@
-package: libatomic1
+package: libquadmath0
 
 essential:
-  - libatomic1_copyright
+  - libquadmath0_copyright
 
 slices:
   libs:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libatomic.so.1*:
+      /usr/lib/*-linux-*/libquadmath.so.0*:
 
   copyright:
     essential:
       - gcc-14-base_copyright
     contents:
       # Symlink to gcc-14-base
-      /usr/share/doc/libatomic1:
+      /usr/share/doc/libquadmath0:
