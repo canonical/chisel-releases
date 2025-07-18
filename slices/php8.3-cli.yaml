@@ -72,7 +72,7 @@ slices:
         { symlink: /etc/php/8.3/mods-available/sysvsem.ini }
       /etc/php/8.3/cli/conf.d/20-sysvshm.ini:
         { symlink: /etc/php/8.3/mods-available/sysvshm.ini }
-      /etc/php/8.3/cli/conf.d/20-tokenizer.ini: 
+      /etc/php/8.3/cli/conf.d/20-tokenizer.ini:
         { symlink: /etc/php/8.3/mods-available/tokenizer.ini }
       /etc/php/8.3/cli/php.ini: { mutable: true, text: "" }
     mutate: |
