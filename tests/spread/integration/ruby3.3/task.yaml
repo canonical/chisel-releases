@@ -7,9 +7,6 @@ environment:
 execute: |
   rootfs="$(install-slices ruby3.3_${SLICE})"
 
-  mkdir "${rootfs}/run"
-  mount --bind /run "${rootfs}/run"
-
   mkdir "${rootfs}/etc"
   echo 'nameserver 8.8.4.4' | tee "${rootfs}/etc/resolv.conf"
 

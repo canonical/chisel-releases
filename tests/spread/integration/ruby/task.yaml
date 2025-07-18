@@ -7,11 +7,8 @@ environment:
 execute: |
   rootfs="$(install-slices ruby_${SLICE})"
   
-  mkdir "${rootfs}/run"
-  mount --bind /run "${rootfs}/run"
-  
   mkdir "${rootfs}/etc"
-  echo 'nameserver 8.8.8.8' | tee "${rootfs}/etc/resolv.conf"
+  echo 'nameserver 8.8.4.4' | tee "${rootfs}/etc/resolv.conf"
 
   cp ../ruby3.3/ruby_smoke_test.rb "${rootfs}/"
   chroot "$rootfs" ruby /ruby_smoke_test.rb

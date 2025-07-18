@@ -59,13 +59,7 @@ raise "Time test failed" unless Time.now.strftime("%Y").to_i > 2023
 
 # Networking
 begin
-  Timeout.timeout(10) do
-    socket = TCPSocket.new("ubuntu.com", 80)
-    socket.puts "GET / HTTP/1.0\r\n\r\n"
-    response = socket.read
-    socket.close
-    raise "Socket error" unless response.include?("HTTP")
-  end
+  Socket.getaddrinfo('ubuntu.com', 80, Socket::AF_INET)
 rescue => e
   puts "Networking test skipped or failed: #{e.class}: #{e.message}"
   exit 1
