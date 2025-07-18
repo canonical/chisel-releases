@@ -40,6 +40,8 @@ slices:
       # When a module is enabled in php (via phpenmod), the symlink is created with the format
       # <priority>-<name>. The priority is defined inside the .ini file itself.
       # It is important for them to have the correct name so they can be deactivated with phpdismod
+      /etc/php/8.3/cli/conf.d/10-pdo.ini:
+        { symlink: /etc/php/8.3/mods-available/pdo.ini }
       /etc/php/8.3/cli/conf.d/20-calendar.ini:
         { symlink: /etc/php/8.3/mods-available/calendar.ini }
       /etc/php/8.3/cli/conf.d/20-ctype.ini:
@@ -56,8 +58,6 @@ slices:
         { symlink: /etc/php/8.3/mods-available/gettext.ini }
       /etc/php/8.3/cli/conf.d/20-iconv.ini:
         { symlink: /etc/php/8.3/mods-available/iconv.ini }
-      /etc/php/8.3/cli/conf.d/10-pdo.ini:
-        { symlink: /etc/php/8.3/mods-available/pdo.ini }
       /etc/php/8.3/cli/conf.d/20-phar.ini:
         { symlink: /etc/php/8.3/mods-available/phar.ini }
       /etc/php/8.3/cli/conf.d/20-posix.ini:
