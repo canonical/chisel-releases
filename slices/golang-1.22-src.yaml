@@ -17,7 +17,6 @@ slices:
     essential:
       - golang-1.22-src_api
       - golang-1.22-src_bash-scripts
-      - golang-1.22-src_bat-scripts
     contents:
       # Note: Some paths are explicitly listed to avoid conflicts with
       # the paths defined in golang-1.22-go.
@@ -193,11 +192,6 @@ slices:
       /usr/share/go-1.22/src/v*/**:
       /usr/share/go-1.22/test/**:
 
-  scripts:
-    essential:
-      - golang-1.22-src_bash-scripts
-      - golang-1.22-src_bat-scripts
-
   api:
     contents:
       /usr/share/go-1.22/api/*.txt:
@@ -209,22 +203,7 @@ slices:
       - coreutils_bins
       - grep_bins
     contents:
-      /usr/share/go-1.22/src/all.bash:
-      /usr/share/go-1.22/src/bootstrap.bash:
-      /usr/share/go-1.22/src/buildall.bash:
-      /usr/share/go-1.22/src/clean.bash:
-      /usr/share/go-1.22/src/cmp.bash:
-      /usr/share/go-1.22/src/make.bash:
-      /usr/share/go-1.22/src/race.bash:
-      /usr/share/go-1.22/src/run.bash:
-
-  bat-scripts:
-    contents:
-      /usr/share/go-1.22/src/all.bat:
-      /usr/share/go-1.22/src/clean.bat:
-      /usr/share/go-1.22/src/make.bat:
-      /usr/share/go-1.22/src/race.bat:
-      /usr/share/go-1.22/src/run.bat:
+      /usr/share/go-1.22/src/*.bash:
 
   copyright:
     contents:
