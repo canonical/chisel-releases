@@ -1,0 +1,32 @@
+package: postgresql-client-16
+
+essential:
+  - postgresql-client-16_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/lib/postgresql/16/bin/psql:
+      /usr/lib/postgresql/16/bin/pg_dump:
+      /usr/lib/postgresql/16/bin/createdb:
+      /usr/lib/postgresql/16/bin/dropdb:
+      /usr/bin/psql: {symlink: /usr/lib/postgresql/16/bin/psql}
+      /usr/bin/pg_dump: {symlink: /usr/lib/postgresql/16/bin/pg_dump}
+      /usr/bin/createdb: {symlink: /usr/lib/postgresql/16/bin/createdb}
+      /usr/bin/dropdb: {symlink: /usr/lib/postgresql/16/bin/dropdb}
+    essential:
+      - libpq5_libs
+      - libreadline8t64_libs
+      - libzstd1_libs
+      - liblz4-1_libs
+      - zlib1g_libs
+
+  manpages:
+    contents:
+      /usr/share/postgresql/16/man/man1/psql.1.gz:
+      /usr/share/postgresql/16/man/man1/pg_dump.1.gz:
+
+  copyright:
+    contents:
+      /usr/share/doc/postgresql-client-16/copyright:
+
