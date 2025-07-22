@@ -234,13 +234,6 @@ slices:
       /usr/bin/taskset:
       /usr/bin/uclampset:
 
-  services:
-    essential:
-      - util-linux_bins
-    contents:
-      /usr/lib/systemd/system/fstrim.service:
-      /usr/lib/systemd/system/fstrim.timer:
-
   set-arch:
     essential:
       - libc6_libs
