@@ -134,26 +134,6 @@ slices:
 
       process_pam_profiles()
 
-  # The following two slices are kept for backwards compatibility.
-  # However, the pam-defaults have been modified to deliver correct
-  # files instead of templates.
-  pam-config:
-    contents:
-      /usr/share/pam-configs/unix:
-
-  pam-defaults:
-    contents:
-      /usr/share/pam/common-account:
-      /usr/share/pam/common-account.md5sums:
-      /usr/share/pam/common-auth:
-      /usr/share/pam/common-auth.md5sums:
-      /usr/share/pam/common-password:
-      /usr/share/pam/common-password.md5sums:
-      /usr/share/pam/common-session:
-      /usr/share/pam/common-session-noninteractive:
-      /usr/share/pam/common-session-noninteractive.md5sums:
-      /usr/share/pam/common-session.md5sums:
-
   # folders expected by libpam to exist
   var:
     contents:

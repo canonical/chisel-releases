@@ -257,6 +257,7 @@ slices:
       - libcap-ng0_libs
       # Libraries from libpam-modules are required as the libpam-runtime
       # configs reference them.
+      - libpam-modules_config
       - libpam-modules_libs
       # su reads the configs in /etc/pam.d to authenticate the user.
       - libpam-runtime_config

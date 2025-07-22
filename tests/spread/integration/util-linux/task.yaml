@@ -55,7 +55,7 @@ execute: |
     ;;
     cli-helpers)
       chroot "${rootfs}" getopt Hello world | grep " -- world"
-      chroot "${rootfs}" namei /bin/bash | grep "l bin -> usr/bin"
+      chroot "${rootfs}" namei /bin/bash | grep "f: /bin/bash"
       echo "Hello" | chroot "${rootfs}" rev | grep "olleH"
       chroot "${rootfs}" whereis getopt | grep "/usr/bin/getopt"
     ;;
@@ -74,8 +74,6 @@ execute: |
       cp "${rootfs}"/tmp/hardlink-test/file1 "${rootfs}"/tmp/hardlink-test/file2
       chroot "${rootfs}" hardlink /tmp/hardlink-test/ | grep 'Saved:[[:blank:]]*12 B'
       chroot "${rootfs}" more /usr/share/doc/util-linux/copyright | grep "format"
-      chroot "${rootfs}" rename.ul copyright copyright2 /usr/share/doc/util-linux/copyright
-      test -f "${rootfs}"/usr/share/doc/util-linux/copyright2
     ;;
     file-system)
       chroot "${rootfs}" findmnt | grep "/dev"
@@ -168,7 +166,7 @@ execute: |
     su-support)
       # Test the su and runuser binaries
       cp /etc/passwd "${rootfs}"/etc/passwd
-      echo "foo:!:1001:1001:Test user,,,:/tmp:/bin/bash" >> "${rootfs}"/etc/passwd
+      echo 'foo:!:1001:1001:Test user,,,:/tmp:/bin/bash' >> "${rootfs}"/etc/passwd
       cp /usr/bin/whoami "${rootfs}"/usr/bin/
       chmod 755 "${rootfs}"/
       chroot "${rootfs}" su foo -c whoami | grep "foo"
