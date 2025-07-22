@@ -12,7 +12,10 @@ slices:
 
   bins:
     essential:
+      - coreutils_env
+      - coreutils_expr
       - coreutils_libs
+      - coreutils_mkdir
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -35,7 +38,6 @@ slices:
       /bin/false:
       /bin/ln:
       /bin/ls:
-      /bin/mkdir:
       /bin/mknod:
       /bin/mktemp:
       /bin/mv:
@@ -65,9 +67,7 @@ slices:
       /usr/bin/dircolors:
       /usr/bin/dirname:
       /usr/bin/du:
-      /usr/bin/env:
       /usr/bin/expand:
-      /usr/bin/expr:
       /usr/bin/factor:
       /usr/bin/fmt:
       /usr/bin/fold:
@@ -128,6 +128,27 @@ slices:
       /usr/bin/whoami:
       /usr/bin/yes:
       /usr/sbin/chroot:
+
+  env:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/env:
+
+  expr:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/bin/expr:
+
+  mkdir:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libselinux1_libs
+    contents:
+      /bin/mkdir:
 
   copyright:
     contents:

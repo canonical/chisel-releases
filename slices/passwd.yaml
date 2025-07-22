@@ -1,0 +1,69 @@
+package: passwd
+
+essential:
+  - passwd_copyright
+
+slices:
+  # Binaries used to manage system users. These rely on configuratiopn
+  # files provided also by the package.
+  bins:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libpam-modules_libs
+      - libpam0g_libs
+      - libselinux1_libs
+      - libsemanage2_libs
+      - passwd_config
+    contents:
+      /usr/bin/chage:
+      /usr/bin/chfn:
+      /usr/bin/chsh:
+      /usr/bin/expiry:
+      /usr/bin/gpasswd:
+      /usr/bin/passwd:
+      /usr/sbin/chgpasswd:
+      /usr/sbin/chpasswd:
+      /usr/sbin/cpgr:
+      /usr/sbin/cppw:
+      /usr/sbin/groupadd:
+      /usr/sbin/groupdel:
+      /usr/sbin/groupmems:
+      /usr/sbin/groupmod:
+      /usr/sbin/grpck:
+      /usr/sbin/grpconv:
+      /usr/sbin/grpunconv:
+      /usr/sbin/newusers:
+      /usr/sbin/pwck:
+      /usr/sbin/pwconv:
+      /usr/sbin/pwunconv:
+      /usr/sbin/useradd:
+      /usr/sbin/userdel:
+      /usr/sbin/usermod:
+      /usr/sbin/vigr:
+      /usr/sbin/vipw:
+
+  # Essential configurations used by useradd(8) and friends.
+  config:
+    essential:
+      - base-passwd_data
+    contents:
+      /etc/default/useradd:
+      /usr/lib/tmpfiles.d/passwd.conf:
+
+  # This slices contains configuration files used by libpam, and these
+  # files also include specific configuration files from the libpam libraries.
+  # Since libpam functionality is not directly used/supported, this slice may
+  # currently not be very useful.
+  pam-config:
+    contents:
+      /etc/pam.d/chfn:
+      /etc/pam.d/chpasswd:
+      /etc/pam.d/chsh:
+      /etc/pam.d/newusers:
+      /etc/pam.d/passwd:
+
+  copyright:
+    contents:
+      /usr/share/doc/passwd/copyright:

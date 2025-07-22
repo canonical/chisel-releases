@@ -20,7 +20,6 @@ execute: |
     kill $test_proc || true # ignore error if already killed
   }
 
-
   cd ${rootfs}
   mkdir -p proc sys
   mount --bind /proc proc
@@ -61,7 +60,7 @@ execute: |
 
   # Test snice
   # note quotes to prevent $! from being expanded
-  chroot_with_test_proc "${rootfs}" 'snice -n 4 $!' 
+  chroot_with_test_proc "${rootfs}" 'snice -n 4 $!'
 
   # Test tload. This is a TUI, just run smoke test.
   chroot "${rootfs}" tload -h

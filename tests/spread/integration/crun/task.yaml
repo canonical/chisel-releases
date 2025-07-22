@@ -8,7 +8,7 @@ execute: |
   mount --bind /proc "${rootfs}"/proc
 
   chroot "$rootfs" crun --help
-  chroot "$rootfs" crun list 
+  chroot "$rootfs" crun list
 
   chroot "$rootfs" crun spec
   test -f "$rootfs"/config.json
