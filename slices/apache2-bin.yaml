@@ -31,7 +31,7 @@ slices:
       - apache2-bin_mod-autoindex
       - apache2-bin_mod-deflate
       - apache2-bin_mod-dir
-      - apache2-bin_mod_env
+      - apache2-bin_mod-env
       - apache2-bin_mod-filter
       - apache2-bin_mod-headers
       - apache2-bin_mod-mime
