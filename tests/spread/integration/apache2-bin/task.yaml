@@ -54,7 +54,7 @@ execute: |
   chroot "${rootfs}" apache2 -k stop
   umount -l "${rootfs}/dev"
   ls
-  python3 prepare_test_imports.py
+  python3 prepare_tests_imports.py
   for slice in $(ls cases/*.deps); do
       slice_name=$(basename "$slice" .deps)
       module_name=$(echo "${slice_name#mod-}" | tr '-' '_')
