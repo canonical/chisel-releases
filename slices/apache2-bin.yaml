@@ -31,6 +31,7 @@ slices:
       - apache2-bin_mod-autoindex
       - apache2-bin_mod-deflate
       - apache2-bin_mod-dir
+      - apache2-bin_mod_env
       - apache2-bin_mod-filter
       - apache2-bin_mod-headers
       - apache2-bin_mod-mime
@@ -67,13 +68,6 @@ slices:
     contents:
       /usr/lib/apache2/modules/mod_auth_basic.so:
 
-  mod-auth-digest:
-    essential:
-      - apache2-bin_apache2
-      - libc6_libs
-    contents:
-      /usr/lib/apache2/modules/mod_auth_digest.so:
-
   mod-authn-core:
     essential:
       - apache2-bin_apache2
@@ -88,6 +82,13 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authn_file.so:
+
+  mod-authz-core:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_authz_core.so:
 
   mod-authz-host:
     essential:
