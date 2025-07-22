@@ -1,7 +1,7 @@
 summary: Integration tests for libpam-runtime
 
 execute: |
-  rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts coreutils_bins sudo_bins)"
+  rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts coreutils_bins)"
 
   # test that libpam correctly generated things
   cat "$rootfs"/etc/pam.d/common-account | grep -E "account\s+\[success=1 new_authtok_reqd=done default=ignore\]\s+pam_unix\.so"
