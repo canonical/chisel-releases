@@ -13,6 +13,13 @@ slices:
       /usr/lib/php/20230831/opcache.so:
 
   config:
+    essential:
+      - php8.3-opcache_module
+    contents:
+      /etc/php/8.3/cli/conf.d/10-opcache.ini:
+        { symlink: /etc/php/8.3/mods-available/opcache.ini }
+
+  module:
     contents:
       /etc/php/8.3/mods-available/opcache.ini:
         { copy: /usr/share/php8.3-opcache/opcache/opcache.ini }
