@@ -23,8 +23,8 @@ slices:
     essential:
       - php-common_bins
       - php8.3-cli_core
-      - php8.3-opcache_libs
-      - php8.3-readline_libs
+      - php8.3-opcache_cli-module
+      - php8.3-readline_cli-module
     contents:
       /usr/bin/phar: { symlink: /usr/bin/phar8.3 }
       /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.3 }
