@@ -1,6 +1,14 @@
 package: php8.3-readline
 
 slices:
+  cli-module:
+    essential:
+      - php8.3-readline_libs
+    contents:
+      # This symlink enables this module for the CLI SAPI
+      /etc/php/8.3/cli/conf.d/20-readline.ini:
+        { symlink: /etc/php/8.3/mods-available/readline.ini }
+
   libs:
     essential:
       - libc6_libs
@@ -12,13 +20,6 @@ slices:
       /var/lib/php/modules/8.3/registry/readline: { text: "" }
 
   config:
-    essential:
-      - php8.3-readline_module
-    contents:
-      /etc/php/8.3/cli/conf.d/20-readline.ini:
-        { symlink: /etc/php/8.3/mods-available/readline.ini }
-
-  module:
     contents:
       /etc/php/8.3/mods-available/readline.ini:
         { copy: /usr/share/php8.3-readline/readline/readline.ini }

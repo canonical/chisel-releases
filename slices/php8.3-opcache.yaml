@@ -1,6 +1,14 @@
 package: php8.3-opcache
 
 slices:
+  cli-module:
+    essential:
+      - php8.3-opcache_libs
+    contents:
+      # This symlink enables this module for the CLI SAPI
+      /etc/php/8.3/cli/conf.d/10-opcache.ini:
+        { symlink: /etc/php/8.3/mods-available/opcache.ini }
+
   libs:
     essential:
       - libc6_libs
@@ -13,13 +21,6 @@ slices:
       /var/lib/php/modules/8.3/registry/opcache: { text: "" }
 
   config:
-    essential:
-      - php8.3-opcache_module
-    contents:
-      /etc/php/8.3/cli/conf.d/10-opcache.ini:
-        { symlink: /etc/php/8.3/mods-available/opcache.ini }
-
-  module:
     contents:
       /etc/php/8.3/mods-available/opcache.ini:
         { copy: /usr/share/php8.3-opcache/opcache/opcache.ini }
