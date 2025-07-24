@@ -16,7 +16,7 @@ slices:
       - php8.4-common_libs
       - php8.4-readline_config
     contents:
-      /usr/lib/php/20240924/readline.so:
+      /usr/lib/php/*/readline.so:
       /var/lib/php/modules/8.4/registry/readline: { text: "" }
 
   config:

@@ -17,7 +17,7 @@ slices:
       - php8.4-common_libs
       - php8.4-opcache_config
     contents:
-      /usr/lib/php/20240924/opcache.so:
+      /usr/lib/php/*/opcache.so:
       /var/lib/php/modules/8.4/registry/opcache: { text: "" }
 
   config:
