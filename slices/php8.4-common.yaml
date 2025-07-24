@@ -30,6 +30,11 @@ slices:
       /usr/lib/php/20240924/tokenizer.so:
       /usr/lib/php/8.4/php.ini-production:
 
+      # Required for session_start() function. It is actually added
+      # by php-common, but created here instead to prevent from
+      # adding contents that don't belong to the php core slice.
+      /var/lib/php/sessions/: { make: true }
+
   config:
     contents:
       # PHP contain multiple modules that enable different functions
