@@ -7,8 +7,12 @@ slices:
 
   bins:
     essential:
+      - coreutils_bins
+      - dash_bins
+      - findutils_bins
       - php-common_libs
       - php-common_registry
+      - sed_bins
     contents:
       /usr/sbin/phpdismod:
       /usr/sbin/phpenmod:
