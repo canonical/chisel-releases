@@ -8,7 +8,6 @@ slices:
       - php-common_libs
       - php8.4-common_libs
       - php8.4-opcache_config
-      - ucf_bins
     contents:
       /usr/lib/php/20240924/opcache.so:
 

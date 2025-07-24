@@ -10,7 +10,6 @@ slices:
       - libffi8_libs
       - libssl3t64_libs
       - php8.4-common_config
-      - ucf_bins
     contents:
       /usr/lib/php/20240924/calendar.so:
       /usr/lib/php/20240924/ctype.so:
