@@ -14,7 +14,6 @@ slices:
       - php8.3-cli_config
       - php8.3-opcache_libs
       - tzdata_zoneinfo
-      - ucf_bins
       - zlib1g_libs
     contents:
       /usr/bin/php: { symlink: /usr/bin/php8.3 }
