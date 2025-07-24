@@ -12,7 +12,6 @@ slices:
       - libxml2_libs
       - media-types_data
       - php8.3-cli_config
-      - php8.3-opcache_libs
       - tzdata_zoneinfo
       - zlib1g_libs
     contents:
@@ -24,6 +23,7 @@ slices:
     essential:
       - php-common_bins
       - php8.3-cli_core
+      - php8.3-opcache_libs
       - php8.3-readline_libs
     contents:
       /usr/bin/phar: { symlink: /usr/bin/phar8.3 }
