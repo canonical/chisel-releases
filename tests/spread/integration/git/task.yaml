@@ -134,7 +134,6 @@ execute: |
       --export-all &
     daemon_pid=$!
 
-
     # Wait for daemon to start
     while ! fuser 9418/tcp > /dev/null 2>&1
     do

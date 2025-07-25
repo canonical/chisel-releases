@@ -1,0 +1,6 @@
+summary: Integration tests for libc-bin
+
+execute: |
+  rootfs="$(install-slices libc-bin_getconf)"
+
+  chroot "$rootfs" getconf -a

@@ -2,7 +2,7 @@ summary: Integration tests for base-passwd
 
 execute: |
   rootfs="$(install-slices base-passwd_data)"
-    
+
   test -f ${rootfs}/etc/group
   ! grep FIXME ${rootfs}/etc/group
 
