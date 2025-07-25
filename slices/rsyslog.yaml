@@ -37,7 +37,7 @@ slices:
       /usr/lib/rsyslog/rsyslog-rotate:
       /usr/lib/systemd/system/rsyslog.service:
       /usr/lib/tmpfiles.d/00rsyslog.conf:
-      /usr/lib/x86_64-linux-gnu/rsyslog/*.so:
+      /usr/lib/*-linux-*/rsyslog/*.so:
 
   copyright:
     contents:
