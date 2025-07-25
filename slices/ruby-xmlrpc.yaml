@@ -15,7 +15,7 @@ slices:
     essential:
       - ruby-webrick_rubygems
     contents:
-      /usr/share/rubygems-integration/all/:
+      /usr/share/rubygems-integration/all/specifications/xmlrpc-*.gemspec:
 
   copyright:
     contents:
