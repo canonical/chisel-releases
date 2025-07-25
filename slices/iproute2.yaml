@@ -1,0 +1,57 @@
+package: iproute2
+
+essential:
+  - iproute2_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libbpf1_libs
+      - libcap2_libs
+      - libdb5.3t64_libs
+      - libelf1t64_libs
+      - libmnl0_libs
+      - libselinux1_libs
+      - libtirpc3t64_libs
+      - libxtables12_libs
+      - libcap2-bin_bins
+      - iproute2_config
+    contents:
+      /bin/ip:
+      /bin/ss:
+      /sbin/bridge:
+      /sbin/dcb:
+      /sbin/devlink:
+      /sbin/rtacct:
+      /sbin/rtmon:
+      /sbin/tc:
+      /sbin/tipc:
+      /sbin/vdpa:
+      /usr/bin/lnstat:
+      /usr/bin/nstat:
+      /usr/bin/rdma:
+      /usr/bin/routel:
+      /usr/sbin/arpd:
+      /usr/sbin/genl:
+      /sbin/ip:
+      /usr/bin/ctstat:
+      /usr/bin/rtstat:
+
+  config:
+    essential:
+      - iproute2_libs
+    contents:
+      /etc/iproute2/*:
+  
+  headers:
+    contents:
+      /usr/include/iproute2/bpf_elf.h:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/tc/*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/iproute2/copyright:
