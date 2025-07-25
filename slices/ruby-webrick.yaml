@@ -6,8 +6,8 @@ essential:
 slices:
   rubygems:
     contents:
-      /usr/share/rubygems-integration/all/gems/webrick-1.8.1/**:
-      /usr/share/rubygems-integration/all/specifications/webrick-1.8.1.gemspec:
+      /usr/share/rubygems-integration/all/gems/webrick-*/**:
+      /usr/share/rubygems-integration/all/specifications/webrick-*.gemspec:
 
   copyright:
     contents:
