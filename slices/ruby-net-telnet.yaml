@@ -6,8 +6,8 @@ essential:
 slices:
   rubygems:
     contents:
-      /usr/share/rubygems-integration/all/gems/net-telnet-0.2.0/**:
-      /usr/share/rubygems-integration/all/specifications/net-telnet-0.2.0.gemspec:
+      /usr/share/rubygems-integration/all/gems/net-telnet-*/**:
+      /usr/share/rubygems-integration/all/specifications/net-telnet-*.gemspec:
 
   copyright:
     contents:
