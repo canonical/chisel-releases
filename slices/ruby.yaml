@@ -13,7 +13,6 @@ slices:
   #   `syntax_suggest' was not loaded.
   core:
     essential:
-      - ruby3.3_core
       - ruby_ruby
 
   ruby:
