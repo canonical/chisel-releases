@@ -329,7 +329,8 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libruby-3.3.so.3.3*:
-      /usr/lib/*-linux-*/ruby/**:
+      /usr/lib/*-linux-*/ruby/3.3.*/**:
+      /usr/lib/*-linux-*/ruby/vendor_ruby/3.3.0/:
 
   copyright:
     contents:
