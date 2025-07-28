@@ -9,7 +9,7 @@ slices:
       - golang-1.22_all
       - golang-go_bins
       - golang-src_libs
-  
+
   cgo-support:
     essential:
       - binutils-x86-64-linux-gnu_cgo-dev

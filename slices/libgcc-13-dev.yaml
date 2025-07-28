@@ -10,7 +10,7 @@ slices:
       /usr/lib/gcc/*-linux-*/13/crtend*.o:
       /usr/lib/gcc/*-linux-*/13/libgcc.a:
       /usr/lib/gcc/*-linux-*/13/libgcc_s.so:
-  
+
   headers:
     contents:
       /usr/lib/gcc/*-linux-*/13/include/**.h:

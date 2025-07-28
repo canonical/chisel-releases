@@ -26,7 +26,6 @@ slices:
       /usr/bin/x86_64-linux-gnu-ld:
       /usr/bin/x86_64-linux-gnu-ld.bfd:
 
-
   cgo-dev:
     essential:
       - binutils-x86-64-linux-gnu_assembler

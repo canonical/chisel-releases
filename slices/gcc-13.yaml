@@ -4,7 +4,7 @@ essential:
   - gcc-13_copyright
 
 slices:
-  # TODO: include gcc-{ARCH_TRIPLET}_assembler as essential 
+  # TODO: include gcc-{ARCH_TRIPLET}_assembler as essential
   gcc-13:
     contents:
       /usr/bin/gcc-13: # Symlink to gcc-13-{ARCH_TRIPLET}
