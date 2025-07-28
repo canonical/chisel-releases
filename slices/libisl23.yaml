@@ -1,0 +1,20 @@
+package: libisl23
+
+essential:
+  - libisl23_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/lib/*-linux-*/libisl.so.23*:
+
+  gdb-auto-load:
+    contents:
+      /usr/share/gdb/auto-load/usr/lib/*-linux-*/libisl.so.23*-gdb.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/libisl23/copyright:

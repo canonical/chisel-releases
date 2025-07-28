@@ -4,11 +4,26 @@ essential:
   - golang_copyright
 
 slices:
-  all:
+  go-all:
     essential:
       - golang-1.22_all
       - golang-go_bins
       - golang-src_libs
+  
+  cgo-support:
+    essential:
+      - binutils-x86-64-linux-gnu_cgo-dev
+      - binutils_cgo-dev
+      - cpp-13-x86-64-linux-gnu_libs
+      - gcc-13-x86-64-linux-gnu_cgo-libs
+      - gcc-13-x86-64-linux-gnu_gcc-13
+      - gcc_gcc
+      - golang_go-all
+      - libbinutils_libs
+      - libc6-dev_cgo-libs
+      - libc6-dev_headers
+      - libgcc-13-dev_cgo-dev
+      - libgcc-13-dev_headers
 
   copyright:
     contents:

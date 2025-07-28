@@ -1,0 +1,28 @@
+package: cpp-13-x86-64-linux-gnu
+
+essential:
+  - cpp-13-x86-64-linux-gnu_copyright
+
+slices:
+  bins:
+    essential:
+      - cpp-13-x86-64-linux-gnu_libs
+      - libc6_libs
+    contents:
+      /usr/bin/x86_64-linux-gnu-cpp-13:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+      - libisl23_libs
+      - libmpc3_libs
+      - libmpfr6_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/libexec/gcc/x86_64-linux-gnu/13/cc1:
+
+  copyright:
+    contents:
+      /usr/share/doc/cpp-13-x86-64-linux-gnu:

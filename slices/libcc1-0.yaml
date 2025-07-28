@@ -1,0 +1,18 @@
+package: libcc1-0
+
+essential:
+  - libcc1-0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libcc1.so.0*:
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      # Symlink to gcc-14-base
+      /usr/share/doc/libcc1-0:

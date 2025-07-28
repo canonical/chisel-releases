@@ -1,0 +1,25 @@
+package: binutils
+
+essential:
+  - binutils_copyright
+
+slices:
+  # TODO: include binutils-{ARCH_TRIPLET}_assembler as essential 
+  assembler:
+    contents:
+      /usr/bin/as: # Symlink to {ARCH_TRIPLET}-as
+
+  linker:
+  # TODO: include binutils-{ARCH_TRIPLET}_linker as essential 
+    contents:
+      /usr/bin/ld: # Symlink to {ARCH_TRIPLET}-ld
+      /usr/bin/ld.bfd: # Symlink to {ARCH_TRIPLET}-ld.bfd
+
+  cgo-dev:
+    essential:
+      - binutils_assembler
+      - binutils_linker
+
+  copyright:
+    contents:
+      /usr/share/doc/binutils/copyright:

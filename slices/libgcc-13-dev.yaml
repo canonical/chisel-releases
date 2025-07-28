@@ -1,0 +1,22 @@
+package: libgcc-13-dev
+
+essential:
+  - libgcc-13-dev_copyright
+
+slices:
+  cgo-dev:
+    contents:
+      /usr/lib/gcc/*-linux-*/13/crtbegin*.o:
+      /usr/lib/gcc/*-linux-*/13/crtend*.o:
+      /usr/lib/gcc/*-linux-*/13/libgcc.a:
+      /usr/lib/gcc/*-linux-*/13/libgcc_s.so:
+  
+  headers:
+    contents:
+      /usr/lib/gcc/*-linux-*/13/include/**.h:
+
+  copyright:
+    essential:
+      - gcc-13-base_copyright
+    contents:
+      /usr/share/doc/libgcc-13-dev:

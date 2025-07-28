@@ -1,0 +1,22 @@
+package: gcc-13-x86-64-linux-gnu
+
+slices:
+  gcc-13:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/x86_64-linux-gnu-gcc-13:
+
+  cgo-libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/libexec/gcc/x86_64-linux-gnu/13/collect2:
+      /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so:
+
+  copyright:
+    essential:
+      - gcc-13-base_copyright
+    contents:
+      # Symlink to gcc-13-base
+      /usr/share/doc/gcc-13-x86-64-linux-gnu:
