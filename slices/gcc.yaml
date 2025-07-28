@@ -8,9 +8,9 @@ slices:
     essential:
       - gcc-13_gcc-13
     contents:
-      /usr/bin/gcc: # Symlink to gcc-13
+      /usr/bin/gcc:  # Symlink to gcc-13
 
   copyright:
     # TODO: include cpp-{ARCH_TRIPLET}_assembler as essential
     contents:
-      /usr/share/doc/gcc: # Symlink to cpp-{ARCH_TRIPLET}
+      /usr/share/doc/gcc:  # Symlink to cpp-{ARCH_TRIPLET}
