@@ -1,0 +1,20 @@
+summary: Integration tests for gcc-13
+
+execute: |
+  apt install --update -y gcc
+  # replace _ with -
+  arch=$(gcc -dumpmachine)
+  arch="${arch//_/-}"
+
+  rootfs="$(install-slices gcc-13_gcc-13 \
+    gcc-13_gcc-13 \
+    gcc-13-${arch}_gcc-13 \
+    cpp-13-${arch}_libs \
+    binutils-${arch}_assembler \
+    gcc-13-${arch}_libs \
+    binutils-${arch}_linker \
+  )"
+
+  cp hello.c "${rootfs}/hello.c"
+  chroot ${rootfs} gcc-13 hello.c -o hello
+  chroot ${rootfs} ./hello | grep "Hello world!" || exit 1

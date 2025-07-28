@@ -18,11 +18,6 @@ slices:
       /usr/bin/ld:  # Symlink to {ARCH_TRIPLET}-ld
       /usr/bin/ld.bfd:  # Symlink to {ARCH_TRIPLET}-ld.bfd
 
-  cgo-dev:
-    essential:
-      - binutils_assembler
-      - binutils_linker
-
   copyright:
     contents:
       /usr/share/doc/binutils/copyright:

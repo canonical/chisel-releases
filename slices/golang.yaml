@@ -12,11 +12,13 @@ slices:
 
   cgo-support:
     essential:
-      - binutils-x86-64-linux-gnu_cgo-dev
-      - binutils_cgo-dev
-      - cpp-13-x86-64-linux-gnu_libs
-      - gcc-13-x86-64-linux-gnu_gcc-13
-      - gcc-13-x86-64-linux-gnu_libs
+      # - binutils-${ARCH_TRIPLET}_assembler
+      # - binutils-${ARCH_TRIPLET}_linker
+      # - cpp-13-${ARCH_TRIPLET}_libs
+      # - gcc-13-${ARCH_TRIPLET}_gcc-13
+      # - gcc-13-${ARCH_TRIPLET}_libs
+      - binutils_assembler
+      - binutils_linker
       - gcc_gcc
       - golang_go-all
       - libbinutils_libs

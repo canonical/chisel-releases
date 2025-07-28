@@ -1,6 +1,7 @@
 package: binutils-x86-64-linux-gnu
 
-# binutils-x86-64-linux-gnu doesn't have a copyright file
+essential:
+  - binutils-x86-64-linux-gnu_copyright
 
 slices:
   assembler:
@@ -26,7 +27,8 @@ slices:
       /usr/bin/x86_64-linux-gnu-ld:
       /usr/bin/x86_64-linux-gnu-ld.bfd:
 
-  cgo-dev:
+  copyright:
     essential:
-      - binutils-x86-64-linux-gnu_assembler
-      - binutils-x86-64-linux-gnu_linker
+      - libbinutils_copyright
+    contents:
+      /usr/share/doc/binutils-x86-64-linux-gnu:

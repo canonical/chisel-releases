@@ -1,5 +1,8 @@
 package: gcc-13-x86-64-linux-gnu
 
+essential:
+  - gcc-13-x86-64-linux-gnu_copyright
+
 slices:
   gcc-13:
     essential:
