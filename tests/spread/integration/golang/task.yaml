@@ -1,12 +1,17 @@
 summary: Integration tests for golang
 
 execute: |
+  apt install --update -y gcc
+  # replace _ with -
+  arch=$(gcc -dumpmachine)
+  arch="${arch//_/-}"
+
   rootfs="$(install-slices golang_cgo-support \
-    binutils-x86-64-linux-gnu_assembler \
-    binutils-x86-64-linux-gnu_linker \
-    cpp-13-x86-64-linux-gnu_libs \
-    gcc-13-x86-64-linux-gnu_gcc-13 \
-    gcc-13-x86-64-linux-gnu_libs \
+    binutils-${arch}_assembler \
+    binutils-${arch}_linker \
+    cpp-13-${arch}_libs \
+    gcc-13-${arch}_gcc-13 \
+    gcc-13-${arch}_libs \
     )"
 
   find . -depth \( \
