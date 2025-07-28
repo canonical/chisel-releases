@@ -4,7 +4,7 @@ essential:
   - libc6-dev_copyright
 
 slices:
-  cgo-libs:
+  core-libs:
     contents:
       /usr/lib/*-linux-*/Scrt1.o:
       /usr/lib/*-linux-*/crt1.o:

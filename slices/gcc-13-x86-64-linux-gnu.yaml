@@ -4,15 +4,21 @@ slices:
   gcc-13:
     essential:
       - libc6_libs
+      - libgcc-13-dev_headers
     contents:
       /usr/bin/x86_64-linux-gnu-gcc-13:
 
-  cgo-libs:
+  libs:
     essential:
+      # TODO: include binutils-{ARCH_TRIPLET}_assembler as essential
+      # TODO: include binutils-{ARCH_TRIPLET}_linker as essential
+      - binutils_assembler
+      - binutils_linker
       - libc6_libs
     contents:
       /usr/libexec/gcc/x86_64-linux-gnu/13/collect2:
       /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so:
+      # /usr/libexec/gcc/x86_64-linux-gnu/13/lto-wrapper:
 
   copyright:
     essential:

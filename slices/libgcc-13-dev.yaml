@@ -4,7 +4,9 @@ essential:
   - libgcc-13-dev_copyright
 
 slices:
-  cgo-dev:
+  core-libs:
+    essential:
+      - libgcc-s1_libs
     contents:
       /usr/lib/gcc/*-linux-*/13/crtbegin*.o:
       /usr/lib/gcc/*-linux-*/13/crtend*.o:

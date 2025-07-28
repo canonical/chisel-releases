@@ -13,6 +13,7 @@ slices:
 
   libs:
     essential:
+      - libc6-dev_headers
       - libc6_libs
       - libgmp10_libs
       - libisl23_libs
