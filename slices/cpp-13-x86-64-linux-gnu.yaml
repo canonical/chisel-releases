@@ -22,8 +22,8 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/libexec/gcc/x86_64-linux-gnu/13/cc1: {arch: [amd64]}
       /usr/libexec/gcc-cross/x86_64-linux-gnu/13/cc1: {arch: [arm64, i386, ppc64el, s390x]}
+      /usr/libexec/gcc/x86_64-linux-gnu/13/cc1: {arch: [amd64]}
 
   copyright:
     contents:
