@@ -6,8 +6,8 @@ essential:
 slices:
   all:
     essential:
-      # Uncomment the following line if not on i386
-      # - golang-1.22-go_bins
+      # Note: The following slice is not available on i386.
+      - golang-1.22-go_bins
       - golang-1.22-src_all
 
   copyright:

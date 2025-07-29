@@ -11,6 +11,6 @@ slices:
       /usr/bin/gcc:  # Symlink to gcc-13
 
   copyright:
-    # TODO: include cpp-{ARCH_TRIPLET}_assembler as essential
+    # TODO: include cpp-${ARCH_TRIPLET}_copyright as essential
     contents:
-      /usr/share/doc/gcc:  # Symlink to cpp-{ARCH_TRIPLET}
+      /usr/share/doc/gcc:  # Symlink to cpp-${ARCH_TRIPLET}

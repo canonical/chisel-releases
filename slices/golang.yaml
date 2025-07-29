@@ -12,6 +12,11 @@ slices:
 
   cgo-support:
     essential:
+      # TODO: Include the following slices with the architecture triplet
+      # when slicing cgo-support. 
+      # Note: The architecture-specific binutils, cpp, and gcc slices can be 
+      # included differently from the architecture of the target platform
+      # to enable cross-compilation.
       # - binutils-${ARCH_TRIPLET}_assembler
       # - binutils-${ARCH_TRIPLET}_linker
       # - cpp-13-${ARCH_TRIPLET}_libs

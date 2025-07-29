@@ -199,7 +199,8 @@ slices:
   bash-scripts:
     essential:
       - bash_bins
-      # - binutils_bins
+      - binutils_linker
+      # TODO: Include binutils-${ARCH_TRIPLET}_loader as well.
       - coreutils_bins
       - grep_bins
     contents:

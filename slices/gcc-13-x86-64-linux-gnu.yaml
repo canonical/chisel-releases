@@ -13,8 +13,8 @@ slices:
 
   libs:
     essential:
-      # TODO: include binutils-{ARCH_TRIPLET}_assembler as essential
-      # TODO: include binutils-{ARCH_TRIPLET}_linker as essential
+      # TODO: include binutils-${ARCH_TRIPLET}_assembler as essential
+      # TODO: include binutils-${ARCH_TRIPLET}_linker as essential
       - binutils_assembler
       - binutils_linker
       - libc6_libs
