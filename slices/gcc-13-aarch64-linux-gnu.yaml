@@ -19,8 +19,10 @@ slices:
       - binutils_linker
       - libc6_libs
     contents:
-      /usr/libexec/gcc/aarch64-linux-gnu/13/collect2:
-      /usr/libexec/gcc/aarch64-linux-gnu/13/liblto_plugin.so:
+      /usr/libexec/gcc/aarch64-linux-gnu/13/collect2:  {arch: [arm64]}
+      /usr/libexec/gcc/aarch64-linux-gnu/13/liblto_plugin.so:  {arch: [arm64]}
+      /usr/libexec/gcc-cross/aarch64-linux-gnu/13/collect2:  {arch: [amd64, i386, ppc64el, s390x]}
+      /usr/libexec/gcc-cross/aarch64-linux-gnu/13/liblto_plugin.so:  {arch: [amd64, i386, ppc64el, s390x]}
 
   copyright:
     essential:
