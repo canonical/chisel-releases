@@ -5,7 +5,7 @@ slices:
     essential:
       - libc6_libs
       - libexpat1_libs
-      - libpython3.12_core
+      - libpython3.12-stdlib_core
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libpython3.12.so.1:
