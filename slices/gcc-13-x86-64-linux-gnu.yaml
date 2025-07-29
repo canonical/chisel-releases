@@ -21,8 +21,10 @@ slices:
     contents:
       /usr/libexec/gcc/x86_64-linux-gnu/13/collect2: {arch: [amd64]}
       /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so: {arch: [amd64]}
-      /usr/libexec/gcc-cross/x86_64-linux-gnu/13/collect2: {arch: [arm64, i386, ppc64el, s390x]}
-      /usr/libexec/gcc-cross/x86_64-linux-gnu/13/liblto_plugin.so: {arch: [arm64, i386, ppc64el, s390x]}
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/13/collect2:
+        {arch: [arm64, i386, ppc64el, s390x]}
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/13/liblto_plugin.so:
+        {arch: [arm64, i386, ppc64el, s390x]}
 
   copyright:
     essential:
