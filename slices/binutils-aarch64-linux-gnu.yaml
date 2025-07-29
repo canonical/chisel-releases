@@ -31,4 +31,4 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
-      /usr/share/doc/binutils-aarch64-linux-gnu:
+      /usr/share/doc/binutils-aarch64-linux-gnu/copyright: {arch: [amd64, ppc64el, s390x]}
