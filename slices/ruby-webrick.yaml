@@ -1,0 +1,14 @@
+package: ruby-webrick
+
+essential:
+  - ruby-webrick_copyright
+
+slices:
+  rubygems:
+    contents:
+      /usr/share/rubygems-integration/all/gems/webrick-*/**:
+      /usr/share/rubygems-integration/all/specifications/webrick-*.gemspec:
+
+  copyright:
+    contents:
+      /usr/share/doc/ruby-webrick/copyright:
