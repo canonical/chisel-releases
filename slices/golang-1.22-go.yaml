@@ -30,6 +30,7 @@ slices:
       /usr/lib/go-1.22/pkg/tool/linux_*/asm:
       /usr/lib/go-1.22/pkg/tool/linux_*/compile:
       /usr/lib/go-1.22/pkg/tool/linux_*/link:
+      # vet is used for go test
       /usr/lib/go-1.22/pkg/tool/linux_*/vet:
 
   cgo-tools:

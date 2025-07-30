@@ -10,7 +10,6 @@ environment:
   SLICE/pack: "pack-tools"
   SLICE/profiling: "profiling-tools"
   SLICE/testing: "testing-tools"
-  SLICE/vet: "vet-tools"
 
 execute: |
   rootfs="$(install-slices golang-1.22-go_${SLICE} golang-1.22-go_bins)"
@@ -27,6 +26,7 @@ execute: |
         chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool asm -V
         chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool compile -V
         chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool link -V
+        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool vet -V
       ;;
     cgo-tools)
       chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cgo -V
@@ -58,9 +58,6 @@ execute: |
       (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool covdata --help 2>&1 || true) | grep "usage"
       chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cover -V
       (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool test2json --help 2>&1 || true) | grep "usage"
-      ;;
-    vet-tools)
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool vet -V
       ;;
   esac
 
