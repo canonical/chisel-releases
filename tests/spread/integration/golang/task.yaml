@@ -14,8 +14,8 @@ execute: |
     gcc-13-${arch}_libs \
     )"
 
-  find . -depth \( \
-    \( -path '*test*' ! -path '*src/testing*' \) -o \
+  find ${rootfs}/usr/share/go-1.22 -depth \( \
+    \( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \) -o \
     \( -path '*/testing/*' -name '*_test.go' \) \
     \) -exec rm -rf {} +
 
@@ -28,16 +28,17 @@ execute: |
   mkdir -p "${rootfs}/tmp"
 
   mkdir "${rootfs}/app"
-  cp main.go "${rootfs}/app/"
-  cp main_cgo.go "${rootfs}/app/"
+  cp -r hello "${rootfs}/"
 
   chroot "${rootfs}/" go version
-  chroot "${rootfs}/" go run /app/main.go | grep "hello world"
+  chroot "${rootfs}/" go run /hello/cmd/hello/main.go | grep "Hello, World!"
 
-  chroot "${rootfs}/" gofmt /app/main.go > /dev/null
+  chroot "${rootfs}/" gofmt /hello/cmd/hello/main.go > /dev/null
+
+  chroot "${rootfs}/" go -C /hello test
 
   export CGO_ENABLED=1
-  chroot "${rootfs}/" go run /app/main_cgo.go | grep "Hello from C!"
+  chroot "${rootfs}/" go run /hello/cmd/hello_cgo/main_cgo.go | grep "Hello from C!"
 
   umount "${rootfs}/proc"
   umount "${rootfs}/dev"

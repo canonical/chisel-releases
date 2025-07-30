@@ -10,7 +10,7 @@ slices:
   # To exclude the tests and test data, a command should be run after cutting
   # this slice:
   #   find ${rootfs}/usr/share/go-1.22 -depth \( \
-  #      \( -path '*test*' ! -path '*src/testing*' \) -o \
+  #      \( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \) -o \
   #      \( -path '*/testing/*' -name '*_test.go' \) \
   #      \) -exec rm -rf {} +
   src-with-tests:
