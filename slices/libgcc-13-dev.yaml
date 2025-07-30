@@ -6,6 +6,7 @@ essential:
 slices:
   core-libs:
     essential:
+      - libgcc-13-dev_headers
       - libgcc-s1_libs
     contents:
       /usr/lib/gcc/*-linux-*/13/crtbegin*.o:

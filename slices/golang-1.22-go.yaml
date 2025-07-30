@@ -6,43 +6,76 @@ essential:
 slices:
   bins:
     essential:
-      - golang-1.22-go_libs
+      - golang-1.22-go_core-libs
     contents:
       /usr/lib/go-1.22/bin/go:
       /usr/lib/go-1.22/bin/gofmt:
 
-  libs:
+  core-libs:
     essential:
       - golang-1.22-go_cmd-src
-      - golang-1.22-go_go-src
+      - golang-1.22-go_core-tools
+      - golang-1.22-go_go-build-src
       - golang-1.22-go_headers
       - golang-1.22-go_internal-src
       - golang-1.22-go_runtime-src
       - golang-1.22-go_symlinks
       - golang-1.22-go_time-src
-      - golang-1.22-go_tools
       - golang-1.22-src_src-with-tests
 
-  tools:
+  # Note: The following tools slices are grouped according to their
+  # functionalities listed in https://pkg.go.dev/cmd.
+  core-tools:
     contents:
-      /usr/lib/go-1.22/pkg/tool/linux_*/addr2line:
       /usr/lib/go-1.22/pkg/tool/linux_*/asm:
-      /usr/lib/go-1.22/pkg/tool/linux_*/buildid:
-      /usr/lib/go-1.22/pkg/tool/linux_*/cgo:
       /usr/lib/go-1.22/pkg/tool/linux_*/compile:
-      /usr/lib/go-1.22/pkg/tool/linux_*/covdata:
-      /usr/lib/go-1.22/pkg/tool/linux_*/cover:
-      /usr/lib/go-1.22/pkg/tool/linux_*/dist:
-      /usr/lib/go-1.22/pkg/tool/linux_*/distpack:
-      /usr/lib/go-1.22/pkg/tool/linux_*/doc:
-      /usr/lib/go-1.22/pkg/tool/linux_*/fix:
       /usr/lib/go-1.22/pkg/tool/linux_*/link:
+
+  cgo-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/cgo:
+
+  buildid-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/buildid:
+
+  debug-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/fix:
       /usr/lib/go-1.22/pkg/tool/linux_*/nm:
       /usr/lib/go-1.22/pkg/tool/linux_*/objdump:
-      /usr/lib/go-1.22/pkg/tool/linux_*/pack:
-      /usr/lib/go-1.22/pkg/tool/linux_*/pprof:
-      /usr/lib/go-1.22/pkg/tool/linux_*/test2json:
       /usr/lib/go-1.22/pkg/tool/linux_*/trace:
+
+  dist-tools:
+    essential:
+      - base-files_tmp
+      - golang-1.22-src_bash-scripts
+    contents:
+      /usr/lib/go-1.22/VERSION:
+      /usr/lib/go-1.22/pkg/tool/linux_*/dist:
+      /usr/lib/go-1.22/pkg/tool/linux_*/distpack:
+
+  doc-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/doc:
+
+  pack-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/pack:
+
+  profiling-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/addr2line:
+      /usr/lib/go-1.22/pkg/tool/linux_*/pprof:
+
+  testing-tools:
+    contents:
+      /usr/lib/go-1.22/pkg/tool/linux_*/covdata:
+      /usr/lib/go-1.22/pkg/tool/linux_*/cover:
+      /usr/lib/go-1.22/pkg/tool/linux_*/test2json:
+
+  vet-tools:
+    contents:
       /usr/lib/go-1.22/pkg/tool/linux_*/vet:
 
   headers:
@@ -55,7 +88,7 @@ slices:
       /usr/share/go-1.22/src/cmd/go/internal/cfg/zdefaultcc.go:
       /usr/share/go-1.22/src/cmd/internal/objabi/zbootstrap.go:
 
-  go-src:
+  go-build-src:
     contents:
       /usr/share/go-1.22/src/go/build/zcgo.go:
 

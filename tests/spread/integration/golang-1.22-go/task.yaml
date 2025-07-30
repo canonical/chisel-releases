@@ -1,0 +1,69 @@
+summary: Integration tests for util-linux
+
+environment:
+  SLICE/core: "core-tools"
+  SLICE/cgo: "cgo-tools"
+  SLICE/buildid: "buildid-tools"
+  SLICE/debug: "debug-tools"
+  SLICE/dist: "dist-tools"
+  SLICE/doc: "doc-tools"
+  SLICE/pack: "pack-tools"
+  SLICE/profiling: "profiling-tools"
+  SLICE/testing: "testing-tools"
+  SLICE/vet: "vet-tools"
+
+execute: |
+  rootfs="$(install-slices golang-1.22-go_${SLICE} golang-1.22-go_bins)"
+
+  # we need dev/sys mounted for some of them
+  mkdir "${rootfs}"/dev
+  mkdir "${rootfs}/proc"
+
+  mount --bind /dev "${rootfs}"/dev
+  mount --bind /proc "${rootfs}/proc"
+
+  case ${SLICE} in
+    core-tools)
+        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool asm -V
+        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool compile -V
+        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool link -V
+      ;;
+    cgo-tools)
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cgo -V
+      ;;
+    buildid-tools)
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool buildid 2>&1 || true) | grep "usage"
+      ;;
+    debug-tools)
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool fix --help 2>&1 || true) | grep "usage"
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool nm --help 2>&1 || true) | grep "usage"
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool objdump --help 2>&1 || true) | grep "usage"
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool trace --help 2>&1 || true) | grep "Usage"
+      ;;
+    dist-tools)
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool dist version
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool distpack --help 2>&1 || true) | grep "usage"
+      ;;
+    doc-tools)
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool doc help
+      ;;
+    pack-tools)
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool pack --help 2>&1 || true) | grep "Usage"
+      ;;
+    profiling-tools)
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool addr2line --help
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool pprof --help
+      ;;
+    testing-tools)
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool covdata --help 2>&1 || true) | grep "usage"
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cover -V
+      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool test2json --help 2>&1 || true) | grep "usage"
+      ;;
+    vet-tools)
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool vet -V
+      ;;
+  esac
+
+  # cleanup
+  umount -l "${rootfs}"/dev
+  umount -l "${rootfs}"/proc

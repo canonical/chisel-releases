@@ -5,11 +5,17 @@ essential:
 
 slices:
   core-libs:
+    essential:
+      - libc6-dev_headers
+      - libc6_libs
     contents:
       /usr/lib/*-linux-*/Scrt1.o:
       /usr/lib/*-linux-*/crt1.o:
       /usr/lib/*-linux-*/crti.o:
       /usr/lib/*-linux-*/crtn.o:
+      # Note: libc.so here is an ld script that tells the linker to look up the
+      # functions from libc_nonshared.a if they are not found in the libc.so.6
+      # from libc6.
       /usr/lib/*-linux-*/libc.so:
       /usr/lib/*-linux-*/libc_nonshared.a:
       /usr/lib/*-linux-*/libpthread.a:

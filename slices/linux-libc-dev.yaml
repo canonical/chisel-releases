@@ -4,10 +4,15 @@ essential:
   - linux-libc-dev_copyright
 
 slices:
-  linux-headers:
+  asm-headers:
     contents:
       /usr/include/*-linux-*/asm/**.h:
       /usr/include/asm-generic/**.h:
+
+  linux-headers:
+    essential:
+      - linux-libc-dev_asm-headers
+    contents:
       /usr/include/linux/**.h:
 
   copyright:

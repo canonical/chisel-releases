@@ -16,6 +16,7 @@ slices:
       - coreutils_expr
       - coreutils_libs
       - coreutils_mkdir
+      - coreutils_uname
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -117,7 +118,6 @@ slices:
       /usr/bin/truncate:
       /usr/bin/tsort:
       /usr/bin/tty:
-      /usr/bin/uname:
       /usr/bin/unexpand:
       /usr/bin/uniq:
       /usr/bin/unlink:
@@ -149,6 +149,12 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/mkdir:
+
+  uname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/uname:
 
   copyright:
     contents:

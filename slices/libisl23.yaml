@@ -11,10 +11,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/libisl.so.23*:
 
-  gdb-auto-load:
-    contents:
-      /usr/share/gdb/auto-load/usr/lib/*-linux-*/libisl.so.23*-gdb.py:
-
   copyright:
     contents:
       /usr/share/doc/libisl23/copyright:

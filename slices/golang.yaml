@@ -8,7 +8,7 @@ slices:
     essential:
       - golang-1.22_all
       - golang-go_bins
-      - golang-src_libs
+      - golang-src_src-with-tests
 
   cgo-support:
     essential:
@@ -26,6 +26,7 @@ slices:
       - binutils_linker
       - gcc_gcc
       - golang_go-all
+      - golang-1.22-go_cgo-tools
       - libbinutils_libs
       - libc6-dev_core-libs
       - libc6-dev_headers

@@ -4,7 +4,7 @@ essential:
   - golang-src_copyright
 
 slices:
-  libs:
+  src-with-tests:
     essential:
       - golang-1.22-src_src-with-tests
     contents:
