@@ -21,7 +21,7 @@ slices:
       - golang-1.22-go_symlinks
       - golang-1.22-go_time-src
       - golang-1.22-go_tools
-      - golang-1.22-src_all
+      - golang-1.22-src_src-with-tests
 
   tools:
     contents:

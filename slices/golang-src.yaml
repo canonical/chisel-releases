@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      - golang-1.22-src_all
+      - golang-1.22-src_src-with-tests
     contents:
       # This is the symlink to ./go-1.22
       /usr/share/go:

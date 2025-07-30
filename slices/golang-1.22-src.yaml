@@ -13,10 +13,9 @@ slices:
   #      \( -path '*test*' ! -path '*src/testing*' \) -o \
   #      \( -path '*/testing/*' -name '*_test.go' \) \
   #      \) -exec rm -rf {} +
-  all:
+  src-with-tests:
     essential:
       - golang-1.22-src_api
-      - golang-1.22-src_bash-scripts
     contents:
       # Note: Some paths are explicitly listed to avoid conflicts with
       # the paths defined in golang-1.22-go.
