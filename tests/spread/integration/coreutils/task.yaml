@@ -13,3 +13,11 @@ execute: |
   # test env
   rootfs_env="$(install-slices coreutils_env)"
   chroot "$rootfs_env" env --version
+
+  # test mktemp
+  rootfs_mktemp="$(install-slices coreutils_mktemp)"
+  chroot "$rootfs_mktemp" mktemp --version
+
+  # test echo
+  rootfs_echo="$(install-slices coreutils_echo)"
+  chroot "$rootfs_echo" echo "Hello, World!" | grep -q "Hello, World!"

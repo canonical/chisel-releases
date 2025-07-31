@@ -12,10 +12,12 @@ slices:
 
   bins:
     essential:
+      - coreutils_echo
       - coreutils_env
       - coreutils_expr
       - coreutils_libs
       - coreutils_mkdir
+      - coreutils_mktemp
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -49,7 +51,6 @@ slices:
       /usr/bin/dircolors:
       /usr/bin/dirname:
       /usr/bin/du:
-      /usr/bin/echo:
       /usr/bin/expand:
       /usr/bin/factor:
       /usr/bin/false:
@@ -69,7 +70,6 @@ slices:
       /usr/bin/md5sum.textutils:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
-      /usr/bin/mktemp:
       /usr/bin/mv:
       /usr/bin/nice:
       /usr/bin/nl:
@@ -149,6 +149,18 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/mkdir:
+
+  mktemp:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/mktemp:
+
+  echo:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/echo:
 
   copyright:
     contents:
