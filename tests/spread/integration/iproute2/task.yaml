@@ -1,10 +1,8 @@
 summary: Integration tests for libgif7
 
 execute: |
-  rootfs="$(install-slices iproute2_bins)"
+  rootfs="$(install-slices iproute2_bins base-files_tmp)"
 
-  mkdir -p ${rootfs}/tmp
-  mount --bind /tmp ${rootfs}/tmp
   mkdir -p ${rootfs}/proc
   mount --bind /proc ${rootfs}/proc
   
@@ -16,5 +14,3 @@ execute: |
   chroot "$rootfs" tc qdisc show dev lo
   chroot "$rootfs" nstat
   chroot "$rootfs" genl -V
-
-  umount ${rootfs}/tmp
