@@ -14,6 +14,11 @@ execute: |
   sed -i 's/^\($PrivDropToGroup[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
   
   chroot ${rootfs} /usr/sbin/rsyslogd
+  pkill rsyslogd
+
+  # pkill is asynchronous because it sends a Linux signal to kill the process
+  # Sleep for a while to ensure rsyslogd has time to terminate before `umount`
+  sleep 1
 
   umount ${rootfs}/proc
   umount ${rootfs}/dev

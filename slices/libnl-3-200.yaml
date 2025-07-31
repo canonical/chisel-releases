@@ -11,7 +11,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnl-3.so.200:
       /usr/lib/*-linux-*/libnl-3.so.200.26.0:
-  
+
   config:
     contents:
       /etc/libnl-3/classid:

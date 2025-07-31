@@ -17,7 +17,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/sbin/rsyslogd:
-  
+
   data:
     contents:
       /var/spool/rsyslog/:
@@ -29,15 +29,17 @@ slices:
       /etc/logcheck/ignore.d.server/rsyslog:
       /etc/logrotate.d/rsyslog:
       /etc/rsyslog.conf:
-      /etc/rsyslog.d/50-default.conf: { copy: /usr/share/rsyslog/50-default.conf }
-      /etc/systemd/system/multi-user.target.wants/rsyslog.service: { symlink: /usr/lib/systemd/system/rsyslog.service }
-  
+      /etc/rsyslog.d/50-default.conf:
+        copy: /usr/share/rsyslog/50-default.conf
+      /etc/systemd/system/multi-user.target.wants/rsyslog.service:
+        symlink: /usr/lib/systemd/system/rsyslog.service
+
   libs:
     contents:
+      /usr/lib/*-linux-*/rsyslog/*.so:
       /usr/lib/rsyslog/rsyslog-rotate:
       /usr/lib/systemd/system/rsyslog.service:
       /usr/lib/tmpfiles.d/00rsyslog.conf:
-      /usr/lib/*-linux-*/rsyslog/*.so:
 
   copyright:
     contents:
