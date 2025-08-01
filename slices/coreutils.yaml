@@ -116,9 +116,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-sorted-files.html
   operating-on-sorted-files:
     essential:
+      - coreutils_sort
       - libc6_libs
       - libssl3t64_libs
-      - coreutils_sort
     contents:
       /usr/bin/comm:
       /usr/bin/ptx:
