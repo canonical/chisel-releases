@@ -20,3 +20,8 @@ execute: |
   rootfs_env="$(install-slices coreutils_env)"
   chroot "$rootfs_env" env --version
 
+  # test expr binary
+  rootfs_expr="$(install-slices coreutils_expr)"
+  chroot "$rootfs_expr" expr --version
+
+

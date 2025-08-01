@@ -238,9 +238,9 @@ slices:
     essential:
       - libc6_libs
       - libgmp10_libs
+      - coreutils_expr
     contents:
       /usr/bin/[:
-      /usr/bin/expr:
       /usr/bin/false:
       /usr/bin/test:
       /usr/bin/true:
@@ -353,6 +353,15 @@ slices:
       /usr/bin/factor:
       /usr/bin/numfmt:
       /usr/bin/seq:
+
+  # Single-binary slices
+
+  expr:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/bin/expr:
 
   copyright:
     contents:
