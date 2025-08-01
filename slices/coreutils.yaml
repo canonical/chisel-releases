@@ -26,6 +26,7 @@ slices:
       - libselinux1_libs
       - coreutils_echo
       - coreutils_ln-utility
+      - coreutils_rm-utility
 
     contents:
       /usr/bin/[:
@@ -88,7 +89,6 @@ slices:
       /usr/bin/pwd:
       /usr/bin/readlink:
       /usr/bin/realpath:
-      /usr/bin/rm:
       /usr/bin/rmdir:
       /usr/bin/runcon:
       /usr/bin/seq:
@@ -163,6 +163,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/ln:
+  
+  rm-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/rm:
 
   copyright:
     contents:
