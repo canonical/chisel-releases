@@ -49,3 +49,8 @@ execute: |
   touch "$rootfs_dirname/foo/bar/baz.txt"
   test "$(chroot "$rootfs_dirname" dirname /foo/bar/baz.txt)" = "/foo/bar"
   test "$(chroot "$rootfs_dirname" dirname /foo/bar/)" = "/foo/bar"
+
+  # test touch binary
+  rootfs_touch="$(install-slices coreutils_touch)"
+  chroot "$rootfs_touch" touch test_file
+  test -e "$rootfs_touch/test_file"
