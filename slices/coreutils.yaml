@@ -28,6 +28,7 @@ slices:
       - coreutils_ln-utility
       - coreutils_rm-utility
       - coreutils_readlink
+      - coreutils_sort
 
     contents:
       /usr/bin/[:
@@ -100,7 +101,6 @@ slices:
       /usr/bin/shred:
       /usr/bin/shuf:
       /usr/bin/sleep:
-      /usr/bin/sort:
       /usr/bin/split:
       /usr/bin/stat:
       /usr/bin/stdbuf:
@@ -175,6 +175,13 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/readlink:
+
+  sort:
+    essential:
+      - libc6_libs
+      - libssl3t64_libcrypto
+    contents:
+      /usr/bin/sort:
 
   copyright:
     contents:
