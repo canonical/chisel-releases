@@ -118,11 +118,11 @@ slices:
     essential:
       - libc6_libs
       - libssl3t64_libs
+      - coreutils_sort
     contents:
       /usr/bin/comm:
       /usr/bin/ptx:
       /usr/bin/shuf:
-      /usr/bin/sort:
       /usr/bin/tsort:
       /usr/bin/uniq:
 
@@ -199,11 +199,11 @@ slices:
   changing-file-attributes:
     essential:
       - libc6_libs
+      - coreutils_touch
     contents:
       /usr/bin/chgrp:
       /usr/bin/chmod:
       /usr/bin/chown:
-      /usr/bin/touch:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -226,8 +226,8 @@ slices:
     essential:
       - libc6_libs
       - coreutils_echo
+      - coreutils_printf
     contents:
-      /usr/bin/printf:
       /usr/bin/yes:
 
   # Conditions -- This slice contains commands that are primarily useful for
@@ -259,9 +259,9 @@ slices:
   file-name-manipulation:
     essential:
       - libc6_libs
+      - coreutils_dirname
     contents:
       /usr/bin/basename:
-      /usr/bin/dirname:
       /usr/bin/mktemp:
       /usr/bin/pathchk:
       /usr/bin/realpath:
