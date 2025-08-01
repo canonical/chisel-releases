@@ -1,0 +1,22 @@
+package: make
+
+essential:
+  - make_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      # Symlink to make
+      /usr/bin/gmake:
+      /usr/bin/make:
+      /usr/bin/make-first-existing-target:
+
+  headers:
+    contents:
+      /usr/include/gnumake.h:
+
+  copyright:
+    contents:
+      /usr/share/doc/make/copyright:
