@@ -1,5 +1,8 @@
 package: php8.4-opcache
 
+essential:
+  - php8.4-opcache_copyright
+
 slices:
   cli-module:
     essential:
@@ -14,7 +17,6 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - php-common_libs
-      - php8.4-common_libs
       - php8.4-opcache_config
     contents:
       /usr/lib/php/*/opcache.so:
@@ -24,3 +26,9 @@ slices:
     contents:
       /etc/php/8.4/mods-available/opcache.ini:
         { copy: /usr/share/php8.4-opcache/opcache/opcache.ini }
+
+  copyright:
+    essential:
+      - php8.4-common_copyright
+    contents:
+      /usr/share/doc/php8.4-opcache:

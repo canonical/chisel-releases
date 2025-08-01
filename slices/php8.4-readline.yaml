@@ -1,5 +1,8 @@
 package: php8.4-readline
 
+essential:
+  - php8.4-readline_copyright
+
 slices:
   cli-module:
     essential:
@@ -13,7 +16,6 @@ slices:
     essential:
       - libc6_libs
       - libedit2_libs
-      - php8.4-common_libs
       - php8.4-readline_config
     contents:
       /usr/lib/php/*/readline.so:
@@ -23,3 +25,9 @@ slices:
     contents:
       /etc/php/8.4/mods-available/readline.ini:
         { copy: /usr/share/php8.4-readline/readline/readline.ini }
+
+  copyright:
+    essential:
+      - php8.4-common_copyright
+    contents:
+      /usr/share/doc/php8.4-readline:

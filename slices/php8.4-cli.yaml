@@ -1,5 +1,8 @@
 package: php8.4-cli
 
+essential:
+  - php8.4-cli_copyright
+
 slices:
   core:
     essential:
@@ -79,3 +82,9 @@ slices:
       dst = "/etc/php/8.4/cli/php.ini"
       data = content.read(src)
       content.write(dst, data)
+
+  copyright:
+    essential:
+      - php8.4-common_copyright
+    contents:
+      /usr/share/doc/php8.4-cli:
