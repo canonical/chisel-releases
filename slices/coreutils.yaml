@@ -27,6 +27,7 @@ slices:
       - coreutils_echo
       - coreutils_ln-utility
       - coreutils_rm-utility
+      - coreutils_readlink
 
     contents:
       /usr/bin/[:
@@ -87,7 +88,6 @@ slices:
       /usr/bin/printf:
       /usr/bin/ptx:
       /usr/bin/pwd:
-      /usr/bin/readlink:
       /usr/bin/realpath:
       /usr/bin/rmdir:
       /usr/bin/runcon:
@@ -169,6 +169,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/rm:
+  
+  readlink:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/readlink:
 
   copyright:
     contents:

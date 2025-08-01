@@ -30,4 +30,8 @@ execute: |
   chroot "$rootfs_rm" rm test_file
   test ! -e "$rootfs_rm/test_file"
 
-
+  # test readlink binary
+  rootfs_readlink="$(install-slices coreutils_readlink)"
+  touch "$rootfs_readlink/test_file"
+  ln -s test_file "$rootfs_readlink/test_link"
+  chroot "$rootfs_readlink" readlink test_link | grep "test_file"
