@@ -87,7 +87,6 @@ slices:
       /usr/bin/pinky:
       /usr/bin/pr:
       /usr/bin/printenv:
-      /usr/bin/printf:
       /usr/bin/ptx:
       /usr/bin/pwd:
       /usr/bin/realpath:
@@ -194,6 +193,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/touch:
+
+  printf:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/printf:
 
   copyright:
     contents:

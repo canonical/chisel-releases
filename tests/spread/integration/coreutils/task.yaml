@@ -54,3 +54,10 @@ execute: |
   rootfs_touch="$(install-slices coreutils_touch)"
   chroot "$rootfs_touch" touch test_file
   test -e "$rootfs_touch/test_file"
+
+  # test printf binary
+  rootfs_printf="$(install-slices coreutils_printf)"
+  test "$(chroot "$rootfs_printf" printf "hello\n" )" = "hello"
+  test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
+  test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
+  test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
