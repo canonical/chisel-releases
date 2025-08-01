@@ -19,7 +19,7 @@ execute: |
   chroot "$rootfs_echo" echo "Hello, World!"
 
   # test ln binary
-  rootfs_ln="$(install-slices coreutils_ln)"
+  rootfs_ln="$(install-slices coreutils_ln-utility)"
   touch "$rootfs_ln/test_file"
   chroot "$rootfs_ln" ln -s test_file test_link
   test -L "$rootfs_ln/test_link"
