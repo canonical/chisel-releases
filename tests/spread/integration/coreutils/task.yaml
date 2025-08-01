@@ -48,7 +48,7 @@ execute: |
   mkdir -p "$rootfs_dirname/foo/bar"
   touch "$rootfs_dirname/foo/bar/baz.txt"
   test "$(chroot "$rootfs_dirname" dirname /foo/bar/baz.txt)" = "/foo/bar"
-  test "$(chroot "$rootfs_dirname" dirname /foo/bar/)" = "/foo/bar"
+  test "$(chroot "$rootfs_dirname" dirname /foo/bar/)" = "/foo"
 
   # test touch binary
   rootfs_touch="$(install-slices coreutils_touch)"
