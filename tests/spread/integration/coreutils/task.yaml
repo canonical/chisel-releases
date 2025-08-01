@@ -13,3 +13,7 @@ execute: |
   # test env
   rootfs_env="$(install-slices coreutils_env)"
   chroot "$rootfs_env" env --version
+
+  # test echo binary
+  rootfs_echo="$(install-slices coreutils_echo)"
+  chroot "$rootfs_echo" echo "Hello, World!"
