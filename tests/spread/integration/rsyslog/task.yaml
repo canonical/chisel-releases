@@ -14,9 +14,9 @@ execute: |
   sed -i 's/^\($PrivDropToGroup[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
   
   chroot ${rootfs} /usr/sbin/rsyslogd
+  pkill rsyslogd
   ps -ef | grep rsyslogd
   mount | grep "/tmp"
-  pkill rsyslogd
 
   umount ${rootfs}/proc
   umount ${rootfs}/dev
