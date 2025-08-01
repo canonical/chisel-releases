@@ -408,6 +408,12 @@ slices:
     contents:
       /usr/bin/dirname:
 
+  touch:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/touch:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
