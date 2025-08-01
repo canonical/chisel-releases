@@ -414,6 +414,12 @@ slices:
     contents:
       /usr/bin/touch:
 
+  printf:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/printf:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
