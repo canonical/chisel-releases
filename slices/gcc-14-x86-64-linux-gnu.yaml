@@ -1,0 +1,34 @@
+package: gcc-14-x86-64-linux-gnu
+
+essential:
+  - gcc-14-x86-64-linux-gnu_copyright
+
+slices:
+  gcc-14:
+    essential:
+      - libc6_libs
+      - libgcc-14-dev_headers
+    contents:
+      /usr/bin/x86_64-linux-gnu-gcc-14:
+
+  libs:
+    essential:
+      # TODO: include binutils-${ARCH_TRIPLET}_assembler as essential
+      # TODO: include binutils-${ARCH_TRIPLET}_linker as essential
+      - binutils_assembler
+      - binutils_linker
+      - libc6_libs
+    contents:
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/14/collect2:
+        {arch: [arm64, i386, ppc64el, s390x]}
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/14/liblto_plugin.so:
+        {arch: [arm64, i386, ppc64el, s390x]}
+      /usr/libexec/gcc/x86_64-linux-gnu/14/collect2: {arch: [amd64]}
+      /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so: {arch: [amd64]}
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      # Symlink to gcc-14-base
+      /usr/share/doc/gcc-14-x86-64-linux-gnu:

@@ -4,9 +4,9 @@ essential:
   - golang-src_copyright
 
 slices:
-  libs:
+  src-with-tests:
     essential:
-      - golang-1.24-src_all
+      - golang-1.24-src_src-with-tests
     contents:
       # This is the symlink to ./go-1.24
       /usr/share/go:

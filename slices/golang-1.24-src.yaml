@@ -10,13 +10,15 @@ slices:
   # To exclude the tests and test data, a command should be run after cutting
   # this slice:
   #   find . -depth \( \
-  #      \( -path '*test*' ! -path '*src/testing*' \) -o \
+  #      \( -path '*test*' \
+  #         ! -path '*src/testing*' \
+  #         ! -path '*src/internal/test*' \
+  #         ! -path '*src/runtime/synctest*' \) -o \
   #      \( -path '*/testing/*' -name '*_test.go' \) \
   #      \) -exec rm -rf {} +
-  all:
+  src-with-tests:
     essential:
       - golang-1.24-src_api
-      - golang-1.24-src_bash-scripts
       - golang-1.24-src_libs
     contents:
       # Note: Some paths are explicitly listed to avoid conflicts with
@@ -206,7 +208,8 @@ slices:
   bash-scripts:
     essential:
       - bash_bins
-      # - binutils_bins
+      - binutils_linker
+      # TODO: Include binutils-${ARCH_TRIPLET}_loader as well.
       - coreutils_bins
       - grep_bins
     contents:
