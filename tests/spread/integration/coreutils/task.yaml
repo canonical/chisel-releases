@@ -29,3 +29,6 @@ execute: |
   chroot "$rootfs_mkdir" mkdir test_dir
   test -d "$rootfs_mkdir/test_dir"
 
+  # test echo binary
+  rootfs_echo="$(install-slices coreutils_echo)"
+  chroot "$rootfs_echo" echo "Hello, World!"

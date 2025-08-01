@@ -371,6 +371,12 @@ slices:
     contents:
       /usr/bin/mkdir:
 
+  echo:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/echo:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
