@@ -186,11 +186,11 @@ slices:
       - libselinux1_libs
       - coreutils_mkdir
       - coreutils_ln-utility
+      - coreutils_readlink
     contents:
       /usr/bin/link:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
-      /usr/bin/readlink:
       /usr/bin/rmdir:
       /usr/bin/unlink:
 
@@ -389,6 +389,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/rm:
+  
+  readlink:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/readlink:
 
   copyright:
     contents:
