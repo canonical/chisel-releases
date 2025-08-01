@@ -14,7 +14,7 @@ slices:
       /usr/lib/*-linux-*/engines-3/padlock.so:
       /usr/lib/*-linux-*/libssl.so.*:
       /usr/lib/*-linux-*/ossl-modules/legacy.so:
-  
+
   libcrypto:
     essential:
       - libc6_libs
