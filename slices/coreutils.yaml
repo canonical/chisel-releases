@@ -164,11 +164,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - coreutils_rm-utility
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
       - libselinux1_libs
-      - coreutils_rm-utility
     contents:
       /usr/bin/cp:
       /usr/bin/dd:
@@ -182,11 +182,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
   special-file-types:
     essential:
+      - coreutils_ln-utility
+      - coreutils_mkdir
+      - coreutils_readlink
       - libc6_libs
       - libselinux1_libs
-      - coreutils_mkdir
-      - coreutils_ln-utility
-      - coreutils_readlink
     contents:
       /usr/bin/link:
       /usr/bin/mkfifo:
@@ -198,8 +198,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
-      - libc6_libs
       - coreutils_touch
+      - libc6_libs
     contents:
       /usr/bin/chgrp:
       /usr/bin/chmod:
@@ -224,9 +224,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
   printing-text:
     essential:
-      - libc6_libs
       - coreutils_echo
       - coreutils_printf
+      - libc6_libs
     contents:
       /usr/bin/yes:
 
@@ -236,9 +236,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Conditions.html
   conditions:
     essential:
+      - coreutils_expr
       - libc6_libs
       - libgmp10_libs
-      - coreutils_expr
     contents:
       /usr/bin/[:
       /usr/bin/false:
@@ -258,8 +258,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:
-      - libc6_libs
       - coreutils_dirname
+      - libc6_libs
     contents:
       /usr/bin/basename:
       /usr/bin/mktemp:
