@@ -25,6 +25,8 @@ slices:
       - libpcre2-8-0_libs
       - libselinux1_libs
       - coreutils_echo
+      - coreutils_ln-utility
+
     contents:
       /usr/bin/[:
       /usr/bin/arch:
@@ -62,7 +64,6 @@ slices:
       /usr/bin/install:
       /usr/bin/join:
       /usr/bin/link:
-      /usr/bin/ln:
       /usr/bin/logname:
       /usr/bin/ls:
       /usr/bin/md5sum:
@@ -155,6 +156,13 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/echo:
+
+  # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
+  ln-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/ln:
 
   copyright:
     contents:
