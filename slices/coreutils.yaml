@@ -363,6 +363,14 @@ slices:
     contents:
       /usr/bin/expr:
 
+  mkdir:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/mkdir:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:

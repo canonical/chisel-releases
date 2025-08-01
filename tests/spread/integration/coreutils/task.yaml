@@ -24,4 +24,8 @@ execute: |
   rootfs_expr="$(install-slices coreutils_expr)"
   chroot "$rootfs_expr" expr --version
 
+  # test mkdir binary
+  rootfs_mkdir="$(install-slices coreutils_mkdir)"
+  chroot "$rootfs_mkdir" mkdir test_dir
+  test -d "$rootfs_mkdir/test_dir"
 
