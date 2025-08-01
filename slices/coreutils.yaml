@@ -402,6 +402,12 @@ slices:
     contents:
       /usr/bin/sort:
 
+  dirname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/dirname:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:

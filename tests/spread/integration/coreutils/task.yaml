@@ -57,3 +57,10 @@ execute: |
   chroot "$rootfs_sort" sort test_file > sorted_output
   # NOTE: sorted output has a trailing newline. replaced by hyphen to show better
   test "$(cat sorted_output | tr '\n' '-')" = "apple-banana-cherry-"
+
+  # test dirname binary
+  rootfs_dirname="$(install-slices coreutils_dirname)"
+  mkdir -p "$rootfs_dirname/foo/bar"
+  touch "$rootfs_dirname/foo/bar/baz.txt"
+  test "$(chroot "$rootfs_dirname" dirname /foo/bar/baz.txt)" = "/foo/bar"
+  test "$(chroot "$rootfs_dirname" dirname /foo/bar/)" = "/foo"
