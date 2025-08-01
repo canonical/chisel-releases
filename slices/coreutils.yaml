@@ -29,6 +29,7 @@ slices:
       - coreutils_rm-utility
       - coreutils_readlink
       - coreutils_sort
+      - coreutils_dirname
 
     contents:
       /usr/bin/[:
@@ -53,7 +54,6 @@ slices:
       /usr/bin/df:
       /usr/bin/dir:
       /usr/bin/dircolors:
-      /usr/bin/dirname:
       /usr/bin/du:
       /usr/bin/expand:
       /usr/bin/factor:
@@ -182,6 +182,12 @@ slices:
       - libssl3t64_libcrypto
     contents:
       /usr/bin/sort:
+
+  dirname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/dirname:
 
   copyright:
     contents:
