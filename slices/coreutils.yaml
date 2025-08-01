@@ -168,12 +168,12 @@ slices:
       - libattr1_libs
       - libc6_libs
       - libselinux1_libs
+      - coreutils_rm-utility
     contents:
       /usr/bin/cp:
       /usr/bin/dd:
       /usr/bin/install:
       /usr/bin/mv:
-      /usr/bin/rm:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -184,10 +184,10 @@ slices:
     essential:
       - libc6_libs
       - libselinux1_libs
+      - coreutils_mkdir
+      - coreutils_ln-utility
     contents:
       /usr/bin/link:
-      /usr/bin/ln:
-      /usr/bin/mkdir:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
       /usr/bin/readlink:
@@ -225,8 +225,8 @@ slices:
   printing-text:
     essential:
       - libc6_libs
+      - coreutils_echo
     contents:
-      /usr/bin/echo:
       /usr/bin/printf:
       /usr/bin/yes:
 
