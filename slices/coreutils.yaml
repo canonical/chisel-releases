@@ -377,6 +377,13 @@ slices:
     contents:
       /usr/bin/echo:
 
+  # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
+  ln-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/ln:
+      
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
