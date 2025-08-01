@@ -12,10 +12,17 @@ slices:
 
   bins:
     essential:
+      - coreutils_dirname
+      - coreutils_echo
       - coreutils_env
       - coreutils_expr
       - coreutils_libs
+      - coreutils_ln-utility
       - coreutils_mkdir
+      - coreutils_readlink
+      - coreutils_rm-utility
+      - coreutils_sort
+      - coreutils_touch
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -24,13 +31,6 @@ slices:
       - libgmp10_libs
       - libpcre2-8-0_libs
       - libselinux1_libs
-      - coreutils_echo
-      - coreutils_ln-utility
-      - coreutils_rm-utility
-      - coreutils_readlink
-      - coreutils_sort
-      - coreutils_dirname
-      - coreutils_touch
 
     contents:
       /usr/bin/[:
