@@ -6,8 +6,10 @@ essential:
 slices:
   bins:
     essential:
-      - libc6_libs
+      - iproute2_config
       - libbpf1_libs
+      - libc6_libs
+      - libcap2-bin_bins
       - libcap2_libs
       - libdb5.3t64_libs
       - libelf1t64_libs
@@ -15,35 +17,33 @@ slices:
       - libselinux1_libs
       - libtirpc3t64_libs
       - libxtables12_libs
-      - libcap2-bin_bins
-      - iproute2_config
     contents:
       /bin/ip:
       /bin/ss:
       /sbin/bridge:
       /sbin/dcb:
       /sbin/devlink:
+      /sbin/ip:
       /sbin/rtacct:
       /sbin/rtmon:
       /sbin/tc:
       /sbin/tipc:
       /sbin/vdpa:
+      /usr/bin/ctstat:
       /usr/bin/lnstat:
       /usr/bin/nstat:
       /usr/bin/rdma:
       /usr/bin/routel:
+      /usr/bin/rtstat:
       /usr/sbin/arpd:
       /usr/sbin/genl:
-      /sbin/ip:
-      /usr/bin/ctstat:
-      /usr/bin/rtstat:
 
   config:
     essential:
       - iproute2_libs
     contents:
       /etc/iproute2/*:
-  
+
   headers:
     contents:
       /usr/include/iproute2/bpf_elf.h:
