@@ -396,6 +396,12 @@ slices:
     contents:
       /usr/bin/readlink:
 
+  sort:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/sort:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:

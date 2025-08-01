@@ -50,3 +50,10 @@ execute: |
   touch "$rootfs_readlink/test_file"
   ln -s test_file "$rootfs_readlink/test_link"
   chroot "$rootfs_readlink" readlink test_link | grep "test_file"
+
+  # test sort binary
+  rootfs_sort="$(install-slices coreutils_sort)"
+  echo -e "banana\napple\ncherry" > "$rootfs_sort/test_file"
+  chroot "$rootfs_sort" sort test_file > sorted_output
+  # NOTE: sorted output has a trailing newline. replaced by hyphen to show better
+  test "$(cat sorted_output | tr '\n' '-')" = "apple-banana-cherry-"
