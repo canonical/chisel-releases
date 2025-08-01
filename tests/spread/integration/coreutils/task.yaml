@@ -38,3 +38,9 @@ execute: |
   touch "$rootfs_ln/test_file"
   chroot "$rootfs_ln" ln -s test_file test_link
   test -L "$rootfs_ln/test_link"
+
+  # test rm binary
+  rootfs_rm="$(install-slices coreutils_rm-utility)"
+  touch "$rootfs_rm/test_file"
+  chroot "$rootfs_rm" rm test_file
+  test ! -e "$rootfs_rm/test_file"

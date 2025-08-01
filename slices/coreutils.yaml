@@ -383,7 +383,13 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/ln:
-      
+    
+  rm-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/rm:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
