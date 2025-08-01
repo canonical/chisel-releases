@@ -3,5 +3,5 @@ summary: Integration tests for busybox-static
 execute: |
   rootfs="$(install-slices busybox-static_bins)"
 
-  test $(chroot "${rootfs}" busybox echo "Success") == "Success"
-  test $(chroot "${rootfs}" static-sh -c 'echo ahoy') == "ahoy"
+  test $(chroot "${rootfs}" busybox echo "Success") = "Success"
+  test $(chroot "${rootfs}" static-sh -c 'echo ahoy') = "ahoy"
