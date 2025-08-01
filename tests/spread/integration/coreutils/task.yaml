@@ -12,3 +12,11 @@ prepare: |
 execute: |
   # Run smoke tests.
   ./smoke.sh
+
+  # Run single-binary slices tests
+  # Forward port from 24.04
+
+  # test env
+  rootfs_env="$(install-slices coreutils_env)"
+  chroot "$rootfs_env" env --version
+
