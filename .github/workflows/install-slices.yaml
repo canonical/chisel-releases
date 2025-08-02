@@ -164,6 +164,9 @@ jobs:
           # Configure the path of install_slices script
           ln -s ".github/scripts/install_slices/install_slices.py" install-slices
 
+          # PIPELINE DEBUG
+          ls
+
       # TODO: As we are installing the slices for every (ref, arch), when
       #   installing all slices, we are also checking the existence of every
       #   package for at least one architecture in a particular release.  This
@@ -176,6 +179,11 @@ jobs:
           WORKERS: 20
         run: |
           set -ex
+
+          # PIPELINE DEBUG
+          ls
+          ls ./github/scripts/install-slices
+
           if [[
             "${{ env.install-all }}" == "true" ||
             "${{ steps.changed-paths.outputs.install-all }}" == "true"
