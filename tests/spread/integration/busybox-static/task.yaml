@@ -5,4 +5,5 @@ execute: |
 
   chroot "${rootfs}" busybox echo "Success" > ./test
 
-  test $(cat ./test) == "Success"
+  test $(chroot "${rootfs}" busybox echo "Success") = "Success"
+  test $(chroot "${rootfs}" static-sh -c 'echo ahoy') = "ahoy"

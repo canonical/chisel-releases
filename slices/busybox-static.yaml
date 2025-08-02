@@ -7,6 +7,7 @@ slices:
   bins:
     contents:
       /usr/bin/busybox: {prefer: busybox}
+      /bin/static-sh: { symlink: /bin/busybox }
 
   copyright:
     contents:
