@@ -148,21 +148,19 @@ jobs:
           path: ${{ env.main-branch-path }}
 
       - name: Install dependencies
-        env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/install-slices"
         run: |
           set -ex
 
           # Install chisel
           go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
 
+          # Move the install_slices dir here
+          mv ".github/scripts/install-slices" .
+
           # Install dependencies of the install_slices script
           sudo apt-get -y update
-          sudo apt-get install -y $(cat "${{ env.script-dir }}/deb-requirements.txt")
-          pip install -r "${{ env.script-dir }}/requirements.txt"
-
-          # Configure the path of install_slices script
-          ln -s ".github/scripts/install_slices/install_slices.py" install-slices
+          sudo apt-get install -y $(cat "install-slices/deb-requirements.txt")
+          pip install -r "install-slices/requirements.txt"
 
           # PIPELINE DEBUG
           ls
@@ -182,7 +180,7 @@ jobs:
 
           # PIPELINE DEBUG
           ls
-          ls ./github/scripts/install-slices
+          ls install-slices
 
           if [[
             "${{ env.install-all }}" == "true" ||
@@ -191,14 +189,16 @@ jobs:
             # Install all slices in slices/ dir.
             # We need to enable globstar to use the ** patterns below.
             shopt -s globstar
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+            ./install-slices/install_slices.py \
+              --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
               --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+            ./install-slices/install_slices.py \
+              --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
               --workers "${WORKERS}" \
