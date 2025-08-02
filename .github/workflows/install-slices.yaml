@@ -162,7 +162,7 @@ jobs:
           pip install -r "${{ env.script-dir }}/requirements.txt"
 
           # Configure the path of install_slices script
-          ln -s ".github/scripts/install_slices.py" install-slices
+          ln -s ".github/scripts/install_slices/install_slices.py" install-slices
 
       # TODO: As we are installing the slices for every (ref, arch), when
       #   installing all slices, we are also checking the existence of every
