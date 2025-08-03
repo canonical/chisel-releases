@@ -189,7 +189,7 @@ jobs:
             --ensure-existence \
             --ignore-missing \
             --workers "${WORKERS}" \
-            coreutils
+            slices/coreutils.yaml
 
       - name: Check installation errors
         run: |
