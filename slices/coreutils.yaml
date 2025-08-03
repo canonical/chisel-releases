@@ -116,13 +116,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-sorted-files.html
   operating-on-sorted-files:
     essential:
+      - coreutils_sort
       - libc6_libs
       - libssl3t64_libs
     contents:
       /usr/bin/comm:
       /usr/bin/ptx:
       /usr/bin/shuf:
-      /usr/bin/sort:
       /usr/bin/tsort:
       /usr/bin/uniq:
 
@@ -152,6 +152,7 @@ slices:
   directory-listing:
     essential:
       - libc6_libs
+      - libcap2_libs
       - libselinux1_libs
     contents:
       /usr/bin/dir:
@@ -164,6 +165,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - coreutils_rm-utility
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -173,7 +175,6 @@ slices:
       /usr/bin/dd:
       /usr/bin/install:
       /usr/bin/mv:
-      /usr/bin/rm:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -182,15 +183,15 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
   special-file-types:
     essential:
+      - coreutils_ln-utility
+      - coreutils_mkdir
+      - coreutils_readlink
       - libc6_libs
       - libselinux1_libs
     contents:
       /usr/bin/link:
-      /usr/bin/ln:
-      /usr/bin/mkdir:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
-      /usr/bin/readlink:
       /usr/bin/rmdir:
       /usr/bin/unlink:
 
@@ -198,12 +199,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      - coreutils_touch
       - libc6_libs
     contents:
       /usr/bin/chgrp:
       /usr/bin/chmod:
       /usr/bin/chown:
-      /usr/bin/touch:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -224,10 +225,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
   printing-text:
     essential:
+      - coreutils_echo
+      - coreutils_printf
       - libc6_libs
     contents:
-      /usr/bin/echo:
-      /usr/bin/printf:
       /usr/bin/yes:
 
   # Conditions -- This slice contains commands that are primarily useful for
@@ -236,11 +237,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Conditions.html
   conditions:
     essential:
+      - coreutils_expr
       - libc6_libs
       - libgmp10_libs
     contents:
       /usr/bin/[:
-      /usr/bin/expr:
       /usr/bin/false:
       /usr/bin/test:
       /usr/bin/true:
@@ -258,10 +259,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:
+      - coreutils_dirname
       - libc6_libs
     contents:
       /usr/bin/basename:
-      /usr/bin/dirname:
       /usr/bin/mktemp:
       /usr/bin/pathchk:
       /usr/bin/realpath:
@@ -286,6 +287,7 @@ slices:
     essential:
       - libc6_libs
       - libselinux1_libs
+      - libsystemd0_libs
     contents:
       /usr/bin/groups:
       /usr/bin/id:
@@ -353,6 +355,72 @@ slices:
       /usr/bin/factor:
       /usr/bin/numfmt:
       /usr/bin/seq:
+
+  # Single-binary slices
+
+  expr:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/bin/expr:
+
+  mkdir:
+    essential:
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/mkdir:
+
+  echo:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/echo:
+
+  # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
+  ln-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/ln:
+
+  rm-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/rm:
+
+  readlink:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/readlink:
+
+  sort:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/sort:
+
+  dirname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/dirname:
+
+  touch:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/touch:
+
+  printf:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/printf:
 
   copyright:
     contents:
