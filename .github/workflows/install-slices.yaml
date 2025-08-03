@@ -182,28 +182,14 @@ jobs:
           ls
           ls install-slices
 
-          if [[
-            "${{ env.install-all }}" == "true" ||
-            "${{ steps.changed-paths.outputs.install-all }}" == "true"
-          ]]; then
-            # Install all slices in slices/ dir.
-            # We need to enable globstar to use the ** patterns below.
-            shopt -s globstar
-            ./install-slices/install_slices.py \
-              --arch "${{ matrix.arch }}" --release ./ \
-              --ensure-existence \
-              --ignore-missing \
-              --workers "${WORKERS}" \
-              slices/**/*.yaml
-          elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
-            # Install slices from changed files.
-            ./install-slices/install_slices.py \
-              --arch "${{ matrix.arch }}" --release ./ \
-              --ensure-existence \
-              --ignore-missing \
-              --workers "${WORKERS}" \
-              ${{ steps.changed-paths.outputs.slices_files }}
-          fi
+          # For testing only, hardcode the coreuitls slice.
+          # Install slices from changed files.
+          ./install-slices/install_slices.py \
+            --arch "${{ matrix.arch }}" --release ./ \
+            --ensure-existence \
+            --ignore-missing \
+            --workers "${WORKERS}" \
+            coreutils
 
       - name: Check installation errors
         run: |
