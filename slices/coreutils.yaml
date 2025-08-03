@@ -152,8 +152,8 @@ slices:
   directory-listing:
     essential:
       - libc6_libs
-      - libselinux1_libs
       - libcap2_libs
+      - libselinux1_libs
     contents:
       /usr/bin/dir:
       /usr/bin/dircolors:
