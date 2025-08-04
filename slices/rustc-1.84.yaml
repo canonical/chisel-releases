@@ -1,0 +1,38 @@
+package: rustc-1.84
+
+essential:
+  - rustc-1.84_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/rustc-1.84/copyright:
+
+  rustc:
+
+    # Rust compiler needs the target-specific linker to link the final binary.
+    # Depending on the target architecture, it may need a different linker.
+    # To install the native linker you also need to install the `rustc-184-minimal`
+    # slice from the `gcc-14-${ARCH_TRIPLET}` package:
+    #     chisel cut ... gcc-14-${ARCH_TRIPLET}_rustc-184-minimal
+    # and then link it to /usr/bin:
+    #     ln -s ${ARCH_TRIPLET}-gcc-14 /usr/bin/cc
+    #     ln -s ${ARCH_TRIPLET}-ld /usr/bin/ld
+    # where ${ARCH_TRIPLET} is the architecture triplet, e.g. `aarch64-linux-gnu`.
+    # NOTE: rust calls the linker through the `cc` symlink, so we need to create it as well.
+
+    # We include `libc6-dev_core-libs` and `libc6-dev_symlink-libc6-libs` but we do not need
+    # the headers
+
+    essential:
+      - libc6-dev_core-libs
+      - libc6-dev_symlink-libc6-libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libllvm19_libs
+      - libstd-rust-1.84-dev_libs  # librustc_driver-746619a459686088.so
+      - libstdc++6_libs
+
+    contents:
+      /usr/bin/rustc-1.84:  # symlink to /usr/lib/rust-1.84/bin/rustc
+      /usr/lib/rust-1.84/bin/rustc:
