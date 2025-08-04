@@ -23,7 +23,11 @@ slices:
 
     essential:
       - libc6_libs
-      - libstd-rust-1.84_libs  # librustc_driver-746619a459686088.so
+      - libstd-rust-1.84-dev_libs  # librustc_driver-746619a459686088.so
+      - libllvm19_libs
+      - libstdc++6_libs
+      - libgcc-s1_libs
+      - libc6-dev_libs
 
     contents:
       /usr/lib/rust-1.84/bin/rustc:
