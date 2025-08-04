@@ -1,0 +1,13 @@
+package: libstd-rust-1.84-dev
+
+essential:
+  - libstd-rust-1.84-dev_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.84-dev/copyright:
+
+  libs:
+    contents:
+      /usr/lib/rust-1.84/lib/rustlib/*-linux-*/lib/*.rlib:
