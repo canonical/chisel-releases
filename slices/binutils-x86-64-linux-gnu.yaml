@@ -7,13 +7,13 @@ slices:
 
   linker:
     essential:
-      - libbinutils_libs  # libbfd-2.44-system.so
+      # - libbinutils_libs  # libbfd-2.44-system.so
       - libc6_libs
       - libctf0_libs      # libctf.so.0
       - libjansson4_libs  # libjansson.so.4
-      - libsframe1_libs   # libsframe.so.1
-      - libzstd1_libs     # libzstd.so.1
-      - zlib1g_libs       # libz.so.1
+      # - libsframe1_libs   # libsframe.so.1
+      # - libzstd1_libs     # libzstd.so.1
+      # - zlib1g_libs       # libz.so.1
 
     contents:
       /usr/bin/x86_64-linux-gnu-ld:  # symlink to /usr/bin/x86_64-linux-gnu-ld.bfd
