@@ -1,0 +1,66 @@
+package: libc6-dev
+
+essential:
+  - libc6-dev_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libc6-dev/copyright:
+  
+  libs:
+    essential:
+      - libc6_libs
+    
+    contents:
+      # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
+      # ad if we tried to glob *.o files, this slice woudl conflict with oh-so-many
+
+      # other slices.
+      /usr/lib/*-linux-*/crt1.o:
+      /usr/lib/*-linux-*/crti.o:
+      /usr/lib/*-linux-*/crtn.o:
+      /usr/lib/*-linux-*/gcrt1.o:
+      /usr/lib/*-linux-*/grcrt1.o:
+      /usr/lib/*-linux-*/libanl.a:
+      # link to /usr/lib/*-linux-*/libanl.so.1
+      /usr/lib/*-linux-*/libanl.so:
+      /usr/lib/*-linux-*/libBrokenLocale.a:
+      # link to /usr/lib/*-linux-*/libBrokenLocale.so.1
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+      /usr/lib/*-linux-*/libc.a:
+      # link to /usr/lib/*-linux-*/libc.so.6
+      /usr/lib/*-linux-*/libc.so:
+      # link to /usr/lib/*-linux-*/libc_malloc_debug.so.0
+      /usr/lib/*-linux-*/libc_malloc_debug.so:
+      /usr/lib/*-linux-*/libc_nonshared.a:
+      /usr/lib/*-linux-*/libdl.a:
+      /usr/lib/*-linux-*/libg.a:
+      /usr/lib/*-linux-*/libm-2.41.a:
+      /usr/lib/*-linux-*/libm.a:
+      /usr/lib/*-linux-*/libmcheck.a:
+      # link to /usr/lib/*-linux-*/libm.so.6
+      /usr/lib/*-linux-*/libm.so:
+      /usr/lib/*-linux-*/libmvec.a:
+      # link to /usr/lib/*-linux-*/libmvec.so.1
+      /usr/lib/*-linux-*/libmvec.so:
+      # link to /usr/lib/*-linux-*/libnss_compat.so.2
+      /usr/lib/*-linux-*/libnss_compat.so:
+      # link to /usr/lib/*-linux-*/libnss_hesiod.so.2
+      /usr/lib/*-linux-*/libnss_hesiod.so:
+      /usr/lib/*-linux-*/libpthread.a:
+      /usr/lib/*-linux-*/libpthread_nonshared.a:
+      /usr/lib/*-linux-*/libresolv.a:
+      # link to /usr/lib/*-linux-*/libresolv.so.2
+      /usr/lib/*-linux-*/libresolv.so:
+      /usr/lib/*-linux-*/librt.a:
+      # link to /usr/lib/*-linux-*/libthread_db.so.1
+      /usr/lib/*-linux-*/libthread_db.so:
+      /usr/lib/*-linux-*/libutil.a:
+      /usr/lib/*-linux-*/Mcrt1.o:
+      /usr/lib/*-linux-*/rcrt1.o:
+      /usr/lib/*-linux-*/Scrt1.o:
+  
+  audit:
+    contents:
+      /usr/lib/*-linux-*/audit/sotruss-lib.so:
