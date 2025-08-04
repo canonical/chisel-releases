@@ -3,7 +3,7 @@ package: gcc-14-aarch64-linux-gnu
 essential:
   - gcc-14-aarch64-linux-gnu_copyright
 
-slicess:
+slices:
   # Full gcc package has quite a few dependencies which we don't need to run rustc.
   # Rusts basically only needs the liker part of gcc.
 
