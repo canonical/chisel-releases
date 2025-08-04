@@ -3,4 +3,5 @@ summary: Integration tests for rust-1.84
 execute: |
   rootfs="$(install-slices rustc-1.84_rustc)"
 
-  # TODO
+  chroot ${rootfs} rustc-1.84 --help
+  chroot ${rootfs} rustc-1.84 --version | grep -q "rustc 1.84"
