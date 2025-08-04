@@ -18,48 +18,81 @@ slices:
 
       # other slices.
       /usr/lib/*-linux-*/crt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/crti.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/crtn.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/gcrt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
       /usr/lib/*-linux-*/grcrt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libanl.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libanl.so.1
       /usr/lib/*-linux-*/libanl.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libBrokenLocale.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libBrokenLocale.so.1
       /usr/lib/*-linux-*/libBrokenLocale.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libc.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libc.so.6
       /usr/lib/*-linux-*/libc.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libc_malloc_debug.so.0
       /usr/lib/*-linux-*/libc_malloc_debug.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libc_nonshared.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libdl.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libg.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libm-2.41.a:
+        arch: [ amd64, arm64, ppc64el, s390x ]
       /usr/lib/*-linux-*/libm.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libmcheck.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libm.so.6
       /usr/lib/*-linux-*/libm.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libmvec.a:
+        arch: [ amd64, arm64, ppc64el, s390x ]
       # link to /usr/lib/*-linux-*/libmvec.so.1
       /usr/lib/*-linux-*/libmvec.so:
+        arch: [ amd64, arm64, ppc64el, s390x ]
       # link to /usr/lib/*-linux-*/libnss_compat.so.2
       /usr/lib/*-linux-*/libnss_compat.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libnss_hesiod.so.2
       /usr/lib/*-linux-*/libnss_hesiod.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libpthread.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libpthread_nonshared.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libresolv.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libresolv.so.2
       /usr/lib/*-linux-*/libresolv.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/librt.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libthread_db.so.1
       /usr/lib/*-linux-*/libthread_db.so:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libutil.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x]
       /usr/lib/*-linux-*/Mcrt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/rcrt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
       /usr/lib/*-linux-*/Scrt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
   
   audit:
     contents:
