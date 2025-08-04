@@ -12,6 +12,7 @@ slices:
 
   copyright:
     essential:
-      - gcc-14-base_copyright
+      - gcc-15-base_copyright
     contents:
+      # Symlink to gcc-15-base
       /usr/share/doc/libatomic1:
