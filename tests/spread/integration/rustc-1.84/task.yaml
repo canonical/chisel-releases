@@ -13,7 +13,10 @@ execute: |
     base-files_base \
     rustc-1.84_rustc \
     libstd-rust-1.84-dev_libs \
-    gcc-14-$(echo $arch | sed 's/_/-/')_rustc-184-minimal)"
+    libc6-dev_libs \
+    libgcc-14-dev \
+    gcc-14-$(echo $arch | sed 's/_/-/')_rustc-184-minimal \
+  )"
   ln -s ${arch}-gcc-14 ${rootfs}/usr/bin/cc
   ln -s ${arch}-ld ${rootfs}/usr/bin/ld
 
