@@ -11,19 +11,19 @@ slices:
   rustc:
     essential:
       - libc6_libs
-      - libstd-rust-1.84_libs  # librustc_driver-746619a459686088.so
-      - libllvm19_libs         # libLLVM.so.19.1
-      - libstdc++6_libs        # libstdc++.so.6
-      - libgcc-s1_libs         # libgcc_s.so.1
-      - libffi8_libs           # libffi.so.8
-      - libedit2_libs          # libedit.so.2
-      - zlib1g_libs            # libz.so.1
-      - libzstd1_libs          # libzstd.so.1
-      - libxml2_libs           # libxml2.so.2
-      - libtinfo6_libs         # libtinfo.so.6
-      - libbsd0_libs           # libbsd.so.0
-      - liblzma5_libs          # liblzma.so.5
-      - libmd0_libs            # libmd.so.0
+      - libstd-rust-1.84_rustc-driver  # librustc_driver-746619a459686088.so
+      # - libllvm19_libs         # libLLVM.so.19.1
+      # - libstdc++6_libs        # libstdc++.so.6
+      # - libgcc-s1_libs         # libgcc_s.so.1
+      # - libffi8_libs           # libffi.so.8
+      # - libedit2_libs          # libedit.so.2
+      # - zlib1g_libs            # libz.so.1
+      # - libzstd1_libs          # libzstd.so.1
+      # - libxml2_libs           # libxml2.so.2
+      # - libtinfo6_libs         # libtinfo.so.6
+      # - libbsd0_libs           # libbsd.so.0
+      # - liblzma5_libs          # liblzma.so.5
+      # - libmd0_libs            # libmd.so.0
 
     contents:
       /usr/lib/rust-1.84/bin/rustc:
