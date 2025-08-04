@@ -4,10 +4,7 @@ essential:
   - binutils-x86-64-linux-gnu_copyright
 
 slices:
-  copyright:
-    essential:
-      - binutils-common_copyright
-  
+ 
   linker:
     essential:
       - libc6_libs
@@ -17,6 +14,15 @@ slices:
     contents:
       # linker
       /usr/bin/x86_64-linux-gnu-ld.bfd:
+        arch: [ amd64 ]
       # symlink to /usr/bin/x86_64-linux-gnu-ld.bfd
       /usr/bin/x86_64-linux-gnu-ld:
-      
+        arch: [ amd64 ]
+
+  copyright:
+    essential:
+      - libbinutils_copyright
+    contents:
+      # Symlink to libbinutils
+      /usr/share/doc/binutils-x86-64-linux-gnu:
+        arch: [ amd64 ]

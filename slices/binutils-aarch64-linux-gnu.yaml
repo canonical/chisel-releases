@@ -18,8 +18,10 @@ slices:
     contents:
       # linker
       /usr/bin/aarch64-linux-gnu-ld.bfd:
+        arch: [ arm64 ]
       # symlink to /usr/bin/aarch64-linux-gnu-ld.bfd
       /usr/bin/aarch64-linux-gnu-ld:
+        arch: [ arm64 ]
 
   copyright:
     essential:
@@ -27,3 +29,4 @@ slices:
     contents:
       # Symlink to libbinutils
       /usr/share/doc/binutils-aarch64-linux-gnu:
+        arch: [ arm64 ]
