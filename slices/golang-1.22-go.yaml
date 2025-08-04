@@ -7,6 +7,7 @@ slices:
   bins:
     essential:
       - golang-1.22-go_core-libs
+      - golang-1.22-go_go-env
     contents:
       /usr/lib/go-1.22/bin/go:
       /usr/lib/go-1.22/bin/gofmt:
@@ -109,6 +110,10 @@ slices:
       /usr/lib/go-1.22/pkg/include:
       /usr/lib/go-1.22/src:
       /usr/lib/go-1.22/test:
+
+  go-env:
+    contents:
+      /usr/lib/go-1.22/go.env:
 
   copyright:
     contents:
