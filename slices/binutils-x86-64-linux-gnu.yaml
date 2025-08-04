@@ -8,8 +8,12 @@ slices:
   linker:
     essential:
       - libc6_libs
+      - libbinutils_libs  # libbfd-2.44-system.so
       - libctf0_libs      # libctf.so.0
       - libjansson4_libs  # libjansson.so.4
+      - zlib1g_libs       # libz.so.1
+      - libzstd1_libs     # libzstd.so.1
+      - libsframe1_libs   # libsframe.so.1
 
     contents:
       # linker
