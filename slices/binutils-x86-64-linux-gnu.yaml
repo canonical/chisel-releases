@@ -14,10 +14,8 @@ slices:
     contents:
       # linker
       /usr/bin/x86_64-linux-gnu-ld.bfd:
-        arch: [ amd64 ]
       # symlink to /usr/bin/x86_64-linux-gnu-ld.bfd
       /usr/bin/x86_64-linux-gnu-ld:
-        arch: [ amd64 ]
 
   copyright:
     essential:
@@ -25,3 +23,7 @@ slices:
     contents:
       # Symlink to libbinutils
       /usr/share/doc/binutils-x86-64-linux-gnu:
+        arch: [ amd64 ]
+      # Copyright file for cross-compiled architectures
+      /usr/share/doc/binutils-aarch64-linux-gnu/copyright:
+        arch: [ ppc64el, riscv64, s390x, arm64 ]
