@@ -5,3 +5,8 @@ execute: |
 
   chroot ${rootfs} rustc-1.84 --help
   chroot ${rootfs} rustc-1.84 --version | grep -q "rustc 1.84"
+
+  # Test hello world
+  echo 'fn main() { println!("Hello from Rust!"); }' > ${rootfs}/hello.rs
+  chroot ${rootfs} rustc-1.84 /hello.rs -o /hello
+  chroot ${rootfs} /hello | grep -q "Hello from Rust!"
