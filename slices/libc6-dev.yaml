@@ -26,7 +26,7 @@ slices:
       /usr/lib/*-linux-*/gcrt1.o:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/grcrt1.o:
-        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
+        arch: [ amd64, arm64, riscv64, s390x ]
       /usr/lib/*-linux-*/libanl.a:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libanl.so.1
@@ -52,7 +52,7 @@ slices:
       /usr/lib/*-linux-*/libg.a:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libm-2.41.a:
-        arch: [ amd64, arm64, ppc64el, s390x ]
+        arch: [ amd64, arm64 ]
       /usr/lib/*-linux-*/libm.a:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libmcheck.a:
@@ -61,10 +61,10 @@ slices:
       /usr/lib/*-linux-*/libm.so:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/libmvec.a:
-        arch: [ amd64, arm64, ppc64el, s390x ]
+        arch: [ amd64, arm64 ]
       # link to /usr/lib/*-linux-*/libmvec.so.1
       /usr/lib/*-linux-*/libmvec.so:
-        arch: [ amd64, arm64, ppc64el, s390x ]
+        arch: [ amd64, arm64 ]
       # link to /usr/lib/*-linux-*/libnss_compat.so.2
       /usr/lib/*-linux-*/libnss_compat.so:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
@@ -90,7 +90,7 @@ slices:
       /usr/lib/*-linux-*/Mcrt1.o:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/rcrt1.o:
-        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
+        arch: [ amd64, arm64, riscv64, s390x ]
       /usr/lib/*-linux-*/Scrt1.o:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
   
