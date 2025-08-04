@@ -1,0 +1,7 @@
+summary: Integration tests for libestr0
+
+execute: |
+  rootfs="$(install-slices libestr0_libs)"
+  apt install -y gcc
+  arch=$(gcc -dumpmachine)
+  test -f ${rootfs}/usr/lib/${arch}/libestr.so.0
