@@ -26,9 +26,8 @@ slices:
       # linker wrapper
       /usr/libexec/gcc/x86_64-linux-gnu/14/collect2:
         arch: [ amd64 ]
-      # linker is at /usr/bin/x86_64-linux-gnu-ld.bfd and it comes from
-      # the binutils-x86-64-linux-gnu package
-
+        # linker is at /usr/bin/x86_64-linux-gnu-ld.bfd and it comes from
+        # the binutils-x86-64-linux-gnu package
 
   copyright:
     essential:

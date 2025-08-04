@@ -27,4 +27,4 @@ slices:
 
     contents:
       /usr/lib/rust-1.84/bin/rustc:
-      /usr/bin/rustc-1.84: # symlink to /usr/lib/rust-1.84/bin/rustc
+      /usr/bin/rustc-1.84:  # symlink to /usr/lib/rust-1.84/bin/rustc

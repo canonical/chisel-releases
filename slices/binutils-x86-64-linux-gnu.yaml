@@ -4,7 +4,7 @@ essential:
   - binutils-x86-64-linux-gnu_copyright
 
 slices:
- 
+
   linker:
     essential:
       - libc6_libs

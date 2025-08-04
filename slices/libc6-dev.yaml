@@ -7,11 +7,11 @@ slices:
   copyright:
     contents:
       /usr/share/doc/libc6-dev/copyright:
-  
+
   libs:
     essential:
       - libc6_libs
-    
+
     contents:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
       # ad if we tried to glob *.o files, this slice woudl conflict with oh-so-many
@@ -93,7 +93,7 @@ slices:
         arch: [ amd64, arm64, riscv64, s390x ]
       /usr/lib/*-linux-*/Scrt1.o:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
-  
+
   audit:
     contents:
       /usr/lib/*-linux-*/audit/sotruss-lib.so:
