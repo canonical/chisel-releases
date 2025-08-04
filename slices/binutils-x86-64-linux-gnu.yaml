@@ -28,4 +28,4 @@ slices:
         arch: [ amd64 ]
       # Copyright file for cross-compiled architectures
       /usr/share/doc/binutils-x86-64-linux-gnu/copyright:
-        arch: [ ppc64el, riscv64, s390x, arm64, armhf ]
+        arch: [ ppc64el, riscv64, s390x, arm64 ]
