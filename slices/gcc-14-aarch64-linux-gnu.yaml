@@ -13,20 +13,24 @@ slices:
       - binutils-aarch64-linux-gnu_linker
 
     contents:
+      # linker is at /usr/bin/aarch64-linux-gnu-ld.bfd and it comes from
+      # the binutils-aarch64-linux-gnu package
+
       # main compiler binary which rust uses as a linker
       /usr/bin/aarch64-linux-gnu-gcc-14:
         arch: [ arm64 ]
-      # link-time optimization
-      /usr/libexec/gcc/aarch64-linux-gnu/14/liblto_plugin.so:
-        arch: [ arm64 ]
+
       # symlink to /usr/libexec/gcc/aarch64-linux-gnu/14/liblto_plugin.so
       /usr/lib/gcc/aarch64-linux-gnu/14/liblto_plugin.so:
         arch: [ arm64 ]
+
       # linker wrapper
       /usr/libexec/gcc/aarch64-linux-gnu/14/collect2:
         arch: [ arm64 ]
-        # linker is at /usr/bin/aarch64-linux-gnu-ld.bfd and it comes from
-        # the binutils-aarch64-linux-gnu package
+
+      # link-time optimization library
+      /usr/libexec/gcc/aarch64-linux-gnu/14/liblto_plugin.so:
+        arch: [ arm64 ]
 
   copyright:
     essential:
