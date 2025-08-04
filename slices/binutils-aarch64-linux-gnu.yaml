@@ -16,10 +16,8 @@ slices:
       - zlib1g_libs       # libz.so.1
 
     contents:
-      # linker
-      /usr/bin/aarch64-linux-gnu-ld.bfd:
-      # symlink to /usr/bin/aarch64-linux-gnu-ld.bfd
-      /usr/bin/aarch64-linux-gnu-ld:
+      /usr/bin/aarch64-linux-gnu-ld:  # symlink to /usr/bin/aarch64-linux-gnu-ld.bfd
+      /usr/bin/aarch64-linux-gnu-ld.bfd:  # linker
 
   copyright:
     essential:
