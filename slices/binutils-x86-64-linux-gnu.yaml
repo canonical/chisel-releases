@@ -25,4 +25,3 @@ slices:
     contents:
       # Symlink to libbinutils
       /usr/share/doc/binutils-x86-64-linux-gnu:
-        arch: [ amd64 ]

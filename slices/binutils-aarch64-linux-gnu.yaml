@@ -29,4 +29,3 @@ slices:
     contents:
       # Symlink to libbinutils
       /usr/share/doc/binutils-aarch64-linux-gnu:
-        arch: [ arm64 ]
