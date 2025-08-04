@@ -28,13 +28,3 @@ slices:
       # linker is at /usr/bin/x86_64-linux-gnu-ld.bfd and it comes from
       # the binutils-x86-64-linux-gnu package
 
-  # other:
-  #   contents:
-  #     /usr/bin/x86_64-linux-gnu-gcc-ar-14:
-  #     /usr/bin/x86_64-linux-gnu-gcc-nm-14:
-  #     /usr/bin/x86_64-linux-gnu-gcc-ranlib-14:
-  #     /usr/bin/x86_64-linux-gnu-gcov-14:
-  #     /usr/bin/x86_64-linux-gnu-gcov-dump-14:
-  #     /usr/bin/x86_64-linux-gnu-gcov-tool-14:
-  #     /usr/bin/x86_64-linux-gnu-lto-dump-14:
-
