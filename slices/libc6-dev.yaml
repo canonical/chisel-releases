@@ -24,9 +24,9 @@ slices:
       /usr/lib/*-linux-*/crtn.o:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       /usr/lib/*-linux-*/gcrt1.o:
-        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
-      /usr/lib/*-linux-*/grcrt1.o:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
+      /usr/lib/*-linux-*/grcrt1.o:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
       /usr/lib/*-linux-*/libanl.a:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x, armhf ]
       # link to /usr/lib/*-linux-*/libanl.so.1
