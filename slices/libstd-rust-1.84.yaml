@@ -1,0 +1,25 @@
+package: libstd-rust-1.84
+
+essential:
+  - libstd-rust-1.84_copyright
+
+slices:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libllvm19_libs         # libLLVM.so.19.1
+      - libstdc++6_libs        # libstdc++.so.6
+      - libgcc-s1_libs         # libgcc_s.so.1
+
+    contents:
+      /usr/lib/rust-1.84/lib/libEnzyme-*.so:
+      # NOTE: This is a symlink to the .so above
+      /usr/lib/*-linux-*/libEnzyme-*.so:
+      /usr/lib/rust-1.84/lib/librustc_driver-*.so:
+      # NOTE: This is a symlink to the .so above
+      /usr/lib/*-linux-*/librustc_driver-*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.84/copyright:
