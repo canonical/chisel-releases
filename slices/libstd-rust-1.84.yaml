@@ -8,17 +8,17 @@ slices:
   libs:
     essential:
       - libc6_libs
+      - libgcc-s1_libs         # libgcc_s.so.1
       - libllvm19_libs         # libLLVM.so.19.1
       - libstdc++6_libs        # libstdc++.so.6
-      - libgcc-s1_libs         # libgcc_s.so.1
 
     contents:
-      /usr/lib/rust-1.84/lib/libEnzyme-*.so:
-      # NOTE: This is a symlink to the .so above
+      # symlink to /usr/lib/rust-1.84/lib/libEnzyme-*.so
       /usr/lib/*-linux-*/libEnzyme-*.so:
-      /usr/lib/rust-1.84/lib/librustc_driver-*.so:
-      # NOTE: This is a symlink to the .so above
+      # symlink to /usr/lib/rust-1.84/lib/librustc_driver-*.so
       /usr/lib/*-linux-*/librustc_driver-*.so:
+      /usr/lib/rust-1.84/lib/libEnzyme-*.so:
+      /usr/lib/rust-1.84/lib/librustc_driver-*.so:
 
   copyright:
     contents:
