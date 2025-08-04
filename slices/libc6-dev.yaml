@@ -17,27 +17,29 @@ slices:
       # and if we tried to glob *.o files, this slice would conflict with oh-so-many
 
       # other slices.
+      /usr/lib/*-linux-*/Mcrt1.o:
+      /usr/lib/*-linux-*/Scrt1.o:
       /usr/lib/*-linux-*/crt1.o:
       /usr/lib/*-linux-*/crti.o:
       /usr/lib/*-linux-*/crtn.o:
       /usr/lib/*-linux-*/gcrt1.o:
       /usr/lib/*-linux-*/grcrt1.o:
         arch: [ amd64, arm64, riscv64, s390x ]
-      /usr/lib/*-linux-*/libanl.a:
-      /usr/lib/*-linux-*/libanl.so:  # link to /usr/lib/*-linux-*/libanl.so.1
       /usr/lib/*-linux-*/libBrokenLocale.a:
       /usr/lib/*-linux-*/libBrokenLocale.so:  # link to /usr/lib/*-linux-*/libBrokenLocale.so.1
+      /usr/lib/*-linux-*/libanl.a:
+      /usr/lib/*-linux-*/libanl.so:  # link to /usr/lib/*-linux-*/libanl.so.1
       /usr/lib/*-linux-*/libc.a:
+      /usr/lib/*-linux-*/libc.so:  # link to /usr/lib/*-linux-*/libc.so.6
       /usr/lib/*-linux-*/libc_malloc_debug.so:  # link to /usr/lib/*-linux-*/libc_malloc_debug.so.0
       /usr/lib/*-linux-*/libc_nonshared.a:
-      /usr/lib/*-linux-*/libc.so:  # link to /usr/lib/*-linux-*/libc.so.6
       /usr/lib/*-linux-*/libdl.a:
       /usr/lib/*-linux-*/libg.a:
       /usr/lib/*-linux-*/libm-2.41.a:
         arch: [ amd64, arm64 ]
       /usr/lib/*-linux-*/libm.a:
-      /usr/lib/*-linux-*/libmcheck.a:
       /usr/lib/*-linux-*/libm.so:  # link to /usr/lib/*-linux-*/libm.so.6
+      /usr/lib/*-linux-*/libmcheck.a:
       /usr/lib/*-linux-*/libmvec.a:
         arch: [ amd64, arm64 ]
       /usr/lib/*-linux-*/libmvec.so:  # link to /usr/lib/*-linux-*/libmvec.so.1
@@ -52,10 +54,8 @@ slices:
       /usr/lib/*-linux-*/libthread_db.so:  # link to /usr/lib/*-linux-*/libthread_db.so.1
       /usr/lib/*-linux-*/libutil.a:
         arch: [ amd64, arm64, ppc64el, riscv64, s390x]
-      /usr/lib/*-linux-*/Mcrt1.o:
       /usr/lib/*-linux-*/rcrt1.o:
         arch: [ amd64, arm64, riscv64, s390x ]
-      /usr/lib/*-linux-*/Scrt1.o:
 
   audit:
     contents:

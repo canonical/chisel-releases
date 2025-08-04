@@ -26,8 +26,8 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libllvm19_libs
-      - libstdc++6_libs
       - libstd-rust-1.84-dev_libs  # librustc_driver-746619a459686088.so
+      - libstdc++6_libs
 
     contents:
       /usr/bin/rustc-1.84:  # symlink to /usr/lib/rust-1.84/bin/rustc
