@@ -1,0 +1,14 @@
+package: rustc-1.84
+
+essential:
+  - rustc-1.84_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/rustc-1.84/copyright:
+
+  rustc:
+    contents:
+      /usr/lib/rust-1.84/bin/rustc:
+      /usr/bin/rustc-1.84: # symlink to /usr/lib/rust-1.84/bin/rustc

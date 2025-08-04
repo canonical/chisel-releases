@@ -1,0 +1,6 @@
+summary: Integration tests for rust-1.84
+
+execute: |
+  rootfs="$(install-slices rustc-1.84_rustc)"
+
+  # TODO
