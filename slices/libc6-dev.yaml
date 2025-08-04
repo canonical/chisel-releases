@@ -14,7 +14,7 @@ slices:
 
     contents:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
-      # ad if we tried to glob *.o files, this slice woudl conflict with oh-so-many
+      # and if we tried to glob *.o files, this slice would conflict with oh-so-many
 
       # other slices.
       /usr/lib/*-linux-*/crt1.o:
