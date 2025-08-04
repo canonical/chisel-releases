@@ -1,0 +1,22 @@
+package: binutils-x86-64-linux-gnu
+
+essential:
+  - binutils-x86-64-linux-gnu_copyright
+
+slices:
+  copyright:
+    essential:
+      - binutils-common_copyright
+  
+  linker:
+    essential:
+      - libc6_libs
+      - libctf0_libs      # libctf.so.0
+      - libjansson4_libs  # libjansson.so.4
+
+    contents:
+      # linker
+      /usr/bin/x86_64-linux-gnu-ld.bfd:
+      # symlink to /usr/bin/x86_64-linux-gnu-ld.bfd
+      /usr/bin/x86_64-linux-gnu-ld:
+      

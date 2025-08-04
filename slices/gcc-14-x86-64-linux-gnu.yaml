@@ -1,0 +1,40 @@
+package: gcc-14-x86-64-linux-gnu
+
+essential:
+  - gcc-14-x86-64-linux-gnu_copyright
+
+slices:
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+
+  # Full gcc package has quite a few dependencies which we don't need to run rustc.
+  # Rusts basically only needs the liker part of gcc.
+
+  rustc-184-minimal:
+
+    essential:
+      - binutils-x86-64-linux-gnu_linker
+
+    contents:
+      # main compiler binary which rust uses as a linker
+      /usr/bin/x86_64-linux-gnu-gcc-14:
+      # link-time optimization
+      /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so:
+      # symlink to /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so
+      /usr/lib/gcc/x86_64-linux-gnu/14/liblto_plugin.so:
+      # linker wrapper
+      /usr/libexec/gcc/x86_64-linux-gnu/14/collect2:
+      # linker is at /usr/bin/x86_64-linux-gnu-ld.bfd and it comes from
+      # the binutils-x86-64-linux-gnu package
+
+  # other:
+  #   contents:
+  #     /usr/bin/x86_64-linux-gnu-gcc-ar-14:
+  #     /usr/bin/x86_64-linux-gnu-gcc-nm-14:
+  #     /usr/bin/x86_64-linux-gnu-gcc-ranlib-14:
+  #     /usr/bin/x86_64-linux-gnu-gcov-14:
+  #     /usr/bin/x86_64-linux-gnu-gcov-dump-14:
+  #     /usr/bin/x86_64-linux-gnu-gcov-tool-14:
+  #     /usr/bin/x86_64-linux-gnu-lto-dump-14:
+
