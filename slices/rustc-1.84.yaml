@@ -21,6 +21,9 @@ slices:
     # where ${ARCH_TRIPLET} is the architecture triplet, e.g. `aarch64-linux-gnu`.
     # NOTE: rust calls the linker through the `cc` symlink, so we need to create it as well.
 
+    # We include `libc6-dev_core-libs` and `libc6-dev_symlink-libc6-libs` but we do not need
+    # the headers
+
     essential:
       - libc6-dev_core-libs
       - libc6-dev_symlink-libc6-libs
