@@ -109,9 +109,9 @@ slices:
       /usr/lib/*-linux-*/libc_malloc_debug.so:
       # symlink to /usr/lib/*-linux-*/libm.so.6
       /usr/lib/*-linux-*/libm.so:
-        arch: [ amd64, arm64 ]
       # symlink to /usr/lib/*-linux-*/libmvec.so.1
       /usr/lib/*-linux-*/libmvec.so:
+        arch: [ amd64, arm64 ]
       # symlink to /usr/lib/*-linux-*/libnss_compat.so.2
       /usr/lib/*-linux-*/libnss_compat.so:
       # symlink to /usr/lib/*-linux-*/libnss_hesiod.so.2
