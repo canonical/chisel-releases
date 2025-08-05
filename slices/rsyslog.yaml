@@ -1,0 +1,46 @@
+package: rsyslog
+
+essential:
+  - rsyslog_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libestr0_libs
+      - libfastjson4_libs
+      - libsystemd0_libs
+      - libuuid1_libs
+      - libzstd1_libs
+      - rsyslog_config
+      - rsyslog_data
+      - zlib1g_libs
+    contents:
+      /usr/sbin/rsyslogd:
+
+  data:
+    contents:
+      /var/spool/rsyslog/:
+
+  config:
+    essential:
+      - rsyslog_libs
+    contents:
+      /etc/logcheck/ignore.d.server/rsyslog:
+      /etc/logrotate.d/rsyslog:
+      /etc/rsyslog.conf:
+      /etc/rsyslog.d/50-default.conf:
+        copy: /usr/share/rsyslog/50-default.conf
+      /etc/systemd/system/multi-user.target.wants/rsyslog.service:
+        symlink: /usr/lib/systemd/system/rsyslog.service
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/rsyslog/*.so:
+      /usr/lib/rsyslog/rsyslog-rotate:
+      /usr/lib/systemd/system/rsyslog.service:
+      /usr/lib/tmpfiles.d/00rsyslog.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/rsyslog/copyright:
