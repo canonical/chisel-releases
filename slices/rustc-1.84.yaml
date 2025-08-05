@@ -22,7 +22,7 @@ slices:
     # NOTE: rust calls the linker through the `cc` symlink, so we need to create it as well.
 
     essential:
-      - libc6-dev_libs
+      - libc6-dev_core-libs
       - libc6_libs
       - libgcc-s1_libs
       - libllvm19_libs
