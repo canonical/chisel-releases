@@ -1,7 +1,7 @@
 summary: Integration tests for golang
 
 execute: |
-  apt install --update -y gcc
+  apt install --update -y gcc git
   # replace _ with -
   arch=$(gcc -dumpmachine)
   arch="${arch//_/-}"
@@ -12,6 +12,7 @@ execute: |
     cpp-14-${arch}_libs \
     gcc-14-${arch}_gcc-14 \
     gcc-14-${arch}_libs \
+    ca-certificates_data \
     )"
 
   find ${rootfs}/usr/share/go-1.24 -depth \( \
@@ -37,6 +38,13 @@ execute: |
   chroot "${rootfs}/" go run /hello/cmd/hello/main.go | grep "Hello, World!"
 
   chroot "${rootfs}/" gofmt /hello/cmd/hello/main.go > /dev/null
+
+  git clone https://github.com/canonical/chisel.git "${rootfs}/chisel"
+  pushd "${rootfs}/chisel" && git checkout v1.2.0 && popd
+  cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
+
+  chroot "${rootfs}/" go -C chisel build ./cmd/chisel
+  chroot "${rootfs}/" ./chisel/chisel 2>&1 > /dev/null
 
   chroot "${rootfs}/" go -C /hello test
 

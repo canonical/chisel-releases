@@ -7,6 +7,7 @@ slices:
   core-libs:
     essential:
       - libc6-dev_headers
+      - libc6-dev_symlink-libc6-libs
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/Scrt1.o:
@@ -60,6 +61,19 @@ slices:
       /usr/include/u*.h:
       /usr/include/v*.h:
       /usr/include/w*.h:
+
+  symlink-libc6-libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/x86_64-linux-gnu/libBrokenLocale.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libanl.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libc_malloc_debug.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libmvec.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libnss_compat.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libnss_hesiod.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libresolv.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libthread_db.so: {arch: [amd64]}
 
   copyright:
     contents:
