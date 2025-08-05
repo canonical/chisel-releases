@@ -1,0 +1,41 @@
+package: gcc-14-x86-64-linux-gnu
+
+essential:
+  - gcc-14-x86-64-linux-gnu_copyright
+
+slices:
+
+  rustc-184-minimal:
+
+    # Full gcc package has quite a few dependencies which we don't need to run rustc.
+    # Rusts basically only needs the liker part of gcc.
+
+    essential:
+      - binutils-x86-64-linux-gnu_linker
+
+    contents:
+      # linker is at /usr/bin/x86_64-linux-gnu-ld.bfd and it comes from
+      # the binutils-x86-64-linux-gnu package
+
+      # main compiler binary which rust uses as a linker
+      /usr/bin/x86_64-linux-gnu-gcc-14:
+        arch: [ amd64 ]
+
+      # symlink to /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so
+      /usr/lib/gcc/x86_64-linux-gnu/14/liblto_plugin.so:
+        arch: [ amd64 ]
+
+      # linker wrapper
+      /usr/libexec/gcc/x86_64-linux-gnu/14/collect2:
+        arch: [ amd64 ]
+
+      # link-time optimization library
+      /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so:
+        arch: [ amd64 ]
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      # Symlink to libgcc-14-base
+      /usr/share/doc/gcc-14-x86-64-linux-gnu:
