@@ -283,7 +283,7 @@ def ignore_missing_packages(
 
 
 def install_slices(
-    chunk: list[tuple], dry_run: bool, arch: str, release: str, worker: int
+    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int
 ) -> None:
     """
     Install the slice by running "chisel cut".
