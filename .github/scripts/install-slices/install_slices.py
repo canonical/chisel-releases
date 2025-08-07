@@ -398,7 +398,8 @@ def main() -> None:
     #
     if len(packages) > 0:
         logging.info(
-            "Slices of the following packages will be INSTALLED (parallelization=%s):",
+            "Slices of the following %s packages will be INSTALLED (parallelization=%s):",
+            len(packages),
             cli_args.workers,
         )
         for pkg in packages:
