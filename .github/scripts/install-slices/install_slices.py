@@ -417,7 +417,7 @@ def main() -> None:
     all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
 
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
-    chunks_of_slices = [
+    chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int]] = [
         (
             all_slices[i : i + chunk_size],
             cli_args.dry_run,
