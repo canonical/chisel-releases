@@ -4,6 +4,7 @@ essential:
   - gcc-14_copyright
 
 slices:
+  # TODO: include gcc-14-${ARCH_TRIPLET}_gcc-14 as essential
   gcc-14:
     contents:
       /usr/bin/gcc-14:  # Symlink to ${ARCH_TRIPLET}-gcc-14
