@@ -9,9 +9,8 @@ execute: |
   rootfs="$(install-slices golang_cgo-support \
     binutils-${arch}_assembler \
     binutils-${arch}_linker \
-    cpp-13-${arch}_libs \
+    cpp-13-${arch}_native \
     gcc-13-${arch}_gcc-13 \
-    gcc-13-${arch}_libs \
     ca-certificates_data \  # for go get ...
     )"
 

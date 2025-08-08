@@ -4,14 +4,7 @@ essential:
   - cpp-13-x86-64-linux-gnu_copyright
 
 slices:
-  bins:
-    essential:
-      - cpp-13-x86-64-linux-gnu_libs
-      - libc6_libs
-    contents:
-      /usr/bin/x86_64-linux-gnu-cpp-13:
-
-  libs:
+  deps:
     essential:
       - libc6-dev_headers
       - libc6_libs
@@ -21,9 +14,18 @@ slices:
       - libmpfr6_libs
       - libzstd1_libs
       - zlib1g_libs
+
+  native:
+    essential:
+      - cpp-13-x86-64-linux-gnu_deps
+    contents:
+      /usr/libexec/gcc/x86_64-linux-gnu/13/cc1: {arch: [amd64]}
+
+  cross:
+    essential:
+      - cpp-13-x86-64-linux-gnu_deps
     contents:
       /usr/libexec/gcc-cross/x86_64-linux-gnu/13/cc1: {arch: [arm64, i386, ppc64el, s390x]}
-      /usr/libexec/gcc/x86_64-linux-gnu/13/cc1: {arch: [amd64]}
 
   copyright:
     contents:

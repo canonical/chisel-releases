@@ -6,25 +6,35 @@ essential:
 slices:
   gcc-13:
     essential:
+      - gcc-13-x86-64-linux-gnu_native
       - libc6_libs
       - libgcc-13-dev_headers
     contents:
       /usr/bin/x86_64-linux-gnu-gcc-13:
 
-  libs:
+  deps:
     essential:
       # TODO: include binutils-${ARCH_TRIPLET}_assembler as essential
       # TODO: include binutils-${ARCH_TRIPLET}_linker as essential
       - binutils_assembler
       - binutils_linker
       - libc6_libs
+
+  native:
+    essential:
+      - gcc-13-x86-64-linux-gnu_deps
+    contents:
+      /usr/libexec/gcc/x86_64-linux-gnu/13/collect2: {arch: [amd64]}
+      /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so: {arch: [amd64]}
+
+  cross:
+    essential:
+      - gcc-13-x86-64-linux-gnu_deps
     contents:
       /usr/libexec/gcc-cross/x86_64-linux-gnu/13/collect2:
         {arch: [arm64, i386, ppc64el, s390x]}
       /usr/libexec/gcc-cross/x86_64-linux-gnu/13/liblto_plugin.so:
         {arch: [arm64, i386, ppc64el, s390x]}
-      /usr/libexec/gcc/x86_64-linux-gnu/13/collect2: {arch: [amd64]}
-      /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so: {arch: [amd64]}
 
   copyright:
     essential:
