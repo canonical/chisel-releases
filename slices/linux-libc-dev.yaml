@@ -1,0 +1,29 @@
+package: linux-libc-dev
+
+essential:
+  - linux-libc-dev_copyright
+
+slices:
+  headers:
+    contents:
+      /usr/include/*-linux-*/asm/*.h:
+      /usr/include/asm-generic/*.h:
+      /usr/include/drm/*.h:
+      /usr/include/linux/**.h:
+      /usr/include/misc/**.h:
+      /usr/include/mtd/*.h:
+      /usr/include/rdma/**.h:
+      /usr/include/regulator/*.h:
+      /usr/include/scsi/fc/*.h:
+      /usr/include/scsi/scsi_bsg_fc.h:
+      /usr/include/scsi/scsi_bsg_mpi3mr.h:
+      /usr/include/scsi/scsi_bsg_ufs.h:
+      /usr/include/scsi/scsi_netlink.h:
+      /usr/include/scsi/scsi_netlink_fc.h:
+      /usr/include/sound/**.h:
+      /usr/include/video/*.h:
+      /usr/include/xen/*.h:
+
+  copyright:
+    contents:
+      /usr/share/doc/linux-libc-dev/copyright:

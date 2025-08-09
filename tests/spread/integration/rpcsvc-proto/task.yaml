@@ -1,0 +1,6 @@
+summary: rpcsvc-proto
+
+execute: |
+  rootfs="$(install-slices rpcsvc-proto_bins)"
+
+  chroot "${rootfs}" rpcgen --help
