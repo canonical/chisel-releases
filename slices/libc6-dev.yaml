@@ -66,14 +66,14 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/libBrokenLocale.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libanl.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libc_malloc_debug.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libmvec.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libnss_compat.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libnss_hesiod.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libresolv.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libthread_db.so: {arch: [amd64]}
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+      /usr/lib/*-linux-*/libanl.so:
+      /usr/lib/*-linux-*/libc_malloc_debug.so:
+      /usr/lib/*-linux-*/libmvec.so: {arch: [amd64, arm64]}
+      /usr/lib/*-linux-*/libnss_compat.so:
+      /usr/lib/*-linux-*/libnss_hesiod.so:
+      /usr/lib/*-linux-*/libresolv.so:
+      /usr/lib/*-linux-*/libthread_db.so:
 
   copyright:
     contents:
