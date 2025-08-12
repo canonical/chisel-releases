@@ -59,13 +59,13 @@ slices:
   # bootstrapping of the root filesystem. This slice provides the content in
   # the generated source list.
   # To provide the architecture-specific source list without conflicts, the
-  # ubuntu.sources file is renamed to ubuntu.ports.sources for the ported
+  # ubuntu.sources file is renamed to ubuntu-ports.sources for the ported
   # architectures.
   default-source-list:
     essential:
       - ubuntu-keyring_keys
     contents:
-      /etc/apt/sources.list.d/ubuntu.ports.sources:
+      /etc/apt/sources.list.d/ubuntu-ports.sources:
         arch: [arm64, armhf, ppc64el, riscv64, s390x]
         text: |
           Types: deb
