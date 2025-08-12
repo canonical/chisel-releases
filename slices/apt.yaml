@@ -94,27 +94,6 @@ slices:
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
-  # Placeholder slice contains the script to print the message informing the
-  # users about how to install the apt package on minimized systems.
-  # A hack leveraging the usrmerge-via-symlink on the paths of apt and apt-get
-  # is used to avoid path conflicts.
-  placeholder:
-    essential:
-      - base-files_bin
-      - bash_bins
-      - coreutils_echo
-    contents:
-      /bin/apt:
-        text: |
-          #!/usr/bin/bash
-          echo "This system has been minimized by removing packages and content that are"
-          echo "not required on a system that users do not log into."
-          echo ""
-          echo "To restore this content, including apt and dpkg, you can run the command"
-          echo "'chisel cut --root / apt_get-bins'"
-        mode: 0755
-      /bin/apt-get: {symlink: /usr/bin/apt}
-
   copyright:
     contents:
       /usr/share/doc/apt/copyright:

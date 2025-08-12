@@ -14,12 +14,3 @@ execute: |
   chroot "${rootfs}/" python3.12 -c 'print("Hello, World!")' | grep -q "Hello, World!"
 
   umount "${rootfs}/dev"
-
-  rootfs="$(install-slices apt_placeholder)"
-
-  mkdir -p "${rootfs}/dev"
-  mount --bind /dev "${rootfs}/dev"
-
-  chroot "${rootfs}/" apt | grep -q "chisel cut --root / apt_"
-
-  umount "${rootfs}/dev"
