@@ -6,7 +6,10 @@ essential:
 slices:
   bins:
     essential:
+      - diffutils_bins  # used by dpkg -i
       - dpkg_config
+      - dpkg_scripts
+      - dpkg_tables
       - dpkg_var
       - libbz2-1.0_libs
       - libc-bin_ldconfig
@@ -45,6 +48,10 @@ slices:
       - dpkg_bins
     contents:
       /usr/share/locale/**/dpkg.mo:
+
+  scripts:
+    contents:
+      /usr/share/dpkg/sh/dpkg-error.sh:
 
   tables:
     contents:

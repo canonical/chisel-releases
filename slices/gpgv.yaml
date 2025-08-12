@@ -1,0 +1,23 @@
+package: gpgv
+
+essential:
+  - gpgv_copyright
+
+slices:
+  bins:
+    essential:
+      - base-files_tmp
+      - coreutils_file-name-manipulation
+      - libassuan9_libs
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libgcrypt20_libs
+      - libgpg-error0_libs
+      - libnpth0t64_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/gpgv:
+
+  copyright:
+    contents:
+      /usr/share/doc/gpgv/copyright:
