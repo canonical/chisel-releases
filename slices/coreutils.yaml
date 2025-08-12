@@ -12,7 +12,6 @@ slices:
 
   bins:
     essential:
-      - coreutils_echo
       - coreutils_env
       - coreutils_expr
       - coreutils_libs
@@ -155,12 +154,6 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/mktemp:
-
-  echo:
-    essential:
-      - libc6_libs
-    contents:
-      /usr/bin/echo:
 
   copyright:
     contents:
