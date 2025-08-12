@@ -21,20 +21,22 @@ options:
 """
 
 import argparse
-from concurrent.futures import ProcessPoolExecutor, as_completed
-import math
-from apt.debfile import DebPackage
-from dataclasses import dataclass
 import logging
-import magic
+import math
 import os
 import pathlib
 import subprocess
-import tempfile
 import sys
+import tempfile
 
+import magic
 import requests
 import yaml
+
+from apt.debfile import DebPackage
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from dataclasses import dataclass
+
 
 
 CHISEL_PKG_CACHE = pathlib.Path.home() / ".cache/chisel/sha256"
