@@ -25,6 +25,7 @@ slices:
       - libapt-pkg7.0_libs
       - libc6_libs
       - libgcc-s1_libs
+      - libstdc++6_libs
       - sed_bins
     contents:
       /usr/bin/apt:
@@ -41,6 +42,9 @@ slices:
       - libgcc-s1_libs
       - libgnutls30t64_libs
       - libseccomp2_libs
+      - libssl3t64_libs
+      - libstdc++6_libs
+      - libsystemd0_libs
     contents:
       /usr/lib/*-linux-*/libapt-private.so*:
       /usr/lib/apt/methods/gpgv:
