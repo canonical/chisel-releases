@@ -12,11 +12,18 @@ slices:
 
   bins:
     essential:
+      - coreutils_dirname
+      - coreutils_echo
       - coreutils_env
       - coreutils_expr
       - coreutils_libs
+      - coreutils_ln-utility
       - coreutils_mkdir
       - coreutils_mktemp
+      - coreutils_readlink
+      - coreutils_rm-utility
+      - coreutils_sort
+      - coreutils_touch
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -25,6 +32,7 @@ slices:
       - libgmp10_libs
       - libpcre2-8-0_libs
       - libselinux1_libs
+
     contents:
       /usr/bin/[:
       /usr/bin/arch:
@@ -48,7 +56,6 @@ slices:
       /usr/bin/df:
       /usr/bin/dir:
       /usr/bin/dircolors:
-      /usr/bin/dirname:
       /usr/bin/du:
       /usr/bin/expand:
       /usr/bin/factor:
@@ -62,7 +69,6 @@ slices:
       /usr/bin/install:
       /usr/bin/join:
       /usr/bin/link:
-      /usr/bin/ln:
       /usr/bin/logname:
       /usr/bin/ls:
       /usr/bin/md5sum:
@@ -81,12 +87,9 @@ slices:
       /usr/bin/pinky:
       /usr/bin/pr:
       /usr/bin/printenv:
-      /usr/bin/printf:
       /usr/bin/ptx:
       /usr/bin/pwd:
-      /usr/bin/readlink:
       /usr/bin/realpath:
-      /usr/bin/rm:
       /usr/bin/rmdir:
       /usr/bin/runcon:
       /usr/bin/seq:
@@ -98,7 +101,6 @@ slices:
       /usr/bin/shred:
       /usr/bin/shuf:
       /usr/bin/sleep:
-      /usr/bin/sort:
       /usr/bin/split:
       /usr/bin/stat:
       /usr/bin/stdbuf:
@@ -110,7 +112,6 @@ slices:
       /usr/bin/tee:
       /usr/bin/test:
       /usr/bin/timeout:
-      /usr/bin/touch:
       /usr/bin/tr:
       /usr/bin/true:
       /usr/bin/truncate:
@@ -154,6 +155,56 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/mktemp:
+
+  echo:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/echo:
+
+  # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
+  ln-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/ln:
+
+  rm-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/rm:
+
+  readlink:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/readlink:
+
+  sort:
+    essential:
+      - libc6_libs
+      - libssl3t64_libcrypto
+    contents:
+      /usr/bin/sort:
+
+  dirname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/dirname:
+
+  touch:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/touch:
+
+  printf:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/printf:
 
   copyright:
     contents:

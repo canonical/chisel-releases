@@ -17,3 +17,51 @@ execute: |
   # test mktemp
   rootfs_mktemp="$(install-slices coreutils_mktemp)"
   chroot "$rootfs_mktemp" mktemp --version
+
+  # test echo binary
+  rootfs_echo="$(install-slices coreutils_echo)"
+  chroot "$rootfs_echo" echo "Hello, World!"
+
+  # test ln binary
+  rootfs_ln="$(install-slices coreutils_ln-utility)"
+  touch "$rootfs_ln/test_file"
+  chroot "$rootfs_ln" ln -s test_file test_link
+  test -L "$rootfs_ln/test_link"
+
+  # test rm binary
+  rootfs_rm="$(install-slices coreutils_rm-utility)"
+  touch "$rootfs_rm/test_file"
+  chroot "$rootfs_rm" rm test_file
+  test ! -e "$rootfs_rm/test_file"
+
+  # test readlink binary
+  rootfs_readlink="$(install-slices coreutils_readlink)"
+  touch "$rootfs_readlink/test_file"
+  ln -s test_file "$rootfs_readlink/test_link"
+  chroot "$rootfs_readlink" readlink test_link | grep "test_file"
+
+  # test sort binary
+  rootfs_sort="$(install-slices coreutils_sort)"
+  echo -e "banana\napple\ncherry" > "$rootfs_sort/test_file"
+  chroot "$rootfs_sort" sort test_file > sorted_output
+  # NOTE: sorted output has a trailing newline. replaced by hyphen to show better
+  test "$(cat sorted_output | tr '\n' '-')" = "apple-banana-cherry-"
+
+  # test dirname binary
+  rootfs_dirname="$(install-slices coreutils_dirname)"
+  mkdir -p "$rootfs_dirname/foo/bar"
+  touch "$rootfs_dirname/foo/bar/baz.txt"
+  test "$(chroot "$rootfs_dirname" dirname /foo/bar/baz.txt)" = "/foo/bar"
+  test "$(chroot "$rootfs_dirname" dirname /foo/bar/)" = "/foo"
+
+  # test touch binary
+  rootfs_touch="$(install-slices coreutils_touch)"
+  chroot "$rootfs_touch" touch test_file
+  test -e "$rootfs_touch/test_file"
+
+  # test printf binary
+  rootfs_printf="$(install-slices coreutils_printf)"
+  test "$(chroot "$rootfs_printf" printf "hello\n" )" = "hello"
+  test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
+  test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
+  test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
