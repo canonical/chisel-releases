@@ -23,6 +23,7 @@ slices:
       - file_bins
       - findutils_bins
       - grep_bins
+      - gzip_bins
       - libc6_libs
       - libcrack2_libs
       - libssl3t64_libs

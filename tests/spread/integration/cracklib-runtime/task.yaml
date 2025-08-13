@@ -3,31 +3,33 @@ summary: Integration tests for cracklib-runtime
 execute: |
   rootfs="$(install-slices bash_bins base-files_base coreutils_bins cracklib-runtime_bins)"
 
-  chroot "$rootfs" ln -s /usr/bin/bash /bin/sh
-  chroot "$rootfs" /usr/sbin/update-cracklib
+  chroot "${rootfs}" ln -s /usr/bin/bash /bin/sh
+  chroot "${rootfs}" /usr/sbin/update-cracklib
 
-  if ! [ -e "$rootfs"/var/cache/cracklib/cracklib_dict.hwm ]; then
+  if ! [ -e "${rootfs}"/var/cache/cracklib/cracklib_dict.hwm ]; then
     echo "expected /var/cache/cracklib/cracklib_dict.hwm to exist"
     exit -1
   fi
 
-  if ! [ -e "$rootfs"/var/cache/cracklib/cracklib_dict.pwd ]; then
+  if ! [ -e "${rootfs}"/var/cache/cracklib/cracklib_dict.pwd ]; then
     echo "expected /var/cache/cracklib/cracklib_dict.pwd to exist"
     exit -1
   fi
 
-  if ! [ -e "$rootfs"/var/cache/cracklib/cracklib_dict.pwi ]; then
+  if ! [ -e "${rootfs}"/var/cache/cracklib/cracklib_dict.pwi ]; then
     echo "expected /var/cache/cracklib/cracklib_dict.pwi to exist"
     exit -1
   fi
 
-  if ! [ -e "$rootfs"/var/cache/cracklib/src-dicts ]; then
+  if ! [ -e "${rootfs}"/var/cache/cracklib/src-dicts ]; then
     echo "expected /var/cache/cracklib/src-dicts to exist"
     exit -1
   fi
 
-  # smoke-test rest of binaries
-  chroot "$rootfs" /usr/sbin/update-check --help
-  chroot "$rootfs" /usr/sbin/update-format --help
-  chroot "$rootfs" /usr/sbin/update-packer --help
-  chroot "$rootfs" /usr/sbin/update-unpacker --help
+  # copy files in
+  cp ./lower.tar.gz "${rootfs}"
+  cp ./test.sh "${rootfs}"
+  sed -i -e 's/-v/-v -a/g' "${rootfs}/usr/sbin/cracklib-format"
+
+  # run tests
+  chroot "${rootfs}" /test.sh
