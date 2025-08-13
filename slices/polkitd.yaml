@@ -41,7 +41,7 @@ slices:
   config:
     contents:
       /usr/lib/sysusers.d/polkit.conf:
-      /usr/lib/tmpfiles.d/polkitd.conf:
+      /usr/lib/tmpfiles.d/polkit-tmpfiles.conf:
       /var/lib/polkit-1/: { make: true, mode: 0700 }
 
   dbus-interface:
