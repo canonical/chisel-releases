@@ -1,0 +1,16 @@
+package: libp11-3t64
+
+essential:
+  - libp11-3t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libssl3t64_libs
+    contents:
+      /usr/lib/*-linux-*/libp11.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libp11-3t64/copyright:
