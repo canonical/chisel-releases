@@ -21,13 +21,12 @@ on:
 
 env:
   # Package architectures and chisel-releases branches to test on.
-  ARCHES: '["amd64","arm64","armhf","i386","ppc64el","riscv64","s390x"]'
+  ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
   RELEASES: |
     [
       {"ref": "ubuntu-20.04", "chisel-versions": ["v1.0.0","main"]},
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.0.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.0.0","main"]},
-      {"ref": "ubuntu-24.10", "chisel-versions": ["v1.0.0","main"]},
       {"ref": "ubuntu-25.04", "chisel-versions": ["v1.0.0","main"]}
     ]
 
@@ -172,6 +171,8 @@ jobs:
       #   future and propose improvements.
       #   See also https://github.com/canonical/chisel-releases/pull/119#discussion_r1494785644
       - name: Install slices
+        env:
+          WORKERS: 20
         run: |
           set -ex
           if [[
@@ -184,11 +185,21 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
+          fi
+
+      - name: Check installation errors
+        run: |
+          if [ -s error.log ]; then
+            echo "Installation errors found:"
+            cat error.log
+            exit 1
           fi

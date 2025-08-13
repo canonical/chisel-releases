@@ -21,19 +21,22 @@ options:
 """
 
 import argparse
-from apt.debfile import DebPackage
-from dataclasses import dataclass
 import logging
-import magic
+import math
 import os
 import pathlib
 import subprocess
-import tempfile
 import sys
+import tempfile
 
-import apt_pkg
+import magic
 import requests
 import yaml
+
+from apt.debfile import DebPackage
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from dataclasses import dataclass
+
 
 
 CHISEL_PKG_CACHE = pathlib.Path.home() / ".cache/chisel/sha256"
@@ -46,11 +49,22 @@ class MissingCopyright(Exception):
 def configure_logging() -> None:
     """
     Configure the logging options for this script.
+    Logs INFO and above to stdout, and ERROR and above to error.log.
     """
-    logging.basicConfig(
-        format="%(levelname)s: %(message)s",
-        level=logging.INFO,
+    # Console handler for INFO and above
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.INFO)
+    console_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
+
+    # File handler for ERROR and above
+    file_handler = logging.FileHandler("error.log")
+    file_handler.setLevel(logging.ERROR)
+    file_handler.setFormatter(
+        logging.Formatter("%(asctime)s %(levelname)s: %(message)s")
     )
+
+    # Root logger setup
+    logging.basicConfig(level=logging.INFO, handlers=[console_handler, file_handler])
 
 
 def parse_args() -> argparse.Namespace:
@@ -93,6 +107,13 @@ def parse_args() -> argparse.Namespace:
         metavar="file",
         help="Chisel slice definition file(s)",
         nargs="*",
+    )
+    parser.add_argument(
+        "--workers",
+        required=False,
+        default=5,
+        type=int,
+        help="Number of workers to use for parallel installation (default: 5)",
     )
     return parser.parse_args()
 
@@ -263,41 +284,60 @@ def ignore_missing_packages(
     return filtered, ignored
 
 
-def install_slice(
-    pkg: str, slice: str, arch: str, release: str, missing_copyright: set
+def install_slices(
+    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    slice_name = full_slice_name(pkg, slice)
-    logging.info("Installing %s on %s...", slice_name, arch)
-    with tempfile.TemporaryDirectory() as tmpfs:
-        res = subprocess.run(
-            args=[
-                "chisel",
-                "cut",
-                "--arch",
-                arch,
-                "--release",
-                release,
-                "--root",
-                tmpfs,
-                slice_name,
-            ],
-            capture_output=True,
-            text=True,
-            check=False,
+    for i, (pkg, slice) in enumerate(chunk):
+        slice_name = full_slice_name(pkg, slice)
+        logging.info(
+            "Worker %d (%d/%d): Installing %s on %s...",
+            worker,
+            i,
+            len(chunk),
+            slice_name,
+            arch,
         )
-        if res.returncode != 0:
-            logging.error(
-                "==============================================\n%s",
-                res.stderr.rstrip(),
+        if dry_run:
+            continue
+        with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
+            env = dict(os.environ)
+            env["XDG_CACHE_HOME"] = str(cache_dir)
+            res = subprocess.run(
+                args=[
+                    "chisel",
+                    "cut",
+                    "--arch",
+                    arch,
+                    "--release",
+                    release,
+                    "--root",
+                    tmpfs,
+                    slice_name,
+                ],
+                capture_output=True,
+                text=True,
+                check=False,
+                env=env,
             )
-            sys.exit(res.returncode)
-        # Check if the copyright file has been installed with this slice
-        copyright_file = pathlib.Path(f"{tmpfs}/usr/share/doc/{pkg}/copyright")
-        if not copyright_file.is_file() and not copyright_file.is_symlink():
-            missing_copyright.add(slice_name)
+            if res.returncode != 0:
+                logging.error(
+                    "==============================================\n%s",
+                    res.stderr.rstrip(),
+                )
+                return
+
+            # Check if the copyright file has been installed with this slice
+            copyright_file = pathlib.Path(f"{tmpfs}/usr/share/doc/{pkg}/copyright")
+            if not copyright_file.is_file() and not copyright_file.is_symlink():
+                # Does the copyright file exist in the deb?
+                if deb_has_copyright_file(pkg):
+                    err = "{} has a copyright file but it wasn't installed.".format(
+                        pkg,
+                    )
+                    logging.error(err)
 
 
 def deb_has_copyright_file(pkg: str) -> bool:
@@ -359,43 +399,42 @@ def main() -> None:
                 logging.info("  - %s", pkg.package)
     #
     if len(packages) > 0:
-        logging.info("Slices of the following packages will be INSTALLED:")
+        logging.info(
+            "Slices of the following %s packages will be INSTALLED (available workers=%s):",
+            len(packages),
+            cli_args.workers,
+        )
         for pkg in packages:
             logging.info("  - %s", pkg.package)
     else:
         logging.info("No slices will be installed.")
         return
-    # Install the slices in each package.
-    for pkg in packages:
-        # Keep track of whether the copyright file is installed on every "cut"
-        # This should always be the case, whether enforced by a global "essential"
-        # or Chisel itself. Exception: the copyright file will not be installed
-        # if it doesn't exist in the deb itself.
-        missing_copyright = set()
-        for slice in pkg.slices:
-            if cli_args.dry_run:
-                logging.info(
-                    "Installing %s on %s... (--dry-run)",
-                    full_slice_name(pkg.package, slice),
-                    cli_args.arch,
-                )
-            else:
-                install_slice(
-                    pkg.package,
-                    slice,
-                    cli_args.arch,
-                    cli_args.release,
-                    missing_copyright,
-                )
 
-        if len(missing_copyright) > 0:
-            # Does the copyright file exist in the deb?
-            if deb_has_copyright_file(pkg.package):
-                err = "{} has a copyright file but it wasn't installed with: {}".format(
-                    pkg.package,
-                    ",".join(missing_copyright),
-                )
-                raise MissingCopyright(err)
+    # TODO: this list of slices can still be reduced, since many of these
+    # will come as essentials of other slices. We could simply crawl all essentials
+    # in the release, and remove them from the "all_slices" list (since they
+    # are going to get installed anyway). The problem here is accounting: I'd like
+    # to ensure that all slices are still installed nonetheless, even if indirectly,
+    # but that means `install_slices` will have to be aware of the nested essentials.
+    all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
+
+    chunk_size = math.ceil(len(all_slices) / cli_args.workers)
+    chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int]] = [
+        (
+            all_slices[i : i + chunk_size],
+            cli_args.dry_run,
+            cli_args.arch,
+            cli_args.release,
+            i // chunk_size + 1,  # worker number
+        )
+        for i in range(0, len(all_slices), chunk_size)
+    ]
+
+    with ProcessPoolExecutor() as executor:
+        futures = [
+            executor.submit(install_slices, *chunk) for chunk in chunks_of_slices
+        ]
+        _ = [future.result() for future in as_completed(futures)]
 
 
 if __name__ == "__main__":
