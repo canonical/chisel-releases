@@ -4,9 +4,9 @@ essential:
   - opensysusers_copyright
 
 slices:
-# /usr/bin/systemd-sysusers is actually part of this package
-# aswell but conflicts with the systemd-sysusers inside the systemd
-# package.
+  # /usr/bin/systemd-sysusers is actually part of this package
+  # aswell but conflicts with the systemd-sysusers inside the systemd
+  # package.
   scripts:
     # These are shell scripts requiring a symlink from /usr/bin/dash to
     # /usr/bin/sh.
