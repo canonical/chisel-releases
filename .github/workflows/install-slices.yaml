@@ -80,6 +80,15 @@ jobs:
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
 
             echo "install_all=true" >> $GITHUB_OUTPUT
+          elif [[
+            "${{ github.event_name }}" == "create" &&
+            "${{ github.ref_name }}" != "main"
+          ]]; then
+            # This happens when a new branch/tag is created, so we'll want to
+            # install all the slices for that release only
+            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.ref_name }}")]')
+            MATRIX=$(./version-matrix)
+            echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           else
             # Filter the releases to only the affected branch, then swap the ref
             # such that the correct branch is tested.
