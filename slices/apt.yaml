@@ -65,21 +65,6 @@ slices:
     essential:
       - ubuntu-keyring_keys
     contents:
-      /etc/apt/sources.list.d/ubuntu-ports-default.sources:
-        arch: [arm64, armhf, ppc64el, riscv64, s390x]
-        until: mutate
-        text: |
-          Types: deb
-          URIs: http://ports.ubuntu.com/ubuntu-ports/
-          Suites: plucky plucky-updates plucky-backports
-          Components: main universe restricted multiverse
-          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-          Types: deb
-          URIs: http://ports.ubuntu.com/ubuntu-ports/
-          Suites: plucky-security
-          Components: main universe restricted multiverse
-          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
       /etc/apt/sources.list.d/ubuntu-default.sources:
         arch: [amd64, i386]
         until: mutate
@@ -92,6 +77,21 @@ slices:
 
           Types: deb
           URIs: http://security.ubuntu.com/ubuntu/
+          Suites: plucky-security
+          Components: main universe restricted multiverse
+          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+      /etc/apt/sources.list.d/ubuntu-ports-default.sources:
+        arch: [arm64, armhf, ppc64el, riscv64, s390x]
+        until: mutate
+        text: |
+          Types: deb
+          URIs: http://ports.ubuntu.com/ubuntu-ports/
+          Suites: plucky plucky-updates plucky-backports
+          Components: main universe restricted multiverse
+          Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+          Types: deb
+          URIs: http://ports.ubuntu.com/ubuntu-ports/
           Suites: plucky-security
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
