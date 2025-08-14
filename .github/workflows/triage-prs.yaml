@@ -14,12 +14,12 @@ jobs:
     steps:
       - env:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
-          REVIEWERS: "slice-reviewers-guild"
+          REVIEWERS: "canonical/slice-reviewers-guild"
         run: |
           set -euxo pipefail
           
           for pr_number in `gh pr list -R ${{ github.repository }} \
-            --search "-review-requested:${{ env.REVIEWERS }}" --json number | jq -e '.[].number' \
+            --search "-team-review-requested:${{ env.REVIEWERS }}" --json number | jq -e '.[].number' \
             || echo fail`
             do
               if [[ "$pr_number" == "fail" ]]
