@@ -51,6 +51,8 @@ slices:
 
   scripts:
     contents:
+      # Note: This file defines the color scheme used by dpkg.
+      # It is sourced by dpkg's `dpkg-maintscript-helper` script.
       /usr/share/dpkg/sh/dpkg-error.sh:
 
   tables:
