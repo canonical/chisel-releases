@@ -177,6 +177,12 @@ slices:
       /usr/bin/mv:
       /usr/bin/shred:
 
+  cat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cat:
+
   # Special file types -- This slice contains commands which create special
   # types of files (and rmdir, which removes directories, one special file
   # type).
