@@ -37,7 +37,6 @@ slices:
   libs:
     contents:
       /usr/lib/*-linux-*/rsyslog/*.so:
-      /usr/lib/tmpfiles.d/00rsyslog.conf:
 
   copyright:
     contents:
