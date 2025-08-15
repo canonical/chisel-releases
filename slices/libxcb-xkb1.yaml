@@ -1,0 +1,16 @@
+package: libxcb-xkb1
+
+essential:
+  - libxcb-xkb1_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxcb-xkb.so.1*:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-xkb1/copyright:
