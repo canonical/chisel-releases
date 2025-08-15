@@ -4,7 +4,7 @@ on:
   # Using a schedule because events like pull_request only work if the workflow
   # exists on the base (target) branch of the PR
   schedule:
-    - cron: "*/20 * * * *"
+    - cron: "0 1 * * *"
   workflow_dispatch:
 
 jobs:
