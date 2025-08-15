@@ -1,0 +1,18 @@
+package: libengine-pkcs11-openssl
+
+essential:
+  - libengine-pkcs11-openssl_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libssl3t64_libs
+      - p11-kit_bins
+    contents:
+      /usr/lib/*-linux-*/engines-3/pkcs11.so:
+      /usr/lib/*-linux-*/engines-3/libpkcs11.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libengine-pkcs11-openssl/copyright:

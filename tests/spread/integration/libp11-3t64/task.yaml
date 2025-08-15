@@ -1,0 +1,9 @@
+summary: Integration tests for libp11-3t64
+
+execute: |
+  rootfs="$(install-slices libp11-3t64_libs)"
+
+  apt install -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/libp11.so.3:

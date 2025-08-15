@@ -1,0 +1,15 @@
+package: libopts25
+
+essential:
+  - libopts25_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libopts.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libopts25/copyright:
