@@ -19,6 +19,7 @@ slices:
       - coreutils_libs
       - coreutils_ln-utility
       - coreutils_mkdir
+      - coreutils_mktemp
       - coreutils_readlink
       - coreutils_rm-utility
       - coreutils_sort
@@ -74,7 +75,6 @@ slices:
       /usr/bin/md5sum.textutils:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
-      /usr/bin/mktemp:
       /usr/bin/mv:
       /usr/bin/nice:
       /usr/bin/nl:
@@ -149,6 +149,12 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/mkdir:
+
+  mktemp:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/mktemp:
 
   echo:
     essential:
