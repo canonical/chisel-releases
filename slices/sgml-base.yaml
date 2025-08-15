@@ -1,0 +1,47 @@
+package: sgml-base
+
+slices:
+  # also contains some binary debian helpers, they are
+  # used only to generate or update the xml catalogue.
+  # /usr/sbin/install-sgmlcatalog
+  # /usr/sbin/update-catalog
+
+  catalog:
+    contents:
+      /etc/sgml/catalog: { symlink: /var/lib/sgml-base/supercatalog }
+      /usr/share/sgml-base/catalog.centralized:
+      /usr/share/sgml-base/catalog.super:
+      /usr/share/sgml-base/transitional.cat:
+      /var/lib/sgml-base/supercatalog: {text: '', mutable: true}
+    mutate: |
+      supercat_path = "/var/lib/sgml-base/supercatalog"
+      def check_catalog(path):
+        # ignore the one we generate
+        if path == "/etc/sgml/catalog":
+          return False
+        return True
+
+      def write_super(catalogs):
+        super = "--\n"
+        super += "## This file is created by update-catalog with update-super.\n"
+        super += "## Please see update-catalog(8) for how to modify this file.\n"
+        super += "--\n"
+        for c in catalogs:
+          super += "CATALOG " + c + "\n"
+        content.write(supercat_path, super)
+
+      def update_super():
+        cat_dir = "/etc/sgml/"
+        catalogs = content.list(cat_dir)
+        filtered = []
+        for c in catalogs:
+          if check_catalog(cat_dir + c):
+            filtered.append(c)
+        write_super(filtered)
+
+      # emulate the actions done by postinst
+      update_super()
+
+  copyright:
+    contents:
+      /usr/share/doc/sgml-base/copyright:

@@ -1,0 +1,17 @@
+package: libpolkit-agent-1-0
+
+essential:
+  - libpolkit-agent-1-0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libglib2.0-0t64_libs
+      - libpolkit-gobject-1-0_libs
+    contents:
+      /usr/lib/*-linux-*/libpolkit-agent-1.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpolkit-agent-1-0/copyright:
