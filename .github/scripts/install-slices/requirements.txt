@@ -1,0 +1,3 @@
+python-magic
+pyyaml
+requests
