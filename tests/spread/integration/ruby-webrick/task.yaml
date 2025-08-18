@@ -1,0 +1,8 @@
+summary: Integration tests for ruby-webrick
+
+execute: |
+  rootfs="$(install-slices ruby-webrick_rubygems ruby_core bash_bins)"
+
+  cp ruby_webrick_test.rb "${rootfs}/"
+  chroot "$rootfs" bash -c \
+      'GEM_PATH="/usr/lib/ruby/gems/3.3.0/gems:/usr/share/rubygems-integration/all" ruby /ruby_webrick_test.rb'
