@@ -16,7 +16,7 @@ slices:
     essential:
       - libc6_libs
       - libgcc-s1_libs
-      - php-common_libs
+      - php-common_scripts
       - php8.3-opcache_config
     contents:
       /usr/lib/php/*/opcache.so:

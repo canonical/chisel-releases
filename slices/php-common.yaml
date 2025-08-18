@@ -7,18 +7,28 @@ slices:
 
   bins:
     essential:
-      - coreutils_bins
-      - dash_bins
-      - findutils_bins
-      - php-common_libs
+      - coreutils_expr
+      - coreutils_ln-utility
+      - coreutils_readlink
       - php-common_registry
-      - sed_bins
+      - php-common_scripts
     contents:
       /usr/sbin/phpdismod:
       /usr/sbin/phpenmod:
       /usr/sbin/phpquery:
 
-  libs:
+  scripts:
+    essential:
+      - coreutils_dirname
+      - coreutils_echo
+      - coreutils_mkdir
+      - coreutils_printf
+      - coreutils_rm-utility
+      - coreutils_sort
+      - coreutils_touch
+      - dash_bins
+      - findutils_bins
+      - sed_bins
     contents:
       /usr/lib/php/php-fpm-socket-helper:
       /usr/lib/php/php-helper:
