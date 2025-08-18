@@ -34,6 +34,13 @@ slices:
         symlink: /usr/lib/systemd/system/rsyslog.service
 
   libs:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libfastjson4_libs
+      - libsystemd0_libs
+      - libzstd1_libs
+      - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/rsyslog/*.so:
 
