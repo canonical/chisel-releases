@@ -26,12 +26,34 @@ run_command() {
 }
 
 all_cmds=()
-slices=$(yq '.slices | keys | .[]' "${SDF}")
-for s in ${slices[@]}; do
-    if [[ "$s" == "libs" || "$s" == "bins" || "$s" == "copyright" ]]; then
-        continue
-    fi
 
+slices=(
+  output-of-entire-files
+  formatting-file-contents
+  output-of-parts-of-files
+  summarizing-files
+  operating-on-sorted-files
+  operating-on-fields
+  operating-on-characters
+  directory-listing
+  basic-operations
+  special-file-types
+  changing-file-attributes
+  file-space-usage
+  printing-text
+  conditions
+  redirection
+  file-name-manipulation
+  working-context
+  user-information
+  system-context
+  selinux-context
+  modified-command-invocation
+  delaying
+  numeric-operations
+)
+
+for s in ${slices[@]}; do
     slice="coreutils_$s"
     echo "Testing $slice ..."
     install_slices "$slice"
