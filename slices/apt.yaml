@@ -14,29 +14,14 @@ slices:
       /etc/apt/sources.list.d/:
       /etc/apt/trusted.gpg.d/:
 
-  get-bins:
+  apt-get:
     essential:
       - apt_config
       - apt_default-source-list
-      - apt_get-libs
+      - apt_var
       - base-files_bin
       - coreutils_bins
       - dpkg_bins
-      - libapt-pkg6.0t64_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
-      - sed_bins
-    contents:
-      /usr/bin/apt:
-      /usr/bin/apt-config:
-      /usr/bin/apt-get:
-      /usr/bin/apt-key:
-      /usr/bin/apt-mark:
-
-  get-libs:
-    essential:
-      - apt_var
       - gpgv_bins
       - libapt-pkg6.0t64_libs
       - libc6_libs
@@ -45,7 +30,13 @@ slices:
       - libseccomp2_libs
       - libstdc++6_libs
       - libsystemd0_libs
+      - sed_bins
     contents:
+      /usr/bin/apt:
+      /usr/bin/apt-config:
+      /usr/bin/apt-get:
+      /usr/bin/apt-key:
+      /usr/bin/apt-mark:
       /usr/lib/*-linux-*/libapt-private.so*:
       /usr/lib/apt/methods/gpgv:
       /usr/lib/apt/methods/http:
