@@ -77,7 +77,7 @@ done
 echo "Testing coreutils_bins ..."
 install_slices "coreutils_bins"
 for cmd in ${all_cmds[@]}; do
-    limit_concurrent_jobs 5
+    limit_concurrent_jobs 4
     run_command "$cmd" &
 done
 wait
