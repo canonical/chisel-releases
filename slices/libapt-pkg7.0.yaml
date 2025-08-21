@@ -9,7 +9,6 @@ slices:
       - libbz2-1.0_libs
       - libc6_libs
       - libgcc-s1_libs
-      # - libgcrypt20_libs
       - liblz4-1_libs
       - liblzma5_libs
       - libssl3t64_libs
