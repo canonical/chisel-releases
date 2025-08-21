@@ -25,6 +25,13 @@ run_command() {
     esac
 }
 
+limit_concurrent_jobs() {
+    local max_jobs=$1
+    while [ "$(jobs -r | wc -l)" -ge "$max_jobs" ]; do
+        sleep 1
+    done
+}
+
 all_cmds=()
 
 slices=(
@@ -61,13 +68,16 @@ for s in ${slices[@]}; do
     files=$(s="$s" yq ".slices.[env(s)].contents | keys | .[]" "${SDF}")
     for file in ${files[@]}; do
         cmd="$(basename "$file")"
-        run_command "$cmd"
+        run_command "$cmd" &
         all_cmds+=($cmd)
     done
+    wait
 done
 
 echo "Testing coreutils_bins ..."
 install_slices "coreutils_bins"
 for cmd in ${all_cmds[@]}; do
-    run_command "$cmd"
+    limit_concurrent_jobs 5
+    run_command "$cmd" &
 done
+wait
