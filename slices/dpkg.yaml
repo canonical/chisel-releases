@@ -6,7 +6,10 @@ essential:
 slices:
   bins:
     essential:
+      - diffutils_bins  # used by dpkg -i
       - dpkg_config
+      - dpkg_scripts
+      - dpkg_tables
       - dpkg_var
       - libbz2-1.0_libs
       - libc-bin_ldconfig
@@ -46,6 +49,14 @@ slices:
     contents:
       /usr/share/locale/**/dpkg.mo:
 
+  scripts:
+    essential:
+      - coreutils_echo
+    contents:
+      # Note: This file defines the color scheme used by dpkg.
+      # It is sourced by dpkg's `dpkg-maintscript-helper` script.
+      /usr/share/dpkg/sh/dpkg-error.sh:
+
   tables:
     contents:
       /usr/share/dpkg/*table:
@@ -57,3 +68,9 @@ slices:
       /var/lib/dpkg/info/:
       /var/lib/dpkg/parts/:
       /var/lib/dpkg/updates/:
+
+  maintscript-support:
+    essential:
+      - coreutils_bins
+      - dpkg_bins
+      - sed_bins
