@@ -50,6 +50,8 @@ slices:
       /usr/share/locale/**/dpkg.mo:
 
   scripts:
+    essential:
+      - coreutils_echo
     contents:
       # Note: This file defines the color scheme used by dpkg.
       # It is sourced by dpkg's `dpkg-maintscript-helper` script.
