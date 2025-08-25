@@ -6,8 +6,6 @@ essential:
 slices:
   bins:
     essential:
-      - base-files_tmp
-      - coreutils_file-name-manipulation
       - libassuan9_libs
       - libbz2-1.0_libs
       - libc6_libs

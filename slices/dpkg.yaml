@@ -66,3 +66,9 @@ slices:
       /var/lib/dpkg/info/:
       /var/lib/dpkg/parts/:
       /var/lib/dpkg/updates/:
+
+  maintscript-support:
+    essential:
+      - coreutils_bins
+      - dpkg_bins
+      - sed_bins

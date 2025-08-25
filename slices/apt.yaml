@@ -20,8 +20,8 @@ slices:
       - apt_default-source-list
       - apt_var
       - base-files_bin
-      - coreutils_bins
-      - dpkg_bins
+      - base-files_tmp
+      - dpkg_maintscript-support
       - gpgv_bins
       - libapt-pkg7.0_libs
       - libc6_libs
@@ -31,7 +31,6 @@ slices:
       - libssl3t64_libs
       - libstdc++6_libs
       - libsystemd0_libs
-      - sed_bins
     contents:
       /usr/bin/apt:
       /usr/bin/apt-config:
