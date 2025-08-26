@@ -6,6 +6,7 @@ essential:
 slices:
   bins:
     essential:
+      - coreutils_rm-utility
       - diffutils_bins  # used by dpkg -i
       - dpkg_config
       - dpkg_scripts
@@ -71,6 +72,7 @@ slices:
 
   maintscript-support:
     essential:
+      - base-files_bin
       - coreutils_bins
       - dpkg_bins
       - sed_bins
