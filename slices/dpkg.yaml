@@ -63,6 +63,9 @@ slices:
       /usr/share/dpkg/*table:
 
   var:
+    # /var/log is required for dpkg to write logs to
+    essential:
+      - base-files_var
     # Directories that are included in the tarball because they need to exist in /var
     contents:
       /var/lib/dpkg/alternatives/:
