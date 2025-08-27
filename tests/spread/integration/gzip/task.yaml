@@ -1,0 +1,74 @@
+summary: Integration tests for gzip
+
+execute: |
+  rootfs="$(install-slices gzip_bins gzip_scripts dash_bins)"
+
+  # Note: test for `gunzip` is skipped since it directly calls `gzip -d $@`
+
+  mkdir "${rootfs}"/dev
+  mount --rbind /dev "${rootfs}"/dev
+
+  echo "this is a test text file that we will compress using gzip" > "${rootfs}"/test.txt
+  chroot "${rootfs}" gzip -k test.txt
+
+  # Store original for comparison
+  mv "${rootfs}"/test.txt "${rootfs}"/test.original
+
+  test "$(chroot ${rootfs} zcat test.txt.gz)" = "$(cat ${rootfs}/test.original)"
+
+  # Decompress the original file
+  chroot "${rootfs}" gzip -d test.txt.gz
+
+  # Ensure that the files are identical
+  cmp "${rootfs}"/test.txt "${rootfs}"/test.original
+
+  # Test gzexe
+  cp /usr/bin/uname "${rootfs}"/uname
+  chroot "${rootfs}" gzexe uname
+  test -x "${rootfs}"/uname~
+  test -x "${rootfs}"/uname
+  rm "${rootfs}"/uname~
+  test "$(chroot "${rootfs}" ./uname -s)" = "Linux"
+
+  # Test zcat
+  chroot "${rootfs}" gzip -k test.txt
+  test "$(chroot ${rootfs} zcat test.txt.gz)" = "$(cat "${rootfs}"/test.original)"
+
+  # Test zcmp
+  chroot "${rootfs}" zcmp test.txt.gz test.txt.gz
+  chroot "${rootfs}" zcmp test.txt.gz test.original
+
+  # Test zdiff
+  chroot "${rootfs}" zdiff test.txt.gz test.txt.gz
+  chroot "${rootfs}" zdiff test.txt.gz test.original
+
+  # Test zegrep
+  chroot "${rootfs}" zegrep "test" test.txt.gz
+
+  # Test zfgrep
+  chroot "${rootfs}" zfgrep "test" test.txt.gz
+
+  # Test zforce
+  mv "${rootfs}"/test.txt.gz "${rootfs}"/test.gztxt
+  chroot "${rootfs}" zforce test.gztxt
+  test -f "${rootfs}"/test.gztxt.gz
+  mv "${rootfs}"/test.gztxt.gz "${rootfs}"/test.txt.gz
+
+  # Test zgrep
+  chroot "${rootfs}" zgrep "test" test.txt.gz
+
+  # Test zless
+  test "$(chroot ${rootfs} zless test.txt.gz)" = "$(cat "${rootfs}"/test.original)"
+
+  # Test zmore
+  test "$(chroot ${rootfs} zmore test.txt.gz)" = "$(cat "${rootfs}"/test.original)"
+
+  # Test znew
+  apt update && apt install -y ncompress
+  compress -c "${rootfs}"/test.txt > "${rootfs}"/test.txt.Z
+  rm "${rootfs}"/test.txt.gz
+  rm "${rootfs}"/test.txt
+  chroot "${rootfs}" znew test.txt.Z
+  test -f "${rootfs}"/test.txt.gz
+
+  umount "${rootfs}"/dev -l  
