@@ -1,0 +1,25 @@
+summary: Integration tests for debianutils
+
+environment:
+  SLICE/which: "which"
+  SLICE/ischroot: "ischroot"
+  SLICE/runparts: "run-parts"
+
+execute: |
+  case ${SLICE} in
+    which)
+      rootfs="$(install-slices debianutils_${SLICE})"
+      chroot "${rootfs}" which sh | grep -q "/bin/sh"
+    ;;
+    ischroot)
+      rootfs="$(install-slices debianutils_${SLICE})"
+      chroot "${rootfs}" ischroot --version | grep -q "Debian ischroot"
+    ;;
+    run-parts)
+      rootfs="$(install-slices debianutils_${SLICE} coreutils_echo dash_bins base-files_bin)"
+      mkdir -p "${rootfs}/test-run-parts"
+      echo -e '#!/bin/sh\necho "Hello from test script!"' > "${rootfs}/test-run-parts/test-script"
+      chmod +x "${rootfs}/test-run-parts/test-script"
+      chroot "${rootfs}" run-parts /test-run-parts | grep "Hello from test script!"
+    ;;
+  esac
