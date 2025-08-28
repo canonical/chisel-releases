@@ -1,8 +1,8 @@
 summary: Integration tests for sbsigntool
 
 systems:
-  - -ubuntu-24.04-ppc64le
-  - -ubuntu-24.04-s390x
+  - -ubuntu-25.04-ppc64le
+  - -ubuntu-25.04-s390x
 
 execute: |
   rootfs="$(install-slices sbsigntool_bins)"
