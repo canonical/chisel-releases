@@ -7,7 +7,6 @@ slices:
   which:
     essential:
       - base-files_bin  # The Shebang in which.debianutils references /bin/sh
-      - coreutils_printf
       - dash_bins
     contents:
       # Note: This symlink should have a prefer: gnu-which if both are present
