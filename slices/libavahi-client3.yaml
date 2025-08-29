@@ -1,0 +1,17 @@
+package: libavahi-client3
+
+essential:
+  - libavahi-client3_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libavahi-client.so.3*:
+    essential:
+      - libavahi-common3_libs
+      - libc6_libs
+      - libdbus-1-3_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libavahi-client3/copyright:
