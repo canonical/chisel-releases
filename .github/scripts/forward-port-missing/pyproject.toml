@@ -9,7 +9,7 @@ requires-python = ">=3.9"
 dependencies = []
 
 [project.urls]
-home = "https://github.com/lczyk/chisel-releases-workflow-testing"
+home = "https://github.com/canonical/chisel-releases"
 
 # spellchecker: ignore mypy
 [tool.mypy]
