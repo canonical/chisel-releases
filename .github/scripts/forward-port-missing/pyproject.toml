@@ -1,0 +1,107 @@
+[project]
+name = "forward-port-missing"
+description = "Add your description here"
+version = "0.0.12"
+# spellchecker: ignore Marcin Konowalczyk
+authors = [{ name = "Marcin Konowalczyk", email = "marcin.konowalczyk@canonical.com" }]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.urls]
+home = "https://github.com/lczyk/chisel-releases-workflow-testing"
+
+# spellchecker: ignore mypy
+[tool.mypy]
+ignore_missing_imports = true
+follow_imports = "normal"
+
+namespace_packages = true
+disallow_untyped_defs = true
+disallow_any_unimported = true
+# disallow_any_generics = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+show_error_codes = true
+warn_unused_ignores = true
+warn_unused_configs = true
+explicit_package_bases = false
+extra_checks = true
+local_partial_types = true
+
+files = [
+    "./*.py",
+    "./tests/**/*.py",
+    #
+]
+
+# spellchecker: ignore pycache venv pytest
+[tool.ruff]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    ".env",
+    ".eggs",
+    "*.egg",
+    ".tox",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".vscode",
+    "*-env",
+]
+line-length = 120
+lint.ignore = [
+    "PLC0415", # imports should be at the top-level of the file
+    "PLR2004", # magic values
+    "E402",    # module level import not at top of file
+    "PERF203", # try-except within the loop body
+    "E731",    # do not assign a lambda expression
+    "PLR0915", # too many statements
+    "PLR0912", # too many branches
+    # "SIM105",
+    # "PLR0911", # too many return statements
+    # "PLR0913", # too many arguments in function definition
+    #
+]
+# spellchecker: ignore pycodestyle pyflakes pyupgrade isort perflint FURB refurb pylint
+lint.select = [
+    "E",    # pycodestyle
+    "F",    # Pyflakes
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+    "W",    # warnings
+    "UP",   # pyupgrade
+    "I",    # isort
+    "Q",    # flake8-quotes
+    "RUF",  # ruff
+    "TID",  # flake8-tidy-imports
+    "PERF", # perflint
+    "FURB", # refurb
+    "PL",   # pylint
+    #
+]
+
+output-format = "concise"
+
+# spellchecker: ignore minversion addopts doctest
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "-s",
+    "--tb=short",
+    "--color=yes",
+    #
+]
+
+# spellchecker: ignore colorlog joblib
+[dependency-groups]
+dev = [
+    "colorlog>=6.9.0",
+    "joblib>=1.5.2",
+    "mypy>=1.15.0",
+    "packaging>=25.0",
+    "pytest>=8.3.5",
+    "ruff>=0.11.4",
+]

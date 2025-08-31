@@ -1,0 +1,21 @@
+
+# Various tool cache dirs
+__pycache__
+.mypy_cache
+.ruff_cache
+.tox
+.pytest_cache
+
+# Virtual environment
+.venv
+
+# Directory where joblib memory caches things
+.memory
+
+# all the deps are here only for development,
+# so we don't really need the lock file
+uv.lock
+
+# Its useful to pin the dev version to the oldest with
+# `uv python pin 3.9` but we don't need the resulting file
+.python-version
