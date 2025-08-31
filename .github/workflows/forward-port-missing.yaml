@@ -1,0 +1,70 @@
+name: "Forward port missing"
+
+# This workflow checks whether there exists a forward port for the slices and
+# applies the `forward port missing` label if necessary.
+
+on:
+  schedule:
+    # Run every 1/2 hour
+    # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check-forward-port:
+    name: "Check for forward port"
+    runs-on: ubuntu-latest
+    env:
+      files_main: "main-files"
+      # set the GitHub token to allow the script to add labels to the PR with
+      # the `gh` CLI
+      GH_TOKEN: ${{ github.token }} 
+    
+    # we need write permissions to be able to add labels
+    permissions:
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # We do need to fetch all history for all branches.
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: "Set reference to main branch"
+        id: set-main-ref
+        run: |
+          if [[ "${{ github.base_ref }}" == "main" ]]; then
+            # For PRs to main, use the updated files.
+            # Leaving checkout_main_ref unset will checkout the PR head_ref.
+            echo "ref_main=" >> $GITHUB_OUTPUT
+          else
+            echo "ref_main=main" >> $GITHUB_OUTPUT
+          fi
+
+      - name: "Checkout main branch"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.set-main-ref.outputs.ref_main }}
+          path: ${{ env.files_main }}
+      
+      - env:
+          GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
+          CHISEL_RELEASES_URL: http://github.com/lczyk/chisel-releases-workflow-testing
+
+        name: "Check for forward port"
+        run: |
+          ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/forward_port_missing.py" .
+          ./forward_port_missing.py --log-level=debug -j=-1 --format=json 1> results.json
+          cat results.json
+
+      - env:
+          GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
+        name: "Apply labels"
+        run: |
+          ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/apply_pr_labels.sh" .
+          cat results.json | ./apply_pr_labels.sh
