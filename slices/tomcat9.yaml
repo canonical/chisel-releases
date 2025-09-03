@@ -24,21 +24,31 @@ slices:
       /usr/share/tomcat9/logrotate.template:
       /usr/share/tomcat9-root/default_root/META-INF/context.xml:
       /usr/share/tomcat9-root/default_root/index.html:
-      /var/lib/tomcat9/conf: { symlink: /etc/tomcat9}
-      /var/lib/tomcat9/logs: { symlink: /var/log/tomcat9/}
-      /var/lib/tomcat9/work: { symlink: /var/cache/tomcat9/}
+      /var/lib/tomcat9/conf:
+        {symlink: /etc/tomcat9}
+      /var/lib/tomcat9/logs:
+        {symlink: /var/log/tomcat9/}
+      /var/lib/tomcat9/work:
+        {symlink: /var/cache/tomcat9/}
       /var/lib/tomcat9/lib/: {make: true}
       /var/lib/tomcat9/webapps/: {make: true}
       /var/cache/tomcat9/: {make: true}
       /var/log/tomcat9/: {make: true}
       /etc/tomcat9/Catalina/: {make: true}
-      /etc/tomcat9/catalina.properties: {symlink: /usr/share/tomcat9/etc/catalina.properties}
-      /etc/tomcat9/context.xml: {symlink: /usr/share/tomcat9/etc/context.xml}
-      /etc/tomcat9/jaspic-providers.xml: {symlink: /usr/share/tomcat9/etc/jaspic-providers.xml}
-      /etc/tomcat9/logging.properties: {symlink: /usr/share/tomcat9/etc/logging.properties}
-      /etc/tomcat9/server.xml: {symlink: /usr/share/tomcat9/etc/server.xml}
-      /etc/tomcat9/tomcat-users.xml: {symlink: /usr/share/tomcat9/etc/tomcat-users.xml}
-      /etc/tomcat9/web.xml: {symlink: /usr/share/tomcat9/etc/web.xml}
+      /etc/tomcat9/catalina.properties:
+        {symlink: /usr/share/tomcat9/etc/catalina.properties}
+      /etc/tomcat9/context.xml:
+        {symlink: /usr/share/tomcat9/etc/context.xml}
+      /etc/tomcat9/jaspic-providers.xml:
+        {symlink: /usr/share/tomcat9/etc/jaspic-providers.xml}
+      /etc/tomcat9/logging.properties:
+        {symlink: /usr/share/tomcat9/etc/logging.properties}
+      /etc/tomcat9/server.xml:
+        {symlink: /usr/share/tomcat9/etc/server.xml}
+      /etc/tomcat9/tomcat-users.xml:
+        {symlink: /usr/share/tomcat9/etc/tomcat-users.xml}
+      /etc/tomcat9/web.xml:
+        {symlink: /usr/share/tomcat9/etc/web.xml}
 
   copyright:
     content:
