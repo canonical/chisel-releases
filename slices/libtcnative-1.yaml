@@ -1,5 +1,8 @@
 package: libtcnative-1
 
+essential:
+  - libtcnative-1_copyright
+
 slices:
   libs:
     essential:
@@ -8,3 +11,7 @@ slices:
       - libssl3_libs
     contents:
       /usr/lib/*-linux-*/libtcnative-1.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtcnative-1/copyright
