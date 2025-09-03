@@ -69,9 +69,9 @@ slices:
       /usr/share/java/tomcat9-tribes-9.*.jar:
       /usr/share/java/tomcat9-tribes.jar:
       /usr/share/java/tomcat9-util-9.*.jar:
-      /usr/share/java/tomcat9-util.jar:
       /usr/share/java/tomcat9-util-scan-9.*.jar:
       /usr/share/java/tomcat9-util-scan.jar:
+      /usr/share/java/tomcat9-util.jar:
       /usr/share/java/tomcat9-websocket-9.*.jar:
       /usr/share/java/tomcat9-websocket-api-9.*.jar:
       /usr/share/java/tomcat9-websocket-api.jar:
