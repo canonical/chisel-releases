@@ -30,8 +30,8 @@ slices:
       /usr/share/tomcat9/bin/bootstrap.jar:
       /usr/share/tomcat9/bin/catalina-tasks.xml:
       /usr/share/tomcat9/bin/catalina.sh:
-      /usr/share/tomcat9/bin/tomcat-juli.jar:
       /usr/share/tomcat9/bin/setclasspath.sh:
+      /usr/share/tomcat9/bin/tomcat-juli.jar:
       /usr/share/tomcat9/lib/annotations-api.jar:
       /usr/share/tomcat9/lib/catalina-ant.jar:
       /usr/share/tomcat9/lib/catalina-ha.jar:
