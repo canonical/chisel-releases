@@ -91,6 +91,9 @@ slices:
       /usr/include/w*.h:
 
   audit:
+    essential:
+      - libc6_libs
+
     contents:
       /usr/lib/*-linux-*/audit/sotruss-lib.so:
 
