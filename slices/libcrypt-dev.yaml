@@ -18,12 +18,11 @@ slices:
   core-libs:
     contents:
       /usr/lib/*-linux-*/libcrypt.a:
-    
+
   symlink-libcrypt:
     # All of these are symlinks to so's in the libcrypt1 package
     contents:
       /usr/lib/*-linux-*/libcrypt.so:
-  
 
   copyright:
     contents:
