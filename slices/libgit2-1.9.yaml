@@ -7,13 +7,12 @@ slices:
 
   libs:
     essential:
+      - libc6_libs
       - libgssapi-krb5-2_libs
-      - libssl3t64_libs
       - libpcre2-8-0_libs
       - libssh2-1t64_libs
+      - libssl3t64_libs
       - zlib1g_libs
-      - libc6_libs
-      - libc6-dev_libs
 
     contents:
       /usr/lib/*-linux-*/libgit2.so.1.9*:
