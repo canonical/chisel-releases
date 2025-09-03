@@ -19,7 +19,6 @@ slices:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
       # and if we tried to glob *.o files, this slice would conflict with oh-so-many
 
-      # other slices.
       /usr/lib/*-linux-*/Mcrt1.o:
       /usr/lib/*-linux-*/Scrt1.o:
       /usr/lib/*-linux-*/crt1.o:
