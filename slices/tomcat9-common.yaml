@@ -1,5 +1,8 @@
 package: tomcat9-common
 
+essential:
+  - tomcat9-common_copyright
+
 slices:
   core:
     essential:
@@ -48,10 +51,7 @@ slices:
       /usr/share/tomcat9/lib/tomcat-util-scan.jar:
       /usr/share/tomcat9/lib/tomcat-websocket.jar:
       /usr/share/tomcat9/lib/websocket-api.jar:
-  doc :
+
+  copyright:
     contents:
-      /usr/share/doc/tomcat9-common/changelog.Debian.gz:
       /usr/share/doc/tomcat9-common/copyright:
-      /usr/share/doc/tomcat9-common/README.Debian:
-      /usr/share/doc/tomcat9-common/RELEASE-NOTES.gz:
-      /usr/share/doc/tomcat9-common/RUNNING.txt.gz:

@@ -1,6 +1,9 @@
 
 package: libtomcat9-java
 
+essential:
+  - libtomcat9-java_copyright
+
 slices:
   i18n-common:
     contents:
@@ -74,3 +77,7 @@ slices:
       /usr/share/java/tomcat9-websocket-api-9.*.jar:
       /usr/share/java/tomcat9-websocket-api.jar:
       /usr/share/java/tomcat9-websocket.jar:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtomcat9-java/copyright:
