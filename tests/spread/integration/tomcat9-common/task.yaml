@@ -10,6 +10,7 @@ execute: |
   mount --bind /tmp tmp
   mount --bind /dev dev
   for java in `find usr/lib/jvm -name java`; do
-    export JAVA_HOME=/$(dirname $(dirname ${java}))
+    export JAVA_HOME="/$(dirname $(dirname ${java}))"
+    export CATALINA_BASE="/var/lib/tomcat9"
     chroot . /usr/share/tomcat9/bin/catalina.sh version
   done
