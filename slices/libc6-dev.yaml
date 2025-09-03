@@ -44,7 +44,7 @@ slices:
       /usr/lib/*-linux-*/libresolv.a:
       /usr/lib/*-linux-*/librt.a:
       /usr/lib/*-linux-*/libutil.a:
-        arch: [ amd64, arm64, ppc64el, riscv64, s390x]
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
       /usr/lib/*-linux-*/rcrt1.o:
         arch: [ amd64, arm64, riscv64, s390x ]
 
