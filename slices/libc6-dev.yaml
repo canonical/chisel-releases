@@ -99,24 +99,14 @@ slices:
     essential:
       - libc6_libs
     contents:
-      # symlink to libBrokenLocale.so.1
       /usr/lib/*-linux-*/libBrokenLocale.so:
-      # symlink to libanl.so.1
       /usr/lib/*-linux-*/libanl.so:
-      # symlink to libc.so.6
       /usr/lib/*-linux-*/libc.so:
-      # symlink to libc_malloc_debug.so.0
       /usr/lib/*-linux-*/libc_malloc_debug.so:
-      # symlink to libm.so.6
       /usr/lib/*-linux-*/libm.so:
-      # symlink to libmvec.so.1
       /usr/lib/*-linux-*/libmvec.so:
         arch: [ amd64, arm64 ]
-      # symlink to libnss_compat.so.2
       /usr/lib/*-linux-*/libnss_compat.so:
-      # symlink to libnss_hesiod.so.2
       /usr/lib/*-linux-*/libnss_hesiod.so:
-      # symlink to libresolv.so.2
       /usr/lib/*-linux-*/libresolv.so:
-      # symlink to libthread_db.so.1
       /usr/lib/*-linux-*/libthread_db.so:
