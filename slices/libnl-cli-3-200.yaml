@@ -4,7 +4,7 @@ essential:
   - libnl-cli-3-200_copyright
 
 slices:
-  libs:
+  cls:
     essential:
       - libc6_libs
       - libnl-3-200_libs
@@ -13,6 +13,15 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnl-cli-3.so.200*:
       /usr/lib/*-linux-*/libnl/cli/cls/*.so:
+
+  qdisc:
+    essential:
+      - libc6_libs
+      - libnl-3-200_libs
+      - libnl-nf-3-200_libs
+      - libnl-route-3-200_libs
+    contents:
+      /usr/lib/*-linux-*/libnl-cli-3.so.200*:
       /usr/lib/*-linux-*/libnl/cli/qdisc/*.so*:
 
   copyright:
