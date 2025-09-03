@@ -1,0 +1,15 @@
+summary: Integration tests for tomcat9-common
+
+execute: |
+  # tomcat needs an openjdk and shell
+  rootfs="$(install-slices tomcat9-common_core coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
+  cd ${rootfs}
+  mkdir -p proc sys tmp dev
+  mount --bind /proc proc
+  mount --bind /sys sys
+  mount --bind /tmp tmp
+  mount --bind /dev dev
+  for java in `find usr/lib/jvm -name java`; do
+    export JAVA_HOME=/$(dirname $(dirname ${java}))
+    chroot . /usr/share/tomcat9/bin/catalina.sh version
+  done
