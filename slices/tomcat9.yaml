@@ -29,9 +29,6 @@ slices:
         symlink: /usr/share/tomcat9/etc/tomcat-users.xml
       /etc/tomcat9/web.xml:
         symlink: /usr/share/tomcat9/etc/web.xml
-      /usr/share/tomcat9-root/default_root/META-INF/context.xml:
-      /usr/share/tomcat9-root/default_root/index.html:
-      /usr/share/tomcat9/default.template:
       /usr/share/tomcat9/etc/catalina.properties:
       /usr/share/tomcat9/etc/context.xml:
       /usr/share/tomcat9/etc/jaspic-providers.xml:
@@ -39,7 +36,6 @@ slices:
       /usr/share/tomcat9/etc/server.xml:
       /usr/share/tomcat9/etc/tomcat-users.xml:
       /usr/share/tomcat9/etc/web.xml:
-      /usr/share/tomcat9/logrotate.template:
       /var/cache/tomcat9/:
         make: true
       /var/lib/tomcat9/conf:

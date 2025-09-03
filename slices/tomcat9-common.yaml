@@ -4,6 +4,22 @@ essential:
   - tomcat9-common_copyright
 
 slices:
+  # additional shell scripts
+  bins:
+    essential:
+      - tomcat9-common_core
+    contents:
+      /usr/libexec/tomcat9/tomcat-locate-java.sh:
+      /usr/share/tomcat9/bin/ciphers.sh:
+      /usr/share/tomcat9/bin/configtest.sh:
+      /usr/share/tomcat9/bin/daemon.sh:
+      /usr/share/tomcat9/bin/digest.sh:
+      /usr/share/tomcat9/bin/makebase.sh:
+      /usr/share/tomcat9/bin/shutdown.sh:
+      /usr/share/tomcat9/bin/startup.sh:
+      /usr/share/tomcat9/bin/tool-wrapper.sh:
+      /usr/share/tomcat9/bin/version.sh:
+
   core:
     essential:
       - libapr1_libs
@@ -11,21 +27,11 @@ slices:
       - libtomcat9-java_libs
       - openssl_bins
     contents:
-      /usr/libexec/tomcat9/tomcat-locate-java.sh:
       /usr/share/tomcat9/bin/bootstrap.jar:
       /usr/share/tomcat9/bin/catalina-tasks.xml:
       /usr/share/tomcat9/bin/catalina.sh:
-      /usr/share/tomcat9/bin/ciphers.sh:
-      /usr/share/tomcat9/bin/configtest.sh:
-      /usr/share/tomcat9/bin/daemon.sh:
-      /usr/share/tomcat9/bin/digest.sh:
-      /usr/share/tomcat9/bin/makebase.sh:
-      /usr/share/tomcat9/bin/setclasspath.sh:
-      /usr/share/tomcat9/bin/shutdown.sh:
-      /usr/share/tomcat9/bin/startup.sh:
       /usr/share/tomcat9/bin/tomcat-juli.jar:
-      /usr/share/tomcat9/bin/tool-wrapper.sh:
-      /usr/share/tomcat9/bin/version.sh:
+      /usr/share/tomcat9/bin/setclasspath.sh:
       /usr/share/tomcat9/lib/annotations-api.jar:
       /usr/share/tomcat9/lib/catalina-ant.jar:
       /usr/share/tomcat9/lib/catalina-ha.jar:
