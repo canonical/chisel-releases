@@ -97,7 +97,7 @@ slices:
   symlink-libc6-libs:
     essential:
       - libc6_libs
-    
+
     # All of these are symlinks to so's in the libc6 package
     contents:
       /usr/lib/*-linux-*/libBrokenLocale.so:
