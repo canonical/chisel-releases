@@ -1,0 +1,122 @@
+package: libc6-dev
+
+essential:
+  - libc6-dev_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libc6-dev/copyright:
+
+  libs:
+    essential:
+      - libc6-dev_core-libs
+      - libc6-dev_headers
+      - libc6-dev_symlink-libc6-libs
+
+  core-libs:
+    contents:
+      # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
+      # and if we tried to glob *.o files, this slice would conflict with oh-so-many
+
+      # other slices.
+      /usr/lib/*-linux-*/Mcrt1.o:
+      /usr/lib/*-linux-*/Scrt1.o:
+      /usr/lib/*-linux-*/crt1.o:
+      /usr/lib/*-linux-*/crti.o:
+      /usr/lib/*-linux-*/crtn.o:
+      /usr/lib/*-linux-*/gcrt1.o:
+      /usr/lib/*-linux-*/grcrt1.o:
+        arch: [ amd64, arm64, riscv64, s390x ]
+      /usr/lib/*-linux-*/libBrokenLocale.a:
+      /usr/lib/*-linux-*/libanl.a:
+      /usr/lib/*-linux-*/libc.a:
+      /usr/lib/*-linux-*/libc_nonshared.a:
+      /usr/lib/*-linux-*/libdl.a:
+      /usr/lib/*-linux-*/libg.a:
+      /usr/lib/*-linux-*/libm-2.41.a:
+        arch: [ amd64, arm64 ]
+      /usr/lib/*-linux-*/libm.a:
+      /usr/lib/*-linux-*/libmcheck.a:
+      /usr/lib/*-linux-*/libmvec.a:
+        arch: [ amd64, arm64 ]
+      /usr/lib/*-linux-*/libpthread.a:
+      /usr/lib/*-linux-*/libpthread_nonshared.a:
+      /usr/lib/*-linux-*/libresolv.a:
+      /usr/lib/*-linux-*/librt.a:
+      /usr/lib/*-linux-*/libutil.a:
+        arch: [ amd64, arm64, ppc64el, riscv64, s390x]
+      /usr/lib/*-linux-*/rcrt1.o:
+        arch: [ amd64, arm64, riscv64, s390x ]
+
+  headers:
+    essential:
+      - linux-libc-dev_linux-headers
+
+    contents:
+      /usr/include/*-linux-*/bits/**.h:
+      /usr/include/*-linux-*/fpu_control.h:
+      /usr/include/*-linux-*/gnu/**.h:
+      /usr/include/*-linux-*/ieee754.h:
+      /usr/include/*-linux-*/sys/**.h:
+      /usr/include/a*.h:
+      /usr/include/arpa/*.h:
+      /usr/include/byteswap.h:
+      /usr/include/c*.h:
+      /usr/include/d*.h:
+      /usr/include/e*.h:
+      /usr/include/f*.h:
+      /usr/include/finclude/*-linux-*/*.h:
+      /usr/include/gconv.h:
+      /usr/include/getopt.h:
+      /usr/include/glob.h:
+      /usr/include/gnu-versions.h:
+      /usr/include/grp.h:
+      /usr/include/gshadow.h:
+      /usr/include/i*.h:
+      /usr/include/l*.h:
+      /usr/include/m*.h:
+      /usr/include/n*.h:
+      /usr/include/net*/*.h:
+      /usr/include/nfs/*.h:
+      /usr/include/o*.h:
+      /usr/include/p*.h:
+      /usr/include/protocols/*.h:
+      /usr/include/r*.h:
+      /usr/include/rpc/*.h:
+      /usr/include/s*.h:
+      /usr/include/scsi/*.h:
+      /usr/include/t*.h:
+      /usr/include/u*.h:
+      /usr/include/v*.h:
+      /usr/include/w*.h:
+
+  audit:
+    contents:
+      /usr/lib/*-linux-*/audit/sotruss-lib.so:
+
+  symlink-libc6-libs:
+    essential:
+      - libc6_libs
+    contents:
+      # symlink to libBrokenLocale.so.1
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+      # symlink to libanl.so.1
+      /usr/lib/*-linux-*/libanl.so:
+      # symlink to libc.so.6
+      /usr/lib/*-linux-*/libc.so:
+      # symlink to libc_malloc_debug.so.0
+      /usr/lib/*-linux-*/libc_malloc_debug.so:
+      # symlink to libm.so.6
+      /usr/lib/*-linux-*/libm.so:
+      # symlink to libmvec.so.1
+      /usr/lib/*-linux-*/libmvec.so:
+        arch: [ amd64, arm64 ]
+      # symlink to libnss_compat.so.2
+      /usr/lib/*-linux-*/libnss_compat.so:
+      # symlink to libnss_hesiod.so.2
+      /usr/lib/*-linux-*/libnss_hesiod.so:
+      # symlink to libresolv.so.2
+      /usr/lib/*-linux-*/libresolv.so:
+      # symlink to libthread_db.so.1
+      /usr/lib/*-linux-*/libthread_db.so:
