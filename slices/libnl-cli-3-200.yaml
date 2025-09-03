@@ -8,7 +8,6 @@ slices:
     essential:
       - libc6_libs
       - libnl-3-200_libs
-      - libnl-genl-3-200_libs
       - libnl-nf-3-200_libs
       - libnl-route-3-200_libs
     contents:
