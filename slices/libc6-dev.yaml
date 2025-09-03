@@ -49,8 +49,10 @@ slices:
         arch: [ amd64, arm64, riscv64, s390x ]
 
   headers:
+    # We need `libcrypt-dev_headers` for the crypt.h header which is referenced from unistd.h
     essential:
       - linux-libc-dev_linux-headers
+      - libcrypt-dev_headers
 
     contents:
       /usr/include/*-linux-*/bits/**.h:
@@ -61,7 +63,9 @@ slices:
       /usr/include/a*.h:
       /usr/include/arpa/*.h:
       /usr/include/byteswap.h:
-      /usr/include/c*.h:
+      /usr/include/ctype.h:
+      /usr/include/complex.h:
+      /usr/include/cpio.h:
       /usr/include/d*.h:
       /usr/include/e*.h:
       /usr/include/f*.h:
