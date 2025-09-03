@@ -26,7 +26,7 @@ slices:
       /usr/lib/*-linux-*/crtn.o:
       /usr/lib/*-linux-*/gcrt1.o:
       /usr/lib/*-linux-*/grcrt1.o:
-        arch: [ amd64, arm64, riscv64, s390x ]
+        arch: [amd64, arm64, riscv64, s390x]
       /usr/lib/*-linux-*/libBrokenLocale.a:
       /usr/lib/*-linux-*/libanl.a:
       /usr/lib/*-linux-*/libc.a:
