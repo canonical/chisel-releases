@@ -22,10 +22,8 @@ slices:
 
   core:
     essential:
-      - libapr1_libs
       - libtomcat9-java_i18n-common
       - libtomcat9-java_libs
-      - openssl_bins
     contents:
       /usr/share/tomcat9/bin/bootstrap.jar:
       /usr/share/tomcat9/bin/catalina-tasks.xml:
