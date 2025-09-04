@@ -8,45 +8,64 @@ slices:
     contents:
       /usr/share/doc/libc6-dev/copyright:
 
+  core-libs:
+    essential:
+      - libc6-dev_headers
+      - libc6-dev_symlink-libc6-libs
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/Scrt1.o:
+      /usr/lib/*-linux-*/crt1.o:
+      /usr/lib/*-linux-*/crti.o:
+      /usr/lib/*-linux-*/crtn.o:
+      # Note: libc.so here is an ld script that tells the linker to look up the
+      # functions from libc_nonshared.a if they are not found in the libc.so.6
+      # from libc6.
+      /usr/lib/*-linux-*/libc.so:
+      /usr/lib/*-linux-*/libc_nonshared.a:
+      /usr/lib/*-linux-*/libpthread.a:
+
+  libm:
+    # Note: libm.so is a linker script which points to
+    # libm.so.6 in libc6 package, *as well as* libmvec.so.1.
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libm.so:
+      /usr/lib/*-linux-*/libmvec.so:
+        arch: [amd64, arm64]
+
   libs:
     essential:
       - libc6-dev_core-libs
-      - libc6-dev_headers
-      - libc6-dev_symlink-libc6-libs
+      - libc6-dev_libm
 
-  core-libs:
     contents:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
       # and if we tried to glob *.o files, this slice would conflict with oh-so-many
 
       /usr/lib/*-linux-*/Mcrt1.o:
-      /usr/lib/*-linux-*/Scrt1.o:
-      /usr/lib/*-linux-*/crt1.o:
-      /usr/lib/*-linux-*/crti.o:
-      /usr/lib/*-linux-*/crtn.o:
       /usr/lib/*-linux-*/gcrt1.o:
       /usr/lib/*-linux-*/grcrt1.o:
         arch: [amd64, arm64, riscv64, s390x]
       /usr/lib/*-linux-*/libBrokenLocale.a:
       /usr/lib/*-linux-*/libanl.a:
       /usr/lib/*-linux-*/libc.a:
-      /usr/lib/*-linux-*/libc_nonshared.a:
       /usr/lib/*-linux-*/libdl.a:
       /usr/lib/*-linux-*/libg.a:
       /usr/lib/*-linux-*/libm-2.41.a:
-        arch: [ amd64, arm64 ]
+        arch: [amd64, arm64]
       /usr/lib/*-linux-*/libm.a:
       /usr/lib/*-linux-*/libmcheck.a:
       /usr/lib/*-linux-*/libmvec.a:
-        arch: [ amd64, arm64 ]
-      /usr/lib/*-linux-*/libpthread.a:
+        arch: [amd64, arm64]
       /usr/lib/*-linux-*/libpthread_nonshared.a:
       /usr/lib/*-linux-*/libresolv.a:
       /usr/lib/*-linux-*/librt.a:
       /usr/lib/*-linux-*/libutil.a:
-        arch: [ amd64, arm64, ppc64el, riscv64, s390x ]
+        arch: [amd64, arm64, ppc64el, riscv64, s390x]
       /usr/lib/*-linux-*/rcrt1.o:
-        arch: [ amd64, arm64, riscv64, s390x ]
+        arch: [amd64, arm64, riscv64, s390x]
 
   headers:
     # We need `libcrypt-dev_headers` for the crypt.h header which is referenced from unistd.h
@@ -109,11 +128,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libBrokenLocale.so:
       /usr/lib/*-linux-*/libanl.so:
-      /usr/lib/*-linux-*/libc.so:
       /usr/lib/*-linux-*/libc_malloc_debug.so:
-      /usr/lib/*-linux-*/libm.so:
-      /usr/lib/*-linux-*/libmvec.so:
-        arch: [ amd64, arm64 ]
       /usr/lib/*-linux-*/libnss_compat.so:
       /usr/lib/*-linux-*/libnss_hesiod.so:
       /usr/lib/*-linux-*/libresolv.so:
