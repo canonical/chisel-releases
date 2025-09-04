@@ -1,0 +1,8 @@
+summary: Integration tests for cargo-1.84
+
+execute: |
+  files=$(find . -name 'test_*.sh' | sort)
+  for test_script in $files; do
+    echo "Running test script: $test_script"
+    bash "$test_script" spread
+  done
