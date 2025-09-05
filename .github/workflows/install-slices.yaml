@@ -94,13 +94,13 @@ jobs:
           ]]; then
             # This happens when a new branch/tag is created, so we'll want to
             # install all the slices for that release only
-            export RELEASES="[{\"ref\": \"${{ github.ref_name }}\", \"chisel-versions\": \"${CHISEL_VERSIONS}\"}]"
+            export RELEASES="[{\"ref\": \"${{ github.ref_name }}\", \"chisel-versions\": ${CHISEL_VERSIONS}}]"
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           else
             # Filter the releases to only the affected branch, then swap the ref
             # such that the correct branch is tested.
-            export RELEASES="[{\"ref\": \"\", \"chisel-versions\": \"${CHISEL_VERSIONS}\"}]"
+            export RELEASES="[{\"ref\": \"\", \"chisel-versions\": ${CHISEL_VERSIONS}}]"
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           fi
