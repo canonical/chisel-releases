@@ -27,6 +27,7 @@ slices:
 
   libs:
     essential:
+      - libeclipse-jdt-core-compiler-batch-java_libs
       - libeclipse-jdt-core-java_libs
     contents:
       /usr/share/java/tomcat10-annotations-api-10*.jar:
