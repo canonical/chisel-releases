@@ -6,15 +6,15 @@ essential:
 slices:
   i18n-common:
     contents:
-      /usr/share/java/tomcat10-i18n-cs-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-de-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-es-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-fr-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-ja-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-ko-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-pt-BR-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-ru-10.1.16.jar:
-      /usr/share/java/tomcat10-i18n-zh-CN-10.1.16.jar:
+      /usr/share/java/tomcat10-i18n-cs-10*.jar:
+      /usr/share/java/tomcat10-i18n-de-10*.jar:
+      /usr/share/java/tomcat10-i18n-es-10*.jar:
+      /usr/share/java/tomcat10-i18n-fr-10*.jar:
+      /usr/share/java/tomcat10-i18n-ja-10*.jar:
+      /usr/share/java/tomcat10-i18n-ko-10*.jar:
+      /usr/share/java/tomcat10-i18n-pt-BR-10*.jar:
+      /usr/share/java/tomcat10-i18n-ru-10*.jar:
+      /usr/share/java/tomcat10-i18n-zh-CN-10*.jar:
       /usr/share/java/tomcat10-i18n-cs.jar:
       /usr/share/java/tomcat10-i18n-de.jar:
       /usr/share/java/tomcat10-i18n-es.jar:
@@ -29,29 +29,29 @@ slices:
     essential:
       - libeclipse-jdt-core-java_libs
     contents:
-      /usr/share/java/tomcat10-annotations-api-10.1.16.jar:
-      /usr/share/java/tomcat10-api-10.1.16.jar:
-      /usr/share/java/tomcat10-catalina-10.1.16.jar:
-      /usr/share/java/tomcat10-catalina-ant-10.1.16.jar:
-      /usr/share/java/tomcat10-catalina-ha-10.1.16.jar:
-      /usr/share/java/tomcat10-coyote-10.1.16.jar:
-      /usr/share/java/tomcat10-dbcp-10.1.16.jar:
-      /usr/share/java/tomcat10-el-api-10.1.16.jar:
-      /usr/share/java/tomcat10-jasper-10.1.16.jar:
-      /usr/share/java/tomcat10-jasper-el-10.1.16.jar:
-      /usr/share/java/tomcat10-jaspic-api-10.1.16.jar:
-      /usr/share/java/tomcat10-jdbc-10.1.16.jar:
-      /usr/share/java/tomcat10-jni-10.1.16.jar:
-      /usr/share/java/tomcat10-jsp-api-10.1.16.jar:
-      /usr/share/java/tomcat10-juli-10.1.16.jar:
-      /usr/share/java/tomcat10-servlet-api-10.1.16.jar:
-      /usr/share/java/tomcat10-storeconfig-10.1.16.jar:
-      /usr/share/java/tomcat10-tribes-10.1.16.jar:
-      /usr/share/java/tomcat10-util-10.1.16.jar:
-      /usr/share/java/tomcat10-util-scan-10.1.16.jar:
-      /usr/share/java/tomcat10-websocket-10.1.16.jar:
-      /usr/share/java/tomcat10-websocket-api-10.1.16.jar:
-      /usr/share/java/tomcat10-websocket-client-api-10.1.16.jar:
+      /usr/share/java/tomcat10-annotations-api-10*.jar:
+      /usr/share/java/tomcat10-api-10*.jar:
+      /usr/share/java/tomcat10-catalina-10*.jar:
+      /usr/share/java/tomcat10-catalina-ant-10*.jar:
+      /usr/share/java/tomcat10-catalina-ha-10*.jar:
+      /usr/share/java/tomcat10-coyote-10*.jar:
+      /usr/share/java/tomcat10-dbcp-10*.jar:
+      /usr/share/java/tomcat10-el-api-10*.jar:
+      /usr/share/java/tomcat10-jasper-10*.jar:
+      /usr/share/java/tomcat10-jasper-el-10*.jar:
+      /usr/share/java/tomcat10-jaspic-api-10*.jar:
+      /usr/share/java/tomcat10-jdbc-10*.jar:
+      /usr/share/java/tomcat10-jni-10*.jar:
+      /usr/share/java/tomcat10-jsp-api-10*.jar:
+      /usr/share/java/tomcat10-juli-10*.jar:
+      /usr/share/java/tomcat10-servlet-api-10*.jar:
+      /usr/share/java/tomcat10-storeconfig-10*.jar:
+      /usr/share/java/tomcat10-tribes-10*.jar:
+      /usr/share/java/tomcat10-util-10*.jar:
+      /usr/share/java/tomcat10-util-scan-10*.jar:
+      /usr/share/java/tomcat10-websocket-10*.jar:
+      /usr/share/java/tomcat10-websocket-api-10*.jar:
+      /usr/share/java/tomcat10-websocket-client-api-10*.jar:
       /usr/share/java/tomcat10-annotations-api.jar:
       /usr/share/java/tomcat10-api.jar:
       /usr/share/java/tomcat10-catalina-ant.jar:
