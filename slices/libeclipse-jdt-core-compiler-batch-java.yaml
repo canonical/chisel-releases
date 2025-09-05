@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     contents:
-      /usr/share/java/eclipse-jdt-core-compiler-batch*.jar:
+      /usr/share/java/eclipse-jdt-core-compiler-batch-3.*.jar:
 
   copyright:
     contents:
