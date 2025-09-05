@@ -31,6 +31,8 @@ the moment, the officially supported Chisel releases are:
 \- Oracular (EOL)
 - [ubuntu-25.04](https://github.com/canonical/chisel-releases/tree/ubuntu-25.04)
 \- Plucky
+- [ubuntu-25.10](https://github.com/canonical/chisel-releases/tree/ubuntu-25.10)
+\- Questing
 
 In each release branch, you'll find a `chisel.yaml` file that defines the Chisel
 release, plus a `slices` folder with all the Slice Definitions Files (SDFs) for
