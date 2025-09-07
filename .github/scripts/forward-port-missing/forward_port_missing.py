@@ -177,7 +177,6 @@ def geturl(
 
     return code, res
 
-
 def handle_code(code: int, url: str) -> None:
     if code == 200:
         return
@@ -434,6 +433,7 @@ def get_slices(repo_owner: str, repo_name: str, ref: str) -> set[str]:
 
 
 def get_merge_bases_by_pr(prs: set[PR], jobs: int | None = 1) -> dict[PR, str]:
+    logging.info("Fetching merge bases for %d PRs...", len(prs))
     merge_bases_by_pr: dict[PR, str] = {}
 
     with CatchTime() as elapsed:
@@ -445,9 +445,8 @@ def get_merge_bases_by_pr(prs: set[PR], jobs: int | None = 1) -> dict[PR, str]:
 
             _prs = list(prs)  # we want list for zipping with results
             with ThreadPoolExecutor(max_workers=jobs) as executor:
-                thread_pool_size = getattr(executor, "_max_workers", -1)
+                logging.debug("Using a thread pool of size %d.", getattr(executor, "_max_workers", -1))
                 results = list(executor.map(lambda pr: get_merge_base(pr.base, pr.head), _prs))
-            logging.debug("Used a thread pool of size %d.", thread_pool_size)
             merge_bases_by_pr = {pr: mb for pr, mb in zip(_prs, results)}
 
     logging.info("Fetched merge bases for %d PRs in %.2f seconds.", len(prs), elapsed())
@@ -484,11 +483,10 @@ def get_slices_by_pr(
 
             _prs = list(prs)  # we want list for zipping with results
             with ThreadPoolExecutor(max_workers=jobs) as executor:
-                thread_pool_size = getattr(executor, "_max_workers", -1)
+                logging.debug("Using a thread pool of size %d.", getattr(executor, "_max_workers", -1))
                 results_head = list(executor.map(get_slices_head, _prs))
                 results_base = list(executor.map(get_slices_base, _prs))
 
-            logging.debug("Used a thread pool of size %d.", thread_pool_size)
             slices_in_head_by_pr = {pr: slices for pr, slices in zip(_prs, results_head)}
             slices_in_base_by_pr = {pr: slices for pr, slices in zip(_prs, results_base)}
 
@@ -675,11 +673,10 @@ def get_packages_by_release(
             from concurrent.futures import ThreadPoolExecutor
 
             with ThreadPoolExecutor(max_workers=jobs) as executor:
-                thread_pool_size = getattr(executor, "_max_workers", -1)
+                logging.debug("Using a thread pool of size %d.", getattr(executor, "_max_workers", -1))
                 results = list(
                     executor.map(lambda args: get_package_content(*args), _product)  # type: ignore
                 )
-            logging.debug("Used a thread pool of size %d.", thread_pool_size)
             package_listings = {args: pkgs for args, pkgs in zip(_product, results)}
 
     logging.info("Fetched packages for %d releases in %.2f seconds.", len(releases), elapsed())
