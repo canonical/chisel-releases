@@ -19,3 +19,9 @@ uv.lock
 # Its useful to pin the dev version to the oldest with
 # `uv python pin 3.9` but we don't need the resulting file
 .python-version
+
+
+# Data files
+*.pickle
+*.pickle.gz
+*.sqlite

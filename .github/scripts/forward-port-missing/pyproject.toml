@@ -1,12 +1,14 @@
 [project]
 name = "forward-port-missing"
 description = "Add your description here"
-version = "0.0.12"
+version = "0.1.0"
 # spellchecker: ignore Marcin Konowalczyk
 authors = [{ name = "Marcin Konowalczyk", email = "marcin.konowalczyk@canonical.com" }]
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+    "requests>=2.32.5",
+]
 
 [project.urls]
 home = "https://github.com/canonical/chisel-releases"
@@ -60,9 +62,9 @@ lint.ignore = [
     "E731",    # do not assign a lambda expression
     "PLR0915", # too many statements
     "PLR0912", # too many branches
+    "PLR0913", # too many arguments in function definition
     # "SIM105",
     # "PLR0911", # too many return statements
-    # "PLR0913", # too many arguments in function definition
     #
 ]
 # spellchecker: ignore pycodestyle pyflakes pyupgrade isort perflint FURB refurb pylint
