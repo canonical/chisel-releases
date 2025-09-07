@@ -776,31 +776,31 @@ def group_prs_by_ubuntu_release(
 
 def add_discontinued_slices(
     grouped_comparisons: Mapping[PR, Mapping[UbuntuRelease, frozenset[Comparison]]],
-    jobs: int | None = 1,
+    packages_by_release: Mapping[UbuntuRelease, set[str]],
 ) -> None:
     # if we have a bunch of PRs with missing forward-ports, they *might* be
     # missing because the package is just not in the newer release.
     # NOTE: we don't need to fetch the packages for all releases, just
     #       for the *future* releases that are missing forward-ports.
 
-    prs_with_no_forward_ports: dict[PR, list[UbuntuRelease]] = {}
-    for pr, comparisons_by_future in grouped_comparisons.items():
-        for future_release, comparisons in comparisons_by_future.items():
-            for comparison in comparisons:
-                if comparison.missing_slices():
-                    prs_with_no_forward_ports.setdefault(pr, []).append(future_release)
+    # prs_with_no_forward_ports: dict[PR, list[UbuntuRelease]] = {}
+    # for pr, comparisons_by_future in grouped_comparisons.items():
+    #     for future_release, comparisons in comparisons_by_future.items():
+    #         for comparison in comparisons:
+    #             if comparison.missing_slices():
+    #                 prs_with_no_forward_ports.setdefault(pr, []).append(future_release)
 
-    if not prs_with_no_forward_ports:
-        return
+    # if not prs_with_no_forward_ports:
+    #     return
 
-    releases_to_fetch: set[UbuntuRelease] = set()
-    for future_releases in prs_with_no_forward_ports.values():
-        for future_release in future_releases:
-            releases_to_fetch.add(future_release)
+    # releases_to_fetch: set[UbuntuRelease] = set()
+    # for future_releases in prs_with_no_forward_ports.values():
+    #     for future_release in future_releases:
+    #         releases_to_fetch.add(future_release)
 
-    # Sanity check. If we have gotten got here, we should have at least one release to fetch.
-    assert releases_to_fetch, "Expected at least one release to fetch packages for."
-    packages_by_release = get_packages_by_release(releases_to_fetch, jobs)
+    # # Sanity check. If we have gotten got here, we should have at least one release to fetch.
+    # assert releases_to_fetch, "Expected at least one release to fetch packages for."
+    # packages_by_release = get_packages_by_release(releases_to_fetch, jobs)
 
     if logging.getLogger().isEnabledFor(logging.DEBUG):
         for release, packages in packages_by_release.items():
@@ -878,6 +878,7 @@ def main(args: argparse.Namespace) -> None:
 
     merge_bases_by_pr = get_merge_bases_by_pr(prs, args.jobs)
     slices_in_head_by_pr, slices_in_base_by_pr = get_slices_by_pr(prs, merge_bases_by_pr, args.jobs)
+    packages_by_release = get_packages_by_release(set(prs_by_ubuntu_release.keys()), args.jobs)
 
     del prs, merge_bases_by_pr
 
@@ -899,7 +900,7 @@ def main(args: argparse.Namespace) -> None:
 
     grouped_comparisons = get_grouped_comparisons(prs_by_ubuntu_release, new_slices_by_pr)
 
-    add_discontinued_slices(grouped_comparisons, args.jobs)
+    add_discontinued_slices(grouped_comparisons, packages_by_release)
 
     # Output
     formatter: JSONOutputFormatter | TextOutputFormatter
