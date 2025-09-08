@@ -19,6 +19,7 @@ jobs:
       # set the GitHub token to allow the script to add labels to the PR with
       # the `gh` CLI
       GH_TOKEN: ${{ github.token }} 
+      DATA_FILE: data.pickle.gz
     
     # we need write permissions to be able to add labels
     permissions:
@@ -51,15 +52,20 @@ jobs:
         with:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
-      
+
       - env:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
           CHISEL_RELEASES_URL: http://github.com/lczyk/chisel-releases-workflow-testing
+          
+        name: "Gather data"
+        run: |
+          ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/chisel_releases_data.py" .
+          ./chisel_releases_data.py --log-level=debug -j=-1 "${{ env.DATA_FILE }}"
 
-        name: "Check for forward port"
+      - name: "Check for forward port"
         run: |
           ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/forward_port_missing.py" .
-          ./forward_port_missing.py --log-level=debug -j=-1 --format=json 1> results.json
+          ./forward_port_missing.py "${{ env.DATA_FILE }}" --log-level=debug --format=json 1> results.json
           cat results.json
 
       - env:
