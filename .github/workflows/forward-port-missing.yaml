@@ -87,7 +87,7 @@ jobs:
       - name: "Gather data"
         env:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
-          CHISEL_RELEASES_URL: http://github.com/lczyk/chisel-releases-workflow-testing
+          CHISEL_RELEASES_URL: http://github.com/canonical/chisel-releases
         run: |
           ln -s "${{ env.files_main }}/${{ env.src_dir }}/chisel_releases_data.py" .
           ./chisel_releases_data.py --log-level=debug -j=-1 "${{ env.DATA_FILE }}"
