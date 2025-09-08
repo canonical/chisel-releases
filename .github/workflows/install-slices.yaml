@@ -22,13 +22,9 @@ on:
 env:
   # Package architectures and chisel-releases branches to test on.
   ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
-  RELEASES: |
-    [
-      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-25.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]}
-    ]
+  # This env should be dynamic once the `maintenance` field is added to chisel.yaml
+  UNMAINTAINED_RELEASES: 'ubuntu-22.10 ubuntu-23.04 ubuntu-23.10 ubuntu-24.10'
+  CHISEL_VERSIONS: '["v1.1.0","v1.2.0","main"]'
 
 jobs:
   prepare-install:
@@ -59,6 +55,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.set-main-ref.outputs.checkout_main_ref }}
+          fetch-depth: 0
 
       - name: Set output
         id: set-output
@@ -75,7 +72,18 @@ jobs:
             # chisel to avoid expensive CI jobs. We are testing that slices can
             # be installed together so using a single version of chisel is
             # enough.
-            export RELEASES=$(echo "$RELEASES" | jq 'map(.["chisel-versions"] |= ["main"])')
+            all_branches="$(git branch --all | grep -E "remotes.*ubuntu-[0-9]{2}\.[0-9]{2}$" | cut -d '/' -f 3)"
+            for unmaintained in $UNMAINTAINED_RELEASES; do
+              all_branches="$(echo "${all_branches//$unmaintained}")"
+            done
+
+            RELEASES="[]"
+            for branch in $all_branches; do
+              RELEASES="$(echo "$RELEASES" | jq --arg ref "$branch" '. += [{"ref": $ref, "chisel-versions": ["main"]}]')"
+            done
+
+            export RELEASES
+            
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
 
@@ -86,13 +94,13 @@ jobs:
           ]]; then
             # This happens when a new branch/tag is created, so we'll want to
             # install all the slices for that release only
-            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.ref_name }}")]')
+            export RELEASES="[{\"ref\": \"${{ github.ref_name }}\", \"chisel-versions\": ${CHISEL_VERSIONS}}]"
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           else
             # Filter the releases to only the affected branch, then swap the ref
             # such that the correct branch is tested.
-            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.base_ref }}") | .ref = ""]')
+            export RELEASES="[{\"ref\": \"\", \"chisel-versions\": ${CHISEL_VERSIONS}}]"
             MATRIX=$(./version-matrix)
             echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
           fi
