@@ -25,7 +25,13 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from functools import total_ordering
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Protocol, TypeAlias
+from typing import TYPE_CHECKING, Any, Protocol
+
+if TYPE_CHECKING:
+    # python 3.9 compatibility
+    from typing_extensions import TypeAlias
+else:
+    TypeAlias = object
 
 __version__ = "0.1.0"
 __author__ = "Marcin Konowalczyk"
@@ -93,7 +99,7 @@ class UbuntuRelease:
 
     # sabotage pickling
     def __reduce__(self) -> str | tuple[object, ...]:
-        raise ValueError(f"{self.__class__.__name__} instances cannot be pickled.")
+        raise pickle.PicklingError(f"{self.__class__.__name__} instances cannot be pickled.")
 
 
 ## IMPL ########################################################################
@@ -118,9 +124,15 @@ class Commit:
         for i, field_name in enumerate(self.__dataclass_fields__):
             object.__setattr__(self, field_name, state[i])
 
+    @classmethod
+    def from_state(cls, state: _CommitState) -> Commit:
+        obj = cls.__new__(cls)
+        obj.__setstate__(state)
+        return obj
+
     # sabotage pickling
     def __reduce__(self) -> str | tuple[object, ...]:
-        raise ValueError(f"{self.__class__.__name__} instances cannot be pickled.")
+        raise pickle.PicklingError(f"{self.__class__.__name__} instances cannot be pickled.")
 
 
 _PRState: TypeAlias = tuple[int, str, str, _CommitState, _CommitState, bool, str, _UbuntuReleaseState]
@@ -178,7 +190,7 @@ class PR:
 
     # sabotage pickling
     def __reduce__(self) -> str | tuple[object, ...]:
-        raise ValueError(f"{self.__class__.__name__} instances cannot be pickled.")
+        raise pickle.PicklingError(f"{self.__class__.__name__} instances cannot be pickled.")
 
 
 def _group_new_slices_by_pr(
@@ -259,7 +271,7 @@ class Comparison:
 
     # sabotage pickling
     def __reduce__(self) -> str | tuple[object, ...]:
-        raise ValueError(f"{self.__class__.__name__} instances cannot be pickled.")
+        raise pickle.PicklingError(f"{self.__class__.__name__} instances cannot be pickled.")
 
 
 def _get_comparisons(

@@ -3,12 +3,22 @@ name: "Forward port missing"
 # This workflow checks whether there exists a forward port for the slices and
 # applies the `forward port missing` label if necessary.
 
+# It can also be called manually or from other workflows to just create
+# the data file with the PR information.
+
 on:
   schedule:
     # Run every 1/2 hour
     # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
     - cron: "*/30 * * * *"
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      data_file:
+        description: "Path to the data file to use"
+        required: false
+        type: string
+        default: "data.pickle.gz"
 
 jobs:
   check-forward-port:
@@ -16,25 +26,43 @@ jobs:
     runs-on: ubuntu-latest
     env:
       files_main: "main-files"
+      src_dir: ".github/scripts/forward-port-missing/src"
       # set the GitHub token to allow the script to add labels to the PR with
       # the `gh` CLI
       GH_TOKEN: ${{ github.token }} 
-      DATA_FILE: data.pickle.gz
-    
+  
     # we need write permissions to be able to add labels
     permissions:
       pull-requests: write
 
     steps:
+
+      #== ENV ==================================================================
+
+      # If we're running on a schedule or via workflow_dispatch, we want to set the RUN_FORWARD_PORT_MISSING
+      # and RUN_APPLY_LABELS env vars to true. If not, set them to false.
+      - name: "Set env variables (schedule or workflow_dispatch)"
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo "DATA_FILE=${{ inputs.data_file }}" >> $GITHUB_ENV
+          echo "RUN_FORWARD_PORT_MISSING=true" >> $GITHUB_ENV
+          echo "RUN_APPLY_LABELS=true" >> $GITHUB_ENV
+      
+      - name: "Set env variables (called from another workflow)"
+        if: ${{ github.event_name == 'workflow_call' && (inputs.data_file != '' || inputs.data_file != null) }}
+        run: |
+          echo "DATA_FILE=${{ inputs.data_file }}" >> $GITHUB_ENV
+          echo "RUN_FORWARD_PORT_MISSING=false" >> $GITHUB_ENV
+          echo "RUN_APPLY_LABELS=false" >> $GITHUB_ENV
+      
+      #== SETUP ================================================================
+
       - uses: actions/checkout@v4
-        with:
-          # We do need to fetch all history for all branches.
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
       
       - name: Setup Python
         uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+        with: { python-version: '3.10' }
 
       - name: "Set reference to main branch"
         id: set-main-ref
@@ -52,25 +80,28 @@ jobs:
         with:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
+      
+      #== MAIN =================================================================
 
-      - env:
+      - name: "Gather data"
+        env:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
           CHISEL_RELEASES_URL: http://github.com/lczyk/chisel-releases-workflow-testing
-          
-        name: "Gather data"
         run: |
-          ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/chisel_releases_data.py" .
+          ln -s "${{ env.files_main }}/${{ env.src_dir }}/chisel_releases_data.py" .
           ./chisel_releases_data.py --log-level=debug -j=-1 "${{ env.DATA_FILE }}"
 
       - name: "Check for forward port"
+        if: env.RUN_FORWARD_PORT_MISSING == 'true'
         run: |
-          ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/forward_port_missing.py" .
+          ln -s "${{ env.files_main }}/${{ env.src_dir }}/forward_port_missing.py" .
           ./forward_port_missing.py "${{ env.DATA_FILE }}" --log-level=debug --format=json 1> results.json
           cat results.json
 
-      - env:
+      - name: "Apply labels"
+        if: env.RUN_APPLY_LABELS == 'true'
+        env:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
-        name: "Apply labels"
         run: |
-          ln -s "${{ env.files_main }}/.github/scripts/forward-port-missing/apply_pr_labels.sh" .
+          ln -s "${{ env.files_main }}/${{ env.src_dir }}/apply_pr_labels.sh" .
           cat results.json | ./apply_pr_labels.sh

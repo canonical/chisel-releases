@@ -33,7 +33,7 @@ extra_checks = true
 local_partial_types = true
 
 files = [
-    "./*.py",
+    "./src/*.py",
     "./tests/**/*.py",
     #
 ]

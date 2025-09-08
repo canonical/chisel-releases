@@ -9,7 +9,7 @@ from conftest import __project_root__
 
 def call(*args: str) -> tuple[str, int]:
     PYTHON = sys.executable
-    cmd: list[str] = [PYTHON, str(__project_root__ / "chisel_releases_data.py"), *args]
+    cmd: list[str] = [PYTHON, str(__project_root__ / "src" / "chisel_releases_data.py"), *args]
     output = sub.run(cmd, check=False, capture_output=True, text=True)
     res = output.stdout.strip()
     code = output.returncode

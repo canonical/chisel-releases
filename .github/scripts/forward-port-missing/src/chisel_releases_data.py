@@ -25,7 +25,14 @@ from functools import total_ordering
 from html.parser import HTMLParser
 from itertools import product
 from pathlib import Path
-from typing import TYPE_CHECKING, Callable, Protocol, TypeAlias, TypeVar
+from typing import TYPE_CHECKING, Callable, Protocol, TypeVar
+
+if TYPE_CHECKING:
+    # python 3.9 compatibility
+    from typing_extensions import TypeAlias
+else:
+    TypeAlias = object
+
 
 __version__ = "0.1.0"
 __author__ = "Marcin Konowalczyk"
