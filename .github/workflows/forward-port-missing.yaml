@@ -27,6 +27,7 @@ jobs:
     env:
       files_main: "main-files"
       src_dir: ".github/scripts/forward-port-missing/src"
+      default_data_file: "data.pickle.gz"
       # set the GitHub token to allow the script to add labels to the PR with
       # the `gh` CLI
       GH_TOKEN: ${{ github.token }} 
@@ -44,7 +45,7 @@ jobs:
       - name: "Set env variables (schedule or workflow_dispatch)"
         if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         run: |
-          echo "DATA_FILE=${{ inputs.data_file }}" >> $GITHUB_ENV
+          echo "DATA_FILE=${{ env.default_data_file }}" >> $GITHUB_ENV
           echo "RUN_FORWARD_PORT_MISSING=true" >> $GITHUB_ENV
           echo "RUN_APPLY_LABELS=true" >> $GITHUB_ENV
       
