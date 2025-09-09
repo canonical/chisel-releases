@@ -63,7 +63,6 @@ slices:
       /usr/lib/*-linux-*/rcrt1.o:
         arch: [amd64, arm64, riscv64, s390x]
 
-
   # only needed if linking with -lpthread or the -pthread flag in gcc
   libpthread:
     contents:
