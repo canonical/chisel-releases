@@ -34,13 +34,16 @@ slices:
   # All the static libraries and startup files
   libs:
     essential:
-      - libc6-dev_core-libs
+      - libc6-dev_libdl
       - libc6-dev_libm
+      - libc6-dev_libpthread
+      - libc6-dev_librt
+      - libc6-dev_libutil
+      - libc6-dev_posix-libs
 
     contents:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
       # and if we tried to glob *.o files, this slice would conflict with oh-so-many
-
       /usr/lib/*-linux-*/Mcrt1.o:
       /usr/lib/*-linux-*/gcrt1.o:
       /usr/lib/*-linux-*/grcrt1.o:
@@ -48,7 +51,6 @@ slices:
       /usr/lib/*-linux-*/libBrokenLocale.a:
       /usr/lib/*-linux-*/libanl.a:
       /usr/lib/*-linux-*/libc.a:
-      /usr/lib/*-linux-*/libdl.a:
       /usr/lib/*-linux-*/libg.a:
       /usr/lib/*-linux-*/libm-2.41.a:
         arch: [amd64, arm64]
@@ -58,11 +60,30 @@ slices:
         arch: [amd64, arm64]
       /usr/lib/*-linux-*/libpthread_nonshared.a:
       /usr/lib/*-linux-*/libresolv.a:
-      /usr/lib/*-linux-*/librt.a:
-      /usr/lib/*-linux-*/libutil.a:
-        arch: [amd64, arm64, ppc64el, riscv64, s390x]
       /usr/lib/*-linux-*/rcrt1.o:
         arch: [amd64, arm64, riscv64, s390x]
+
+
+  # only needed if linking with -lpthread or the -pthread flag in gcc
+  libpthread:
+    contents:
+      /usr/lib/*-linux-*/libpthread.a:
+
+  # only needed if linking with -ldl
+  libdl:
+    contents:
+      /usr/lib/*-linux-*/libdl.a:
+
+  # only needed if linking with -lrt
+  librt:
+    contents:
+      /usr/lib/*-linux-*/librt.a:
+
+  # only needed if linking with -lutil
+  libutil:
+    contents:
+      /usr/lib/*-linux-*/libutil.a:
+        arch: [amd64, arm64, ppc64el, riscv64, s390x]
 
   # All the standard C library headers
   headers:
