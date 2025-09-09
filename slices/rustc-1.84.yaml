@@ -25,8 +25,10 @@ slices:
     # the headers
 
     essential:
-      - libc6-dev_core-libs
-      - libc6-dev_symlink-libc6-libs
+      - base-files_tmp
+      # - libc6-dev_core-libs
+      - libc6-dev_libm
+      - libc6-dev_libs
       - libc6_libs
       - libgcc-s1_libs
       - libllvm19_libs
