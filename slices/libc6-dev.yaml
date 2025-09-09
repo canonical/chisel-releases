@@ -4,10 +4,6 @@ essential:
   - libc6-dev_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libc6-dev/copyright:
-
   core-libs:
     essential:
       - libc6-dev_headers
@@ -133,3 +129,7 @@ slices:
       /usr/lib/*-linux-*/libnss_hesiod.so:
       /usr/lib/*-linux-*/libresolv.so:
       /usr/lib/*-linux-*/libthread_db.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libc6-dev/copyright:
