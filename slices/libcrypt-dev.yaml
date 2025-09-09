@@ -17,6 +17,10 @@ slices:
     contents:
       /usr/include/crypt.h:
 
+  pkgconfig:
+    contents:
+      /usr/lib/*-linux-*/pkgconfig/*:
+
   copyright:
     contents:
       /usr/share/doc/libcrypt-dev/copyright:
