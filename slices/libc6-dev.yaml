@@ -4,7 +4,8 @@ essential:
   - libc6-dev_copyright
 
 slices:
-  core-libs:
+  # Standard POSIX libraries and startup files
+  posix-libs:
     essential:
       - libc6-dev_symlink-libc6-libs
       - libc6_libs
@@ -13,15 +14,15 @@ slices:
       /usr/lib/*-linux-*/crt1.o:
       /usr/lib/*-linux-*/crti.o:
       /usr/lib/*-linux-*/crtn.o:
-      # Note: libc.so here is an ld script that tells the linker to look up the
-      # functions from libc_nonshared.a if they are not found in the libc.so.6
-      # from libc6.
+      # NOTE: libc.so here is an ld script that tells the linker to look up the
+      #       functions from libc_nonshared.a if they are not found in the
+      #       libc.so.6 from libc6.
       /usr/lib/*-linux-*/libc.so:
       /usr/lib/*-linux-*/libc_nonshared.a:
-      /usr/lib/*-linux-*/libpthread.a:
 
+  # only needed if linking with -lm
   libm:
-    # Note: libm.so is a linker script which points to
+    # NOTE: libm.so is a linker script which points to
     # libm.so.6 in libc6 package, *as well as* libmvec.so.1.
     essential:
       - libc6_libs
@@ -30,6 +31,7 @@ slices:
       /usr/lib/*-linux-*/libmvec.so:
         arch: [amd64, arm64]
 
+  # All the static libraries and startup files
   libs:
     essential:
       - libc6-dev_core-libs
@@ -62,6 +64,7 @@ slices:
       /usr/lib/*-linux-*/rcrt1.o:
         arch: [amd64, arm64, riscv64, s390x]
 
+  # All the standard C library headers
   headers:
     # We need `libcrypt-dev_headers` for the crypt.h header which is referenced from unistd.h
     essential:
