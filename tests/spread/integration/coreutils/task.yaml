@@ -82,8 +82,9 @@ execute: |
   rootfs_chown="$(install-slices base-passwd_data coreutils_chown)"
   chroot "$rootfs_chown" chown --version
   touch "$rootfs_chown/test_file"
-  chroot "$rootfs_chown" chown root:root test_file
   test "$(stat -c '%U:%G' "$rootfs_chown/test_file")" = "root:root"
+  chroot "$rootfs_chown" chown nobody:nogroup test_file
+  test "$(stat -c '%U:%G' "$rootfs_chown/test_file")" = "nobody:nogroup"
 
   # test cut binary
   rootfs_cut="$(install-slices coreutils_cut)"
