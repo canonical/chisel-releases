@@ -26,13 +26,16 @@ slices:
 
     essential:
       - base-files_tmp
-      # - libc6-dev_core-libs
+      - libc6-dev_libdl
       - libc6-dev_libm
-      - libc6-dev_libs
+      - libc6-dev_libpthread
+      - libc6-dev_librt
+      - libc6-dev_libutil
+      - libc6-dev_posix-libs
       - libc6_libs
       - libgcc-s1_libs
       - libllvm19_libs
-      - libstd-rust-1.84-dev_libs  # librustc_driver-746619a459686088.so
+      - libstd-rust-1.84-dev_libs
       - libstdc++6_libs
 
     contents:
