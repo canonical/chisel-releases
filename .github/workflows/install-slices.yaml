@@ -22,7 +22,6 @@ on:
 env:
   # Package architectures and chisel-releases branches to test on.
   ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
-  DEFAULT_CHISEL_VERSION: "main"
   RELEASES_COMPATIBILITY: |
     [
       {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
@@ -83,7 +82,7 @@ jobs:
             RELEASES="[]"
             for branch in $all_branches; do
               # Only add to RELEASES when ref is equal to $branch from RELEASES_COMPATIBILITY
-              ref="$(echo "$RELEASES_COMPATIBILITY" | jq --arg ref "$branch" '[.[] | select(.ref == $ref)]')"
+              ref="$(echo "$RELEASES_COMPATIBILITY" | jq --arg ref "$branch" '[.[] | select(.ref == $ref) | .chisel-versions = ["main"]]')"
               RELEASES="$(echo "$RELEASES" | jq --argjson ref "$ref" '. + $ref')"
             done
 
