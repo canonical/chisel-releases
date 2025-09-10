@@ -8,10 +8,14 @@ slices:
     essential:
       - aspnetcore-runtime-8.0_libs
       - aspnetcore-targeting-pack-8.0_libs
+      - ca-certificates_data
       - dotnet-apphost-pack-8.0_libs
       - dotnet-runtime-8.0_libs
       - dotnet-targeting-pack-8.0_libs
       - dotnet-templates-8.0_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
       - netstandard-targeting-pack-2.1-8.0_libs
     contents:
       /usr/lib/dotnet/metadata/workloads/8.0.100/userlocal:

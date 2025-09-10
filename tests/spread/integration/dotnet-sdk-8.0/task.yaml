@@ -18,7 +18,7 @@ execute: |
 
   # smoke test the F# interpreter:
   cp helloworld.fsx "${rootfs}"/helloworld.fsx
-  chroot "${rootfs}" /usr/bin/dotnet fsi /helloworld.fsx
+  chroot "${rootfs}" /usr/bin/dotnet fsi /helloworld.fsx | grep -q "Hello from F#"
 
   # When building a .NET application MSBuild is used.
   # MSBuild tries to read the username (see: https://github.com/dotnet/dotnet/blob/85778473549347b3e4bad3ea009e9438df7b11bb/src/msbuild/src/Shared/TempFileUtilities.cs#L44).
@@ -48,4 +48,4 @@ execute: |
   chroot "${rootfs}" /usr/bin/dotnet publish /app_helloworld/app_helloworld.csproj --no-restore --no-build
   
   # Run the C# Hello World .NET app
-  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net8.0/publish/app_helloworld.dll
+  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net8.0/publish/app_helloworld.dll | grep -q "Hello, World!"

@@ -5,6 +5,8 @@ essential:
 
 slices:
   libs:
+    essential:
+      - dotnet-host-8.0_bins
     contents:
       /usr/lib/dotnet/templates/8.0*/**:
 

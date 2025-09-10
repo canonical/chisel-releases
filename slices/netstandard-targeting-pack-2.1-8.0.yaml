@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     contents:
-      /usr/lib/dotnet/packs/NETStandard.Library.Ref/2.1.0/**:
+      /usr/lib/dotnet/packs/NETStandard.Library.Ref/2.1.*/**:
 
   copyright:
     contents:
