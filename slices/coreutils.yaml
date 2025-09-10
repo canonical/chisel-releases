@@ -112,7 +112,7 @@ slices:
   env:
     essential:
       - coreutils-from-gnu_env
-  
+
   expr:
     essential:
       - coreutils-from-gnu_expr
