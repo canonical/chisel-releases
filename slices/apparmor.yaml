@@ -294,7 +294,6 @@ slices:
       /etc/apparmor.d/thunderbird:
       /etc/apparmor.d/tinyproxy:
       /etc/apparmor.d/tnftp:
-      /etc/apparmor.d/toybox:
       /etc/apparmor.d/transmission:
       /etc/apparmor.d/trinity:
       /etc/apparmor.d/tshark:
