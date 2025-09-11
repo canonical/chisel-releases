@@ -5,7 +5,7 @@ execute: |
   rootfs="$(install-slices aspnetcore-runtime-8.0_libs base-files_base)"
 
   # preparing the test data
-  apt update && apt install -y dotnet-sdk-8.0
+  apt-get update && apt-get install -y dotnet-sdk-8.0
   cp -r web_helloworld "${rootfs}"/web_helloworld
   dotnet publish "${rootfs}"/web_helloworld/Hello.csproj --no-self-contained
 
