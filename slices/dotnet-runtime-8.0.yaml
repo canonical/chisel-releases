@@ -9,9 +9,12 @@ slices:
       - dotnet-hostfxr-8.0_libs
       - libc6_libs
       - libgcc-s1_libs
-      # The .NET runtime does not strictly need libicu. If the environment
-      # variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT is set the runtime
-      # will run in invariant mode which comes with restricted functionality.
+      # libicu is not needed if the environment is set to invariant by using
+      # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+      # If globalization is needed, libicu must be included as well.
+      # For more information, see:
+      # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+      # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
       # - libicu74_libs
       - liblttng-ust1t64_libs
       - libssl3t64_libs
