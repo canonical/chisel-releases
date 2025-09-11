@@ -18,10 +18,10 @@ run_command() {
     local cmd="$1"
     echo -e "\tChecking $cmd ..."
     case "$cmd" in
-        "false" )   ! chroot "${ROOTFS}" $cmd                  ;;
-        "printf")   chroot "${ROOTFS}" $cmd foo > /dev/null    ;;
-        "pwd"   )   chroot "${ROOTFS}" $cmd > /dev/null        ;;
-        "["     )                                              ;;
+        "gnufalse" )   ! chroot "${ROOTFS}" $cmd                  ;;
+        "gnuprintf")   chroot "${ROOTFS}" $cmd foo > /dev/null    ;;
+        "gnupwd"   )   chroot "${ROOTFS}" $cmd > /dev/null        ;;
+        "gnu["     )                                              ;;
         *       )   chroot "${ROOTFS}" $cmd --help > /dev/null ;;
     esac
 }
