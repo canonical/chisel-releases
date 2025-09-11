@@ -3,6 +3,7 @@ summary: Integration tests for .NET 8 SDK
 execute: |
   # install slices
   rootfs="$(install-slices dotnet-sdk-8.0_libs base-files_base)"
+  export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
   
   # needed by the SDK to determine system information
   mkdir -p "${rootfs}"/proc

@@ -3,6 +3,7 @@ summary: Integration tests for ASP.NET 8 Runtime
 execute: |
   # install slices
   rootfs="$(install-slices aspnetcore-runtime-8.0_libs base-files_base)"
+  export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
 
   # preparing the test data
   apt-get update && apt-get install -y dotnet-sdk-8.0
