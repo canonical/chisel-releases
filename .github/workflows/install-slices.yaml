@@ -101,7 +101,7 @@ jobs:
               # such that the correct branch is tested.
               targetref=""
               RELEASES="$(echo $RELEASES_COMPATIBILITY | jq --arg ref "${{ github.base_ref }}" \
-                --arg targetref "$targetref" '[.[] | select(.ref == $ref) | .ref = "$targetref"]')"
+                --arg targetref "$targetref" '[.[] | select(.ref == $ref) | .ref = $targetref]')"
             fi
 
             # If the {{ github.ref_name }} is not in RELEASES_COMPATIBILITY,
