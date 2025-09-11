@@ -1,16 +1,25 @@
 summary: Integration tests for .NET 8 SDK 
 
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+
 environment:
   # needed, because libicu is not installed
-  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
   # disable noisy help text for users who run .NET for the first time
   DOTNET_NOLOGO: "true"
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
   HOME: /root
 
 prepare: |
+  required_slices=(dotnet-sdk-8.0_libs base-passwd_data)
+  if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(libicu74_libs)
+  fi
+  
   # install slices
-  rootfs="$(install-slices dotnet-sdk-8.0_libs base-passwd_data)"
+  rootfs="$(install-slices ${required_slices[@]})"
   echo "$rootfs" > ROOTFS
   
   # needed by the SDK to determine system information

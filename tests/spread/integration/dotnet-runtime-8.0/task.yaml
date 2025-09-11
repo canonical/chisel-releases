@@ -1,15 +1,24 @@
 summary: Integration tests for .NET 8 Runtime 
 
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+
 environment:
   # needed, because libicu is not installed
-  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
   # disable noisy help text for users who run .NET for the first time
   DOTNET_NOLOGO: "true"
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
 
 prepare: |
+  required_slices=(dotnet-runtime-8.0_libs)
+  if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(libicu74_libs)
+  fi
+  
   # install slices
-  rootfs="$(install-slices dotnet-runtime-8.0_libs)"
+  rootfs="$(install-slices ${required_slices[@]})"
   echo "$rootfs" > ROOTFS
 
   # preparing the test data
@@ -24,4 +33,4 @@ execute: |
   rootfs="$(cat ROOTFS)"
 
   # test the helloworld app
-  chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net8.0/Hello.dll | grep -q "Hello, World!"
+  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net8.0/Hello.dll | grep -q "Hello, World!"
