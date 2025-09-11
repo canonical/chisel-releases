@@ -7,16 +7,11 @@ slices:
 
   # NOTE: You might want to create a symlink from /usr/bin/as to
   #       /usr/bin/aarch64-linux-gnu-as in your rootfs to use these slices.
-  #
-  #          rootfs="/path/to/your/rootfs"
-  #          arch="aarch64-linux-gnu"
-  #          ln -s "/usr/bin/${arch}-as" "${rootfs}/usr/bin/as"
-  #
+  #       ln -s "/usr/bin/${arch}-as" "${rootfs}/usr/bin/as"
   assembler:
     essential:
       - libbinutils_libs
       - libc6_libs
-      - libsframe1_libs
       - libzstd1_libs
       - zlib1g_libs
     contents:
@@ -28,12 +23,77 @@ slices:
       - libc6_libs
       - libctf0_libs
       - libjansson4_libs
+    contents:
+      /usr/bin/aarch64-linux-gnu-ld:
+      /usr/bin/aarch64-linux-gnu-ld.bfd:
+
+  # All the libraries for cross compiling to aarch64-linux-gnu
+  # There is no `binutils-aarch64-linux-gnu` deb for riscv64 and armhf
+  cross-libs:
+    essential:
+      - binutils-aarch64-linux-gnu_cross-libbfd
+      - binutils-aarch64-linux-gnu_cross-libctf
+      - binutils-aarch64-linux-gnu_cross-libctf-nobfd
+      - binutils-aarch64-linux-gnu_cross-libopcodes
+
+  cross-libbfd:
+    essential:
+      - libc6_libs
       - libsframe1_libs
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/bin/aarch64-linux-gnu-ld:
-      /usr/bin/aarch64-linux-gnu-ld.bfd:
+      /usr/lib/powerpc64le-linux-gnu/libbfd-*-arm64.so:
+        arch: [ppc64el]
+      /usr/lib/i386-linux-gnu/libbfd-*-arm64.so:
+        arch: [i386]
+      /usr/lib/s390x-linux-gnu/libbfd-*-arm64.so:
+        arch: [s390x]
+      /usr/lib/x86_64-linux-gnu/libbfd-*-arm64.so:
+        arch: [amd64]
+  
+  cross-libctf:
+    essential:
+      - binutils-aarch64-linux-gnu_cross-libbfd
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/powerpc64le-linux-gnu/libctf-arm64.so*:
+        arch: [ppc64el]
+      /usr/lib/i386-linux-gnu/libctf-arm64.so*:
+        arch: [i386]
+      /usr/lib/s390x-linux-gnu/libctf-arm64.so*:
+        arch: [s390x]
+      /usr/lib/x86_64-linux-gnu/libctf-arm64.so*:
+        arch: [amd64]
+  
+  cross-libctf-nobfd:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/powerpc64le-linux-gnu/libctf-nobfd-arm64.so*:
+        arch: [ppc64el]
+      /usr/lib/i386-linux-gnu/libctf-nobfd-arm64.so*:
+        arch: [i386]
+      /usr/lib/s390x-linux-gnu/libctf-nobfd-arm64.so*:
+        arch: [s390x]
+      /usr/lib/x86_64-linux-gnu/libctf-nobfd-arm64.so*:
+        arch: [amd64]
+  
+  cross-libopcodes:
+    essential:
+      - binutils-aarch64-linux-gnu_cross-libbfd
+      - libc6_libs
+    contents:
+      /usr/lib/powerpc64le-linux-gnu/libopcodes-*-arm64.so:
+        arch: [ppc64el]
+      /usr/lib/i386-linux-gnu/libopcodes-*-arm64.so:
+        arch: [i386]
+      /usr/lib/s390x-linux-gnu/libopcodes-*-arm64.so:
+        arch: [s390x]
+      /usr/lib/x86_64-linux-gnu/libopcodes-*-arm64.so:
+        arch: [amd64]
 
   copyright:
     essential:
