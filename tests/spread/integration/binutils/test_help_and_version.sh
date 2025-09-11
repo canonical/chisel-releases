@@ -12,11 +12,11 @@ arch=$(uname -m)-linux-gnu
 arch="${arch//_/-}"
 
 rootfs="$(install-slices \
-    binutils_assembler \
     binutils-"${arch}"_assembler \
-    binutils_linker \
     binutils-"${arch}"_linker \
 )"
+ln -s "${arch}-as" "${rootfs}/usr/bin/as"
+ln -s "${arch}-ld" "${rootfs}/usr/bin/ld"
 
 chroot "${rootfs}" as --help | grep -q "Usage: as"
 # NOTE: ld --help blows up in pipefail mode when piped...

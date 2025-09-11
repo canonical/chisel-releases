@@ -4,6 +4,14 @@ essential:
   - binutils-aarch64-linux-gnu_copyright
 
 slices:
+
+  # NOTE: You might want to create a symlink from /usr/bin/as to
+  #       /usr/bin/aarch64-linux-gnu-as in your rootfs to use these slices.
+  #
+  #          rootfs="/path/to/your/rootfs"
+  #          arch="aarch64-linux-gnu"
+  #          ln -s "/usr/bin/${arch}-as" "${rootfs}/usr/bin/as"
+  #
   assembler:
     essential:
       - libbinutils_libs
