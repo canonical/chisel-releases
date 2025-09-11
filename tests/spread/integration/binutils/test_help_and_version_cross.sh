@@ -30,11 +30,16 @@ ln -s "${other}-as" "${rootfs_as}/usr/bin/as"
 chroot "${rootfs_as}" as --help | grep -q "Usage: as"
 chroot "${rootfs_as}" as --version | grep -q "GNU assembler"
 
-rootfs_ld="$(install-slices \
-    binutils-"${other//_/-}"_linker \
-    binutils-"${other//_/-}"_cross-libbfd \
-    binutils-"${other//_/-}"_cross-libctf \
-)"
+slices=(
+    binutils-"${other//_/-}"_linker
+    binutils-"${other//_/-}"_cross-libbfd
+    binutils-"${other//_/-}"_cross-libctf
+)
+if [[ "$this" == "x86_64-linux-gnu" ]]; then
+    # when compiling from x86_64 to aarch64 we also need libopcodes
+    slices+=(binutils-"${other//_/-}"_cross-libopcodes)
+fi
+rootfs_ld="$(install-slices "${slices[@]}")"
 ln -s "${other}-ld" "${rootfs_ld}/usr/bin/ld"
 
 # # NOTE: ld --help blows up in pipefail mode when piped...
