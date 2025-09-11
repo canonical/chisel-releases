@@ -9,11 +9,10 @@ fi
 # spellchecker: ignore rootfs binutils
 
 arch=$(uname -m)-linux-gnu
-arch="${arch//_/-}"
 
 rootfs="$(install-slices \
-    binutils-"${arch}"_assembler \
-    binutils-"${arch}"_linker \
+    binutils-"${arch//_/-}"_assembler \
+    binutils-"${arch//_/-}"_linker \
 )"
 ln -s "${arch}-as" "${rootfs}/usr/bin/as"
 ln -s "${arch}-ld" "${rootfs}/usr/bin/ld"
