@@ -14,4 +14,4 @@ execute: |
   mount --bind /proc "${rootfs}"/proc
 
   # test the helloworld app
-  chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net8.0/Hello.dlll | grep -q "Hello, World!"
+  chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net8.0/Hello.dll | grep -q "Hello, World!"
