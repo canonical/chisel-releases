@@ -11,7 +11,7 @@ slices:
       - libgcc-s1_libs
       # The .NET runtime does not strictly need libicu. If the environment
       # variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT is set the runtime
-      # will run in invariant node which comes with restricted functionality.
+      # will run in invariant mode which comes with restricted functionality.
       # - libicu74_libs
       - liblttng-ust1t64_libs
       - libssl3t64_libs
