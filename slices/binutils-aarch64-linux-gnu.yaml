@@ -43,10 +43,10 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libbfd-*-arm64.so:
-        arch: [ppc64el]
       /usr/lib/i386-linux-gnu/libbfd-*-arm64.so:
         arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libbfd-*-arm64.so:
+        arch: [ppc64el]
       /usr/lib/s390x-linux-gnu/libbfd-*-arm64.so:
         arch: [s390x]
       /usr/lib/x86_64-linux-gnu/libbfd-*-arm64.so:
@@ -58,10 +58,10 @@ slices:
       - libc6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libctf-arm64.so*:
-        arch: [ppc64el]
       /usr/lib/i386-linux-gnu/libctf-arm64.so*:
         arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libctf-arm64.so*:
+        arch: [ppc64el]
       /usr/lib/s390x-linux-gnu/libctf-arm64.so*:
         arch: [s390x]
       /usr/lib/x86_64-linux-gnu/libctf-arm64.so*:
@@ -72,10 +72,10 @@ slices:
       - libc6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libctf-nobfd-arm64.so*:
-        arch: [ppc64el]
       /usr/lib/i386-linux-gnu/libctf-nobfd-arm64.so*:
         arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libctf-nobfd-arm64.so*:
+        arch: [ppc64el]
       /usr/lib/s390x-linux-gnu/libctf-nobfd-arm64.so*:
         arch: [s390x]
       /usr/lib/x86_64-linux-gnu/libctf-nobfd-arm64.so*:
@@ -86,10 +86,10 @@ slices:
       - binutils-aarch64-linux-gnu_cross-libbfd
       - libc6_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libopcodes-*-arm64.so:
-        arch: [ppc64el]
       /usr/lib/i386-linux-gnu/libopcodes-*-arm64.so:
         arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libopcodes-*-arm64.so:
+        arch: [ppc64el]
       /usr/lib/s390x-linux-gnu/libopcodes-*-arm64.so:
         arch: [s390x]
       /usr/lib/x86_64-linux-gnu/libopcodes-*-arm64.so:

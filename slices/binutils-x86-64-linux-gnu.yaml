@@ -43,14 +43,14 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libbfd-*-amd64.so:
-        arch: [ppc64el]
-      /usr/lib/i386-linux-gnu/libbfd-*-amd64.so:
-        arch: [i386]
-      /usr/lib/s390x-linux-gnu/libbfd-*-amd64.so:
-        arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libbfd-*-amd64.so:
         arch: [arm64]
+      /usr/lib/i386-linux-gnu/libbfd-*-amd64.so:
+        arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libbfd-*-amd64.so:
+        arch: [ppc64el]
+      /usr/lib/s390x-linux-gnu/libbfd-*-amd64.so:
+        arch: [s390x]
 
   cross-libctf:
     essential:
@@ -58,42 +58,42 @@ slices:
       - libc6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libctf-amd64.so*:
-        arch: [ppc64el]
-      /usr/lib/i386-linux-gnu/libctf-amd64.so*:
-        arch: [i386]
-      /usr/lib/s390x-linux-gnu/libctf-amd64.so*:
-        arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libctf-amd64.so*:
         arch: [arm64]
+      /usr/lib/i386-linux-gnu/libctf-amd64.so*:
+        arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libctf-amd64.so*:
+        arch: [ppc64el]
+      /usr/lib/s390x-linux-gnu/libctf-amd64.so*:
+        arch: [s390x]
 
   cross-libctf-nobfd:
     essential:
       - libc6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libctf-nobfd-amd64.so*:
-        arch: [ppc64el]
-      /usr/lib/i386-linux-gnu/libctf-nobfd-amd64.so*:
-        arch: [i386]
-      /usr/lib/s390x-linux-gnu/libctf-nobfd-amd64.so*:
-        arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libctf-nobfd-amd64.so*:
         arch: [arm64]
+      /usr/lib/i386-linux-gnu/libctf-nobfd-amd64.so*:
+        arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libctf-nobfd-amd64.so*:
+        arch: [ppc64el]
+      /usr/lib/s390x-linux-gnu/libctf-nobfd-amd64.so*:
+        arch: [s390x]
 
   cross-libopcodes:
     essential:
       - binutils-x86-64-linux-gnu_cross-libbfd
       - libc6_libs
     contents:
-      /usr/lib/powerpc64le-linux-gnu/libopcodes-*-amd64.so:
-        arch: [ppc64el]
-      /usr/lib/i386-linux-gnu/libopcodes-*-amd64.so:
-        arch: [i386]
-      /usr/lib/s390x-linux-gnu/libopcodes-*-amd64.so:
-        arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libopcodes-*-amd64.so:
         arch: [arm64]
+      /usr/lib/i386-linux-gnu/libopcodes-*-amd64.so:
+        arch: [i386]
+      /usr/lib/powerpc64le-linux-gnu/libopcodes-*-amd64.so:
+        arch: [ppc64el]
+      /usr/lib/s390x-linux-gnu/libopcodes-*-amd64.so:
+        arch: [s390x]
 
   copyright:
     essential:
