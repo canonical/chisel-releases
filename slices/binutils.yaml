@@ -1,0 +1,25 @@
+package: binutils
+
+essential:
+  - binutils_copyright
+
+slices:
+  assembler:
+    # NOTE: To use this slice, you need to install the appropriate
+    #       binutils-ARCH_TRIPLET_assembler slice as well.
+    contents:
+      /usr/bin/as:  # Symlink to ${ARCH_TRIPLET}-as
+
+  linker:
+    # NOTE: To use this slice, you need to install the appropriate
+    #       binutils-ARCH_TRIPLET_linker slice as well.
+    essential:
+      - libc6-dev_core-libs
+      - libgcc-14-dev_core-libs
+    contents:
+      /usr/bin/ld:  # Symlink to ${ARCH_TRIPLET}-ld
+      /usr/bin/ld.bfd:  # Symlink to ${ARCH_TRIPLET}-ld.bfd
+
+  copyright:
+    contents:
+      /usr/share/doc/binutils/copyright:

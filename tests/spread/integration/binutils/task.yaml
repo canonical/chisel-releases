@@ -1,0 +1,2 @@
+summary: Integration tests for binutils
+execute: ./run.sh --spread
