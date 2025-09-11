@@ -51,7 +51,7 @@ slices:
         arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libbfd-*-amd64.so:
         arch: [arm64]
-  
+
   cross-libctf:
     essential:
       - binutils-x86-64-linux-gnu_cross-libbfd
@@ -66,7 +66,7 @@ slices:
         arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libctf-amd64.so*:
         arch: [arm64]
-  
+
   cross-libctf-nobfd:
     essential:
       - libc6_libs
@@ -80,7 +80,7 @@ slices:
         arch: [s390x]
       /usr/lib/aarch64-linux-gnu/libctf-nobfd-amd64.so*:
         arch: [arm64]
-  
+
   cross-libopcodes:
     essential:
       - binutils-x86-64-linux-gnu_cross-libbfd
