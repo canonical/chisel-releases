@@ -6,23 +6,25 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs binutils crti crtn
+# spellchecker: ignore rootfs binutils libc crti crtn
 
 arch=$(uname -m)-linux-gnu
 arch="${arch//_/-}"
 
 rootfs_as="$(install-slices \
-    binutils_assembler \
     binutils-"${arch}"_assembler \
 )"
+ln -s "${arch}-as" "${rootfs_as}/usr/bin/as"
 
 cp hello-"${arch}".S "${rootfs_as}/hello.S"
 chroot "${rootfs_as}" as hello.S -o hello.o
 
+# need libc6-dev_posix-libs for linking with libc
 rootfs_ld="$(install-slices \
-    binutils_linker \
     binutils-"${arch}"_linker \
+    libc6-dev_posix-libs \
 )"
+ln -s "${arch}-ld" "${rootfs_ld}/usr/bin/ld"
 
 mv "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
 
