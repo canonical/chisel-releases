@@ -1,9 +1,16 @@
 summary: Integration tests for .NET 8 Runtime 
 
-execute: |
+environment:
+  # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
+  # disable noisy help text for users who run .NET for the first time
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+prepare: |
   # install slices
-  rootfs="$(install-slices dotnet-runtime-8.0_libs base-files_base)"
-  export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=true
+  rootfs="$(install-slices dotnet-runtime-8.0_libs)"
+  echo "$rootfs" > ROOTFS
 
   # preparing the test data
   apt-get update && apt-get install -y dotnet-sdk-8.0
@@ -12,6 +19,9 @@ execute: |
 
   mkdir -p "${rootfs}"/proc
   mount --bind /proc "${rootfs}"/proc
+
+execute: |
+  rootfs="$(cat ROOTFS)"
 
   # test the helloworld app
   chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net8.0/Hello.dll | grep -q "Hello, World!"
