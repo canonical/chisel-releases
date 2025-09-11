@@ -9,10 +9,9 @@ fi
 # spellchecker: ignore rootfs binutils libc crti crtn
 
 arch=$(uname -m)-linux-gnu
-arch="${arch//_/-}"
 
 rootfs_as="$(install-slices \
-    binutils-"${arch}"_assembler \
+    binutils-"${arch//_/-}"_assembler \
 )"
 ln -s "${arch}-as" "${rootfs_as}/usr/bin/as"
 
@@ -21,7 +20,7 @@ chroot "${rootfs_as}" as hello.S -o hello.o
 
 # need libc6-dev_posix-libs for linking with libc
 rootfs_ld="$(install-slices \
-    binutils-"${arch}"_linker \
+    binutils-"${arch//_/-}"_linker \
     libc6-dev_posix-libs \
 )"
 ln -s "${arch}-ld" "${rootfs_ld}/usr/bin/ld"
