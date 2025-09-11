@@ -5,8 +5,10 @@ essential:
 
 slices:
   libs:
+    essential:
+      - libeclipse-jdt-core-compiler-batch-java_libs
     contents:
-      /usr/share/java/eclipse-jdt-core*.jar:
+      /usr/share/java/eclipse-jdt-core-3.*.jar:
 
   copyright:
     contents:
