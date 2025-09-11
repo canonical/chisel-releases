@@ -32,11 +32,17 @@ ln -s "${other}-as" "${rootfs_as}/usr/bin/as"
 cp hello-"${other}".S "${rootfs_as}/hello.S"
 chroot "${rootfs_as}" as hello.S -o hello.o
 
-rootfs_ld="$(install-slices \
-    binutils-"${other//_/-}"_linker \
-    binutils-"${other//_/-}"_cross-libbfd \
-    binutils-"${other//_/-}"_cross-libctf \
-)"
+
+slices=(
+    binutils-"${other//_/-}"_linker
+    binutils-"${other//_/-}"_cross-libbfd
+    binutils-"${other//_/-}"_cross-libctf
+)
+if [[ "$this" == "x86_64-linux-gnu" ]]; then
+    # when compiling from x86_64 to aarch64 we also need libopcodes
+    slices+=(binutils-"${other//_/-}"_cross-libopcodes)
+fi
+rootfs_ld="$(install-slices "${slices[@]}")"
 ln -s "${other}-ld" "${rootfs_ld}/usr/bin/ld"
 
 mv "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
