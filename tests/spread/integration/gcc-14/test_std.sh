@@ -10,10 +10,10 @@ fi
 
 arch=$(uname -m)-linux-gnu
 slices=(
-    gcc-14-"${arch//_/-/}"_gcc-14
-    cpp-14-"${arch//_/-/}"_cc1
-    binutils-"${arch//_/-/}"_assembler
-    binutils-"${arch//_/-/}"_linker
+    gcc-14-"${arch//_/-}"_gcc-14
+    cpp-14-"${arch//_/-}"_cc1
+    binutils-"${arch//_/-}"_assembler
+    binutils-"${arch//_/-}"_linker
     libgcc-14-dev_libgcc
     libc6-dev_posix-libs
 )
