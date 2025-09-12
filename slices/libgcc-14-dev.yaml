@@ -1,0 +1,27 @@
+package: libgcc-14-dev
+
+essential:
+  - libgcc-14-dev_copyright
+
+slices:
+  # all the files which gcc links against by default
+  libgcc:
+    essential:
+      - libgcc-s1_libs
+    contents:
+      # NOTE: libgcc_s.so is a linker script which links to
+      # libgcc_s.so.1 from libgcc-s1 and adds -lgcc as a link option
+      /usr/lib/gcc/*-linux-*/14/crtbegin*.o:
+      /usr/lib/gcc/*-linux-*/14/crtend*.o:
+      /usr/lib/gcc/*-linux-*/14/libgcc.a:
+      /usr/lib/gcc/*-linux-*/14/libgcc_s.so:
+
+  headers:
+    contents:
+      /usr/lib/gcc/*-linux-*/14/include/**.h:
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      /usr/share/doc/libgcc-14-dev:
