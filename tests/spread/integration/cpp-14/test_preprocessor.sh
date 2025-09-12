@@ -15,34 +15,32 @@ rootfs="$(install-slices \
 )"
 ln -s "/usr/libexec/gcc/$arch/14/cc1" "${rootfs}/usr/bin/cc1"
 
-# make apple.cpp
-cat > "${rootfs}/apple.cpp"<<EOF
-#include <fruit/banana.h>
+# make main.c
+cat > "${rootfs}/main.c"<<EOF
+#include <everything/answer.h>
 
 int main() {
-    #ifdef BANANA_MESSAGE
-        return 0; // BANANA_MESSAGE is defined // BANANA_MESSAGE is not defined
+    #ifdef ANSWER
+        return 0;
     #else
-        return 1; // BANANA_MESSAGE is not defined
+        return 1;
     #endif
 }
 EOF
 
-mkdir -p "${rootfs}/usr/include/fruit"
-cat > "${rootfs}/usr/include/fruit/banana.h"<<EOF
-#ifndef FRUIT_BANANA_H
-#define FRUIT_BANANA_H
-
-#define BANANA_MESSAGE "Hello from banana!"
-
-#endif // FRUIT_BANANA_H
+mkdir -p "${rootfs}/usr/include/everything"
+cat > "${rootfs}/usr/include/everything/answer.h"<<EOF
+#ifndef MY_MATH_H
+#define MY_MATH_H
+#define ANSWER 42
+#endif // MY_MATH_H
 EOF
 
-mkdir -p "${rootfs}/usr/include/fruit"
-chroot "${rootfs}" cc1 -E apple.cpp > "${rootfs}/apple.i" 2>/dev/null
-cat "${rootfs}/apple.i" | grep -q 'return 0;'
+mkdir -p "${rootfs}/usr/include/everything"
+chroot "${rootfs}" cc1 -E main.c > "${rootfs}/main.i" 2>/dev/null
+cat "${rootfs}/main.i" | grep -q 'return 0;'
 
-# now remove banana.h and check that BANANA_MESSAGE is not defined
-echo "" > "${rootfs}/usr/include/fruit/banana.h"
-chroot "${rootfs}" cc1 -E apple.cpp > "${rootfs}/apple.i" 2>/dev/null
-cat "${rootfs}/apple.i" | grep -q 'return 1;'
+# now remove answer.h and check that ANSWER is not defined
+echo "" > "${rootfs}/usr/include/everything/answer.h"
+chroot "${rootfs}" cc1 -E main.c > "${rootfs}/main.i" 2>/dev/null
+cat "${rootfs}/main.i" | grep -q 'return 1;'
