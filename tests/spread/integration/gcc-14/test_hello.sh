@@ -22,10 +22,12 @@ ln -s "${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
 ln -s "${arch}-as" "${rootfs}/usr/bin/as"
 ln -s "${arch}-ld" "${rootfs}/usr/bin/ld"
 
-echo '#include <stdio.h>
+cat > "${rootfs}/hello.c" << EOF
+#include <stdio.h>
 int main() {
     printf("Hello from C!\n");
     return 0;
-}' > ${rootfs}/hello.c
+}
+EOF
 chroot "${rootfs}" gcc /hello.c -o /hello
 chroot "${rootfs}" /hello | grep -q "Hello from C!"
