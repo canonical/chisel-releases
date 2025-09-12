@@ -23,10 +23,15 @@ echo "Testing cross-compilation from $this to $other"
 this="$this"-linux-gnu
 other="$other"-linux-gnu
 
-rootfs_as="$(install-slices \
-    binutils-"${other//_/-}"_assembler \
-    binutils-"${other//_/-}"_cross-libbfd \
-)"
+slices=(
+    binutils-"${other//_/-}"_assembler
+    binutils-"${other//_/-}"_cross-libbfd
+)
+if [[ "$this" == "x86_64-linux-gnu" ]]; then
+    # when compiling from x86_64 to aarch64 we also need libopcodes
+    slices+=(binutils-"${other//_/-}"_cross-libopcodes)
+fi
+rootfs_as="$(install-slices "${slices[@]}")"
 ln -s "${other}-as" "${rootfs_as}/usr/bin/as"
 
 cp hello-"${other}".S "${rootfs_as}/hello.S"
