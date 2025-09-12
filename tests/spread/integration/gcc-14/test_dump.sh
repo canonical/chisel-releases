@@ -9,7 +9,7 @@ fi
 # spellchecker: ignore rootfs dumpmachine dumpversion dumpspecs
 
 arch=$(uname -m)-linux-gnu
-rootfs="$(install-slices gcc-14-"${arch//_/-/}"_gcc-14)"
+rootfs="$(install-slices gcc-14-"${arch//_/-}"_gcc-14)"
 ln -s "${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
 
 dumpmachine=$(chroot "${rootfs}" gcc -dumpmachine)

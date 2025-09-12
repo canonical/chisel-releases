@@ -9,7 +9,7 @@ fi
 # spellchecker: ignore rootfs libgcc libexec libc multiarch
 
 arch=$(uname -m)-linux-gnu
-rootfs="$(install-slices gcc-14-"${arch//_/-/}"_gcc-14)"
+rootfs="$(install-slices gcc-14-"${arch//_/-}"_gcc-14)"
 ln -s "${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
 
 test "$(chroot "${rootfs}" gcc -print-search-dirs | head -n 1)" = "install: /usr/lib/gcc/${arch}/14/"
