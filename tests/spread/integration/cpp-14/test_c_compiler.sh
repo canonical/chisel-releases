@@ -12,7 +12,7 @@ arch=$(uname -m)-linux-gnu
 # prepare separate rootfs with cc1, as and ld
 rootfs_cc="$(install-slices \
     base-files_bin \
-    cpp-14-"${arch//_/-/}"_cc1 \
+    cpp-14-"${arch//_/-}"_cc1 \
     libc6-dev_headers \
 )"
 ln -s "/usr/libexec/gcc/$arch/14/cc1" "${rootfs_cc}/usr/bin/cc1"
