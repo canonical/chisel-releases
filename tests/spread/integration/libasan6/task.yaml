@@ -2,6 +2,8 @@ summary: Integration tests for libasan6
 
 execute: |
   rootfs="$(install-slices libasan6_libs)"
-  arch=$(uname -m)-linux-gnu
+
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
 
   test -f ${rootfs}/usr/lib/${arch}/libasan.so.6
