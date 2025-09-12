@@ -6,7 +6,7 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs libexec binutils libc unistd
+# spellchecker: ignore rootfs libc libexec binutils unistd crti crtn
 arch=$(uname -m)-linux-gnu
 
 # prepare separate rootfs with cc1, as and ld
@@ -59,4 +59,5 @@ chroot "${rootfs_ld}" ld -o hello hello.o \
     /usr/lib/"$arch"/crtn.o
 
 # run
-chroot "${rootfs_ld}" ./hello | grep -q "Hello, world!"
+ls "${rootfs_ld}"
+chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
