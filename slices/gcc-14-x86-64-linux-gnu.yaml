@@ -41,5 +41,4 @@ slices:
     essential:
       - gcc-14-base_copyright
     contents:
-      # Symlink to gcc-14-base
       /usr/share/doc/gcc-14-x86-64-linux-gnu:
