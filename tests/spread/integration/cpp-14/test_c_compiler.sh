@@ -43,8 +43,7 @@ chroot "${rootfs_cc}" cc1 hello.c \
     -o hello.s \
     -Wno-implicit-function-declaration \
     -I "/usr/include/$arch" \
-    -I "/usr/include/linux" \
-    2> /dev/null
+    -I "/usr/include/linux"
 
 # assemble
 cp "${rootfs_cc}/hello.s" "${rootfs_as}/hello.s"
@@ -53,11 +52,11 @@ chroot "${rootfs_as}" as -o hello.o hello.s
 # link
 cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
 chroot "${rootfs_ld}" ld -o hello hello.o \
+    -dynamic-linker "$(find "${rootfs_ld}" -type f -name "ld-linux-*.so.*" -printf "%P\n" -quit)" \
     -lc \
     /usr/lib/"$arch"/crt1.o \
     /usr/lib/"$arch"/crti.o \
     /usr/lib/"$arch"/crtn.o
 
 # run
-ls "${rootfs_ld}"
 chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
