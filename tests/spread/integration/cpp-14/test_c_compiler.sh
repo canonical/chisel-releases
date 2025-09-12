@@ -18,7 +18,7 @@ rootfs_cc="$(install-slices \
 ln -s "/usr/libexec/gcc/$arch/14/cc1" "${rootfs_cc}/usr/bin/cc1"
 
 rootfs_as="$(install-slices \
-    binutils-"${arch//_/-/}"_assembler \
+    binutils-"${arch//_/-}"_assembler \
 )"
 ln -s "${arch}-as" "${rootfs_as}/usr/bin/as"
 
