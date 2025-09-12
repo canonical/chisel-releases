@@ -35,10 +35,6 @@ slices:
       /usr/libexec/dpkg/*:
       /usr/sbin/start-stop-daemon:
 
-  copyright:
-    contents:
-      /usr/share/doc/dpkg/copyright:
-
   config:
     contents:
       /etc/dpkg/dpkg.cfg:
@@ -79,3 +75,7 @@ slices:
       - coreutils_bins
       - dpkg_bins
       - sed_bins
+
+  copyright:
+    contents:
+      /usr/share/doc/dpkg/copyright:
