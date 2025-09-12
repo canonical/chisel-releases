@@ -11,7 +11,7 @@ fi
 arch=$(uname -m)-linux-gnu
 rootfs="$(install-slices \
     base-files_bin \
-    cpp-14-"${arch//_/-/}"_cc1 \
+    cpp-14-"${arch//_/-}"_cc1 \
 )"
 ln -s "/usr/libexec/gcc/$arch/14/cc1" "${rootfs}/usr/bin/cc1"
 
