@@ -4,7 +4,6 @@ essential:
   - libcrypt-dev_copyright
 
 slices:
-
   libs:
     essential:
       - libcrypt1_libs

@@ -40,7 +40,6 @@ slices:
       - libc6-dev_librt
       - libc6-dev_libutil
       - libc6-dev_posix-libs
-
     contents:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
       # and if we tried to glob *.o files, this slice would conflict with oh-so-many
@@ -90,7 +89,6 @@ slices:
     essential:
       - libcrypt-dev_headers
       - linux-libc-dev_linux-headers
-
     contents:
       /usr/include/*-linux-*/bits/**.h:
       /usr/include/*-linux-*/fpu_control.h:
@@ -134,14 +132,12 @@ slices:
   audit:
     essential:
       - libc6_libs
-
     contents:
       /usr/lib/*-linux-*/audit/sotruss-lib.so:
 
   symlink-libc6-libs:
     essential:
       - libc6_libs
-
     # All of these are symlinks to so's in the libc6 package
     contents:
       /usr/lib/*-linux-*/libBrokenLocale.so:
