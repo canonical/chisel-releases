@@ -11,8 +11,8 @@ slices:
       - libnl-nf-3-200_libs
       - libnl-route-3-200_libs
     contents:
-      /usr/lib/*-linux-*/libnl-cli-3.so.200*:
       /usr/lib/*-linux-*/libnl-3/cli/cls/*.so:
+      /usr/lib/*-linux-*/libnl-cli-3.so.200*:
 
   qdisc:
     essential:
@@ -21,8 +21,8 @@ slices:
       - libnl-nf-3-200_libs
       - libnl-route-3-200_libs
     contents:
-      /usr/lib/*-linux-*/libnl-cli-3.so.200*:
       /usr/lib/*-linux-*/libnl-3/cli/qdisc/*.so*:
+      /usr/lib/*-linux-*/libnl-cli-3.so.200*:
 
   copyright:
     contents:
