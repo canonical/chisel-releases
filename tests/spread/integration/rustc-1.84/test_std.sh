@@ -6,14 +6,15 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs rustc libgcc
+# spellchecker: ignore rootfs rustc binutils libgcc
 
 rootfs="$(install-slices rustc-1.84_rustc)"
 arch=$(uname -m)-linux-gnu
 slices=(
     rustc-1.84_rustc
-    libgcc-14-dev_libs
-    gcc-14-"$(echo "$arch" | sed 's/_/-/')"_rustc-184-minimal
+    gcc-14-"${arch//_/-}"_gcc-14
+    binutils-"${arch//_/-}"_linker
+    libgcc-14-dev_libgcc
 )
 rootfs="$(install-slices "${slices[@]}")"
 ln -s "${arch}"-gcc-14 "${rootfs}"/usr/bin/cc
