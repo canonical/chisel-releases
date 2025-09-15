@@ -6,7 +6,8 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs binutils libbfd libctf libc crti crtn
+# spellchecker: ignore rootfs binutils libbfd libopcodes libctf
+# spellchecker: ignore libc crti crtn
 
 this=$(uname -m)
 if [[ "$this" == "x86_64" ]]; then
