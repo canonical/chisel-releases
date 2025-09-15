@@ -3,7 +3,7 @@ package: libnl-cli-3-200
 essential:
   - libnl-cli-3-200_copyright
 
-slices:  
+slices:
   cls:
     essential:
       - libc6_libs
