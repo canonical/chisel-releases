@@ -26,6 +26,13 @@ slices:
       /usr/bin/x86_64-linux-gnu-ld:
       /usr/bin/x86_64-linux-gnu-ld.bfd:
 
+  archiver:
+    essential:
+      - libbinutils_libs
+      - libc6_libs
+    contents:
+      /usr/bin/x86_64-linux-gnu-ar:
+
   # All the libraries for cross compiling to x86_64-linux-gnu
   # There is no `binutils-x86-64-linux-gnu` deb for riscv64 and armhf
   cross-libs:

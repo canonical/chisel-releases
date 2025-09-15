@@ -6,7 +6,7 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs binutils libbfd libctf
+# spellchecker: ignore rootfs binutils libbfd libopcodes libctf archiver
 
 this=$(uname -m)
 if [[ "$this" == "x86_64" ]]; then
@@ -50,3 +50,13 @@ ln -s "${other}-ld" "${rootfs_ld}/usr/bin/ld"
 # # NOTE: ld --help blows up in pipefail mode when piped...
 (chroot "${rootfs_ld}" ld --help || true) | grep -q "Usage: ld"
 chroot "${rootfs_ld}" ld --version | grep -q "GNU ld"
+
+slices=(
+    binutils-"${other//_/-}"_archiver
+    binutils-"${other//_/-}"_cross-libbfd
+)
+rootfs_ar="$(install-slices "${slices[@]}")"
+ln -s "${other}-ar" "${rootfs_ar}/usr/bin/ar"
+
+chroot "${rootfs_ar}" ar --help | grep -q "Usage: ar"
+chroot "${rootfs_ar}" ar --version | grep -q "GNU ar"
