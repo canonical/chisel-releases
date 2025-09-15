@@ -11,7 +11,6 @@ slices:
       - libfastjson4_libs
       - libsystemd0_libs
       - libuuid1_libs
-      - libzstd1_libs
       - rsyslog_config
       - rsyslog_data
       - zlib1g_libs
@@ -35,11 +34,15 @@ slices:
         symlink: /usr/lib/systemd/system/rsyslog.service
 
   libs:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libfastjson4_libs
+      - libsystemd0_libs
+      - libzstd1_libs
+      - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/rsyslog/*.so:
-      /usr/lib/rsyslog/rsyslog-rotate:
-      /usr/lib/systemd/system/rsyslog.service:
-      /usr/lib/tmpfiles.d/00rsyslog.conf:
 
   copyright:
     contents:
