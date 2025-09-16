@@ -13,9 +13,9 @@ slices:
       - libstdc++6_libs        # libstdc++.so.6
 
     contents:
-      # symlink to /usr/lib/rust-1.84/lib/libEnzyme-*.so
+      # symlink to ../rust-1.84/lib/libEnzyme-*.so
       /usr/lib/*-linux-*/libEnzyme-*.so:
-      # symlink to /usr/lib/rust-1.84/lib/librustc_driver-*.so
+      # symlink to ../rust-1.84/lib/librustc_driver-*.so
       /usr/lib/*-linux-*/librustc_driver-*.so:
       /usr/lib/rust-1.84/lib/libEnzyme-*.so:
       /usr/lib/rust-1.84/lib/librustc_driver-*.so:

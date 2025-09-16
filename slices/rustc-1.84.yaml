@@ -39,5 +39,5 @@ slices:
       - libstdc++6_libs
 
     contents:
-      /usr/bin/rustc-1.84:  # symlink to /usr/lib/rust-1.84/bin/rustc
+      /usr/bin/rustc-1.84:  # symlink to ../rust-1.84/bin/rustc
       /usr/lib/rust-1.84/bin/rustc:
