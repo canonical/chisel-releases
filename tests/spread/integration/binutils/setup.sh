@@ -25,12 +25,15 @@ export PATH="$FILE_DIR/../../lib/:$PATH"
 mkdir -p "$PROJECT_PATH/tests/tmp"
 export TMPDIR="$PROJECT_PATH/tests/tmp"
 
-# patch chroot with sudo if needed
-if ! chroot "$PROJECT_PATH" true 2>/dev/null; then
-    # shellcheck disable=SC2032
+# if chroot fails without sudo, wrap it with sudo
+if ! chroot / echo ok &>/dev/null; then
+    if ! command -v sudo &>/dev/null; then
+        echo "Error: chroot requires sudo but sudo is not installed" >&2
+        exit 1
+    fi
+    _chroot_orig=$(which chroot)
     function chroot() {
-       # shellcheck disable=SC2033
-        sudo chroot "$@"
+        sudo "$_chroot_orig" "$@"
     }
 fi
 
