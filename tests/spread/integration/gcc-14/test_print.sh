@@ -34,14 +34,3 @@ test "$(chroot "${rootfs}" gcc -print-multi-os-directory)" = "../lib"
 # we do not have the sysroot set
 test -z "$(chroot "${rootfs}" gcc -print-sysroot)"
 (chroot "${rootfs}" gcc -print-sysroot-headers-suffix 2>&1 || true) | grep -q "not configured with sysroot"
-
-
-
-
-
-
-
-
-
-
-# chroot "${rootfs}" gcc -print-libgcc-file-name
