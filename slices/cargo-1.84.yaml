@@ -19,13 +19,13 @@ slices:
       - zlib1g_libs
 
     contents:
-      # this is the actual binary
-      /usr/lib/rust-1.84/bin/cargo:
       # in the deb this is a bash script that sets RUSTC
       # and execs the real binary
       # but here we don't want needless dependency on bash
       /usr/bin/cargo-1.84:
         symlink: ../lib/rust-1.84/bin/cargo
+      # this is the actual binary
+      /usr/lib/rust-1.84/bin/cargo:
 
   copyright:
     contents:
