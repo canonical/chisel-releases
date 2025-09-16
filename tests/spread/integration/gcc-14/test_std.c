@@ -221,4 +221,3 @@ void check_signals(TestResult* result) {
     result->passed = 1;
     result->message = "Signal handling tests passed";
 }
-
