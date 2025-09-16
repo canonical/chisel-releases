@@ -4,10 +4,6 @@ essential:
   - rustc-1.84_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/rustc-1.84/copyright:
-
   rustc:
 
     # Rust compiler needs the target-specific linker to link the final binary.
@@ -41,3 +37,7 @@ slices:
     contents:
       /usr/bin/rustc-1.84:  # symlink to ../rust-1.84/bin/rustc
       /usr/lib/rust-1.84/bin/rustc:
+
+  copyright:
+    contents:
+      /usr/share/doc/rustc-1.84/copyright:
