@@ -76,3 +76,20 @@ execute: |
   test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
   test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
   test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
+
+  # test cat binary
+  rootfs_cat="$(install-slices coreutils_cat)"
+  echo "Hello, World!" > "$rootfs_cat/test_file"
+  test "$(chroot "$rootfs_cat" cat test_file)" = "Hello, World!"
+
+  # test uname binary
+  rootfs_uname="$(install-slices coreutils_uname)"
+  test "$(chroot "$rootfs_uname" uname -s)" = "Linux"
+  test "$(chroot "$rootfs_uname" uname -m)" = "$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
+  test "$(chroot "$rootfs_uname" uname -r)" != ""
+
+  # test chown binary
+  rootfs_chown="$(install-slices coreutils_chown)"
+  touch "$rootfs_chown/test_file"
+  chroot "$rootfs_chown" chown root:root test_file
+  test "$(stat -c '%U:%G' "$rootfs_chown/test_file")
