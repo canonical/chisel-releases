@@ -4,11 +4,22 @@ essential:
   - aspnetcore-runtime-8.0_copyright
 
 slices:
-  libs:
+  # libicu is not needed if the environment is set to invariant by using
+  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+  # If globalization is needed, libicu must be included as well.
+  # For more information, see:
+  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  minimal:
     essential:
-      - dotnet-runtime-8.0_libs
+      - dotnet-runtime-8.0_minimal
     contents:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/8.0*/**:
+
+  libs:
+    essential:
+      - aspnetcore-runtime-8.0_minimal
+      - libicu74_libs
 
   copyright:
     contents:
