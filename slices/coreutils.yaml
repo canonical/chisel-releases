@@ -60,8 +60,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
-      - libc6_libs
       - coreutils_cat
+      - libc6_libs
     contents:
       /usr/bin/base32:
       /usr/bin/base64:
@@ -302,8 +302,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
   system-context:
     essential:
-      - libc6_libs
       - coreutils_uname
+      - libc6_libs
     contents:
       /usr/bin/arch:
       /usr/bin/date:
