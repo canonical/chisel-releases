@@ -13,6 +13,5 @@ rootfs="$(install-slices apt_apt-get)"
 cp /etc/resolv.conf "$rootfs/etc/resolv.conf"
 
 chroot "$rootfs" apt update
-chroot "$rootfs" apt install -y lua5.4=
+chroot "$rootfs" apt install -y lua5.4
 chroot "$rootfs" lua5.4 -e 'print("Hello, World!")' | grep -q "Hello, World!"
-

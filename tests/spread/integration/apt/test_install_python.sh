@@ -18,6 +18,5 @@ touch "$rootfs/dev/null"
 chmod +x "$rootfs/dev/null"
 
 chroot "$rootfs" apt update
-chroot "$rootfs" apt install python3.13 -y
+chroot "$rootfs" apt install -y python3.13
 chroot "$rootfs" python3.13 -c 'print("Hello, World!")' | grep -q "Hello, World!"
-

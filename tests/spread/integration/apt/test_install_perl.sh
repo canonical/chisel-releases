@@ -20,4 +20,3 @@ chmod +x "$rootfs/dev/null"
 chroot "$rootfs" apt update
 chroot "$rootfs" apt install -y perl
 chroot "$rootfs" perl -e 'print "Hello, World!\n"' | grep -q "Hello, World!"
-
