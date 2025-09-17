@@ -4,13 +4,19 @@ essential:
   - dotnet-sdk-8.0_copyright
 
 slices:
-  libs:
+  # libicu is not needed if the environment is set to invariant by using
+  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+  # If globalization is needed, libicu must be included as well.
+  # For more information, see:
+  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  minimal:
     essential:
-      - aspnetcore-runtime-8.0_libs
+      - aspnetcore-runtime-8.0_minimal
       - aspnetcore-targeting-pack-8.0_libs
       - ca-certificates_data
       - dotnet-apphost-pack-8.0_libs
-      - dotnet-runtime-8.0_libs
+      - dotnet-runtime-8.0_minimal
       - dotnet-targeting-pack-8.0_libs
       - dotnet-templates-8.0_libs
       - libc6_libs
@@ -24,6 +30,11 @@ slices:
       /usr/lib/dotnet/sdk-manifests/8.0.100/microsoft.net.sdk.aspire/8.0.0-preview.*/**:
       /usr/lib/dotnet/sdk-manifests/8.0.100/microsoft.net.workload.*/**:
       /usr/lib/dotnet/sdk/8.0*/**:
+
+  libs:
+    essential:
+      - dotnet-sdk-8.0_minimal
+      - libicu74_libs
 
   copyright:
     contents:

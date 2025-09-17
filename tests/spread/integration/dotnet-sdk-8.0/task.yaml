@@ -13,9 +13,11 @@ environment:
   HOME: /root
 
 prepare: |
-  required_slices=(dotnet-sdk-8.0_libs base-passwd_data)
-  if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(libicu74_libs)
+  required_slices=(base-passwd_data)
+  if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(dotnet-sdk-8.0_minimal)
+  else
+    required_slices+=(dotnet-sdk-8.0_libs)
   fi
   
   # install slices
