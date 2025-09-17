@@ -18,9 +18,9 @@ slices:
       - libc6_libs
       - liblzma5_libs
       - libmd0_libs
+      - libselinux1_libs
       - libzstd1_libs
       - zlib1g_libs
-      - libselinux1_libs
     contents:
       /usr/bin/dpkg-maintscript-helper:
       /usr/bin/dpkg-query:
