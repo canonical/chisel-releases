@@ -21,12 +21,12 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0*/**:
-  
+
   libs:
     essential:
       - dotnet-runtime-8.0_minimal
       - libicu74_libs
-  
+
   copyright:
     contents:
       /usr/share/doc/dotnet-runtime-8.0/copyright:
