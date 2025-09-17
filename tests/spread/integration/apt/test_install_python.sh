@@ -23,11 +23,11 @@ cp /usr/share/zoneinfo/Etc/UTC "$rootfs/usr/share/zoneinfo/Etc/UTC"
 ln -s /usr/share/zoneinfo/Etc/UTC "$rootfs/etc/localtime"
 chroot "$rootfs" apt install -y tzdata
 
-# INstall python3.12 postinst dependencies
+# INstall python3.13 postinst dependencies
 chroot "$rootfs" apt install -y grep
 
-# Install python3.12
-chroot "$rootfs" apt install python3.12 -y
+# Install python3.13
+chroot "$rootfs" apt install python3.13 -y
 
-chroot "${rootfs}/" python3.12 -c 'print("Hello, World!")' | grep -q "Hello, World!"
+chroot "${rootfs}/" python3.13 -c 'print("Hello, World!")' | grep -q "Hello, World!"
 
