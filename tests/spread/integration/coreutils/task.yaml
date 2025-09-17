@@ -92,4 +92,4 @@ execute: |
   rootfs_chown="$(install-slices coreutils_chown)"
   touch "$rootfs_chown/test_file"
   chroot "$rootfs_chown" chown root:root test_file
-  test "$(stat -c '%U:%G' "$rootfs_chown/test_file")
+  test "$(stat -c '%U:%G' "$rootfs_chown/test_file")" = "root:root"
