@@ -39,3 +39,11 @@ chroot "$rootfs" dpkg --remove lsb-release
 # Verify that the package is removed
 test -z "$(chroot "$rootfs" dpkg --get-selections)"
 test ! -f "${rootfs}/usr/bin/lsb_release"
+
+# Test --unpack
+chroot "$rootfs" dpkg --unpack /debs/lsb-release.deb
+test -f "${rootfs}/usr/bin/lsb_release"
+
+# Test --purge
+chroot "$rootfs" dpkg --purge lsb-release
+test ! -f "${rootfs}/usr/bin/lsb_release"
