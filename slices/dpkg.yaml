@@ -13,6 +13,10 @@ slices:
       - dpkg_dpkg-split
       - dpkg_scripts
       - dpkg_tables
+      - dpkg_start-stop-daemon
+      - dpkg_dpkg-divert
+      - dpkg_dpkg-trigger
+      - dpkg_update-alternatives
       - dpkg_var
       - libbz2-1.0_libs
       - libc-bin_ldconfig
@@ -25,15 +29,52 @@ slices:
       - zlib1g_libs
     contents:
       /usr/bin/dpkg:
-      /usr/bin/dpkg-divert:
       /usr/bin/dpkg-maintscript-helper:
       /usr/bin/dpkg-query:
       /usr/bin/dpkg-realpath:
       /usr/bin/dpkg-statoverride:
-      /usr/bin/dpkg-trigger:
-      /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
-      /usr/sbin/start-stop-daemon:
+
+  config:
+    contents:
+      /etc/dpkg/dpkg.cfg:
+      /etc/dpkg/dpkg.cfg.d/:
+
+  locales:
+    essential:
+      - dpkg_bins
+    contents:
+      /usr/share/locale/**/dpkg.mo:
+
+  scripts:
+    essential:
+      - coreutils_echo
+    contents:
+      # Note: This file defines the color scheme used by dpkg.
+      # It is sourced by dpkg's `dpkg-maintscript-helper` script.
+      /usr/share/dpkg/sh/dpkg-error.sh:
+
+  tables:
+    contents:
+      /usr/share/dpkg/*table:
+
+  var:
+    # /var/log is required for dpkg to write logs to
+    essential:
+      - base-files_var
+    # Directories that are included in the tarball because they need to exist in /var
+    contents:
+      /var/lib/dpkg/alternatives/:
+      /var/lib/dpkg/info/:
+      /var/lib/dpkg/parts/:
+      /var/lib/dpkg/updates/:
+
+  maintscript-support:
+    essential:
+      - base-files_bin
+      - coreutils_bins
+      - dpkg_bins
+      - sed_bins
 
   dpkg-deb:
     essential:
@@ -78,48 +119,26 @@ slices:
       - libc6_libs
     contents:
       /usr/sbin/start-stop-daemon:
+  
+  dpkg-trigger:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/dpkg-trigger:
+
+  dpkg-divert:
+    essential:
+      - dpkg_dpkg
+      - libmd0_libs
+    contents:
+      /usr/bin/dpkg-divert:
+
+  update-alternatives:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/update-alternatives:
 
   copyright:
     contents:
       /usr/share/doc/dpkg/copyright:
-
-  config:
-    contents:
-      /etc/dpkg/dpkg.cfg:
-      /etc/dpkg/dpkg.cfg.d/:
-
-  locales:
-    essential:
-      - dpkg_bins
-    contents:
-      /usr/share/locale/**/dpkg.mo:
-
-  scripts:
-    essential:
-      - coreutils_echo
-    contents:
-      # Note: This file defines the color scheme used by dpkg.
-      # It is sourced by dpkg's `dpkg-maintscript-helper` script.
-      /usr/share/dpkg/sh/dpkg-error.sh:
-
-  tables:
-    contents:
-      /usr/share/dpkg/*table:
-
-  var:
-    # /var/log is required for dpkg to write logs to
-    essential:
-      - base-files_var
-    # Directories that are included in the tarball because they need to exist in /var
-    contents:
-      /var/lib/dpkg/alternatives/:
-      /var/lib/dpkg/info/:
-      /var/lib/dpkg/parts/:
-      /var/lib/dpkg/updates/:
-
-  maintscript-support:
-    essential:
-      - base-files_bin
-      - coreutils_bins
-      - dpkg_bins
-      - sed_bins
