@@ -49,6 +49,14 @@ slices:
     contents:
       /usr/bin/dpkg-deb:
 
+  dpkg-split:
+    essential:
+      - dpkg_dpkg-deb
+      - libc6_libs
+      - libmd0_libs
+    contents:
+      /usr/bin/dpkg-split:
+
   copyright:
     contents:
       /usr/share/doc/dpkg/copyright:
