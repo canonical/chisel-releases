@@ -61,11 +61,11 @@ slices:
   output-of-entire-files:
     essential:
       - libc6_libs
+      - coreutils_cat
     contents:
       /usr/bin/base32:
       /usr/bin/base64:
       /usr/bin/basenc:
-      /usr/bin/cat:
       /usr/bin/nl:
       /usr/bin/od:
       /usr/bin/tac:
@@ -421,6 +421,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/printf:
+  
+  cat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cat:
 
   copyright:
     contents:
