@@ -141,21 +141,21 @@ slices:
       - dpkg_update-alternatives
       - sed_bins  # needed for libc6 preinst
 
-    # NOTE: In the future, when `prefer` is supported, we can 
-    # replace the dpkg-divert, dpkg-trigger and update-alternatives
-    # above with empty stub files:
-    # /usr/bin/dpkg-divert:
-    #   text: ""
-    #   mode: 0755
-    #   prefer: dpkg
-    # /usr/bin/dpkg-trigger:
-    #   text: ""
-    #   mode: 0755
-    #   prefer: dpkg
-    # /usr/bin/update-alternatives:
-    #   text: ""
-    #   mode: 0755
-    #   prefer: dpkg
+      # NOTE: In the future, when `prefer` is supported, we can
+      # replace the dpkg-divert, dpkg-trigger and update-alternatives
+      # above with empty stub files:
+      # /usr/bin/dpkg-divert:
+      #   text: ""
+      #   mode: 0755
+      #   prefer: dpkg
+      # /usr/bin/dpkg-trigger:
+      #   text: ""
+      #   mode: 0755
+      #   prefer: dpkg
+      # /usr/bin/update-alternatives:
+      #   text: ""
+      #   mode: 0755
+      #   prefer: dpkg
 
   copyright:
     contents:
