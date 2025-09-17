@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+if [[ "$1" != "--spread" ]]; then
+    FILE_DIR=$(realpath "$(dirname "$0")")
+    source "$FILE_DIR"/setup.sh
+fi
+
+## TESTS 
+# spellchecker: ignore rootfs diffutils maintscript distro debootstrap
+
+# Basic smoke test for dpkg without maintainer scripts
+rootfs="$(install-slices diffutils_bins dpkg_bins)"
+
+# A sample deb file to install. Contains no dependencies or install scripts.
+mkdir -p "${rootfs}/debs"
+cp lsb-release_12.1-1_all.deb "${rootfs}/debs/"
+
+# Run a smoke test for dpkg to ensure that it does not throw an error
+chroot "${rootfs}/" dpkg --install -R /debs
+
