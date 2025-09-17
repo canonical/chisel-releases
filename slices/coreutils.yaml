@@ -368,7 +368,6 @@ slices:
   mkdir:
     essential:
       - libc6_libs
-      - libpcre2-8-0_libs
       - libselinux1_libs
     contents:
       /usr/bin/mkdir:
