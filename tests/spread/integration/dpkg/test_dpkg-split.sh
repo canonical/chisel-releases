@@ -9,8 +9,8 @@ fi
 # spellchecker: ignore rootfs urandom partsize
 
 rootfs_deb="$(install-slices dpkg_dpkg-deb)"
-# Create a sample file to split
 
+# Create a sample file to split
 mkdir -p "$rootfs_deb/large/DEBIAN"
 mkdir -p "$rootfs_deb/large/usr/local/share"
 

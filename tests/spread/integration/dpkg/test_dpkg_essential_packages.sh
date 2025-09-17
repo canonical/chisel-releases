@@ -37,4 +37,3 @@ chroot "$rootfs" dpkg --configure -a || true
 # The second pass is expected to succeed.
 chroot "$rootfs" dpkg --unpack --force-depends -R /debs
 chroot "$rootfs" dpkg --configure -a
-

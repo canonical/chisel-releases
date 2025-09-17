@@ -26,7 +26,6 @@ touch "$rootfs_sleep/dev/null"
 chmod +x "$rootfs_sleep/dev/null"
 
 # Test that start-stop-daemon can start a simple command in the background
-mkdir -p "$rootfs_sleep/var/run"
 chroot "$rootfs_sleep" start-stop-daemon \
     --background \
     --start --make-pidfile \

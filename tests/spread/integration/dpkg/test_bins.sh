@@ -17,4 +17,3 @@ cp lsb-release.deb "${rootfs}/debs/"
 
 # Run a smoke test for dpkg to ensure that it does not throw an error
 chroot "${rootfs}/" dpkg --install -R /debs
-
