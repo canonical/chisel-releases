@@ -56,6 +56,29 @@ slices:
     contents:
       /usr/bin/dpkg-split:
 
+  dpkg:
+    essential:
+      - base-files_bin
+      - coreutils_rm-utility
+      - dash_bins
+      - diffutils_bins
+      - dpkg_dpkg-deb
+      - dpkg_start-stop-daemon
+      - dpkg_dpkg-split
+      - libc-bin_ldconfig
+      - libc6_libs
+      - libmd0_libs
+      - libselinux1_libs
+      - tar_tar
+    contents:
+      /usr/bin/dpkg:
+
+  start-stop-daemon:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/sbin/start-stop-daemon:
+
   copyright:
     contents:
       /usr/share/doc/dpkg/copyright:
