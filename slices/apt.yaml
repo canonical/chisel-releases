@@ -95,6 +95,68 @@ slices:
           break
       content.write("/etc/apt/sources.list.d/ubuntu.sources", sources)
 
+  # Minimal apt-get slice. This slice provides just enough functionality
+  # for apt to be able to update its package lists and reinstall itself.
+  # It does not provide all the features of the full apt package.
+  # Run the following command before using apt:
+  #   apt-get update && apt-get install -y coreutils dpkg apt
+  apt-get-mini:
+    essential:
+      - apt_apt-get-mini-support-apt  # to be able to reinstall apt with itself
+      - apt_config
+      - apt_default-source-list
+      - apt_var
+      - base-files_bin  # /bin -> /usr/bin link
+      - base-files_tmp  # /tmp
+      - dpkg_dpkg
+      - dpkg_tables  # we need tabled to do update
+      - dpkg_var  # we need /var/lib/dpkg/ to exist to get the lockfile
+      - gpgv_bins
+      - libapt-pkg7.0_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libgnutls30t64_libs
+      - libseccomp2_libs
+      - libssl3t64_libs
+      - libstdc++6_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/apt:
+      /usr/bin/apt-get:
+      /usr/lib/*-linux-*/libapt-private.so*:
+      /usr/lib/apt/methods/gpgv:
+      /usr/lib/apt/methods/http:
+      /usr/lib/apt/methods/https:  # Symlink to http
+      /usr/lib/apt/methods/store:
+
+  # Packages required to reinstall apt with itself
+  # do that if the reduced apt installation fails at installing
+  # some dependencies (for example due to lack of maintainer script
+  # support) dpkg
+  apt-get-mini-support-apt:
+    essential:
+      - coreutils_uname  # needed for libc6 preinst
+      - dpkg_dpkg-divert
+      - dpkg_dpkg-trigger
+      - dpkg_update-alternatives
+      - sed_bins  # needed for libc6 preinst
+
+    # NOTE: In the future, when `prefer` is supported, we can 
+    # replace the dpkg-divert, dpkg-trigger and update-alternatives
+    # above with empty stub files:
+    # /usr/bin/dpkg-divert:
+    #   text: ""
+    #   mode: 0755
+    #   prefer: dpkg
+    # /usr/bin/dpkg-trigger:
+    #   text: ""
+    #   mode: 0755
+    #   prefer: dpkg
+    # /usr/bin/update-alternatives:
+    #   text: ""
+    #   mode: 0755
+    #   prefer: dpkg
+
   copyright:
     contents:
       /usr/share/doc/apt/copyright:
