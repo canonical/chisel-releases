@@ -200,11 +200,11 @@ slices:
   changing-file-attributes:
     essential:
       - coreutils_touch
+      - coreutils_chown
       - libc6_libs
     contents:
       /usr/bin/chgrp:
       /usr/bin/chmod:
-      /usr/bin/chown:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -433,6 +433,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/cat:
+
+  chown:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/chown:
 
   copyright:
     contents:
