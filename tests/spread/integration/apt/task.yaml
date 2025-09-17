@@ -1,16 +1,2 @@
 summary: Integration tests for apt
-
-execute: |
-  rootfs="$(install-slices apt_apt-get)"
-
-  mkdir -p "${rootfs}/dev"
-  mount --bind /dev "${rootfs}/dev"
-  cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
-
-  chroot "${rootfs}/" apt update
-
-  chroot "${rootfs}/" apt install python3.13 -y
-
-  chroot "${rootfs}/" python3.13 -c 'print("Hello, World!")' | grep -q "Hello, World!"
-
-  umount "${rootfs}/dev"
+execute: ./run.sh --spread
