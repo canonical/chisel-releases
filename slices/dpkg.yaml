@@ -35,6 +35,20 @@ slices:
       /usr/libexec/dpkg/*:
       /usr/sbin/start-stop-daemon:
 
+  dpkg-deb:
+    essential:
+      - base-files_tmp
+      - base-files_tmp
+      - coreutils_rm-utility
+      - libbz2-1.0_libs
+      - liblzma5_libs
+      - libmd0_libs
+      - libzstd1_libs
+      - tar_tar
+      - zlib1g_libs
+    contents:
+      /usr/bin/dpkg-deb:
+
   copyright:
     contents:
       /usr/share/doc/dpkg/copyright:
