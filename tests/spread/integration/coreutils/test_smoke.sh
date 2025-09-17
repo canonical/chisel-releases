@@ -80,7 +80,6 @@ for s in "${slices[@]}"; do
     echo "Testing $slice ..."
     install_slices "$slice"
 
-    cat "$SDF"
     files=$(s="$s" "$YQ" ".slices.[env(s)].contents | keys | .[]" "$SDF")
     for file in "${files[@]}"; do
         cmd="$(basename "$file")"
