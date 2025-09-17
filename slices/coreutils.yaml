@@ -303,12 +303,12 @@ slices:
   system-context:
     essential:
       - libc6_libs
+      - coreutils_uname
     contents:
       /usr/bin/arch:
       /usr/bin/date:
       /usr/bin/hostid:
       /usr/bin/nproc:
-      /usr/bin/uname:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -421,6 +421,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/printf:
+  
+  uname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/uname:
   
   cat:
     essential:
