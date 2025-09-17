@@ -18,6 +18,8 @@ while [[ ! -f "$PROJECT_PATH/chisel.yaml" ]]; do
 done
 export PROJECT_PATH
 
+export DEBIAN_FRONTEND=noninteractive
+
 # add lib to PATH
 export PATH="$FILE_DIR/../../lib/:$PATH"
 
@@ -33,7 +35,7 @@ if ! chroot / echo ok &>/dev/null; then
     fi
     _chroot_orig=$(which chroot)
     function chroot() {
-        sudo "$_chroot_orig" "$@"
+        sudo DEBIAN_FRONTEND=noninteractive "$_chroot_orig" "$@"
     }
 fi
 
