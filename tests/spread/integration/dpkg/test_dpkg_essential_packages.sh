@@ -9,7 +9,7 @@ else
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs maintscript distro debootstrap libpam
+# spellchecker: ignore rootfs libpam
 
 rootfs="$(install-slices dpkg_dpkg)"
 

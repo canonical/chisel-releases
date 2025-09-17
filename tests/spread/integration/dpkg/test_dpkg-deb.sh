@@ -6,7 +6,7 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs urandom partsize
+# spellchecker: ignore rootfs
 
 rootfs="$(install-slices dpkg_dpkg-deb)"
 

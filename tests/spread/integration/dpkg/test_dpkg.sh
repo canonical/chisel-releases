@@ -6,7 +6,7 @@ if [[ "$1" != "--spread" ]]; then
 fi
 
 ## TESTS 
-# spellchecker: ignore rootfs diffutils maintscript distro debootstrap
+# spellchecker: ignore rootfs getopt
 
 # Basic smoke test for dpkg without maintainer scripts
 rootfs="$(install-slices dpkg_dpkg)"
