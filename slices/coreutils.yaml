@@ -199,8 +199,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
-      - coreutils_touch
       - coreutils_chown
+      - coreutils_touch
       - libc6_libs
     contents:
       /usr/bin/chgrp:
@@ -421,13 +421,13 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/printf:
-  
+
   uname:
     essential:
       - libc6_libs
     contents:
       /usr/bin/uname:
-  
+
   cat:
     essential:
       - libc6_libs
