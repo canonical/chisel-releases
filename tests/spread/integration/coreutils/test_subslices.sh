@@ -89,3 +89,11 @@ rootfs="$(install-slices coreutils_chown)"
 touch "$rootfs/test_file"
 output=$(chroot "$rootfs" chown invalid:user test_file 2>&1 || true)
 echo "$output" | grep "invalid user"
+
+# test mv
+rootfs="$(install-slices coreutils_mv-utility)"
+echo "Test content" > "$rootfs/source_file"
+chroot "$rootfs" mv source_file dest_file
+test ! -e "$rootfs/source_file"
+test -e "$rootfs/dest_file"
+test "$(cat "$rootfs/dest_file")" = "Test content"

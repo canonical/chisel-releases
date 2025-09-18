@@ -165,6 +165,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - coreutils_mv-utility
       - coreutils_rm-utility
       - libacl1_libs
       - libattr1_libs
@@ -174,7 +175,6 @@ slices:
       /usr/bin/cp:
       /usr/bin/dd:
       /usr/bin/install:
-      /usr/bin/mv:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -438,6 +438,15 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/chown:
+
+  mv-utility:
+    essential:
+      - libacl1_libs
+      - libattr1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/mv:
 
   copyright:
     contents:
