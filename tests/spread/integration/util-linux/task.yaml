@@ -115,6 +115,7 @@ execute: |
       chroot "${rootfs}" flock /tmp/bash.lock -c "lslocks" | grep "/tmp/bash.lock"
     ;;
     login)
+      chroot "${rootfs}" lslogins
       cp /etc/passwd "${rootfs}"/etc/passwd
       # sulogin expects keyboard inputs to continue or exit.
       # Set timeout to let it exit without keyboard inputs after 1 second.
