@@ -4,7 +4,6 @@ essential:
   - libc6-dev_copyright
 
 slices:
-  # Standard POSIX libraries and startup files
   core:
     essential:
       - libc6-dev_symlink-libc6-libs
