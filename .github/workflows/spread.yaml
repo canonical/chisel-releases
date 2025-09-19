@@ -9,10 +9,11 @@ jobs:
     strategy:
       matrix:
         runner:
-          - name: X64
-            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "X64", "large"]') || 'ubuntu-24.04' }}
-          - name: ARM64
-            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
+        # DO NOT MERGE until you uncomment these again
+          # - name: X64
+          #   runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "X64", "large"]') || 'ubuntu-24.04' }}
+          # - name: ARM64
+          #   runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
           # ppc64el fails because of https://github.com/actions/setup-go/issues/648
           # - name: PPC64EL
           #   runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ppc64el", "edge"]') }}
