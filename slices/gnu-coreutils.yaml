@@ -1,0 +1,422 @@
+package: gnu-coreutils
+
+essential:
+  - gnu-coreutils_copyright
+
+# The gnu-coreutils package contains three standard data slices:
+#   - libs: contains all shared object files.
+#   - bins: contains all binaries, or executables.
+#   - copyright: contains the copyright file.
+# It also contains a list of other granular slices, each of which contains a
+# list of binaries. These slices have been created based on the grouping in the
+# GNU docs: https://www.gnu.org/software/coreutils/manual/html_node/index.html.
+# Ideally, users would install (or, add as an essential to some other slice) one
+# or more of these granular slices when they need a particular set of binaries.
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/libexec/coreutils/libstdbuf.so:
+
+  # The bins slice contains all of the binaries in the coreutils package.
+  bins:
+    essential:
+      - gnu-coreutils_basic-operations
+      - gnu-coreutils_changing-file-attributes
+      - gnu-coreutils_conditions
+      - gnu-coreutils_delaying
+      - gnu-coreutils_directory-listing
+      - gnu-coreutils_file-name-manipulation
+      - gnu-coreutils_file-space-usage
+      - gnu-coreutils_formatting-file-contents
+      - gnu-coreutils_modified-command-invocation
+      - gnu-coreutils_numeric-operations
+      - gnu-coreutils_operating-on-characters
+      - gnu-coreutils_operating-on-fields
+      - gnu-coreutils_operating-on-sorted-files
+      - gnu-coreutils_output-of-entire-files
+      - gnu-coreutils_output-of-parts-of-files
+      - gnu-coreutils_printing-text
+      - gnu-coreutils_redirection
+      - gnu-coreutils_selinux-context
+      - gnu-coreutils_special-file-types
+      - gnu-coreutils_summarizing-files
+      - gnu-coreutils_system-context
+      - gnu-coreutils_user-information
+      - gnu-coreutils_working-context
+
+  # Output of entire files -- These commands read and write entire files,
+  # possibly transforming them in some way.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
+  output-of-entire-files:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnubase32:
+      /usr/bin/gnubase64:
+      /usr/bin/gnubasenc:
+      /usr/bin/gnucat:
+      /usr/bin/gnunl:
+      /usr/bin/gnuod:
+      /usr/bin/gnutac:
+
+  # Formatting file contents -- These commands reformat the contents of files.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-contents.html
+  formatting-file-contents:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnufmt:
+      /usr/bin/gnufold:
+      /usr/bin/gnupr:
+
+  # Output of parts of files -- These commands output pieces of the input.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
+  output-of-parts-of-files:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnucsplit:
+      /usr/bin/gnuhead:
+      /usr/bin/gnusplit:
+      /usr/bin/gnutail:
+
+  # Summarizing files -- These commands generate just a few numbers representing
+  # entire contents of files.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Summarizing-files.html
+  summarizing-files:
+    essential:
+      - libc6_libs
+      - libssl3t64_libs
+    contents:
+      /usr/bin/gnub2sum:
+      /usr/bin/gnucksum:
+      /usr/bin/gnumd5sum:
+      /usr/bin/gnusha1sum:
+      /usr/bin/gnusha224sum:
+      /usr/bin/gnusha256sum:
+      /usr/bin/gnusha384sum:
+      /usr/bin/gnusha512sum:
+      /usr/bin/gnusum:
+      /usr/bin/gnuwc:
+
+  # Operating on sorted files -- These commands work with (or produce) sorted
+  # files.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-sorted-files.html
+  operating-on-sorted-files:
+    essential:
+      - gnu-coreutils_sort
+      - libc6_libs
+      - libssl3t64_libs
+    contents:
+      /usr/bin/gnucomm:
+      /usr/bin/gnuptx:
+      /usr/bin/gnushuf:
+      /usr/bin/gnutsort:
+      /usr/bin/gnuuniq:
+
+  # Operating on fields.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
+  operating-on-fields:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnucut:
+      /usr/bin/gnujoin:
+      /usr/bin/gnupaste:
+
+  # Operating on characters -- These commands operate on individual characters.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
+  operating-on-characters:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuexpand:
+      /usr/bin/gnutr:
+      /usr/bin/gnuunexpand:
+
+  # Directory listing -- This slice contains the ls command and its variants dir
+  # and vdir, which list information about files.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
+  directory-listing:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnudir:
+      /usr/bin/gnudircolors:
+      /usr/bin/gnuls:
+      /usr/bin/gnuvdir:
+
+  # Basic operations -- This slice contains the commands for basic file
+  # manipulation: copying, moving (renaming), and deleting (removing).
+  # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
+  basic-operations:
+    essential:
+      - gnu-coreutils_rm-utility
+      - libacl1_libs
+      - libattr1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnucp:
+      /usr/bin/gnudd:
+      /usr/bin/gnuinstall:
+      /usr/bin/gnumv:
+      /usr/bin/gnushred:
+
+  # Special file types -- This slice contains commands which create special
+  # types of files (and rmdir, which removes directories, one special file
+  # type).
+  # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
+  special-file-types:
+    essential:
+      - gnu-coreutils_ln-utility
+      - gnu-coreutils_mkdir
+      - gnu-coreutils_readlink
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnulink:
+      /usr/bin/gnumkfifo:
+      /usr/bin/gnumknod:
+      /usr/bin/gnurmdir:
+      /usr/bin/gnuunlink:
+
+  # Changing file attributes -- These commands change file attributes.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
+  changing-file-attributes:
+    essential:
+      - gnu-coreutils_touch
+      - libc6_libs
+    contents:
+      /usr/bin/gnuchgrp:
+      /usr/bin/gnuchmod:
+      /usr/bin/gnuchown:
+
+  # File space usage -- These commands report how much storage is in use or
+  # available, report other file and file status information, and write buffers
+  # to file systems.
+  # https://www.gnu.org/software/coreutils/manual/html_node/File-space-usage.html
+  file-space-usage:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnudf:
+      /usr/bin/gnudu:
+      /usr/bin/gnustat:
+      /usr/bin/gnusync:
+      /usr/bin/gnutruncate:
+
+  # Printing text -- This slice contains commands that display text strings.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
+  printing-text:
+    essential:
+      - gnu-coreutils_echo
+      - gnu-coreutils_printf
+      - libc6_libs
+    contents:
+      /usr/bin/gnuyes:
+
+  # Conditions -- This slice contains commands that are primarily useful for
+  # their exit status, rather than their output. Thus, they are often used as
+  # the condition of shell if statements, or as the last command in a pipeline.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Conditions.html
+  conditions:
+    essential:
+      - gnu-coreutils_expr
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/bin/gnu[:
+      /usr/bin/gnufalse:
+      /usr/bin/gnutest:
+      /usr/bin/gnutrue:
+
+  # Redirection -- This slice contains the tee command.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Redirection.html
+  redirection:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnutee:
+
+  # File name manipulation -- This slice contains commands that manipulate file
+  # names.
+  # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
+  file-name-manipulation:
+    essential:
+      - gnu-coreutils_dirname
+      - libc6_libs
+    contents:
+      /usr/bin/gnubasename:
+      /usr/bin/gnumktemp:
+      /usr/bin/gnupathchk:
+      /usr/bin/gnurealpath:
+
+  # Working context -- This slice contains commands that display or alter the
+  # context in which you are working: the current directory, the terminal
+  # settings, and so forth.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Working-context.html
+  working-context:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuprintenv:
+      /usr/bin/gnupwd:
+      /usr/bin/gnustty:
+      /usr/bin/gnutty:
+
+  # User information -- This slice contains commands that print user-related
+  # information: logins, groups, and so forth.
+  # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
+  user-information:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/gnugroups:
+      /usr/bin/gnuid:
+      /usr/bin/gnulogname:
+      /usr/bin/gnupinky:
+      /usr/bin/gnuusers:
+      /usr/bin/gnuwho:
+      /usr/bin/gnuwhoami:
+
+  # System context -- This slice contains commands that print or change
+  # system-wide information.
+  # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
+  system-context:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuarch:
+      /usr/bin/gnudate:
+      /usr/bin/gnuhostid:
+      /usr/bin/gnunproc:
+      /usr/bin/gnuuname:
+
+  # SELinux context -- This slice contains commands for operations with SELinux
+  # contexts.
+  # https://www.gnu.org/software/coreutils/manual/html_node/SELinux-context.html
+  selinux-context:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnuchcon:
+      /usr/bin/gnuruncon:
+
+  # Modified command invocation -- This slice contains commands that run other
+  # commands in some context different than the current one: a modified
+  # environment, as a different user, etc.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Modified-command-invocation.html
+  modified-command-invocation:
+    essential:
+      - gnu-coreutils_libs
+      - libc6_libs
+    contents:
+      /usr/bin/gnuenv:
+      /usr/bin/gnunice:
+      /usr/bin/gnunohup:
+      /usr/bin/gnustdbuf:
+      /usr/bin/gnutimeout:
+      /usr/sbin/gnuchroot:
+
+  # Delaying.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
+  delaying:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnusleep:
+
+  # Numeric operations -- These programs do numerically-related operations.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
+  numeric-operations:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/bin/gnufactor:
+      /usr/bin/gnunumfmt:
+      /usr/bin/gnuseq:
+
+  # Single-binary slices
+
+  env:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuenv:
+
+  expr:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/bin/gnuexpr:
+
+  mkdir:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnumkdir:
+
+  echo:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuecho:
+
+  # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
+  ln-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuln:
+
+  rm-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnurm:
+
+  readlink:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnureadlink:
+
+  sort:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnusort:
+
+  dirname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnudirname:
+
+  touch:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnutouch:
+
+  printf:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuprintf:
+
+  copyright:
+    contents:
+      /usr/share/doc/gnu-coreutils/copyright:
