@@ -266,54 +266,7 @@ slices:
       /usr/include/*-linux-*/bits/timesize.h:
       /usr/include/*-linux-*/bits/timex.h:
       /usr/include/*-linux-*/bits/types.h:
-      /usr/include/*-linux-*/bits/types/FILE.h:
-      /usr/include/*-linux-*/bits/types/__FILE.h:
-      /usr/include/*-linux-*/bits/types/__fpos64_t.h:
-      /usr/include/*-linux-*/bits/types/__fpos_t.h:
-      /usr/include/*-linux-*/bits/types/__locale_t.h:
-      /usr/include/*-linux-*/bits/types/__mbstate_t.h:
-      /usr/include/*-linux-*/bits/types/__sigset_t.h:
-      /usr/include/*-linux-*/bits/types/__sigval_t.h:
-      /usr/include/*-linux-*/bits/types/clock_t.h:
-      /usr/include/*-linux-*/bits/types/clockid_t.h:
-      /usr/include/*-linux-*/bits/types/cookie_io_functions_t.h:
-      /usr/include/*-linux-*/bits/types/error_t.h:
-      /usr/include/*-linux-*/bits/types/idtype_t.h:
-      /usr/include/*-linux-*/bits/types/locale_t.h:
-      /usr/include/*-linux-*/bits/types/mbstate_t.h:
-      /usr/include/*-linux-*/bits/types/res_state.h:
-      /usr/include/*-linux-*/bits/types/sig_atomic_t.h:
-      /usr/include/*-linux-*/bits/types/sigevent_t.h:
-      /usr/include/*-linux-*/bits/types/siginfo_t.h:
-      /usr/include/*-linux-*/bits/types/sigset_t.h:
-      /usr/include/*-linux-*/bits/types/sigval_t.h:
-      /usr/include/*-linux-*/bits/types/stack_t.h:
-      /usr/include/*-linux-*/bits/types/struct_FILE.h:
-      /usr/include/*-linux-*/bits/types/struct___jmp_buf_tag.h:
-      /usr/include/*-linux-*/bits/types/struct_iovec.h:
-      /usr/include/*-linux-*/bits/types/struct_itimerspec.h:
-      /usr/include/*-linux-*/bits/types/struct_msqid64_ds.h:
-      /usr/include/*-linux-*/bits/types/struct_msqid64_ds_helper.h:
-      /usr/include/*-linux-*/bits/types/struct_msqid_ds.h:
-      /usr/include/*-linux-*/bits/types/struct_osockaddr.h:
-      /usr/include/*-linux-*/bits/types/struct_rusage.h:
-      /usr/include/*-linux-*/bits/types/struct_sched_param.h:
-      /usr/include/*-linux-*/bits/types/struct_semid64_ds.h:
-      /usr/include/*-linux-*/bits/types/struct_semid64_ds_helper.h:
-      /usr/include/*-linux-*/bits/types/struct_semid_ds.h:
-      /usr/include/*-linux-*/bits/types/struct_shmid64_ds.h:
-      /usr/include/*-linux-*/bits/types/struct_shmid64_ds_helper.h:
-      /usr/include/*-linux-*/bits/types/struct_shmid_ds.h:
-      /usr/include/*-linux-*/bits/types/struct_sigstack.h:
-      /usr/include/*-linux-*/bits/types/struct_statx.h:
-      /usr/include/*-linux-*/bits/types/struct_statx_timestamp.h:
-      /usr/include/*-linux-*/bits/types/struct_timeb.h:
-      /usr/include/*-linux-*/bits/types/struct_timespec.h:
-      /usr/include/*-linux-*/bits/types/struct_timeval.h:
-      /usr/include/*-linux-*/bits/types/struct_tm.h:
-      /usr/include/*-linux-*/bits/types/time_t.h:
-      /usr/include/*-linux-*/bits/types/timer_t.h:
-      /usr/include/*-linux-*/bits/types/wint_t.h:
+      /usr/include/*-linux-*/bits/types/*.h:
       /usr/include/*-linux-*/bits/typesizes.h:
       /usr/include/*-linux-*/bits/uintn-identity.h:
       /usr/include/*-linux-*/bits/uio-ext.h:
