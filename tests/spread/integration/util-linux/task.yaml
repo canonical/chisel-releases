@@ -44,7 +44,6 @@ execute: |
     block-devices)
       chroot "${rootfs}" lsblk | grep "loop0"
       chroot "${rootfs}" partx --help
-      chroot "${rootfs}" resizepart --help
       chroot "${rootfs}" blkdiscard --help
       chroot "${rootfs}" blkzone --help
       chroot "${rootfs}" blockdev --help
