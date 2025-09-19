@@ -129,7 +129,7 @@ execute: |
     ;;
     namespace)
       chroot "${rootfs}" lsns | grep "init"
-      chroot "${rootfs}" nsenter bash -c "exit 0"
+      chroot "${rootfs}" nsenter -t $$ --mount --uts --ipc --net --pid bash -c 'exit 0'
       chroot "${rootfs}" unshare bash -c "exit 0"
     ;;
     process)
