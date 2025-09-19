@@ -136,107 +136,31 @@ slices:
         arch: [riscv64]
       /usr/include/*-linux-*/gnu/stubs.h:
       /usr/include/*-linux-*/ieee754.h:
-      /usr/include/*-linux-*/sys/acct.h:
+      /usr/include/*-linux-*/sys/*.h:
       /usr/include/*-linux-*/sys/asm.h:
         arch: [riscv64]
-      /usr/include/*-linux-*/sys/auxv.h:
-      /usr/include/*-linux-*/sys/bitypes.h:
       /usr/include/*-linux-*/sys/cachectl.h:
         arch: [riscv64]
-      /usr/include/*-linux-*/sys/cdefs.h:
       /usr/include/*-linux-*/sys/debugreg.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/sys/dir.h:
       /usr/include/*-linux-*/sys/elf.h:
         arch: [amd64, arm64, armhf, i386, s390x]
-      /usr/include/*-linux-*/sys/epoll.h:
-      /usr/include/*-linux-*/sys/errno.h:
-      /usr/include/*-linux-*/sys/eventfd.h:
-      /usr/include/*-linux-*/sys/fanotify.h:
-      /usr/include/*-linux-*/sys/fcntl.h:
-      /usr/include/*-linux-*/sys/file.h:
-      /usr/include/*-linux-*/sys/fsuid.h:
-      /usr/include/*-linux-*/sys/gmon.h:
-      /usr/include/*-linux-*/sys/gmon_out.h:
       /usr/include/*-linux-*/sys/hwprobe.h:
         arch: [riscv64]
       /usr/include/*-linux-*/sys/ifunc.h:
         arch: [arm64]
-      /usr/include/*-linux-*/sys/inotify.h:
       /usr/include/*-linux-*/sys/io.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/sys/ioctl.h:
-      /usr/include/*-linux-*/sys/ipc.h:
-      /usr/include/*-linux-*/sys/kd.h:
-      /usr/include/*-linux-*/sys/klog.h:
-      /usr/include/*-linux-*/sys/mman.h:
-      /usr/include/*-linux-*/sys/mount.h:
-      /usr/include/*-linux-*/sys/msg.h:
-      /usr/include/*-linux-*/sys/mtio.h:
-      /usr/include/*-linux-*/sys/param.h:
-      /usr/include/*-linux-*/sys/pci.h:
       /usr/include/*-linux-*/sys/perm.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/sys/personality.h:
-      /usr/include/*-linux-*/sys/pidfd.h:
       /usr/include/*-linux-*/sys/platform/ppc.h:
         arch: [ppc64el]
       /usr/include/*-linux-*/sys/platform/x86.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/sys/poll.h:
-      /usr/include/*-linux-*/sys/prctl.h:
-      /usr/include/*-linux-*/sys/procfs.h:
-      /usr/include/*-linux-*/sys/profil.h:
-      /usr/include/*-linux-*/sys/ptrace.h:
-      /usr/include/*-linux-*/sys/queue.h:
-      /usr/include/*-linux-*/sys/quota.h:
-      /usr/include/*-linux-*/sys/random.h:
-      /usr/include/*-linux-*/sys/raw.h:
-      /usr/include/*-linux-*/sys/reboot.h:
       /usr/include/*-linux-*/sys/reg.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/sys/resource.h:
-      /usr/include/*-linux-*/sys/rseq.h:
-      /usr/include/*-linux-*/sys/select.h:
-      /usr/include/*-linux-*/sys/sem.h:
-      /usr/include/*-linux-*/sys/sendfile.h:
-      /usr/include/*-linux-*/sys/shm.h:
-      /usr/include/*-linux-*/sys/signal.h:
-      /usr/include/*-linux-*/sys/signalfd.h:
-      /usr/include/*-linux-*/sys/single_threaded.h:
-      /usr/include/*-linux-*/sys/socket.h:
-      /usr/include/*-linux-*/sys/socketvar.h:
-      /usr/include/*-linux-*/sys/soundcard.h:
-      /usr/include/*-linux-*/sys/stat.h:
-      /usr/include/*-linux-*/sys/statfs.h:
-      /usr/include/*-linux-*/sys/statvfs.h:
-      /usr/include/*-linux-*/sys/swap.h:
-      /usr/include/*-linux-*/sys/syscall.h:
-      /usr/include/*-linux-*/sys/sysinfo.h:
-      /usr/include/*-linux-*/sys/syslog.h:
-      /usr/include/*-linux-*/sys/sysmacros.h:
-      /usr/include/*-linux-*/sys/termios.h:
-      /usr/include/*-linux-*/sys/time.h:
-      /usr/include/*-linux-*/sys/timeb.h:
-      /usr/include/*-linux-*/sys/timerfd.h:
-      /usr/include/*-linux-*/sys/times.h:
-      /usr/include/*-linux-*/sys/timex.h:
-      /usr/include/*-linux-*/sys/ttychars.h:
-      /usr/include/*-linux-*/sys/ttydefaults.h:
-      /usr/include/*-linux-*/sys/types.h:
-      /usr/include/*-linux-*/sys/ucontext.h:
-      /usr/include/*-linux-*/sys/uio.h:
-      /usr/include/*-linux-*/sys/un.h:
-      /usr/include/*-linux-*/sys/unistd.h:
-      /usr/include/*-linux-*/sys/user.h:
-      /usr/include/*-linux-*/sys/utsname.h:
-      /usr/include/*-linux-*/sys/vfs.h:
-      /usr/include/*-linux-*/sys/vlimit.h:
       /usr/include/*-linux-*/sys/vm86.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/sys/vt.h:
-      /usr/include/*-linux-*/sys/wait.h:
-      /usr/include/*-linux-*/sys/xattr.h:
       /usr/include/aio.h:
       /usr/include/aliases.h:
       /usr/include/alloca.h:
