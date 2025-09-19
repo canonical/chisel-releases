@@ -5,7 +5,7 @@ essential:
 
 slices:
   # Standard POSIX libraries and startup files
-  posix-libs:
+  core:
     essential:
       - libc6-dev_symlink-libc6-libs
       - libc6_libs
@@ -25,7 +25,7 @@ slices:
     # NOTE: libm.so is a linker script which points to
     # libm.so.6 in libc6 package, *as well as* libmvec.so.1.
     essential:
-      - libc6_libs
+      - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/libm.so:
       /usr/lib/*-linux-*/libmvec.so:
@@ -34,12 +34,12 @@ slices:
   # All the static libraries and startup files
   libs:
     essential:
+      - libc6-dev_core
       - libc6-dev_libdl
       - libc6-dev_libm
       - libc6-dev_libpthread
       - libc6-dev_librt
       - libc6-dev_libutil
-      - libc6-dev_posix-libs
     contents:
       # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
       # and if we tried to glob *.o files, this slice would conflict with oh-so-many
@@ -64,21 +64,29 @@ slices:
 
   # only needed if linking with -lpthread or the -pthread flag in gcc
   libpthread:
+    essential:
+      - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/libpthread.a:
 
   # only needed if linking with -ldl
   libdl:
+    essential:
+      - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/libdl.a:
 
   # only needed if linking with -lrt
   librt:
+    essential:
+      - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/librt.a:
 
   # only needed if linking with -lutil
   libutil:
+    essential:
+      - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/libutil.a:
         arch: [amd64, arm64, ppc64el, riscv64, s390x]
