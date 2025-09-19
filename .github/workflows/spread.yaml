@@ -14,7 +14,9 @@ jobs:
           - name: ARM64
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
           - name: PPC64EL
-            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ppc64el", "large"]') }}
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ppc64el", "edge"]') }}
+          - name: S390x
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "s390x", "edge"]') }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
     steps:
