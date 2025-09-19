@@ -99,14 +99,240 @@ slices:
       - linux-libc-dev_linux-headers
     contents:
       /usr/include/*-linux-*/a.out.h:
-      /usr/include/*-linux-*/bits/*.h:
+      /usr/include/*-linux-*/bits/a.out.h:
+      /usr/include/*-linux-*/bits/argp-ldbl.h:
+      /usr/include/*-linux-*/bits/atomic_wide_counter.h:
+      /usr/include/*-linux-*/bits/byteswap.h:
+      /usr/include/*-linux-*/bits/cmathcalls.h:
+      /usr/include/*-linux-*/bits/confname.h:
+      /usr/include/*-linux-*/bits/cpu-set.h:
+      /usr/include/*-linux-*/bits/dirent.h:
+      /usr/include/*-linux-*/bits/dirent_ext.h:
+      /usr/include/*-linux-*/bits/dl_find_object.h:
+      /usr/include/*-linux-*/bits/dlfcn.h:
+      /usr/include/*-linux-*/bits/elfclass.h:
+      /usr/include/*-linux-*/bits/endian.h:
+      /usr/include/*-linux-*/bits/endianness.h:
+      /usr/include/*-linux-*/bits/environments.h:
+      /usr/include/*-linux-*/bits/epoll.h:
+      /usr/include/*-linux-*/bits/err-ldbl.h:
+      /usr/include/*-linux-*/bits/errno.h:
+      /usr/include/*-linux-*/bits/error-ldbl.h:
+      /usr/include/*-linux-*/bits/error.h:
+      /usr/include/*-linux-*/bits/eventfd.h:
+      /usr/include/*-linux-*/bits/fcntl-linux.h:
+      /usr/include/*-linux-*/bits/fcntl.h:
+      /usr/include/*-linux-*/bits/fcntl2.h:
+      /usr/include/*-linux-*/bits/fenv.h:
+      /usr/include/*-linux-*/bits/floatn-common.h:
+      /usr/include/*-linux-*/bits/floatn.h:
+      /usr/include/*-linux-*/bits/flt-eval-method.h:
+      /usr/include/*-linux-*/bits/fp-fast.h:
+      /usr/include/*-linux-*/bits/fp-logb.h:
+      /usr/include/*-linux-*/bits/getopt_core.h:
+      /usr/include/*-linux-*/bits/getopt_ext.h:
+      /usr/include/*-linux-*/bits/getopt_posix.h:
+      /usr/include/*-linux-*/bits/hwcap.h:
+      /usr/include/*-linux-*/bits/in.h:
+      /usr/include/*-linux-*/bits/indirect-return.h:
+      /usr/include/*-linux-*/bits/initspin.h:
+      /usr/include/*-linux-*/bits/inotify.h:
+      /usr/include/*-linux-*/bits/ioctl-types.h:
+      /usr/include/*-linux-*/bits/ioctls.h:
+      /usr/include/*-linux-*/bits/ipc-perm.h:
+      /usr/include/*-linux-*/bits/ipc.h:
+      /usr/include/*-linux-*/bits/ipctypes.h:
+      /usr/include/*-linux-*/bits/iscanonical.h:
+      /usr/include/*-linux-*/bits/libc-header-start.h:
+      /usr/include/*-linux-*/bits/libm-simd-decl-stubs.h:
+      /usr/include/*-linux-*/bits/link.h:
+      /usr/include/*-linux-*/bits/link_lavcurrent.h:
+      /usr/include/*-linux-*/bits/local_lim.h:
+      /usr/include/*-linux-*/bits/locale.h:
+      /usr/include/*-linux-*/bits/long-double.h:
+      /usr/include/*-linux-*/bits/math-vector.h:
+      /usr/include/*-linux-*/bits/mathcalls-helper-functions.h:
+      /usr/include/*-linux-*/bits/mathcalls-macros.h:
+      /usr/include/*-linux-*/bits/mathcalls-narrow.h:
+      /usr/include/*-linux-*/bits/mathcalls.h:
+      /usr/include/*-linux-*/bits/mathdef.h:
+      /usr/include/*-linux-*/bits/mman-linux.h:
+      /usr/include/*-linux-*/bits/mman-map-flags-generic.h:
+      /usr/include/*-linux-*/bits/mman-shared.h:
+      /usr/include/*-linux-*/bits/mman.h:
+      /usr/include/*-linux-*/bits/mman_ext.h:
+      /usr/include/*-linux-*/bits/monetary-ldbl.h:
+      /usr/include/*-linux-*/bits/mqueue.h:
+      /usr/include/*-linux-*/bits/mqueue2.h:
+      /usr/include/*-linux-*/bits/msq.h:
+      /usr/include/*-linux-*/bits/netdb.h:
+      /usr/include/*-linux-*/bits/param.h:
       /usr/include/*-linux-*/bits/platform/features.h:
         arch: [amd64, i386]
       /usr/include/*-linux-*/bits/platform/x86.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/bits/poll.h:
+      /usr/include/*-linux-*/bits/poll2.h:
+      /usr/include/*-linux-*/bits/posix1_lim.h:
+      /usr/include/*-linux-*/bits/posix2_lim.h:
+      /usr/include/*-linux-*/bits/posix_opt.h:
       /usr/include/*-linux-*/bits/ppc.h:
         arch: [ppc64el]
-      /usr/include/*-linux-*/bits/types/*.h:
+      /usr/include/*-linux-*/bits/printf-ldbl.h:
+      /usr/include/*-linux-*/bits/procfs-extra.h:
+      /usr/include/*-linux-*/bits/procfs-id.h:
+      /usr/include/*-linux-*/bits/procfs-prregset.h:
+      /usr/include/*-linux-*/bits/procfs.h:
+      /usr/include/*-linux-*/bits/pthread_stack_min-dynamic.h:
+      /usr/include/*-linux-*/bits/pthread_stack_min.h:
+      /usr/include/*-linux-*/bits/pthreadtypes-arch.h:
+      /usr/include/*-linux-*/bits/pthreadtypes.h:
+      /usr/include/*-linux-*/bits/ptrace-shared.h:
+      /usr/include/*-linux-*/bits/resource.h:
+      /usr/include/*-linux-*/bits/rseq.h:
+      /usr/include/*-linux-*/bits/sched.h:
+      /usr/include/*-linux-*/bits/select-decl.h:
+      /usr/include/*-linux-*/bits/select.h:
+      /usr/include/*-linux-*/bits/select2.h:
+      /usr/include/*-linux-*/bits/sem.h:
+      /usr/include/*-linux-*/bits/semaphore.h:
+      /usr/include/*-linux-*/bits/setjmp.h:
+      /usr/include/*-linux-*/bits/setjmp2.h:
+      /usr/include/*-linux-*/bits/shm.h:
+      /usr/include/*-linux-*/bits/shmlba.h:
+      /usr/include/*-linux-*/bits/sigaction.h:
+      /usr/include/*-linux-*/bits/sigcontext.h:
+      /usr/include/*-linux-*/bits/sigevent-consts.h:
+      /usr/include/*-linux-*/bits/siginfo-arch.h:
+      /usr/include/*-linux-*/bits/siginfo-consts-arch.h:
+      /usr/include/*-linux-*/bits/siginfo-consts.h:
+      /usr/include/*-linux-*/bits/signal_ext.h:
+      /usr/include/*-linux-*/bits/signalfd.h:
+      /usr/include/*-linux-*/bits/signum-arch.h:
+      /usr/include/*-linux-*/bits/signum-generic.h:
+      /usr/include/*-linux-*/bits/sigstack.h:
+      /usr/include/*-linux-*/bits/sigstksz.h:
+      /usr/include/*-linux-*/bits/sigthread.h:
+      /usr/include/*-linux-*/bits/sockaddr.h:
+      /usr/include/*-linux-*/bits/socket-constants.h:
+      /usr/include/*-linux-*/bits/socket.h:
+      /usr/include/*-linux-*/bits/socket2.h:
+      /usr/include/*-linux-*/bits/socket_type.h:
+      /usr/include/*-linux-*/bits/spawn_ext.h:
+      /usr/include/*-linux-*/bits/ss_flags.h:
+      /usr/include/*-linux-*/bits/stat.h:
+      /usr/include/*-linux-*/bits/statfs.h:
+      /usr/include/*-linux-*/bits/statvfs.h:
+      /usr/include/*-linux-*/bits/statx-generic.h:
+      /usr/include/*-linux-*/bits/statx.h:
+      /usr/include/*-linux-*/bits/stdint-intn.h:
+      /usr/include/*-linux-*/bits/stdint-least.h:
+      /usr/include/*-linux-*/bits/stdint-uintn.h:
+      /usr/include/*-linux-*/bits/stdio-ldbl.h:
+      /usr/include/*-linux-*/bits/stdio.h:
+      /usr/include/*-linux-*/bits/stdio2-decl.h:
+      /usr/include/*-linux-*/bits/stdio2.h:
+      /usr/include/*-linux-*/bits/stdio_lim.h:
+      /usr/include/*-linux-*/bits/stdlib-bsearch.h:
+      /usr/include/*-linux-*/bits/stdlib-float.h:
+      /usr/include/*-linux-*/bits/stdlib-ldbl.h:
+      /usr/include/*-linux-*/bits/stdlib.h:
+      /usr/include/*-linux-*/bits/string_fortified.h:
+      /usr/include/*-linux-*/bits/strings_fortified.h:
+      /usr/include/*-linux-*/bits/struct_mutex.h:
+      /usr/include/*-linux-*/bits/struct_rwlock.h:
+      /usr/include/*-linux-*/bits/struct_stat.h:
+      /usr/include/*-linux-*/bits/struct_stat_time64_helper.h:
+      /usr/include/*-linux-*/bits/syscall.h:
+      /usr/include/*-linux-*/bits/syslog-decl.h:
+      /usr/include/*-linux-*/bits/syslog-ldbl.h:
+      /usr/include/*-linux-*/bits/syslog-path.h:
+      /usr/include/*-linux-*/bits/syslog.h:
+      /usr/include/*-linux-*/bits/sysmacros.h:
+      /usr/include/*-linux-*/bits/termios-baud.h:
+      /usr/include/*-linux-*/bits/termios-c_cc.h:
+      /usr/include/*-linux-*/bits/termios-c_cflag.h:
+      /usr/include/*-linux-*/bits/termios-c_iflag.h:
+      /usr/include/*-linux-*/bits/termios-c_lflag.h:
+      /usr/include/*-linux-*/bits/termios-c_oflag.h:
+      /usr/include/*-linux-*/bits/termios-misc.h:
+      /usr/include/*-linux-*/bits/termios-struct.h:
+      /usr/include/*-linux-*/bits/termios-tcflow.h:
+      /usr/include/*-linux-*/bits/termios.h:
+      /usr/include/*-linux-*/bits/thread-shared-types.h:
+      /usr/include/*-linux-*/bits/time.h:
+      /usr/include/*-linux-*/bits/time64.h:
+      /usr/include/*-linux-*/bits/timerfd.h:
+      /usr/include/*-linux-*/bits/timesize.h:
+      /usr/include/*-linux-*/bits/timex.h:
+      /usr/include/*-linux-*/bits/types.h:
+      /usr/include/*-linux-*/bits/types/FILE.h:
+      /usr/include/*-linux-*/bits/types/__FILE.h:
+      /usr/include/*-linux-*/bits/types/__fpos64_t.h:
+      /usr/include/*-linux-*/bits/types/__fpos_t.h:
+      /usr/include/*-linux-*/bits/types/__locale_t.h:
+      /usr/include/*-linux-*/bits/types/__mbstate_t.h:
+      /usr/include/*-linux-*/bits/types/__sigset_t.h:
+      /usr/include/*-linux-*/bits/types/__sigval_t.h:
+      /usr/include/*-linux-*/bits/types/clock_t.h:
+      /usr/include/*-linux-*/bits/types/clockid_t.h:
+      /usr/include/*-linux-*/bits/types/cookie_io_functions_t.h:
+      /usr/include/*-linux-*/bits/types/error_t.h:
+      /usr/include/*-linux-*/bits/types/idtype_t.h:
+      /usr/include/*-linux-*/bits/types/locale_t.h:
+      /usr/include/*-linux-*/bits/types/mbstate_t.h:
+      /usr/include/*-linux-*/bits/types/res_state.h:
+      /usr/include/*-linux-*/bits/types/sig_atomic_t.h:
+      /usr/include/*-linux-*/bits/types/sigevent_t.h:
+      /usr/include/*-linux-*/bits/types/siginfo_t.h:
+      /usr/include/*-linux-*/bits/types/sigset_t.h:
+      /usr/include/*-linux-*/bits/types/sigval_t.h:
+      /usr/include/*-linux-*/bits/types/stack_t.h:
+      /usr/include/*-linux-*/bits/types/struct_FILE.h:
+      /usr/include/*-linux-*/bits/types/struct___jmp_buf_tag.h:
+      /usr/include/*-linux-*/bits/types/struct_iovec.h:
+      /usr/include/*-linux-*/bits/types/struct_itimerspec.h:
+      /usr/include/*-linux-*/bits/types/struct_msqid64_ds.h:
+      /usr/include/*-linux-*/bits/types/struct_msqid64_ds_helper.h:
+      /usr/include/*-linux-*/bits/types/struct_msqid_ds.h:
+      /usr/include/*-linux-*/bits/types/struct_osockaddr.h:
+      /usr/include/*-linux-*/bits/types/struct_rusage.h:
+      /usr/include/*-linux-*/bits/types/struct_sched_param.h:
+      /usr/include/*-linux-*/bits/types/struct_semid64_ds.h:
+      /usr/include/*-linux-*/bits/types/struct_semid64_ds_helper.h:
+      /usr/include/*-linux-*/bits/types/struct_semid_ds.h:
+      /usr/include/*-linux-*/bits/types/struct_shmid64_ds.h:
+      /usr/include/*-linux-*/bits/types/struct_shmid64_ds_helper.h:
+      /usr/include/*-linux-*/bits/types/struct_shmid_ds.h:
+      /usr/include/*-linux-*/bits/types/struct_sigstack.h:
+      /usr/include/*-linux-*/bits/types/struct_statx.h:
+      /usr/include/*-linux-*/bits/types/struct_statx_timestamp.h:
+      /usr/include/*-linux-*/bits/types/struct_timeb.h:
+      /usr/include/*-linux-*/bits/types/struct_timespec.h:
+      /usr/include/*-linux-*/bits/types/struct_timeval.h:
+      /usr/include/*-linux-*/bits/types/struct_tm.h:
+      /usr/include/*-linux-*/bits/types/time_t.h:
+      /usr/include/*-linux-*/bits/types/timer_t.h:
+      /usr/include/*-linux-*/bits/types/wint_t.h:
+      /usr/include/*-linux-*/bits/typesizes.h:
+      /usr/include/*-linux-*/bits/uintn-identity.h:
+      /usr/include/*-linux-*/bits/uio-ext.h:
+      /usr/include/*-linux-*/bits/uio_lim.h:
+      /usr/include/*-linux-*/bits/unistd-decl.h:
+      /usr/include/*-linux-*/bits/unistd.h:
+      /usr/include/*-linux-*/bits/unistd_ext.h:
+      /usr/include/*-linux-*/bits/utmp.h:
+      /usr/include/*-linux-*/bits/utmpx.h:
+      /usr/include/*-linux-*/bits/utsname.h:
+      /usr/include/*-linux-*/bits/waitflags.h:
+      /usr/include/*-linux-*/bits/waitstatus.h:
+      /usr/include/*-linux-*/bits/wchar-ldbl.h:
+      /usr/include/*-linux-*/bits/wchar.h:
+      /usr/include/*-linux-*/bits/wchar2-decl.h:
+      /usr/include/*-linux-*/bits/wchar2.h:
+      /usr/include/*-linux-*/bits/wctype-wchar.h:
+      /usr/include/*-linux-*/bits/wordsize.h:
+      /usr/include/*-linux-*/bits/xopen_lim.h:
       /usr/include/*-linux-*/fpu_control.h:
       /usr/include/*-linux-*/gnu/lib-names-32.h:
         arch: [i386]
@@ -136,31 +362,107 @@ slices:
         arch: [riscv64]
       /usr/include/*-linux-*/gnu/stubs.h:
       /usr/include/*-linux-*/ieee754.h:
-      /usr/include/*-linux-*/sys/*.h:
+      /usr/include/*-linux-*/sys/acct.h:
       /usr/include/*-linux-*/sys/asm.h:
         arch: [riscv64]
+      /usr/include/*-linux-*/sys/auxv.h:
+      /usr/include/*-linux-*/sys/bitypes.h:
       /usr/include/*-linux-*/sys/cachectl.h:
         arch: [riscv64]
+      /usr/include/*-linux-*/sys/cdefs.h:
       /usr/include/*-linux-*/sys/debugreg.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/sys/dir.h:
       /usr/include/*-linux-*/sys/elf.h:
         arch: [amd64, arm64, armhf, i386, s390x]
+      /usr/include/*-linux-*/sys/epoll.h:
+      /usr/include/*-linux-*/sys/errno.h:
+      /usr/include/*-linux-*/sys/eventfd.h:
+      /usr/include/*-linux-*/sys/fanotify.h:
+      /usr/include/*-linux-*/sys/fcntl.h:
+      /usr/include/*-linux-*/sys/file.h:
+      /usr/include/*-linux-*/sys/fsuid.h:
+      /usr/include/*-linux-*/sys/gmon.h:
+      /usr/include/*-linux-*/sys/gmon_out.h:
       /usr/include/*-linux-*/sys/hwprobe.h:
         arch: [riscv64]
       /usr/include/*-linux-*/sys/ifunc.h:
         arch: [arm64]
+      /usr/include/*-linux-*/sys/inotify.h:
       /usr/include/*-linux-*/sys/io.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/sys/ioctl.h:
+      /usr/include/*-linux-*/sys/ipc.h:
+      /usr/include/*-linux-*/sys/kd.h:
+      /usr/include/*-linux-*/sys/klog.h:
+      /usr/include/*-linux-*/sys/mman.h:
+      /usr/include/*-linux-*/sys/mount.h:
+      /usr/include/*-linux-*/sys/msg.h:
+      /usr/include/*-linux-*/sys/mtio.h:
+      /usr/include/*-linux-*/sys/param.h:
+      /usr/include/*-linux-*/sys/pci.h:
       /usr/include/*-linux-*/sys/perm.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/sys/personality.h:
+      /usr/include/*-linux-*/sys/pidfd.h:
       /usr/include/*-linux-*/sys/platform/ppc.h:
         arch: [ppc64el]
       /usr/include/*-linux-*/sys/platform/x86.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/sys/poll.h:
+      /usr/include/*-linux-*/sys/prctl.h:
+      /usr/include/*-linux-*/sys/procfs.h:
+      /usr/include/*-linux-*/sys/profil.h:
+      /usr/include/*-linux-*/sys/ptrace.h:
+      /usr/include/*-linux-*/sys/queue.h:
+      /usr/include/*-linux-*/sys/quota.h:
+      /usr/include/*-linux-*/sys/random.h:
+      /usr/include/*-linux-*/sys/raw.h:
+      /usr/include/*-linux-*/sys/reboot.h:
       /usr/include/*-linux-*/sys/reg.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/sys/resource.h:
+      /usr/include/*-linux-*/sys/rseq.h:
+      /usr/include/*-linux-*/sys/select.h:
+      /usr/include/*-linux-*/sys/sem.h:
+      /usr/include/*-linux-*/sys/sendfile.h:
+      /usr/include/*-linux-*/sys/shm.h:
+      /usr/include/*-linux-*/sys/signal.h:
+      /usr/include/*-linux-*/sys/signalfd.h:
+      /usr/include/*-linux-*/sys/single_threaded.h:
+      /usr/include/*-linux-*/sys/socket.h:
+      /usr/include/*-linux-*/sys/socketvar.h:
+      /usr/include/*-linux-*/sys/soundcard.h:
+      /usr/include/*-linux-*/sys/stat.h:
+      /usr/include/*-linux-*/sys/statfs.h:
+      /usr/include/*-linux-*/sys/statvfs.h:
+      /usr/include/*-linux-*/sys/swap.h:
+      /usr/include/*-linux-*/sys/syscall.h:
+      /usr/include/*-linux-*/sys/sysinfo.h:
+      /usr/include/*-linux-*/sys/syslog.h:
+      /usr/include/*-linux-*/sys/sysmacros.h:
+      /usr/include/*-linux-*/sys/termios.h:
+      /usr/include/*-linux-*/sys/time.h:
+      /usr/include/*-linux-*/sys/timeb.h:
+      /usr/include/*-linux-*/sys/timerfd.h:
+      /usr/include/*-linux-*/sys/times.h:
+      /usr/include/*-linux-*/sys/timex.h:
+      /usr/include/*-linux-*/sys/ttychars.h:
+      /usr/include/*-linux-*/sys/ttydefaults.h:
+      /usr/include/*-linux-*/sys/types.h:
+      /usr/include/*-linux-*/sys/ucontext.h:
+      /usr/include/*-linux-*/sys/uio.h:
+      /usr/include/*-linux-*/sys/un.h:
+      /usr/include/*-linux-*/sys/unistd.h:
+      /usr/include/*-linux-*/sys/user.h:
+      /usr/include/*-linux-*/sys/utsname.h:
+      /usr/include/*-linux-*/sys/vfs.h:
+      /usr/include/*-linux-*/sys/vlimit.h:
       /usr/include/*-linux-*/sys/vm86.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/sys/vt.h:
+      /usr/include/*-linux-*/sys/wait.h:
+      /usr/include/*-linux-*/sys/xattr.h:
       /usr/include/aio.h:
       /usr/include/aliases.h:
       /usr/include/alloca.h:
