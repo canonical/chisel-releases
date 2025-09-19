@@ -4,33 +4,6 @@ essential:
   - libc6-dev_copyright
 
 slices:
-  core:
-    essential:
-      - libc6-dev_symlink-libc6-libs
-      - libc6_libs
-    contents:
-      /usr/lib/*-linux-*/Scrt1.o:
-      /usr/lib/*-linux-*/crt1.o:
-      /usr/lib/*-linux-*/crti.o:
-      /usr/lib/*-linux-*/crtn.o:
-      # NOTE: libc.so here is an ld script that tells the linker to look up the
-      #       functions from libc_nonshared.a if they are not found in the
-      #       libc.so.6 from libc6.
-      /usr/lib/*-linux-*/libc.so:
-      /usr/lib/*-linux-*/libc_nonshared.a:
-
-  # only needed if linking with -lm
-  libm:
-    # NOTE: libm.so is a linker script which points to
-    # libm.so.6 in libc6 package, *as well as* libmvec.so.1.
-    essential:
-      - libc6-dev_core
-    contents:
-      /usr/lib/*-linux-*/libm.so:
-      /usr/lib/*-linux-*/libmvec.so:
-        arch: [amd64, arm64]
-
-  # All the static libraries and startup files
   libs:
     essential:
       - libc6-dev_core
@@ -61,6 +34,32 @@ slices:
       /usr/lib/*-linux-*/rcrt1.o:
         arch: [amd64, arm64, riscv64, s390x]
 
+  core:
+    essential:
+      - libc6-dev_symlink-libc6-libs
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/Scrt1.o:
+      /usr/lib/*-linux-*/crt1.o:
+      /usr/lib/*-linux-*/crti.o:
+      /usr/lib/*-linux-*/crtn.o:
+      # NOTE: libc.so here is an ld script that tells the linker to look up the
+      #       functions from libc_nonshared.a if they are not found in the
+      #       libc.so.6 from libc6.
+      /usr/lib/*-linux-*/libc.so:
+      /usr/lib/*-linux-*/libc_nonshared.a:
+
+  # only needed if linking with -lm
+  libm:
+    # NOTE: libm.so is a linker script which points to
+    # libm.so.6 in libc6 package, *as well as* libmvec.so.1.
+    essential:
+      - libc6-dev_core
+    contents:
+      /usr/lib/*-linux-*/libm.so:
+      /usr/lib/*-linux-*/libmvec.so:
+        arch: [amd64, arm64]
+
   # only needed if linking with -lpthread or the -pthread flag in gcc
   libpthread:
     essential:
@@ -89,6 +88,25 @@ slices:
     contents:
       /usr/lib/*-linux-*/libutil.a:
         arch: [amd64, arm64, ppc64el, riscv64, s390x]
+
+  audit:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/audit/sotruss-lib.so:
+
+  symlink-libc6-libs:
+    essential:
+      - libc6_libs
+    # All of these are symlinks to so's in the libc6 package
+    contents:
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+      /usr/lib/*-linux-*/libanl.so:
+      /usr/lib/*-linux-*/libc_malloc_debug.so:
+      /usr/lib/*-linux-*/libnss_compat.so:
+      /usr/lib/*-linux-*/libnss_hesiod.so:
+      /usr/lib/*-linux-*/libresolv.so:
+      /usr/lib/*-linux-*/libthread_db.so:
 
   # All the standard C library headers
   headers:
@@ -617,25 +635,6 @@ slices:
       /usr/include/wchar.h:
       /usr/include/wctype.h:
       /usr/include/wordexp.h:
-
-  audit:
-    essential:
-      - libc6_libs
-    contents:
-      /usr/lib/*-linux-*/audit/sotruss-lib.so:
-
-  symlink-libc6-libs:
-    essential:
-      - libc6_libs
-    # All of these are symlinks to so's in the libc6 package
-    contents:
-      /usr/lib/*-linux-*/libBrokenLocale.so:
-      /usr/lib/*-linux-*/libanl.so:
-      /usr/lib/*-linux-*/libc_malloc_debug.so:
-      /usr/lib/*-linux-*/libnss_compat.so:
-      /usr/lib/*-linux-*/libnss_hesiod.so:
-      /usr/lib/*-linux-*/libresolv.so:
-      /usr/lib/*-linux-*/libthread_db.so:
 
   copyright:
     contents:
