@@ -29,3 +29,4 @@ execute: |
 
   # Check if the hash symlinks were created
   find "$rootfs/etc/ssl/certs/" | grep -P "\.0$"
+

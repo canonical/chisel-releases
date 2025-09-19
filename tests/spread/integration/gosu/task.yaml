@@ -9,3 +9,4 @@ execute: |
   ln -sf /usr/sbin/gosu "${rootfs}"/proc/self/exe
 
   chroot "${rootfs}/" gosu -h
+

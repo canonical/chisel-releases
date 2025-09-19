@@ -35,3 +35,4 @@ execute: |
 
   # Use gpgv to verify the signature
   chroot "${rootfs}" gpgv --keyring ./keyring/pubring.kbx message.txt.sig message.txt
+

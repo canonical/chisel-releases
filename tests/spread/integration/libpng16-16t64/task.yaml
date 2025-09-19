@@ -14,3 +14,4 @@ execute: |
 
   apt install -y file
   [[ $(file "${rootfs}/images/output.png") == "${rootfs}/images/output.png: PNG image data, 64 x 64, 8-bit/color RGB, non-interlaced" ]]
+

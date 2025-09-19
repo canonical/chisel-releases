@@ -10,3 +10,4 @@ execute: |
   # delete user
   chroot "${rootfs}"/ userdel foo
   cat "${rootfs}/etc/passwd" | grep -vqz foo
+

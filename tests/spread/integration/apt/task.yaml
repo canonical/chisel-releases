@@ -14,3 +14,4 @@ execute: |
   chroot "${rootfs}/" python3.13 -c 'print("Hello, World!")' | grep -q "Hello, World!"
 
   umount "${rootfs}/dev"
+

@@ -38,3 +38,4 @@ execute: |
   # Cleanup
   kill $app_pid
   exit $ret
+

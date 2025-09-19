@@ -21,3 +21,4 @@ execute: |
   chroot "${rootfs}/" gpg --list-secret-keys
   # Generate a key
   chroot "${rootfs}/" gpg --batch --generate-key /keygen-script
+

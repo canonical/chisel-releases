@@ -27,3 +27,4 @@ slices:
       /usr/share/doc/libgdk-pixbuf-2.0-0/copyright:
     essential:
       - libgdk-pixbuf2.0-common_copyright
+

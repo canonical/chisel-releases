@@ -8,3 +8,4 @@ execute: |
 
   # smoking test the .NET host
   chroot "${rootfs}" /usr/bin/dotnet --info
+

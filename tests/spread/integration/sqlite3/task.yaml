@@ -6,3 +6,4 @@ execute: |
   chroot "${rootfs}/" sqlite3 test.db \
   "CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT); \
   INSERT INTO test (name) VALUES ('FOO'); SELECT * FROM test;"
+

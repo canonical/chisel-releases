@@ -62,3 +62,4 @@ execute: |
   [[ "$(cat "${rootfs}/srv/test-upload")" == "$(cat test-upload)" ]]
 
   cleanup
+

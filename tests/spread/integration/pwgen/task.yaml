@@ -9,3 +9,4 @@ execute: |
   test $(chroot "${rootfs}/" pwgen -C1 12 | wc -m) -eq 13
 
   umount -l "${rootfs}/dev" 
+

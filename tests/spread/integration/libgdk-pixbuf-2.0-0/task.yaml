@@ -21,3 +21,4 @@ execute: |
   grep -q "libpixbufloader-tiff.so" loaders
   grep -q "libpixbufloader-xbm.so" loaders
   grep -q "libpixbufloader-xpm.so" loaders
+

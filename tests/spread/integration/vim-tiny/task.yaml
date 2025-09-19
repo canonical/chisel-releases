@@ -7,3 +7,4 @@ execute: |
   chroot "$rootfs" vim.tiny -c ":s/hello/bye/" -c ":wq" test
   test "$(cat "$rootfs/test")" = "bye world"
   
+

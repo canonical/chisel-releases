@@ -8,3 +8,4 @@ execute: |
   chroot "$rootfs" nologin | grep "not available"
   chroot "$rootfs" newgrp root
   chroot "$rootfs" sg root
+

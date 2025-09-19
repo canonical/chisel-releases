@@ -7,3 +7,4 @@ execute: |
 
   chroot "${rootfs}/" gearadmin --help
   chroot "${rootfs}/" gearman -H
+

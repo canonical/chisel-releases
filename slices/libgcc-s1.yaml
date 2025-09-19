@@ -15,3 +15,4 @@ slices:
       - gcc-14-base_copyright
     contents:
       /usr/share/doc/libgcc-s1:
+

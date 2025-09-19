@@ -10,3 +10,4 @@ execute: |
   chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/gio-querymodules' 2| grep -q 'Usage: gio-querymodules'
   chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/glib-compile-schemas --version' | grep -P '^\d.\d+'
   chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/glib-2.0/gio-launch-desktop sh -c "echo Testing"' | grep -q Testing
+

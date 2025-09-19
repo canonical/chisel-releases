@@ -155,3 +155,4 @@ execute: |
   setup $rootfs
   $RUN $rootfs
   cleanup
+

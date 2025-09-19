@@ -48,3 +48,4 @@ execute: |
   chroot "${rootfs_script}" bzmore "test" input.txt.bz2 > /dev/null
 
   umount "${rootfs_script}"/dev -l  
+

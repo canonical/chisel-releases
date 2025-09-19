@@ -5,3 +5,4 @@ execute: |
   mkdir -p "$rootfs/dev"
   mount --bind /dev "$rootfs/dev"
   chroot "$rootfs" perl -e 'print "hello world\n";' | grep "hello world"
+

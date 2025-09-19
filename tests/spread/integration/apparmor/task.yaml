@@ -8,3 +8,4 @@ execute: |
   # Run a smoke test for the apparmor_parser to verify that
   # it does not throw an error
   chroot "${rootfs}/" apparmor_parser -p /etc/apparmor.d/Discord
+

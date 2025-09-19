@@ -18,3 +18,4 @@ execute: |
   # cleanup the daemon and mount
   pkill -9 -f dbus-daemon
   umount "${rootfs}"/dev
+

@@ -5,3 +5,4 @@ execute: |
 
   chroot "${rootfs}/" host -V
   chroot "${rootfs}/" host example.com 127.0.0.53 | grep -P 'example.com [has|mail]'
+

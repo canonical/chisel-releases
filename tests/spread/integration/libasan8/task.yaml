@@ -7,3 +7,4 @@ execute: |
   arch=$(gcc -dumpmachine)
 
   test -f ${rootfs}/usr/lib/${arch}/libasan.so.8
+

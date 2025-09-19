@@ -6,3 +6,4 @@ execute: |
   rootfs="$(install-slices geoipupdate_bins)"
 
   chroot "${rootfs}/" geoipupdate -V
+

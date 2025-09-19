@@ -12,3 +12,4 @@ jobs:
   pkg-deps:
     name: Package dependencies
     uses: canonical/chisel-releases/.github/workflows/pkg-deps.yaml@main
+

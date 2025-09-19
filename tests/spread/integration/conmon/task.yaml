@@ -7,3 +7,4 @@ execute: |
 
   # TODO: test conmon with a running container
   chroot "${rootfs_bins}" /usr/bin/conmon --version
+

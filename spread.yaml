@@ -101,3 +101,4 @@ prepare-each: chisel version
 suites:
   tests/spread/integration/:
     summary: Tests common scenarios
+

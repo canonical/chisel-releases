@@ -24,3 +24,4 @@ execute: |
   fi
   chroot "${rootfs}/" bsdcpio -i < "${rootfs}/testfile.cpio"
   test "$(cat ${rootfs}/testfile.txt)" = "$(cat ${rootfs}/testfile_orig.txt)"
+

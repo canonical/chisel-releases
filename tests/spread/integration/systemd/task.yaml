@@ -13,3 +13,4 @@ execute: |
   chroot "${rootfs}/" /test.sh
 
   umount "${rootfs}"/proc
+

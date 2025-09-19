@@ -12,3 +12,4 @@ execute: |
 
   cp test_${SLICE}.py "${rootfs}/"
   chroot "$rootfs" python3.13 /test_${SLICE}.py
+

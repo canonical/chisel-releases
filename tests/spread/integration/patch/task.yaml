@@ -15,3 +15,4 @@ execute: |
   EOF
   chroot "${rootfs}/" patch < tmp.patch
   test "$(cat "${rootfs}/testfile.txt")" = "This is a Patched Input"
+

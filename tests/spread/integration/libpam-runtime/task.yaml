@@ -11,3 +11,4 @@ execute: |
   cat "$rootfs"/etc/pam.d/common-session | grep -E "session\s+required\s+pam_unix\.so"
   cat "$rootfs"/etc/pam.d/common-session-noninteractive | grep -E "session\s+\[default=1\]\s+pam_permit\.so"
   cat "$rootfs"/etc/pam.d/common-session-noninteractive | grep -E "session\s+required\s+pam_unix\.so"
+

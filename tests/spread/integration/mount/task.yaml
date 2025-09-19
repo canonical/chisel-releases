@@ -7,3 +7,4 @@ execute: |
   
   cp test.sh "${rootfs}/"
   chroot "${rootfs}/" /test.sh
+

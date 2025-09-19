@@ -26,3 +26,4 @@ execute: |
   # test sqfstar
   tar -cvf test.tar "${rootfs}"/test
   chroot "${rootfs}" sqfstar test2.squashfs < test.tar
+

@@ -6,3 +6,4 @@ execute: |
   # smoketest the rfkill binary, the rfkill device is
   # not available in the test system
   chroot "${rootfs}" rfkill --help
+

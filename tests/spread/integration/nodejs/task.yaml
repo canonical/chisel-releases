@@ -3,3 +3,4 @@ summary: Integration tests for nodejs
 execute: |
   rootfs="$(install-slices nodejs_bins)"
   chroot "${rootfs}/" node --version
+

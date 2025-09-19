@@ -21,3 +21,4 @@ execute: |
 
   # ...and sdiff
   chroot "${rootfs}/" sdiff /test1.txt /test2.txt | grep -q -E 'This is a test file\s+| This is another test file'
+

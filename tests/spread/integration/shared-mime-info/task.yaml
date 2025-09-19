@@ -5,3 +5,4 @@ execute: |
 
   chroot "${rootfs}" update-mime-database -v |& grep -q 'update-mime-database (shared-mime-info) 2.4'
   chroot "${rootfs}" update-mime-database /usr/share/mime
+

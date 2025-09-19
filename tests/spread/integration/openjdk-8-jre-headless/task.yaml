@@ -14,3 +14,4 @@ execute: |
       ln -sf /${java} proc/self/exe
       chroot . ${java} -version
   done
+
