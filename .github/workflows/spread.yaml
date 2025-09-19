@@ -18,7 +18,7 @@ jobs:
           # - name: PPC64EL
           #   runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ppc64el", "edge"]') }}
           - name: S390x
-            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "s390x", "edge"]') }}
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "s390x"]') }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
     steps:
