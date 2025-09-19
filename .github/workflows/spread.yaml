@@ -13,6 +13,8 @@ jobs:
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "X64", "large"]') || 'ubuntu-24.04' }}
           - name: ARM64
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
+          - name: PPC64EL
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ppc64el", "large"]') }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
     steps:
