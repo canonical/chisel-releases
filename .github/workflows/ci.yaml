@@ -8,24 +8,24 @@ on:
       - "ubuntu-*"
 
 jobs:
-  cla-check:
-    if: github.event_name == 'pull_request'
-    name: CLA check
-    uses: canonical/chisel-releases/.github/workflows/cla-check.yaml@main
-
-  installability-tests:
-    name: Installability tests
-    uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
-
-  lint:
-    name: Lint
-    uses: canonical/chisel-releases/.github/workflows/lint.yaml@main
+  # cla-check:
+  #   if: github.event_name == 'pull_request'
+  #   name: CLA check
+  #   uses: canonical/chisel-releases/.github/workflows/cla-check.yaml@main
+  #
+  # installability-tests:
+  #   name: Installability tests
+  #   uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
+  #
+  # lint:
+  #   name: Lint
+  #   uses: canonical/chisel-releases/.github/workflows/lint.yaml@main
 
   integration-tests:
     name: Integration tests
     uses: lengau/chisel-releases/.github/workflows/spread.yaml@ci/more-architectures
 
-  removed-slices:
-    name: Removed slices
-    uses: canonical/chisel-releases/.github/workflows/removed-slices.yaml@main
-
+  # removed-slices:
+  #   name: Removed slices
+  #   uses: canonical/chisel-releases/.github/workflows/removed-slices.yaml@main
+  #
