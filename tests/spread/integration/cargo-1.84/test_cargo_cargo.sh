@@ -14,7 +14,7 @@ slices=(
     rustc-1.84_rustc
     gcc-14-"${arch//_/-}"_gcc-14
     binutils-"${arch//_/-}"_linker
-    libgcc-14-dev_libgcc
+    libgcc-14-dev_core
 )
 # we need cpp and as for gcc to be able to create executables
 slices+=(
