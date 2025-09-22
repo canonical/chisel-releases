@@ -261,7 +261,6 @@ slices:
       /etc/apparmor.d/qcam:
       /etc/apparmor.d/qmapshack:
       /etc/apparmor.d/qutebrowser:
-      /etc/apparmor.d/remmina:
       /etc/apparmor.d/ripd:
       /etc/apparmor.d/ripngd:
       /etc/apparmor.d/rootlesskit:
