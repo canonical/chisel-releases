@@ -18,10 +18,10 @@ ln -s "${arch}-as" "${rootfs_as}/usr/bin/as"
 cp hello-"${arch}".S "${rootfs_as}/hello.S"
 chroot "${rootfs_as}" as hello.S -o hello.o
 
-# need libc6-dev_posix-libs for linking with libc
+# need libc6-dev_core for linking with libc
 rootfs_ld="$(install-slices \
     binutils-"${arch//_/-}"_linker \
-    libc6-dev_posix-libs \
+    libc6-dev_core \
 )"
 ln -s "${arch}-ld" "${rootfs_ld}/usr/bin/ld"
 
