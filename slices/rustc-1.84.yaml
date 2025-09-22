@@ -4,30 +4,22 @@ essential:
   - rustc-1.84_copyright
 
 slices:
+  # Rust compiler needs the target-specific linker to link the final binary.
+  # Depending on the target architecture, it may need a different linker.
+  # To install the native linker you also need to install the `rustc-184-minimal`
+  # slice from the `gcc-14-${ARCH_TRIPLET}` package:
+  #     chisel cut ... gcc-14-${ARCH_TRIPLET}_rustc-184-minimal
+  # and then link it to /usr/bin:
+  #     ln -s ${ARCH_TRIPLET}-gcc-14 /usr/bin/cc
+  #     ln -s ${ARCH_TRIPLET}-ld /usr/bin/ld
+  # where ${ARCH_TRIPLET} is the architecture triplet, e.g. `aarch64-linux-gnu`.
+  # NOTE: rust calls the linker through the `cc` symlink, so we need to create it as well.
+  
   rustc:
-
-    # Rust compiler needs the target-specific linker to link the final binary.
-    # Depending on the target architecture, it may need a different linker.
-    # To install the native linker you also need to install the `rustc-184-minimal`
-    # slice from the `gcc-14-${ARCH_TRIPLET}` package:
-    #     chisel cut ... gcc-14-${ARCH_TRIPLET}_rustc-184-minimal
-    # and then link it to /usr/bin:
-    #     ln -s ${ARCH_TRIPLET}-gcc-14 /usr/bin/cc
-    #     ln -s ${ARCH_TRIPLET}-ld /usr/bin/ld
-    # where ${ARCH_TRIPLET} is the architecture triplet, e.g. `aarch64-linux-gnu`.
-    # NOTE: rust calls the linker through the `cc` symlink, so we need to create it as well.
-
-    # We include `libc6-dev_core-libs` and `libc6-dev_symlink-libc6-libs` but we do not need
-    # the headers
-
     essential:
       - base-files_tmp
-      - libc6-dev_libdl
+      - libc6-dev_core
       - libc6-dev_libm
-      - libc6-dev_libpthread
-      - libc6-dev_librt
-      - libc6-dev_libutil
-      - libc6-dev_posix-libs
       - libc6_libs
       - libgcc-s1_libs
       - libllvm19_libs
