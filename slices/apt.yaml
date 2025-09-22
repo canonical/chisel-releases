@@ -109,7 +109,7 @@ slices:
       - base-files_tmp  # /tmp
       - coreutils_uname  # needed for libc6 preinst. we need this for apt reinstall itself
       - dpkg_dpkg
-      - dpkg_dpkg-divert # we need this for apt reinstall itself. can also just be a stub
+      - dpkg_dpkg-divert  # we need this for apt reinstall itself. can also just be a stub
       - dpkg_dpkg-trigger  # we need this for apt reinstall itself. can also just be a stub
       - dpkg_tables  # we need tabled to do update
       - dpkg_update-alternatives  # we need this for apt reinstall itself. can also just be a stub
