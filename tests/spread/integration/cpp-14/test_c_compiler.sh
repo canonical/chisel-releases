@@ -24,7 +24,7 @@ ln -s "${arch}-as" "${rootfs_as}/usr/bin/as"
 
 rootfs_ld="$(install-slices \
     binutils-"${arch//_/-}"_linker \
-    libc6-dev_posix-libs \
+    libc6-dev_core \
 )"
 ln -s "${arch}-ld" "${rootfs_ld}/usr/bin/ld"
 
