@@ -5,6 +5,8 @@ if [[ "$1" != "--spread" ]]; then
     source "$FILE_DIR"/setup.sh
 fi
 
+source "$FILE_DIR"/apt_ci_shim.sh
+
 ## TESTS 
 # spellchecker: ignore rootfs resolv localtime postinst tzdata zoneinfo
 rootfs="$(install-slices apt_apt-get)"

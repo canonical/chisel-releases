@@ -7,6 +7,8 @@ else
     apt update
 fi
 
+source "$FILE_DIR"/apt_ci_shim.sh
+
 ## TESTS 
 # spellchecker: ignore rootfs resolv coreutils
 rootfs="$(install-slices apt_apt-get-mini)"
