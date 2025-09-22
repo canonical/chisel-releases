@@ -6,15 +6,13 @@ essential:
 slices:
   # Rust compiler needs the target-specific linker to link the final binary.
   # Depending on the target architecture, it may need a different linker.
-  # To install the native linker you also need to install the `rustc-184-minimal`
-  # slice from the `gcc-14-${ARCH_TRIPLET}` package:
-  #     chisel cut ... gcc-14-${ARCH_TRIPLET}_rustc-184-minimal
-  # and then link it to /usr/bin:
-  #     ln -s ${ARCH_TRIPLET}-gcc-14 /usr/bin/cc
-  #     ln -s ${ARCH_TRIPLET}-ld /usr/bin/ld
-  # where ${ARCH_TRIPLET} is the architecture triplet, e.g. `aarch64-linux-gnu`.
-  # NOTE: rust calls the linker through the `cc` symlink, so we need to create it as well.
-  
+  # For example, to use the default toolchain, install the following slices:
+  # - gcc-14-$arch_gcc-14
+  # - binutils-$arch_linker
+  # - libgcc-14-dev_core
+  # where $arch is the architecture triplet. (Note that the gcc and binutils
+  # slices will also require you to create links to the target-specific gcc and
+  # ld binaries.)
   rustc:
     essential:
       - base-files_tmp
