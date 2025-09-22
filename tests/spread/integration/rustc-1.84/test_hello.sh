@@ -8,7 +8,6 @@ fi
 ## TESTS 
 # spellchecker: ignore rootfs rustc binutils libgcc println
 
-rootfs="$(install-slices rustc-1.84_rustc)"
 arch=$(uname -m)-linux-gnu
 slices=(
     rustc-1.84_rustc
