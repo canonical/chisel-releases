@@ -48,8 +48,9 @@ apt-get \
 
 # The first pass is expected to have some errors due to unmet dependencies,
 # e.g., libpam-modules and util-linux.
-chroot "${rootfs}/" dpkg --unpack --force-depends -R /debs || true
-chroot "${rootfs}/" dpkg --configure -a || true
+# hence the `&& exit 1` to make the test fail if the commands succeed.
+chroot "${rootfs}/" dpkg --unpack --force-depends -R /debs && exit 1
+chroot "${rootfs}/" dpkg --configure -a && exit 1
 
 # The second pass is expected to succeed.
 chroot "${rootfs}/" dpkg --unpack --force-depends -R /debs
