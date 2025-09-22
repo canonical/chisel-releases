@@ -72,7 +72,7 @@ slices:
       - libc6-dev_core
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libm-2.41.a:
+      /usr/lib/*-linux-*/libm-2.*.a:
         arch: [amd64, arm64]
       # on amd64/arm64 this is a linker script which redirects to libm-2.41.a and libmvec.so
       # on non-amd64/arm64 archs libm.a is not a linker script, but a real static library
