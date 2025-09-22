@@ -4,9 +4,8 @@ essential:
   - cargo-1.84_copyright
 
 slices:
-
-  # To use /usr/bin/cargo-1.84 in this slice, you need to
-  # also install rustc (probably the rustc-1.84_rustc slice)
+  # To use /usr/bin/cargo-1.84 in this slice, you need to also install rustc
+  # (probably the rustc-1.84_rustc slice).
   cargo:
     essential:
       - libc6_libs
@@ -17,7 +16,6 @@ slices:
       - libssh2-1t64_libs
       - libssl3t64_libs
       - zlib1g_libs
-
     contents:
       # in the deb this is a bash script that sets RUSTC
       # and execs the real binary
