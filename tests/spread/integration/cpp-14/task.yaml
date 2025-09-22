@@ -1,2 +1,2 @@
-summary: Integration tests for rustc-1.84
+summary: Integration tests for cpp-14
 execute: ./run.sh --spread
