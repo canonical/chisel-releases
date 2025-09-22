@@ -4,108 +4,126 @@ essential:
   - libc6-dev_copyright
 
 slices:
+  # The main library slice, including the core runtime and most-common
+  # optional libraries.
   libs:
     essential:
       - libc6-dev_core
-      - libc6-dev_libdl
       - libc6-dev_libm
-      - libc6-dev_libpthread
-      - libc6-dev_librt
-      - libc6-dev_libutil
+      - libc6-dev_symlink-libc6-libs
+
+  # C runtime libraries, needed to start a C program
+  # - https://stackoverflow.com/a/16436294/2531987
+  # - https://web.archive.org/web/20241229232634/https://dev.gentoo.org/~vapier/crt.txt
+  # - https://gcc.gnu.org/onlinedocs/gccint/Initialization.html
+  runtime:
     contents:
-      # We have to list all the files since we're in a generic place (/usr/lib/*-linux-*)
-      # and if we tried to glob *.o files, this slice would conflict with oh-so-many
+      # Used in place of crt1.o when generating code with profiling information,
+      # for programs that use the `prof` tool. Compile with -p
       /usr/lib/*-linux-*/Mcrt1.o:
+      # For dynamically linked position-independent executables (PIE, with -fPIE -pie)
+      /usr/lib/*-linux-*/Scrt1.o:
+      # initial runtime setup. this contains the entry point _start
+      /usr/lib/*-linux-*/crt1.o:
+      # prolog
+      /usr/lib/*-linux-*/crti.o:
+      # epilog
+      /usr/lib/*-linux-*/crtn.o:
+      # Used in place of crt1.o when generating code with profiling information.
+      # Compile with -pg.  Produces output suitable for the gprof util.
       /usr/lib/*-linux-*/gcrt1.o:
+      # Just like gcrt1.o but for profiling position-independent executables.
       /usr/lib/*-linux-*/grcrt1.o:
-        arch: [amd64, arm64, riscv64, s390x]
-      /usr/lib/*-linux-*/libBrokenLocale.a:
-      /usr/lib/*-linux-*/libanl.a:
-      /usr/lib/*-linux-*/libc.a:
-      /usr/lib/*-linux-*/libg.a:
-      /usr/lib/*-linux-*/libm-2.41.a:
-        arch: [amd64, arm64]
-      /usr/lib/*-linux-*/libm.a:
-      /usr/lib/*-linux-*/libmcheck.a:
-      /usr/lib/*-linux-*/libmvec.a:
-        arch: [amd64, arm64]
-      /usr/lib/*-linux-*/libpthread_nonshared.a:
-      /usr/lib/*-linux-*/libresolv.a:
+        arch: [amd64, arm64, i386, riscv64, s390x]
+      # For statically linked PIEs (with -static)
       /usr/lib/*-linux-*/rcrt1.o:
-        arch: [amd64, arm64, riscv64, s390x]
+        arch: [amd64, arm64, i386, riscv64, s390x]
 
   core:
     essential:
-      - libc6-dev_symlink-libc6-libs
+      - libc6-dev_runtime
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/Scrt1.o:
-      /usr/lib/*-linux-*/crt1.o:
-      /usr/lib/*-linux-*/crti.o:
-      /usr/lib/*-linux-*/crtn.o:
-      # NOTE: libc.so here is an ld script that tells the linker to look up the
-      #       functions from libc_nonshared.a if they are not found in the
-      #       libc.so.6 from libc6.
+      # dummy file to allow linking with -lanl. this functionality in integrated into libc
+      /usr/lib/*-linux-*/libanl.a:
+      # symlink to libanl.so from libc6
+      /usr/lib/*-linux-*/libanl.so:
+      # Static libc version
+      /usr/lib/*-linux-*/libc.a:
+      # linker script to look up symbols in libc_nonshared.a and libc.so.6 from libc6
       /usr/lib/*-linux-*/libc.so:
       /usr/lib/*-linux-*/libc_nonshared.a:
+      # dummy file to allow linking with -ldl. this functionality in integrated into libc
+      /usr/lib/*-linux-*/libdl.a:
+      # dummy file to allow linking with -lbg. this functionality in integrated into libc
+      /usr/lib/*-linux-*/libg.a:
+      # dummy file to allow linking with -lpthread. this functionality in integrated into libc
+      /usr/lib/*-linux-*/libpthread.a:
+      # dummy file. part of libpthread, but separate file.
+      /usr/lib/*-linux-*/libpthread_nonshared.a:
+      # dummy file to allow linking with -lrt. this functionality in integrated into libc
+      /usr/lib/*-linux-*/librt.a:
+      # dummy file to allow linking with -lutil. this functionality in integrated into libc
+      /usr/lib/*-linux-*/libutil.a:
 
   # only needed if linking with -lm
   libm:
-    # NOTE: libm.so is a linker script which points to
-    # libm.so.6 in libc6 package, *as well as* libmvec.so.1.
     essential:
       - libc6-dev_core
+      - libc6_libs
     contents:
+      /usr/lib/*-linux-*/libm-2.41.a:
+        arch: [amd64, arm64]
+      # on amd64/arm64 this is a linker script which redirects to libm-2.41.a and libmvec.so
+      # on non-amd64/arm64 archs libm.a is not a linker script, but a real static library
+      /usr/lib/*-linux-*/libm.a:
+      # on amd64/arm64 this is a linker script which redirects to libm.so and libmvec.so from libc6
+      # on non-amd64/arm64 this is a symlink to libm.so.6 from libc6
       /usr/lib/*-linux-*/libm.so:
+      /usr/lib/*-linux-*/libmvec.a:
+        arch: [amd64, arm64]
       /usr/lib/*-linux-*/libmvec.so:
         arch: [amd64, arm64]
 
-  # only needed if linking with -lpthread or the -pthread flag in gcc
-  libpthread:
+  # only needed if linking with -lmcheck
+  libmcheck:
     essential:
       - libc6-dev_core
     contents:
-      /usr/lib/*-linux-*/libpthread.a:
+      /usr/lib/*-linux-*/libmcheck.a:
 
-  # only needed if linking with -ldl
-  libdl:
+  # only needed if linking with -lresolv
+  libresolv:
     essential:
       - libc6-dev_core
     contents:
-      /usr/lib/*-linux-*/libdl.a:
+      # static libresolv version
+      /usr/lib/*-linux-*/libresolv.a:
+      # symlink to libresolv.so from libc6
+      /usr/lib/*-linux-*/libresolv.so:
 
-  # only needed if linking with -lrt
-  librt:
-    essential:
-      - libc6-dev_core
-    contents:
-      /usr/lib/*-linux-*/librt.a:
-
-  # only needed if linking with -lutil
-  libutil:
-    essential:
-      - libc6-dev_core
-    contents:
-      /usr/lib/*-linux-*/libutil.a:
-        arch: [amd64, arm64, ppc64el, riscv64, s390x]
-
+  # dynamic linter auditing library
+  # needs to be manually enabled with e.g. LD_AUDIT=<path to sotruss-lib.so>
   audit:
     essential:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/audit/sotruss-lib.so:
 
+  # legacy locale support library, usually not needed
+  libbrokenlocale:
+    essential:
+      - libc6-dev_core
+    contents:
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+
   symlink-libc6-libs:
     essential:
       - libc6_libs
-    # All of these are symlinks to so's in the libc6 package
     contents:
-      /usr/lib/*-linux-*/libBrokenLocale.so:
-      /usr/lib/*-linux-*/libanl.so:
       /usr/lib/*-linux-*/libc_malloc_debug.so:
       /usr/lib/*-linux-*/libnss_compat.so:
       /usr/lib/*-linux-*/libnss_hesiod.so:
-      /usr/lib/*-linux-*/libresolv.so:
       /usr/lib/*-linux-*/libthread_db.so:
 
   # All the standard C library headers
