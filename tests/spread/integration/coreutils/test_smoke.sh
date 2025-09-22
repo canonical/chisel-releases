@@ -1,27 +1,34 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
+
+if [[ "$1" != "--spread" ]]; then
+    FILE_DIR=$(realpath "$(dirname "$0")")
+    source "$FILE_DIR"/setup.sh
+fi
+
+## TESTS 
+# spellchecker: ignore rootfs coreutils
+
 # This script smoke tests each slice containing bins and their respective
 # binaries. For most of the binaries, this script simply checks if the --help
 # option works or not. The only exceptions are "false", "printf", "pwd" and "[".
 
-set -eu
-
-SDF="${PROJECT_PATH}/slices/coreutils.yaml"
-ROOTFS="$(mktemp -d)"
+SDF="$PROJECT_PATH/slices/coreutils.yaml"
+rootfs="$(mktemp -d)"
 
 install_slices() {
-    ROOTFS=$(install-slices $@)
+    # shellcheck disable=SC2068
+    rootfs=$(install-slices $@)
 }
 
 run_command() {
     local cmd="$1"
     echo -e "\tChecking $cmd ..."
     case "$cmd" in
-        "false" )   ! chroot "${ROOTFS}" $cmd                  ;;
-        "printf")   chroot "${ROOTFS}" $cmd foo > /dev/null    ;;
-        "pwd"   )   chroot "${ROOTFS}" $cmd > /dev/null        ;;
+        "false" )   ! chroot "$rootfs" "$cmd"                  ;;
+        "printf")   chroot "$rootfs" "$cmd" foo > /dev/null    ;;
+        "pwd"   )   chroot "$rootfs" "$cmd" > /dev/null        ;;
         "["     )                                              ;;
-        *       )   chroot "${ROOTFS}" $cmd --help > /dev/null ;;
+        *       )   chroot "$rootfs" "$cmd" --help > /dev/null ;;
     esac
 }
 
@@ -53,21 +60,21 @@ slices=(
   numeric-operations
 )
 
-for s in ${slices[@]}; do
+for s in "${slices[@]}"; do
     slice="coreutils_$s"
     echo "Testing $slice ..."
     install_slices "$slice"
 
-    files=$(s="$s" yq ".slices.[env(s)].contents | keys | .[]" "${SDF}")
-    for file in ${files[@]}; do
+    files=$(s="$s" yq ".slices.[env(s)].contents | keys | .[]" "$SDF")
+    for file in "${files[@]}"; do
         cmd="$(basename "$file")"
         run_command "$cmd"
-        all_cmds+=($cmd)
+        all_cmds+=("$cmd")
     done
 done
 
 echo "Testing coreutils_bins ..."
 install_slices "coreutils_bins"
-for cmd in ${all_cmds[@]}; do
+for cmd in "${all_cmds[@]}"; do
     run_command "$cmd"
 done
