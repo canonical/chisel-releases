@@ -49,14 +49,8 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/i386-linux-gnu/libbfd-*-arm64.so:
-        arch: [i386]
-      /usr/lib/powerpc64le-linux-gnu/libbfd-*-arm64.so:
-        arch: [ppc64el]
-      /usr/lib/s390x-linux-gnu/libbfd-*-arm64.so:
-        arch: [s390x]
-      /usr/lib/x86_64-linux-gnu/libbfd-*-arm64.so:
-        arch: [amd64]
+      /usr/lib/*-linux-*/libbfd-*-arm64.so:
+        arch: [i386, ppc64el, s390x, amd64]
 
   cross-libctf:
     essential:
@@ -64,42 +58,24 @@ slices:
       - libc6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/i386-linux-gnu/libctf-arm64.so*:
-        arch: [i386]
-      /usr/lib/powerpc64le-linux-gnu/libctf-arm64.so*:
-        arch: [ppc64el]
-      /usr/lib/s390x-linux-gnu/libctf-arm64.so*:
-        arch: [s390x]
-      /usr/lib/x86_64-linux-gnu/libctf-arm64.so*:
-        arch: [amd64]
+      /usr/lib/*-linux-*/libctf-arm64.so*:
+        arch: [i386, ppc64el, s390x, amd64]
 
   cross-libctf-nobfd:
     essential:
       - libc6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/i386-linux-gnu/libctf-nobfd-arm64.so*:
-        arch: [i386]
-      /usr/lib/powerpc64le-linux-gnu/libctf-nobfd-arm64.so*:
-        arch: [ppc64el]
-      /usr/lib/s390x-linux-gnu/libctf-nobfd-arm64.so*:
-        arch: [s390x]
-      /usr/lib/x86_64-linux-gnu/libctf-nobfd-arm64.so*:
-        arch: [amd64]
+      /usr/lib/*-linux-*/libctf-nobfd-arm64.so*:
+        arch: [i386, ppc64el, s390x, amd64]
 
   cross-libopcodes:
     essential:
       - binutils-aarch64-linux-gnu_cross-libbfd
       - libc6_libs
     contents:
-      /usr/lib/i386-linux-gnu/libopcodes-*-arm64.so:
-        arch: [i386]
-      /usr/lib/powerpc64le-linux-gnu/libopcodes-*-arm64.so:
-        arch: [ppc64el]
-      /usr/lib/s390x-linux-gnu/libopcodes-*-arm64.so:
-        arch: [s390x]
-      /usr/lib/x86_64-linux-gnu/libopcodes-*-arm64.so:
-        arch: [amd64]
+      /usr/lib/*-linux-*/libopcodes-*-arm64.so:
+        arch: [i386, ppc64el, s390x, amd64]
 
   copyright:
     essential:
