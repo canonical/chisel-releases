@@ -1,2 +1,13 @@
-summary: Integration tests for apt
+summary: Integration tests for coreutils
+
+prepare: |
+  arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
+  # Install yq.
+  version="v4.47.2"
+  version="v4.47.2"
+  url="https://github.com/mikefarah/yq/releases/download/${version}/yq_linux_${arch}"
+  wget $url -O /usr/bin/yq
+  chmod +x /usr/bin/yq
+  yq --version
+
 execute: ./run.sh --spread

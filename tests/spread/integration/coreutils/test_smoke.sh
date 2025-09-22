@@ -12,21 +12,6 @@ fi
 # binaries. For most of the binaries, this script simply checks if the --help
 # option works or not. The only exceptions are "false", "printf", "pwd" and "[".
 
-# install yq in a temp location
-version="v4.47.2"
-arch=$(uname -m)
-[ "$arch" = "x86_64" ] && arch="amd64"
-[ "$arch" = "aarch64" ] && arch="arm64"
-url="https://github.com/mikefarah/yq/releases/download/${version}/yq_linux_${arch}"
-tmpdir=$(mktemp -d)
-(
-    cd "$tmpdir" || exit 1
-    wget "$url" -O yq
-    chmod +x yq
-    ./yq --version
-)
-YQ="$tmpdir/yq"
-
 SDF="$PROJECT_PATH/slices/coreutils.yaml"
 rootfs="$(mktemp -d)"
 
@@ -80,7 +65,7 @@ for s in "${slices[@]}"; do
     echo "Testing $slice ..."
     install_slices "$slice"
 
-    files=$(s="$s" "$YQ" ".slices.[env(s)].contents | keys | .[]" "$SDF")
+    files=$(s="$s" yq ".slices.[env(s)].contents | keys | .[]" "$SDF")
     for file in "${files[@]}"; do
         cmd="$(basename "$file")"
         run_command "$cmd"
@@ -93,6 +78,3 @@ install_slices "coreutils_bins"
 for cmd in "${all_cmds[@]}"; do
     run_command "$cmd"
 done
-
-# cleanup
-rm -rf "$tmpdir"

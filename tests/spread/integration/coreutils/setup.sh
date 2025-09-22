@@ -20,6 +20,17 @@ export PROJECT_PATH
 
 export DEBIAN_FRONTEND=noninteractive
 
+if ! command -v yq &>/dev/null; then
+    echo "Error: yq is not installed" >&2
+    exit 1
+fi
+
+# must be yq v4
+if ! yq --version | grep -q 'version v4.'; then
+    echo "Error: yq version 4 is required" >&2
+    exit 1
+fi
+
 # add lib to PATH
 export PATH="$FILE_DIR/../../lib/:$PATH"
 
