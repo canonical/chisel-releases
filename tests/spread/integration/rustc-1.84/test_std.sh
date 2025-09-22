@@ -14,7 +14,7 @@ slices=(
     rustc-1.84_rustc
     gcc-14-"${arch//_/-}"_gcc-14
     binutils-"${arch//_/-}"_linker
-    libgcc-14-dev_libgcc
+    libgcc-14-dev_core
 )
 rootfs="$(install-slices "${slices[@]}")"
 ln -s "${arch}"-gcc-14 "${rootfs}"/usr/bin/cc
