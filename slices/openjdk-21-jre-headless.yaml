@@ -179,7 +179,7 @@ slices:
   awt:
     essential:
       - openjdk-21-jre-headless_core
-      - libglib2.0-0t64_essential
+      - libglib2.0-0t64_core
       - libgraphite2-3_libs
       - libpng16-16t64_libs
       - libbrotli1_libs
