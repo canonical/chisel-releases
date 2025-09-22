@@ -23,7 +23,6 @@ slices:
       - libllvm19_libs
       - libstd-rust-1.84-dev_libs
       - libstdc++6_libs
-
     contents:
       /usr/bin/rustc-1.84:  # symlink to ../rust-1.84/bin/rustc
       /usr/lib/rust-1.84/bin/rustc:
