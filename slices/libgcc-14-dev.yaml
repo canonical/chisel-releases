@@ -3,7 +3,6 @@ package: libgcc-14-dev
 essential:
   - libgcc-14-dev_copyright
 
-
 slices:
   # Runtime objects for linking with gcc-14
   runtime:
