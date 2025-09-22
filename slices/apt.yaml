@@ -102,14 +102,17 @@ slices:
   #   apt-get update && apt-get install -y coreutils dpkg apt
   apt-get-mini:
     essential:
-      - apt_apt-get-mini-support-apt  # to be able to reinstall apt with itself
       - apt_config
       - apt_default-source-list
       - apt_var
       - base-files_bin  # /bin -> /usr/bin link
       - base-files_tmp  # /tmp
+      - coreutils_uname  # needed for libc6 preinst. we need this for apt reinstall itself
       - dpkg_dpkg
+      - dpkg_dpkg-divert # we need this for apt reinstall itself. can also just be a stub
+      - dpkg_dpkg-trigger  # we need this for apt reinstall itself. can also just be a stub
       - dpkg_tables  # we need tabled to do update
+      - dpkg_update-alternatives  # we need this for apt reinstall itself. can also just be a stub
       - dpkg_var  # we need /var/lib/dpkg/ to exist to get the lockfile
       - gpgv_bins
       - libapt-pkg7.0_libs
@@ -120,26 +123,15 @@ slices:
       - libssl3t64_libs
       - libstdc++6_libs
       - libsystemd0_libs
+      - sed_bins  # needed for libc6 preinst. we need this for apt reinstall itself
     contents:
       /usr/bin/apt:
       /usr/bin/apt-get:
       /usr/lib/*-linux-*/libapt-private.so*:
       /usr/lib/apt/methods/gpgv:
       /usr/lib/apt/methods/http:
-      /usr/lib/apt/methods/https:  # Symlink to http
+      /usr/lib/apt/methods/https:  # symlink to http
       /usr/lib/apt/methods/store:
-
-  # Packages required to reinstall apt with itself
-  # do that if the reduced apt installation fails at installing
-  # some dependencies (for example due to lack of maintainer script
-  # support) dpkg
-  apt-get-mini-support-apt:
-    essential:
-      - coreutils_uname  # needed for libc6 preinst
-      - dpkg_dpkg-divert
-      - dpkg_dpkg-trigger
-      - dpkg_update-alternatives
-      - sed_bins  # needed for libc6 preinst
 
       # NOTE: In the future, when `prefer` is supported, we can
       # replace the dpkg-divert, dpkg-trigger and update-alternatives
