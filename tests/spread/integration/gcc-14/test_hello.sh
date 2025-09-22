@@ -14,8 +14,8 @@ slices=(
     cpp-14-"${arch//_/-}"_cc1
     binutils-"${arch//_/-}"_assembler
     binutils-"${arch//_/-}"_linker
-    libgcc-14-dev_libgcc
-    libc6-dev_posix-libs
+    libgcc-14-dev_core
+    libc6-dev_core
 )
 rootfs="$(install-slices "${slices[@]}")"
 ln -s "${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
