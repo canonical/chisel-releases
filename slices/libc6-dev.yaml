@@ -170,6 +170,8 @@ slices:
       /usr/include/*-linux-*/bits/hwcap.h:
       /usr/include/*-linux-*/bits/in.h:
       /usr/include/*-linux-*/bits/indirect-return.h:
+      /usr/include/*-linux-*/bits/inet-fortified-decl.h:
+      /usr/include/*-linux-*/bits/inet-fortified.h:
       /usr/include/*-linux-*/bits/initspin.h:
       /usr/include/*-linux-*/bits/inotify.h:
       /usr/include/*-linux-*/bits/ioctl-types.h:
@@ -290,6 +292,7 @@ slices:
       /usr/include/*-linux-*/bits/termios-c_iflag.h:
       /usr/include/*-linux-*/bits/termios-c_lflag.h:
       /usr/include/*-linux-*/bits/termios-c_oflag.h:
+      /usr/include/*-linux-*/bits/termios-cbaud.h:
       /usr/include/*-linux-*/bits/termios-misc.h:
       /usr/include/*-linux-*/bits/termios-struct.h:
       /usr/include/*-linux-*/bits/termios-tcflow.h:
@@ -634,7 +637,6 @@ slices:
       /usr/include/sysexits.h:
       /usr/include/syslog.h:
       /usr/include/tar.h:
-      /usr/include/termio.h:
       /usr/include/termios.h:
       /usr/include/tgmath.h:
       /usr/include/thread_db.h:
