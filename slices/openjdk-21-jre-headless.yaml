@@ -34,8 +34,6 @@ slices:
   #                                    not relevant.
   # - util-linux                     - needed for bash completion
   #                                    not relevant.
-  # - libjpeg8                       - used in awt, not relevant
-  # - liblcms2-2                     - used in awt, not relevant
   core:
     essential:
       - libc6_libs
@@ -176,6 +174,28 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/jfr/default.jfc:
       /usr/lib/jvm/java-21-openjdk-*/lib/jfr/profile.jfc:
       /usr/lib/jvm/java-21-openjdk-*/lib/jrt-fs.jar:
+
+  # headless UI support
+  awt:
+    essential:
+      - openjdk-21-jre-headless_core
+      - libglib2.0-0t64_essential
+      - libgraphite2-3_libs
+      - libpng16-16t64_libs
+      - libbrotli1_libs
+      - libatomic1_libs
+      - libjpeg-turbo8_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - liblcms2-2_libs
+      - libbz2-1.0_libs
+    contents:
+      /usr/lib/jvm/java-21-openjdk-amd64/lib/libawt.so:
+      /usr/lib/jvm/java-21-openjdk-amd64/lib/libawt_headless.so:
+      /usr/lib/jvm/java-21-openjdk-amd64/lib/libfontmanager.so:
+      /usr/lib/jvm/java-21-openjdk-amd64/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-21-openjdk-amd64/lib/libjsvml.so:
+      /usr/lib/jvm/java-21-openjdk-amd64/lib/libmlib_image.so:
 
   copyright:
     contents:
