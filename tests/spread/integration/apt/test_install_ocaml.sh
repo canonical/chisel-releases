@@ -12,7 +12,7 @@ rootfs="$(install-slices apt_apt-get)"
 # For DNS resolution
 cp /etc/resolv.conf "$rootfs/etc/resolv.conf"
 
-# Python wants /dev/null
+# OCaml wants /dev/null
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
 chmod +x "$rootfs/dev/null"
