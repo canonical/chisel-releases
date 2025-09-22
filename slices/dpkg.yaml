@@ -6,38 +6,27 @@ essential:
 slices:
   bins:
     essential:
-      - coreutils_rm-utility
-      - diffutils_bins  # used by dpkg -i
       - dpkg_config
+      - dpkg_dpkg
+      - dpkg_dpkg-divert
+      - dpkg_dpkg-trigger
       - dpkg_scripts
       - dpkg_tables
+      - dpkg_update-alternatives
       - dpkg_var
       - libbz2-1.0_libs
-      - libc-bin_ldconfig
       - libc6_libs
       - liblzma5_libs
       - libmd0_libs
       - libselinux1_libs
       - libzstd1_libs
-      - tar_tar
       - zlib1g_libs
     contents:
-      /usr/bin/dpkg:
-      /usr/bin/dpkg-deb:
-      /usr/bin/dpkg-divert:
       /usr/bin/dpkg-maintscript-helper:
       /usr/bin/dpkg-query:
       /usr/bin/dpkg-realpath:
-      /usr/bin/dpkg-split:
       /usr/bin/dpkg-statoverride:
-      /usr/bin/dpkg-trigger:
-      /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
-      /usr/sbin/start-stop-daemon:
-
-  copyright:
-    contents:
-      /usr/share/doc/dpkg/copyright:
 
   config:
     contents:
@@ -79,3 +68,74 @@ slices:
       - coreutils_bins
       - dpkg_bins
       - sed_bins
+
+  dpkg-deb:
+    essential:
+      - base-files_tmp
+      - coreutils_rm-utility
+      - libbz2-1.0_libs
+      - liblzma5_libs
+      - libmd0_libs
+      - libzstd1_libs
+      - tar_tar
+      - zlib1g_libs
+    contents:
+      /usr/bin/dpkg-deb:
+
+  dpkg-split:
+    essential:
+      - dpkg_dpkg-deb
+      - libc6_libs
+      - libmd0_libs
+    contents:
+      /usr/bin/dpkg-split:
+
+  dpkg:
+    essential:
+      - base-files_bin
+      - coreutils_rm-utility
+      - dash_bins
+      - diffutils_bins
+      - dpkg_dpkg-deb
+      - dpkg_dpkg-split
+      - dpkg_start-stop-daemon
+      - libc-bin_ldconfig
+      - libc6_libs
+      - libmd0_libs
+      - libselinux1_libs
+      - tar_tar
+    contents:
+      /usr/bin/dpkg:
+
+  start-stop-daemon:
+    essential:
+      - base-files_var  # for /var/run
+      - libc6_libs
+    contents:
+      /usr/sbin/start-stop-daemon:
+
+  dpkg-trigger:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/dpkg-trigger:
+      /var/lib/dpkg/triggers/:
+        make: true
+
+  dpkg-divert:
+    essential:
+      - libmd0_libs
+    contents:
+      /usr/bin/dpkg-divert:
+      /var/lib/dpkg/:
+        make: true
+
+  update-alternatives:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/update-alternatives:
+
+  copyright:
+    contents:
+      /usr/share/doc/dpkg/copyright:

@@ -60,12 +60,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
+      - coreutils_cat
       - libc6_libs
     contents:
       /usr/bin/base32:
       /usr/bin/base64:
       /usr/bin/basenc:
-      /usr/bin/cat:
       /usr/bin/nl:
       /usr/bin/od:
       /usr/bin/tac:
@@ -165,6 +165,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - coreutils_mv-utility
       - coreutils_rm-utility
       - libacl1_libs
       - libattr1_libs
@@ -174,7 +175,6 @@ slices:
       /usr/bin/cp:
       /usr/bin/dd:
       /usr/bin/install:
-      /usr/bin/mv:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -199,12 +199,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      - coreutils_chown
       - coreutils_touch
       - libc6_libs
     contents:
       /usr/bin/chgrp:
       /usr/bin/chmod:
-      /usr/bin/chown:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -302,13 +302,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
   system-context:
     essential:
+      - coreutils_uname
       - libc6_libs
     contents:
       /usr/bin/arch:
       /usr/bin/date:
       /usr/bin/hostid:
       /usr/bin/nproc:
-      /usr/bin/uname:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -368,7 +368,6 @@ slices:
   mkdir:
     essential:
       - libc6_libs
-      - libpcre2-8-0_libs
       - libselinux1_libs
     contents:
       /usr/bin/mkdir:
@@ -421,6 +420,33 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/printf:
+
+  uname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/uname:
+
+  cat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cat:
+
+  chown:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/chown:
+
+  mv-utility:
+    essential:
+      - libacl1_libs
+      - libattr1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/mv:
 
   copyright:
     contents:
