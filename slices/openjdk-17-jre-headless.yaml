@@ -193,7 +193,6 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/libawt_headless.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/libfontmanager.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/libjavajpeg.so:
-      /usr/lib/jvm/java-17-openjdk-*/lib/libjsvml.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/liblcms.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/libmlib_image.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/psfont.properties.ja:
