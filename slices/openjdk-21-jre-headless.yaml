@@ -179,13 +179,10 @@ slices:
   awt:
     essential:
       - libatomic1_libs
-      - libbrotli1_libs
-      - libbz2-1.0_libs
       - libfontconfig1_libs
       - libharfbuzz0b_libs
-      - libjpeg-turbo8_libs
+      - libjpeg8_libs
       - liblcms2-2_libs
-      - libpng16-16t64_libs
       - openjdk-21-jre-headless_core
     contents:
       /etc/java-21-openjdk/psfont.properties.ja:
