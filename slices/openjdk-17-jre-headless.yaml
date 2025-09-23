@@ -179,9 +179,7 @@ slices:
       - libbrotli1_libs
       - libbz2-1.0_libs
       - libfontconfig1_libs
-      - libfreetype6_libs
-      - libglib2.0-0t64_core
-      - libgraphite2-3_libs
+      - libharfbuzz0b_libs
       - libjpeg-turbo8_libs
       - liblcms2-2_libs
       - libpng16-16t64_libs
