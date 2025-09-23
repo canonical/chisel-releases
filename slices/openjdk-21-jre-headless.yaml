@@ -203,6 +203,33 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/psfont.properties.ja:
       /usr/lib/jvm/java-21-openjdk-*/lib/psfontj2d.properties:
 
+  # headless UI
+  awt:
+    essential:
+      - libatomic1_libs
+      - libbrotli1_libs
+      - libbz2-1.0_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libglib2.0-0t64_core
+      - libgraphite2-3_libs
+      - libjpeg-turbo8_libs
+      - liblcms2-2_libs
+      - libpng16-16t64_libs
+      - openjdk-21-jre-headless_core
+    contents:
+      /etc/java-21-openjdk/psfont.properties.ja:
+      /etc/java-21-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libawt.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libawt_headless.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libfontmanager.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjsvml.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/liblcms.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libmlib_image.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-21-openjdk-*/lib/psfontj2d.properties:
+
   copyright:
     contents:
       /usr/share/doc/openjdk-21-jre-headless/copyright:
