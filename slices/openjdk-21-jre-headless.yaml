@@ -175,34 +175,6 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/jfr/profile.jfc:
       /usr/lib/jvm/java-21-openjdk-*/lib/jrt-fs.jar:
 
-  # headless UI support
-  awt:
-    essential:
-      - openjdk-21-jre-headless_core
-      - libglib2.0-0t64_core
-      - libgraphite2-3_libs
-      - libpng16-16t64_libs
-      - libbrotli1_libs
-      - libatomic1_libs
-      - libjpeg-turbo8_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - liblcms2-2_libs
-      - libbz2-1.0_libs
-      -
-    contents:
-      /etc/java-21-openjdk/psfont.properties.ja:
-      /etc/java-21-openjdk/psfontj2d.properties:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libawt.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libawt_headless.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/liblcms.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libfontmanager.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libjavajpeg.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libjsvml.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/libmlib_image.so:
-      /usr/lib/jvm/java-21-openjdk-*/lib/psfont.properties.ja:
-      /usr/lib/jvm/java-21-openjdk-*/lib/psfontj2d.properties:
-
   # headless UI
   awt:
     essential:
