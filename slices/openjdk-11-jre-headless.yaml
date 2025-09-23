@@ -193,7 +193,7 @@ slices:
       - libharfbuzz0b_libs
       - libjpeg8_libs
       - liblcms2-2_libs
-      - openjdk-21-jre-headless_core
+      - openjdk-11-jre-headless_core
     contents:
       /etc/java-11-openjdk/psfont.properties.ja:
       /etc/java-11-openjdk/psfontj2d.properties:

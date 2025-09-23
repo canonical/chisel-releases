@@ -180,7 +180,7 @@ slices:
       - libharfbuzz0b_libs
       - libjpeg8_libs
       - liblcms2-2_libs
-      - openjdk-21-jre-headless_core
+      - openjdk-17-jre-headless_core
     contents:
       /etc/java-17-openjdk/psfont.properties.ja:
       /etc/java-17-openjdk/psfontj2d.properties:
