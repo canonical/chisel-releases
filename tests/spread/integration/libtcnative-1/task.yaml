@@ -4,19 +4,19 @@ execute: |
   # libtcnative-1 installs tomcat native extensions. run
   # tomcat version to validate that they are loaded
   rootfs="$(install-slices tomcat10_core libtcnative-1_libs base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
-  cd ${rootfs}
-  mkdir -p proc sys tmp dev
-  mount --bind /proc proc
-  mount --bind /sys sys
-  mount --bind /tmp tmp
-  mount --bind /dev dev
-  for java in `find usr/lib/jvm -name java`; do
-    export JAVA_HOME=/$(dirname $(dirname ${java}))
-    export CATALINA_BASE="/var/lib/tomcat10"
-    chroot . /usr/share/tomcat10/bin/catalina.sh version
-    nativeLines="$(chroot . /usr/share/tomcat10/bin/catalina.sh configtest 2>&1)"
-    if ! echo "$nativeLines" | grep 'Loaded Apache Tomcat Native library' >&2; then \
-        echo >&2 "$nativeLines"; \
-        exit 1; \
-    fi
-  done
+  java=$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
+
+  # Make fake /dev/null and mount /proc
+  mkdir -p "$rootfs/dev"
+  touch "$rootfs/dev/null"
+  chmod +x "$rootfs/dev/null"
+  mkdir -p "$rootfs/proc"
+  sudo mount --bind /proc "$rootfs/proc"
+  trap 'sudo umount "$rootfs/proc"' EXIT
+
+  export JAVA_HOME=/$(dirname $(dirname ${java}))
+  export CATALINA_BASE="/var/lib/tomcat10"
+  chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
+    | grep -q "Apache Tomcat/10"
+  chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh configtest 2>&1 \
+    | grep -q 'Loaded Apache Tomcat Native library'
