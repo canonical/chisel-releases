@@ -1,16 +1,33 @@
 summary: Integration tests for tomcat10
 
+environment:
+  SLICE/core: "core"
+  SLICE/standard: "standard"
+  SLICE/dev: "dev"
+
 execute: |
   # tomcat needs an openjdk and shell
-  rootfs="$(install-slices tomcat10_core base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
-  cd ${rootfs}
-  mkdir -p proc sys tmp dev
-  mount --bind /proc proc
-  mount --bind /sys sys
-  mount --bind /tmp tmp
-  mount --bind /dev dev
-  for java in `find usr/lib/jvm -name java`; do
-    export JAVA_HOME="/$(dirname $(dirname ${java}))"
-    export CATALINA_BASE="/var/lib/tomcat10"
-    chroot . /usr/share/tomcat10/bin/catalina.sh configtest
-  done
+  rootfs="$(install-slices tomcat10_${SLICE} base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
+  java=$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
+
+  # Make fake /dev/null and mount /proc
+  mkdir -p "$rootfs/dev"
+  touch "$rootfs/dev/null"
+  chmod +x "$rootfs/dev/null"
+  mkdir -p "$rootfs/proc"
+  sudo mount --bind /proc "$rootfs/proc"
+  trap 'sudo umount "$rootfs/proc"' EXIT
+
+  export JAVA_HOME="/$(dirname $(dirname ${java}))"
+  export CATALINA_BASE="/var/lib/tomcat10"
+  case ${SLICE} in
+    dev)
+      chroot "$rootfs" /usr/share/tomcat10/bin/configtest.sh 2>&1
+      chroot "$rootfs" /usr/share/tomcat10/bin/configtest.sh 2>&1 \
+        | grep -q "Server initialization in"
+    ;;
+    *)
+      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh configtest 2>&1 \
+        | grep -q "Server initialization in"
+    ;;
+  esac
