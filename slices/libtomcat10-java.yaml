@@ -4,7 +4,7 @@ essential:
   - libtomcat10-java_copyright
 
 slices:
-  i18n-common:
+  i18n:
     contents:
       /usr/share/java/tomcat10-i18n-cs-10*.jar:
       /usr/share/java/tomcat10-i18n-cs.jar:
@@ -25,8 +25,17 @@ slices:
       /usr/share/java/tomcat10-i18n-zh-CN-10*.jar:
       /usr/share/java/tomcat10-i18n-zh-CN.jar:
 
-  libs:
+#  Will be needed for tomcat10-admin package slices
+#  ant:
+#    essential:
+#      - libtomcat10-java_jars
+#    contents:
+#      /usr/share/java/tomcat10-catalina-ant-10*.jar:
+#      /usr/share/java/tomcat10-catalina-ant.jar:
+
+  jars:
     essential:
+      - libeclipse-jdt-core-compiler-batch-java_jars
       - libeclipse-jdt-core-java_libs
     contents:
       /usr/share/java/tomcat10-annotations-api-10*.jar:
@@ -34,8 +43,6 @@ slices:
       /usr/share/java/tomcat10-api-10*.jar:
       /usr/share/java/tomcat10-api.jar:
       /usr/share/java/tomcat10-catalina-10*.jar:
-      /usr/share/java/tomcat10-catalina-ant-10*.jar:
-      /usr/share/java/tomcat10-catalina-ant.jar:
       /usr/share/java/tomcat10-catalina-ha-10*.jar:
       /usr/share/java/tomcat10-catalina-ha.jar:
       /usr/share/java/tomcat10-catalina.jar:
