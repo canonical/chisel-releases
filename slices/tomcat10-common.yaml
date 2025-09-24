@@ -41,7 +41,6 @@ slices:
       /usr/share/tomcat10/lib/websocket-api.jar:
       /usr/share/tomcat10/lib/websocket-client-api.jar:
 
-
   core-no-deps:
     essential:
       - tomcat10-common_scripts
