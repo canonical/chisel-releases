@@ -14,18 +14,12 @@ slices:
     essential:
       - dotnet-runtime-8.0_core
     contents:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/8.0*/**:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/8.0.*/**:
 
   standard:
     essential:
       - aspnetcore-runtime-8.0_core
       - libicu74_libs
-
-  dev:
-    essential:
-      - aspnetcore-runtime-8.0_standard
-      - aspnetcore-runtime-dbg-8.0_libs
-      - dotnet-runtime-dbg-8.0_libs
 
   copyright:
     contents:

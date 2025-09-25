@@ -12,7 +12,7 @@ environment:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
 
 prepare: |
-  required_slices=(dotnet-runtime-8.0_libs)
+  required_slices=(dotnet-runtime-8.0_core)
   if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
     required_slices+=(libicu74_libs)
   fi

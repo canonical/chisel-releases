@@ -14,9 +14,9 @@ environment:
 prepare: |
   required_slices=()
   if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(dotnet-runtime-8.0_minimal)
+    required_slices+=(dotnet-runtime-8.0_core)
   else
-    required_slices+=(dotnet-runtime-8.0_libs)
+    required_slices+=(dotnet-runtime-8.0_standard)
   fi
   
   # install slices

@@ -20,17 +20,12 @@ slices:
       - libstdc++6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0*/**:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0.*/**:
 
   standard:
     essential:
       - dotnet-runtime-8.0_core
       - libicu74_libs
-
-  dev:
-    essential:
-      - dotnet-runtime-8.0_standard
-      - dotnet-runtime-dbg-8.0_libs
 
   copyright:
     contents:
