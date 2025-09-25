@@ -255,7 +255,7 @@ slices:
       /usr/include/*-linux-*/bits/socket_type.h:
       /usr/include/*-linux-*/bits/spawn_ext.h:
       /usr/include/*-linux-*/bits/ss_flags.h:
-      /usr/include/*-linux-*/bits/stab.def:
+      /usr/include/*-linux-*/bits/stab.def:  # debug symbol definitions
       /usr/include/*-linux-*/bits/stat.h:
       /usr/include/*-linux-*/bits/statfs.h:
       /usr/include/*-linux-*/bits/statvfs.h:
