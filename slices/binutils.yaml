@@ -12,7 +12,7 @@ slices:
   linker:
     # TODO: include binutils-${ARCH_TRIPLET}_linker as essential
     essential:
-      - libc6-dev_core-libs
+      - libc6-dev_core
       - libgcc-14-dev_core-libs
     contents:
       /usr/bin/ld:  # Symlink to ${ARCH_TRIPLET}-ld
