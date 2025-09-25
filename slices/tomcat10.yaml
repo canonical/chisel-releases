@@ -40,7 +40,7 @@ slices:
   standard:
     essential:
       - tomcat10_core
-      - tomcat10-common_standard
+      - tomcat10-common_i18n
 
   dev:
     essential:
