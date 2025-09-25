@@ -8,6 +8,31 @@ essential:
 # /usr/share/tomcat10/bin/bootstrap.jar
 
 slices:
+  minimal:
+    essential:
+      - tomcat10-common_jars
+      - tomcat10-common_scripts
+
+  core:
+    essential:
+      - coreutils_delaying
+      - coreutils_directory-listing
+      - coreutils_dirname
+      - coreutils_echo
+      - coreutils_expr
+      - coreutils_output-of-entire-files
+      - coreutils_rm-utility
+      - coreutils_special-file-types
+      - coreutils_system-context
+      - coreutils_touch
+      - coreutils_working-context
+      - dash_bins
+      - debianutils_which
+      - grep_bins
+      - openjdk-21-jre-headless_security
+      - procps_bins
+      - tomcat10-common_minimal
+
   scripts:
     contents:
       /usr/share/tomcat10/bin/catalina.sh:
@@ -40,22 +65,6 @@ slices:
       /usr/share/tomcat10/lib/tomcat-websocket.jar:
       /usr/share/tomcat10/lib/websocket-api.jar:
       /usr/share/tomcat10/lib/websocket-client-api.jar:
-
-  core-no-deps:
-    essential:
-      - tomcat10-common_scripts
-      - tomcat10-common_jars
-
-  standard-no-deps:
-    essential:
-      - tomcat10-common_core
-      - tomcat10-common_i18n
-
-  core:
-    essential:
-      - tomcat10-common_core-no-deps
-      - dash_bins
-      - openjdk-21-jdk-headless_standard
 
   i18n:
     essential:
@@ -90,7 +99,6 @@ slices:
       # /usr/share/tomcat10/bin/startup.sh:
       # used by other tools such as digest.sh, makebase.sh
       /usr/share/tomcat10/bin/tool-wrapper.sh:
-
       /usr/share/tomcat10/bin/version.sh:
 
   copyright:
