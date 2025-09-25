@@ -10,7 +10,7 @@ slices:
   # For more information, see:
   # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
   # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
-  minimal:
+  core:
     essential:
       - dotnet-hostfxr-8.0_libs
       - libc6_libs
@@ -22,10 +22,15 @@ slices:
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0*/**:
 
-  libs:
+  standard:
     essential:
-      - dotnet-runtime-8.0_minimal
+      - dotnet-runtime-8.0_core
       - libicu74_libs
+
+  dev:
+    essential:
+      - dotnet-runtime-8.0_standard
+      - dotnet-runtime-dbg-8.0_libs
 
   copyright:
     contents:

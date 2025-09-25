@@ -1,0 +1,14 @@
+package: dotnet-sdk-dbg-8.0
+
+essential:
+  - dotnet-sdk-dbg-8.0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/dotnet/packs/**:
+      /usr/lib/dotnet/sdk/8.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-sdk-dbg-8.0/copyright:
