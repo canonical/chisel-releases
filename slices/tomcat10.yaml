@@ -39,13 +39,13 @@ slices:
 
   standard:
     essential:
-      - tomcat10_core
       - tomcat10-common_i18n
+      - tomcat10_core
 
   dev:
     essential:
-      - tomcat10_standard
       - tomcat10-common_extra-scripts
+      - tomcat10_standard
 
   copyright:
     content:
