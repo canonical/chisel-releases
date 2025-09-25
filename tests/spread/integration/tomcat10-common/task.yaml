@@ -5,8 +5,7 @@ environment:
   SLICE/extrascripts: "extra-scripts"
 
 execute: |
-  # tomcat needs an openjdk and shell
-  rootfs="$(install-slices tomcat10-common_${SLICE} base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
+  rootfs="$(install-slices tomcat10-common_${SLICE})"
   java=$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
 
   # Make fake /dev/null and mount /proc
