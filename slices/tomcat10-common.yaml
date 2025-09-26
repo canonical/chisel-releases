@@ -30,7 +30,6 @@ slices:
 
   jars:
     essential:
-      - libtomcat10-java_i18n-common
       - libtomcat10-java_jars
     contents:
       /usr/share/tomcat10/bin/bootstrap.jar:
