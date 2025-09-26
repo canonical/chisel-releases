@@ -20,6 +20,7 @@ slices:
       - mount_bins
       - systemd_catalog
       - systemd_config
+      - systemd_detect-virt
       - systemd_kernel-parameters
       - systemd_network
       - systemd_pcrlock
@@ -45,7 +46,6 @@ slices:
       /usr/bin/systemd-confext:
       /usr/bin/systemd-creds:
       /usr/bin/systemd-delta:
-      /usr/bin/systemd-detect-virt:
       /usr/bin/systemd-escape:
       /usr/bin/systemd-firstboot:
       /usr/bin/systemd-id128:
@@ -117,6 +117,13 @@ slices:
       /usr/lib/systemd/systemd-user-sessions:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
+
+  detect-virt:
+    essential:
+      - libc6_libs
+      - libsystemd-shared_libs
+    contents:
+      /usr/bin/systemd-detect-virt:
 
   catalog:
     contents:

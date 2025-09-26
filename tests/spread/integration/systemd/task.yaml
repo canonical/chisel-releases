@@ -13,3 +13,8 @@ execute: |
   chroot "${rootfs}/" /test.sh
 
   umount "${rootfs}"/proc
+
+  # Test just the detect-virt slice
+  rootfs="$(install-slices systemd_detect-virt)"
+  chroot "${rootfs}/" systemd-detect-virt --help
+  chroot "${rootfs}/" systemd-detect-virt
