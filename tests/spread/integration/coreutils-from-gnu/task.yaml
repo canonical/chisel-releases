@@ -76,3 +76,17 @@ execute: |
   test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
   test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
   test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
+
+    # test cat binary
+  rootfs_cat="$(install-slices coreutils-from-gnu_cat)"
+  echo "Hello, World!" > "$rootfs_cat/test_file"
+  test "$(chroot "$rootfs_cat" gnucat test_file)" = "Hello, World!"
+
+  # test ls binary
+  rootfs_ls="$(install-slices coreutils-from-gnu_ls-utility)"
+  mkdir -p "$rootfs_ls/test_dir"
+  touch "$rootfs_ls/test_dir/file1"
+  touch "$rootfs_ls/test_dir/file2"
+  test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = $"file1\nfile2"
+  test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = $".\n..\nfile1\nfile2"
+
