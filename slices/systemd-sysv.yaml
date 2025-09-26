@@ -1,0 +1,68 @@
+package: systemd-sysv
+
+essential:
+  - systemd-sysv_copyright
+
+slices:
+  bins:
+    essential:
+      - systemd-sysv_halt
+      - systemd-sysv_init
+      - systemd-sysv_poweroff
+      - systemd-sysv_reboot
+      - systemd-sysv_runlevel
+      - systemd-sysv_shutdown
+      - systemd-sysv_telinit
+
+  # symlink to systemctl
+  halt:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/halt:
+
+  # symlink to systemd
+  init:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/init:
+
+  # symlink to systemctl
+  poweroff:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/poweroff:
+
+  # symlink to systemctl
+  reboot:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/reboot:
+
+  # symlink to systemctl
+  runlevel:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/runlevel:
+
+  # symlink to systemctl
+  shutdown:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/shutdown:
+
+  # symlink to systemctl
+  telinit:
+    essential:
+      - systemd_bins
+    contents:
+      /usr/sbin/telinit:
+
+  copyright:
+    contents:
+      /usr/share/doc/systemd-sysv/copyright:
