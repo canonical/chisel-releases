@@ -4,7 +4,7 @@ essential:
   - libeclipse-jdt-core-java_copyright
 
 slices:
-  libs:
+  jars:
     contents:
       /usr/share/java/eclipse-jdt-core*.jar:
 

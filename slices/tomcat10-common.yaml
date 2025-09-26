@@ -3,35 +3,24 @@ package: tomcat10-common
 essential:
   - tomcat10-common_copyright
 
-slices:
-  # additional shell scripts
-  bins:
-    essential:
-      - tomcat10-common_core
-    contents:
-      /usr/share/tomcat10/bin/ciphers.sh:
-      /usr/share/tomcat10/bin/configtest.sh:
-      /usr/share/tomcat10/bin/daemon.sh:
-      /usr/share/tomcat10/bin/digest.sh:
-      /usr/share/tomcat10/bin/makebase.sh:
-      /usr/share/tomcat10/bin/migrate.sh:
-      /usr/share/tomcat10/bin/shutdown.sh:
-      /usr/share/tomcat10/bin/startup.sh:
-      /usr/share/tomcat10/bin/tool-wrapper.sh:
-      /usr/share/tomcat10/bin/version.sh:
+# NOTE: all the jar files in are symlinks
+# to their corresponding jars from libtomcat10-java except
+# /usr/share/tomcat10/bin/bootstrap.jar
 
-  core:
-    essential:
-      - libtomcat10-java_i18n-common
-      - libtomcat10-java_libs
+slices:
+  scripts:
     contents:
-      /usr/share/tomcat10/bin/bootstrap.jar:
-      /usr/share/tomcat10/bin/catalina-tasks.xml:
       /usr/share/tomcat10/bin/catalina.sh:
       /usr/share/tomcat10/bin/setclasspath.sh:
+
+  jars:
+    essential:
+      - libtomcat10-java_i18n-common
+      - libtomcat10-java_jars
+    contents:
+      /usr/share/tomcat10/bin/bootstrap.jar:
       /usr/share/tomcat10/bin/tomcat-juli.jar:
       /usr/share/tomcat10/lib/annotations-api.jar:
-      /usr/share/tomcat10/lib/catalina-ant.jar:
       /usr/share/tomcat10/lib/catalina-ha.jar:
       /usr/share/tomcat10/lib/catalina-storeconfig.jar:
       /usr/share/tomcat10/lib/catalina-tribes.jar:
@@ -45,10 +34,6 @@ slices:
       /usr/share/tomcat10/lib/tomcat-api.jar:
       /usr/share/tomcat10/lib/tomcat-coyote.jar:
       /usr/share/tomcat10/lib/tomcat-dbcp.jar:
-      /usr/share/tomcat10/lib/tomcat-i18n-es.jar:
-      /usr/share/tomcat10/lib/tomcat-i18n-fr.jar:
-      /usr/share/tomcat10/lib/tomcat-i18n-ja.jar:
-      /usr/share/tomcat10/lib/tomcat-i18n-ru.jar:
       /usr/share/tomcat10/lib/tomcat-jdbc.jar:
       /usr/share/tomcat10/lib/tomcat-jni.jar:
       /usr/share/tomcat10/lib/tomcat-util-scan.jar:
@@ -56,6 +41,60 @@ slices:
       /usr/share/tomcat10/lib/tomcat-websocket.jar:
       /usr/share/tomcat10/lib/websocket-api.jar:
       /usr/share/tomcat10/lib/websocket-client-api.jar:
+
+  core:
+    essential:
+      - tomcat10-common_scripts
+      - tomcat10-common_jars
+
+  standard:
+    essential:
+      - tomcat10-common_core
+      - tomcat10-common_i18n
+
+#  Will be needed if tomcat10-admin is slices
+#  ant:
+#    essential:
+#      - tomcat10-common_jars
+#      - libtomcat10-java_ant
+#    contents:
+#      /usr/share/tomcat10/bin/catalina-tasks.xml:
+#      /usr/share/tomcat10/lib/catalina-ant.jar:
+
+  i18n:
+    essential:
+      - libtomcat10-java_i18n
+    contents:
+      /usr/share/tomcat10/lib/tomcat-i18n-es.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-fr.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-ja.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-ru.jar:
+
+  # additional shell scripts
+  extra-scripts:
+    essential:
+      - tomcat10-common_core
+    contents:
+      /usr/share/tomcat10/bin/ciphers.sh:
+      /usr/share/tomcat10/bin/configtest.sh:
+      # needs jsvc - also contains bug hardcodes
+      # /usr/share/tomcat10/bin/jsvc: not found
+      # /usr/share/tomcat10/bin/daemon.sh:
+      /usr/share/tomcat10/bin/digest.sh:
+      /usr/share/tomcat10/bin/makebase.sh:
+      # java.lang.ClassNotFoundException: org.apache.tomcat.jakartaee.MigrationCLI
+      # packaging error, do not install
+      # /usr/share/tomcat10/bin/migrate.sh:
+
+      # runs catalina.sh stop
+      #/usr/share/tomcat10/bin/shutdown.sh:
+
+      # runs catalina.sh start
+      #/usr/share/tomcat10/bin/startup.sh:
+      # used by other tools such as digest.sh, makebase.sh
+      /usr/share/tomcat10/bin/tool-wrapper.sh:
+
+      /usr/share/tomcat10/bin/version.sh:
 
   copyright:
     contents:

@@ -9,47 +9,43 @@ slices:
       - tomcat10-common_core
     contents:
       /etc/tomcat10/Catalina/:
-        make: true
       /etc/tomcat10/catalina.properties:
-        symlink: /usr/share/tomcat10/etc/catalina.properties
+        copy: /usr/share/tomcat10/etc/catalina.properties
       /etc/tomcat10/context.xml:
-        symlink: /usr/share/tomcat10/etc/context.xml
+        copy: /usr/share/tomcat10/etc/context.xml
       /etc/tomcat10/jaspic-providers.xml:
-        symlink: /usr/share/tomcat10/etc/jaspic-providers.xml
+        copy: /usr/share/tomcat10/etc/jaspic-providers.xml
       /etc/tomcat10/logging.properties:
-        symlink: /usr/share/tomcat10/etc/logging.properties
+        copy: /usr/share/tomcat10/etc/logging.properties
       /etc/tomcat10/policy.d/01system.policy:
       /etc/tomcat10/policy.d/02debian.policy:
       /etc/tomcat10/policy.d/03catalina.policy:
       /etc/tomcat10/policy.d/04webapps.policy:
       /etc/tomcat10/policy.d/50local.policy:
       /etc/tomcat10/server.xml:
-        symlink: /usr/share/tomcat10/etc/server.xml
+        copy: /usr/share/tomcat10/etc/server.xml
       /etc/tomcat10/tomcat-users.xml:
-        symlink: /usr/share/tomcat10/etc/tomcat-users.xml
+        copy: /usr/share/tomcat10/etc/tomcat-users.xml
       /etc/tomcat10/web.xml:
-        symlink: /usr/share/tomcat10/etc/web.xml
-      /usr/share/tomcat10/etc/catalina.properties:
-      /usr/share/tomcat10/etc/context.xml:
-      /usr/share/tomcat10/etc/jaspic-providers.xml:
-      /usr/share/tomcat10/etc/logging.properties:
-      /usr/share/tomcat10/etc/server.xml:
-      /usr/share/tomcat10/etc/tomcat-users.xml:
-      /usr/share/tomcat10/etc/web.xml:
+        copy: /usr/share/tomcat10/etc/web.xml
       /var/cache/tomcat10/:
         make: true
       /var/lib/tomcat10/conf:
-        symlink: /etc/tomcat10
       /var/lib/tomcat10/lib/:
-        make: true
       /var/lib/tomcat10/logs:
-        symlink: /var/log/tomcat10/
       /var/lib/tomcat10/webapps/:
-        make: true
       /var/lib/tomcat10/work:
-        symlink: /var/cache/tomcat10/
       /var/log/tomcat10/:
-        make: true
+
+  standard:
+    essential:
+      - tomcat10_core
+      - tomcat10-common_standard
+
+  dev:
+    essential:
+      - tomcat10_standard
+      - tomcat10-common_extra-scripts
 
   copyright:
     content:
