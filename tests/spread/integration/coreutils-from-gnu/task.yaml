@@ -87,6 +87,5 @@ execute: |
   mkdir -p "$rootfs_ls/test_dir"
   touch "$rootfs_ls/test_dir/file1"
   touch "$rootfs_ls/test_dir/file2"
-  test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = $"file1\nfile2"
-  test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = $".\n..\nfile1\nfile2"
-
+  test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = "$(printf "file1\nfile2")"
+  test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
