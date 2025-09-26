@@ -42,24 +42,21 @@ slices:
       /usr/share/tomcat10/lib/websocket-api.jar:
       /usr/share/tomcat10/lib/websocket-client-api.jar:
 
-  core:
+  core-no-deps:
     essential:
       - tomcat10-common_scripts
       - tomcat10-common_jars
 
-  standard:
+  standard-no-deps:
     essential:
       - tomcat10-common_core
       - tomcat10-common_i18n
 
-#  Will be needed if tomcat10-admin is slices
-#  ant:
-#    essential:
-#      - tomcat10-common_jars
-#      - libtomcat10-java_ant
-#    contents:
-#      /usr/share/tomcat10/bin/catalina-tasks.xml:
-#      /usr/share/tomcat10/lib/catalina-ant.jar:
+  core:
+    essential:
+      - tomcat10-common_core-no-deps
+      - dash_bins
+      - openjdk-21-jdk-headless_standard
 
   i18n:
     essential:
@@ -82,15 +79,16 @@ slices:
       # /usr/share/tomcat10/bin/daemon.sh:
       /usr/share/tomcat10/bin/digest.sh:
       /usr/share/tomcat10/bin/makebase.sh:
-      # java.lang.ClassNotFoundException: org.apache.tomcat.jakartaee.MigrationCLI
+      # java.lang.ClassNotFoundException:
+      # org.apache.tomcat.jakartaee.MigrationCLI
       # packaging error, do not install
       # /usr/share/tomcat10/bin/migrate.sh:
 
       # runs catalina.sh stop
-      #/usr/share/tomcat10/bin/shutdown.sh:
+      # /usr/share/tomcat10/bin/shutdown.sh:
 
       # runs catalina.sh start
-      #/usr/share/tomcat10/bin/startup.sh:
+      # /usr/share/tomcat10/bin/startup.sh:
       # used by other tools such as digest.sh, makebase.sh
       /usr/share/tomcat10/bin/tool-wrapper.sh:
 
@@ -99,3 +97,12 @@ slices:
   copyright:
     contents:
       /usr/share/doc/tomcat10-common/copyright:
+
+#  Will be needed if tomcat10-admin is slices
+#  ant:
+#    essential:
+#      - tomcat10-common_jars
+#      - libtomcat10-java_ant
+#    contents:
+#      /usr/share/tomcat10/bin/catalina-tasks.xml:
+#      /usr/share/tomcat10/lib/catalina-ant.jar:
