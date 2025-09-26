@@ -36,6 +36,14 @@ slices:
     contents:
       /usr/bin/getconf:
 
+  iconv:
+    essential:
+      - libc6_gconv-core
+      - libc6_iconv-config
+      - libc6_libs
+    contents:
+      /usr/bin/iconv:
+
   copyright:
     contents:
       /usr/share/doc/libc-bin/copyright:
