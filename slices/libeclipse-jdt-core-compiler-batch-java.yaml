@@ -7,6 +7,7 @@ slices:
   jars:
     contents:
       /usr/share/java/eclipse-jdt-core-compiler-batch-3.*.jar:
+      /usr/share/java/eclipse-jdt-core-compiler-batch.jar:
 
   copyright:
     contents:
