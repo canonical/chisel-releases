@@ -5,8 +5,11 @@ environment:
   SLICE/standard: "standard"
   SLICE/dev: "dev"
 
+restore: |
+  killall java || true
+
 execute: |
-  rootfs="$(install-slices tomcat10_${SLICE} base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
+  rootfs="$(install-slices tomcat10_${SLICE})"
   java=$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
 
   # Make fake /dev/null and mount /proc
@@ -19,14 +22,44 @@ execute: |
 
   export JAVA_HOME="/$(dirname $(dirname ${java}))"
   export CATALINA_BASE="/var/lib/tomcat10"
+  chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh configtest 2>&1 \
+    | grep -q "Server initialization in"
+
   case ${SLICE} in
     dev)
-      chroot "$rootfs" /usr/share/tomcat10/bin/configtest.sh 2>&1
-      chroot "$rootfs" /usr/share/tomcat10/bin/configtest.sh 2>&1 \
-        | grep -q "Server initialization in"
+      chroot "$rootfs" /usr/share/tomcat10/bin/ciphers.sh \
+        | grep -q TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+      chroot "$rootfs" /usr/share/tomcat10/bin/digest.sh foo \
+        | grep -q "foo"
+      chroot "$rootfs" /usr/share/tomcat10/bin/makebase.sh foo \
+        | grep -q "Created CATALINA_BASE directory at foo"
+      chroot "$rootfs" /usr/share/tomcat10/bin/version.sh \
+        | grep -q "Apache Tomcat"
     ;;
-    *)
-      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh configtest 2>&1 \
-        | grep -q "Server initialization in"
+    standard)
+      apt-get update
+      apt-get install -y retry
+      chroot "$rootfs" /bin/sh -c \
+        "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat10/bin/catalina.sh start"
+      retry --times=3 --delay 5 -- grep -q "org.apache.catalina.startup.Catalina.start" "$rootfs/var/lib/tomcat10/logs/catalina.out"
+      chroot "$rootfs" /bin/sh -c \
+        "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat10/bin/catalina.sh stop"
+      grep "Сервер собран" $rootfs/var/lib/tomcat10/logs/*.log
+    ;;
+    core)
+      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
+        | grep -q "Apache Tomcat/10"
+
+      apt-get update
+      apt-get install -y maven default-jdk retry
+      mvn archetype:generate -DgroupId=com.example \
+        -DartifactId=hello-world-war \
+        -DarchetypeArtifactId=maven-archetype-webapp \
+        -DarchetypeVersion=1.4  -DinteractiveMode=false
+      (cd hello-world-war && mvn package)
+      cp hello-world-war/target/*.war "$rootfs/var/lib/tomcat10/webapps"
+      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh start
+      (retry --times=10 --delay 2 -- curl http://localhost:8080/hello-world-war/) | grep -q "Hello World!"
+      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh stop
     ;;
   esac
