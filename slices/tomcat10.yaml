@@ -4,9 +4,34 @@ essential:
   - tomcat10_copyright
 
 slices:
+  minimal:
+    essential:
+      - tomcat10-common_minimal
+      - tomcat10_config
+
   core:
     essential:
-      - tomcat10-common_core
+      - coreutils_bins
+      - dash_bins
+      - debianutils_which
+      - grep_bins
+      - openjdk-21-jre-headless_security
+      - openjdk-21-jre-headless_management
+      - openjdk-21-jre-headless_jfr
+      - procps_bins
+      - tomcat10_minimal
+
+  standard:
+    essential:
+      - tomcat10-common_i18n
+      - tomcat10_core
+
+  dev:
+    essential:
+      - tomcat10-common_extra-scripts
+      - tomcat10_standard
+
+  config:
     contents:
       /etc/tomcat10/Catalina/:
       /etc/tomcat10/catalina.properties:
@@ -36,16 +61,6 @@ slices:
       /var/lib/tomcat10/webapps/:
       /var/lib/tomcat10/work:
       /var/log/tomcat10/:
-
-  standard:
-    essential:
-      - tomcat10-common_i18n
-      - tomcat10_core
-
-  dev:
-    essential:
-      - tomcat10-common_extra-scripts
-      - tomcat10_standard
 
   copyright:
     content:
