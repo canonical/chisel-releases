@@ -13,26 +13,6 @@ slices:
       - tomcat10-common_jars
       - tomcat10-common_scripts
 
-  core:
-    essential:
-      - coreutils_delaying
-      - coreutils_directory-listing
-      - coreutils_dirname
-      - coreutils_echo
-      - coreutils_expr
-      - coreutils_output-of-entire-files
-      - coreutils_rm-utility
-      - coreutils_special-file-types
-      - coreutils_system-context
-      - coreutils_touch
-      - coreutils_working-context
-      - dash_bins
-      - debianutils_which
-      - grep_bins
-      - openjdk-21-jre-headless_security
-      - procps_bins
-      - tomcat10-common_minimal
-
   scripts:
     contents:
       /usr/share/tomcat10/bin/catalina.sh:
@@ -77,8 +57,6 @@ slices:
 
   # additional shell scripts
   extra-scripts:
-    essential:
-      - tomcat10-common_core
     contents:
       /usr/share/tomcat10/bin/ciphers.sh:
       /usr/share/tomcat10/bin/configtest.sh:
@@ -91,12 +69,8 @@ slices:
       # org.apache.tomcat.jakartaee.MigrationCLI
       # packaging error, do not install
       # /usr/share/tomcat10/bin/migrate.sh:
-
-      # runs catalina.sh stop
-      # /usr/share/tomcat10/bin/shutdown.sh:
-
-      # runs catalina.sh start
-      # /usr/share/tomcat10/bin/startup.sh:
+      /usr/share/tomcat10/bin/shutdown.sh:
+      /usr/share/tomcat10/bin/startup.sh:
       # used by other tools such as digest.sh, makebase.sh
       /usr/share/tomcat10/bin/tool-wrapper.sh:
       /usr/share/tomcat10/bin/version.sh:
@@ -105,7 +79,7 @@ slices:
     contents:
       /usr/share/doc/tomcat10-common/copyright:
 
-#  Will be needed if tomcat10-admin is slices
+#  Will be needed if tomcat10-admin is sliced
 #  ant:
 #    essential:
 #      - tomcat10-common_jars
