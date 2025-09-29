@@ -44,7 +44,7 @@ execute: |
       retry --times=3 --delay 5 -- grep -q "org.apache.catalina.startup.Catalina.start" "$rootfs/var/lib/tomcat10/logs/catalina.out"
       chroot "$rootfs" /bin/sh -c \
         "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat10/bin/catalina.sh stop"
-      grep "Сервер собран" $rootfs/var/lib/tomcat10/logs/*.log
+      grep "Инициализация" $rootfs/var/lib/tomcat10/logs/*.log
     ;;
     core)
       chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
