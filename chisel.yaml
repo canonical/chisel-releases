@@ -1,5 +1,11 @@
 format: v1
 
+maintenance:
+  standard: 2020-04-23
+  expanded: 2025-05-29
+  legacy: 2030-04-23
+  end-of-life: 2032-04-23
+
 archives:
   # archive.ubuntu.com/ubuntu/      (amd64, i386)
   # ports.ubuntu.com/ubuntu-ports/  (other arch)
