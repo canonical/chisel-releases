@@ -4,7 +4,7 @@ maintenance:
   standard: 2022-04-21
   expanded: 2027-06-01
   legacy: 2032-04-21
-  end-of-life: 203404-21
+  end-of-life: 2034-04-21
 
 archives:
   # archive.ubuntu.com/ubuntu/      (amd64, i386)
