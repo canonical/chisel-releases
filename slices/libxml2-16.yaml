@@ -1,7 +1,7 @@
-package: libxml2
+package: libxml2-16
 
 essential:
-  - libxml2_copyright
+  - libxml2-16_copyright
 
 slices:
   libs:
@@ -10,8 +10,8 @@ slices:
       - liblzma5_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libxml2.so.2*:
+      /usr/lib/*-linux-*/libxml2.so.16*:
 
   copyright:
     contents:
-      /usr/share/doc/libxml2/copyright:
+      /usr/share/doc/libxml2-16/copyright:
