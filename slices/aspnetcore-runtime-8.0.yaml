@@ -23,9 +23,9 @@ slices:
 
   # For backwards compatibility only. Should be removed in newer releases.
   # See: https://github.com/canonical/chisel-releases/pull/563#discussion_r2387720341
-  libs:  
-    essential:  
-      - aspnetcore-runtime-8.0_standard 
+  libs:
+    essential:
+      - aspnetcore-runtime-8.0_standard
 
   copyright:
     contents:
