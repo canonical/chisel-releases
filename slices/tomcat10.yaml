@@ -15,9 +15,9 @@ slices:
       - dash_bins
       - debianutils_which
       - grep_bins
-      - openjdk-21-jre-headless_security
-      - openjdk-21-jre-headless_management
       - openjdk-21-jre-headless_jfr
+      - openjdk-21-jre-headless_management
+      - openjdk-21-jre-headless_security
       - procps_bins
       - tomcat10_minimal
 
