@@ -199,8 +199,8 @@ slices:
       /etc/apparmor.d/code:
       /etc/apparmor.d/crun:
       /etc/apparmor.d/devhelp:
-      /etc/apparmor.d/disable/: {make: true}
       /etc/apparmor.d/dig:
+      /etc/apparmor.d/disable/: {make: true}
       /etc/apparmor.d/dnstracer:
       /etc/apparmor.d/eigrpd:
       /etc/apparmor.d/element-desktop:
