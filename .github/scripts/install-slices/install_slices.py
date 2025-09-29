@@ -297,10 +297,11 @@ def ignore_missing_packages(
 
 def install_slices(
     chunk: list[tuple[str, str]],
-    dry_run: bool,
+    worker: int,
+    *,
     arch: str,
     release: str,
-    worker: int,
+    dry_run: bool = False,
     ignore_unstable: bool = False,
 ) -> None:
     """
