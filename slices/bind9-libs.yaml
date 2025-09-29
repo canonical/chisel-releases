@@ -17,7 +17,7 @@ slices:
       - libssl3t64_libs
       - liburcu8t64_libs
       - libuv1t64_libs
-      - libxml2_libs
+      - libxml2-16_libs
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libdns-*.so:
