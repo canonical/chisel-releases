@@ -24,12 +24,19 @@ env:
   ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
   RELEASES_COMPATIBILITY: |
     [
-      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
+      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0","main"], "ignore": "unmaintained"},
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-25.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-25.10", "chisel-versions": ["v1.2.0","main"]}
+      {"ref": "ubuntu-25.10", "chisel-versions": ["v1.2.0","main"], "ignore": "unstable"}
     ]
+
+  # when ignore flag is set to "unstable", we want to pass --ignore-unstable to
+  # install-slices.py to ignore errors about unstable slices.
+  # when ignore flag is set to "unmaintained", we want to pass --ignore-unmaintained to
+  # install-slices.py to ignore errors about unmaintained slices.
+  # when ignore flag is empty, we don't want to pass any ignore flag to
+  # install-slices.py.
 
 jobs:
   prepare-install:
@@ -214,7 +221,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
-              --ignore-unstable \
+              ${{ matrix.ignore-flag }} \
               --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
@@ -222,7 +229,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
-              --ignore-unstable \
+              ${{ matrix.ignore-flag }} \
               --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
           fi

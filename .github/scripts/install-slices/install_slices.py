@@ -6,22 +6,24 @@ Verify chisel slice definition files by installing the slices.
 Usage
 -----
 install_slices.py [-h] --arch ARCH --release RELEASE [--dry-run] [--ensure-existence]
-                  [--ignore-missing] [--ignore-unstable] [--workers WORKERS] [file ...]
+                  [--ignore-missing] [--ignore-unstable] [--ignore-unmaintained]
+                  [--workers WORKERS] [file ...]
 
 Verify slice definition files by installing the slices
 
 positional arguments:
-  file                Chisel slice definition file(s)
+  file                  Chisel slice definition file(s)
 
 options:
-  -h, --help          show this help message and exit
-  --arch ARCH         Package architecture
-  --release RELEASE   chisel-releases branch name or directory
-  --dry-run           Perform dry run: do not actually install the slices
-  --ensure-existence  Each package must exist in the archive for at least one architecture
-  --ignore-missing    Ignore arch-specific package not found in archive errors
-  --ignore-unstable   Ignore packages from unstable components
-  --workers WORKERS   Number of workers to use for parallel installation (default: 5)
+  -h, --help            show this help message and exit
+  --arch ARCH           Package architecture
+  --release RELEASE     chisel-releases branch name or directory
+  --dry-run             Perform dry run: do not actually install the slices
+  --ensure-existence    Each package must exist in the archive for at least one architecture
+  --ignore-missing      Ignore arch-specific package not found in archive errors
+  --ignore-unstable     Ignore packages from unstable components
+  --ignore-unmaintained Ignore packages from unmaintained components
+  --workers WORKERS     Number of workers to use for parallel installation (default: 5)
 """
 
 import argparse
@@ -112,6 +114,12 @@ def parse_args() -> argparse.Namespace:
         required=False,
         action="store_true",
         help="Ignore packages from unstable components",
+    )
+    parser.add_argument(
+        "--ignore-unmaintained",
+        required=False,
+        action="store_true",
+        help="Ignore packages from unmaintained components",
     )
     parser.add_argument(
         "files",
@@ -303,10 +311,14 @@ def install_slices(
     release: str,
     dry_run: bool = False,
     ignore_unstable: bool = False,
+    ignore_unmaintained: bool = False,
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
+    if ignore_unstable and ignore_unmaintained:
+        raise ValueError("Cannot ignore both unstable and unmaintained")
+
     for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
@@ -325,6 +337,8 @@ def install_slices(
             args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", tmpfs]
             if ignore_unstable:
                 args += ["--ignore", "unstable"]
+            if ignore_unmaintained:
+                args += ["--ignore", "unmaintained"]
             args.append(slice_name)
             res = subprocess.run(
                 args=args,
@@ -444,6 +458,7 @@ def main() -> None:
         arch=cli_args.arch,
         release=cli_args.release,
         ignore_unstable=cli_args.ignore_unstable,
+        ignore_unmaintained=cli_args.ignore_unmaintained,
     )
 
     with ProcessPoolExecutor() as executor:
