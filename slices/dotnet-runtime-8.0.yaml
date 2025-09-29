@@ -27,6 +27,12 @@ slices:
       - dotnet-runtime-8.0_core
       - libicu74_libs
 
+  # For backwards compatibility only. Should be removed in newer releases.
+  # See: https://github.com/canonical/chisel-releases/pull/563#discussion_r2387720341
+  libs:  
+    essential:  
+      - dotnet-runtime-8.0_standard 
+
   copyright:
     contents:
       /usr/share/doc/dotnet-runtime-8.0/copyright:
