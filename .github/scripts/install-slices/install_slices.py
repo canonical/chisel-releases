@@ -5,8 +5,10 @@ Verify chisel slice definition files by installing the slices.
 
 Usage
 -----
-install_slices [-h] --arch ARCH --release RELEASE [--dry-run]
-               [--ensure-existence] [--ignore-missing] [file ...]
+install_slices.py [-h] --arch ARCH --release RELEASE [--dry-run] [--ensure-existence]
+                  [--ignore-missing] [--ignore-unstable] [--workers WORKERS] [file ...]
+
+Verify slice definition files by installing the slices
 
 positional arguments:
   file                Chisel slice definition file(s)
@@ -18,6 +20,8 @@ options:
   --dry-run           Perform dry run: do not actually install the slices
   --ensure-existence  Each package must exist in the archive for at least one architecture
   --ignore-missing    Ignore arch-specific package not found in archive errors
+  --ignore-unstable   Ignore packages from unstable components
+  --workers WORKERS   Number of workers to use for parallel installation (default: 5)
 """
 
 import argparse
@@ -28,6 +32,7 @@ import pathlib
 import subprocess
 import sys
 import tempfile
+from functools import partial
 
 import magic
 import requests
@@ -101,6 +106,12 @@ def parse_args() -> argparse.Namespace:
         required=False,
         action="store_true",
         help="Ignore arch-specific package not found in archive errors",
+    )
+    parser.add_argument(
+        "--ignore-unstable",
+        required=False,
+        action="store_true",
+        help="Ignore packages from unstable components",
     )
     parser.add_argument(
         "files",
@@ -285,7 +296,12 @@ def ignore_missing_packages(
 
 
 def install_slices(
-    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int
+    chunk: list[tuple[str, str]],
+    dry_run: bool,
+    arch: str,
+    release: str,
+    worker: int,
+    ignore_unstable: bool = False,
 ) -> None:
     """
     Install the slice by running "chisel cut".
@@ -305,18 +321,12 @@ def install_slices(
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
             env = dict(os.environ)
             env["XDG_CACHE_HOME"] = str(cache_dir)
+            args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", tmpfs]
+            if ignore_unstable:
+                args += ["--ignore", "unstable"]
+            args.append(slice_name)
             res = subprocess.run(
-                args=[
-                    "chisel",
-                    "cut",
-                    "--arch",
-                    arch,
-                    "--release",
-                    release,
-                    "--root",
-                    tmpfs,
-                    slice_name,
-                ],
+                args=args,
                 capture_output=True,
                 text=True,
                 check=False,
@@ -419,20 +429,25 @@ def main() -> None:
     all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
 
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
-    chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int]] = [
+    chunks_of_slices: list[tuple[list[tuple[str, str]], int]] = [
         (
             all_slices[i : i + chunk_size],
-            cli_args.dry_run,
-            cli_args.arch,
-            cli_args.release,
             i // chunk_size + 1,  # worker number
         )
         for i in range(0, len(all_slices), chunk_size)
     ]
 
+    executor_target = partial(
+        install_slices,
+        dry_run=cli_args.dry_run,
+        arch=cli_args.arch,
+        release=cli_args.release,
+        ignore_unstable=cli_args.ignore_unstable,
+    )
+
     with ProcessPoolExecutor() as executor:
         futures = [
-            executor.submit(install_slices, *chunk) for chunk in chunks_of_slices
+            executor.submit(executor_target, *chunk) for chunk in chunks_of_slices
         ]
         _ = [future.result() for future in as_completed(futures)]
 

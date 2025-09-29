@@ -214,6 +214,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --ignore-unstable \
               --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
@@ -221,6 +222,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --ignore-unstable \
               --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
           fi
