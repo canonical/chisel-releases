@@ -31,13 +31,6 @@ env:
       {"ref": "ubuntu-25.10", "chisel-versions": ["v1.2.0","main"], "ignore": "unstable"}
     ]
 
-  # when ignore flag is set to "unstable", we want to pass --ignore-unstable to
-  # install-slices.py to ignore errors about unstable slices.
-  # when ignore flag is set to "unmaintained", we want to pass --ignore-unmaintained to
-  # install-slices.py to ignore errors about unmaintained slices.
-  # when ignore flag is empty, we don't want to pass any ignore flag to
-  # install-slices.py.
-
 jobs:
   prepare-install:
     runs-on: ubuntu-latest
