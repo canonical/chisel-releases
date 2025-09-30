@@ -285,7 +285,7 @@ def ignore_missing_packages(
 
 
 def install_slices(
-    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int
+        chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, extra_args: str
 ) -> None:
     """
     Install the slice by running "chisel cut".
@@ -410,6 +410,7 @@ def main() -> None:
         logging.info("No slices will be installed.")
         return
 
+    extra_args = '--ignore=unstable' if subprocess.check_output(["chisel","version"]).strip().decode().lstrip("v") > "1.2.0" else ''
     # TODO: this list of slices can still be reduced, since many of these
     # will come as essentials of other slices. We could simply crawl all essentials
     # in the release, and remove them from the "all_slices" list (since they
@@ -426,6 +427,7 @@ def main() -> None:
             cli_args.arch,
             cli_args.release,
             i // chunk_size + 1,  # worker number
+            extra_args
         )
         for i in range(0, len(all_slices), chunk_size)
     ]
