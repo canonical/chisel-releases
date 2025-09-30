@@ -82,6 +82,7 @@ jobs:
             RELEASES="[]"
             for branch in $all_branches; do
               # Only add to RELEASES when ref is equal to $branch from RELEASES_COMPATIBILITY
+              # and the entry in RELEASES_COMPATIBILITY contains "main" in "chisel-versions"
               jq_program='[.[] | select(.ref == $ref) | select(.["chisel-versions"] | index("main")) | ."chisel-versions" = ["main"]]'
               ref="$(echo "$RELEASES_COMPATIBILITY" | jq --arg ref "$branch" "$jq_program")"
               RELEASES="$(echo "$RELEASES" | jq --argjson ref "$ref" '. + $ref')"
