@@ -4,3 +4,9 @@ execute: |
   rootfs="$(install-slices libc-bin_getconf)"
 
   chroot "$rootfs" getconf -a
+
+  rootfs=$(install-slices libc-bin_iconv base-files_base)
+  in=Foo
+  echo $in | (chroot "$rootfs" /usr/bin/iconv -f cp1252 -t UNICODE) > test.txt
+  out=$(cat test.txt | chroot "$rootfs" /usr/bin/iconv -t cp1252 -f UNICODE)
+  test "$out" = "$in"
