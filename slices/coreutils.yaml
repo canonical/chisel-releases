@@ -155,152 +155,95 @@ slices:
 
   basename:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/basename:
+      - coreutils-from-gnu_basename
 
   chmod:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/chmod:
+      - coreutils-from-gnu_chmod
 
   chown:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/chown:
+      - coreutils-from-gnu_chown
 
   cut:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/cut:
+      - coreutils-from-gnu_cut
 
   date:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/date:
+      - coreutils-from-gnu_date
 
   dd-utility:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/dd:
+      - coreutils-from-gnu_dd-utility
 
   dir:
     essential:
-      - libc6_libs
-      - libcap2_libs
-      - libselinux1_libs
-    contents:
-      /usr/bin/dir:
+      - coreutils-from-gnu_dir
 
   head:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/head:
+      - coreutils-from-gnu_head
 
   install:
     essential:
-      - libacl1_libs
-      - libattr1_libs
-      - libc6_libs
-      - libselinux1_libs
-    contents:
-      /usr/bin/install:
+      - coreutils-from-gnu_install
 
   id-utility:
     essential:
-      - libc6_libs
-      - libselinux1_libs
-    contents:
-      /usr/bin/id:
+      - coreutils-from-gnu_id-utility
 
   join:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/join:
+      - coreutils-from-gnu_join
 
   link:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/link:
+      - coreutils-from-gnu_link
 
   mktemp:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/mktemp:
+      - coreutils-from-gnu_mktemp
 
   mv-utility:
     essential:
-      - libacl1_libs
-      - libattr1_libs
-      - libc6_libs
-      - libselinux1_libs
-    contents:
-      /usr/bin/mv:
+      - coreutils-from-gnu_mv-utility
 
   od-utility:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/od:
+      - coreutils-from-gnu_od-utility
 
   rmdir:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/rmdir:
+      - coreutils-from-gnu_rmdir
 
   stat:
     essential:
-      - libc6_libs
-      - libselinux1_libs
-    contents:
-      /usr/bin/stat:
+      - coreutils-from-gnu_stat
 
   split:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/split:
+      - coreutils-from-gnu_split
 
   tail:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/tail:
+      - coreutils-from-gnu_tail
 
   test:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/[:
-      /usr/bin/test:
+      - coreutils-from-gnu_test
 
   timeout:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/timeout:
+      - coreutils-from-gnu_timeout
 
   tr-utility:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/tr:
+      - coreutils-from-gnu_tr-utility
 
   unlink:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/unlink:
+      - coreutils-from-gnu_unlink
 
   copyright:
     contents:
