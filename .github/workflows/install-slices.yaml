@@ -24,7 +24,7 @@ env:
   ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
   RELEASES_COMPATIBILITY: |
     [
-      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
+      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0"]},
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-25.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
