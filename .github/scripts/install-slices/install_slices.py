@@ -21,8 +21,8 @@ options:
   --dry-run             Perform dry run: do not actually install the slices
   --ensure-existence    Each package must exist in the archive for at least one architecture
   --ignore-missing      Ignore arch-specific package not found in archive errors
-  --ignore-unstable     Ignore packages from unstable components
-  --ignore-unmaintained Ignore packages from unmaintained components
+  --ignore-unstable     Ignore packages from unstable releases
+  --ignore-unmaintained Ignore packages from unmaintained releases
   --workers WORKERS     Number of workers to use for parallel installation (default: 5)
 """
 
@@ -113,13 +113,13 @@ def parse_args() -> argparse.Namespace:
         "--ignore-unstable",
         required=False,
         action="store_true",
-        help="Ignore packages from unstable components",
+        help="Ignore packages from unstable releases",
     )
     parser.add_argument(
         "--ignore-unmaintained",
         required=False,
         action="store_true",
-        help="Ignore packages from unmaintained components",
+        help="Ignore packages from unmaintained releases",
     )
     parser.add_argument(
         "files",
