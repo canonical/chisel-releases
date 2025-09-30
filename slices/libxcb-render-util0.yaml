@@ -1,0 +1,17 @@
+package: libxcb-render-util0
+
+essential:
+  - libxcb-render-util0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxcb-render-util.so.0*:
+    essential:
+      - libc6_libs
+      - libxcb-render0_libs
+      - libxcb1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-render-util0/copyright:
