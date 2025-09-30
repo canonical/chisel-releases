@@ -17,7 +17,6 @@ slices:
       # Ref: https://github.com/canonical/chisel-releases/pull/171
       - base-files_lib
     contents:
-      /usr/lib*/ld*.so.*:
       /usr/lib/*-linux-*/ld*.so.*:
       /usr/lib/*-linux-*/libBrokenLocale.so.*:
       /usr/lib/*-linux-*/libanl.so.*:
