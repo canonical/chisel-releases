@@ -5,9 +5,9 @@ Verify chisel slice definition files by installing the slices.
 
 Usage
 -----
-install_slices.py [-h] --arch ARCH --release RELEASE [--dry-run] [--ensure-existence]
-                  [--ignore-missing] [--ignore-unstable] [--ignore-unmaintained]
-                  [--workers WORKERS] [file ...]
+install_slices [-h] --arch ARCH --release RELEASE [--dry-run]
+               [--ensure-existence] [--ignore-missing] [--ignore-unstable]
+               [--ignore-unmaintained] [--workers WORKERS] [file ...]
 
 Verify slice definition files by installing the slices
 
