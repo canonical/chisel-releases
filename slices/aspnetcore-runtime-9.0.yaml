@@ -27,8 +27,11 @@ slices:
     essential:
       - aspnetcore-runtime-9.0_standard
 
-  copyright:
+  notice:
     contents:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0.*/THIRD-PARTY-NOTICES.txt:
       /usr/share/doc/aspnetcore-runtime-9.0/NOTICE.txt.gz:
+
+  copyright:
+    contents:
       /usr/share/doc/aspnetcore-runtime-9.0/copyright:
