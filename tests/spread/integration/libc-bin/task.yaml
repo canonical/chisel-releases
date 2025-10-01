@@ -1,6 +1,18 @@
 summary: Integration tests for libc-bin
 
-execute: |
-  rootfs="$(install-slices libc-bin_getconf)"
+environment:
+  SLICE/getconf: "getconf"
+  SLICE/locale: "locale"
 
-  chroot "$rootfs" getconf -a
+execute: |
+  rootfs="$(install-slices libc-bin_${SLICE})"
+
+  case SLICE in
+    getconf)
+      chroot "$rootfs" getconf -a
+    ;;
+    locale)
+      chroot "$rootfs" locale | grep 'LC_CTYPE="en_US.UTF-8"'
+      chroot "$rootfs" locale -a | grep -i 'C.utf8'
+    ;;
+  esac

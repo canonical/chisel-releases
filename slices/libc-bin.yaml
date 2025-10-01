@@ -16,7 +16,10 @@ slices:
       /usr/sbin/ldconfig.real:
 
   locale:
+    essential:
+      - libc6_libs
     contents:
+      /usr/bin/locale:
       /usr/lib/locale/C.utf8/LC_ADDRESS:
       /usr/lib/locale/C.utf8/LC_COLLATE:
       /usr/lib/locale/C.utf8/LC_CTYPE:
