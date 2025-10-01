@@ -1,0 +1,13 @@
+package: dotnet-apphost-pack-8.0
+
+essential:
+  - dotnet-apphost-pack-8.0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/8.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-apphost-pack-8.0/copyright:
