@@ -37,6 +37,7 @@ slices:
   standard:
     essential:
       - dotnet-sdk-8.0_core
+      # see comment of dotnet-sdk-8.0_core slice above:
       - libicu76_libs
 
   copyright:
