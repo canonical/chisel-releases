@@ -10,6 +10,7 @@ slices:
 
   ldconfig:
     essential:
+      - base-files_bin
       - dash_bins
     contents:
       /usr/sbin/ldconfig:
