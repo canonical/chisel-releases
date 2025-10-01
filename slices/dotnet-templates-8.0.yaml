@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     contents:
-      /usr/lib/dotnet/templates/8.0*/**:
+      /usr/lib/dotnet/templates/8.0.*/**:
 
   copyright:
     contents:

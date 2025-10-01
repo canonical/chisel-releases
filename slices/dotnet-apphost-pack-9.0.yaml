@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     contents:
-      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/9.0*/**:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/9.0.*/**:
 
   copyright:
     contents:

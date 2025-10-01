@@ -1,11 +1,30 @@
 summary: Integration tests for ASP.NET 8 Runtime
 
-execute: |
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+
+environment:
+  # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
+  # disable noisy help text for users who run .NET for the first time
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+prepare: |
+  required_slices=()
+  if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(aspnetcore-runtime-8.0_core)
+  else
+    required_slices+=(aspnetcore-runtime-8.0_standard)
+  fi
+  
   # install slices
-  rootfs="$(install-slices aspnetcore-runtime-8.0_libs base-files_base)"
+  rootfs="$(install-slices ${required_slices[@]})"
+  echo "$rootfs" > ROOTFS
 
   # preparing the test data
-  apt update && apt install -y dotnet-sdk-8.0
+  apt-get update && apt-get install -y dotnet-sdk-8.0
   cp -r web_helloworld "${rootfs}"/web_helloworld
   dotnet publish "${rootfs}"/web_helloworld/Hello.csproj --no-self-contained
 
@@ -15,8 +34,11 @@ execute: |
   head -c 500 /dev/urandom > "${rootfs}"/dev/random
   head -c 500 /dev/urandom > "${rootfs}"/dev/urandom
 
+execute: |
+  rootfs="$(cat ROOTFS)"
+
   # test the helloworld web app
-  chroot "${rootfs}" dotnet /web_helloworld/bin/Release/net8.0/Hello.dll --urls="http://0.0.0.0:5108" &
+  chroot "${rootfs}" /usr/bin/dotnet /web_helloworld/bin/Release/net8.0/Hello.dll --urls="http://0.0.0.0:5108" &
   app_pid=$!
 
   # Wait for the web app to start
@@ -31,7 +53,6 @@ execute: |
   # Send a request to the web app and verify the result
   ret=0
   curl http://localhost:5108/ | grep "Hello World!" || ret=1
-
 
   # Cleanup
   kill $app_pid

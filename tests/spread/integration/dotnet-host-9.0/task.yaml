@@ -1,10 +1,28 @@
-summary: Integration tests for .NET 9 Host 
+summary: Integration tests for .NET 8 Host 
+
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+
+environment:
+  # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
+  # disable noisy help text for users who run .NET for the first time
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+prepare: |
+  required_slices=(dotnet-runtime-9.0_core)
+  if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(libicu76_libs)
+  fi
+  
+  # install slices
+  rootfs="$(install-slices ${required_slices[@]})"
+  echo "$rootfs" > ROOTFS
 
 execute: |
-  # install slices
-  rootfs="$(install-slices dotnet-host-9.0_bins dotnet-hostfxr-9.0_libs base-files_base)"
-  mv "${rootfs}"/usr/lib/dotnet/dotnet9 "${rootfs}"/usr/lib/dotnet/dotnet
-  ln -s ../lib/dotnet/dotnet "${rootfs}"/usr/bin/dotnet
-
+  rootfs="$(cat ROOTFS)"
+  
   # smoking test the .NET host
   chroot "${rootfs}" /usr/bin/dotnet --info
