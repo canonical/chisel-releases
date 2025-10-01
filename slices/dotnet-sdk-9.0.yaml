@@ -16,7 +16,7 @@ slices:
       - aspnetcore-targeting-pack-9.0_libs
       - ca-certificates_data
       - dotnet-apphost-pack-9.0_libs
-      - dotnet-runtime-9.0_libs
+      - dotnet-runtime-9.0_core
       # chisel does not support adding a slice only for amd64 and arm64
       # Until support for this is added we have to remove this
       # recommended dependency

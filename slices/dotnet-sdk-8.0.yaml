@@ -16,7 +16,7 @@ slices:
       - aspnetcore-targeting-pack-8.0_libs
       - ca-certificates_data
       - dotnet-apphost-pack-8.0_libs
-      - dotnet-runtime-8.0_libs
+      - dotnet-runtime-8.0_core
       - dotnet-targeting-pack-8.0_libs
       - dotnet-templates-8.0_libs
       - libc6_libs
