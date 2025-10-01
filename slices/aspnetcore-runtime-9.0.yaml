@@ -4,7 +4,7 @@ essential:
   - aspnetcore-runtime-9.0_copyright
 
 slices:
-# libicu is not needed if the environment is set to invariant by using
+  # libicu is not needed if the environment is set to invariant by using
   # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
   # If globalization is needed, libicu must be included as well.
   # For more information, see:
