@@ -1,0 +1,18 @@
+package: dotnet-host-8.0
+
+essential:
+  - dotnet-host-8.0_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/bin/dotnet:
+      /usr/lib/dotnet/dotnet:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-host-8.0/copyright:

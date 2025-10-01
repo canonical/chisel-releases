@@ -17,7 +17,7 @@ slices:
       - libunwind8_libs
       - zlib1g_libs
     contents:
-      /usr/lib/dotnet/shared/Microsoft.NETCore.App/**:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/6.0.*/**:
 
   copyright:
     contents:
