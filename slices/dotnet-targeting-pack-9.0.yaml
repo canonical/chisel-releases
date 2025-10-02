@@ -1,0 +1,13 @@
+package: dotnet-targeting-pack-9.0
+
+essential:
+  - dotnet-targeting-pack-9.0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Ref/9.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-targeting-pack-9.0/copyright:
