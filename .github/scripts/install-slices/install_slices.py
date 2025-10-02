@@ -295,7 +295,7 @@ def install_slices(
     """
     Install the slice by running "chisel cut".
     """
-    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v") > "1.2.0" else ''
+    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
     for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
