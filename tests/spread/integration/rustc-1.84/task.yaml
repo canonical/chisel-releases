@@ -1,0 +1,2 @@
+summary: Integration tests for rustc-1.84
+execute: ./run.sh --spread
