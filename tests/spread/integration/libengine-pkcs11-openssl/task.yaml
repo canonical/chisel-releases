@@ -1,0 +1,10 @@
+summary: Integration tests for libengine-pkcs11-openssl
+
+execute: |
+  rootfs="$(install-slices libengine-pkcs11-openssl_libs)"
+
+  apt install -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/engines-3/pkcs11.so
+  test -f ${rootfs}/usr/lib/${arch}/engines-3/libpkcs11.so
