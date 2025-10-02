@@ -14,10 +14,10 @@ slices:
     contents:
       /etc/vim/vimrc:
 
-  copyright:
-    contents:
-      /usr/share/doc/vim-common/copyright:
-
   runtime:
     contents:
       /usr/share/vim/vim91/debian.vim:
+
+  copyright:
+    contents:
+      /usr/share/doc/vim-common/copyright:
