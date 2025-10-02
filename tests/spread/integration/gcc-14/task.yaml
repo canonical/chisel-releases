@@ -1,0 +1,2 @@
+summary: Integration tests for gcc-14
+execute: ./run.sh --spread
