@@ -3,7 +3,6 @@ summary: Integration tests for libpcre3
 execute: |
   rootfs="$(install-slices libpcre3_libs)"
 
-  apt install -y gcc
   arch=$(uname -m)-linux-gnu
 
   test -f ${rootfs}/usr/lib/${arch}/libpcre.so.3
