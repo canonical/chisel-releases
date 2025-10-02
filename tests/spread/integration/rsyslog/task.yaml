@@ -7,7 +7,7 @@ execute: |
   mount --bind /proc ${rootfs}/proc
   
   mkdir "${rootfs}"/dev
-  mount --bind /dev ${rootfs}/dev
+  mount --bind /dev "${rootfs}/dev"
   sed -i 's/^\($FileOwner[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
   sed -i 's/^\($PrivDropToUser[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
   sed -i 's/^\($PrivDropToGroup[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
