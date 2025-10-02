@@ -1,5 +1,9 @@
 format: v1
 
+maintenance:
+  standard: 2025-04-17
+  end-of-life: 2026-01-15
+
 archives:
   ubuntu:
     default: true

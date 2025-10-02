@@ -26,10 +26,6 @@ slices:
     contents:
       /usr/sbin/tarcat:
 
-  copyright:
-    contents:
-      /usr/share/doc/tar/copyright:
-
   rmt:
     essential:
       - libc6_libs
@@ -45,3 +41,7 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/tar:
+
+  copyright:
+    contents:
+      /usr/share/doc/tar/copyright:
