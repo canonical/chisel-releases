@@ -106,7 +106,7 @@ def parse_args() -> argparse.Namespace:
         "--chisel-version",
         required=False,
         default="unknown",
-        help="Version of chisel to use (default: unknown)",
+        help="Version of chisel being used (default: unknown)",
     )
     parser.add_argument(
         "files",
