@@ -50,7 +50,9 @@ slices:
 
   libs:
     contents:
-      /usr/lib/*-linux-*/tc/*.so:
+      /usr/lib/*-linux-*/tc/m_ipt.so:
+      /usr/lib/*-linux-*/tc/m_xt.so:
+      /usr/lib/*-linux-*/tc/q_atm.so:
 
   copyright:
     contents:
