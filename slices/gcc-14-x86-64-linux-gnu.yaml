@@ -1,0 +1,29 @@
+package: gcc-14-x86-64-linux-gnu
+
+essential:
+  - gcc-14-x86-64-linux-gnu_copyright
+
+slices:
+  # NOTE: You might want to create a symlink from /usr/bin/gcc to
+  #       /usr/bin/x86_64-linux-gnu-gcc to use this slice.
+  #       ln -s "/usr/bin/${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
+  gcc-14:
+    essential:
+      - libc6_libs
+      - libgcc-14-dev_headers
+    contents:
+      /usr/bin/x86_64-linux-gnu-gcc-14:
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/14/collect2:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/14/liblto_plugin.so:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/libexec/gcc/x86_64-linux-gnu/14/collect2:
+        arch: [amd64]
+      /usr/libexec/gcc/x86_64-linux-gnu/14/liblto_plugin.so:
+        arch: [amd64]
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      /usr/share/doc/gcc-14-x86-64-linux-gnu:
