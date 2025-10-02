@@ -4,17 +4,26 @@ essential:
   - aspnetcore-runtime-9.0_copyright
 
 slices:
-  libs:
+  # libicu is not needed if the environment is set to invariant by using
+  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+  # If globalization is needed, libicu must be included as well.
+  # For more information, see:
+  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  core:
     essential:
-      - dotnet-runtime-9.0_libs
+      - dotnet-runtime-9.0_core
     contents:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/**.dll:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/**.json:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/.version:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0.*/**:
+
+  standard:
+    essential:
+      - aspnetcore-runtime-9.0_core
+      - libicu76_libs
 
   notice:
     contents:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0*/THIRD-PARTY-NOTICES.txt:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/9.0.*/THIRD-PARTY-NOTICES.txt:
       /usr/share/doc/aspnetcore-runtime-9.0/NOTICE.txt.gz:
 
   copyright:
