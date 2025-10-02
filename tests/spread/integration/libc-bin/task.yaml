@@ -15,9 +15,9 @@ execute: |
       chroot "$rootfs" getent --version | grep -q getent
       chroot "${rootfs}" getent hosts
       ! chroot "${rootfs}" getent hosts localhost
-      
+
       mkdir "${rootfs}/etc"
-      echo "::1 localhost" > "${rootfs}/etc/hosts
+      echo "::1 localhost" > "${rootfs}/etc/hosts"
       chroot "${rootfs}" getent hosts localhost
     ;;
   esac
