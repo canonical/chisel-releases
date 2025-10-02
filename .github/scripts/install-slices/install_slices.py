@@ -283,6 +283,7 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+# hello
 
 def install_slices(
     chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, extra_flag: str
