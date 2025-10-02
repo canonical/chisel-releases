@@ -36,6 +36,12 @@ slices:
     contents:
       /usr/bin/getconf:
 
+  getent:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/getent:
+
   copyright:
     contents:
       /usr/share/doc/libc-bin/copyright:
