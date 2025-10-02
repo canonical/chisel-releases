@@ -50,7 +50,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libbfd-*-arm64.so:
-        arch: [i386, ppc64el, s390x, amd64]
+        arch: [amd64, i386, ppc64el, s390x]
 
   cross-libctf:
     essential:
@@ -59,7 +59,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libctf-arm64.so*:
-        arch: [i386, ppc64el, s390x, amd64]
+        arch: [amd64, i386, ppc64el, s390x]
 
   cross-libctf-nobfd:
     essential:
@@ -67,7 +67,7 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libctf-nobfd-arm64.so*:
-        arch: [i386, ppc64el, s390x, amd64]
+        arch: [amd64, i386, ppc64el, s390x]
 
   cross-libopcodes:
     essential:
@@ -75,7 +75,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libopcodes-*-arm64.so:
-        arch: [i386, ppc64el, s390x, amd64]
+        arch: [amd64, i386, ppc64el, s390x]
 
   copyright:
     essential:
