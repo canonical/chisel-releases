@@ -18,8 +18,8 @@ else
     exit 1
 fi
 
-this="$this"-linux-gnu
-other="$other"-linux-gnu
+this="$this-linux-gnu"
+other="$other-linux-gnu"
 
 slices=(
     binutils-"${other//_/-}"_assembler
@@ -30,10 +30,10 @@ if [[ "$this" == "x86_64-linux-gnu" ]]; then
     slices+=(binutils-"${other//_/-}"_cross-libopcodes)
 fi
 rootfs_as="$(install-slices "${slices[@]}")"
-ln -s "${other}-as" "${rootfs_as}/usr/bin/as"
+ln -s "$other-as" "$rootfs_as/usr/bin/as"
 
-chroot "${rootfs_as}" as --help | grep -q "Usage: as"
-chroot "${rootfs_as}" as --version | grep -q "GNU assembler"
+chroot "$rootfs_as" as --help | grep -q "Usage: as"
+chroot "$rootfs_as" as --version | grep -q "GNU assembler"
 
 slices=(
     binutils-"${other//_/-}"_linker
@@ -45,18 +45,18 @@ if [[ "$this" == "x86_64-linux-gnu" ]]; then
     slices+=(binutils-"${other//_/-}"_cross-libopcodes)
 fi
 rootfs_ld="$(install-slices "${slices[@]}")"
-ln -s "${other}-ld" "${rootfs_ld}/usr/bin/ld"
+ln -s "$other-ld" "$rootfs_ld/usr/bin/ld"
 
 # # NOTE: ld --help blows up in pipefail mode when piped...
-(chroot "${rootfs_ld}" ld --help || true) | grep -q "Usage: ld"
-chroot "${rootfs_ld}" ld --version | grep -q "GNU ld"
+(chroot "$rootfs_ld" ld --help || true) | grep -q "Usage: ld"
+chroot "$rootfs_ld" ld --version | grep -q "GNU ld"
 
 slices=(
     binutils-"${other//_/-}"_archiver
     binutils-"${other//_/-}"_cross-libbfd
 )
 rootfs_ar="$(install-slices "${slices[@]}")"
-ln -s "${other}-ar" "${rootfs_ar}/usr/bin/ar"
+ln -s "$other-ar" "$rootfs_ar/usr/bin/ar"
 
-chroot "${rootfs_ar}" ar --help | grep -q "Usage: ar"
-chroot "${rootfs_ar}" ar --version | grep -q "GNU ar"
+chroot "$rootfs_ar" ar --help | grep -q "Usage: ar"
+chroot "$rootfs_ar" ar --version | grep -q "GNU ar"

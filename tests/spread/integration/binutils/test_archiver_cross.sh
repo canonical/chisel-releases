@@ -18,17 +18,17 @@ else
     exit 1
 fi
 
-this="$this"-linux-gnu
-other="$other"-linux-gnu
+this="$this-linux-gnu"
+other="$other-linux-gnu"
 
 
 rootfs="$(install-slices \
     binutils-"${other//_/-}"_archiver \
     binutils-"${other//_/-}"_cross-libbfd \
 )"
-ln -s "${other}-ar" "${rootfs}/usr/bin/ar"
+ln -s "$other-ar" "$rootfs/usr/bin/ar"
 
-touch "${rootfs}/file1" "${rootfs}/file2"
-chroot "${rootfs}" ar rcs archive file1 file2
-chroot "${rootfs}" ar t archive | grep -q "file1"
-chroot "${rootfs}" ar t archive | grep -q "file2"
+touch "$rootfs/file1" "$rootfs/file2"
+chroot "$rootfs" ar rcs archive file1 file2
+chroot "$rootfs" ar t archive | grep -q "file1"
+chroot "$rootfs" ar t archive | grep -q "file2"

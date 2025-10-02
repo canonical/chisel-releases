@@ -21,8 +21,8 @@ fi
 
 echo "Testing cross-compilation from $this to $other"
 
-this="$this"-linux-gnu
-other="$other"-linux-gnu
+this="$this-linux-gnu"
+other="$other-linux-gnu"
 
 slices=(
     binutils-"${other//_/-}"_assembler
@@ -33,10 +33,10 @@ if [[ "$this" == "x86_64-linux-gnu" ]]; then
     slices+=(binutils-"${other//_/-}"_cross-libopcodes)
 fi
 rootfs_as="$(install-slices "${slices[@]}")"
-ln -s "${other}-as" "${rootfs_as}/usr/bin/as"
+ln -s "$other-as" "$rootfs_as/usr/bin/as"
 
-cp hello-"${other}".S "${rootfs_as}/hello.S"
-chroot "${rootfs_as}" as hello.S -o hello.o
+cp "hello-$other.S" "$rootfs_as/hello.S"
+chroot "$rootfs_as" as hello.S -o hello.o
 
 
 slices=(
@@ -49,17 +49,17 @@ if [[ "$this" == "x86_64-linux-gnu" ]]; then
     slices+=(binutils-"${other//_/-}"_cross-libopcodes)
 fi
 rootfs_ld="$(install-slices "${slices[@]}")"
-ln -s "${other}-ld" "${rootfs_ld}/usr/bin/ld"
+ln -s "$other-ld" "$rootfs_ld/usr/bin/ld"
 
-mv "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
+mv "$rootfs_as/hello.o" "$rootfs_ld/hello.o"
 
-linker_lib="$(ls "${rootfs_ld}"/usr/lib*/ld-*.so*)"
-linker_lib=${linker_lib#"${rootfs_ld}"}
+linker_lib="$(ls "$rootfs_ld"/usr/lib*/ld-*.so*)"
+linker_lib=${linker_lib#"$rootfs_ld"}
 
 
 # TODO: This should compile but we don't have libc6-dev for cross compilation yet
 #       For now a cut-down version which is expected to fail due to no libc linking
-# chroot "${rootfs_ld}" ld hello.o -o hello \
+# chroot "$rootfs_ld" ld hello.o -o hello \
 #     -dynamic-linker "${linker_lib}" \
 #     -lc \
 #     /usr/lib/"$other"/crt1.o \
@@ -67,5 +67,5 @@ linker_lib=${linker_lib#"${rootfs_ld}"}
 #     /usr/lib/"$other"/crtn.o
 
 
-(chroot "${rootfs_ld}" ld hello.o -o hello \
-    -dynamic-linker "${linker_lib}" 2>&1 || true) | grep -q "cannot find entry symbol _start"
+(chroot "$rootfs_ld" ld hello.o -o hello \
+    -dynamic-linker "$linker_lib" 2>&1 || true) | grep -q "cannot find entry symbol _start"
