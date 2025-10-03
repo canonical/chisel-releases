@@ -184,6 +184,8 @@ jobs:
           set -ex
 
           # Install chisel
+          # NOTE: This does not run the pre-installation scrip for chisel,
+          # so `chisel version` always returns "unknown".
           go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
 
           # Install dependencies of the install_slices script
@@ -216,6 +218,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --chisel-version "${{ matrix.chisel-version }}" \
               --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
@@ -223,6 +226,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --chisel-version "${{ matrix.chisel-version }}" \
               --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
           fi

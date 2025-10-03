@@ -103,6 +103,12 @@ def parse_args() -> argparse.Namespace:
         help="Ignore arch-specific package not found in archive errors",
     )
     parser.add_argument(
+        "--chisel-version",
+        required=False,
+        default="unknown",
+        help="Version of chisel being used (default: unknown)",
+    )
+    parser.add_argument(
         "files",
         metavar="file",
         help="Chisel slice definition file(s)",
@@ -283,13 +289,13 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
-
 def install_slices(
-    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, extra_flag: str
+    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
+    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
     for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
@@ -411,7 +417,6 @@ def main() -> None:
         logging.info("No slices will be installed.")
         return
 
-    extra_flag = '--ignore=unstable' if subprocess.check_output(["chisel","version"]).strip().decode().lstrip("v") > "1.2.0" else ''
     # TODO: this list of slices can still be reduced, since many of these
     # will come as essentials of other slices. We could simply crawl all essentials
     # in the release, and remove them from the "all_slices" list (since they
@@ -421,14 +426,14 @@ def main() -> None:
     all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
 
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
-    chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int]] = [
+    chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int, str]] = [
         (
             all_slices[i : i + chunk_size],
             cli_args.dry_run,
             cli_args.arch,
             cli_args.release,
             i // chunk_size + 1,  # worker number
-            extra_flag
+            cli_args.chisel_version,
         )
         for i in range(0, len(all_slices), chunk_size)
     ]
