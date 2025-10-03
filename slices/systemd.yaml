@@ -20,6 +20,7 @@ slices:
       - mount_bins
       - systemd_catalog
       - systemd_config
+      - systemd_detect-virt
       - systemd_kernel-parameters
       - systemd_network
       - systemd_pcrlock
@@ -45,7 +46,6 @@ slices:
       /usr/bin/systemd-confext:
       /usr/bin/systemd-creds:
       /usr/bin/systemd-delta:
-      /usr/bin/systemd-detect-virt:
       /usr/bin/systemd-escape:
       /usr/bin/systemd-firstboot:
       /usr/bin/systemd-id128:
@@ -76,7 +76,6 @@ slices:
       /usr/lib/systemd/systemd-cgroups-agent:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-fsck:
-      /usr/lib/systemd/systemd-fsckd:
       /usr/lib/systemd/systemd-growfs:
       /usr/lib/systemd/systemd-hibernate-resume:
       /usr/lib/systemd/systemd-hostnamed:
@@ -119,6 +118,13 @@ slices:
       /usr/lib/systemd/systemd-volatile-root:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
 
+  detect-virt:
+    essential:
+      - libc6_libs
+      - libsystemd-shared_libs
+    contents:
+      /usr/bin/systemd-detect-virt:
+
   catalog:
     contents:
       /usr/lib/systemd/catalog/systemd.be.catalog:
@@ -156,7 +162,6 @@ slices:
       /etc/xdg/systemd/user:
       /usr/lib/environment.d/99-environment.conf:
       /usr/lib/systemd/journald.conf.d/syslog.conf:
-      /usr/lib/systemd/resolv.conf:
       /var/log/journal/: {make: true}
 
   network:
@@ -373,8 +378,6 @@ slices:
       /usr/lib/systemd/system/systemd-fsck-root.service:
       /usr/lib/systemd/system/systemd-fsck-root.service.d/10-skip-fsck-initramfs.conf:
       /usr/lib/systemd/system/systemd-fsck@.service:
-      /usr/lib/systemd/system/systemd-fsckd.service:
-      /usr/lib/systemd/system/systemd-fsckd.socket:
       /usr/lib/systemd/system/systemd-growfs-root.service:
       /usr/lib/systemd/system/systemd-growfs@.service:
       /usr/lib/systemd/system/systemd-halt.service:
