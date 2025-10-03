@@ -7,7 +7,7 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libsframe1_libs
+      - libsframe2_libs
       - libzstd1_libs
       - zlib1g_libs
     contents:
