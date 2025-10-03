@@ -11,6 +11,7 @@ environment:
   SLICE/jfr: "jfr"
   SLICE/security: "security"
   SLICE/tools: "tools"
+  SLICE/awt: "awt"
 
 execute: |
   # Test different slice installations
@@ -28,6 +29,9 @@ execute: |
     ln -sf /${java} proc/self/exe
     chroot . ${java} --version
     case ${SLICE} in
+      awt)
+        chroot . ${java} /ImageTest.java
+      ;;
       class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;

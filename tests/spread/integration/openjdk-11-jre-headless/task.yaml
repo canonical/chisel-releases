@@ -30,6 +30,9 @@ execute: |
     ln -sf /${java} proc/self/exe
     chroot . ${java} --version
     case ${SLICE} in
+      awt)
+        chroot . ${java} /ImageTest.java
+      ;;
       class-data-sharing)
         chroot . ${java} -Xshare:dump
       ;;
