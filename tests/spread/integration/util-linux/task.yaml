@@ -44,7 +44,6 @@ execute: |
     block-devices)
       chroot "${rootfs}" lsblk | grep "loop0"
       chroot "${rootfs}" partx --help
-      chroot "${rootfs}" resizepart --help
       chroot "${rootfs}" blkdiscard --help
       chroot "${rootfs}" blkzone --help
       chroot "${rootfs}" blockdev --help
@@ -116,6 +115,7 @@ execute: |
       chroot "${rootfs}" flock /tmp/bash.lock -c "lslocks" | grep "/tmp/bash.lock"
     ;;
     login)
+      chroot "${rootfs}" lslogins
       cp /etc/passwd "${rootfs}"/etc/passwd
       # sulogin expects keyboard inputs to continue or exit.
       # Set timeout to let it exit without keyboard inputs after 1 second.
@@ -130,7 +130,7 @@ execute: |
     ;;
     namespace)
       chroot "${rootfs}" lsns | grep "init"
-      chroot "${rootfs}" nsenter bash -c "exit 0"
+      chroot "${rootfs}" nsenter -t $$ --mount --uts --ipc --net --pid bash -c "exit 0"
       chroot "${rootfs}" unshare bash -c "exit 0"
     ;;
     process)

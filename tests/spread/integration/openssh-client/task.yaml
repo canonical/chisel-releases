@@ -1,0 +1,21 @@
+summary: Integration tests for openssh-client
+
+environment:
+  TEST_SCRIPT/bins: test_bins.sh
+  TEST_SCRIPT/ssh_copy_id: test_ssh-copy-id.sh
+  TEST_SCRIPT/ssh_argv0: test_ssh-argv0.sh
+
+prepare: |
+  # This may already be installed and active, but if it's not...
+  apt-get --yes install openssh-server
+  $(which sshd)
+
+  # If openssh-slice-test-user already exists, we'll allow it.
+  useradd -m openssh-slice-test-user || true
+
+execute: |
+  . "./$TEST_SCRIPT"
+
+restore: |
+  userdel -f -r openssh-slice-test-user || true
+  killall ssh-agent || true

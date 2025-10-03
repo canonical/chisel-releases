@@ -9,7 +9,7 @@ slices:
     # remove a user during package install/removal - however we don't
     # support this currently so adduser is not added here.
     essential:
-      - libboost-program-options1.83.0_libs
+      - libboost-program-options1.88.0_libs
       - libc6_libs
       - libevent-2.1-7t64_libs
       - libevent-pthreads-2.1-7t64_libs

@@ -1,5 +1,9 @@
 format: v2
 
+maintenance:
+  standard: 2025-10-09
+  end-of-life: 2026-07-09
+
 archives:
   ubuntu:
     version: 25.10
