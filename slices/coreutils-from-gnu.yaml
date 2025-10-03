@@ -41,6 +41,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
+      - coreutils-from-gnu_od-utility
       - gnu-coreutils_output-of-entire-files
     contents:
       /usr/bin/base32:
@@ -48,7 +49,6 @@ slices:
       /usr/bin/basenc:
       /usr/bin/cat:
       /usr/bin/nl:
-      /usr/bin/od:
       /usr/bin/tac:
 
   # Formatting file contents -- These commands reformat the contents of files.
@@ -65,12 +65,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
   output-of-parts-of-files:
     essential:
+      - coreutils-from-gnu_head
+      - coreutils-from-gnu_split
+      - coreutils-from-gnu_tail
       - gnu-coreutils_output-of-parts-of-files
     contents:
       /usr/bin/csplit:
-      /usr/bin/head:
-      /usr/bin/split:
-      /usr/bin/tail:
 
   # Summarizing files -- These commands generate just a few numbers representing
   # entire contents of files.
@@ -108,20 +108,20 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
   operating-on-fields:
     essential:
+      - coreutils-from-gnu_cut
+      - coreutils-from-gnu_join
       - gnu-coreutils_operating-on-fields
     contents:
-      /usr/bin/cut:
-      /usr/bin/join:
       /usr/bin/paste:
 
   # Operating on characters -- These commands operate on individual characters.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
   operating-on-characters:
     essential:
+      - coreutils-from-gnu_tr-utility
       - gnu-coreutils_operating-on-characters
     contents:
       /usr/bin/expand:
-      /usr/bin/tr:
       /usr/bin/unexpand:
 
   # Directory listing -- This slice contains the ls command and its variants dir
@@ -129,9 +129,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
   directory-listing:
     essential:
+      - coreutils-from-gnu_dir
       - gnu-coreutils_directory-listing
     contents:
-      /usr/bin/dir:
       /usr/bin/dircolors:
       /usr/bin/ls:
       /usr/bin/vdir:
@@ -141,13 +141,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - coreutils-from-gnu_dd-utility
+      - coreutils-from-gnu_install
+      - coreutils-from-gnu_mv-utility
       - coreutils-from-gnu_rm-utility
       - gnu-coreutils_basic-operations
     contents:
       /usr/bin/cp:
-      /usr/bin/dd:
-      /usr/bin/install:
-      /usr/bin/mv:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -156,27 +156,27 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
   special-file-types:
     essential:
+      - coreutils-from-gnu_link
       - coreutils-from-gnu_ln-utility
       - coreutils-from-gnu_mkdir
       - coreutils-from-gnu_readlink
+      - coreutils-from-gnu_rmdir
+      - coreutils-from-gnu_unlink
       - gnu-coreutils_special-file-types
     contents:
-      /usr/bin/link:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
-      /usr/bin/rmdir:
-      /usr/bin/unlink:
 
   # Changing file attributes -- These commands change file attributes.
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      - coreutils-from-gnu_chmod
+      - coreutils-from-gnu_chown
       - coreutils-from-gnu_touch
       - gnu-coreutils_changing-file-attributes
     contents:
       /usr/bin/chgrp:
-      /usr/bin/chmod:
-      /usr/bin/chown:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -184,11 +184,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-space-usage.html
   file-space-usage:
     essential:
+      - coreutils-from-gnu_stat
       - gnu-coreutils_file-space-usage
     contents:
       /usr/bin/df:
       /usr/bin/du:
-      /usr/bin/stat:
       /usr/bin/sync:
       /usr/bin/truncate:
 
@@ -209,11 +209,10 @@ slices:
   conditions:
     essential:
       - coreutils-from-gnu_expr
+      - coreutils-from-gnu_test
       - gnu-coreutils_conditions
     contents:
-      /usr/bin/[:
       /usr/bin/false:
-      /usr/bin/test:
       /usr/bin/true:
 
   # Redirection -- This slice contains the tee command.
@@ -229,11 +228,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:
+      - coreutils-from-gnu_basename
       - coreutils-from-gnu_dirname
+      - coreutils-from-gnu_mktemp
       - gnu-coreutils_file-name-manipulation
     contents:
-      /usr/bin/basename:
-      /usr/bin/mktemp:
       /usr/bin/pathchk:
       /usr/bin/realpath:
 
@@ -255,10 +254,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
   user-information:
     essential:
+      - coreutils-from-gnu_id-utility
       - gnu-coreutils_user-information
     contents:
       /usr/bin/groups:
-      /usr/bin/id:
       /usr/bin/logname:
       /usr/bin/pinky:
       /usr/bin/users:
@@ -270,10 +269,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
   system-context:
     essential:
+      - coreutils-from-gnu_date
       - gnu-coreutils_system-context
     contents:
       /usr/bin/arch:
-      /usr/bin/date:
       /usr/bin/hostid:
       /usr/bin/nproc:
       /usr/bin/uname:
@@ -390,6 +389,145 @@ slices:
       - gnu-coreutils_printf
     contents:
       /usr/bin/printf:
+
+  basename:
+    essential:
+      - gnu-coreutils_basename
+    contents:
+      /usr/bin/basename:
+
+  chmod:
+    essential:
+      - gnu-coreutils_chmod
+    contents:
+      /usr/bin/chmod:
+
+  chown:
+    essential:
+      - gnu-coreutils_chown
+    contents:
+      /usr/bin/chown:
+
+  cut:
+    essential:
+      - gnu-coreutils_cut
+    contents:
+      /usr/bin/cut:
+
+  date:
+    essential:
+      - gnu-coreutils_date
+    contents:
+      /usr/bin/date:
+
+  dd-utility:
+    essential:
+      - gnu-coreutils_dd-utility
+    contents:
+      /usr/bin/dd:
+
+  dir:
+    essential:
+      - gnu-coreutils_dir
+    contents:
+      /usr/bin/dir:
+
+  head:
+    essential:
+      - gnu-coreutils_head
+    contents:
+      /usr/bin/head:
+
+  install:
+    essential:
+      - gnu-coreutils_install
+    contents:
+      /usr/bin/install:
+
+  id-utility:
+    essential:
+      - gnu-coreutils_id-utility
+    contents:
+      /usr/bin/id:
+
+  join:
+    essential:
+      - gnu-coreutils_join
+    contents:
+      /usr/bin/join:
+
+  link:
+    essential:
+      - gnu-coreutils_link
+    contents:
+      /usr/bin/link:
+
+  mktemp:
+    essential:
+      - gnu-coreutils_mktemp
+    contents:
+      /usr/bin/mktemp:
+
+  mv-utility:
+    essential:
+      - gnu-coreutils_mv-utility
+    contents:
+      /usr/bin/mv:
+
+  od-utility:
+    essential:
+      - gnu-coreutils_od-utility
+    contents:
+      /usr/bin/od:
+
+  rmdir:
+    essential:
+      - gnu-coreutils_rmdir
+    contents:
+      /usr/bin/rmdir:
+
+  stat:
+    essential:
+      - gnu-coreutils_stat
+    contents:
+      /usr/bin/stat:
+
+  split:
+    essential:
+      - gnu-coreutils_split
+    contents:
+      /usr/bin/split:
+
+  tail:
+    essential:
+      - gnu-coreutils_tail
+    contents:
+      /usr/bin/tail:
+
+  test:
+    essential:
+      - gnu-coreutils_test
+    contents:
+      /usr/bin/[:
+      /usr/bin/test:
+
+  timeout:
+    essential:
+      - gnu-coreutils_timeout
+    contents:
+      /usr/bin/timeout:
+
+  tr-utility:
+    essential:
+      - gnu-coreutils_tr-utility
+    contents:
+      /usr/bin/tr:
+
+  unlink:
+    essential:
+      - gnu-coreutils_unlink
+    contents:
+      /usr/bin/unlink:
 
   copyright:
     contents:
