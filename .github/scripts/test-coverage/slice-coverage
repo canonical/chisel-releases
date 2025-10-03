@@ -1,0 +1,84 @@
+#!/bin/bash
+set -euo pipefail
+
+ARCHES=(amd64 i386 arm64 riscv64 armhf ppc64el s390x)
+# ARCHES=(armhf ppc64el s390x)
+WORKDIR="$(pwd)/work"
+OUTDIR="$(pwd)/out"
+suite="$(cat chisel.yaml | yq '.archives.ubuntu.suites[0]')"
+
+mkdir -p "$WORKDIR" "$OUTDIR"
+
+# Package name to check coverage against (e.g., libc6)
+PACKAGE="${1:-libc6}"
+shift 1
+
+for ARCH in "${ARCHES[@]}"; do
+    echo "=== Processing architecture: $ARCH ==="
+    ARCHDIR="$WORKDIR/$ARCH"
+    ROOTFS_DIR="$ARCHDIR/rootfs"
+    DEB_DIR="$ARCHDIR/deb"
+    DEB_EXTRACT_DIR="$ARCHDIR/deb_extract"
+    mkdir -p "$ROOTFS_DIR" "$DEB_DIR" "$DEB_EXTRACT_DIR"
+
+    # Clean old data
+    rm -rf "$ROOTFS_DIR" "$DEB_DIR" "$DEB_EXTRACT_DIR"
+    mkdir -p "$ROOTFS_DIR" "$DEB_DIR" "$DEB_EXTRACT_DIR"
+
+    # Download the rootfs using chisel
+    echo "--- Running chisel..."
+    echo "$@"
+    chisel cut \
+        --arch "$ARCH" \
+        --release ./ \
+        --root "$ROOTFS_DIR" \
+        "$@"
+
+    # Download the deb
+    echo "--- Downloading .deb for $PACKAGE:$ARCH..."
+    pushd "$DEB_DIR" > /dev/null
+    if [[ "$ARCH" == "ppc64el" ]]; then
+        ARCH="ppc64le"
+    fi
+    if [[ "$ARCH" == "i386" || "$ARCH" == "amd64" ]]; then
+        docker run --rm \
+            --platform linux/amd64 \
+            -v "$(pwd):/work" \
+            -w /work \
+            ubuntu:${suite} \
+            bash -c "dpkg --add-architecture i386 && apt update && apt download ${PACKAGE}:${ARCH}" 1>&2
+    else
+        docker run --rm \
+            --platform linux/"$ARCH" \
+            -v "$(pwd):/work" \
+            -w /work \
+            ubuntu:${suite} \
+            bash -c "apt update && apt download ${PACKAGE}" 1>&2
+    fi
+    popd > /dev/null
+
+    # Extract deb
+    echo "--- Extracting .deb..."
+    DEB_FILE=$(find "$DEB_DIR" -name "*.deb" | head -n1)
+    dpkg-deb -x "$DEB_FILE" "$DEB_EXTRACT_DIR"
+
+    # Compare files
+    echo "--- Comparing files..."
+    DEB_FILES=$(cd "$DEB_EXTRACT_DIR" && find . -type f -o -type -l | sort)
+    ROOTFS_FILES=$(cd "$ROOTFS_DIR" && find . -type f -o -type -l | sort)
+
+    # Save file lists
+    echo "$DEB_FILES" > "$ARCHDIR/deb_files.txt"
+    echo "$ROOTFS_FILES" > "$ARCHDIR/rootfs_files.txt"
+
+    # Calculate coverage
+    COVERED=$(comm -12 "$ARCHDIR/deb_files.txt" "$ARCHDIR/rootfs_files.txt" | tee "$ARCHDIR/covered.txt" | wc -l)
+    TOTAL=$(wc -l < "$ARCHDIR/deb_files.txt")
+    UNCOVERED=$(comm -23 "$ARCHDIR/deb_files.txt" "$ARCHDIR/rootfs_files.txt" | tee "$ARCHDIR/uncovered.txt")
+    PERCENT=$(( 100 * COVERED / TOTAL ))
+
+    echo "===> Coverage for $ARCH: $COVERED / $TOTAL files (${PERCENT}%)"
+    echo "===> Uncovered files for $ARCH:"
+    echo "$UNCOVERED"
+    echo
+done
