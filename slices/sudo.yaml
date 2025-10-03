@@ -17,14 +17,14 @@ slices:
       - sudo_libs
       - zlib1g_libs
     contents:
-      /usr/bin/cvtsudoers:
-      /usr/bin/sudo:
-      /usr/bin/sudoedit:
-      /usr/bin/sudoreplay:
+      /usr/bin/cvtsudoers.ws:
+      /usr/bin/sudo.ws:
+      /usr/bin/sudoedit.ws:
+      /usr/bin/sudoreplay.ws:
       /usr/libexec/sudo/sesh:
       /usr/sbin/sudo_logsrvd:
-      /usr/sbin/sudo_sendlog:
-      /usr/sbin/visudo:
+      /usr/sbin/sudo_sendlog.ws:
+      /usr/sbin/visudo.ws:
 
   config:
     contents:
