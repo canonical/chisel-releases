@@ -85,6 +85,16 @@ slices:
       /usr/lib/*-linux-*/libopcodes-*-arm64.so:
         arch: [amd64, i386, ppc64el, s390x]
 
+  ldscripts:
+    contents:
+      /usr/lib/aarch64-linux-gnu/ldscripts/*:
+
+  bfd-plugins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/aarch64-linux-gnu/bfd-plugins/libdep.so:
+
   copyright:
     essential:
       - libbinutils_copyright
