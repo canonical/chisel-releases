@@ -10,3 +10,4 @@ execute: |
   chroot "${rootfs}/" wget https://github.com/canonical/chisel/releases/download/v1.0.0/chisel_v1.0.0_linux_amd64.tar.gz
   chroot "${rootfs}/" wget https://github.com/canonical/chisel/releases/download/v1.0.0/chisel_v1.0.0_linux_amd64.tar.gz.sha384
   cd "${rootfs}" && sha384sum -c chisel_v1.0.0_linux_amd64.tar.gz.sha384
+

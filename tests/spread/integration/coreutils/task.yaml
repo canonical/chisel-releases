@@ -76,3 +76,4 @@ execute: |
   test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
   test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
   test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
+

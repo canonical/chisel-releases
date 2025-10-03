@@ -12,3 +12,4 @@ execute: |
   chroot "${rootfs}/" dig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
   chroot "${rootfs}/" mdig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
   chroot "${rootfs}/" nslookup example.com 127.0.0.53 | grep 'Name:[[:space:]]example.com'
+

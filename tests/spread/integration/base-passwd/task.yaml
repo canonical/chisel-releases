@@ -11,3 +11,4 @@ execute: |
 
   test ! -f ${rootfs}/usr/share/base-passwd/group.master
   test ! -f ${rootfs}/usr/share/base-passwd/passwd.master
+

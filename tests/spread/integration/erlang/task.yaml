@@ -48,3 +48,4 @@ execute: |
 
   # test snmpc
   chroot "$rootfs" dash -c 'snmpc /usr/lib/erlang/lib/snmp-*/mibs/STANDARD-MIB.mib'
+

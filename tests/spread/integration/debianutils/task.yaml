@@ -23,3 +23,4 @@ execute: |
       chroot "${rootfs}" run-parts --test /test-run-parts | grep "/test-run-parts/test-script"
     ;;
   esac
+

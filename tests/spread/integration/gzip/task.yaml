@@ -72,3 +72,4 @@ execute: |
   test -f "${rootfs}"/test.txt.gz
 
   umount "${rootfs}"/dev -l  
+

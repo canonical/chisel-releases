@@ -26,3 +26,4 @@ execute: |
   chroot "${rootfs}/" zstdcat testfile_orig.zst testfile_new.zst > "${rootfs}/testfile_cat.txt"
   test "$(chroot "${rootfs}/" zstdgrep "Hello, World" testfile_cat.txt)" = "Hello, World"
   test "$(chroot "${rootfs}/" zstdless -F -X -R  testfile_orig.zst)" = "Hello, World"
+

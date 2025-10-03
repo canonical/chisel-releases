@@ -8,3 +8,4 @@ execute: |
   # Smoke tests.
   chroot ${rootfs} /usr/bin/pip --version
   chroot ${rootfs} /usr/bin/pip install --upgrade setuptools
+

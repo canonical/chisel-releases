@@ -6,3 +6,4 @@ execute: |
   cp ruby_webrick_test.rb "${rootfs}/"
   chroot "$rootfs" bash -c \
       'GEM_PATH="/usr/lib/ruby/gems/3.3.0/gems:/usr/share/rubygems-integration/all" ruby /ruby_webrick_test.rb'
+

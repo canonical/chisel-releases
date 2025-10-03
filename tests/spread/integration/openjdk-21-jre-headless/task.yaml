@@ -62,3 +62,4 @@ execute: |
 
 restore: |
   apt remove -y --purge openjdk-21-jdk-headless
+

@@ -6,3 +6,4 @@ execute: |
   rootfs="$(install-slices redis-server_bins)"
 
   chroot "${rootfs}/" redis-server -v
+

@@ -42,3 +42,4 @@ execute: |
   echo "1234" > "$rootfs/file1.txt"
   out=$(chroot "$rootfs" /usr/bin/shasum file1.txt 2>null)
   test "$out" = "1be168ff837f043bde17c0314341c84271047b31  file1.txt"
+

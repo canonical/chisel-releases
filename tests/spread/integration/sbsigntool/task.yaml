@@ -16,3 +16,4 @@ execute: |
 
   # test kmodsign with a random file
   chroot "$rootfs" kmodsign sha512 /MOK.priv /MOK.der /test.ko
+

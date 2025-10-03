@@ -36,3 +36,4 @@ execute: |
   chroot "$rootfs" xzcmp -b FILE1.xz FILE2.xz | cut -d: -f2  > xzcmp_result
   chroot "$rootfs" cmp -b FILE1 FILE2 | cut -d: -f2  > cmp_result
   cmp xzcmp_result cmp_result
+

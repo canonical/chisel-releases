@@ -66,3 +66,4 @@ execute: |
 
 restore: |
   apt remove -y --purge openjdk-11-jdk-headless
+

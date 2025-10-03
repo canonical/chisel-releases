@@ -6,3 +6,4 @@ execute: |
   chroot "${rootfs}" dash -c "echo Success > /test"
 
   test $(cat "${rootfs}/test") == "Success"
+

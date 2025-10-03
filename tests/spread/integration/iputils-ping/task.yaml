@@ -5,3 +5,4 @@ execute: |
 
   chroot "${rootfs}/" ping -V
   chroot "${rootfs}/" ping -c1 -w1 127.0.0.1
+

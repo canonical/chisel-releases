@@ -6,3 +6,4 @@ execute: |
   rootfs="$(install-slices gearman-job-server_bins)"
 
   chroot "${rootfs}/" gearmand -h
+

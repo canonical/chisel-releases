@@ -13,3 +13,4 @@ execute: |
   rootfs_py3compile="$(install-slices python3-minimal_py3compile)"
   chroot "$rootfs_py3compile" py3compile -h
   chroot "$rootfs_py3compile" py3clean -h
+

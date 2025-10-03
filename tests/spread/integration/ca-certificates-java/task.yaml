@@ -16,3 +16,4 @@ execute: |
     ln -s /${java} proc/self/exe
     chroot . /${java} -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
   done
+

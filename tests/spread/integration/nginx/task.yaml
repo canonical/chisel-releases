@@ -6,3 +6,4 @@ execute: |
   rootfs="$(install-slices base-files_var base-passwd_data nginx_bins)"
 
   chroot "${rootfs}/" nginx -t
+

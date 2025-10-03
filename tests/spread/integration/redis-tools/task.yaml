@@ -11,3 +11,4 @@ execute: |
   chroot "${rootfs}/" redis-cli -v
   chroot "${rootfs}/" redis-check-aof /foo
   chroot "${rootfs}/" redis-check-rdb -v
+

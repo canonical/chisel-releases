@@ -7,3 +7,4 @@ execute: |
 
   # This will fail if loading of the NGINX module fails.
   chroot "${rootfs}/" nginx -t
+

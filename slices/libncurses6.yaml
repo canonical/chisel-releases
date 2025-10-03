@@ -19,3 +19,4 @@ slices:
       - libtinfo6_copyright
     contents:
       /usr/share/doc/libncurses6/copyright: {symlink: /usr/share/doc/libtinfo6/copyright}
+

@@ -8,3 +8,4 @@ slices:
     contents:
       /usr/lib/openssh/sftp-server:
       /usr/lib/sftp-server:
+

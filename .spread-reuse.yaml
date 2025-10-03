@@ -1,0 +1,12 @@
+backends:
+  docker:
+    systems:
+    - ubuntu-25.04-amd64:
+        password: ubuntu
+        address: 172.17.0.2
+  lxd:
+    systems:
+    - ubuntu-plucky:
+        password: ubuntu
+        address: 10.216.118.228
+

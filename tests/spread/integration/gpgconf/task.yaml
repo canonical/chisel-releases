@@ -10,3 +10,4 @@ execute: |
   chroot "${rootfs}/" gpg-connect-agent --version
   output=$(! chroot "${rootfs}/" sh -c 'gpg-connect-agent /help 2>&1')
   [[ "$output" == *'No agent running' ]]
+

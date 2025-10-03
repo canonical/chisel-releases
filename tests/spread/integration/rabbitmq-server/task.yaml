@@ -24,3 +24,4 @@ execute: |
 restore: |
   # Kill the RabbitMQ server, which by default runs on port 25672
   kill `sudo lsof -t -i :25672`
+

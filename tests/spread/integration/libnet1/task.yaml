@@ -5,3 +5,4 @@ execute: |
   arch=$(uname -m)-linux-gnu
 
   test -f ${rootfs}/usr/lib/${arch}/libnet.so.1
+

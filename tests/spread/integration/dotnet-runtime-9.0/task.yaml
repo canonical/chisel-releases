@@ -16,3 +16,4 @@ execute: |
 
   # test the helloworld app
   chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net9.0/Hello.dll
+

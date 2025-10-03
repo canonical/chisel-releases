@@ -9,3 +9,4 @@ execute: |
 
   cp ruby_smoke_test.rb "${rootfs}/"
   chroot "$rootfs" ruby3.3 /ruby_smoke_test.rb
+

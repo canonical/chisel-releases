@@ -7,3 +7,4 @@ execute: |
   echo "test" | chroot "${rootfs}/" \
     mawk '{ exit ( $1 == "test" ? \
       0 : 1 ) }'
+

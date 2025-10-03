@@ -12,3 +12,4 @@ execute: |
   'http://www.example.org/' 'file:///foo/' catalog.xml
   test "$(chroot "${rootfs}/" xmlcatalog catalog.xml 'http://www.example.org/' \
   | tail -n1 )" = "file:///foo/"
+

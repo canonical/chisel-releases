@@ -19,3 +19,4 @@ execute: |
 
   cp 6x13.bdf $rootfs/tmp/fonts/6x13.bdf
   chroot "$rootfs" ucs2any /tmp/fonts/6x13.bdf
+

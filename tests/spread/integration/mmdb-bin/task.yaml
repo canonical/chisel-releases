@@ -6,3 +6,4 @@ execute: |
   rootfs="$(install-slices mmdb-bin_bins)"
 
   chroot "${rootfs}/" mmdblookup --version
+

@@ -6,3 +6,4 @@ execute: |
   gcc test.c -lharfbuzz -o test-harfbuzz
   cp test-harfbuzz ${rootfs}/
   chroot ${rootfs} /test-harfbuzz
+
