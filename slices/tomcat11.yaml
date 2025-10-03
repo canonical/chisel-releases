@@ -1,0 +1,56 @@
+package: tomcat11
+
+essential:
+  - tomcat11_copyright
+
+slices:
+  core:
+    essential:
+      - tomcat11-common_core
+    contents:
+      /etc/tomcat11/Catalina/:
+        make: true
+      /etc/tomcat11/catalina.properties:
+        symlink: /usr/share/tomcat11/etc/catalina.properties
+      /etc/tomcat11/context.xml:
+        symlink: /usr/share/tomcat11/etc/context.xml
+      /etc/tomcat11/jaspic-providers.xml:
+        symlink: /usr/share/tomcat11/etc/jaspic-providers.xml
+      /etc/tomcat11/logging.properties:
+        symlink: /usr/share/tomcat11/etc/logging.properties
+      /etc/tomcat11/policy.d/01system.policy:
+      /etc/tomcat11/policy.d/02debian.policy:
+      /etc/tomcat11/policy.d/03catalina.policy:
+      /etc/tomcat11/policy.d/04webapps.policy:
+      /etc/tomcat11/policy.d/50local.policy:
+      /etc/tomcat11/server.xml:
+        symlink: /usr/share/tomcat11/etc/server.xml
+      /etc/tomcat11/tomcat-users.xml:
+        symlink: /usr/share/tomcat11/etc/tomcat-users.xml
+      /etc/tomcat11/web.xml:
+        symlink: /usr/share/tomcat11/etc/web.xml
+      /usr/share/tomcat11/etc/catalina.properties:
+      /usr/share/tomcat11/etc/context.xml:
+      /usr/share/tomcat11/etc/jaspic-providers.xml:
+      /usr/share/tomcat11/etc/logging.properties:
+      /usr/share/tomcat11/etc/server.xml:
+      /usr/share/tomcat11/etc/tomcat-users.xml:
+      /usr/share/tomcat11/etc/web.xml:
+      /var/cache/tomcat11/:
+        make: true
+      /var/lib/tomcat11/conf:
+        symlink: /etc/tomcat11
+      /var/lib/tomcat11/lib/:
+        make: true
+      /var/lib/tomcat11/logs:
+        symlink: /var/log/tomcat11/
+      /var/lib/tomcat11/webapps/:
+        make: true
+      /var/lib/tomcat11/work:
+        symlink: /var/cache/tomcat11/
+      /var/log/tomcat11/:
+        make: true
+
+  copyright:
+    content:
+      /usr/share/doc/tomcat11/copyright:

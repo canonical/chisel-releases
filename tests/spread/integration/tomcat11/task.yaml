@@ -1,0 +1,16 @@
+summary: Integration tests for tomcat11
+
+execute: |
+  # tomcat needs an openjdk and shell
+  rootfs="$(install-slices tomcat11_core base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
+  cd ${rootfs}
+  mkdir -p proc sys tmp dev
+  mount --bind /proc proc
+  mount --bind /sys sys
+  mount --bind /tmp tmp
+  mount --bind /dev dev
+  for java in `find usr/lib/jvm -name java`; do
+    export JAVA_HOME="/$(dirname $(dirname ${java}))"
+    export CATALINA_BASE="/var/lib/tomcat11"
+    chroot . /usr/share/tomcat11/bin/catalina.sh configtest
+  done
