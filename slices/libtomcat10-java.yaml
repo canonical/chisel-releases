@@ -1,0 +1,88 @@
+package: libtomcat10-java
+
+essential:
+  - libtomcat10-java_copyright
+
+slices:
+  i18n:
+    contents:
+      /usr/share/java/tomcat10-i18n-cs-10*.jar:
+      /usr/share/java/tomcat10-i18n-cs.jar:
+      /usr/share/java/tomcat10-i18n-de-10*.jar:
+      /usr/share/java/tomcat10-i18n-de.jar:
+      /usr/share/java/tomcat10-i18n-es-10*.jar:
+      /usr/share/java/tomcat10-i18n-es.jar:
+      /usr/share/java/tomcat10-i18n-fr-10*.jar:
+      /usr/share/java/tomcat10-i18n-fr.jar:
+      /usr/share/java/tomcat10-i18n-ja-10*.jar:
+      /usr/share/java/tomcat10-i18n-ja.jar:
+      /usr/share/java/tomcat10-i18n-ko-10*.jar:
+      /usr/share/java/tomcat10-i18n-ko.jar:
+      /usr/share/java/tomcat10-i18n-pt-BR-10*.jar:
+      /usr/share/java/tomcat10-i18n-pt-BR.jar:
+      /usr/share/java/tomcat10-i18n-ru-10*.jar:
+      /usr/share/java/tomcat10-i18n-ru.jar:
+      /usr/share/java/tomcat10-i18n-zh-CN-10*.jar:
+      /usr/share/java/tomcat10-i18n-zh-CN.jar:
+
+  jars:
+    essential:
+      - libeclipse-jdt-core-compiler-batch-java_jars
+      - libeclipse-jdt-core-java_jars
+    contents:
+      /usr/share/java/tomcat10-annotations-api-10*.jar:
+      /usr/share/java/tomcat10-annotations-api.jar:
+      /usr/share/java/tomcat10-api-10*.jar:
+      /usr/share/java/tomcat10-api.jar:
+      /usr/share/java/tomcat10-catalina-10*.jar:
+      /usr/share/java/tomcat10-catalina-ha-10*.jar:
+      /usr/share/java/tomcat10-catalina-ha.jar:
+      /usr/share/java/tomcat10-catalina.jar:
+      /usr/share/java/tomcat10-coyote-10*.jar:
+      /usr/share/java/tomcat10-coyote.jar:
+      /usr/share/java/tomcat10-dbcp-10*.jar:
+      /usr/share/java/tomcat10-dbcp.jar:
+      /usr/share/java/tomcat10-el-api-10*.jar:
+      /usr/share/java/tomcat10-el-api.jar:
+      /usr/share/java/tomcat10-jasper-10*.jar:
+      /usr/share/java/tomcat10-jasper-el-10*.jar:
+      /usr/share/java/tomcat10-jasper-el.jar:
+      /usr/share/java/tomcat10-jasper.jar:
+      /usr/share/java/tomcat10-jaspic-api-10*.jar:
+      /usr/share/java/tomcat10-jaspic-api.jar:
+      /usr/share/java/tomcat10-jdbc-10*.jar:
+      /usr/share/java/tomcat10-jdbc.jar:
+      /usr/share/java/tomcat10-jni-10*.jar:
+      /usr/share/java/tomcat10-jni.jar:
+      /usr/share/java/tomcat10-jsp-api-10*.jar:
+      /usr/share/java/tomcat10-jsp-api.jar:
+      /usr/share/java/tomcat10-juli-10*.jar:
+      /usr/share/java/tomcat10-juli.jar:
+      /usr/share/java/tomcat10-servlet-api-10*.jar:
+      /usr/share/java/tomcat10-servlet-api.jar:
+      /usr/share/java/tomcat10-storeconfig-10*.jar:
+      /usr/share/java/tomcat10-storeconfig.jar:
+      /usr/share/java/tomcat10-tribes-10*.jar:
+      /usr/share/java/tomcat10-tribes.jar:
+      /usr/share/java/tomcat10-util-10*.jar:
+      /usr/share/java/tomcat10-util-scan-10*.jar:
+      /usr/share/java/tomcat10-util-scan.jar:
+      /usr/share/java/tomcat10-util.jar:
+      /usr/share/java/tomcat10-websocket-10*.jar:
+      /usr/share/java/tomcat10-websocket-api-10*.jar:
+      /usr/share/java/tomcat10-websocket-api.jar:
+      /usr/share/java/tomcat10-websocket-client-api-10*.jar:
+      /usr/share/java/tomcat10-websocket-client-api.jar:
+      /usr/share/java/tomcat10-websocket.jar:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtomcat10-java/copyright:
+
+#  Will be needed for tomcat10-admin package slices
+#  ant:
+#    essential:
+#      - libtomcat10-java_jars
+#    contents:
+#      /usr/share/java/tomcat10-catalina-ant-10*.jar:
+#      /usr/share/java/tomcat10-catalina-ant.jar:
