@@ -14,6 +14,8 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
+      /usr/aarch64-linux-gnu/bin/as:
+        arch: [amd64, i386, ppc64el, s390x]
       /usr/bin/aarch64-linux-gnu-as:
 
   linker:
@@ -23,6 +25,10 @@ slices:
       - libctf0_libs
       - libjansson4_libs
     contents:
+      /usr/aarch64-linux-gnu/bin/ld:
+        arch: [amd64, i386, ppc64el, s390x]
+      /usr/aarch64-linux-gnu/bin/ld.bfd:
+        arch: [amd64, i386, ppc64el, s390x]
       /usr/bin/aarch64-linux-gnu-ld:
       /usr/bin/aarch64-linux-gnu-ld.bfd:
 
@@ -31,6 +37,8 @@ slices:
       - libbinutils_libs
       - libc6_libs
     contents:
+      /usr/aarch64-linux-gnu/bin/ar:
+        arch: [amd64, i386, ppc64el, s390x]
       /usr/bin/aarch64-linux-gnu-ar:
 
   # All the libraries for cross compiling to aarch64-linux-gnu

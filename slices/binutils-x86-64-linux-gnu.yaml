@@ -15,6 +15,8 @@ slices:
       - zlib1g_libs
     contents:
       /usr/bin/x86_64-linux-gnu-as:
+      /usr/x86_64-linux-gnu/bin/as:
+        arch: [arm64, i386, ppc64el, s390x]
 
   linker:
     essential:
@@ -25,6 +27,10 @@ slices:
     contents:
       /usr/bin/x86_64-linux-gnu-ld:
       /usr/bin/x86_64-linux-gnu-ld.bfd:
+      /usr/x86_64-linux-gnu/bin/ld:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/x86_64-linux-gnu/bin/ld.bfd:
+        arch: [arm64, i386, ppc64el, s390x]
 
   archiver:
     essential:
@@ -32,6 +38,8 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/x86_64-linux-gnu-ar:
+      /usr/x86_64-linux-gnu/bin/ar:
+        arch: [arm64, i386, ppc64el, s390x]
 
   # All the libraries for cross compiling to x86_64-linux-gnu
   # There is no `binutils-x86-64-linux-gnu` deb for riscv64 and armhf
