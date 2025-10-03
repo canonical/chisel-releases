@@ -311,19 +311,21 @@ def install_slices(
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
             env = dict(os.environ)
             env["XDG_CACHE_HOME"] = str(cache_dir)
+            args=[
+                "chisel",
+                "cut",
+                "--arch",
+                arch,
+                "--release",
+                release,
+                "--root",
+                tmpfs,
+            ]
+            if extra_flag:
+                args += [extra_flag]
+            args += [slice_name]
             res = subprocess.run(
-                args=[
-                    "chisel",
-                    "cut",
-                    "--arch",
-                    arch,
-                    "--release",
-                    release,
-                    "--root",
-                    tmpfs,
-                    extra_flag,
-                    slice_name,
-                ],
+                args,
                 capture_output=True,
                 text=True,
                 check=False,
