@@ -1,5 +1,8 @@
 package: openssh-sftp-server
 
+essential:
+  - openssh-sftp-server_copyright
+
 slices:
   bins:
     essential:
@@ -8,3 +11,9 @@ slices:
     contents:
       /usr/lib/openssh/sftp-server:
       /usr/lib/sftp-server:
+
+  copyright:
+    essential:
+      - openssh-client_copyright
+    contents:
+      /usr/share/doc/openssh-sftp-server:

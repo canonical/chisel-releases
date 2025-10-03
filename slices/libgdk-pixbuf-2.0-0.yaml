@@ -23,7 +23,7 @@ slices:
       /usr/lib/*-linux-*/libgdk_pixbuf-2.0.so.0*:
 
   copyright:
-    contents:
-      /usr/share/doc/libgdk-pixbuf-2.0-0/copyright:
     essential:
       - libgdk-pixbuf2.0-common_copyright
+    contents:
+      /usr/share/doc/libgdk-pixbuf-2.0-0/copyright:
