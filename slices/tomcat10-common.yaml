@@ -8,7 +8,7 @@ essential:
 # /usr/share/tomcat10/bin/bootstrap.jar
 
 slices:
-  minimal:
+  catalina-home:
     essential:
       - tomcat10-common_jars
       - tomcat10-common_scripts

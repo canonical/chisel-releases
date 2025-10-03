@@ -4,11 +4,6 @@ essential:
   - tomcat10_copyright
 
 slices:
-  minimal:
-    essential:
-      - tomcat10-common_minimal
-      - tomcat10_config
-
   core:
     essential:
       - coreutils_bins
@@ -19,7 +14,7 @@ slices:
       - openjdk-21-jre-headless_management
       - openjdk-21-jre-headless_security
       - procps_bins
-      - tomcat10_minimal
+      - tomcat10_catalina-base
 
   standard:
     essential:
@@ -31,7 +26,14 @@ slices:
       - tomcat10-common_extra-scripts
       - tomcat10_standard
 
-  config:
+  catalina-home:
+    essential:
+      - tomcat10-common_jars
+      - tomcat10-common_scripts
+
+  catalina-base:
+    essential:
+      - tomcat10_catalina-home
     contents:
       /etc/tomcat10/Catalina/:
       /etc/tomcat10/catalina.properties:
