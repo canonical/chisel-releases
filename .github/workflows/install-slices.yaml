@@ -88,15 +88,6 @@ jobs:
               RELEASES="$(echo "$RELEASES" | jq --argjson ref "$ref" '. + $ref')"
             done
 
-            # TEMP
-            # also build on "1.2.0" for 22.04 and 24.04 to catch any issues
-            # that may arise for users not yet on chisel v1.2.0
-            for branch in "ubuntu-22.04" "ubuntu-24.04"; do
-              jq_program='[.[] | select(.ref == $ref) | select(.["chisel-versions"] | index("v1.2.0")) | ."chisel-versions" = ["v1.2.0"]]'
-              ref="$(echo "$RELEASES_COMPATIBILITY" | jq --arg ref "$branch" "$jq_program")"
-              RELEASES="$(echo "$RELEASES" | jq --argjson ref "$ref" '. + $ref')"
-            done
-
             echo "install_all=true" >> $GITHUB_OUTPUT
           else
             if [[
