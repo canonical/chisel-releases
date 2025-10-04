@@ -76,3 +76,29 @@ execute: |
   test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
   test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
   test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
+
+  # test cat
+  rootfs="$(install-slices coreutils-from-gnu_cat)"
+  echo "Hello, World!" > "$rootfs/test_file"
+  test "$(chroot "$rootfs" cat test_file)" = "Hello, World!"
+
+  # test uname
+  rootfs="$(install-slices coreutils-from-gnu_uname)"
+  test "$(chroot "$rootfs" uname -s)" = "Linux"
+  test "$(chroot "$rootfs" uname -m)" = "$(uname -m)"
+  test "$(chroot "$rootfs" uname -r)" != ""
+
+  # test chown
+  # we cannot test changing ownership in chroot
+  rootfs="$(install-slices coreutils-from-gnu_chown)"
+  touch "$rootfs/test_file"
+  output=$(chroot "$rootfs" chown invalid:user test_file 2>&1 || true)
+  echo "$output" | grep "invalid user"
+
+  # test mv
+  rootfs="$(install-slices coreutils-from-gnu_mv-utility)"
+  echo "Test content" > "$rootfs/source_file"
+  chroot "$rootfs" mv source_file dest_file
+  test ! -e "$rootfs/source_file"
+  test -e "$rootfs/dest_file"
+  test "$(cat "$rootfs/dest_file")" = "Test content"
