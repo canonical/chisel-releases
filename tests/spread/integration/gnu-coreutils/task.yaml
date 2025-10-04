@@ -1,4 +1,4 @@
-summary: Integration tests for coreutils
+summary: Integration tests for gnu-coreutils
 
 prepare: |
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
