@@ -1,78 +1,13 @@
-summary: Integration tests for gnu-coreutils
+summary: Integration tests for coreutils
 
 prepare: |
-  # Deb arch to GOARCH.
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
   # Install yq.
-  wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${arch} \
-    -O /usr/bin/yq
+  version="v4.47.2"
+  version="v4.47.2"
+  url="https://github.com/mikefarah/yq/releases/download/${version}/yq_linux_${arch}"
+  wget $url -O /usr/bin/yq
   chmod +x /usr/bin/yq
   yq --version
 
-execute: |
-  # Run smoke tests.
-  ./smoke.sh
-
-  # Run single-binary slices tests
-  # Forward port from 24.04
-
-  # test env
-  rootfs_env="$(install-slices coreutils-from-gnu_env)"
-  chroot "$rootfs_env" gnuenv --version
-
-  # test expr binary
-  rootfs_expr="$(install-slices coreutils-from-gnu_expr)"
-  chroot "$rootfs_expr" gnuexpr --version
-
-  # test mkdir binary
-  rootfs_mkdir="$(install-slices coreutils-from-gnu_mkdir)"
-  chroot "$rootfs_mkdir" gnumkdir test_dir
-  test -d "$rootfs_mkdir/test_dir"
-
-  # test echo binary
-  rootfs_echo="$(install-slices coreutils-from-gnu_echo)"
-  chroot "$rootfs_echo" gnuecho "Hello, World!"
-
-  # test ln binary
-  rootfs_ln="$(install-slices coreutils-from-gnu_ln-utility)"
-  touch "$rootfs_ln/test_file"
-  chroot "$rootfs_ln" gnuln -s test_file test_link
-  test -L "$rootfs_ln/test_link"
-
-  # test rm binary
-  rootfs_rm="$(install-slices coreutils-from-gnu_rm-utility)"
-  touch "$rootfs_rm/test_file"
-  chroot "$rootfs_rm" gnurm test_file
-  test ! -e "$rootfs_rm/test_file"
-
-  # test readlink binary
-  rootfs_readlink="$(install-slices coreutils-from-gnu_readlink)"
-  touch "$rootfs_readlink/test_file"
-  ln -s test_file "$rootfs_readlink/test_link"
-  chroot "$rootfs_readlink" gnureadlink test_link | grep "test_file"
-
-  # test sort binary
-  rootfs_sort="$(install-slices coreutils-from-gnu_sort)"
-  echo -e "banana\napple\ncherry" > "$rootfs_sort/test_file"
-  chroot "$rootfs_sort" gnusort test_file > sorted_output
-  # NOTE: sorted output has a trailing newline. replaced by hyphen to show better
-  test "$(cat sorted_output | tr '\n' '-')" = "apple-banana-cherry-"
-
-  # test dirname binary
-  rootfs_dirname="$(install-slices coreutils-from-gnu_dirname)"
-  mkdir -p "$rootfs_dirname/foo/bar"
-  touch "$rootfs_dirname/foo/bar/baz.txt"
-  test "$(chroot "$rootfs_dirname" gnudirname /foo/bar/baz.txt)" = "/foo/bar"
-  test "$(chroot "$rootfs_dirname" gnudirname /foo/bar/)" = "/foo"
-
-  # test touch binary
-  rootfs_touch="$(install-slices coreutils-from-gnu_touch)"
-  chroot "$rootfs_touch" gnutouch test_file
-  test -e "$rootfs_touch/test_file"
-
-  # test printf binary
-  rootfs_printf="$(install-slices coreutils-from-gnu_printf)"
-  test "$(chroot "$rootfs_printf" gnuprintf "hello\n" )" = "hello"
-  test "$(chroot "$rootfs_printf" gnuprintf "hello-%s\n" "world")" = "hello-world"
-  test "$(chroot "$rootfs_printf" gnuprintf "number: %d\n" 42)" = "number: 42"
-  test "$(chroot "$rootfs_printf" gnuprintf "float: %.2f\n" 3.14159)" = "float: 3.14"
+execute: ./run.sh --spread
