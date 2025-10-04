@@ -163,7 +163,7 @@ slices:
 
   chown:
     essential:
-      - coreutils-from-gnu_chow
+      - coreutils-from-gnu_chown
 
   mv-utility:
     essential:
