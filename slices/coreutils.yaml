@@ -152,6 +152,22 @@ slices:
   printf:
     essential:
       - coreutils-from-gnu_printf
+  
+  uname:
+    essential:
+      - coreutils-from-gnu_uname
+  
+  cat:
+    essential:
+      - coreutils-from-gnu_cat
+  
+  chown:
+    essential:
+      - coreutils-from-gnu_chow
+  
+  mv-utility:
+    essential:
+      - coreutils-from-gnu_mv-utility
 
   copyright:
     contents:
