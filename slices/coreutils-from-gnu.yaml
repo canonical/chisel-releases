@@ -402,13 +402,13 @@ slices:
       - gnu-coreutils_cat
     contents:
       /usr/bin/cat:
-  
+
   chown:
     essential:
       - gnu-coreutils_chown
     contents:
       /usr/bin/chown:
-  
+
   mv-utility:
     essential:
       - gnu-coreutils_mv-utility
