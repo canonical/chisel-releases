@@ -1,4 +1,4 @@
-summary: Integration tests for .NET 9 Runtime 
+summary: Integration tests for .NET 8 Runtime 
 
 variants:
     - +WithoutLibicu
@@ -14,9 +14,9 @@ environment:
 prepare: |
   required_slices=()
   if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(dotnet-runtime-9.0_core)
+    required_slices+=(dotnet-runtime-8.0_core)
   else
-    required_slices+=(dotnet-runtime-9.0_standard)
+    required_slices+=(dotnet-runtime-8.0_standard)
   fi
   
   # install slices
@@ -24,7 +24,7 @@ prepare: |
   echo "$rootfs" > ROOTFS
 
   # preparing the test data
-  apt-get update && apt-get install -y dotnet-sdk-9.0
+  apt-get update && apt-get install -y dotnet-sdk-8.0
   cp -r app_helloworld "${rootfs}"/app_helloworld
   dotnet publish "${rootfs}"/app_helloworld/Hello.csproj --no-self-contained
 
@@ -35,4 +35,4 @@ execute: |
   rootfs="$(cat ROOTFS)"
 
   # test the helloworld app
-  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net9.0/Hello.dll | grep -q "Hello, World!"
+  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net8.0/Hello.dll | grep -q "Hello, World!"
