@@ -40,6 +40,7 @@ slices:
       /etc/apparmor.d/Discord:
       /etc/apparmor.d/MongoDB_Compass:
       /etc/apparmor.d/QtWebEngineProcess:
+      /etc/apparmor.d/Xorg:
       /etc/apparmor.d/abi/3.0:
       /etc/apparmor.d/abi/4.0:
       /etc/apparmor.d/abi/kernel-5.4-outoftree-network:
@@ -95,6 +96,7 @@ slices:
       /etc/apparmor.d/abstractions/kde-open5:
       /etc/apparmor.d/abstractions/kerberosclient:
       /etc/apparmor.d/abstractions/ldapclient:
+      /etc/apparmor.d/abstractions/libnuma:
       /etc/apparmor.d/abstractions/libpam-systemd:
       /etc/apparmor.d/abstractions/likewise:
       /etc/apparmor.d/abstractions/mdns:
@@ -139,6 +141,7 @@ slices:
       /etc/apparmor.d/abstractions/ssl_certs:
       /etc/apparmor.d/abstractions/ssl_keys:
       /etc/apparmor.d/abstractions/svn-repositories:
+      /etc/apparmor.d/abstractions/terminfo:
       /etc/apparmor.d/abstractions/transmission-common:
       /etc/apparmor.d/abstractions/trash:
       /etc/apparmor.d/abstractions/ubuntu-bittorrent-clients:
@@ -196,6 +199,7 @@ slices:
       /etc/apparmor.d/code:
       /etc/apparmor.d/crun:
       /etc/apparmor.d/devhelp:
+      /etc/apparmor.d/dig:
       /etc/apparmor.d/disable/: {make: true}
       /etc/apparmor.d/dnstracer:
       /etc/apparmor.d/eigrpd:
@@ -211,10 +215,13 @@ slices:
       /etc/apparmor.d/geary:
       /etc/apparmor.d/github-desktop:
       /etc/apparmor.d/goldendict:
+      /etc/apparmor.d/gs:
+      /etc/apparmor.d/hostname:
       /etc/apparmor.d/iotop-c:
       /etc/apparmor.d/ipa_verify:
       /etc/apparmor.d/irssi:
       /etc/apparmor.d/isisd:
+      /etc/apparmor.d/john:
       /etc/apparmor.d/kchmviewer:
       /etc/apparmor.d/keybase:
       /etc/apparmor.d/lc-compliance:
@@ -223,6 +230,7 @@ slices:
       /etc/apparmor.d/linux-boot-prober:
       /etc/apparmor.d/linux-sandbox:
       /etc/apparmor.d/local/: {make: true}
+      /etc/apparmor.d/locale:
       /etc/apparmor.d/loupe:
       /etc/apparmor.d/lsb_release:
       /etc/apparmor.d/lsblk:
@@ -241,6 +249,8 @@ slices:
       /etc/apparmor.d/nc.openbsd:
       /etc/apparmor.d/nhrpd:
       /etc/apparmor.d/notepadqq:
+      /etc/apparmor.d/notify-send:
+      /etc/apparmor.d/nslookup:
       /etc/apparmor.d/nvidia_modprobe:
       /etc/apparmor.d/obsidian:
       /etc/apparmor.d/opam:
@@ -258,10 +268,11 @@ slices:
       /etc/apparmor.d/podman:
       /etc/apparmor.d/polypane:
       /etc/apparmor.d/privacybrowser:
+      /etc/apparmor.d/proftpd:
       /etc/apparmor.d/qcam:
       /etc/apparmor.d/qmapshack:
+      /etc/apparmor.d/qpdf:
       /etc/apparmor.d/qutebrowser:
-      /etc/apparmor.d/remmina:
       /etc/apparmor.d/ripd:
       /etc/apparmor.d/ripngd:
       /etc/apparmor.d/rootlesskit:
@@ -287,28 +298,32 @@ slices:
       /etc/apparmor.d/signal-desktop:
       /etc/apparmor.d/slack:
       /etc/apparmor.d/slirp4netns:
+      /etc/apparmor.d/ssh-keyscan:
       /etc/apparmor.d/staticd:
       /etc/apparmor.d/steam:
       /etc/apparmor.d/stress-ng:
       /etc/apparmor.d/surfshark:
       /etc/apparmor.d/systemd-coredump:
+      /etc/apparmor.d/systemd-detect-virt:
       /etc/apparmor.d/thunderbird:
       /etc/apparmor.d/tinyproxy:
       /etc/apparmor.d/tnftp:
-      /etc/apparmor.d/toybox:
       /etc/apparmor.d/transmission:
       /etc/apparmor.d/trinity:
       /etc/apparmor.d/tshark:
       /etc/apparmor.d/tunables/alias:
       /etc/apparmor.d/tunables/apparmorfs:
+      /etc/apparmor.d/tunables/coreutils:
       /etc/apparmor.d/tunables/dovecot:
       /etc/apparmor.d/tunables/etc:
       /etc/apparmor.d/tunables/global:
+      /etc/apparmor.d/tunables/gs:
       /etc/apparmor.d/tunables/home:
       /etc/apparmor.d/tunables/home.d/site.local:
       /etc/apparmor.d/tunables/kernelvars:
       /etc/apparmor.d/tunables/multiarch:
       /etc/apparmor.d/tunables/multiarch.d/site.local:
+      /etc/apparmor.d/tunables/print-devices:
       /etc/apparmor.d/tunables/proc:
       /etc/apparmor.d/tunables/run:
       /etc/apparmor.d/tunables/rygel:
@@ -352,6 +367,7 @@ slices:
       /etc/apparmor.d/vrrpd:
       /etc/apparmor.d/wg:
       /etc/apparmor.d/wg-quick:
+      /etc/apparmor.d/who:
       /etc/apparmor.d/wike:
       /etc/apparmor.d/wpcom:
       /etc/apparmor.d/znc:
