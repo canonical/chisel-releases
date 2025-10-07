@@ -6,7 +6,7 @@ environment:
   PROJECT_PATH: /chisel-releases
   SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
   PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
-  MANIFESTS_EXPORT_DIR: manifests
+  # MANIFESTS_EXPORT_DIR: manifests
 
 exclude:
   - .github
@@ -39,11 +39,8 @@ backends:
       lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
       ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
     discard: |
-      # NOTE: we need to copy to ~/manifests since lxc might be a snap and therefore have restricted fs access
       lxc file pull -pr $SPREAD_SYSTEM/$MANIFESTS_EXPORT_DIR ~/$MANIFESTS_EXPORT_DIR || true
       lxc stop $SPREAD_SYSTEM || true
-      ls -lha ~
-      exit 99
     systems:
       - ubuntu-plucky:
           password: ubuntu
