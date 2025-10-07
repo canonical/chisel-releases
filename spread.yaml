@@ -6,7 +6,7 @@ environment:
   PROJECT_PATH: /chisel-releases
   SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
   PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
-  MANIFESTS_EXPORT_DIR: $MANIFESTS_EXPORT_DIR
+  # MANIFESTS_EXPORT_DIR: $MANIFESTS_EXPORT_DIR
 
 exclude:
   - .github
@@ -41,6 +41,8 @@ backends:
     discard: |
       lxc file pull -pr $SPREAD_SYSTEM/$MANIFESTS_EXPORT_DIR ~/$MANIFESTS_EXPORT_DIR || true
       lxc stop $SPREAD_SYSTEM || true
+      echo "MANIFESTS_EXPORT_DIR=$MANIFESTS_EXPORT_DIR"
+      exit 99
     systems:
       - ubuntu-plucky:
           password: ubuntu
