@@ -76,9 +76,7 @@ jobs:
         if: ${{ steps.spread-suites.outputs.run-tasks }}
         run: |
           (cd _spread/cmd/spread && go build)
-          echo "MANIFESTS_EXPORT_DIR=$MANIFESTS_EXPORT_DIR"
-          bash -c 'echo $MANIFESTS_EXPORT_DIR' # check if variable is exported
           _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}
           sudo apt update && sudo apt install --yes tree
-          ls -lha ~
-          tree /manifests || true
+          ls -lha ~/$MANIFESTS_EXPORT_DIR
+          tree ~/$MANIFESTS_EXPORT_DIR || true
