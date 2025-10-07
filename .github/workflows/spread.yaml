@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manifests
-          path: ~/$MANIFESTS_EXPORT_DIR
+          path: ~/${{ env.MANIFESTS_EXPORT_DIR }}/**/*.wall
           overwrite: true
 
   test-consume-manifests:
