@@ -39,9 +39,10 @@ backends:
       lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
       ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
     discard: |
-      ls /manifests || true
-      lxc file pull -pr $SPREAD_SYSTEM/manifests /manifests || true
+      # NOTE: we need to copy to ~/manifests since lxc might be a snap and therefore have restricted fs access
+      lxc file pull -pr $SPREAD_SYSTEM/manifests ~/manifests || true
       lxc stop $SPREAD_SYSTEM || true
+      ls -lha ~
       exit 99
     systems:
       - ubuntu-plucky:
