@@ -13,7 +13,29 @@ function main() {
     local rootfs="$(mktemp -d)"
     #shellcheck disable=SC2086
     chisel cut --release "$PROJECT_PATH" --root "$rootfs" $slices
+    export_manifests "$rootfs"
+
     echo "${rootfs}"
 }
+
+function log() {
+    echo "[$(date --rfc-3339=seconds)]: $*" 1>&2
+}
+
+function export_manifests() {
+    # if MANIFESTS_EXPORT_DIR is set, copy the manifests there
+    # manifest is at /var/lib/chisel/manifest.wall
+    # will be copied to $MANIFESTS_EXPORT_DIR/manifestXXXXX.wall where XXXXX is sequence number
+    local rootfs="$1"
+    if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
+        mkdir -p "$MANIFESTS_EXPORT_DIR"
+        local seq
+        seq=$(find "$MANIFESTS_EXPORT_DIR"/manifest*.wall 2>/dev/null | wc -l || echo 0)
+        seq=$((seq + 1)) || true
+        cp "$rootfs/var/lib/chisel/manifest.wall" "$MANIFESTS_EXPORT_DIR/manifest$(printf "%05d" "$seq").wall"
+        log "exported manifest to $MANIFESTS_EXPORT_DIR/manifest$(printf "%05d" "$seq").wall"
+    fi
+}
+
 
 main "$@"
