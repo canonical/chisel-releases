@@ -7,7 +7,6 @@ slices:
   libs:
     essential:
       - libacl1_libs
-      - libapparmor1_libs
       - libaudit1_libs
       - libblkid1_libs
       - libc6_libs
@@ -18,7 +17,6 @@ slices:
       - libseccomp2_libs
       - libselinux1_libs
       - libssl3t64_libs
-      - libzstd1_libs
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:
