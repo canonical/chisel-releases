@@ -6,6 +6,9 @@ execute: |
   cp /etc/resolv.conf "${rootfs}/etc/"
   chroot ${rootfs} /usr/bin/python3.13 -c "import urllib.request;urllib.request.urlopen('https://example.com')"
 
+  ls ${rootfs}/var/lib/chisel/
+  cat ${rootfs}/var/lib/chisel/manifest.wall
+
   # Test 2: Test that the /etc/ca-certificates.conf file is created and update-ca-certificates works
   rootfs=$(install-slices ca-certificates_data-with-certs ca-certificates_bins)
   test -f ${rootfs}/etc/ca-certificates.conf
@@ -14,3 +17,8 @@ execute: |
   touch ${rootfs}/dev/null
   chroot ${rootfs} /usr/sbin/update-ca-certificates
   test $(find ${rootfs}/etc/ssl/certs -maxdepth 1 -type f ! -name 'ca-certificates.crt' | wc -l) -eq 0
+
+  ls ${rootfs}/var/lib/chisel/
+  cat ${rootfs}/var/lib/chisel/manifest.wall
+
+  exit 99
