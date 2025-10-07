@@ -80,3 +80,26 @@ jobs:
           sudo apt update && sudo apt install --yes tree
           ls -lha ~/$MANIFESTS_EXPORT_DIR
           tree ~/$MANIFESTS_EXPORT_DIR || true
+      
+      - name: Upload manifests
+        if: ${{ steps.spread-suites.outputs.run-tasks }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifests
+          path: ~/$MANIFESTS_EXPORT_DIR
+          overwrite: true
+
+  test-consume-manifests:
+    needs: spread-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download manifests
+        uses: actions/download-artifact@v4
+        with:
+          name: manifests
+      - name: List manifests
+        run: |
+          echo "PWD=$(pwd)"
+          ls -lha manifests
+          sudo apt update && sudo apt install --yes tree
+          tree manifests || true
