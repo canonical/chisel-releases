@@ -97,7 +97,9 @@ jobs:
           name: manifests_X64
       - name: List manifests
         run: |
-          echo "PWD=$(pwd)"
+          echo "$PWD"
+          pwd
+          ls -lha .
           ls -lha manifests
           sudo apt update && sudo apt install --yes tree
           tree manifests || true
