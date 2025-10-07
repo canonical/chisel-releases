@@ -3,9 +3,11 @@ summary: Integration tests for libc-bin
 environment:
   SLICE/getconf: "getconf"
   SLICE/getent: "getent"
+  SLICE/ldconfig: "ldconfig"
+  SLICE/locale: "locale"
 
 execute: |
-  rootfs="$(install-slices libc-bin_${SLICE} )"
+  rootfs="$(install-slices libc-bin_${SLICE})"
 
   case SLICE in
     getconf)
@@ -19,5 +21,12 @@ execute: |
       mkdir "${rootfs}/etc"
       echo "::1 localhost" > "${rootfs}/etc/hosts"
       chroot "${rootfs}" getent hosts localhost
+    ldconfig)
+      chroot "$rootfs" ldconfig
+      chroot "$rootfs" ldconfig -p | grep libc.so.6
+    ;;
+    locale)
+      chroot "$rootfs" locale | grep 'LC_CTYPE="en_US.UTF-8"'
+      chroot "$rootfs" locale -a | grep -i 'C.utf8'
     ;;
   esac

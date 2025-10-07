@@ -41,12 +41,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
+      - coreutils-from-gnu_cat
       - gnu-coreutils_output-of-entire-files
     contents:
       /usr/bin/base32:
       /usr/bin/base64:
       /usr/bin/basenc:
-      /usr/bin/cat:
       /usr/bin/nl:
       /usr/bin/od:
       /usr/bin/tac:
@@ -129,11 +129,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
   directory-listing:
     essential:
+      - coreutils-from-gnu_ls-utility
       - gnu-coreutils_directory-listing
     contents:
       /usr/bin/dir:
       /usr/bin/dircolors:
-      /usr/bin/ls:
       /usr/bin/vdir:
 
   # Basic operations -- This slice contains the commands for basic file
@@ -390,6 +390,18 @@ slices:
       - gnu-coreutils_printf
     contents:
       /usr/bin/printf:
+
+  cat:
+    essential:
+      - gnu-coreutils_cat
+    contents:
+      /usr/bin/cat:
+
+  ls-utility:
+    essential:
+      - gnu-coreutils_ls-utility
+    contents:
+      /usr/bin/ls:
 
   copyright:
     contents:
