@@ -5,7 +5,6 @@ essential:
 
 #
 
-
 slices:
   # This slice only contains the certificates bundle at /etc/ssl/certs/ca-certificates.crt.
   # To keep the individual certificates at /usr/share/ca-certificates/mozilla/ or the
