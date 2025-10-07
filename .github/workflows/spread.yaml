@@ -1,0 +1,77 @@
+name: Spread
+run-name: Spread for ${{ github.ref }}
+
+on:
+  workflow_call:
+
+jobs:
+  spread-tests:
+    strategy:
+      matrix:
+        runner:
+          - name: X64
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "X64", "large"]') || 'ubuntu-24.04' }}
+          - name: ARM64
+            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
+    name: Run Spread tests | ${{ matrix.runner.name }}
+    runs-on: ${{ matrix.runner.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check changed paths
+        id: changed-slices
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          list-files: shell
+
+      - name: Check changed test directories
+        uses: tj-actions/changed-files@531f5f7d163941f0c1c04e0ff4d8bb243ac4366f
+        id: changed-tests
+        with:
+          separator: " "
+          dir_names: "true"
+          files: |
+            tests/spread/integration/**
+
+      - uses: actions/checkout@v4
+        with:
+          repository: snapcore/spread
+          path: _spread
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.17.0'
+
+      - name: Install LXD
+        uses: canonical/setup-lxd@v0.1.1
+        with:
+            channel: 5.21/stable
+
+      - name: Prepare Spread suites
+        id: spread-suites
+        env:
+          integration-tests: "tests/spread/integration"
+          backend: "lxd"
+        run: |
+          set -ex
+          spread_tasks=""
+          for file in ${{ steps.changed-slices.outputs.slices_files }} ${{ steps.changed-tests.outputs.all_changed_files }}
+          do
+            pkg_name=$(basename $file | sed 's/\.yaml//g')
+            pkg_tests="${{ env.integration-tests }}/${pkg_name}"
+            if [ -f "${pkg_tests}/task.yaml" ] && [[ $spread_tasks != *"${pkg_tests}"* ]]
+            then
+              spread_tasks="${spread_tasks} ${{ env.backend }}:${pkg_tests}"
+            fi
+          done
+
+          echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
+
+      - name: Build and run spread
+        if: ${{ steps.spread-suites.outputs.run-tasks }}
+        run: |
+          (cd _spread/cmd/spread && go build)
+          _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}

@@ -20,9 +20,14 @@ jobs:
     name: Lint
     uses: canonical/chisel-releases/.github/workflows/lint.yaml@main
 
-  integration-tests:
-    name: Integration tests
-    uses: canonical/chisel-releases/.github/workflows/spread.yaml@main
+  # integration-tests:
+  #   name: Integration tests
+  #   uses: canonical/chisel-releases/.github/workflows/spread.yaml@main
+
+  # redirect to spread.yaml in this repo for testing
+  spread-tests:
+    name: Spread tests
+    uses: ./.github/workflows/spread.yaml
 
   removed-slices:
     name: Removed slices
