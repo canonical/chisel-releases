@@ -42,7 +42,7 @@ backends:
     restore-each: |
       set -x
       lxc file pull -pr $SPREAD_SYSTEM/manifests /manifests || true
-      find /manifests -type f -print0
+      find /manifests -type f -print
       exit 99
     systems:
       - ubuntu-plucky:
