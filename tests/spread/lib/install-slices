@@ -1,11 +1,19 @@
 #!/bin/bash -ex
+# spellchecker: ignore rootfs
 
 # Installs one or more slices into a dynamically created temporary path.
 # Usage: install-slices [<slice>...]
 # Returns the path of the chiselled rootfs
 
-tmpdir="$(mktemp -d)"
+function main() {
+    local slices="$*"
+    # add base-files_chisel slice to ensure we generate the manifest
+    slices="${slices} base-files_chisel"
 
-echo "${tmpdir}"
-# TODO: remove `--ignore=unstable` when 26.04 is stable
-chisel cut --ignore=unstable --release "$PROJECT_PATH" --root "$tmpdir" $@
+    local rootfs="$(mktemp -d)"
+    #shellcheck disable=SC2086
+    chisel cut --ignore=unstable --release "$PROJECT_PATH" --root "$rootfs" $slices
+    echo "${rootfs}"
+}
+
+main "$@"
