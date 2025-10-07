@@ -27,7 +27,7 @@ function export_manifests() {
     if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
         local test_name=$(basename "$PWD")
         test_name=${test_name:-default}
-        local export_dir="$MANIFESTS_EXPORT_DIR/$test_name"
+        local export_dir="/$MANIFESTS_EXPORT_DIR/$test_name"
         mkdir -p "$export_dir"
         local seq=$(find "$export_dir" -type f -name 'manifest_*.wall' | wc -l)
         cp "$rootfs/var/lib/chisel/manifest.wall" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
