@@ -25,16 +25,18 @@ function log() {
 function export_manifests() {
     # if MANIFESTS_EXPORT_DIR is set, copy the manifests there
     # manifest is at /var/lib/chisel/manifest.wall
-    # will be copied to $MANIFESTS_EXPORT_DIR/manifestXXXXX.wall where
+    # will be copied to $MANIFESTS_EXPORT_DIR/$test_name/manifestXXXXX.wall where
     # XXXXX is sequence number (starting from 00000)
     local rootfs="$1"
     if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
-        mkdir -p "$MANIFESTS_EXPORT_DIR"
-        local seq
-        seq=$(find "$MANIFESTS_EXPORT_DIR"/manifest_*.wall 2>/dev/null | wc -l || echo 0)
-        cp "$rootfs/var/lib/chisel/manifest.wall" "$MANIFESTS_EXPORT_DIR/manifest_$(printf "%05d" "$seq").wall"
-        log "exported manifest to $MANIFESTS_EXPORT_DIR/manifest_$(printf "%05d" "$seq").wall"
-        log "PWD is $(pwd)"
+        # get test name from current directory
+        local test_name=$(basename "$PWD")
+        test_name=${test_name:-default}
+        local export_dir="$MANIFESTS_EXPORT_DIR/$test_name"
+        mkdir -p "$export_dir"
+        local seq=$(find "$export_dir/manifest_*.wall" 2>/dev/null | wc -l || echo 0)
+        cp "$rootfs/var/lib/chisel/manifest.wall" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
+        log "exported manifest to $export_dir/manifest_$(printf "%05d" "$seq").wall"
     fi
 }
 
