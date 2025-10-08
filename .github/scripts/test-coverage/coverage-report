@@ -33,7 +33,7 @@ for pkg in $(sort -u /tmp/all_packages.txt); do
     installed_pkg=$(echo "$installed" | grep "^${pkg}_" || true)
 
     total_pkg_committed=$(echo "$committed_pkg" | wc -l)
-    total_pkg_present=$((comm -12 <(echo "$committed_pkg") <(echo "$installed_pkg") || true) | wc -l)
+    total_pkg_present=$(comm -12 <(echo "$committed_pkg") <(echo "$installed_pkg") || true | wc -l)
 
     if [ "$total_pkg_committed" -eq 0 ]; then
         pkg_coverage=0
