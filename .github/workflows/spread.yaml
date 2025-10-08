@@ -6,6 +6,8 @@ on:
 
 jobs:
   spread-tests:
+    outputs:
+      slices_files: ${{ steps.changed-slices.outputs.slices_files }}
     strategy:
       matrix:
         runner:
@@ -71,7 +73,108 @@ jobs:
           echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
       - name: Build and run spread
+        id: run-spread
         if: ${{ steps.spread-suites.outputs.run-tasks }}
         run: |
           (cd _spread/cmd/spread && go build)
           _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}
+
+      - name: Upload manifests
+        if: ${{ steps.run-spread.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifests_${{ matrix.runner.name }}
+          path: ~/manifests/**/*.wall
+          overwrite: true
+
+  test-coverage:
+    name: Test Coverage | ${{ matrix.runner.name }}
+    runs-on: ubuntu-latest
+    needs: [ spread-tests ]
+    strategy:
+      matrix:
+        runner:
+          - name: X64
+          # - name: ARM64
+    env:
+      main-branch-path: files-from-main
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      - name: Download manifests
+        uses: actions/download-artifact@v4
+        with:
+          name: manifests_X64
+
+      - name: List committed slices
+        id: list-committed-slices
+        run: |
+          list=""
+          for file in ${{ jobs.spread-tests.outputs.slices_files }}
+          do
+            slices=$(yq '... comments=""' $file | yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")')
+            list="$list $slices"
+          done
+
+          echo "commited-slices=$list" >> $GITHUB_OUTPUT
+      
+      - name: List installed slices
+        id: list-installed-slices
+        run: |
+          list=""
+          for file in $(find manifests/)
+          do
+            slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name')
+            list="$slit $slices"
+          done
+
+          echo "installed-slices=$list" >> $GITHUB_OUTPUT
+      
+      - name: Create json coverage report
+        id: json-coverage-report
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/test-coverage"
+        run: |
+          set -ex
+          ./${{ env.script-dir }}/coverage-report \
+            "${{ steps.list-committed-slices.outputs.commited-slices }}" \
+            "${{ steps.list-installed-slices.outputs.installed-slices }}"
+       
+      - name: Create markdown comment
+        id: md-summary
+        run: |
+          json=${{ steps.json-coverage-report.outputs.json_report }}
+
+          msg_file="${msg_file:-$(mktemp)}"
+          echo "msg_file=$msg_file" >> $GITHUB_OUTPUT
+
+          total=$(echo "$json" | jq '.total_coverage')
+          echo "### ✅ Coverage Report" > $msg_file
+          echo "- Total Coverage: ${total}%" >> $msg_file
+          echo "- Per Package:" >> $msg_file
+
+          echo "$json" | jq -r '.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(", "))"' | while read pkg coverage count missing; do
+            if [ "$count" -eq 0 ]; then
+              echo "  - \`$pkg\`: ✅ ${coverage}% (0 missing)" >> $msg_file
+            else
+              echo "  - \`$pkg\`: ❌ ${coverage}% (${count} missing)" >> $msg_file
+              echo "    - ${missing}" | sed 's/, /, `/g; s/^/    - `/; s/$/`/' >> $msg_file
+            fi
+          done
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report.json
+          path: coverage-report.json
+
+      - name: Post comment to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: ${{ steps.md-summary.outputs.msg_file }}

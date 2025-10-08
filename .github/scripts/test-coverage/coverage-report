@@ -1,0 +1,71 @@
+#!/bin/bash
+set -euo pipefail
+
+committed_slices="$1"
+installed_slices="$2"
+output_file="${3:-coverage-report.json}"
+
+# Convert to sorted, unique lines
+committed=$(echo "$committed_slices" | tr ' ' '\n' | sort | uniq)
+installed=$(echo "$installed_slices" | tr ' ' '\n' | sort | uniq)
+
+# Save to temp files
+echo "$committed" > /tmp/committed.txt
+echo "$installed" > /tmp/installed.txt
+
+# Compare slices
+present=$(comm -12 /tmp/committed.txt /tmp/installed.txt)
+missing=$(comm -23 /tmp/committed.txt /tmp/installed.txt)
+
+total_committed=$(echo "$committed" | wc -l)
+total_present=$(echo "$present" | wc -l)
+coverage_percent=$(awk "BEGIN {printf \"%.2f\", ($total_present / $total_committed) * 100}")
+
+# Build per-package stats
+echo '{}' > /tmp/tests.json
+
+echo "$committed" | while IFS=_ read -r pkg slice; do
+    echo "$pkg" >> /tmp/all_packages.txt
+done
+
+for pkg in $(sort -u /tmp/all_packages.txt); do
+    committed_pkg=$(echo "$committed" | grep "^${pkg}_" || true)
+    installed_pkg=$(echo "$installed" | grep "^${pkg}_" || true)
+
+    total_pkg_committed=$(echo "$committed_pkg" | wc -l)
+    total_pkg_present=$((comm -12 <(echo "$committed_pkg") <(echo "$installed_pkg") || true) | wc -l)
+
+    if [ "$total_pkg_committed" -eq 0 ]; then
+        pkg_coverage=0
+    else
+        pkg_coverage=$(awk "BEGIN {printf \"%.2f\", ($total_pkg_present / $total_pkg_committed) * 100}")
+    fi
+
+    missing_pkg=$(comm -23 <(echo "$committed_pkg") <(echo "$installed_pkg") || true)
+
+    if [ -n "$missing_pkg" ]; then
+        missing_json=$(echo "$missing_pkg" | jq -R . | jq -s .)
+    else
+        missing_json="[]"
+    fi
+
+    jq --arg pkg "$pkg" \
+        --argjson coverage "$pkg_coverage" \
+        --argjson missing "$missing_json" \
+        '. + {($pkg): {coverage: $coverage, missing: $missing}}' \
+        /tmp/tests.json > /tmp/tmp.json && mv /tmp/tmp.json /tmp/tests.json
+done
+
+tests_json=$(cat /tmp/tests.json)
+
+jq -n \
+    --argjson total_coverage "$coverage_percent" \
+    --argjson tests "$tests_json" \
+    '{total_coverage: $total_coverage, tests: $tests}' > "$output_file"
+
+# Output to GitHub Actions output
+if [[ -n "$GITHUB_OUTPUT" ]]; then
+    echo "json_report<<EOF" >> "$GITHUB_OUTPUT"
+    cat "$output_file" >> "$GITHUB_OUTPUT"
+    echo "EOF" >> "$GITHUB_OUTPUT"
+fi
