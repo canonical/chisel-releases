@@ -212,7 +212,7 @@ def parse_package(filepath: str) -> Package:
     return pkg
 
 
-def query_package_existence(
+def _query_package_existence(
     packages: list[str],
     archive: Archive,
     arch: list[str] | None = None,
@@ -236,6 +236,7 @@ def query_package_existence(
     res = subprocess.run(args, capture_output=True, text=True, check=False)
     if res.returncode != 0:
         logging.error("Failed to query the archives %d", res.returncode)
+        logging.error("==============================================\n%s", res.stderr)
         sys.exit(res.returncode)
     output = res.stdout.rstrip()
     logging.debug("Archive query output:\n%s", output)
@@ -251,6 +252,29 @@ def query_package_existence(
     missing = list(set(packages) - set(found))
     return sorted(found), sorted(missing)
 
+
+def query_package_existence(
+    packages: list[str],
+    archive: Archive,
+    arch: list[str] | None = None,
+    batch_size: int = 50,
+) -> tuple[list[str], list[str]]:
+    """
+    Check which packages exist in the archive. Return a list of packages
+    that exist and another list for which do not.
+    This function breaks down the package list into batches, to avoid
+    URI length limits.
+    """
+    logging.info("Querying packages in %s", archive)
+    n_batches = math.ceil(len(packages) / batch_size)
+    found, missing = set(), set()
+    for i in range(n_batches):
+        batch = packages[i * batch_size : (i + 1) * batch_size]
+        logging.info("Querying packages batch %d/%d (%s ... %s)...", i + 1, n_batches, batch[0], batch[-1])
+        f, m = _query_package_existence(batch, archive, arch)
+        found.update(f)
+        missing.update(m)
+    return sorted(found), sorted(missing)
 
 def ensure_package_existence(packages: list[str], archive: Archive) -> None:
     """
