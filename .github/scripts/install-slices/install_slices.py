@@ -212,7 +212,7 @@ def parse_package(filepath: str) -> Package:
     return pkg
 
 
-def query_package_existence(
+def _query_package_existence(
     packages: list[str],
     archive: Archive,
     arch: list[str] | None = None,
@@ -252,6 +252,29 @@ def query_package_existence(
     missing = list(set(packages) - set(found))
     return sorted(found), sorted(missing)
 
+
+def query_package_existence(
+    packages: list[str],
+    archive: Archive,
+    arch: list[str] | None = None,
+    batch_size: int = 50,
+) -> tuple[list[str], list[str]]:
+    """
+    Check which packages exist in the archive. Return a list of packages
+    that exist and another list for which do not.
+    This function breaks down the package list into batches, to avoid
+    URI length limits.
+    """
+    found = []
+    missing = []
+    for i in range(0, len(packages), batch_size):
+        batch = packages[i : i + batch_size]
+        f, m = _query_package_existence(batch, archive, arch)
+        found += f
+        missing += m
+    found = list(set(found))
+    missing = list(set(missing))
+    return sorted(found), sorted(missing)
 
 def ensure_package_existence(packages: list[str], archive: Archive) -> None:
     """
