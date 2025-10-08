@@ -18,6 +18,8 @@ slices:
       - zlib1g_libs
     # sudo and visudo are symlinked to their .ws variants
     # to mimic the behavior of postinst which uses `update-alternatives`
+    # in the future use `prefer` to resolve any conflicts with other
+    # packages providing sudo/visudo (e.g. sudo-rs)
     contents:
       /usr/bin/cvtsudoers.ws:
       /usr/bin/sudo: {symlink: sudo.ws}
