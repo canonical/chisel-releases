@@ -21,6 +21,7 @@ execute: |
       mkdir "${rootfs}/etc"
       echo "::1 localhost" > "${rootfs}/etc/hosts"
       chroot "${rootfs}" getent hosts localhost
+    ;;
     ldconfig)
       chroot "$rootfs" ldconfig
       chroot "$rootfs" ldconfig -p | grep libc.so.6
