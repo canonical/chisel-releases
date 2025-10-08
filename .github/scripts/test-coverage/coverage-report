@@ -6,8 +6,8 @@ installed_slices="$2"
 output_file="${3:-coverage-report.json}"
 
 # Convert to sorted, unique lines
-committed=$(echo "$committed_slices" | tr ' ' '\n' | sort | uniq)
-installed=$(echo "$installed_slices" | tr ' ' '\n' | sort | uniq)
+committed=$(echo "$committed_slices" | tr ' ' '\n' | sort -u)
+installed=$(echo "$installed_slices" | tr ' ' '\n' | sort -u)
 
 # Save to temp files
 echo "$committed" > /tmp/committed.txt
