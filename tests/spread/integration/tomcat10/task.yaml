@@ -3,7 +3,8 @@ summary: Integration tests for tomcat10
 environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
-  SLICE/dev: "dev"
+# no change in tests over tomcat10-common_extra-scripts
+#  SLICE/dev: "dev"
 
 restore: |
   killall java || true
@@ -26,16 +27,6 @@ execute: |
     | grep -q "Server initialization in"
 
   case ${SLICE} in
-    dev)
-      chroot "$rootfs" /usr/share/tomcat10/bin/ciphers.sh \
-        | grep -q TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-      chroot "$rootfs" /usr/share/tomcat10/bin/digest.sh foo \
-        | grep -q "foo"
-      chroot "$rootfs" /usr/share/tomcat10/bin/makebase.sh foo \
-        | grep -q "Created CATALINA_BASE directory at foo"
-      chroot "$rootfs" /usr/share/tomcat10/bin/version.sh \
-        | grep -q "Apache Tomcat"
-    ;;
     standard)
       apt-get update
       apt-get install -y retry
