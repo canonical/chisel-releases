@@ -64,7 +64,7 @@ def configure_logging() -> None:
     )
 
     # Root logger setup
-    logging.basicConfig(level=logging.INFO, handlers=[console_handler, file_handler])
+    logging.basicConfig(level=logging.DEBUG, handlers=[console_handler, file_handler])
 
 
 def parse_args() -> argparse.Namespace:
