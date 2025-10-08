@@ -1,39 +1,55 @@
 #!/bin/bash
 set -euo pipefail
 
-committed_slices="$1"
-installed_slices="$2"
-output_file="${3:-coverage-report.json}"
+DEBUG=${DEBUG:-0}
+
+function log {
+    if [ "$DEBUG" -eq 1 ]; then
+        echo "[$(date --iso-8601=seconds)] $*" >&2
+    fi
+}
+
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <committed_slices> <installed_slices>" >&2
+    exit 1
+fi
+
+# filter out empty lines and then use comm
+function intersection {
+    comm -12 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u) || true
+}
+
+function difference {
+    comm -23 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u) || true
+}
 
 # Convert to sorted, unique lines
-committed=$(echo "$committed_slices" | tr ' ' '\n' | sort | uniq)
-installed=$(echo "$installed_slices" | tr ' ' '\n' | sort | uniq)
-
-# Save to temp files
-echo "$committed" > /tmp/committed.txt
-echo "$installed" > /tmp/installed.txt
+committed=$(echo "$1" | tr ' ' '\n' | sort -u)
+installed=$(echo "$2" | tr ' ' '\n' | sort -u)
 
 # Compare slices
-present=$(comm -12 /tmp/committed.txt /tmp/installed.txt)
-missing=$(comm -23 /tmp/committed.txt /tmp/installed.txt)
+present=$(intersection "$committed" "$installed")
+missing=$(difference "$committed" "$installed")
+
+log "present ($(echo "$present" | wc -l)): $(echo "$present" | tr '\n' ' ')"
+log "missing ($(echo "$missing" | wc -l)): $(echo "$missing" | tr '\n' ' ')"
 
 total_committed=$(echo "$committed" | wc -l)
 total_present=$(echo "$present" | wc -l)
 coverage_percent=$(awk "BEGIN {printf \"%.2f\", ($total_present / $total_committed) * 100}")
+log "coverage_percent: $coverage_percent"
 
 # Build per-package stats
-echo '{}' > /tmp/tests.json
+tests_json="{}"
+all_packages=$(echo "$committed" | awk -F_ '{print $1}' | sort -u)
+log "All packages: $(echo "$all_packages" | tr '\n' ' ')"
 
-echo "$committed" | while IFS=_ read -r pkg slice; do
-    echo "$pkg" >> /tmp/all_packages.txt
-done
-
-for pkg in $(sort -u /tmp/all_packages.txt); do
+for pkg in $all_packages; do
     committed_pkg=$(echo "$committed" | grep "^${pkg}_" || true)
     installed_pkg=$(echo "$installed" | grep "^${pkg}_" || true)
 
     total_pkg_committed=$(echo "$committed_pkg" | wc -l)
-    total_pkg_present=$((comm -12 <(echo "$committed_pkg") <(echo "$installed_pkg") || true) | wc -l)
+    total_pkg_present=$( intersection "$committed_pkg" "$installed_pkg" | wc -l)
 
     if [ "$total_pkg_committed" -eq 0 ]; then
         pkg_coverage=0
@@ -41,7 +57,7 @@ for pkg in $(sort -u /tmp/all_packages.txt); do
         pkg_coverage=$(awk "BEGIN {printf \"%.2f\", ($total_pkg_present / $total_pkg_committed) * 100}")
     fi
 
-    missing_pkg=$(comm -23 <(echo "$committed_pkg") <(echo "$installed_pkg") || true)
+    missing_pkg=$(difference "$committed_pkg" "$installed_pkg")
 
     if [ -n "$missing_pkg" ]; then
         missing_json=$(echo "$missing_pkg" | jq -R . | jq -s .)
@@ -49,23 +65,21 @@ for pkg in $(sort -u /tmp/all_packages.txt); do
         missing_json="[]"
     fi
 
-    jq --arg pkg "$pkg" \
+    if [ "$pkg_coverage" != "100.00" ]; then
+        log "Package $pkg: coverage $pkg_coverage%, missing ($(echo "$missing_pkg" | wc -l)): $(echo "$missing_pkg" | tr '\n' ' ')"
+    else
+        log "Package $pkg: coverage $pkg_coverage%"
+    fi
+
+    tests_json=$(jq --arg pkg "$pkg" \
         --argjson coverage "$pkg_coverage" \
         --argjson missing "$missing_json" \
         '. + {($pkg): {coverage: $coverage, missing: $missing}}' \
-        /tmp/tests.json > /tmp/tmp.json && mv /tmp/tmp.json /tmp/tests.json
+        <<<"$tests_json")
+
 done
 
-tests_json=$(cat /tmp/tests.json)
-
-jq -n \
+jq --monochrome-output -n \
     --argjson total_coverage "$coverage_percent" \
     --argjson tests "$tests_json" \
-    '{total_coverage: $total_coverage, tests: $tests}' > "$output_file"
-
-# Output to GitHub Actions output
-if [[ -n "$GITHUB_OUTPUT" ]]; then
-    echo "json_report<<EOF" >> "$GITHUB_OUTPUT"
-    cat "$output_file" >> "$GITHUB_OUTPUT"
-    echo "EOF" >> "$GITHUB_OUTPUT"
-fi
+    '{total_coverage: $total_coverage, tests: $tests}'

@@ -135,7 +135,7 @@ jobs:
           done
 
           echo "installed-slices=$list" >> $GITHUB_OUTPUT
-      
+
       - name: Create json coverage report
         id: json-coverage-report
         env:
@@ -144,8 +144,13 @@ jobs:
           set -ex
           ./${{ env.script-dir }}/coverage-report \
             "${{ steps.list-committed-slices.outputs.commited-slices }}" \
-            "${{ steps.list-installed-slices.outputs.installed-slices }}"
-       
+            "${{ steps.list-installed-slices.outputs.installed-slices }}" \
+            > coverage-report.json
+          
+          echo "json_report<<EOF" >> "$GITHUB_OUTPUT"
+          cat coverage-report.json >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
       - name: Create markdown comment
         id: md-summary
         run: |
