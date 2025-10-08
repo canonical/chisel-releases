@@ -1,4 +1,4 @@
-summary: Integration tests for .NET 9 Host 
+summary: Integration tests for .NET 8 Host 
 
 variants:
     - +WithoutLibicu
@@ -12,7 +12,7 @@ environment:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
 
 prepare: |
-  required_slices=(dotnet-runtime-9.0_core)
+  required_slices=(dotnet-runtime-8.0_core)
   if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
     required_slices+=(libicu76_libs)
   fi
