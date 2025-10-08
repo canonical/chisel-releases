@@ -53,7 +53,7 @@ def configure_logging() -> None:
     """
     # Console handler for INFO and above
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
+    console_handler.setLevel(logging.DEBUG)
     console_handler.setFormatter(logging.Formatter("%(levelname)s: %(message)s"))
 
     # File handler for ERROR and above
