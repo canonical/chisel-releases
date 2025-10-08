@@ -6,44 +6,7 @@ essential:
 slices:
   core:
     essential:
-      - coreutils_delaying
-      - coreutils_directory-listing
-      - coreutils_dirname
-      - coreutils_echo
-      - coreutils_expr
-      - coreutils_output-of-entire-files
-      - coreutils_rm-utility
-      - coreutils_special-file-types
-      - coreutils_system-context
-      - coreutils_touch
-      - coreutils_working-context
-      - dash_bins
-      - debianutils_which
-      - grep_bins
-      - openjdk-21-jre-headless_jfr
-      - openjdk-21-jre-headless_management
-      - openjdk-21-jre-headless_security
-      - procps_bins
-      - tomcat10_catalina-base
-
-  standard:
-    essential:
-      - tomcat10-common_i18n
-      - tomcat10_core
-
-  dev:
-    essential:
-      - tomcat10-common_extra-scripts
-      - tomcat10_standard
-
-  catalina-home:
-    essential:
-      - tomcat10-common_jars
       - tomcat10-common_scripts
-
-  catalina-base:
-    essential:
-      - tomcat10_catalina-home
     contents:
       /etc/tomcat10/Catalina/:
       /etc/tomcat10/catalina.properties:
@@ -73,6 +36,16 @@ slices:
       /var/lib/tomcat10/webapps/:
       /var/lib/tomcat10/work:
       /var/log/tomcat10/:
+
+  standard:
+    essential:
+      - tomcat10-common_i18n
+      - tomcat10_core
+
+  dev:
+    essential:
+      - tomcat10-common_extra-scripts
+      - tomcat10_standard
 
   copyright:
     content:
