@@ -1,0 +1,34 @@
+package: php8.4-opcache
+
+essential:
+  - php8.4-opcache_copyright
+
+slices:
+  cli-module:
+    essential:
+      - php8.4-opcache_libs
+    contents:
+      # This symlink enables this module for the CLI SAPI
+      /etc/php/8.4/cli/conf.d/10-opcache.ini:
+        { symlink: /etc/php/8.4/mods-available/opcache.ini }
+
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - php-common_scripts
+      - php8.4-opcache_config
+    contents:
+      /usr/lib/php/*/opcache.so:
+      /var/lib/php/modules/8.4/registry/opcache: { text: "" }
+
+  config:
+    contents:
+      /etc/php/8.4/mods-available/opcache.ini:
+        { copy: /usr/share/php8.4-opcache/opcache/opcache.ini }
+
+  copyright:
+    essential:
+      - php8.4-common_copyright
+    contents:
+      /usr/share/doc/php8.4-opcache:
