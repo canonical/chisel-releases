@@ -236,6 +236,7 @@ def query_package_existence(
     res = subprocess.run(args, capture_output=True, text=True, check=False)
     if res.returncode != 0:
         logging.error("Failed to query the archives %d", res.returncode)
+        logging.error("==============================================\n%s", res.stderr)
         sys.exit(res.returncode)
     output = res.stdout.rstrip()
     logging.debug("Archive query output:\n%s", output)
