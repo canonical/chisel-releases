@@ -265,15 +265,14 @@ def query_package_existence(
     This function breaks down the package list into batches, to avoid
     URI length limits.
     """
-    found = []
-    missing = []
-    for i in range(0, len(packages), batch_size):
-        batch = packages[i : i + batch_size]
+    n_batches = math.ceil(len(packages) / batch_size)
+    found, missing = set(), set()
+    for i in range(n_batches):
+        batch = packages[i * batch_size : (i + 1) * batch_size]
+        logging.info("Querying packages batch %d/%d (%s ... %s)...", i + 1, n_batches, batch[0], batch[-1])
         f, m = _query_package_existence(batch, archive, arch)
-        found += f
-        missing += m
-    found = list(set(found))
-    missing = list(set(missing))
+        found.update(f)
+        missing.update(m)
     return sorted(found), sorted(missing)
 
 def ensure_package_existence(packages: list[str], archive: Archive) -> None:
