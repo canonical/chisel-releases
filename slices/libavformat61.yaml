@@ -21,7 +21,7 @@ slices:
       - librist4_libs
       - libsrt1.5-gnutls_libs
       - libssh-4_libs
-      - libxml2_libs
+      - libxml2-16_libs
       - libzmq5_libs
       - zlib1g_libs
     contents:
