@@ -14,7 +14,7 @@ slices:
       - libglib2.0-0t64_libs
       - libpango-1.0-0_libs
       - libpangocairo-1.0-0_libs
-      - libxml2_libs
+      - libxml2-16_libs
     contents:
       /usr/lib/*-linux-*/librsvg-2.so.2*:
 

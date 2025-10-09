@@ -51,13 +51,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
+      - gnu-coreutils_cat
       - gnu-coreutils_od-utility
       - libc6_libs
     contents:
       /usr/bin/gnubase32:
       /usr/bin/gnubase64:
       /usr/bin/gnubasenc:
-      /usr/bin/gnucat:
       /usr/bin/gnunl:
       /usr/bin/gnutac:
 
@@ -142,12 +142,12 @@ slices:
   directory-listing:
     essential:
       - gnu-coreutils_dir
+      - gnu-coreutils_ls-utility
       - libc6_libs
       - libcap2_libs
       - libselinux1_libs
     contents:
       /usr/bin/gnudircolors:
-      /usr/bin/gnuls:
       /usr/bin/gnuvdir:
 
   # Basic operations -- This slice contains the commands for basic file
@@ -459,6 +459,20 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/gnudir:
+      
+  cat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnucat:
+
+  ls-utility:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnuls:
 
   head:
     essential:

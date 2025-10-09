@@ -10,7 +10,7 @@ slices:
       - libfontconfig1_libs
       - libfreetype6_libs
       - libudfread0_libs
-      - libxml2_libs
+      - libxml2-16_libs
     contents:
       /usr/lib/*-linux-*/libbluray.so.2*:
 
