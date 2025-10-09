@@ -117,41 +117,24 @@ jobs:
         with:
           name: manifests_${{ matrix.runner.name }}
 
-      - name: List committed slices
-        id: list-committed-slices
-        run: |
-          list=""
-          for file in ${{ needs.spread-tests.outputs.slices_files }}
-          do
-            slices=$(yq '... comments=""' $file | yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")')
-            list="$list $slices"
-          done
-
-          echo "committed-slices=$list" >> $GITHUB_OUTPUT
-      
-      - name: List installed slices
-        id: list-installed-slices
+      - name: List slices in changed files
         run: |
           set -x
 
-          list=""
-          for file in $(find "${{ env.MANIFESTS_EXPORT_DIR }}/" -type f); do
-            slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name' | xargs)
-            list="$list $slices"
-          done
-
-          echo "installed-slices=$list" >> $GITHUB_OUTPUT
+          while IFS= read -r file; do
+            yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")' $file
+          done <<< "${{ needs.spread-tests.outputs.slices_files }}" | \
+            xargs -n1 | sort -u > slices-in-changed-files.txt
+          
+          # Temp show file content
+          cat slices-in-changed-files.txt
 
       - name: Create json coverage report
         id: json-coverage-report
-        env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/test-coverage"
         run: |
           set -ex
-          ./${{ env.script-dir }}/coverage-report \
-            "${{ steps.list-committed-slices.outputs.committed-slices }}" \
-            "${{ steps.list-installed-slices.outputs.installed-slices }}" \
-            > coverage-report.json
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
+          ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report.json
 
       - name: Create markdown comment
         id: md-summary
