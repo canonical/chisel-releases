@@ -190,3 +190,4 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message-path: ${{ steps.md-summary.outputs.msg_file }}
+          message-id: coverage-summary
