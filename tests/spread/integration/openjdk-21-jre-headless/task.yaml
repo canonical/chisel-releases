@@ -31,6 +31,7 @@ execute: |
     case ${SLICE} in
       awt)
         chroot . ${java} /ImageTest.java
+        file -i HelloWorld.png | grep -q "image/png; charset=binary"
       ;;
       class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
