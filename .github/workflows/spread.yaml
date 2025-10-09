@@ -104,6 +104,8 @@ jobs:
     permissions:
       pull-requests: write
     steps:
+      - uses: actions/checkout@v4
+
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
