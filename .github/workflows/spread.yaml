@@ -127,11 +127,13 @@ jobs:
             list="$list $slices"
           done
 
-          echo "commited-slices=$list" >> $GITHUB_OUTPUT
+          echo "committed-slices=$list" >> $GITHUB_OUTPUT
       
       - name: List installed slices
         id: list-installed-slices
         run: |
+          set -x
+
           list=""
           for file in $(find "manifests_${{ matrix.runner.name }}" -type f); do
             slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name' | xargs)
@@ -147,18 +149,16 @@ jobs:
         run: |
           set -ex
           ./${{ env.script-dir }}/coverage-report \
-            "${{ steps.list-committed-slices.outputs.commited-slices }}" \
+            "${{ steps.list-committed-slices.outputs.committed-slices }}" \
             "${{ steps.list-installed-slices.outputs.installed-slices }}" \
             > coverage-report.json
-          
-          echo "json_report<<EOF" >> "$GITHUB_OUTPUT"
-          cat coverage-report.json >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
 
       - name: Create markdown comment
         id: md-summary
         run: |
-          json=${{ steps.json-coverage-report.outputs.json_report }}
+          set -x
+
+          json=$(cat coverage-report.json)
 
           msg_file="${msg_file:-$(mktemp)}"
           echo "msg_file=$msg_file" >> $GITHUB_OUTPUT
