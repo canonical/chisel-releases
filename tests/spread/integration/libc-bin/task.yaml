@@ -20,14 +20,14 @@ execute: |
       ! chroot "${rootfs}" getent hosts localhost
       mkdir "${rootfs}/etc"
       echo "::1 localhost" > "${rootfs}/etc/hosts"
-      chroot "${rootfs}" getent hosts localhost    
+      chroot "${rootfs}" getent hosts localhost
     ;;
-    case iconv) 
+    iconv)
       in=Foo
       echo $in | (chroot "$rootfs" /usr/bin/iconv -f cp1252 -t UNICODE) > test.txt
       out=$(cat test.txt | chroot "$rootfs" /usr/bin/iconv -t cp1252 -f UNICODE)
       test "$out" = "$in"
-    ;; 
+    ;;
     ldconfig)
       chroot "$rootfs" ldconfig
       chroot "$rootfs" ldconfig -p | grep libc.so.6
