@@ -116,7 +116,7 @@ jobs:
         id: list-committed-slices
         run: |
           list=""
-          for file in ${{ jobs.spread-tests.outputs.slices_files }}
+          for file in ${{ needs.spread-tests.outputs.slices_files }}
           do
             slices=$(yq '... comments=""' $file | yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")')
             list="$list $slices"
