@@ -1,5 +1,8 @@
 package: libpython3.13-stdlib
 
+essential:
+  - libpython3.13-stdlib_copyright
+
 # The slices in this package have been grouped with inspiration from the
 # Python 3.13 Standard Library
 # (https://docs.python.org/3.13/library/index.html).
@@ -408,3 +411,9 @@ slices:
       /usr/lib/python3.13/__hello__.py:
       /usr/lib/python3.13/antigravity.py:
       /usr/lib/python3.13/this.py:
+
+  copyright:
+    essential:
+      - libpython3.13-minimal_copyright
+    contents:
+      /usr/share/doc/libpython3.13-stdlib:
