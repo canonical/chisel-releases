@@ -135,7 +135,7 @@ jobs:
           set -x
 
           list=""
-          for file in $(find "manifests_${{ matrix.runner.name }}" -type f); do
+          for file in $(find "${{ env.MANIFESTS_EXPORT_DIR }}/" -type f); do
             slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name' | xargs)
             list="$list $slices"
           done
@@ -168,12 +168,15 @@ jobs:
           echo "- Total Coverage: ${total}%" >> $msg_file
           echo "- Per Package:" >> $msg_file
 
-          echo "$json" | jq -r '.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(", "))"' | while read pkg coverage count missing; do
+          echo "$json" | jq -r '.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(","))"' | while read pkg coverage count missing; do
             if [ "$count" -eq 0 ]; then
               echo "  - \`$pkg\`: ✅ ${coverage}% (0 missing)" >> $msg_file
             else
               echo "  - \`$pkg\`: ❌ ${coverage}% (${count} missing)" >> $msg_file
-              echo "    - ${missing}" | sed 's/, /, `/g; s/^/    - `/; s/$/`/' >> $msg_file
+              IFS=',' read -ra items <<< "$missing"
+              for item in "${items[@]}"; do
+                echo "    - \`$(echo "$item" | xargs)\`" >> $msg_file
+              done
             fi
           done
 
