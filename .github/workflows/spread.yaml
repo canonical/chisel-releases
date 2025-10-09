@@ -115,7 +115,7 @@ jobs:
       - name: Download manifests
         uses: actions/download-artifact@v4
         with:
-          name: manifests_X64
+          name: manifests_${{ matrix.runner.name }}
 
       - name: List committed slices
         id: list-committed-slices
@@ -133,8 +133,8 @@ jobs:
         id: list-installed-slices
         run: |
           list=""
-          for file in $(find "${{ env.MANIFESTS_EXPORT_DIR }}" -type f); do
-            slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name')
+          for file in $(find "manifests_${{ matrix.runner.name }}" -type f); do
+            slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name' | xargs)
             list="$list $slices"
           done
 
