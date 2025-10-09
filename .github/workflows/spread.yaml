@@ -4,6 +4,9 @@ run-name: Spread for ${{ github.ref }}
 on:
   workflow_call:
 
+env:
+  MANIFESTS_EXPORT_DIR: manifests
+
 jobs:
   spread-tests:
     outputs:
@@ -84,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manifests_${{ matrix.runner.name }}
-          path: ~/manifests/**/*.wall
+          path: ~/${{ env.MANIFESTS_EXPORT_DIR }}/**/*.wall
           overwrite: true
 
   test-coverage:
@@ -128,10 +131,9 @@ jobs:
         id: list-installed-slices
         run: |
           list=""
-          for file in $(find manifests/)
-          do
+          for file in $(find "${{ env.MANIFESTS_EXPORT_DIR }}" -type f); do
             slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name')
-            list="$slit $slices"
+            list="$list $slices"
           done
 
           echo "installed-slices=$list" >> $GITHUB_OUTPUT
