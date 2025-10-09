@@ -16,15 +16,21 @@ slices:
       - sudo_config
       - sudo_libs
       - zlib1g_libs
+    # sudo and visudo are symlinked to their .ws variants
+    # to mimic the behavior of postinst which uses `update-alternatives`
+    # in the future use `prefer` to resolve any conflicts with other
+    # packages providing sudo/visudo (e.g. sudo-rs)
     contents:
-      /usr/bin/cvtsudoers:
-      /usr/bin/sudo:
+      /usr/bin/cvtsudoers.ws:
+      /usr/bin/sudo: {symlink: sudo.ws}
+      /usr/bin/sudo.ws:
       /usr/bin/sudoedit:
-      /usr/bin/sudoreplay:
+      /usr/bin/sudoreplay.ws:
       /usr/libexec/sudo/sesh:
       /usr/sbin/sudo_logsrvd:
-      /usr/sbin/sudo_sendlog:
-      /usr/sbin/visudo:
+      /usr/sbin/sudo_sendlog.ws:
+      /usr/sbin/visudo: {symlink: visudo.ws}
+      /usr/sbin/visudo.ws:
 
   config:
     contents:

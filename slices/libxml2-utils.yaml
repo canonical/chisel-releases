@@ -7,7 +7,8 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - libxml2_libs
+      - libreadline8t64_libs
+      - libxml2-16_libs
     contents:
       /usr/bin/xmlcatalog:
       /usr/bin/xmllint:

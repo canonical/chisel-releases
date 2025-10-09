@@ -1,18 +1,38 @@
 summary: Integration tests for .NET 9 Runtime 
 
-execute: |
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+
+environment:
+  # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
+  # disable noisy help text for users who run .NET for the first time
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+prepare: |
+  required_slices=()
+  if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(dotnet-runtime-9.0_core)
+  else
+    required_slices+=(dotnet-runtime-9.0_standard)
+  fi
+  
   # install slices
-  rootfs="$(install-slices dotnet-runtime-9.0_libs base-files_base)"
-  mv "${rootfs}"/usr/lib/dotnet/dotnet9 "${rootfs}"/usr/lib/dotnet/dotnet
-  ln -s ../lib/dotnet/dotnet "${rootfs}"/usr/bin/dotnet
+  rootfs="$(install-slices ${required_slices[@]})"
+  echo "$rootfs" > ROOTFS
 
   # preparing the test data
-  apt update && apt install -y dotnet-sdk-9.0
+  apt-get update && apt-get install -y dotnet-sdk-9.0
   cp -r app_helloworld "${rootfs}"/app_helloworld
   dotnet publish "${rootfs}"/app_helloworld/Hello.csproj --no-self-contained
 
   mkdir -p "${rootfs}"/proc
   mount --bind /proc "${rootfs}"/proc
 
+execute: |
+  rootfs="$(cat ROOTFS)"
+
   # test the helloworld app
-  chroot "${rootfs}" dotnet /app_helloworld/bin/Release/net9.0/Hello.dll
+  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net9.0/Hello.dll | grep -q "Hello, World!"
