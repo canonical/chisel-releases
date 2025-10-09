@@ -459,7 +459,7 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/gnudir:
-      
+
   cat:
     essential:
       - libc6_libs
