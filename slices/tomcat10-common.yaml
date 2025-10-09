@@ -1,0 +1,62 @@
+package: tomcat10-common
+
+essential:
+  - tomcat10-common_copyright
+
+slices:
+  # additional shell scripts
+  bins:
+    essential:
+      - tomcat10-common_core
+    contents:
+      /usr/share/tomcat10/bin/ciphers.sh:
+      /usr/share/tomcat10/bin/configtest.sh:
+      /usr/share/tomcat10/bin/daemon.sh:
+      /usr/share/tomcat10/bin/digest.sh:
+      /usr/share/tomcat10/bin/makebase.sh:
+      /usr/share/tomcat10/bin/migrate.sh:
+      /usr/share/tomcat10/bin/shutdown.sh:
+      /usr/share/tomcat10/bin/startup.sh:
+      /usr/share/tomcat10/bin/tool-wrapper.sh:
+      /usr/share/tomcat10/bin/version.sh:
+
+  core:
+    essential:
+      - libtomcat10-java_i18n-common
+      - libtomcat10-java_libs
+    contents:
+      /usr/share/tomcat10/bin/bootstrap.jar:
+      /usr/share/tomcat10/bin/catalina-tasks.xml:
+      /usr/share/tomcat10/bin/catalina.sh:
+      /usr/share/tomcat10/bin/setclasspath.sh:
+      /usr/share/tomcat10/bin/tomcat-juli.jar:
+      /usr/share/tomcat10/lib/annotations-api.jar:
+      /usr/share/tomcat10/lib/catalina-ant.jar:
+      /usr/share/tomcat10/lib/catalina-ha.jar:
+      /usr/share/tomcat10/lib/catalina-storeconfig.jar:
+      /usr/share/tomcat10/lib/catalina-tribes.jar:
+      /usr/share/tomcat10/lib/catalina.jar:
+      /usr/share/tomcat10/lib/el-api.jar:
+      /usr/share/tomcat10/lib/jasper-el.jar:
+      /usr/share/tomcat10/lib/jasper.jar:
+      /usr/share/tomcat10/lib/jaspic-api.jar:
+      /usr/share/tomcat10/lib/jsp-api.jar:
+      /usr/share/tomcat10/lib/servlet-api.jar:
+      /usr/share/tomcat10/lib/tomcat-api.jar:
+      /usr/share/tomcat10/lib/tomcat-coyote.jar:
+      /usr/share/tomcat10/lib/tomcat-dbcp.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-es.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-fr.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-ja.jar:
+      /usr/share/tomcat10/lib/tomcat-i18n-ru.jar:
+      /usr/share/tomcat10/lib/tomcat-jdbc.jar:
+      /usr/share/tomcat10/lib/tomcat-jni.jar:
+      /usr/share/tomcat10/lib/tomcat-util-scan.jar:
+      /usr/share/tomcat10/lib/tomcat-util.jar:
+      /usr/share/tomcat10/lib/tomcat-websocket.jar:
+      /usr/share/tomcat10/lib/websocket-api.jar:
+      /usr/share/tomcat10/lib/websocket-client-api.jar:
+
+  copyright:
+    contents:
+      /usr/share/doc/tomcat10-common/copyright:
