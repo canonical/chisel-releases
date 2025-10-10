@@ -119,15 +119,11 @@ jobs:
 
       - name: List slices in changed files
         run: |
-          set -x
-
+          set -ex
           while IFS= read -r file; do
             yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")' $file
           done <<< "${{ needs.spread-tests.outputs.slices_files }}" | \
             xargs -n1 | sort -u > slices-in-changed-files.txt
-          
-          # Temp show file content
-          cat slices-in-changed-files.txt
 
       - name: Create json coverage report
         id: json-coverage-report
@@ -137,13 +133,10 @@ jobs:
           ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report.json
 
       - name: Create markdown comment
-        id: md-summary
         run: |
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
-          msg_file="coverage-summary.md"
-          echo "msg_file=$msg_file" >> $GITHUB_OUTPUT
-          coverage-to-md coverage-report.json "$msg_file"
+          ./coverage-to-md coverage-report.json > coverage-summary.md
 
       - name: Upload report
         uses: actions/upload-artifact@v4
@@ -154,5 +147,5 @@ jobs:
       - name: Post comment to PR
         uses: mshick/add-pr-comment@v2
         with:
-          message-path: ${{ steps.md-summary.outputs.msg_file }}
+          message-path: coverage-summary.md
           message-id: coverage-summary

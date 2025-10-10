@@ -1,27 +1,39 @@
 #!/bin/bash
-#spellchecker: ignore msg_file
 
 set -euo pipefail
 
 function main {
     json=$(cat "$1")
-    msg_file="${2:-./coverage-report.md}"
 
-    total=$(echo "$json" | jq '.total_coverage')
-    echo "### ✅ Coverage Report" > "$msg_file"
-    echo "- Total Coverage: ${total}%" >> "$msg_file"
-    echo "- Per Package:" >> "$msg_file"
+    total=$(echo "$json" | jq -r '.total_coverage')
+    echo "### Coverage Report"
+    echo "Total Coverage: ${total}%"
+    echo ""
 
-    echo "$json" | jq -r '.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(","))"' | while read -r pkg coverage count missing; do
+    local jq_program='.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
+    echo "$json" | jq -r "$jq_program" | while read -r pkg coverage count missing; do
+    
+    echo "<details>"
+    
     if [ "$count" -eq 0 ]; then
-        echo "  - \`$pkg\`: ✅ ${coverage}% (0 missing)" >> "$msg_file"
+        echo "<summary>\`${pkg}\`: ✅ ${coverage}% (0 missing)</summary>"
     else
-        echo "  - \`$pkg\`: ❌ ${coverage}% (${count} missing)" >> "$msg_file"
-        IFS=',' read -ra items <<< "$missing"
+        echo "<summary>\`${pkg}\`: ❌ ${coverage}% (${count} missing)</summary>"
+        
+        echo ""
+        echo "\`\`\`"
+        
+        IFS=' ' read -ra items <<< "$missing"
         for item in "${items[@]}"; do
-        echo "    - \`$(echo "$item" | xargs)\`" >> "$msg_file"
+            echo "$(echo "$item" | xargs)"
         done
+        
+        echo "\`\`\`"
     fi
+    
+    echo "</details>"
+    echo ""
+    
     done
 }
 
