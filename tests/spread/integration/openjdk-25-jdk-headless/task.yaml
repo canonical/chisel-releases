@@ -6,11 +6,17 @@ environment:
   SLICE/modules: "modules"
 
 execute: |
+  set -x
+  echo "SLICE=${SLICE}"
+  rootfs="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins)"
+
   pids=()
   cleanup() {
     for pid in "${pids[@]}"; do
-      kill "$pid" 2>/dev/null
+      kill -9 "$pid" 2>/dev/null || true
     done
+    umount "$rootfs/proc"
+
     apt remove -y --purge openjdk-25-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
@@ -24,105 +30,107 @@ execute: |
   pids+=("$pid")
 
   # Test different slice installations
-  echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins)"
+  java=/$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
+  jlink=/$(find "$rootfs" -name jlink -type f -printf '%P\n' -quit 2>/dev/null)
+  jmod=/$(find "$rootfs" -name jmod -type f -printf '%P\n' -quit 2>/dev/null)
+  home=$(dirname ${java})
+
   cp *.java ${rootfs}/
   javac *.java
   cp *.class ${rootfs}/
-  cd ${rootfs}
-  mkdir -p proc sys tmp
-  mount --bind /proc proc
-  mount --bind /sys sys
-  mount --bind /tmp tmp
+
+  # Make fake /dev/null and mount /proc
+  mkdir -p "$rootfs/dev"
+  touch "$rootfs/dev/null"
+  chmod +x "$rootfs/dev/null"
+  mkdir -p "$rootfs/proc"
+  mkdir -p "$rootfs/tmp"
+  sudo mount --bind /proc "$rootfs/proc"
+  export JAVA_HOME="$(dirname $(dirname ${java}))"
+
   case ${SLICE} in
     core)
-      for java in `find usr/lib/jvm -name java`; do
-        home=$(dirname ${java})
-        # /usr/lib/jvm/java-25-openjdk-*/bin/javac:
-        chroot . ${home}/javac /Main.java -d /
-        # /usr/lib/jvm/java-25-openjdk-*/bin/javadoc:
-        chroot . ${home}/javadoc /Main.java
-        # /usr/lib/jvm/java-25-openjdk-*/bin/javap:
-        chroot . ${home}/javap -l /Main.class
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jdeprscan:
-        chroot . ${home}/jdeprscan --class-path . Main
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jdeps:
-        chroot . ${home}/jdeps -m java.base
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jimage:
-        chroot . ${home}/jimage info ${home}/../lib/modules
-        # /usr/lib/jvm/java-25-openjdk-*/bin/serialver:
-        chroot . ${home}/serialver -classpath / SerializableObject
-      done
+      # /usr/lib/jvm/java-25-openjdk-*/bin/javac:
+      chroot ${rootfs} ${home}/javac /Main.java -d /
+      # /usr/lib/jvm/java-25-openjdk-*/bin/javadoc:
+      chroot ${rootfs} ${home}/javadoc /Main.java
+      # /usr/lib/jvm/java-25-openjdk-*/bin/javap:
+      chroot ${rootfs} ${home}/javap -l /Main.class
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jdeprscan:
+      chroot ${rootfs} ${home}/jdeprscan --class-path . Main
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jdeps:
+      chroot ${rootfs} ${home}/jdeps -m java.base
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jimage:
+      chroot ${rootfs} ${home}/jimage info ${home}/../lib/modules
+      # /usr/lib/jvm/java-25-openjdk-*/bin/serialver:
+      chroot ${rootfs} ${home}/serialver -classpath / SerializableObject
       ;;
     standard)
-      for java in `find usr/lib/jvm -name java`; do
-        home=$(dirname ${java})
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
-        chroot . ${home}/jar cvf test.jar *.java
-        DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
-        chroot . ${home}/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
-        chroot . ${home}/jarsigner -keystore foo -storepass barbar test.jar foo
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jdb:
-        chroot . /usr/bin/sh -c "echo run | ${home}/jdb Main.java"
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jcmd:
-        chroot . ${home}/jcmd jdk.compiler/com.sun.tools.javac.launcher.Main VM.version
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
-        if [ -f ${home}/jhsdb ]; then
-          chroot . ${home}/jhsdb jstack --pid ${pid}
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
+      chroot ${rootfs} ${home}/jar cvf test.jar *.java
+      DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
+      chroot ${rootfs} ${home}/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
+      chroot ${rootfs} ${home}/jarsigner -keystore foo -storepass barbar test.jar foo
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jdb:
+      chroot ${rootfs} /usr/bin/sh -c "echo run | ${home}/jdb Main.java"
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jcmd:
+      chroot ${rootfs} ${home}/jcmd ${pid} VM.version
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
+      if [ -f ${home}/jhsdb ]; then
+        chroot ${rootfs} ${home}/jhsdb jstack --pid ${pid}
+      fi
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
+      # nb. we are dumping host process
+      chroot ${rootfs} ${home}/jcmd ${pid} JFR.start name=recording filename=${rootfs}/recording.jfr maxsize=1MB
+      chroot ${rootfs} ${home}/jcmd ${pid} JFR.stop
+      chroot ${rootfs} ${home}/jcmd ${pid} JFR.dump name=recording  filename=${rootfs}/recording.jfr
+      chroot ${rootfs} ${home}/jfr print recording.jfr > /dev/null
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
+      chroot ${rootfs} ${home}/jinfo ${pid}
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jshell:
+      chroot ${rootfs} /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
+      chroot ${rootfs} ${home}/jmap -clstats ${pid}
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
+      mkdir ${rootfs}/nativetest
+      cp Native.class ${rootfs}/nativetest
+      chroot ${rootfs} ${home}/jnativescan -class-path /nativetest | grep -q ALL-UNNAMED
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jps:
+      chroot ${rootfs} ${home}/jps -l
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
+      chroot ${rootfs} ${home}/jstack ${pid}
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
+      chroot ${rootfs} ${home}/jstat -gc ${pid}
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
+      nohup chroot ${rootfs} ${home}/jstatd > ./jstatd.log &
+      pids+=($!)
+      for retry in 0 1 2 3 4 5; do
+        if [ ${retry} -eq 5 ]; then
+          exit 1
         fi
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
-        chroot . ${home}/jcmd ${pid} JFR.start maxsize=1MB
-        chroot . ${home}/jcmd ${pid} JFR.stop
-        chroot . ${home}/jcmd ${pid} JFR.dump filename=/tmp/recording.jfr
-        chroot . ${home}/jfr print /tmp/recording.jfr > /dev/null
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
-        chroot . ${home}/jinfo ${pid}
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jshell:
-        chroot . /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
-        chroot . ${home}/jmap ${pid}
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jps:
-        chroot . ${home}/jps -l
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
-        chroot . ${home}/jstack ${pid}
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
-        chroot . ${home}/jstat -gc ${pid}
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd > ./jstatd.log &
-        pids+=($!)
-        for retry in 0 1 2 3 4 5; do
-          if [ ${retry} -eq 5 ]; then
-            exit 1
-          fi
-          grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
-          sleep 10
-        done
-        # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
-        nohup chroot . ${home}/jwebserver &
+        grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
         sleep 10
-        pids+=($!)
-        for retry in 0 1 2 3 4 5; do
-          if [ ${retry} -eq 5 ]; then
-            exit 1
-          fi
-          curl http://127.0.0.1:8000 && break
-          sleep 10
-        done
-        # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
-        ${home}/jrunscript -q
       done
+      # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
+      nohup chroot ${rootfs} ${home}/jwebserver &
+      sleep 10
+      pids+=($!)
+      for retry in 0 1 2 3 4 5; do
+        if [ ${retry} -eq 5 ]; then
+          exit 1
+        fi
+        curl http://127.0.0.1:8000 && break
+        sleep 10
+      done
+      # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
+      chroot ${rootfs} ${home}/jrunscript -q
       ;;
     modules)
-      cd ${rootfs}
-      for jlink in `find usr/lib/jvm -name jlink`; do
-        output=$(basename $(mktemp -u))
-        chroot . ${jlink} --add-modules java.base --output ${output}
-        rm -rf ${rootfs}/${output}
-      done
-      for jmod in `find usr/lib/jvm -name jmod`; do
-        home=$(dirname ${jmod})
-        chroot . ${jmod} list ${home}/../jmods/java.rmi.jmod
-      done
+      output=$(basename $(mktemp -u))
+      chroot ${rootfs} ${jlink} --add-modules java.base --output ${output}
+      rm -rf ${rootfs}/${output}
+      home=$(dirname ${jmod})
+      chroot ${rootfs} ${jmod} list ${home}/../jmods/java.rmi.jmod
       ;;
   esac

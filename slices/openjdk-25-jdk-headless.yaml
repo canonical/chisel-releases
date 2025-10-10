@@ -35,8 +35,12 @@ slices:
         arch:
           - amd64
           - arm64
+          - ppc64el
+          - riscv64
+          - s390x
       /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
       /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
       /usr/lib/jvm/java-25-openjdk-*/bin/jps:
       /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
       /usr/lib/jvm/java-25-openjdk-*/bin/jshell:
@@ -82,6 +86,16 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.crypto.ec.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.dynalink.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.editpad.jmod:
+      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.graal.compiler.jmod:
+        arch:
+          - amd64
+          - arm64
+          - riscv64
+      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.graal.compiler.management.jmod:
+        arch:
+          - amd64
+          - arm64
+          - riscv64
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.hotspot.agent.jmod:
         arch:
           - amd64
@@ -89,21 +103,14 @@ slices:
           - ppc64el
           - riscv64
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.httpserver.jmod:
+      # exclude incubating API
+      # /usr/lib/jvm/java-25-openjdk-amd64/jmods/jdk.incubator.vector.jmod
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.ed.jmod:
+      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.md.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.jvmstat.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.le.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.opt.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.vm.ci.jmod:
-        arch:
-          - amd64
-          - arm64
-          - riscv64
-      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.vm.compiler.jmod:
-        arch:
-          - amd64
-          - arm64
-          - riscv64
-      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.vm.compiler.management.jmod:
         arch:
           - amd64
           - arm64
@@ -129,7 +136,6 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.naming.rmi.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.net.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.nio.mapmode.jmod:
-      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.random.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.sctp.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.security.auth.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.security.jgss.jmod:
