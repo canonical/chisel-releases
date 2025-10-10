@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -euo pipefail
+
+function main {
+    json=$(cat "$1")
+
+    total=$(echo "$json" | jq -r '.total_coverage')
+    echo "### Coverage Report"
+    echo "Total Coverage: ${total}%"
+    echo ""
+
+    local jq_program='.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
+    echo "$json" | jq -r "$jq_program" | while read -r pkg coverage count missing; do
+    
+    echo "<details>"
+    
+    if [ "$count" -eq 0 ]; then
+        echo "<summary><code>${pkg}</code>: ☂️ ${coverage}% (0 missing)</summary>"
+    else
+        echo "<summary><code>${pkg}</code>: 🌂 ${coverage}% (${count} missing)</summary>"
+        
+        echo ""
+        echo "\`\`\`"
+        
+        IFS=' ' read -ra items <<< "$missing"
+        for item in "${items[@]}"; do
+            echo "$(echo "$item" | xargs)"
+        done
+        
+        echo "\`\`\`"
+    fi
+    
+    echo "</details>"
+    echo ""
+    
+    done
+}
+
+main "$@"

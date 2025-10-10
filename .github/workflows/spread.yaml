@@ -4,8 +4,13 @@ run-name: Spread for ${{ github.ref }}
 on:
   workflow_call:
 
+env:
+  MANIFESTS_EXPORT_DIR: manifests
+
 jobs:
   spread-tests:
+    outputs:
+      slices_files: ${{ steps.changed-slices.outputs.slices_files }}
     strategy:
       matrix:
         runner:
@@ -71,7 +76,76 @@ jobs:
           echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
       - name: Build and run spread
+        id: run-spread
         if: ${{ steps.spread-suites.outputs.run-tasks }}
         run: |
           (cd _spread/cmd/spread && go build)
           _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}
+
+      - name: Upload manifests
+        if: ${{ steps.run-spread.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: manifests_${{ matrix.runner.name }}
+          path: ~/${{ env.MANIFESTS_EXPORT_DIR }}/**/*.wall
+          overwrite: true
+
+  test-coverage:
+    name: Test Coverage | ${{ matrix.runner.name }}
+    runs-on: ubuntu-latest
+    needs: [ spread-tests ]
+    strategy:
+      matrix:
+        runner:
+          - name: X64
+          # - name: ARM64
+    env:
+      main-branch-path: files-from-main
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      - name: Download manifests
+        uses: actions/download-artifact@v4
+        with:
+          name: manifests_${{ matrix.runner.name }}
+
+      - name: List slices in changed files
+        run: |
+          set -ex
+          while IFS= read -r file; do
+            yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")' $file
+          done <<< "${{ needs.spread-tests.outputs.slices_files }}" | \
+            xargs -n1 | sort -u > slices-in-changed-files.txt
+
+      - name: Create json coverage report
+        id: json-coverage-report
+        run: |
+          set -ex
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
+          ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report.json
+
+      - name: Create markdown comment
+        run: |
+          set -ex
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
+          ./coverage-to-md coverage-report.json > coverage-summary.md
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report.json
+          path: coverage-report.json
+
+      - name: Post comment to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: coverage-summary.md
+          message-id: coverage-summary
