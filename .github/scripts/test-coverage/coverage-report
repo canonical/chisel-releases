@@ -62,6 +62,8 @@ function main {
     log "Packages to check: ${packages//[$'\n']/ }"
 
     local tests_json="{}"
+    local total_changed=0
+    local total_present=0
 
     # For each package, get all the installed slices from the subdirectory in the manifests_dir
     for pkg in $packages; do
@@ -80,13 +82,16 @@ function main {
 
         local n_changed=$(count "$changed")
         local present=$(intersection "$changed" "$installed")
-        local total_present=$(count "$present")
-        local coverage_percent="0.00"
+        local n_present=$(count "$present")
+        local coverage="0.00"
         if [ "$n_changed" -gt 0 ]; then
-            coverage_percent=$(awk "BEGIN {printf \"%.2f\", ($total_present / $n_changed) * 100}")
+            coverage=$(awk "BEGIN {printf \"%.2f\", ($n_present / $n_changed) * 100}")
         fi
+        total_changed=$((total_changed + n_changed)) || true
+        total_present=$((total_present + n_present)) || true
+
         local missing=$(difference "$changed" "$installed")
-        log "Package $pkg: coverage $coverage_percent%, missing slices: ${missing//[$'\n']/ }"
+        log "Package $pkg: coverage $coverage%, missing slices: ${missing//[$'\n']/ }"
 
         local missing_json="[]"
         if [ -n "$missing" ]; then
@@ -94,16 +99,23 @@ function main {
         fi
 
         tests_json=$(jq --arg pkg "$pkg" \
-            --argjson coverage "$coverage_percent" \
+            --argjson coverage "$coverage" \
             --argjson missing "$missing_json" \
             '. + {($pkg): {coverage: $coverage, missing: $missing}}' \
             <<<"$tests_json")
     done
 
+    local total_coverage="0.00"
+    if [ "$total_changed" -gt 0 ]; then
+        total_coverage=$(awk "BEGIN {printf \"%.2f\", ($total_present / $total_changed) * 100}")
+    fi
+    log "Total coverage: $total_coverage% ($total_present/$total_changed)"
+
     # Output final JSON
     jq --monochrome-output -n \
         --argjson tests "$tests_json" \
-        '{tests: $tests}'
+        --argjson total_coverage "$total_coverage" \
+        '{total_coverage: $total_coverage, tests: $tests}'
 }
 
 main "$@"
