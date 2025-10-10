@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-
-if [[ "$1" != "--spread" ]]; then
-    FILE_DIR=$(realpath "$(dirname "$0")")
-    source "$FILE_DIR"/setup.sh
-fi
-
-## TESTS 
 # spellchecker: ignore rootfs binutils libbfd libopcodes libctf archiver
 
 this=$(uname -m)
