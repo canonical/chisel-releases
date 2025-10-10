@@ -1,2 +1,21 @@
 summary: Integration tests for binutils
-execute: ./run.sh --spread
+
+environment:
+    TEST/archiver_cross: archiver_cross
+    TEST/archiver: archiver
+    TEST/hello_cross: hello_cross
+    TEST/hello: hello
+    TEST/help_and_version_cross: help_and_version_cross
+    TEST/help_and_version: help_and_version
+
+execute: |
+    case $TEST in
+        archiver_cross) bash ./archiver_cross.sh ;;
+        archiver) bash ./archiver.sh ;;
+        hello_cross) bash ./hello_cross.sh ;;
+        hello) bash ./hello.sh ;;
+        help_and_version_cross) bash ./help_and_version_cross.sh ;;
+        help_and_version) bash ./help_and_version.sh ;;
+        *) echo "Unknown test: $TEST" ; exit 1 ;;
+    esac
+
