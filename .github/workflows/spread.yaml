@@ -139,29 +139,11 @@ jobs:
       - name: Create markdown comment
         id: md-summary
         run: |
-          set -x
-
-          json=$(cat coverage-report.json)
-
-          msg_file="${msg_file:-$(mktemp)}"
+          set -ex
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
+          msg_file="coverage-summary.md"
           echo "msg_file=$msg_file" >> $GITHUB_OUTPUT
-
-          total=$(echo "$json" | jq '.total_coverage')
-          echo "### ✅ Coverage Report" > $msg_file
-          echo "- Total Coverage: ${total}%" >> $msg_file
-          echo "- Per Package:" >> $msg_file
-
-          echo "$json" | jq -r '.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(","))"' | while read pkg coverage count missing; do
-            if [ "$count" -eq 0 ]; then
-              echo "  - \`$pkg\`: ✅ ${coverage}% (0 missing)" >> $msg_file
-            else
-              echo "  - \`$pkg\`: ❌ ${coverage}% (${count} missing)" >> $msg_file
-              IFS=',' read -ra items <<< "$missing"
-              for item in "${items[@]}"; do
-                echo "    - \`$(echo "$item" | xargs)\`" >> $msg_file
-              done
-            fi
-          done
+          coverage-to-md coverage-report.json "$msg_file"
 
       - name: Upload report
         uses: actions/upload-artifact@v4
