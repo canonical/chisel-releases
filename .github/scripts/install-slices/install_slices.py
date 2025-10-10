@@ -313,7 +313,7 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
-def chisel_cut(
+def _chisel_cut(
     *,
     arch: str,
     release: str,
@@ -352,6 +352,44 @@ def chisel_cut(
         return res.stderr.rstrip()
     return None
 
+def chisel_cut(
+    *,
+    arch: str,
+    release: str,
+    root: str,
+    slice_name: str,
+    chisel_version: str,
+    env: dict[str, str],
+    n_retries: int = 3,
+) -> str | None:
+    """
+    Run "chisel cut" to install the slice in the given root.
+    Retry up to n_retries times if a fetch error occurs.
+    Return an error message if something went wrong, or None on success.
+    """
+    fetch_error_substr = "error: cannot fetch from archive"
+
+    for attempt in range(1, n_retries + 1):
+        err = _chisel_cut(
+            arch=arch,
+            release=release,
+            root=root,
+            slice_name=slice_name,
+            chisel_version=chisel_version,
+            env=env,
+        )
+        if err is None:
+            return None
+        if fetch_error_substr in err and attempt < n_retries:
+            logging.warning(
+                "Fetch error occurred while installing %s (attempt %d/%d). Retrying...",
+                slice_name,
+                attempt,
+                n_retries,
+            )
+            continue
+        return err
+    
 def install_slices(
     chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
 ) -> None:
