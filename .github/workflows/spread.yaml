@@ -117,68 +117,33 @@ jobs:
         with:
           name: manifests_${{ matrix.runner.name }}
 
-      - name: List committed slices
-        id: list-committed-slices
-        run: |
-          list=""
-          for file in ${{ needs.spread-tests.outputs.slices_files }}
-          do
-            slices=$(yq '... comments=""' $file | yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")')
-            list="$list $slices"
-          done
-
-          echo "committed-slices=$list" >> $GITHUB_OUTPUT
-      
-      - name: List installed slices
-        id: list-installed-slices
+      - name: List slices in changed files
         run: |
           set -x
 
-          list=""
-          for file in $(find "${{ env.MANIFESTS_EXPORT_DIR }}/" -type f); do
-            slices=$(zstdcat $file | jq -r '. | select(.kind=="slice") | .name' | xargs)
-            list="$list $slices"
-          done
-
-          echo "installed-slices=$list" >> $GITHUB_OUTPUT
+          while IFS= read -r file; do
+            yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")' $file
+          done <<< "${{ needs.spread-tests.outputs.slices_files }}" | \
+            xargs -n1 | sort -u > slices-in-changed-files.txt
+          
+          # Temp show file content
+          cat slices-in-changed-files.txt
 
       - name: Create json coverage report
         id: json-coverage-report
-        env:
-          script-dir: "${{ env.main-branch-path }}/.github/scripts/test-coverage"
         run: |
           set -ex
-          ./${{ env.script-dir }}/coverage-report \
-            "${{ steps.list-committed-slices.outputs.committed-slices }}" \
-            "${{ steps.list-installed-slices.outputs.installed-slices }}" \
-            > coverage-report.json
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
+          ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report.json
 
       - name: Create markdown comment
         id: md-summary
         run: |
-          set -x
-
-          json=$(cat coverage-report.json)
-
-          msg_file="${msg_file:-$(mktemp)}"
+          set -ex
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
+          msg_file="coverage-summary.md"
           echo "msg_file=$msg_file" >> $GITHUB_OUTPUT
-
-          total=$(echo "$json" | jq '.total_coverage')
-          echo "### ✅ Coverage Report" > $msg_file
-          echo "- Total Coverage: ${total}%" >> $msg_file
-          echo "- Per Package:" >> $msg_file
-
-          echo "$json" | jq -r '.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(","))"' | while read pkg coverage count missing; do
-            if [ "$count" -eq 0 ]; then
-              echo "  - \`$pkg\`: ✅ ${coverage}% (0 missing)" >> $msg_file
-            else
-              echo "  - \`$pkg\`: ❌ ${coverage}% (${count} missing)" >> $msg_file
-              IFS=',' read -ra items <<< "$missing"
-              for item in "${items[@]}"; do
-                echo "    - \`$(echo "$item" | xargs)\`" >> $msg_file
-              done
-            fi
-          done
+          coverage-to-md coverage-report.json "$msg_file"
 
       - name: Upload report
         uses: actions/upload-artifact@v4
