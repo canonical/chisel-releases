@@ -313,13 +313,52 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+def chisel_cut(
+    *,
+    arch: str,
+    release: str,
+    root: str,
+    slice_name: str,
+    chisel_version: str,
+    env: dict[str, str],
+) -> str | None:
+    """
+    Run "chisel cut" to install the slice in the given root.
+    Return an error message if something went wrong, or None on success.
+    """
+
+    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
+    args = [
+        "chisel",
+        "cut",
+        "--arch",
+        arch,
+        "--release",
+        release,
+        "--root",
+        root,
+    ]
+    if extra_flag:
+        args += [extra_flag]
+    args += [slice_name]
+    res = subprocess.run(
+        args,
+        capture_output=True,
+        text=True,
+        check=False,
+        env=env,
+    )
+    if res.returncode != 0:
+        return res.stderr.rstrip()
+    return None
+
 def install_slices(
     chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
+    # extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
     for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
@@ -335,31 +374,16 @@ def install_slices(
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
             env = dict(os.environ)
             env["XDG_CACHE_HOME"] = str(cache_dir)
-            args=[
-                "chisel",
-                "cut",
-                "--arch",
-                arch,
-                "--release",
-                release,
-                "--root",
-                tmpfs,
-            ]
-            if extra_flag:
-                args += [extra_flag]
-            args += [slice_name]
-            res = subprocess.run(
-                args,
-                capture_output=True,
-                text=True,
-                check=False,
+            err = chisel_cut(
+                arch=arch,
+                release=release,
+                root=tmpfs,
+                slice_name=slice_name,
+                chisel_version=chisel_version,
                 env=env,
             )
-            if res.returncode != 0:
-                logging.error(
-                    "==============================================\n%s",
-                    res.stderr.rstrip(),
-                )
+            if err:
+                logging.error("==============================================\n%s", err)
                 return
 
             # Check if the copyright file has been installed with this slice
