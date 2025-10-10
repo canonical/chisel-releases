@@ -10,12 +10,12 @@ environment:
 
 execute: |
     case $TEST in
-        archiver_cross) bash ./archiver_cross.sh ;;
-        archiver) bash ./archiver.sh ;;
-        hello_cross) bash ./hello_cross.sh ;;
-        hello) bash ./hello.sh ;;
-        help_and_version_cross) bash ./help_and_version_cross.sh ;;
-        help_and_version) bash ./help_and_version.sh ;;
+        archiver_cross) bash ./test_archiver_cross.sh ;;
+        archiver) bash ./test_archiver.sh ;;
+        hello_cross) bash ./test_hello_cross.sh ;;
+        hello) bash ./test_hello.sh ;;
+        help_and_version_cross) bash ./test_help_and_version_cross.sh ;;
+        help_and_version) bash ./test_help_and_version.sh ;;
         *) echo "Unknown test: $TEST" ; exit 1 ;;
     esac
 
