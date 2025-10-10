@@ -1,0 +1,20 @@
+package: libplymouth5
+
+essential:
+  - libplymouth5_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libpng16-16t64_libs
+      - libudev1_libs
+    contents:
+      /usr/lib/*-linux-*/libply-boot-client.so.5*:
+      /usr/lib/*-linux-*/libply-splash-core.so.5*:
+      /usr/lib/*-linux-*/libply-splash-graphics.so.5*:
+      /usr/lib/*-linux-*/libply.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libplymouth5/copyright:
