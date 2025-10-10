@@ -16,9 +16,9 @@ function main {
     echo "<details>"
     
     if [ "$count" -eq 0 ]; then
-        echo "<summary>\`${pkg}\`: ✅ ${coverage}% (0 missing)</summary>"
+        echo "<summary><code>${pkg}</code>: ✅ ${coverage}% (0 missing)</summary>"
     else
-        echo "<summary>\`${pkg}\`: ❌ ${coverage}% (${count} missing)</summary>"
+        echo "<summary><code>${pkg}</code>: ❌ ${coverage}% (${count} missing)</summary>"
         
         echo ""
         echo "\`\`\`"
