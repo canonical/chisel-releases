@@ -13,18 +13,20 @@ slices:
   bins:
     essential:
       - coreutils_delaying
-      - coreutils_system-context
-      - coreutils_working-context
-      - coreutils_special-file-types
+      - coreutils_directory-listing
       - coreutils_dirname
       - coreutils_echo
       - coreutils_env
       - coreutils_expr
       - coreutils_libs
       - coreutils_mktemp
+      - coreutils_output-of-entire-files
       - coreutils_rm-utility
       - coreutils_sort
+      - coreutils_special-file-types
+      - coreutils_system-context
       - coreutils_touch
+      - coreutils_working-context
       - libacl1_libs
       - libattr1_libs
       - libc6_libs
@@ -37,11 +39,7 @@ slices:
     contents:
       /usr/bin/[:
       /usr/bin/b2sum:
-      /usr/bin/base32:
-      /usr/bin/base64:
       /usr/bin/basename:
-      /usr/bin/basenc:
-      /usr/bin/cat:
       /usr/bin/chcon:
       /usr/bin/chgrp:
       /usr/bin/chmod:
@@ -53,8 +51,6 @@ slices:
       /usr/bin/cut:
       /usr/bin/dd:
       /usr/bin/df:
-      /usr/bin/dir:
-      /usr/bin/dircolors:
       /usr/bin/du:
       /usr/bin/expand:
       /usr/bin/factor:
@@ -67,15 +63,12 @@ slices:
       /usr/bin/install:
       /usr/bin/join:
       /usr/bin/logname:
-      /usr/bin/ls:
       /usr/bin/md5sum:
       /usr/bin/md5sum.textutils:
       /usr/bin/mv:
       /usr/bin/nice:
-      /usr/bin/nl:
       /usr/bin/nohup:
       /usr/bin/numfmt:
-      /usr/bin/od:
       /usr/bin/paste:
       /usr/bin/pathchk:
       /usr/bin/pinky:
@@ -96,7 +89,6 @@ slices:
       /usr/bin/stdbuf:
       /usr/bin/sum:
       /usr/bin/sync:
-      /usr/bin/tac:
       /usr/bin/tail:
       /usr/bin/tee:
       /usr/bin/test:
@@ -108,7 +100,6 @@ slices:
       /usr/bin/unexpand:
       /usr/bin/uniq:
       /usr/bin/users:
-      /usr/bin/vdir:
       /usr/bin/wc:
       /usr/bin/who:
       /usr/bin/whoami:
