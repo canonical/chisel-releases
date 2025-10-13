@@ -129,6 +129,90 @@ slices:
       /usr/bin/yes:
       /usr/sbin/chroot:
 
+
+  # Output of entire files -- These commands read and write entire files,
+  # possibly transforming them in some way.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
+  output-of-entire-files:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/base32:
+      /usr/bin/base64:
+      /usr/bin/basenc:
+      /usr/bin/cat:
+      /usr/bin/nl:
+      /usr/bin/od:
+      /usr/bin/tac:
+
+  # Directory listing -- This slice contains the ls command and its variants dir
+  # and vdir, which list information about files.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
+  directory-listing:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/dir:
+      /usr/bin/dircolors:
+      /usr/bin/ls:
+      /usr/bin/vdir:
+
+  # Special file types -- This slice contains commands which create special
+  # types of files (and rmdir, which removes directories, one special file
+  # type).
+  # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
+  special-file-types:
+    essential:
+      - coreutils_ln-utility
+      - coreutils_mkdir
+      - coreutils_readlink
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/link:
+      /usr/bin/mkfifo:
+      /usr/bin/mknod:
+      /usr/bin/rmdir:
+      /usr/bin/unlink:
+
+  # Working context -- This slice contains commands that display or alter the
+  # context in which you are working: the current directory, the terminal
+  # settings, and so forth.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Working-context.html
+  working-context:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/printenv:
+      /usr/bin/pwd:
+      /usr/bin/stty:
+      /usr/bin/tty:
+
+  # System context -- This slice contains commands that print or change
+  # system-wide information.
+  # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
+  system-context:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/arch:
+      /usr/bin/date:
+      /usr/bin/hostid:
+      /usr/bin/nproc:
+      /usr/bin/uname:
+
+  # Delaying.
+  # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
+  delaying:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/sleep:
+
+  # Single-binary slices
+
   env:
     essential:
       - libc6_libs
