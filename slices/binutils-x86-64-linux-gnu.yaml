@@ -6,7 +6,7 @@ essential:
 slices:
   # NOTE: You might want to create a symlink from /usr/bin/as to
   #       /usr/bin/x86_64-linux-gnu-as in your rootfs to use these slices.
-  #       ln -s "$arch-as" "$rootfs/usr/bin/as"
+  #       ln -s x86_64-linux-gnu-as "$rootfs/usr/bin/as"
   assembler:
     essential:
       - libbinutils_libs
