@@ -106,7 +106,6 @@ slices:
       /usr/bin/yes:
       /usr/sbin/chroot:
 
-
   # Output of entire files -- These commands read and write entire files,
   # possibly transforming them in some way.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
