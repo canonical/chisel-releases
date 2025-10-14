@@ -330,7 +330,7 @@ def chisel_cut(
     Return an error message if something went wrong, or None on success.
     """
 
-    fetch_error_substr = "error: cannot fetch from archive"
+    _fetch_error_substr = "error: cannot fetch from archive"
 
     args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", root]
     if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0":
@@ -348,7 +348,7 @@ def chisel_cut(
         if res.returncode == 0:
             return None
         err = res.stderr.rstrip()
-        if fetch_error_substr in err and attempt < n_retries:
+        if _fetch_error_substr in err and attempt < n_retries:
             logging.warning(
                 "Fetch error occurred while installing %s (attempt %d/%d). Retrying...",
                 slice_name,
