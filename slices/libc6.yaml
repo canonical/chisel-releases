@@ -41,7 +41,6 @@ slices:
 
   gconv:
     essential:
-      - libc6_gconv-core
       - libc6_iconv-config
     contents:
       /usr/lib/*-linux-*/gconv/**:
