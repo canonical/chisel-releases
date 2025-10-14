@@ -1,0 +1,54 @@
+name: Check the releases' archives
+
+on:
+  schedule:
+    # Run every two days at midnight
+    - cron: "0 0 */2 * *"
+  workflow_dispatch:
+
+jobs:
+  infer-releases:
+    runs-on: ubuntu-latest
+    name: "Infer releases to check"
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.maintained-releases }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: set-matrix
+        uses: ./.github/actions/get-maintained-releases
+
+  check-releases-archives:
+    runs-on: ubuntu-latest
+    name: "${{ matrix.ref }}:${{ matrix.arch }} check archives"
+    needs: infer-releases
+    strategy:
+      fail-fast: false
+      matrix:
+        ref: ${{ fromJson(needs.infer-releases.outputs.matrix) }}
+        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.ref }}
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+        with:
+          cache: false
+          go-version: "stable"
+
+      - name: Install Chisel
+        run: |
+          set -ex
+          go install "github.com/canonical/chisel/cmd/chisel@main"
+
+      # For debugging purposes, if we want to force an error on this command
+      # we can simply:
+      # $ git switch ubuntu-24.04
+      # $ # e.g. change base-file's "/lib/" path to "/lib/something"
+      # $ chisel debug check-release-archives --release ./
+      - name: Check archives for ${{ matrix.ref }} on ${{ matrix.arch }}
+        run: |
+          set -ex
+          chisel debug check-release-archives --arch ${{ matrix.arch }} --release ${{ matrix.ref }}
