@@ -313,44 +313,6 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
-def _chisel_cut(
-    *,
-    arch: str,
-    release: str,
-    root: str,
-    slice_name: str,
-    chisel_version: str,
-    env: dict[str, str],
-) -> str | None:
-    """
-    Run "chisel cut" to install the slice in the given root.
-    Return an error message if something went wrong, or None on success.
-    """
-
-    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
-    args = [
-        "chisel",
-        "cut",
-        "--arch",
-        arch,
-        "--release",
-        release,
-        "--root",
-        root,
-    ]
-    if extra_flag:
-        args += [extra_flag]
-    args += [slice_name]
-    res = subprocess.run(
-        args,
-        capture_output=True,
-        text=True,
-        check=False,
-        env=env,
-    )
-    if res.returncode != 0:
-        return res.stderr.rstrip()
-    return None
 
 def chisel_cut(
     *,
@@ -367,19 +329,25 @@ def chisel_cut(
     Retry up to n_retries times if a fetch error occurs.
     Return an error message if something went wrong, or None on success.
     """
+
     fetch_error_substr = "error: cannot fetch from archive"
 
+    args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", root]
+    if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0":
+        args += ["--ignore=unstable"]
+    args += [slice_name]
+
     for attempt in range(1, n_retries + 1):
-        err = _chisel_cut(
-            arch=arch,
-            release=release,
-            root=root,
-            slice_name=slice_name,
-            chisel_version=chisel_version,
+        res = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            check=False,
             env=env,
         )
-        if err is None:
+        if res.returncode == 0:
             return None
+        err = res.stderr.rstrip()
         if fetch_error_substr in err and attempt < n_retries:
             logging.warning(
                 "Fetch error occurred while installing %s (attempt %d/%d). Retrying...",
@@ -389,7 +357,8 @@ def chisel_cut(
             )
             continue
         return err
-    
+
+
 def install_slices(
     chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
 ) -> None:
