@@ -321,7 +321,7 @@ def chisel_cut(
     root: str,
     slice_name: str,
     chisel_version: str,
-    env: dict[str, str],
+    cache_dir: str,
     n_retries: int = 3,
 ) -> str | None:
     """
@@ -329,6 +329,8 @@ def chisel_cut(
     Retry up to n_retries times if a fetch error occurs.
     Return an error message if something went wrong, or None on success.
     """
+    env = dict(os.environ)
+    env["XDG_CACHE_HOME"] = str(cache_dir)
 
     _fetch_error_substr = "error: cannot fetch from archive"
 
@@ -378,15 +380,13 @@ def install_slices(
         if dry_run:
             continue
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
-            env = dict(os.environ)
-            env["XDG_CACHE_HOME"] = str(cache_dir)
             err = chisel_cut(
                 arch=arch,
                 release=release,
                 root=tmpfs,
+                cache_dir=cache_dir,
                 slice_name=slice_name,
                 chisel_version=chisel_version,
-                env=env,
             )
             if err:
                 logging.error("==============================================\n%s", err)
