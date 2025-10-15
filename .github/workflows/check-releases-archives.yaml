@@ -14,9 +14,31 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.maintained-releases }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - id: set-matrix
-        uses: ./.github/actions/get-maintained-releases
+        name: Infer maintained releases
+        run: |
+          set -x
+
+          all_branches="$(git branch --all | grep -E "remotes.*ubuntu-[0-9]{2}\.[0-9]{2}$" | cut -d '/' -f 3)"
+
+          maintained=()
+
+          for branch in $all_branches; do
+            echo "Checking maintenance status for '${branch}'"
+            git switch $branch
+            
+            eol="$(yq .maintenance."end-of-life" chisel.yaml || echo null)"
+            if [[ "$eol" != "null" && "$(date +"%Y-%m-%d")" < "$eol" ]];
+            then
+              echo "'$branch' is still maintained (EOL: $eol)"
+              maintained+=( "$branch" )
+            fi
+          done
+
+          echo "maintained-releases=$(printf '%s\n' "${maintained[@]}" | jq -R . | jq -s -c .)" >> $GITHUB_OUTPUT
 
   check-releases-archives:
     runs-on: ubuntu-latest
