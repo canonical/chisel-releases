@@ -16,6 +16,11 @@ runs:
         sudo apt-get update
         sudo apt-get install -y distro-info
 
+    # We could rely on the chisel.yaml "maintained" field, but that would
+    # require checking out each releases parsing the file.
+    # Instead, we can use the distro-info tool, because in the end, what we
+    # care about is whether the release is maintained or not, and not its current
+    # maintenance status.
     - shell: bash
       id: get-maintained-releases
       env:
