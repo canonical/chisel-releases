@@ -28,12 +28,14 @@ slices:
       /usr/lib/python3.14/_compat_pickle.py:
       /usr/lib/python3.14/_opcode_metadata.py:
       /usr/lib/python3.14/_py_abc.py:
+      /usr/lib/python3.14/_py_warnings.py:
       /usr/lib/python3.14/_sitebuiltins.py:
       /usr/lib/python3.14/_strptime.py:
       /usr/lib/python3.14/_sysconfigdata__*-linux-*.py:
       /usr/lib/python3.14/_threading_local.py:
       /usr/lib/python3.14/_weakrefset.py:
       /usr/lib/python3.14/abc.py:
+      /usr/lib/python3.14/annotationlib.py:
       /usr/lib/python3.14/argparse.py:
       /usr/lib/python3.14/ast.py:
       /usr/lib/python3.14/base64.py:
@@ -97,7 +99,7 @@ slices:
       /usr/lib/python3.14/sre_parse.py:
       /usr/lib/python3.14/ssl.py:
       /usr/lib/python3.14/stat.py:
-      /usr/lib/python3.14/string.py:
+      /usr/lib/python3.14/string/**:
       /usr/lib/python3.14/stringprep.py:
       /usr/lib/python3.14/struct.py:
       /usr/lib/python3.14/subprocess.py:
