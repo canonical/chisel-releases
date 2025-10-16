@@ -10,7 +10,17 @@ essential:
 slices:
   scripts:
     essential:
-      - coreutils_bins
+      - coreutils_delaying
+      - coreutils_directory-listing
+      - coreutils_dirname
+      - coreutils_echo
+      - coreutils_expr
+      - coreutils_output-of-entire-files
+      - coreutils_rm-utility
+      - coreutils_special-file-types
+      - coreutils_system-context
+      - coreutils_touch
+      - coreutils_working-context
       - dash_bins
       - debianutils_which
       - grep_bins
