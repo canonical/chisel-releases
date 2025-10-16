@@ -21,6 +21,7 @@ jobs:
         name: Infer maintained releases
         run: |
           set -x
+          set -o pipefail
 
           all_branches="$(git branch --all | grep -E "remotes.*ubuntu-[0-9]{2}\.[0-9]{2}$" | cut -d '/' -f 3)"
 
@@ -28,9 +29,8 @@ jobs:
 
           for branch in $all_branches; do
             echo "Checking maintenance status for '${branch}'"
-            git switch $branch
             
-            eol="$(yq .maintenance."end-of-life" chisel.yaml || echo null)"
+            eol="$(git show origin/${branch}:chisel.yaml | yq .maintenance."end-of-life" || true)"
             if [[ "$eol" != "null" && "$(date +"%Y-%m-%d")" < "$eol" ]];
             then
               echo "'$branch' is still maintained (EOL: $eol)"
