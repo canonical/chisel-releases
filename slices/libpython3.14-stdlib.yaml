@@ -1,0 +1,417 @@
+package: libpython3.14-stdlib
+
+essential:
+  - libpython3.14-stdlib_copyright
+
+# The slices in this package have been grouped with inspiration from the
+# Python 3.14 Standard Library
+# (https://docs.python.org/3.14/library/index.html).
+#
+# Aside from the "core" slice which contains the minimal libraries that
+# should come from this package and the "extra" slice which contains
+# miscellaneous libraries, all the other slice definitions are sorted by
+# their names. The "core" slice is placed at the very beginning and the
+# "extra" slice at the very end.
+slices:
+  # The "core" slice provides a very minimal libpython3.14-stdlib
+  core:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      # Adding libgcc-s1 here because it is required for the arm arch.
+      # In practice, libc6 should bring it anyway, BUT, there is a circular
+      # dependency in the archives, where libc6 depends on libgcc-s1 and
+      # vice versa. We don't allow that circular dependency to exist in Chisel
+      # and libgcc-s1 already depends on libc6, so we'll have to include this
+      # line here, explicitly.
+      - libgcc-s1_libs
+      - liblzma5_libs
+      - libpython3.14-minimal_libs
+      - libzstd1_libs
+      - media-types_data
+      - netbase_config
+    contents:
+      /usr/lib/python3.14/_pydatetime.py:
+      /usr/lib/python3.14/_pylong.py:
+      /usr/lib/python3.14/bz2.py:
+      /usr/lib/python3.14/contextvars.py:
+      /usr/lib/python3.14/gettext.py:
+      /usr/lib/python3.14/gzip.py:
+      /usr/lib/python3.14/http/__init__.py:
+      /usr/lib/python3.14/http/client.py:
+      /usr/lib/python3.14/lib-dynload/_bz2.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_codecs_*.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_contextvars.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_lzma.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_multibytecodec.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_queue.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_zstd.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/mmap.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lzma.py:
+      /usr/lib/python3.14/mimetypes.py:
+      /usr/lib/python3.14/ntpath.py:
+      /usr/lib/python3.14/queue.py:
+      /usr/lib/python3.14/shutil.py:
+      /usr/lib/python3.14/socketserver.py:
+      /usr/lib/python3.14/tarfile.py:
+
+  # Shared AIX (IBM) support functions
+  aix-support:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_aix_support.py:
+
+  # Generic Operating System Services
+  # https://docs.python.org/3.14/library/allos.html
+  all-os:
+    essential:
+      - libffi8_libs
+      - libncursesw6_libs
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_unix
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.14/_pyio.py:
+      /usr/lib/python3.14/ctypes/**:
+      /usr/lib/python3.14/curses/**:
+      /usr/lib/python3.14/getpass.py:
+      /usr/lib/python3.14/lib-dynload/_ctypes*.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_curses*.cpython-314-*-linux-*.so:
+
+  # Concurrent Execution
+  # https://docs.python.org/3.14/library/concurrency.html
+  concurrency:
+    essential:
+      - libpython3.14-stdlib_all-os
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_crypto
+    contents:
+      /usr/lib/python3.14/concurrent/**:
+      /usr/lib/python3.14/lib-dynload/_multiprocessing.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_posixshmem.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/multiprocessing/**:
+      /usr/lib/python3.14/sched.py:
+
+  # Cryptographic Services
+  # https://docs.python.org/3.14/library/crypto.html
+  crypto:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/hmac.py:
+      /usr/lib/python3.14/secrets.py:
+
+  # Custom Python Interpreters
+  # https://docs.python.org/3.14/library/custominterp.html
+  custom-interpreters:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_text
+    contents:
+      /usr/lib/python3.14/code.py:
+      /usr/lib/python3.14/codeop.py:
+
+  # Data Persistence
+  # https://docs.python.org/3.14/library/persistence.html
+  data-persistence:
+    essential:
+      - libdb5.3t64_libs
+      - libpython3.14-stdlib_core
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/python3.14/dbm/**:
+      /usr/lib/python3.14/lib-dynload/_dbm.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_sqlite3.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/shelve.py:
+      /usr/lib/python3.14/sqlite3/**:
+
+  # Data Types
+  # https://docs.python.org/3.14/library/datatypes.html
+  data-types:
+    essential:
+      - libpython3.14-stdlib_core
+      - tzdata_zoneinfo
+    contents:
+      /usr/lib/python3.14/graphlib.py:
+      /usr/lib/python3.14/lib-dynload/_zoneinfo.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/pprint.py:
+      /usr/lib/python3.14/zoneinfo/**:
+
+  # Debugging and Profiling
+  # https://docs.python.org/3.14/library/debug.html
+  debug:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_custom-interpreters
+      - libpython3.14-stdlib_data-types
+      - libpython3.14-stdlib_frameworks
+      - libpython3.14-stdlib_text
+    contents:
+      /usr/lib/python3.14/bdb.py:
+      /usr/lib/python3.14/cProfile.py:
+      /usr/lib/python3.14/lib-dynload/_lsprof.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/pdb.py:
+      /usr/lib/python3.14/profile.py:
+      /usr/lib/python3.14/pstats.py:
+      /usr/lib/python3.14/timeit.py:
+      /usr/lib/python3.14/trace.py:
+
+  # Development Tools
+  # https://docs.python.org/3.14/library/development.html
+  development-tools:
+    essential:
+      - libpython3.14-stdlib_all-os
+      - libpython3.14-stdlib_concurrency
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_data-types
+      - libpython3.14-stdlib_debug
+      - libpython3.14-stdlib_distribution
+      - libpython3.14-stdlib_internet
+      - libpython3.14-stdlib_ipc
+      - libpython3.14-stdlib_markup-tools
+      - libpython3.14-stdlib_net-data
+      - libpython3.14-stdlib_numeric
+      - libpython3.14-stdlib_text
+      - libpython3.14-stdlib_unix
+    contents:
+      /usr/lib/python3.14/__phello__/**:
+      /usr/lib/python3.14/doctest.py:
+      /usr/lib/python3.14/lib-dynload/_testbuffer.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testcapi.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testclinic.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testimportmultiple.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testinternalcapi.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testmultiphase.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testsinglephase.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_xxtestfuzz.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/xxlimited.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/xxlimited_35.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/xxsubtype.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/test/**:
+      /usr/lib/python3.14/unittest/**:
+
+  # Software Packaging and Distribution
+  # https://docs.python.org/3.14/library/distribution.html
+  distribution:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_osx-support
+    contents:
+      /usr/lib/python3.14/_distutils_system_mod.py:
+      /usr/lib/python3.14/venv/**:
+      /usr/lib/python3.14/zipapp.py:
+
+  # File Formats
+  # https://docs.python.org/3.14/library/fileformats.html
+  file-formats:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_frameworks
+      - libpython3.14-stdlib_markup-tools
+    contents:
+      /usr/lib/python3.14/netrc.py:
+      /usr/lib/python3.14/plistlib.py:
+      /usr/lib/python3.14/tomllib/**:
+
+  # File and Directory Access
+  # https://docs.python.org/3.14/library/filesys.html
+  filesys:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/fileinput.py:
+
+  # Program Frameworks
+  # https://docs.python.org/3.14/library/frameworks.html
+  frameworks:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_text
+    contents:
+      /usr/lib/python3.14/cmd.py:
+      /usr/lib/python3.14/shlex.py:
+      /usr/lib/python3.14/turtle.py:
+
+  # Importing Modules
+  # https://docs.python.org/3.14/library/modules.html
+  importing:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/modulefinder.py:
+
+  # Internet Protocols and Support
+  # https://docs.python.org/3.14/library/internet.html
+  internet:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_crypto
+      - libpython3.14-stdlib_file-formats
+      - libpython3.14-stdlib_frameworks
+      - libpython3.14-stdlib_ipc
+      - libpython3.14-stdlib_markup-tools
+      - libpython3.14-stdlib_numeric
+      - libpython3.14-stdlib_pydoc
+      - libuuid1_libs
+    contents:
+      /usr/lib/python3.14/ftplib.py:
+      /usr/lib/python3.14/http/cookiejar.py:
+      /usr/lib/python3.14/http/cookies.py:
+      /usr/lib/python3.14/http/server.py:
+      /usr/lib/python3.14/imaplib.py:
+      /usr/lib/python3.14/lib-dynload/_uuid.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/nturl2path.py:
+      /usr/lib/python3.14/poplib.py:
+      /usr/lib/python3.14/smtplib.py:
+      /usr/lib/python3.14/uuid.py:
+      /usr/lib/python3.14/webbrowser.py:
+      /usr/lib/python3.14/wsgiref/**:
+      /usr/lib/python3.14/xmlrpc/**:
+
+  # Networking and Interprocess Communication
+  # https://docs.python.org/3.14/library/ipc.html
+  ipc:
+    essential:
+      - libpython3.14-stdlib_concurrency
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/asyncio/**:
+      /usr/lib/python3.14/lib-dynload/_asyncio.cpython-314-*-linux-*.so:
+
+  # Python Language Services
+  # https://docs.python.org/3.14/library/language.html
+  language:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/pickletools.py:
+      /usr/lib/python3.14/pyclbr.py:
+      /usr/lib/python3.14/symtable.py:
+      /usr/lib/python3.14/tabnanny.py:
+
+  # Structured Markup Processing Tools (HTML, XML)
+  # https://docs.python.org/3.14/library/markup.html
+  markup-tools:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_markupbase.py:
+      /usr/lib/python3.14/html/**:
+      /usr/lib/python3.14/xml/**:
+
+  # Multimedia Services
+  # https://docs.python.org/3.14/library/mm.html
+  multimedia:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/colorsys.py:
+      /usr/lib/python3.14/wave.py:
+
+  # Internet Data Handling
+  # https://docs.python.org/3.14/library/netdata.html
+  net-data:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/mailbox.py:
+
+  # Numeric and Mathematical Modules
+  # https://docs.python.org/3.14/library/numeric.html
+  numeric:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_pydecimal.py:
+      /usr/lib/python3.14/decimal.py:
+      /usr/lib/python3.14/fractions.py:
+      /usr/lib/python3.14/lib-dynload/_decimal.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/numbers.py:
+      /usr/lib/python3.14/statistics.py:
+
+  # Shared OS X support functions
+  osx-support:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_osx_support.py:
+
+  # Shared Apple support functions
+  apple-support:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_apple_support.py:
+
+  # Shared IOS support functions
+  ios-support:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_ios_support.py:
+
+  # Shared Android support functions
+  android-support:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/_android_support.py:
+
+  # pydoc - Documentation generator and online help system
+  # https://docs.python.org/3.14/library/pydoc.html
+  pydoc:
+    essential:
+      - libpython3.14-stdlib_core
+    contents:
+      /usr/lib/python3.14/pydoc.py:
+      /usr/lib/python3.14/pydoc_data/**:
+
+  # pyrepl:
+  #   essential:
+  #     - libpython3.14-stdlib_core
+  #     - TODO: ADD ADDITIONAL DEPENDANCIES
+  #   contents:
+  #     /usr/lib/python3.14/pydoc.py:
+  #     /usr/lib/python3.14/_pyrepl/**:
+
+  # Text Processing Services
+  # https://docs.python.org/3.14/library/text.html
+  text:
+    essential:
+      - libpython3.14-stdlib_core
+      - libreadline8t64_libs
+      - libtinfo6_libs
+    contents:
+      /usr/lib/python3.14/difflib.py:
+      /usr/lib/python3.14/lib-dynload/readline.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/rlcompleter.py:
+
+  # Unix Specific Services
+  # https://docs.python.org/3.14/library/unix.html
+  unix:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_frameworks
+    contents:
+      /usr/lib/python3.14/lib-dynload/resource.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/termios.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/pty.py:
+      /usr/lib/python3.14/tty.py:
+
+  # Outliers and Deprecated Modules
+  # The "extra" slice consists of easter-eggs and deprecated modules
+  extras:
+    essential:
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_internet
+    contents:
+      /usr/lib/python3.14/__hello__.py:
+      /usr/lib/python3.14/antigravity.py:
+      /usr/lib/python3.14/this.py:
+
+  copyright:
+    essential:
+      - libpython3.14-minimal_copyright
+    contents:
+      /usr/share/doc/libpython3.14-stdlib:
