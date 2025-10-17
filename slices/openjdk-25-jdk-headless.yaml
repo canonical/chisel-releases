@@ -106,9 +106,9 @@ slices:
       # exclude incubating API
       # /usr/lib/jvm/java-25-openjdk-amd64/jmods/jdk.incubator.vector.jmod
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.ed.jmod:
-      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.md.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.jvmstat.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.le.jmod:
+      /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.md.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.opt.jmod:
       /usr/lib/jvm/java-25-openjdk-*/jmods/jdk.internal.vm.ci.jmod:
         arch:

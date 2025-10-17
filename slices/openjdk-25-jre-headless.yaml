@@ -48,16 +48,16 @@ slices:
       - libstdc++6_libs
       - zlib1g_libs
     contents:
-      /etc/java-25-openjdk/jaxp.properties:
       /etc/java-25-openjdk/jaxp-strict.properties:
+      /etc/java-25-openjdk/jaxp.properties:
       /etc/java-25-openjdk/jvm-*.cfg:
       /etc/java-25-openjdk/logging.properties:
       /etc/java-25-openjdk/net.properties:
       /etc/java-25-openjdk/security/java.security:
       /usr/lib/jvm/java-25-openjdk-*/bin/java:
-      /usr/lib/jvm/java-25-openjdk-*/conf/jaxp.properties:
       /usr/lib/jvm/java-25-openjdk-*/conf/jaxp-strict.properties:
       /usr/lib/jvm/java-25-openjdk-*/conf/jaxp-strict.properties.template:
+      /usr/lib/jvm/java-25-openjdk-*/conf/jaxp.properties:
       /usr/lib/jvm/java-25-openjdk-*/conf/logging.properties:
       /usr/lib/jvm/java-25-openjdk-*/conf/net.properties:
       /usr/lib/jvm/java-25-openjdk-*/conf/security/java.security:
@@ -66,6 +66,11 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/lib/jvm.cfg:
       /usr/lib/jvm/java-25-openjdk-*/lib/jvm.cfg-default:
       /usr/lib/jvm/java-25-openjdk-*/lib/libextnet.so:
+      # FFI linker
+      /usr/lib/jvm/java-25-openjdk-*/lib/libfallbackLinker.so:
+        arch:
+          - armhf
+          - i386
       /usr/lib/jvm/java-25-openjdk-*/lib/libjava.so:
       # lib/modules support
       /usr/lib/jvm/java-25-openjdk-*/lib/libjimage.so:
@@ -81,11 +86,6 @@ slices:
           - amd64
       # dummy FFI lookup implementation
       /usr/lib/jvm/java-25-openjdk-*/lib/libsyslookup.so:
-      # FFI linker
-      /usr/lib/jvm/java-25-openjdk-*/lib/libfallbackLinker.so:
-        arch:
-          - armhf
-          - i386
       /usr/lib/jvm/java-25-openjdk-*/lib/libverify.so:
       /usr/lib/jvm/java-25-openjdk-*/lib/libzip.so:
       /usr/lib/jvm/java-25-openjdk-*/lib/modules:
@@ -103,6 +103,7 @@ slices:
           - ppc64el
           - riscv64
           - s390x
+      /usr/lib/jvm/java-25-openjdk-*/lib/tzdb.dat:
       /usr/lib/jvm/java-25-openjdk-*/lib/zero/libjsig.so:
         arch:
           - armhf
@@ -111,7 +112,6 @@ slices:
         arch:
           - armhf
           - i386
-      /usr/lib/jvm/java-25-openjdk-*/lib/tzdb.dat:
 
   classcache:
     essential:
