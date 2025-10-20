@@ -1,0 +1,15 @@
+package: dotnet-templates-9.0
+
+essential:
+  - dotnet-templates-9.0_copyright
+
+slices:
+  libs:
+    essential:
+      - dotnet-host-9.0_bins
+    contents:
+      /usr/lib/dotnet/templates/9.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-templates-9.0/copyright:
