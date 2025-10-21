@@ -11,14 +11,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Validate message-id
-      shell: bash
-      run: |
-        if [[ ! "${{ inputs.message-id }}" =~ ^[a-zA-Z0-9_-]+$ ]]; then
-          echo "Invalid message-id '${{ inputs.message-id }}'. It can only contain alphanumeric characters, dashes, and underscores."
-          exit 1
-        fi
-
     - name: Prepare PR comment data
       shell: bash
       run: |
