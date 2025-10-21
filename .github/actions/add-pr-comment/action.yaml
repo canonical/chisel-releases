@@ -1,11 +1,13 @@
-name: 'Upload PR Comment Data'
-description: 'Creates and uploads PR comment data as an artifact for later posting'
+name: Upload PR Comment Data
+description: |
+  Creates and uploads PR comment data as an artifact. This artefact is later
+  picked up by a separate workflow that actually posts the comment to the PR.
 inputs:
-  message-file:
-    description: 'Path to file containing the comment message'
+  message-path:
+    description: Path to file containing the comment message
     required: true
   message-id:
-    description: 'Unique identifier for the comment (used for updating existing comments)'
+    description: Unique identifier for the comment (used for updating existing comments)
     required: true
 
 runs:
@@ -14,14 +16,14 @@ runs:
     - name: Prepare PR comment data
       shell: bash
       run: |
-        if [ ! -f "${{ inputs.message-file }}" ]; then
-          echo "Message file ${{ inputs.message-file }} not found, skipping PR comment"
+        if [ ! -f "${{ inputs.message-path }}" ]; then
+          echo "Message file ${{ inputs.message-path }} not found, skipping PR comment"
           exit 0
         fi
         jq -n \
           --arg pr_number "${{ github.event.number }}" \
           --arg message_id "${{ inputs.message-id }}" \
-          --arg message "$(cat "${{ inputs.message-file }}")" \
+          --arg message "$(cat "${{ inputs.message-path }}")" \
           '{
             "pr-number": ($pr_number | tonumber),
             "message-id": $message_id,

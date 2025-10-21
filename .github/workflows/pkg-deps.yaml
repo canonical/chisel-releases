@@ -48,7 +48,7 @@ jobs:
             ${{ steps.changed-paths.outputs.slices_files }}
 
       - name: Post message to PR
-        uses: canonical/chisel-releases/.github/actions/upload-pr-comment@main
+        uses: canonical/chisel-releases/.github/actions/add-pr-comment@main
         with:
-          message-file: ${{ steps.check-deps.outputs.msg_file }}
+          message-path: ${{ steps.check-deps.outputs.msg_file }}
           message-id: "pkg-deps-check"
