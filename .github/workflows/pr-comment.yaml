@@ -27,12 +27,12 @@ jobs:
   post-comment:
     name: Post PR comment
     runs-on: ubuntu-latest
-    if: |
-      github.event.workflow_run.event == 'pull_request' &&
-      github.event.workflow_run.conclusion != 'skipped'
+    if: github.event.workflow_run.conclusion != 'skipped'
     permissions:
       pull-requests: write
     steps:
+      # We cannot use actions/download-artifact here because this workflow needs to
+      # download the artefact from a different workflow (the one that triggered it).
       - name: Download PR comment artifact
         uses: actions/github-script@v7
         with:
@@ -58,35 +58,21 @@ jobs:
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/pr-comment-data.zip`, Buffer.from(download.data));
 
-      - name: Extract and parse comment data
+      - name: Extract comment data
         id: comment-data
         run: |
           if [ -f pr-comment-data.zip ]; then
             unzip pr-comment-data.zip
             if [ -f pr-comment.json ]; then
-              # Parse JSON and set outputs
-              pr_number=$(jq -r '.["pr-number"]' pr-comment.json)
-              message_id=$(jq -r '.["message-id"]' pr-comment.json)
-              message=$(jq -r '.message' pr-comment.json)
-              
-              echo "pr-number=$pr_number" >> $GITHUB_OUTPUT
-              echo "message-id=$message_id" >> $GITHUB_OUTPUT
-              
-              # Write message to file for mshick/add-pr-comment
-              echo "$message" > pr-comment-message.txt
-              
-              echo "Found comment data: PR #$pr_number, message-id: $message_id"
-            else
-              echo "No pr-comment.json found in artifact"
-              exit 0
+              echo "pr-number=$(jq -r '.["pr-number"]' pr-comment.json)" >> $GITHUB_OUTPUT
+              echo "message-id=$(jq -r '.["message-id"]' pr-comment.json)" >> $GITHUB_OUTPUT
+              echo "$(jq -r '.message' pr-comment.json)" > pr-comment-message.txt
+              echo "has-comment=true" >> $GITHUB_OUTPUT
             fi
-          else
-            echo "No pr-comment-data.zip found, skipping comment"
-            exit 0
           fi
 
       - name: Post comment to PR
-        if: steps.comment-data.outputs.pr-number != '' && steps.comment-data.outputs.pr-number != 'null'
+        if: steps.comment-data.outputs.has-comment == 'true'
         uses: mshick/add-pr-comment@v2
         with:
           message-path: pr-comment-message.txt
