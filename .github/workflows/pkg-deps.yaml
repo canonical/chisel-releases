@@ -13,8 +13,6 @@ jobs:
     env:
       branch: ${{ github.base_ref }}
       main-branch-path: files-from-main
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,7 +47,9 @@ jobs:
           ./${{ env.script-dir }}/pkg-deps \
             ${{ steps.changed-paths.outputs.slices_files }}
 
-      - name: Post messages to PR
-        uses: mshick/add-pr-comment@v2
+      - name: Upload PR comment data
+        if: always() && steps.check-deps.outputs.msg_file
+        uses: canonical/chisel-releases/.github/actions/upload-pr-comment@main
         with:
-          message-path: ${{ steps.check-deps.outputs.msg_file }}
+          message-file: ${{ steps.check-deps.outputs.msg_file }}
+          message-id: "pkg-deps-check"
