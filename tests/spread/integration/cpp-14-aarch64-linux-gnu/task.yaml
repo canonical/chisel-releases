@@ -1,0 +1,8 @@
+summary: Integration tests for cpp-14-aarch64-linux-gnu
+
+variants:
+    - c_compiler
+    - help
+    - preprocessor
+
+execute: bash ./test_${SPREAD_VARIANT}.sh
