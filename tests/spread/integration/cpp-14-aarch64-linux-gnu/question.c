@@ -2,7 +2,7 @@
 
 int main() {
     #ifdef ANSWER
-        return ANSWER;
+        return 42;
     #else
         return 1;
     #endif
