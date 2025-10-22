@@ -6,7 +6,7 @@ essential:
   - coreutils_copyright
 
 # From 25.10 onward, coreutils ships can either deliver coreutils-from-gnu
-# or coreutils-from-uutils. The former is the default in 25.10.
+# or coreutils-from-uutils. coreutils-from-gnu is the default in 25.10.
 slices:
   libs:
     essential:
