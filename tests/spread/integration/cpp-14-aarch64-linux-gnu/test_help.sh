@@ -30,6 +30,8 @@ else
 fi
 
 if $cross; then
+    chroot "${rootfs}" cc1 --help
+    exit 99
     # TODO: We do not have libc6-dev for cross /usr/lib64/ld-linux-x86-64
     :
 else
