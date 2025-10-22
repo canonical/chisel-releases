@@ -62,7 +62,7 @@ else
     chroot "${rootfs_cc}" cc1 hello.c \
         -o hello.s \
         -Wno-implicit-function-declaration \
-        -I "/usr/include/$arch" \
+        -I "/usr/include/$arch-linux-gnu" \
         -I "/usr/include/linux"
 
     # assemble
