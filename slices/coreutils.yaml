@@ -68,7 +68,6 @@ slices:
       /usr/bin/base64:
       /usr/bin/basenc:
       /usr/bin/cat:
-      /usr/bin/b2sum:
       /usr/bin/chcon:
       /usr/bin/chgrp:
       /usr/bin/cksum:
@@ -78,7 +77,6 @@ slices:
       /usr/bin/df:
       /usr/bin/dircolors:
       /usr/bin/dd:
-      /usr/bin/df:
       /usr/bin/du:
       /usr/bin/expand:
       /usr/bin/factor:
@@ -88,11 +86,8 @@ slices:
       /usr/bin/groups:
       /usr/bin/hostid:
       /usr/bin/logname:
-      /usr/bin/md5sum:
-      /usr/bin/md5sum.textutils:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
-      /usr/bin/logname:
       /usr/bin/md5sum:
       /usr/bin/md5sum.textutils:
       /usr/bin/nice:
