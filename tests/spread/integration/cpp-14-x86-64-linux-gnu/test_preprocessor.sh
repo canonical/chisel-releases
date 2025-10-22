@@ -32,6 +32,8 @@ if $cross; then
     :
 else
     chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
+    content="$(cat "${rootfs}/question.i")"
+    echo "$content"
     cat "${rootfs}/question.i" | grep -q 'return 42;'
 
     # now remove answer.h and check that ANSWER is not defined
