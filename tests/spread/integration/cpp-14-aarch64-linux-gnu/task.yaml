@@ -5,4 +5,4 @@ variants:
     - help
     - preprocessor
 
-execute: bash -x ./test_${SPREAD_VARIANT}.sh
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
