@@ -30,10 +30,7 @@ else
 fi
 
 if $cross; then
-    chroot "${rootfs}" cc1 --help | head -n1 || true
-    exit 99
-    # TODO: We do not have libc6-dev for cross /usr/lib64/ld-linux-x86-64
-    :
+    (chroot "${rootfs}" cc1 --help || true) | grep -q "The following options are specific to just the language Ada:"
 else
     (chroot "${rootfs}" cc1 --help || true) | grep -q "The following options are language-independent:"
 fi
