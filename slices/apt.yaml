@@ -20,8 +20,9 @@ slices:
       - apt_default-source-list
       - apt_var
       - base-files_bin
-      - coreutils_bins
+      - base-files_tmp
       - dpkg_bins
+      - dpkg_maintscript-support
       - gpgv_bins
       - libapt-pkg6.0t64_libs
       - libc6_libs
@@ -30,7 +31,7 @@ slices:
       - libseccomp2_libs
       - libstdc++6_libs
       - libsystemd0_libs
-      - sed_bins
+      - sed_bins  # used by apt-key
     contents:
       /usr/bin/apt:
       /usr/bin/apt-config:
