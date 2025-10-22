@@ -77,3 +77,164 @@ execute: |
   test "$(chroot "$rootfs_printf" printf "hello-%s\n" "world")" = "hello-world"
   test "$(chroot "$rootfs_printf" printf "number: %d\n" 42)" = "number: 42"
   test "$(chroot "$rootfs_printf" printf "float: %.2f\n" 3.14159)" = "float: 3.14"
+
+  # test basename binary
+  rootfs_basename="$(install-slices coreutils_basename)"
+  chroot "$rootfs_basename" basename --version
+  test "$(chroot "$rootfs_basename" basename /foo/bar/test_file)" = "test_file"
+
+  # test chmod binary
+  rootfs_chmod="$(install-slices coreutils_chmod)"
+  chroot "$rootfs_chmod" chmod --version
+  touch "$rootfs_chmod/test_file"
+  chroot "$rootfs_chmod" chmod 700 test_file
+  test "$(stat -c '%a' "$rootfs_chmod/test_file")" = "700"
+
+  # test chown binary
+  rootfs_chown="$(install-slices base-passwd_data coreutils_chown)"
+  chroot "$rootfs_chown" chown --version
+  touch "$rootfs_chown/test_file"
+  test "$(stat -c '%U:%G' "$rootfs_chown/test_file")" = "root:root"
+  chroot "$rootfs_chown" chown nobody:nogroup test_file
+  test "$(stat -c '%U:%G' "$rootfs_chown/test_file")" = "nobody:nogroup"
+
+  # test cut binary
+  rootfs_cut="$(install-slices coreutils_cut)"
+  chroot "$rootfs_cut" cut --version
+  echo "foo,bar" > "$rootfs_cut/test_file"
+  chroot "$rootfs_cut" cut -d ',' -f 1 test_file
+  test "$(chroot "$rootfs_cut" cut -d ',' -f 1 test_file)" = "foo"
+
+  # test date binary
+  rootfs_date="$(install-slices coreutils_date)"
+  chroot "$rootfs_date" date --version
+  chroot "$rootfs_date" date
+
+  # test dd-utility binary
+  rootfs_dd="$(install-slices coreutils_dd-utility)"
+  chroot "$rootfs_dd" dd --version
+  echo "Hello, World!" > "$rootfs_dd/test_file"
+  chroot "$rootfs_dd" dd if=test_file of=test_file_copy
+  test "$(cat "$rootfs_dd/test_file_copy")" = "Hello, World!"
+
+  # test dir binary
+  rootfs_dir="$(install-slices coreutils_dir)"
+  chroot "$rootfs_dir" dir --version
+  chroot "$rootfs_dir" dir
+  mkdir "$rootfs_dir/test_dir"
+  echo "Hello, World!" > "$rootfs_dir/test_dir/test_file"
+  test "$(chroot "$rootfs_dir" dir test_dir)" = "test_file"
+
+  # test head binary
+  rootfs_head="$(install-slices coreutils_head)"
+  chroot "$rootfs_head" head --version
+  echo -e "line1\nline2\nline3" > "$rootfs_head/test_file"
+  test "$(chroot "$rootfs_head" head -n 1 test_file)" = "line1"
+
+  # test install binary
+  rootfs_install="$(install-slices coreutils_install)"
+  chroot "$rootfs_install" install --version
+  touch "$rootfs_install/test_file"
+  chroot "$rootfs_install" install -D test_file /tmp/test_file
+  test -e "$rootfs_install/tmp/test_file"
+
+  # test link binary
+  rootfs_link="$(install-slices coreutils_link)"
+  chroot "$rootfs_link" link --version
+  touch "$rootfs_link/test_file"
+  chroot "$rootfs_link" link test_file test_file_copy
+  echo "Hello, World!" > "$rootfs_link/test_file"
+  test "$(cat "$rootfs_link/test_file_copy")" = "Hello, World!"
+
+  # test mktemp binary
+  rootfs_mktemp="$(install-slices coreutils_mktemp)"
+  chroot "$rootfs_mktemp" mktemp --version
+  mkdir -p "$rootfs_mktemp/tmp"
+  TMPFILE=$(chroot "$rootfs_mktemp" mktemp /tmp/test.XXXXXX)
+  test -e "$rootfs_mktemp${TMPFILE}"
+
+  # test mv binary
+  rootfs_mv="$(install-slices coreutils_mv-utility)"
+  chroot "$rootfs_mv" mv --version
+  touch "$rootfs_mv/test_file"
+  chroot "$rootfs_mv" mv test_file test_file_moved
+  test ! -e "$rootfs_mv/test_file"
+  test -e "$rootfs_mv/test_file_moved"
+
+  # test od binary
+  rootfs_od="$(install-slices coreutils_od-utility)"
+  chroot "$rootfs_od" od --version
+  echo -e "Hello\nWorld" > "$rootfs_od/test_file"
+  test "$(chroot "$rootfs_od" od test_file)" = \
+      $'0000000 062510 066154 005157 067527 066162 005144\n0000014'
+
+  # test rmdir binary
+  rootfs_rmdir="$(install-slices coreutils_rmdir)"
+  chroot "$rootfs_rmdir" rmdir --version
+  mkdir -p "$rootfs_rmdir/test_dir"
+  chroot "$rootfs_rmdir" rmdir test_dir
+  test ! -e "$rootfs_rmdir/test_dir"
+
+  # test split binary
+  rootfs_split="$(install-slices coreutils_split)"
+  chroot "$rootfs_split" split --version
+  echo -e "line1\nline2" > "$rootfs_split/test_file"
+  chroot "$rootfs_split" split -l 1 test_file
+  test "$(cat "$rootfs_split/xaa")" = "line1"
+  test "$(cat "$rootfs_split/xab")" = "line2"
+
+  # test stat binary
+  rootfs_stat="$(install-slices coreutils_stat)"
+  chroot "$rootfs_stat" stat --version
+  touch "$rootfs_stat/test_file"
+  chroot "$rootfs_stat" stat test_file
+  test "$(chroot "$rootfs_stat" stat -c '%s' test_file)" = 0
+
+  # test tail binary
+  rootfs_tail="$(install-slices coreutils_tail)"
+  chroot "$rootfs_tail" tail --version
+  echo -e "line1\nline2\nline3" > "$rootfs_tail/test_file"
+  test "$(chroot "$rootfs_tail" tail -n 1 test_file)" = "line3"
+
+  # test test binary
+  rootfs_test="$(install-slices coreutils_test)"
+  chroot "$rootfs_test" [ --version
+  touch "$rootfs_test/test_file"
+  chroot "$rootfs_test" [ -e test_file ]
+  chroot "$rootfs_test" test -e test_file
+
+  # test timeout binary
+  rootfs_timeout="$(install-slices coreutils_echo coreutils_timeout)"
+  chroot "$rootfs_timeout" timeout --version
+  test "$(chroot "$rootfs_timeout" timeout 1 echo "Done")" = "Done"
+
+  # test tr binary
+  rootfs_tr="$(install-slices coreutils_tr-utility)"
+  chroot "$rootfs_tr" tr --version
+  echo -e "hello\nworld" > "$rootfs_tr/test_file"
+  chroot "$rootfs_tr" tr '[:lower:]' '[:upper:]' < "$rootfs_tr/test_file" \
+    > "$rootfs_tr/test_file2"
+  test "$(cat "$rootfs_tr/test_file2")" = $'HELLO\nWORLD'
+
+  # test unlink binary
+  rootfs_unlink="$(install-slices coreutils_link coreutils_unlink)"
+  chroot "$rootfs_unlink" unlink --version
+  touch "$rootfs_unlink/test_file"
+  chroot "$rootfs_unlink" link test_file test_file_link
+  test -e "$rootfs_unlink/test_file_link"
+  chroot "$rootfs_unlink" unlink test_file_link
+  test ! -e "$rootfs_unlink/test_file_link"
+
+  # test id binary
+  rootfs_id="$(install-slices coreutils_id-utility)"
+  chroot "$rootfs_id" id --version
+  chroot "$rootfs_id" id
+  test "$(chroot "$rootfs_id" id -u)" = "0"
+
+  # test join binary
+  rootfs_join="$(install-slices coreutils_join)"
+  chroot "$rootfs_join" join --version
+  echo -e "1,apple\n2,banana" > "$rootfs_join/file1"
+  echo -e "1,orange\n2,grape" > "$rootfs_join/file2"
+  test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
+           $'1,apple,orange\n2,banana,grape'
