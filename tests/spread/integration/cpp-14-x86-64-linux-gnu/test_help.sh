@@ -34,4 +34,3 @@ if $cross; then
 else
     (chroot "${rootfs}" cc1 --help || true) | grep -q "The following options are language-independent:"
 fi
-
