@@ -74,9 +74,9 @@ else
     chroot "${rootfs_ld}" ld -o hello hello.o \
         -dynamic-linker "$(find "${rootfs_ld}" -type f -name "ld-linux-*.so.*" -printf "%P\n" -quit)" \
         -lc \
-        /usr/lib/"$arch"/crt1.o \
-        /usr/lib/"$arch"/crti.o \
-        /usr/lib/"$arch"/crtn.o
+        /usr/lib/"$arch"-linux-gnu/crt1.o \
+        /usr/lib/"$arch"-linux-gnu/crti.o \
+        /usr/lib/"$arch"-linux-gnu/crtn.o
 
     # run
     chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
