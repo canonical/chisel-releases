@@ -12,7 +12,6 @@ else
     exit 1
 fi
 
-# (chroot "${rootfs}" cc1 --help || true) | grep -q "The following options are language-independent:"
 if $cross; then
     rootfs="$(install-slices \
         base-files_bin \

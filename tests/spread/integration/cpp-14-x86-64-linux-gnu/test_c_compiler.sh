@@ -22,7 +22,7 @@ if $cross; then
     ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
 
     rootfs_as="$(install-slices \
-        binutils-x86_64-linux-gnu_assembler \
+        binutils-x86-64-linux-gnu_assembler \
     )"
     ln -s "x86_64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
 
@@ -40,7 +40,7 @@ else
     ln -s "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
 
     rootfs_as="$(install-slices \
-        binutils-x86_64-linux-gnu_assembler \
+        binutils-x86-64-linux-gnu_assembler \
     )"
     ln -s "x86_64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
 
