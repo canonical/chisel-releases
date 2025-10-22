@@ -12,17 +12,14 @@ else
     exit 1
 fi
 
+rootfs="$(install-slices \
+    base-files_bin \
+    cpp-14-aarch64-linux-gnu_cc1 \
+)"
+
 if $cross; then
-    rootfs="$(install-slices \
-        base-files_bin \
-        cpp-14-aarch64-linux-gnu_cc1 \
-    )"
     ln -s "/usr/libexec/gcc-cross/aarch64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
 else
-    rootfs="$(install-slices \
-        base-files_bin \
-        cpp-14-aarch64-linux-gnu_cc1 \
-    )"
     ln -s "/usr/libexec/gcc/aarch64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
 fi
 

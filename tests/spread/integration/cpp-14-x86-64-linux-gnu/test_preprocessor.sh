@@ -12,18 +12,15 @@ else
     exit 1
 fi
 
+rootfs="$(install-slices \
+    base-files_bin \
+    cpp-14-x86-64-linux-gnu_cc1 \
+)"
+
 if $cross; then
-    rootfs="$(install-slices \
-        base-files_bin \
-        cpp-14-x86-64-linux-gnu_cc1 \
-    )"
-    ln -s "/usr/libexec/gcc-cross/x86-64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
 else
-    rootfs="$(install-slices \
-        base-files_bin \
-        cpp-14-x86-64-linux-gnu_cc1 \
-    )"
-    ln -s "/usr/libexec/gcc/x86-64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
 fi
 
 cp question.c "${rootfs}/question.c"
@@ -35,12 +32,10 @@ if $cross; then
     :
 else
     chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
-    cat "${rootfs}/question.i"
     cat "${rootfs}/question.i" | grep -q 'return 42;'
 
     # now remove answer.h and check that ANSWER is not defined
     echo "" > "${rootfs}/usr/include/everything/answer.h"
     chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i"
-    cat "${rootfs}/question.i"
     cat "${rootfs}/question.i" | grep -q 'return 1;'
 fi

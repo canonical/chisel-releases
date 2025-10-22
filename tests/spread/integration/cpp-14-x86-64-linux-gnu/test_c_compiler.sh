@@ -13,43 +13,27 @@ else
 fi
 
 # prepare separate rootfs with cc1, as and ld
+rootfs_cc="$(install-slices \
+    base-files_bin \
+    cpp-14-x86-64-linux-gnu_cc1 \
+    libc6-dev_headers \
+)"
+rootfs_as="$(install-slices \
+    binutils-x86-64-linux-gnu_assembler \
+)"
+rootfs_ld="$(install-slices \
+    binutils-x86-64-linux-gnu_linker \
+    libc6-dev_core \
+)"
+
 if $cross; then
-    rootfs_cc="$(install-slices \
-        base-files_bin \
-        cpp-14-x86-64-linux-gnu_cc1 \
-        libc6-dev_headers \
-    )"
     ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
-
-    rootfs_as="$(install-slices \
-        binutils-x86-64-linux-gnu_assembler \
-    )"
     ln -s "x86_64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
-
-    rootfs_ld="$(install-slices \
-        binutils-x86-64-linux-gnu_linker \
-        libc6-dev_core \
-    )"
     ln -s "x86_64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 else
-    rootfs_cc="$(install-slices \
-        base-files_bin \
-        cpp-14-x86-64-linux-gnu_cc1 \
-        libc6-dev_headers \
-    )"
     ln -s "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
-
-    rootfs_as="$(install-slices \
-        binutils-x86-64-linux-gnu_assembler \
-    )"
     ln -s "x86_64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
-
-    rootfs_ld="$(install-slices \
-        binutils-x86-64-linux-gnu_linker \
-        libc6-dev_core \
-    )"
     ln -s "x86_64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
-
 fi
 
 cp hello.c "${rootfs_cc}/hello.c"
