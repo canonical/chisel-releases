@@ -313,13 +313,60 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+
+def chisel_cut(
+    *,
+    arch: str,
+    release: str,
+    root: str,
+    slice_name: str,
+    chisel_version: str,
+    cache_dir: str,
+    n_retries: int = 3,
+) -> str | None:
+    """
+    Run "chisel cut" to install the slice in the given root.
+    Retry up to n_retries times if a fetch error occurs.
+    Return an error message if something went wrong, or None on success.
+    """
+    env = dict(os.environ)
+    env["XDG_CACHE_HOME"] = str(cache_dir)
+
+    _fetch_error_substr = "error: cannot fetch from archive"
+
+    args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", root]
+    if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0":
+        args += ["--ignore=unstable"]
+    args += [slice_name]
+
+    for attempt in range(1, n_retries + 1):
+        res = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            check=False,
+            env=env,
+        )
+        if res.returncode == 0:
+            return None
+        err = res.stderr.rstrip()
+        if _fetch_error_substr in err and attempt < n_retries:
+            logging.warning(
+                "Fetch error occurred while installing %s (attempt %d/%d). Retrying...",
+                slice_name,
+                attempt,
+                n_retries,
+            )
+            continue
+        return err
+
+
 def install_slices(
     chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
     for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
@@ -333,33 +380,16 @@ def install_slices(
         if dry_run:
             continue
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
-            env = dict(os.environ)
-            env["XDG_CACHE_HOME"] = str(cache_dir)
-            args=[
-                "chisel",
-                "cut",
-                "--arch",
-                arch,
-                "--release",
-                release,
-                "--root",
-                tmpfs,
-            ]
-            if extra_flag:
-                args += [extra_flag]
-            args += [slice_name]
-            res = subprocess.run(
-                args,
-                capture_output=True,
-                text=True,
-                check=False,
-                env=env,
+            err = chisel_cut(
+                arch=arch,
+                release=release,
+                root=tmpfs,
+                cache_dir=cache_dir,
+                slice_name=slice_name,
+                chisel_version=chisel_version,
             )
-            if res.returncode != 0:
-                logging.error(
-                    "==============================================\n%s",
-                    res.stderr.rstrip(),
-                )
+            if err:
+                logging.error("==============================================\n%s", err)
                 return
 
             # Check if the copyright file has been installed with this slice
