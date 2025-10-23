@@ -13,8 +13,6 @@ jobs:
     env:
       branch: ${{ github.base_ref }}
       main-branch-path: files-from-main
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,7 +47,8 @@ jobs:
           ./${{ env.script-dir }}/pkg-deps \
             ${{ steps.changed-paths.outputs.slices_files }}
 
-      - name: Post messages to PR
-        uses: mshick/add-pr-comment@v2
+      - name: Post message to PR
+        uses: canonical/chisel-releases/.github/actions/add-pr-comment@main
         with:
           message-path: ${{ steps.check-deps.outputs.msg_file }}
+          message-id: "pkg-deps-check"
