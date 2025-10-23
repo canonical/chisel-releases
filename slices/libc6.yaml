@@ -40,8 +40,26 @@ slices:
       /usr/lib/*-linux-*/libutil.so.*:
 
   gconv:
+    essential:
+      - libc6_gconv-core
+      - libc6_iconv-config
     contents:
       /usr/lib/*-linux-*/gconv/**:
+
+  iconv-config:
+    contents:
+      /usr/lib/*-linux-*/gconv/gconv-modules:
+      /usr/lib/*-linux-*/gconv/gconv-modules.cache:
+      /usr/lib/*-linux-*/gconv/gconv-modules.d/gconv-modules-extra.conf:
+
+  gconv-core:
+    contents:
+      /usr/lib/*-linux-*/gconv/ANSI_X3.110.so:
+      /usr/lib/*-linux-*/gconv/CP1252.so:
+      /usr/lib/*-linux-*/gconv/ISO8859-1.so:
+      /usr/lib/*-linux-*/gconv/ISO8859-15.so:
+      /usr/lib/*-linux-*/gconv/UNICODE.so:
+      /usr/lib/*-linux-*/gconv/UTF-*.so:
 
   copyright:
     contents:
