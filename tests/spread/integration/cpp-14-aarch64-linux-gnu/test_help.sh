@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# spellchecker: ignore rootfs libexec
+
+arch=$(uname -m)
+cross=false
+if [[ "$arch" == "x86_64" ]]; then
+    cross=true
+elif [[ "$arch" == "aarch64" ]]; then
+    cross=false
+else
+    echo "Unsupported architecture: $arch"
+    exit 1
+fi
+
+rootfs="$(install-slices \
+    base-files_bin \
+    cpp-14-aarch64-linux-gnu_cc1 \
+)"
+
+if $cross; then
+    ln -s "/usr/libexec/gcc-cross/aarch64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
+else
+    ln -s "/usr/libexec/gcc/aarch64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
+fi
+
+if $cross; then
+    (chroot "${rootfs}" cc1 --help || true) | grep -q "The following options are specific to just the language Ada:"
+else
+    (chroot "${rootfs}" cc1 --help || true) | grep -q "The following options are language-independent:"
+fi
