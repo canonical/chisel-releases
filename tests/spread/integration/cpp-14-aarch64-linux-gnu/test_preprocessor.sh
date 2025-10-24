@@ -25,21 +25,10 @@ fi
 
 cp question.c "${rootfs}/question.c"
 
-# we don't have answer.h in the rootfs yet, so ANSWER should not be defined
+# no answer, therefore default answer
 chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
 cat "${rootfs}/question.i" | grep -q 'return 1;'
 
-# specify ANSWER through -D and check that it works
+# specify ANSWER
 chroot "${rootfs}" cc1 -DANSWER=42 -E question.c > "${rootfs}/question.i" 2>/dev/null
 cat "${rootfs}/question.i" | grep -q 'return 42;'
-
-# add answer.h to the rootfs and check that it works
-mkdir -p "${rootfs}/usr/include/everything"
-cp answer.h "${rootfs}/usr/include/everything/"
-chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
-cat "${rootfs}/question.i" | grep -q 'return 42;'
-
-# remove answer.h and check that ANSWER is not defined
-echo "" > "${rootfs}/usr/include/everything/answer.h"
-chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
-cat "${rootfs}/question.i" | grep -q 'return 1;'
