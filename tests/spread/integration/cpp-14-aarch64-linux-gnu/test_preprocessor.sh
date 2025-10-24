@@ -24,14 +24,11 @@ else
 fi
 
 cp question.c "${rootfs}/question.c"
-mkdir -p "${rootfs}/usr/include/everything"
-cp answer.h "${rootfs}/usr/include/everything/"
 
-
-chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
-cat "${rootfs}/question.i" | grep -q 'return 42;'
-
-# now remove answer.h and check that ANSWER is not defined
-echo "" > "${rootfs}/usr/include/everything/answer.h"
+# no answer, therefore default answer
 chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
 cat "${rootfs}/question.i" | grep -q 'return 1;'
+
+# specify ANSWER
+chroot "${rootfs}" cc1 -DANSWER=42 -E question.c > "${rootfs}/question.i" 2>/dev/null
+cat "${rootfs}/question.i" | grep -q 'return 42;'
