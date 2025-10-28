@@ -53,6 +53,8 @@ slices:
       /usr/lib/*-linux-*/gconv/gconv-modules.d/gconv-modules-extra.conf:
 
   gconv-core:
+    essential:
+      - libc6_libs
     contents:
       /usr/lib/*-linux-*/gconv/ANSI_X3.110.so:
       /usr/lib/*-linux-*/gconv/CP1252.so:
