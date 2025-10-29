@@ -363,8 +363,8 @@ slices:
     essential:
       - libpython3.13-stdlib_core
     contents:
-      /usr/lib/python3.13/pydoc_data/**:
       /usr/lib/python3.13/pydoc.py:
+      /usr/lib/python3.13/pydoc_data/**:
 
   pyrepl:
     essential:
