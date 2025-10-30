@@ -15,7 +15,7 @@ slices:
       - libxml2_libs
       - media-types_data
       - php-common_session
-      - php8.4-cli_config
+      - php8.4-cli_modules
       - tzdata_zoneinfo
       - zlib1g_libs
     contents:
@@ -36,9 +36,9 @@ slices:
       /usr/bin/phar8.4:
       /usr/bin/phar8.4.phar:
 
-  config:
+  modules:
     essential:
-      - php8.4-common_libs
+      - php8.4-common_module-libs
     contents:
       # When a module is enabled in php (via phpenmod), the symlink is created with the format
       # <priority>-<name>. The priority is defined inside the .ini file itself.
