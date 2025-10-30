@@ -14,6 +14,7 @@ slices:
       - libssl3t64_libs
       - libxml2_libs
       - media-types_data
+      - php-common_session
       - php8.4-cli_config
       - tzdata_zoneinfo
       - zlib1g_libs
