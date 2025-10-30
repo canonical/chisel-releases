@@ -4,12 +4,12 @@ essential:
   - php8.3-common_copyright
 
 slices:
-  libs:
+  module-libs:
     essential:
       - libc6_libs
       - libffi8_libs
       - libssl3t64_libs
-      - php8.3-common_config
+      - php8.3-common_module-config
     contents:
       /usr/lib/php/*/calendar.so:
       /usr/lib/php/*/ctype.so:
@@ -29,7 +29,7 @@ slices:
       /usr/lib/php/*/sysvshm.so:
       /usr/lib/php/*/tokenizer.so:
 
-  config:
+  module-config:
     contents:
       # PHP contain multiple modules that enable different functions
       # (i.e date() by calendar.ini), these modules need to be copied

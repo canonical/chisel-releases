@@ -8,12 +8,10 @@ slices:
   core:
     essential:
       - php8.3-cli_core
-      - php8.3-common_libs
 
   standard:
     essential:
       - php8.3-cli_standard
-      - php8.3-common_libs
 
   copyright:
     contents:
