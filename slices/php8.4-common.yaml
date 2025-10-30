@@ -28,7 +28,6 @@ slices:
       /usr/lib/php/*/sysvsem.so:
       /usr/lib/php/*/sysvshm.so:
       /usr/lib/php/*/tokenizer.so:
-      /usr/lib/php/8.4/php.ini-production:
 
       # Required for session_start() function. It is actually added
       # by php-common, but created here instead to prevent from
@@ -75,6 +74,7 @@ slices:
         { copy: /usr/share/php8.4-common/common/sysvshm.ini }
       /etc/php/8.4/mods-available/tokenizer.ini:
         { copy: /usr/share/php8.4-common/common/tokenizer.ini }
+      /usr/lib/php/8.4/php.ini-production:
 
   copyright:
     contents:
