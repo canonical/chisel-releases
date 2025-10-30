@@ -53,6 +53,10 @@ slices:
       /var/lib/php/modules/8.3/registry/sysvshm: { text: "" }
       /var/lib/php/modules/8.3/registry/tokenizer: { text: "" }
 
+  session:
+    contents:
+      /var/lib/php/sessions:
+
   copyright:
     contents:
       /usr/share/doc/php-common/copyright:

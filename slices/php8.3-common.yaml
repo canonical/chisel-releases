@@ -29,11 +29,6 @@ slices:
       /usr/lib/php/*/sysvshm.so:
       /usr/lib/php/*/tokenizer.so:
 
-      # Required for session_start() function. It is actually added
-      # by php-common, but created here instead to prevent from
-      # adding contents that don't belong to the php core slice.
-      /var/lib/php/sessions/: { make: true }
-
   config:
     contents:
       # PHP contain multiple modules that enable different functions
