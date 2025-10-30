@@ -24,7 +24,7 @@ slices:
 
   standard:
     essential:
-      - php-common_bins
+      - php-common_scripts
       - php8.4-cli_core
       - php8.4-opcache_cli-module
       - php8.4-readline_cli-module
