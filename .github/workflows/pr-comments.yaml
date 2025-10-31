@@ -1,0 +1,153 @@
+# This workflow listens for completion of other workflows and posts PR comments
+# when those workflows upload artifacts with names matching the pattern:
+# pr-comment_<pr-number>_<message-id>
+#
+# To use this from another workflow:
+# 1. Write your comment message to a file
+# 2. Use the canonical/chisel-releases/.github/actions/add-pr-comment@main
+#    action to create and upload the PR comment artifact
+# 3. Add your workflow name to the "workflows" list below. This will trigger
+#    this workflow to run, pick up the artifacts, and post the comments.
+
+name: Post PR comments
+
+on:
+  workflow_run:
+    workflows: ["Pkg coverage", "Pkg coverage 2"]
+    types:
+      - completed
+
+jobs:
+  find-comments:
+    name: Find PR comment artifacts
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion != 'skipped'
+    outputs:
+      matrix: ${{ steps.setup-matrix.outputs.matrix }}
+      has-comments: ${{ steps.setup-matrix.outputs.has-comments }}
+    steps:
+      # We cannot use actions/download-artifact here because this workflow needs to
+      # download artifacts from a different workflow (the one that triggered it).
+      - name: Find PR comment artifacts
+        id: find-artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            
+            // Find all artifacts matching the pattern pr-comment_<pr-number>_<message-id>
+            let matchArtifacts = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name.match(/^pr-comment_\d+_[a-zA-Z0-9_-]+$/);
+            });
+            
+            if (matchArtifacts.length === 0) {
+              console.log('No pr-comment_* artifacts found');
+              core.setOutput('matrix', JSON.stringify([]));
+              return;
+            }
+            
+            console.log(`Found ${matchArtifacts.length} PR comment artifacts`);
+            
+            let matrix = [];
+            for (let artifact of matchArtifacts) {
+              console.log(`Found artifact: ${artifact.name}`);
+              
+              // Parse PR number and message ID from artifact name
+              let match = artifact.name.match(/^pr-comment_(\d+)_([a-zA-Z0-9_-]+)$/);
+              if (!match) {
+                console.log(`Skipping artifact with invalid name: ${artifact.name}`);
+                continue;
+              }
+              
+              let prNumber = match[1];
+              let messageId = match[2];
+              
+              matrix.push({
+                'artifact-name': artifact.name,
+                'pr-number': prNumber,
+                'message-id': messageId,
+                'run-id': context.payload.workflow_run.id
+              });
+            }
+            
+            console.log(`Matrix: ${JSON.stringify(matrix)}`);
+            core.setOutput('matrix', JSON.stringify(matrix));
+
+      - name: Set up matrix
+        id: setup-matrix
+        run: |
+          matrix='${{ steps.find-artifacts.outputs.matrix }}'
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          if [ "$matrix" = "[]" ]; then
+            echo "No PR comment artifacts found"
+            echo "has-comments=false" >> $GITHUB_OUTPUT
+          else
+            echo "has-comments=true" >> $GITHUB_OUTPUT
+          fi
+
+  post-comments:
+    name: Post PR comments
+    runs-on: ubuntu-latest
+    needs: find-comments
+    if: needs.find-comments.outputs.has-comments == 'true'
+    permissions:
+      pull-requests: write
+    strategy:
+      matrix:
+        include: ${{ fromJson(needs.find-comments.outputs.matrix) }}
+    steps:
+      - name: Download PR comment artifact
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{ matrix.run-id }},
+            });
+            
+            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+              return artifact.name === "${{ matrix.artifact-name }}";
+            })[0];
+            
+            if (!matchArtifact) {
+              console.log('Artifact ${{ matrix.artifact-name }} not found');
+              throw new Error('Artifact not found');
+            }
+            
+            let download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/${{ matrix.artifact-name }}.zip`, Buffer.from(download.data));
+
+      - name: Extract and verify comment file
+        run: |
+          # Extract the artifact
+          unzip "${{ matrix.artifact-name }}.zip"
+          
+          # The extracted file should be named like the artifact but with .txt extension
+          message_file="${{ matrix.artifact-name }}.txt"
+          
+          if [ ! -f "$message_file" ]; then
+            echo "Message file $message_file not found after extraction"
+            ls -la
+            exit 1
+          fi
+          
+          echo "Posting comment for PR #${{ matrix.pr-number }} with message ID ${{ matrix.message-id }}"
+
+      - name: Post message to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: ${{ matrix.artifact-name }}.txt
+          issue: ${{ matrix.pr-number }}
+          message-id: ${{ matrix.message-id }}
