@@ -145,7 +145,7 @@ jobs:
           path: coverage-report.json
 
       - name: Post comment to PR
-        uses: mshick/add-pr-comment@v2
+        uses: canonical/chisel-releases/.github/actions/add-pr-comment@main
         with:
           message-path: coverage-summary.md
           message-id: coverage-summary
