@@ -1,16 +1,35 @@
-summary: Integration tests for libgif7
+summary: Integration tests for iproute2
 
 execute: |
   rootfs="$(install-slices iproute2_bins base-files_tmp)"
 
   mkdir -p ${rootfs}/proc
   mount --bind /proc ${rootfs}/proc
+
+  chroot "$rootfs" /bin/ip addr show
+  chroot "$rootfs" /sbin/ip route show
+  chroot "$rootfs" ip link show
   
-  chroot "$rootfs" ip addr show
-  chroot "$rootfs" ss -tln
+  chroot "$rootfs" /bin/ss -tln
+  chroot "$rootfs" ss -uln
+  
   chroot "$rootfs" bridge link show
-  chroot "$rootfs" dcb help
-  chroot "$rootfs" rtacct
-  chroot "$rootfs" tc qdisc show dev lo
+  chroot "$rootfs" bridge fdb show
+  chroot "$rootfs" genl ctrl list
   chroot "$rootfs" nstat
-  chroot "$rootfs" genl -V
+  chroot "$rootfs" tc qdisc show dev lo
+  chroot "$rootfs" rtacct
+  chroot "$rootfs" routel
+  chroot "$rootfs" vdpa dev
+
+  # The commands below don't run without special hardware or cluster configurations.
+  # So we just verify the binaries exist by running help or version commands.
+  chroot "$rootfs" rtmon -V
+  chroot "$rootfs" dcb help
+  chroot "$rootfs" devlink help
+  chroot "$rootfs" tipc help
+  chroot "$rootfs" rdma help
+  chroot "$rootfs" ctstat -h
+  chroot "$rootfs" lnstat -h
+  chroot "$rootfs" rtstat -h
+  chroot "$rootfs" arpd -h
