@@ -19,7 +19,7 @@ execute: |
   chroot "$rootfs" nstat
   chroot "$rootfs" tc qdisc show dev lo
   chroot "$rootfs" rtacct
-  chroot "$rootfs" routel
+  chroot "$rootfs" /usr/bin/routel
   chroot "$rootfs" vdpa dev
 
   # The commands below don't run without special hardware or cluster configurations.
