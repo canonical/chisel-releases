@@ -33,10 +33,18 @@ slices:
       /usr/bin/lnstat:
       /usr/bin/nstat:
       /usr/bin/rdma:
-      /usr/bin/routel:
       /usr/bin/rtstat:
       /usr/sbin/arpd:
       /usr/sbin/genl:
+
+  routel:
+    essential:
+      - coreutils_env
+      - iproute2_bins
+      - libpython3-stdlib_net-data
+      - python3_core
+    contents:
+      /usr/bin/routel:
 
   config:
     essential:

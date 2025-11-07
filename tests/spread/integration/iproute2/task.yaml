@@ -1,35 +1,37 @@
 summary: Integration tests for iproute2
 
 execute: |
-  rootfs="$(install-slices iproute2_bins base-files_tmp)"
+  rootfs_bins="$(install-slices iproute2_bins base-files_tmp)"
 
-  mkdir -p ${rootfs}/proc
-  mount --bind /proc ${rootfs}/proc
+  mkdir -p ${rootfs_bins}/proc
+  mount --bind /proc ${rootfs_bins}/proc
 
-  chroot "$rootfs" /bin/ip addr show
-  chroot "$rootfs" /sbin/ip route show
-  chroot "$rootfs" ip link show
+  chroot "$rootfs_bins" /bin/ip addr show
+  chroot "$rootfs_bins" /sbin/ip route show
+  chroot "$rootfs_bins" ip link show
   
-  chroot "$rootfs" /bin/ss -tln
-  chroot "$rootfs" ss -uln
+  chroot "$rootfs_bins" /bin/ss -tln
+  chroot "$rootfs_bins" ss -uln
   
-  chroot "$rootfs" bridge link show
-  chroot "$rootfs" bridge fdb show
-  chroot "$rootfs" genl ctrl list
-  chroot "$rootfs" nstat
-  chroot "$rootfs" tc qdisc show dev lo
-  chroot "$rootfs" rtacct
-  chroot "$rootfs" /usr/bin/routel
-  chroot "$rootfs" vdpa dev
+  chroot "$rootfs_bins" bridge link show
+  chroot "$rootfs_bins" bridge fdb show
+  chroot "$rootfs_bins" genl ctrl list
+  chroot "$rootfs_bins" nstat
+  chroot "$rootfs_bins" tc qdisc show dev lo
+  chroot "$rootfs_bins" rtacct
 
   # The commands below don't run without special hardware or cluster configurations.
-  # So we just verify the binaries exist by running help or version commands.
-  chroot "$rootfs" rtmon -V
-  chroot "$rootfs" dcb help
-  chroot "$rootfs" devlink help
-  chroot "$rootfs" tipc help
-  chroot "$rootfs" rdma help
-  chroot "$rootfs" ctstat -h
-  chroot "$rootfs" lnstat -h
-  chroot "$rootfs" rtstat -h
-  chroot "$rootfs" arpd -h
+  # So we just do some very basic check.
+  chroot "$rootfs_bins" vdpa -V
+  chroot "$rootfs_bins" rtmon -V
+  chroot "$rootfs_bins" dcb help
+  chroot "$rootfs_bins" devlink help
+  chroot "$rootfs_bins" rdma help
+  chroot "$rootfs_bins" ctstat -h
+  chroot "$rootfs_bins" lnstat -h
+  chroot "$rootfs_bins" rtstat -h
+  test -x "$rootfs_bins/usr/sbin/arpd"
+  test -x "$rootfs_bins/sbin/tipc"
+
+  rootfs_routel="$(install-slices iproute2_routel)"
+  chroot "$rootfs_routel" routel
