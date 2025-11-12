@@ -36,6 +36,9 @@ else
     ln -s "aarch64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 fi
 
+# NOTE: is this the correct linker path for cross compilation too?
+dynamic_linker="$(find "${rootfs_ld}" -type f -name "ld-linux-*.so.*" -printf "%P\n" -quit)"
+
 cp hello.c "${rootfs_cc}/hello.c"
 
 if $cross; then
@@ -56,7 +59,7 @@ else
     # link
     cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
     chroot "${rootfs_ld}" ld -o hello hello.o \
-        -dynamic-linker "$(find "${rootfs_ld}" -type f -name "ld-linux-*.so.*" -printf "%P\n" -quit)" \
+        -dynamic-linker "$dynamic_linker" \
         -lc \
         /usr/lib/"$arch"-linux-gnu/crt1.o \
         /usr/lib/"$arch"-linux-gnu/crti.o \
