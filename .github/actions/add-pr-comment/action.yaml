@@ -8,7 +8,7 @@ inputs:
     description: Path to file containing the comment message
     required: true
   message-id:
-    description: Unique identifier for the comment (used for updating existing comments)
+    description: Unique identifier for the comment
     required: true
 
 runs:
