@@ -3,7 +3,7 @@
 # pr-comment_<pr-number>_<message-id>
 #
 # To use this from another workflow:
-# 1. Write your comment message to a file
+# 1. Write your comment message to a file named using the pattern mentioned above
 # 2. Use the canonical/chisel-releases/.github/actions/add-pr-comment@main
 #    action to create and upload the PR comment artifact
 # 3. Add your workflow name to the "workflows" list below. This will trigger
