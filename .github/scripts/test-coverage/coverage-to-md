@@ -10,8 +10,8 @@ function main {
     echo "Total Coverage: ${total}%"
     echo ""
 
-    local jq_program='.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
-    echo "$json" | jq -r "$jq_program" | while read -r pkg coverage count missing; do
+    local jq_filter='.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
+    echo "$json" | jq -r "$jq_filter" | while read -r pkg coverage count missing; do
     
     echo "<details>"
     
