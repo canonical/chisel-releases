@@ -87,8 +87,8 @@ function main {
         if [ "$n_changed" -gt 0 ]; then
             coverage=$(awk "BEGIN {printf \"%.2f\", ($n_present / $n_changed) * 100}")
         fi
-        total_changed=$((total_changed + n_changed)) || true
-        total_present=$((total_present + n_present)) || true
+        total_changed=$((total_changed + n_changed))
+        total_present=$((total_present + n_present))
 
         local missing=$(difference "$changed" "$installed")
         log "Package $pkg: coverage $coverage%, missing slices: ${missing//[$'\n']/ }"
