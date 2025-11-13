@@ -74,7 +74,7 @@ function main {
 
         local extra=$(difference "$installed" "$changed" || true)
         if [ -n "$extra" ]; then
-            log "Warning: package $pkg has installed slices which are not in changed files: ${extra//[$'\n']/ }"
+            log "Info: package $pkg has installed slices which are not in changed files: ${extra//[$'\n']/ }"
             # remove extra slices from installed, so they don't affect coverage calculation
             installed=$(difference "$installed" "$extra" || true)
         fi
