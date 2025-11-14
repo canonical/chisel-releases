@@ -1,0 +1,13 @@
+package: libeclipse-jdt-core-java
+
+essential:
+  - libeclipse-jdt-core-java_copyright
+
+slices:
+  jars:
+    contents:
+      /usr/share/java/eclipse-jdt-core*.jar:
+
+  copyright:
+    contents:
+      /usr/share/doc/libeclipse-jdt-core-java/copyright:
