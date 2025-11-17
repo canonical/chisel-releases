@@ -16,7 +16,7 @@ slices:
   # The "core" slice provides a very minimal libpython3.14-stdlib
   core:
     essential:
-      - libbz2-1.0_libs #CHK
+      - libbz2-1.0_libs
       - libc6_libs
       # Adding libgcc-s1 here because it is required for the arm arch.
       # In practice, libc6 should bring it anyway, BUT, there is a circular
@@ -25,10 +25,10 @@ slices:
       # and libgcc-s1 already depends on libc6, so we'll have to include this
       # line here, explicitly.
       - libgcc-s1_libs
-      - liblzma5_libs #CHK
-      - libpython3.14-minimal_libs #CHK
-      - media-types_data #CHK
-      - netbase_config #CHK
+      - liblzma5_libs
+      - libpython3.14-minimal_libs
+      - media-types_data
+      - netbase_config
     contents:
       /usr/lib/python3.14/_pydatetime.py:
       /usr/lib/python3.14/_pylong.py:
@@ -63,8 +63,8 @@ slices:
   # https://docs.python.org/3.14/library/allos.html
   all-os:
     essential:
-      - libffi8_libs #CHK
-      - libncursesw6_libs #CHK
+      - libffi8_libs
+      - libncursesw6_libs
       - libpython3.14-stdlib_core
       - libpython3.14-stdlib_unix
       - libtinfo6_libs
@@ -117,9 +117,9 @@ slices:
   # https://docs.python.org/3.14/library/persistence.html
   data-persistence:
     essential:
-      - libdb5.3t64_libs #CHK
+      - libdb5.3t64_libs
       - libpython3.14-stdlib_core
-      - libsqlite3-0_libs #CHK
+      - libsqlite3-0_libs
     contents:
       /usr/lib/python3.14/dbm/**:
       /usr/lib/python3.14/lib-dynload/_dbm.cpython-314-*-linux-*.so:
@@ -132,7 +132,7 @@ slices:
   data-types:
     essential:
       - libpython3.14-stdlib_core
-      - tzdata_zoneinfo #CHK
+      - tzdata_zoneinfo
     contents:
       /usr/lib/python3.14/graphlib.py:
       /usr/lib/python3.14/lib-dynload/_zoneinfo.cpython-314-*-linux-*.so:
@@ -255,7 +255,7 @@ slices:
       - libpython3.14-stdlib_markup-tools
       - libpython3.14-stdlib_numeric
       - libpython3.14-stdlib_pydoc
-      - libuuid1_libs #CHK
+      - libuuid1_libs
     contents:
       /usr/lib/python3.14/ftplib.py:
       /usr/lib/python3.14/http/cookiejar.py:
@@ -369,7 +369,6 @@ slices:
       /usr/lib/python3.14/pydoc.py:
       /usr/lib/python3.14/pydoc_data/**:
 
-  # TODO: Check this.
   pyrepl:
     essential:
       - libpython3.14-stdlib_custom-interpreters
@@ -383,8 +382,8 @@ slices:
   text:
     essential:
       - libpython3.14-stdlib_core
-      - libreadline8t64_libs #CHK
-      - libtinfo6_libs #CHK
+      - libreadline8t64_libs
+      - libtinfo6_libs
     contents:
       /usr/lib/python3.14/difflib.py:
       /usr/lib/python3.14/lib-dynload/readline.cpython-314-*-linux-*.so:
@@ -425,7 +424,7 @@ slices:
       /usr/lib/python3.14/lib-dynload/_testlimitedcapi.cpython-314-*-linux-*.so: # This is not used. Added for sake of completeness
       /usr/lib/python3.14/this.py:
 
-  copyright: #CHK
+  copyright:
     essential:
       - libpython3.14-minimal_copyright
     contents:
