@@ -1,0 +1,22 @@
+package: python3.14-minimal
+
+essential:
+  - python3.14-minimal_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libexpat1_libs
+      - libpython3.14-minimal_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/python3.14:
+      # The next two directories are created to mimic the behaviour in
+      # the "postinst" script.
+      /usr/local/lib/python3.14/: {make: true, mode: 02775}
+      /usr/local/lib/python3.14/dist-packages/: {make: true, mode: 02775}
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.14-minimal/copyright:
