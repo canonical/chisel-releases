@@ -25,12 +25,12 @@ slices:
       /etc/udev/iocost.conf:
       /etc/udev/udev.conf:
 
-  # This provides neccesary functionality to generate the hwdb
+  # This provides the necessary functionality to generate the hwdb
   # for udev. In the postinst script the following command is run
   # /usr/bin/systemd-hwdb --usr update.
   # Currently we have the same challenge in terms of emulating what
   # systemd-hwdb is doing, as it's writing very carefully constructed
-  # binary data to binary files. For more info on this we can check
+  # binary data to binary files. For more info on this, we can check
   # PR: https://github.com/canonical/chisel-releases/pull/329 where a
   # similar challenge is.
   generator:
