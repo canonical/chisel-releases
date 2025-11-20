@@ -371,7 +371,6 @@ slices:
       - libpython3.13-stdlib_core
     contents:
       /usr/lib/python3.13/_pyrepl/**:
-      /usr/lib/python3.13/pydoc.py:
 
   # Text Processing Services
   # https://docs.python.org/3.13/library/text.html
