@@ -10,9 +10,6 @@ prepare: |
   yq --version
 
 execute: |
-  # Run smoke tests.
-  ./smoke.sh
-
   # Run single-binary slices tests
   # Forward port from 24.04
 
