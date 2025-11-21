@@ -6,7 +6,7 @@ essential:
 slices:
   # NOTE: You might want to create a symlink from /usr/bin/gcc to
   #       /usr/bin/aarch64-linux-gnu-gcc to use this slice.
-  #       ln -s "/usr/bin/${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
+  #       ln -s aarch64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
   gcc-14:
     essential:
       - libc6_libs
