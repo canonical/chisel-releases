@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
-
-if [[ "$1" != "--spread" ]]; then
-    FILE_DIR=$(realpath "$(dirname "$0")")
-    source "$FILE_DIR"/setup.sh
-fi
-
-## TESTS 
 # spellchecker: ignore rootfs
 
-arch=$(uname -m)-linux-gnu
-rootfs="$(install-slices gcc-14-"${arch//_/-}"_gcc-14)"
-ln -s "${arch}-gcc-14" "${rootfs}/usr/bin/gcc"
+rootfs="$(install-slices gcc-14-x86-64-linux-gnu_gcc-14)"
+ln -s "x86_64-linux-gnu-gcc-14" "${rootfs}/usr/bin/gcc"
 
 # something like: Usage: gcc [options] file...
 help=$(chroot "${rootfs}" gcc --help | head -n1)
