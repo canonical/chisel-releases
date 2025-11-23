@@ -37,7 +37,6 @@ slices:
           - arm64
           - ppc64el
           - riscv64
-          - s390x
       /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
       /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
       /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
