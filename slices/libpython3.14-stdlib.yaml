@@ -373,7 +373,7 @@ slices:
     essential:
       - libpython3.14-stdlib_custom-interpreters
       - libpython3.14-stdlib_core
-      - base-files_home # To suppress pyrepl warning of failing to save history.
+      - base-files_home  # To suppress pyrepl warning of failing to save history.
     contents:
       /usr/lib/python3.14/_pyrepl/**:
 
@@ -420,8 +420,11 @@ slices:
       /usr/lib/python3.14/__hello__.py:
       /usr/lib/python3.14/_sysconfig_vars__linux_*-linux-*.json:
       /usr/lib/python3.14/antigravity.py:
-      /usr/lib/python3.14/lib-dynload/_testclinic_limited.cpython-314-*-linux-*.so: # This is not used. Added for sake of completeness
-      /usr/lib/python3.14/lib-dynload/_testlimitedcapi.cpython-314-*-linux-*.so: # This is not used. Added for sake of completeness
+
+      # These are not used. Added for sake of completeness
+      /usr/lib/python3.14/lib-dynload/_testclinic_limited.cpython-314-*-linux-*.so:
+      /usr/lib/python3.14/lib-dynload/_testlimitedcapi.cpython-314-*-linux-*.so:
+
       /usr/lib/python3.14/this.py:
 
   copyright:
