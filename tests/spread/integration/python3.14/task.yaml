@@ -12,3 +12,12 @@ execute: |
 
   cp test_${SLICE}.py "${rootfs}/"
   chroot "$rootfs" python3.14 /test_${SLICE}.py
+
+  if [ "$SLICE" == "standard" ]; then
+    # Test that _pyrepl module is available in the standard slice
+    # This is tricky to test since python will not import _pyrepl in
+    # non-interactive mode by default. Hence we just test for the import
+    # failure directly.
+    # https://github.com/canonical/python-rock/issues/36
+    chroot "$rootfs" python3.14 -c "import _pyrepl;"
+  fi
