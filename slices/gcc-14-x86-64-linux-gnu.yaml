@@ -14,13 +14,12 @@ slices:
   #       ln -s x86_64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
   minimal:
     essential:
-      - base-files_bin
       - binutils-x86-64-linux-gnu_assembler
       - binutils-x86-64-linux-gnu_linker
       - cpp-14-x86-64-linux-gnu_cc1
       - gcc-14-x86-64-linux-gnu_gcc-14
-      - libgcc-14-dev_core
       - libc6-dev_core
+      - libgcc-14-dev_core
 
   # We cannot have symlinks here because they would conflict with
   # gcc-aarch64-linux-gnu slice if both are installed.
