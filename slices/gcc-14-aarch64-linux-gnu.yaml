@@ -14,23 +14,23 @@ slices:
   #       ln -s aarch64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
   minimal:
     essential:
-      - base-files_bin 
+      - base-files_bin
       - binutils-aarch64-linux-gnu_assembler
       - binutils-aarch64-linux-gnu_linker
       - cpp-14-aarch64-linux-gnu_cc1
       - gcc-14-aarch64-linux-gnu_gcc-14
       - libgcc-14-dev_core
       - libc6-dev_core
-    
-    # We cannot have symlinks here because they would conflict with 
-    # gcc-x86-64-linux-gnu slice if both are installed.
-    # contents:
-      # /usr/bin/gcc:
-      #   symlink: aarch64-linux-gnu-gcc-14
-      # /usr/bin/as:
-      #   symlink: aarch64-linux-gnu-as
-      # /usr/bin/ld:
-      #   symlink: aarch64-linux-gnu-ld
+
+  # We cannot have symlinks here because they would conflict with
+  # gcc-x86-64-linux-gnu slice if both are installed.
+  #   contents:
+  #     /usr/bin/gcc:
+  #       symlink: aarch64-linux-gnu-gcc-14
+  #     /usr/bin/as:
+  #       symlink: aarch64-linux-gnu-as
+  #     /usr/bin/ld:
+  #       symlink: aarch64-linux-gnu-ld
 
   # NOTE: You might want to create a symlink from /usr/bin/gcc to
   #       /usr/bin/aarch64-linux-gnu-gcc to use this slice.
