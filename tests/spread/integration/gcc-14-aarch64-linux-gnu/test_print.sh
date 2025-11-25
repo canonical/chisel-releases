@@ -42,5 +42,5 @@ test "$(chroot "${rootfs}" gcc -print-multi-directory)" = "."
 chroot "${rootfs}" gcc -print-multi-lib # the output may vary. just run it
 test "$(chroot "${rootfs}" gcc -print-multi-os-directory)" = "../lib"
 
-test "$(chroot "${rootfs}" gcc -print-sysroot)" == "$sysroot"
+test "$(chroot "${rootfs}" gcc -print-sysroot)" = "$sysroot"
 (chroot "${rootfs}" gcc -print-sysroot-headers-suffix 2>&1 || true) | grep -q "not configured with sysroot"
