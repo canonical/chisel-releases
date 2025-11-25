@@ -4,6 +4,24 @@ essential:
   - gcc-14-aarch64-linux-gnu_copyright
 
 slices:
+  # Minimal slice to compile simple programs, along with the necessary binutils
+  # and libc development files.
+  minimal:
+    essential:
+      - binutils-aarch64-linux-gnu_assembler
+      - binutils-aarch64-linux-gnu_linker
+      - cpp-14-aarch64-linux-gnu_cc1
+      - gcc-14-aarch64-linux-gnu_gcc-14
+      - libgcc-14-dev_core
+      - libc6-dev_core
+    contents:
+      /usr/bin/gcc:
+        symlink: aarch64-linux-gnu-gcc-14
+      /usr/bin/as:
+        symlink: aarch64-linux-gnu-as
+      /usr/bin/ld:
+        symlink: aarch64-linux-gnu-ld
+
   # NOTE: You might want to create a symlink from /usr/bin/gcc to
   #       /usr/bin/aarch64-linux-gnu-gcc to use this slice.
   #       ln -s aarch64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
