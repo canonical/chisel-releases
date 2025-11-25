@@ -17,6 +17,9 @@ if $cross; then
     rootfs=$(mktemp -d)
 else
     rootfs="$(install-slices gcc-14-aarch64-linux-gnu_minimal)"
+    ln -s aarch64-linux-gnu-as "$rootfs/usr/bin/as"
+    ln -s aarch64-linux-gnu-ld "$rootfs/usr/bin/ld"
+    ln -s aarch64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
 fi
 
 cat > "${rootfs}/hello.c" << EOF

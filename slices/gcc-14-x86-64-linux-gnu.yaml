@@ -6,21 +6,31 @@ essential:
 slices:
   # Minimal slice to compile simple programs, along with the necessary binutils
   # and libc development files.
+  # NOTE: To use this slice, you *must* to create a symlink from /usr/bin/as and
+  #       /usr/bin/ld to the respective x86_64-linux-gnu binaries. You might
+  #       also want to symlink /usr/bin/gcc to /usr/bin/x86_64-linux-gnu-gcc-14
+  #       ln -s x86_64-linux-gnu-as "$rootfs/usr/bin/as"
+  #       ln -s x86_64-linux-gnu-ld "$rootfs/usr/bin/ld"
+  #       ln -s x86_64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
   minimal:
     essential:
+      - base-files_bin
       - binutils-x86-64-linux-gnu_assembler
       - binutils-x86-64-linux-gnu_linker
       - cpp-14-x86-64-linux-gnu_cc1
       - gcc-14-x86-64-linux-gnu_gcc-14
       - libgcc-14-dev_core
       - libc6-dev_core
-    contents:
-      /usr/bin/gcc:
-        symlink: x86_64-linux-gnu-gcc-14
-      /usr/bin/as:
-        symlink: x86_64-linux-gnu-as
-      /usr/bin/ld:
-        symlink: x86_64-linux-gnu-ld
+    
+    # We cannot have symlinks here because they would conflict with 
+    # gcc-aarch64-linux-gnu slice if both are installed.
+    # contents:
+      # /usr/bin/gcc:
+      #   symlink: aarch64-linux-gnu-gcc-14
+      # /usr/bin/as:
+      #   symlink: aarch64-linux-gnu-as
+      # /usr/bin/ld:
+      #   symlink: aarch64-linux-gnu-ld
 
   # NOTE: You might want to create a symlink from /usr/bin/gcc to
   #       /usr/bin/x86_64-linux-gnu-gcc to use this slice.
