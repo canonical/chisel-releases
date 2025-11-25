@@ -31,7 +31,7 @@ int main() {
 EOF
 
 if $cross; then
-    # TODO: We do not have libgcc-14-dev-amd64-cross for cross compilation yet
+    # TODO: We do not have libgcc-14-dev-arm64-cross for cross compilation yet
     :
 else
     chroot "${rootfs}" gcc /hello.c -o /hello

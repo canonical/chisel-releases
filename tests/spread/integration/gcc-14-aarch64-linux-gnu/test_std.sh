@@ -26,7 +26,7 @@ cp test_std.c "${rootfs}/test_std.c"
 cp test_std.h "${rootfs}/test_std.h"
 
 if $cross; then
-    # TODO: We do not have libgcc-14-dev-amd64-cross for cross compilation yet
+    # TODO: We do not have libgcc-14-dev-arm64-cross for cross compilation yet
     :
 else
     chroot "${rootfs}" gcc /test_std.c -o /test_std
