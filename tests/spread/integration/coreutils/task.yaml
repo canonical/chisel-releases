@@ -1,6 +1,18 @@
 summary: Integration tests for coreutils
 
+prepare: |
+  # Deb arch to GOARCH.
+  arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
+  # Install yq.
+  wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_${arch} \
+    -O /usr/bin/yq
+  chmod +x /usr/bin/yq
+  yq --version
+
 execute: |
+  # Run smoke tests.
+  ./smoke.sh
+
   # test expr binary
   rootfs_expr="$(install-slices coreutils_expr)"
   chroot "$rootfs_expr" expr --version
@@ -13,6 +25,10 @@ execute: |
   # test env
   rootfs_env="$(install-slices coreutils_env)"
   chroot "$rootfs_env" env --version
+
+  # test mktemp
+  rootfs_mktemp="$(install-slices coreutils_mktemp)"
+  chroot "$rootfs_mktemp" mktemp --version
 
   # test echo binary
   rootfs_echo="$(install-slices coreutils_echo)"

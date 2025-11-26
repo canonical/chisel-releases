@@ -1,0 +1,52 @@
+package: tomcat10
+
+essential:
+  - tomcat10_copyright
+
+slices:
+  core:
+    essential:
+      - tomcat10-common_scripts
+    contents:
+      /etc/tomcat10/Catalina/:
+      /etc/tomcat10/catalina.properties:
+        copy: /usr/share/tomcat10/etc/catalina.properties
+      /etc/tomcat10/context.xml:
+        copy: /usr/share/tomcat10/etc/context.xml
+      /etc/tomcat10/jaspic-providers.xml:
+        copy: /usr/share/tomcat10/etc/jaspic-providers.xml
+      /etc/tomcat10/logging.properties:
+        copy: /usr/share/tomcat10/etc/logging.properties
+      /etc/tomcat10/policy.d/01system.policy:
+      /etc/tomcat10/policy.d/02debian.policy:
+      /etc/tomcat10/policy.d/03catalina.policy:
+      /etc/tomcat10/policy.d/04webapps.policy:
+      /etc/tomcat10/policy.d/50local.policy:
+      /etc/tomcat10/server.xml:
+        copy: /usr/share/tomcat10/etc/server.xml
+      /etc/tomcat10/tomcat-users.xml:
+        copy: /usr/share/tomcat10/etc/tomcat-users.xml
+      /etc/tomcat10/web.xml:
+        copy: /usr/share/tomcat10/etc/web.xml
+      /var/cache/tomcat10/:
+        make: true
+      /var/lib/tomcat10/conf:
+      /var/lib/tomcat10/lib/:
+      /var/lib/tomcat10/logs:
+      /var/lib/tomcat10/webapps/:
+      /var/lib/tomcat10/work:
+      /var/log/tomcat10/:
+
+  standard:
+    essential:
+      - tomcat10-common_i18n
+      - tomcat10_core
+
+  dev:
+    essential:
+      - tomcat10-common_extra-scripts
+      - tomcat10_standard
+
+  copyright:
+    content:
+      /usr/share/doc/tomcat10/copyright:
