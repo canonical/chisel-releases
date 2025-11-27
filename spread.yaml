@@ -39,7 +39,7 @@ backends:
       ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
     discard: lxc stop $SPREAD_SYSTEM || true
     systems:
-      - ubuntu-plucky:
+      - ubuntu-questing:
           password: ubuntu
 
   docker:
@@ -69,17 +69,17 @@ backends:
       ADDRESS `docker inspect $SPREAD_SYSTEM --format '{{.NetworkSettings.Networks.bridge.IPAddress}}'`
     discard: docker rm -f $SPREAD_SYSTEM
     systems:
-      - ubuntu-25.04-amd64:
+      - ubuntu-25.10-amd64:
           password: ubuntu
-      - ubuntu-25.04-arm64v8:
+      - ubuntu-25.10-arm64v8:
           password: ubuntu
-      - ubuntu-25.04-arm32v7:
+      - ubuntu-25.10-arm32v7:
           password: ubuntu
-      - ubuntu-25.04-ppc64le:
+      - ubuntu-25.10-ppc64le:
           password: ubuntu
-      - ubuntu-25.04-s390x:
+      - ubuntu-25.10-s390x:
           password: ubuntu
-      - ubuntu-25.04-riscv64:
+      - ubuntu-25.10-riscv64:
           password: ubuntu
 
 prepare: |
