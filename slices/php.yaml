@@ -4,7 +4,6 @@ essential:
   - php_copyright
 
 slices:
-
   core:
     essential:
       - php8.4_core
