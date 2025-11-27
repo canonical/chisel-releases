@@ -4,7 +4,6 @@ essential:
   - php8.3_copyright
 
 slices:
-
   core:
     essential:
       - php8.3-cli_core

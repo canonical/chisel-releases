@@ -4,7 +4,6 @@ essential:
   - php-common_copyright
 
 slices:
-
   scripts:
     essential:
       - coreutils_dirname
