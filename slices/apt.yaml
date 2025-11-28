@@ -61,13 +61,13 @@ slices:
         text: |
           Types: deb
           URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: plucky plucky-updates plucky-backports
+          Suites: questing questing-updates questing-backports
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
           Types: deb
           URIs: http://security.ubuntu.com/ubuntu/
-          Suites: plucky-security
+          Suites: questing-security
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
       /etc/apt/sources.list.d/ubuntu-ports-default.sources:
@@ -76,13 +76,13 @@ slices:
         text: |
           Types: deb
           URIs: http://ports.ubuntu.com/ubuntu-ports/
-          Suites: plucky plucky-updates plucky-backports
+          Suites: questing questing-updates questing-backports
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
           Types: deb
           URIs: http://ports.ubuntu.com/ubuntu-ports/
-          Suites: plucky-security
+          Suites: questing-security
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
       /etc/apt/sources.list.d/ubuntu.sources: {text: "", mutable: true}
