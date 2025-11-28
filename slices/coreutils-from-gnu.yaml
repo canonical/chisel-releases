@@ -294,13 +294,13 @@ slices:
   modified-command-invocation:
     essential:
       - coreutils-from-gnu_libs
+      - coreutils-from-gnu_timeout
       - gnu-coreutils_modified-command-invocation
     contents:
       /usr/bin/env:
       /usr/bin/nice:
       /usr/bin/nohup:
       /usr/bin/stdbuf:
-      /usr/bin/timeout:
       /usr/sbin/chroot:
 
   # Delaying.
