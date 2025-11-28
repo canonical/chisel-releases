@@ -16,19 +16,22 @@ if $cross; then
     # TODO: We do not have libgcc-14-dev-amd64-cross for cross compilation yet
     rootfs=$(mktemp -d)
 else
-    rootfs="$(install-slices gcc-14-x86-64-linux-gnu_minimal)"
+    slices=(
+        gcc-14-x86-64-linux-gnu_gcc-14
+        cpp-14-x86-64-linux-gnu_cc1
+        binutils-x86-64-linux-gnu_assembler
+        binutils-x86-64-linux-gnu_linker
+        libgcc-14-dev_core
+        libc6-dev_core
+    )
+    rootfs="$(install-slices "${slices[@]}")"
     ln -s x86_64-linux-gnu-as "$rootfs/usr/bin/as"
     ln -s x86_64-linux-gnu-ld "$rootfs/usr/bin/ld"
     ln -s x86_64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
-fi
 
-cp test_std.c "${rootfs}/test_std.c"
-cp test_std.h "${rootfs}/test_std.h"
+    cp testfiles/test_std.c "${rootfs}/test_std.c"
+    cp testfiles/test_std.h "${rootfs}/test_std.h"
 
-if $cross; then
-    # TODO: We do not have libgcc-14-dev-amd64-cross for cross compilation yet
-    :
-else
     chroot "${rootfs}" gcc /test_std.c -o /test_std
     chroot "${rootfs}" /test_std
 
