@@ -5,6 +5,8 @@ essential:
 
 slices:
   # Runtime objects for linking with gcc-14
+  # The {e,n}crti.o and {e,n}crtn.o files are the startup
+  # https://gcc.gnu.org/legacy-ml/gcc-patches/2009-01/msg01151.html
   runtime:
     contents:
       /usr/lib/gcc/*-linux-*/14/crtbegin.o:
