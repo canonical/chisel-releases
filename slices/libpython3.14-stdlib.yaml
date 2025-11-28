@@ -371,9 +371,9 @@ slices:
 
   pyrepl:
     essential:
-      - libpython3.14-stdlib_custom-interpreters
-      - libpython3.14-stdlib_core
       - base-files_home  # To suppress pyrepl warning of failing to save history.
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_custom-interpreters
     contents:
       /usr/lib/python3.14/_pyrepl/**:
 
