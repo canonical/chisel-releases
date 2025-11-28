@@ -253,8 +253,7 @@ slices:
     contents:
       /usr/bin/tee:
 
-  # File name manipulation -- This slice contains commands that manipulate file
-  # names.
+  # File name manipulation -- This slice contains commands that manipulate file names.
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:

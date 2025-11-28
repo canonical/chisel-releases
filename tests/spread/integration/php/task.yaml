@@ -1,0 +1,68 @@
+summary: Integration tests for PHP
+
+environment:
+  SLICE/core: "core"
+  SLICE/standard: "standard"
+
+execute: |
+  echo "SLICE=${SLICE}"
+
+  # Install slices
+  rootfs="$(install-slices php_${SLICE} base-files_base)"
+  
+  # Test CLI
+  chroot "$rootfs" php -r "echo 'hello, world';"
+
+  # Run test based on slice type
+  if [ "$SLICE" = "standard" ]; then
+
+    # Test disable module and query
+    chroot "$rootfs" phpdismod -r calendar
+    ! chroot "$rootfs" phpquery -v 8.4 -s cli -M | grep calendar
+    ! chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
+
+    # Test enable module and query
+    chroot "$rootfs" phpenmod -r calendar
+    chroot "$rootfs" phpquery -v 8.4 -s cli -M | grep calendar
+    chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
+
+    # Test phar support
+    sed -i 's/^\s*;\?\s*phar\.readonly\s*=.*/phar.readonly = Off/' $rootfs/etc/php/8.4/cli/php.ini
+
+    mkdir -p $rootfs/tmp
+    mkdir -p $rootfs/phar-file
+    touch $rootfs/phar-file/test-content
+
+    chroot "$rootfs" phar pack -f test.phar phar-file
+
+    cp test_${SLICE}.php $rootfs
+    chroot "$rootfs" php test_${SLICE}.php | grep test-content
+
+  else
+
+    # Check modules are installed
+    chroot "$rootfs" php -r "print_r(get_loaded_extensions());" | grep calendar
+
+    # Create files for the server
+    mkdir -p "${rootfs}/var/www/html"
+    cp test_${SLICE}.php "${rootfs}/var/www/html/index.php"
+
+    # Start server
+    chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
+    php_pid=$!
+
+    # Ensure the server is killed when the script exits
+    cleanup() {
+        echo "Stopping PHP server..."
+        kill "$php_pid" 2>/dev/null || true
+        wait "$php_pid" 2>/dev/null || true
+    }
+    trap cleanup EXIT
+
+    # Give the server time to start
+    sleep 1
+
+    curl -s http://localhost:8080 | grep -i 'name='
+    curl -s -X POST http://localhost:8080 -d "" | grep -i 'name is required'
+    curl -s -X POST http://localhost:8080 -d "name=Alice" | grep -i 'Submitted name: Alice'
+  fi
