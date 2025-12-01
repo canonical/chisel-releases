@@ -61,13 +61,13 @@ slices:
         text: |
           Types: deb
           URIs: http://archive.ubuntu.com/ubuntu/
-          Suites: questing questing-updates questing-backports
+          Suites: resolute resolute-updates resolute-backports
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
           Types: deb
           URIs: http://security.ubuntu.com/ubuntu/
-          Suites: questing-security
+          Suites: resolute-security
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
       /etc/apt/sources.list.d/ubuntu-ports-default.sources:
@@ -76,13 +76,13 @@ slices:
         text: |
           Types: deb
           URIs: http://ports.ubuntu.com/ubuntu-ports/
-          Suites: questing questing-updates questing-backports
+          Suites: resolute resolute-updates resolute-backports
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
           Types: deb
           URIs: http://ports.ubuntu.com/ubuntu-ports/
-          Suites: questing-security
+          Suites: resolute-security
           Components: main universe restricted multiverse
           Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
       /etc/apt/sources.list.d/ubuntu.sources: {text: "", mutable: true}

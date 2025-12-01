@@ -1,6 +1,6 @@
-# ubuntu-25.10
+# ubuntu-26.04
 
-This is the `ubuntu-25.10` Chisel release.
+This is the `ubuntu-26.04` Chisel release.
 
 To learn more about Chisel, Chisel releases and how to contribute to this
 branch, please read
