@@ -28,6 +28,7 @@ import pathlib
 import subprocess
 import sys
 import tempfile
+from typing import Callable
 
 import magic
 import requests
@@ -313,6 +314,12 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+_patterns_to_retry: list[Callable[[str], bool]] = [
+    # https://github.com/canonical/chisel-releases/issues/765
+    lambda err: "error: cannot fetch from archive" in err.lower(),
+    # https://github.com/canonical/chisel-releases/issues/766
+    lambda err: "error: cannot talk to archive" in err.lower(),
+]
 
 def chisel_cut(
     *,
@@ -332,8 +339,6 @@ def chisel_cut(
     env = dict(os.environ)
     env["XDG_CACHE_HOME"] = str(cache_dir)
 
-    _fetch_error_substr = "error: cannot fetch from archive"
-
     args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", root]
     if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0":
         args += ["--ignore=unstable"]
@@ -350,7 +355,7 @@ def chisel_cut(
         if res.returncode == 0:
             return None
         err = res.stderr.rstrip()
-        if _fetch_error_substr in err and attempt < n_retries:
+        if attempt < n_retries and any(pattern(err) for pattern in _patterns_to_retry):
             logging.warning(
                 "Fetch error occurred while installing %s (attempt %d/%d). Retrying...",
                 slice_name,
