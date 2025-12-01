@@ -318,6 +318,8 @@ _patterns_to_retry: list[str] = [
     "cannot fetch from archive",
     # https://github.com/canonical/chisel-releases/issues/766
     "cannot talk to archive",
+    # https://github.com/canonical/chisel-releases/issues/768
+    "cannot find archive data",
 ]
 
 def chisel_cut(
