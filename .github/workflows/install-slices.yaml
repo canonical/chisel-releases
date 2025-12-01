@@ -28,7 +28,8 @@ env:
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-25.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-25.10", "chisel-versions": ["v1.2.0","main"]}
+      {"ref": "ubuntu-25.10", "chisel-versions": ["v1.2.0","main"]},
+      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.2.0","main"]}
     ]
 
 jobs:
