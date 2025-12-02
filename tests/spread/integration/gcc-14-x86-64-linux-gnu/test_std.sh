@@ -14,7 +14,7 @@ fi
 
 if $cross; then
     # TODO: We do not have libgcc-14-dev-amd64-cross for cross compilation yet
-    rootfs=$(mktemp -d)
+    :
 else
     slices=(
         gcc-14-x86-64-linux-gnu_gcc-14
