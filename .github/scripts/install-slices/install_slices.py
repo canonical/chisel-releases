@@ -313,6 +313,14 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+_patterns_to_retry: list[str] = [
+    # https://github.com/canonical/chisel-releases/issues/765
+    "cannot fetch from archive",
+    # https://github.com/canonical/chisel-releases/issues/766
+    "cannot talk to archive",
+    # https://github.com/canonical/chisel-releases/issues/768
+    "cannot find archive data",
+]
 
 def chisel_cut(
     *,
@@ -332,8 +340,6 @@ def chisel_cut(
     env = dict(os.environ)
     env["XDG_CACHE_HOME"] = str(cache_dir)
 
-    _fetch_error_substr = "error: cannot fetch from archive"
-
     args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", root]
     if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0":
         args += ["--ignore=unstable"]
@@ -350,12 +356,21 @@ def chisel_cut(
         if res.returncode == 0:
             return None
         err = res.stderr.rstrip()
-        if _fetch_error_substr in err and attempt < n_retries:
+
+        # Match stderr against known patterns to retry
+        matched: None | str = None
+        for pattern in _patterns_to_retry:
+            if pattern in err:
+                matched = pattern
+                break
+        
+        if attempt < n_retries and matched is not None:
             logging.warning(
-                "Fetch error occurred while installing %s (attempt %d/%d). Retrying...",
+                "Error while installing %s (attempt %d/%d): %s. Retrying...",
                 slice_name,
                 attempt,
                 n_retries,
+                matched,
             )
             continue
         return err
