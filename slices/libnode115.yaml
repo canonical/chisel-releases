@@ -1,5 +1,4 @@
 package: libnode115
-# hello world
 
 essential:
   - libnode115_copyright

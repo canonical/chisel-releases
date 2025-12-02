@@ -1,5 +1,4 @@
 package: libreadline8t64
-# hello world
 
 essential:
   - libreadline8t64_copyright

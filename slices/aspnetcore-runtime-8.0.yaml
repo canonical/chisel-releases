@@ -1,5 +1,4 @@
 package: aspnetcore-runtime-8.0
-# hello world
 
 essential:
   - aspnetcore-runtime-8.0_copyright

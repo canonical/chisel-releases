@@ -1,5 +1,4 @@
 package: librsvg2-2
-# hello world
 
 essential:
   - librsvg2-2_copyright

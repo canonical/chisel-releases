@@ -1,5 +1,4 @@
 package: libnfnetlink0
-# hello world
 
 essential:
   - libnfnetlink0_copyright

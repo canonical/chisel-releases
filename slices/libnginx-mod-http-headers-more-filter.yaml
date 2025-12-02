@@ -1,5 +1,4 @@
 package: libnginx-mod-http-headers-more-filter
-# hello world
 
 essential:
   - libnginx-mod-http-headers-more-filter_copyright

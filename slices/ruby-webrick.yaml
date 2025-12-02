@@ -1,5 +1,4 @@
 package: ruby-webrick
-# hello world
 
 essential:
   - ruby-webrick_copyright

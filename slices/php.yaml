@@ -1,5 +1,4 @@
 package: php
-# hello world
 
 essential:
   - php_copyright

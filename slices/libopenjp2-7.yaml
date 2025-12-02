@@ -1,5 +1,4 @@
 package: libopenjp2-7
-# hello world
 
 essential:
   - libopenjp2-7_copyright

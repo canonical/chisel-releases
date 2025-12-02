@@ -1,5 +1,4 @@
 package: ubuntu-keyring
-# hello world
 
 essential:
   - ubuntu-keyring_copyright

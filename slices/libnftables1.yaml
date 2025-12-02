@@ -1,5 +1,4 @@
 package: libnftables1
-# hello world
 
 essential:
   - libnftables1_copyright

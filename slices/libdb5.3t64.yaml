@@ -1,5 +1,4 @@
 package: libdb5.3t64
-# hello world
 
 essential:
   - libdb5.3t64_copyright

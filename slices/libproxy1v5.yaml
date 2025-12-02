@@ -1,5 +1,4 @@
 package: libproxy1v5
-# hello world
 
 essential:
   - libproxy1v5_copyright

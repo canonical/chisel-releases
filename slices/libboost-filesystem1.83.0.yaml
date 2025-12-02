@@ -1,5 +1,4 @@
 package: libboost-filesystem1.83.0
-# hello world
 
 essential:
   - libboost-filesystem1.83.0_copyright

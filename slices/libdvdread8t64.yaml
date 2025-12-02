@@ -1,5 +1,4 @@
 package: libdvdread8t64
-# hello world
 
 essential:
   - libdvdread8t64_copyright

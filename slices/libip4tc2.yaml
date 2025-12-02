@@ -1,5 +1,4 @@
 package: libip4tc2
-# hello world
 
 essential:
   - libip4tc2_copyright

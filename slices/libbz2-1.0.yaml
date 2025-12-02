@@ -1,5 +1,4 @@
 package: libbz2-1.0
-# hello world
 
 essential:
   - libbz2-1.0_copyright

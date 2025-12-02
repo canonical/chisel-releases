@@ -1,5 +1,4 @@
 package: zip
-# hello world
 
 essential:
   - zip_copyright

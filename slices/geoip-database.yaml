@@ -1,5 +1,4 @@
 package: geoip-database
-# hello world
 
 essential:
   - geoip-database_copyright

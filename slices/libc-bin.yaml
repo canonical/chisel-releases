@@ -1,5 +1,4 @@
 package: libc-bin
-# hello world
 
 essential:
   - libc-bin_copyright

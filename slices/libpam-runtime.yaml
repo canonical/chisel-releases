@@ -1,5 +1,4 @@
 package: libpam-runtime
-# hello world
 
 essential:
   - libpam-runtime_copyright

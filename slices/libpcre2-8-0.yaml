@@ -1,5 +1,4 @@
 package: libpcre2-8-0
-# hello world
 
 essential:
   - libpcre2-8-0_copyright

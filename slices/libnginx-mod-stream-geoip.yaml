@@ -1,5 +1,4 @@
 package: libnginx-mod-stream-geoip
-# hello world
 
 essential:
   - libnginx-mod-stream-geoip_copyright

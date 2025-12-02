@@ -1,5 +1,4 @@
 package: libctf0
-# hello world
 
 essential:
   - libctf0_copyright

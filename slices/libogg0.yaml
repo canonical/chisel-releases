@@ -1,5 +1,4 @@
 package: libogg0
-# hello world
 
 essential:
   - libogg0_copyright

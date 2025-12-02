@@ -1,5 +1,4 @@
 package: libsubid5
-# hello world
 
 essential:
   - libsubid5_copyright

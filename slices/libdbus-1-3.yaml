@@ -1,5 +1,4 @@
 package: libdbus-1-3
-# hello world
 
 essential:
   - libdbus-1-3_copyright

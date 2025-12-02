@@ -1,5 +1,4 @@
 package: util-linux
-# hello world
 
 essential:
   - util-linux_copyright

@@ -1,5 +1,4 @@
 package: dotnet-host-8.0
-# hello world
 
 essential:
   - dotnet-host-8.0_copyright

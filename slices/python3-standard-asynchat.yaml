@@ -1,5 +1,4 @@
 package: python3-standard-asynchat
-# hello world
 
 essential:
   - python3-standard-asynchat_copyright

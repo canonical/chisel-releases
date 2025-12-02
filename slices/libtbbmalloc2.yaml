@@ -1,5 +1,4 @@
 package: libtbbmalloc2
-# hello world
 
 essential:
   - libtbbmalloc2_copyright

@@ -1,5 +1,4 @@
 package: busybox
-# hello world
 
 essential:
   - busybox_copyright

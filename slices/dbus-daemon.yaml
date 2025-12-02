@@ -1,5 +1,4 @@
 package: dbus-daemon
-# hello world
 
 essential:
   - dbus-daemon_copyright

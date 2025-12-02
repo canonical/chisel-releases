@@ -1,5 +1,4 @@
 package: libsensors5
-# hello world
 
 essential:
   - libsensors5_copyright

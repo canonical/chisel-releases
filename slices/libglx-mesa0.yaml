@@ -1,5 +1,4 @@
 package: libglx-mesa0
-# hello world
 
 essential:
   - libglx-mesa0_copyright

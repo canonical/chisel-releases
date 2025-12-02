@@ -1,5 +1,4 @@
 package: fonts-urw-base35
-# hello world
 
 essential:
   - fonts-urw-base35_copyright

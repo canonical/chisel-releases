@@ -1,5 +1,4 @@
 package: init-system-helpers
-# hello world
 
 essential:
   - init-system-helpers_copyright

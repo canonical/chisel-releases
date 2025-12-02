@@ -1,5 +1,4 @@
 package: libavcodec61
-# hello world
 
 essential:
   - libavcodec61_copyright

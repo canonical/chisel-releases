@@ -1,5 +1,4 @@
 package: ca-certificates
-# hello world
 
 essential:
   - ca-certificates_copyright

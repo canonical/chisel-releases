@@ -1,5 +1,4 @@
 package: libchromaprint1
-# hello world
 
 essential:
   - libchromaprint1_copyright

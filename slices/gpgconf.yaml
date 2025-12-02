@@ -1,5 +1,4 @@
 package: gpgconf
-# hello world
 
 essential:
   - gpgconf_copyright

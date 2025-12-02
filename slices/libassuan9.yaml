@@ -1,5 +1,4 @@
 package: libassuan9
-# hello world
 
 essential:
   - libassuan9_copyright

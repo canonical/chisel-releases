@@ -1,5 +1,4 @@
 package: libyajl2
-# hello world
 
 essential:
   - libyajl2_copyright

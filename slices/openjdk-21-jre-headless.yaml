@@ -1,5 +1,4 @@
 package: openjdk-21-jre-headless
-# hello world
 
 essential:
   - openjdk-21-jre-headless_copyright

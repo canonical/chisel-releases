@@ -1,5 +1,4 @@
 package: libblkid1
-# hello world
 
 essential:
   - libblkid1_copyright

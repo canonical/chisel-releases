@@ -1,5 +1,4 @@
 package: libevent-core-2.1-7t64
-# hello world
 
 essential:
   - libevent-core-2.1-7t64_copyright

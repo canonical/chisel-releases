@@ -1,5 +1,4 @@
 package: liblerc4
-# hello world
 
 essential:
   - liblerc4_copyright

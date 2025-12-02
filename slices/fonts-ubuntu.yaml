@@ -1,5 +1,4 @@
 package: fonts-ubuntu
-# hello world
 
 essential:
   - fonts-ubuntu_copyright

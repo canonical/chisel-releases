@@ -1,5 +1,4 @@
 package: libnginx-mod-stream
-# hello world
 
 essential:
   - libnginx-mod-stream_copyright

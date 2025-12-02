@@ -1,5 +1,4 @@
 package: libfontenc1
-# hello world
 
 essential:
   - libfontenc1_copyright

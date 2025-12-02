@@ -1,5 +1,4 @@
 package: openssl
-# hello world
 
 essential:
   - openssl_copyright

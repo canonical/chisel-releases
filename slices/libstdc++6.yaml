@@ -1,5 +1,4 @@
 package: libstdc++6
-# hello world
 
 essential:
   - libstdc++6_copyright

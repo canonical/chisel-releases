@@ -1,5 +1,4 @@
 package: libxcb-sync1
-# hello world
 
 essential:
   - libxcb-sync1_copyright

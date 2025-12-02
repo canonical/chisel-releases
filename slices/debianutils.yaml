@@ -1,5 +1,4 @@
 package: debianutils
-# hello world
 
 essential:
   - debianutils_copyright

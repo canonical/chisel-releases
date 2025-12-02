@@ -1,5 +1,4 @@
 package: libapr1t64
-# hello world
 
 essential:
   - libapr1t64_copyright

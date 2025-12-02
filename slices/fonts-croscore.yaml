@@ -1,5 +1,4 @@
 package: fonts-croscore
-# hello world
 
 essential:
   - fonts-croscore_copyright

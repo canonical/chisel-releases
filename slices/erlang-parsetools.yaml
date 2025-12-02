@@ -1,5 +1,4 @@
 package: erlang-parsetools
-# hello world
 
 essential:
   - erlang-parsetools_copyright

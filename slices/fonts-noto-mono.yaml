@@ -1,5 +1,4 @@
 package: fonts-noto-mono
-# hello world
 
 essential:
   - fonts-noto-mono_copyright

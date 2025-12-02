@@ -1,5 +1,4 @@
 package: file
-# hello world
 
 essential:
   - file_copyright

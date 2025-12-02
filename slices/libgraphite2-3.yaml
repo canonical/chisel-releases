@@ -1,5 +1,4 @@
 package: libgraphite2-3
-# hello world
 
 essential:
   - libgraphite2-3_copyright

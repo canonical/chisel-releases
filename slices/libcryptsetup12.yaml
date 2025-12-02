@@ -1,5 +1,4 @@
 package: libcryptsetup12
-# hello world
 
 essential:
   - libcryptsetup12_copyright

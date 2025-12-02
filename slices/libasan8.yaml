@@ -1,5 +1,4 @@
 package: libasan8
-# hello world
 
 essential:
   - libasan8_copyright

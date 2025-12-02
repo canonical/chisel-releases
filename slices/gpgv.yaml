@@ -1,5 +1,4 @@
 package: gpgv
-# hello world
 
 essential:
   - gpgv_copyright

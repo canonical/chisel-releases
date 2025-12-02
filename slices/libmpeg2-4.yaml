@@ -1,5 +1,4 @@
 package: libmpeg2-4
-# hello world
 
 essential:
   - libmpeg2-4_copyright

@@ -1,5 +1,4 @@
 package: wget
-# hello world
 
 essential:
   - wget_copyright

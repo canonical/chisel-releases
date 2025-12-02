@@ -1,5 +1,4 @@
 package: libvorbisfile3
-# hello world
 
 essential:
   - libvorbisfile3_copyright

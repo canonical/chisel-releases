@@ -1,5 +1,4 @@
 package: libasyncns0
-# hello world
 
 essential:
   - libasyncns0_copyright

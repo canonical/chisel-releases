@@ -1,5 +1,4 @@
 package: libsamplerate0
-# hello world
 
 essential:
   - libsamplerate0_copyright

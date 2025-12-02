@@ -1,5 +1,4 @@
 package: erlang-asn1
-# hello world
 
 essential:
   - erlang-asn1_copyright

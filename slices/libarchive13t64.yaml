@@ -1,5 +1,4 @@
 package: libarchive13t64
-# hello world
 
 essential:
   - libarchive13t64_copyright

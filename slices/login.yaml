@@ -1,5 +1,4 @@
 package: login
-# hello world
 
 essential:
   - login_copyright

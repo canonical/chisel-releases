@@ -1,5 +1,4 @@
 package: libaudit-common
-# hello world
 
 essential:
   - libaudit-common_copyright

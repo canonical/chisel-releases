@@ -1,5 +1,4 @@
 package: zstd
-# hello world
 
 essential:
   - zstd_copyright

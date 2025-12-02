@@ -1,5 +1,4 @@
 package: dotnet-sdk-9.0
-# hello world
 
 essential:
   - dotnet-sdk-9.0_copyright

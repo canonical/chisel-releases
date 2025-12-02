@@ -1,5 +1,4 @@
 package: libtasn1-6
-# hello world
 
 essential:
   - libtasn1-6_copyright

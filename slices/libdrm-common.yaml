@@ -1,5 +1,4 @@
 package: libdrm-common
-# hello world
 
 essential:
   - libdrm-common_copyright

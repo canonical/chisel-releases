@@ -1,5 +1,4 @@
 package: libxvidcore4
-# hello world
 
 essential:
   - libxvidcore4_copyright

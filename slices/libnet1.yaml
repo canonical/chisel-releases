@@ -1,5 +1,4 @@
 package: libnet1
-# hello world
 
 essential:
   - libnet1_copyright

@@ -1,5 +1,4 @@
 package: bzip2
-# hello world
 
 essential:
   - bzip2_copyright

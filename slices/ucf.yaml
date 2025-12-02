@@ -1,5 +1,4 @@
 package: ucf
-# hello world
 
 essential:
   - ucf_copyright

@@ -1,5 +1,4 @@
 package: libgdk-pixbuf-2.0-0
-# hello world
 
 essential:
   - libgdk-pixbuf-2.0-0_copyright

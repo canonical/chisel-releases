@@ -1,5 +1,4 @@
 package: libmagic-mgc
-# hello world
 
 essential:
   - libmagic-mgc_copyright

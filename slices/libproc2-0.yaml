@@ -1,5 +1,4 @@
 package: libproc2-0
-# hello world
 
 essential:
   - libproc2-0_copyright

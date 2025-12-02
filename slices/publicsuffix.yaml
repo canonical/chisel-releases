@@ -1,5 +1,4 @@
 package: publicsuffix
-# hello world
 
 essential:
   - publicsuffix_copyright

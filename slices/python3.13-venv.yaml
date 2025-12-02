@@ -1,5 +1,4 @@
 package: python3.13-venv
-# hello world
 
 essential:
   - python3.13-venv_copyright

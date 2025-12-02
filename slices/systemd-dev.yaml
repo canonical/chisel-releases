@@ -1,5 +1,4 @@
 package: systemd-dev
-# hello world
 
 essential:
   - systemd-dev_copyright

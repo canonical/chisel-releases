@@ -1,5 +1,4 @@
 package: libdrm-nouveau2
-# hello world
 
 essential:
   - libdrm-nouveau2_copyright

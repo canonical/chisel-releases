@@ -1,5 +1,4 @@
 package: libcairo2
-# hello world
 
 essential:
   - libcairo2_copyright

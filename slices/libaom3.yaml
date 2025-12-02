@@ -1,5 +1,4 @@
 package: libaom3
-# hello world
 
 essential:
   - libaom3_copyright

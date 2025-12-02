@@ -1,5 +1,4 @@
 package: xfonts-utils
-# hello world
 
 essential:
   - xfonts-utils_copyright

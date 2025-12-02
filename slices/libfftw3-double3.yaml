@@ -1,5 +1,4 @@
 package: libfftw3-double3
-# hello world
 
 essential:
   - libfftw3-double3_copyright

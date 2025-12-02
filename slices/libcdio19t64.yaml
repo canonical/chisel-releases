@@ -1,5 +1,4 @@
 package: libcdio19t64
-# hello world
 
 essential:
   - libcdio19t64_copyright

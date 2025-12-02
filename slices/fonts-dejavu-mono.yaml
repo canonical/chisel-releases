@@ -1,5 +1,4 @@
 package: fonts-dejavu-mono
-# hello world
 
 essential:
   - fonts-dejavu-mono_copyright

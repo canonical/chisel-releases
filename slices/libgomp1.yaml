@@ -1,5 +1,4 @@
 package: libgomp1
-# hello world
 
 essential:
   - libgomp1_copyright

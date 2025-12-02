@@ -1,5 +1,4 @@
 package: php8.4-opcache
-# hello world
 
 essential:
   - php8.4-opcache_copyright

@@ -1,5 +1,4 @@
 package: libcbor0.10
-# hello world
 
 essential:
   - libcbor0.10_copyright

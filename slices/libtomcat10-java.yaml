@@ -1,5 +1,4 @@
 package: libtomcat10-java
-# hello world
 
 essential:
   - libtomcat10-java_copyright

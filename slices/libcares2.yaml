@@ -1,5 +1,4 @@
 package: libcares2
-# hello world
 
 essential:
   - libcares2_copyright

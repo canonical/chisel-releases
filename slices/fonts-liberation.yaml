@@ -1,5 +1,4 @@
 package: fonts-liberation
-# hello world
 
 essential:
   - fonts-liberation_copyright

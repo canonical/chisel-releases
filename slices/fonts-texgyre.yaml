@@ -1,5 +1,4 @@
 package: fonts-texgyre
-# hello world
 
 essential:
   - fonts-texgyre_copyright

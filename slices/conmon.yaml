@@ -1,5 +1,4 @@
 package: conmon
-# hello world
 
 essential:
   - conmon_copyright

@@ -1,5 +1,4 @@
 package: libdav1d7
-# hello world
 
 essential:
   - libdav1d7_copyright

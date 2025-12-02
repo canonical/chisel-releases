@@ -1,5 +1,4 @@
 package: dotnet-templates-8.0
-# hello world
 
 essential:
   - dotnet-templates-8.0_copyright

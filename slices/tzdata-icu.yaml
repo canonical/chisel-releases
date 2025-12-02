@@ -1,5 +1,4 @@
 package: tzdata-icu
-# hello world
 
 essential:
   - tzdata-icu_copyright

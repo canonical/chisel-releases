@@ -1,5 +1,4 @@
 package: python3-pip-whl
-# hello world
 
 essential:
   - python3-pip-whl_copyright

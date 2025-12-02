@@ -1,5 +1,4 @@
 package: libidn2-0
-# hello world
 
 essential:
   - libidn2-0_copyright

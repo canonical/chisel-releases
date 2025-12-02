@@ -1,5 +1,4 @@
 package: liblzf1
-# hello world
 
 essential:
   - liblzf1_copyright

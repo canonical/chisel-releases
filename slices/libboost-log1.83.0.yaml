@@ -1,5 +1,4 @@
 package: libboost-log1.83.0
-# hello world
 
 essential:
   - libboost-log1.83.0_copyright

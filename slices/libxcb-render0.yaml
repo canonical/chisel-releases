@@ -1,5 +1,4 @@
 package: libxcb-render0
-# hello world
 
 essential:
   - libxcb-render0_copyright

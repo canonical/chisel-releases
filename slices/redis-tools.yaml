@@ -1,5 +1,4 @@
 package: redis-tools
-# hello world
 
 essential:
   - redis-tools_copyright

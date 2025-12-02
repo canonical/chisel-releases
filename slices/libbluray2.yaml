@@ -1,5 +1,4 @@
 package: libbluray2
-# hello world
 
 essential:
   - libbluray2_copyright

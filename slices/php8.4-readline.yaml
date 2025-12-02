@@ -1,5 +1,4 @@
 package: php8.4-readline
-# hello world
 
 essential:
   - php8.4-readline_copyright

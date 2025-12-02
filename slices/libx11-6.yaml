@@ -1,5 +1,4 @@
 package: libx11-6
-# hello world
 
 essential:
   - libx11-6_copyright

@@ -1,5 +1,4 @@
 package: squashfs-tools
-# hello world
 
 essential:
   - squashfs-tools_copyright

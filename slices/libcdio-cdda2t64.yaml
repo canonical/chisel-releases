@@ -1,5 +1,4 @@
 package: libcdio-cdda2t64
-# hello world
 
 essential:
   - libcdio-cdda2t64_copyright

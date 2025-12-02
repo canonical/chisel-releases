@@ -1,5 +1,4 @@
 package: libjson-c5
-# hello world
 
 essential:
   - libjson-c5_copyright

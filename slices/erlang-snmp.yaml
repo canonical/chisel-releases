@@ -1,5 +1,4 @@
 package: erlang-snmp
-# hello world
 
 essential:
   - erlang-snmp_copyright

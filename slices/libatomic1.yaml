@@ -1,5 +1,4 @@
 package: libatomic1
-# hello world
 
 essential:
   - libatomic1_copyright

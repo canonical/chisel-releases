@@ -1,5 +1,4 @@
 package: librist4
-# hello world
 
 essential:
   - librist4_copyright

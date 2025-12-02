@@ -1,5 +1,4 @@
 package: libvpx9
-# hello world
 
 essential:
   - libvpx9_copyright

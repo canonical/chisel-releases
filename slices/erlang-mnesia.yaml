@@ -1,5 +1,4 @@
 package: erlang-mnesia
-# hello world
 
 essential:
   - erlang-mnesia_copyright

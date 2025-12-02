@@ -1,5 +1,4 @@
 package: geoipupdate
-# hello world
 
 essential:
   - geoipupdate_copyright

@@ -1,5 +1,4 @@
 package: libsodium23
-# hello world
 
 essential:
   - libsodium23_copyright

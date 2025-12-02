@@ -1,5 +1,4 @@
 package: dotnet-apphost-pack-9.0
-# hello world
 
 essential:
   - dotnet-apphost-pack-9.0_copyright

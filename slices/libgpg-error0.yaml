@@ -1,5 +1,4 @@
 # Library that defines common error values, messages, and common
-# hello world
 # runtime functionality for all GnuPG components.
 package: libgpg-error0
 

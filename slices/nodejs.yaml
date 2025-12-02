@@ -1,5 +1,4 @@
 package: nodejs
-# hello world
 
 essential:
   - nodejs_copyright

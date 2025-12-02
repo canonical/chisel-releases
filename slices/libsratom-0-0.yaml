@@ -1,5 +1,4 @@
 package: libsratom-0-0
-# hello world
 
 essential:
   - libsratom-0-0_copyright

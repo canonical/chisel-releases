@@ -1,5 +1,4 @@
 package: liblua5.4-0
-# hello world
 
 essential:
   - liblua5.4-0_copyright

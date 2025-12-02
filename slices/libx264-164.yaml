@@ -1,5 +1,4 @@
 package: libx264-164
-# hello world
 
 essential:
   - libx264-164_copyright

@@ -1,5 +1,4 @@
 package: libglvnd0
-# hello world
 
 essential:
   - libglvnd0_copyright

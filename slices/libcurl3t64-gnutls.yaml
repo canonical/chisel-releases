@@ -1,5 +1,4 @@
 package: libcurl3t64-gnutls
-# hello world
 
 essential:
   - libcurl3t64-gnutls_copyright

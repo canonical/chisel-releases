@@ -1,5 +1,4 @@
 package: erlang-tftp
-# hello world
 
 essential:
   - erlang-tftp_copyright

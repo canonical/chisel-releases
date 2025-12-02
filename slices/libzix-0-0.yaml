@@ -1,5 +1,4 @@
 package: libzix-0-0
-# hello world
 
 essential:
   - libzix-0-0_copyright

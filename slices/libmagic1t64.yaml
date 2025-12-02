@@ -1,5 +1,4 @@
 package: libmagic1t64
-# hello world
 
 essential:
   - libmagic1t64_copyright

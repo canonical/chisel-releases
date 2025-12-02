@@ -1,5 +1,4 @@
 package: libxxf86vm1
-# hello world
 
 essential:
   - libxxf86vm1_copyright

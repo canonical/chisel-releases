@@ -1,5 +1,4 @@
 package: netstandard-targeting-pack-2.1-9.0
-# hello world
 
 essential:
   - netstandard-targeting-pack-2.1-9.0_copyright

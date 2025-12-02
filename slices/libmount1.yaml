@@ -1,5 +1,4 @@
 package: libmount1
-# hello world
 
 essential:
   - libmount1_copyright

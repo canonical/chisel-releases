@@ -1,5 +1,4 @@
 package: distro-info-data
-# hello world
 
 essential:
   - distro-info-data_copyright

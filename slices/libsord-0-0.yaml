@@ -1,5 +1,4 @@
 package: libsord-0-0
-# hello world
 
 essential:
   - libsord-0-0_copyright

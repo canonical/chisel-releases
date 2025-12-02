@@ -1,5 +1,4 @@
 package: p11-kit-modules
-# hello world
 
 essential:
   - p11-kit-modules_copyright

@@ -1,5 +1,4 @@
 package: openssl-provider-legacy
-# hello world
 
 essential:
   - openssl-provider-legacy_copyright

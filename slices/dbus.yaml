@@ -1,5 +1,4 @@
 package: dbus
-# hello world
 
 essential:
   - dbus_copyright

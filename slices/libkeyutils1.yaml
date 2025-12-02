@@ -1,5 +1,4 @@
 package: libkeyutils1
-# hello world
 
 essential:
   - libkeyutils1_copyright

@@ -1,5 +1,4 @@
 package: libicu76
-# hello world
 
 essential:
   - libicu76_copyright

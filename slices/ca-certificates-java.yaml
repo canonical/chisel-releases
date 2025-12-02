@@ -1,5 +1,4 @@
 package: ca-certificates-java
-# hello world
 
 essential:
   - ca-certificates-java_copyright

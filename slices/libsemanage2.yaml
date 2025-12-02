@@ -1,5 +1,4 @@
 package: libsemanage2
-# hello world
 
 essential:
   - libsemanage2_copyright

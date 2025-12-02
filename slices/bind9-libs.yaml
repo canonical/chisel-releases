@@ -1,5 +1,4 @@
 package: bind9-libs
-# hello world
 
 essential:
   - bind9-libs_copyright

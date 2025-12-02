@@ -1,5 +1,4 @@
 package: mount
-# hello world
 
 essential:
   - mount_copyright

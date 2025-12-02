@@ -1,5 +1,4 @@
 package: erlang-eldap
-# hello world
 
 essential:
   - erlang-eldap_copyright

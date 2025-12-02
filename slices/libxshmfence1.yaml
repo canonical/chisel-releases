@@ -1,5 +1,4 @@
 package: libxshmfence1
-# hello world
 
 essential:
   - libxshmfence1_copyright

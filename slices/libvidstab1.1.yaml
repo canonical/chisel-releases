@@ -1,5 +1,4 @@
 package: libvidstab1.1
-# hello world
 
 essential:
   - libvidstab1.1_copyright

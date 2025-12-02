@@ -1,5 +1,4 @@
 package: libflac14
-# hello world
 
 essential:
   - libflac14_copyright

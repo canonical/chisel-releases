@@ -1,5 +1,4 @@
 package: libpixman-1-0
-# hello world
 
 essential:
   - libpixman-1-0_copyright

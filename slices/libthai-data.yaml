@@ -1,5 +1,4 @@
 package: libthai-data
-# hello world
 
 essential:
   - libthai-data_copyright

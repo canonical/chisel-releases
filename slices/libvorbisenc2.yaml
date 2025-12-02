@@ -1,5 +1,4 @@
 package: libvorbisenc2
-# hello world
 
 essential:
   - libvorbisenc2_copyright

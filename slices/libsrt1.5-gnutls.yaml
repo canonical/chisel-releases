@@ -1,5 +1,4 @@
 package: libsrt1.5-gnutls
-# hello world
 
 essential:
   - libsrt1.5-gnutls_copyright

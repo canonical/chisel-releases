@@ -1,5 +1,4 @@
 package: libboost-program-options1.83.0
-# hello world
 
 essential:
   - libboost-program-options1.83.0_copyright

@@ -1,5 +1,4 @@
 package: linux-libc-dev
-# hello world
 
 essential:
   - linux-libc-dev_copyright

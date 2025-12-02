@@ -1,5 +1,4 @@
 package: libwebpmux3
-# hello world
 
 essential:
   - libwebpmux3_copyright

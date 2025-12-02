@@ -1,5 +1,4 @@
 package: gnu-coreutils
-# hello world
 
 essential:
   - gnu-coreutils_copyright

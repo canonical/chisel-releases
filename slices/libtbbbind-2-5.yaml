@@ -1,5 +1,4 @@
 package: libtbbbind-2-5
-# hello world
 
 essential:
   - libtbbbind-2-5_copyright

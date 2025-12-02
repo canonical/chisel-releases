@@ -1,5 +1,4 @@
 package: libunibreak6
-# hello world
 
 essential:
   - libunibreak6_copyright

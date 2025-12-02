@@ -1,5 +1,4 @@
 package: libwayland-server0
-# hello world
 
 essential:
   - libwayland-server0_copyright

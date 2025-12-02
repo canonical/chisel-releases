@@ -1,5 +1,4 @@
 package: libsasl2-modules-db
-# hello world
 
 essential:
   - libsasl2-modules-db_copyright

@@ -1,5 +1,4 @@
 package: libgdbm-compat4t64
-# hello world
 
 essential:
   - libgdbm-compat4t64_copyright

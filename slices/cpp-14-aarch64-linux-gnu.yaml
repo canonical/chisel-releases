@@ -1,5 +1,4 @@
 package: cpp-14-aarch64-linux-gnu
-# hello world
 
 essential:
   - cpp-14-aarch64-linux-gnu_copyright

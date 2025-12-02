@@ -1,5 +1,4 @@
 package: libcom-err2
-# hello world
 
 essential:
   - libcom-err2_copyright

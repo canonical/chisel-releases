@@ -1,5 +1,4 @@
 package: mysql-common
-# hello world
 
 essential:
   - mysql-common_copyright

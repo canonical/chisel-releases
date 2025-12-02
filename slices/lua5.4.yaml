@@ -1,5 +1,4 @@
 package: lua5.4
-# hello world
 
 essential:
   - lua5.4_copyright

@@ -1,5 +1,4 @@
 package: libssl3t64
-# hello world
 
 essential:
   - libssl3t64_copyright

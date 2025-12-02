@@ -1,5 +1,4 @@
 package: tar
-# hello world
 
 essential:
   - tar_copyright

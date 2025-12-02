@@ -1,5 +1,4 @@
 package: libva2
-# hello world
 
 essential:
   - libva2_copyright

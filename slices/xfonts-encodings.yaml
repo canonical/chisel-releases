@@ -1,5 +1,4 @@
 package: xfonts-encodings
-# hello world
 
 essential:
   - xfonts-encodings_copyright

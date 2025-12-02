@@ -1,5 +1,4 @@
 package: libpython3.13-stdlib
-# hello world
 
 essential:
   - libpython3.13-stdlib_copyright

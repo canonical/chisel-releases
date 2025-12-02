@@ -1,5 +1,4 @@
 package: libx11-data
-# hello world
 
 essential:
   - libx11-data_copyright

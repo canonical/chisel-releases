@@ -1,5 +1,4 @@
 package: libkmod2
-# hello world
 
 essential:
   - libkmod2_copyright

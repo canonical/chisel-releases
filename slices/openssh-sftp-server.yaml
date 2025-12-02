@@ -1,5 +1,4 @@
 package: openssh-sftp-server
-# hello world
 
 essential:
   - openssh-sftp-server_copyright

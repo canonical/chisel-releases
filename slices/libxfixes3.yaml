@@ -1,5 +1,4 @@
 package: libxfixes3
-# hello world
 
 essential:
   - libxfixes3_copyright

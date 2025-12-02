@@ -1,5 +1,4 @@
 package: liblttng-ust1t64
-# hello world
 
 essential:
   - liblttng-ust1t64_copyright

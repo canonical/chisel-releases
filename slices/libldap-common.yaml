@@ -1,5 +1,4 @@
 package: libldap-common
-# hello world
 
 essential:
   - libldap-common_copyright

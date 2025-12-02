@@ -1,5 +1,4 @@
 package: tzdata-legacy
-# hello world
 
 essential:
   - tzdata-legacy_copyright

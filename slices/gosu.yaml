@@ -1,5 +1,4 @@
 package: gosu
-# hello world
 
 essential:
   - gosu_copyright

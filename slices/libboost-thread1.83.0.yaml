@@ -1,5 +1,4 @@
 package: libboost-thread1.83.0
-# hello world
 
 essential:
   - libboost-thread1.83.0_copyright

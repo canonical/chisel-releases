@@ -1,5 +1,4 @@
 package: libmp3lame0
-# hello world
 
 essential:
   - libmp3lame0_copyright

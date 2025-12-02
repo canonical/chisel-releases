@@ -1,5 +1,4 @@
 package: libjpeg-turbo8
-# hello world
 
 essential:
   - libjpeg-turbo8_copyright

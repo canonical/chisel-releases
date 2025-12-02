@@ -1,5 +1,4 @@
 package: libzmq5
-# hello world
 
 essential:
   - libzmq5_copyright

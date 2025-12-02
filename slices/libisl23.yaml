@@ -1,5 +1,4 @@
 package: libisl23
-# hello world
 
 essential:
   - libisl23_copyright

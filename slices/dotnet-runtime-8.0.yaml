@@ -1,5 +1,4 @@
 package: dotnet-runtime-8.0
-# hello world
 
 essential:
   - dotnet-runtime-8.0_copyright

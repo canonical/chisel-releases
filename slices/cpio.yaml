@@ -1,5 +1,4 @@
 package: cpio
-# hello world
 
 essential:
   - cpio_copyright

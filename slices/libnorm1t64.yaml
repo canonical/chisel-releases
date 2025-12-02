@@ -1,5 +1,4 @@
 package: libnorm1t64
-# hello world
 
 essential:
   - libnorm1t64_copyright

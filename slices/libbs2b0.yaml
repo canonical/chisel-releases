@@ -1,5 +1,4 @@
 package: libbs2b0
-# hello world
 
 essential:
   - libbs2b0_copyright

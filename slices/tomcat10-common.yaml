@@ -1,5 +1,4 @@
 package: tomcat10-common
-# hello world
 
 essential:
   - tomcat10-common_copyright

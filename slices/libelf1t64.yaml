@@ -1,5 +1,4 @@
 package: libelf1t64
-# hello world
 
 essential:
   - libelf1t64_copyright

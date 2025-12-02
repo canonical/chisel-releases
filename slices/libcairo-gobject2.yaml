@@ -1,5 +1,4 @@
 package: libcairo-gobject2
-# hello world
 
 essential:
   - libcairo-gobject2_copyright

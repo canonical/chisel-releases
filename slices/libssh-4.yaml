@@ -1,5 +1,4 @@
 package: libssh-4
-# hello world
 
 essential:
   - libssh-4_copyright

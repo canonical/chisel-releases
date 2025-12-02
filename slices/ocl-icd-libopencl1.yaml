@@ -1,5 +1,4 @@
 package: ocl-icd-libopencl1
-# hello world
 
 essential:
   - ocl-icd-libopencl1_copyright

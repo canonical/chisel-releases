@@ -1,5 +1,4 @@
 package: dotnet-runtime-9.0
-# hello world
 
 essential:
   - dotnet-runtime-9.0_copyright

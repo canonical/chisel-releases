@@ -1,5 +1,4 @@
 package: dotnet-sdk-8.0
-# hello world
 
 essential:
   - dotnet-sdk-8.0_copyright

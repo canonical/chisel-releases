@@ -1,5 +1,4 @@
 package: libxcb-randr0
-# hello world
 
 essential:
   - libxcb-randr0_copyright

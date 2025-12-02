@@ -1,5 +1,4 @@
 package: libswscale8
-# hello world
 
 essential:
   - libswscale8_copyright

@@ -1,5 +1,4 @@
 package: libxcb-present0
-# hello world
 
 essential:
   - libxcb-present0_copyright

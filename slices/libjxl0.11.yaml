@@ -1,5 +1,4 @@
 package: libjxl0.11
-# hello world
 
 essential:
   - libjxl0.11_copyright

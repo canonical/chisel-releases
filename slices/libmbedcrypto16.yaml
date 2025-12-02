@@ -1,5 +1,4 @@
 package: libmbedcrypto16
-# hello world
 
 essential:
   - libmbedcrypto16_copyright

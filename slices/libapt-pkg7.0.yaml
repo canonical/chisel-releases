@@ -1,5 +1,4 @@
 package: libapt-pkg7.0
-# hello world
 
 essential:
   - libapt-pkg7.0_copyright

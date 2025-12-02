@@ -1,5 +1,4 @@
 package: libfribidi0
-# hello world
 
 essential:
   - libfribidi0_copyright

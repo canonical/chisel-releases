@@ -1,5 +1,4 @@
 package: libattr1
-# hello world
 
 essential:
   - libattr1_copyright

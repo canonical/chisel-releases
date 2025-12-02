@@ -1,5 +1,4 @@
 package: libmemcached11t64
-# hello world
 
 essential:
   - libmemcached11t64_copyright

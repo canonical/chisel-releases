@@ -1,5 +1,4 @@
 package: libgssapi-krb5-2
-# hello world
 
 essential:
   - libgssapi-krb5-2_copyright

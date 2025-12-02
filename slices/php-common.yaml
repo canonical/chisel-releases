@@ -1,5 +1,4 @@
 package: php-common
-# hello world
 
 essential:
   - php-common_copyright

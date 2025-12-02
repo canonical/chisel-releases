@@ -1,5 +1,4 @@
 package: binutils-x86-64-linux-gnu
-# hello world
 
 essential:
   - binutils-x86-64-linux-gnu_copyright

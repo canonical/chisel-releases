@@ -1,5 +1,4 @@
 package: perl-base
-# hello world
 
 essential:
   - perl-base_copyright

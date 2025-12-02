@@ -1,5 +1,4 @@
 package: procps
-# hello world
 
 essential:
   - procps_copyright

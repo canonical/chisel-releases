@@ -1,5 +1,4 @@
 package: librdkafka++1
-# hello world
 
 essential:
   - librdkafka++1_copyright

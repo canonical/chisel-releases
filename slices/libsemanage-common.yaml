@@ -1,5 +1,4 @@
 package: libsemanage-common
-# hello world
 
 essential:
   - libsemanage-common_copyright

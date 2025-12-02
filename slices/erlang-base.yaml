@@ -1,5 +1,4 @@
 package: erlang-base
-# hello world
 
 essential:
   - erlang-base_copyright

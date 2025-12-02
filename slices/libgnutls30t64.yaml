@@ -1,5 +1,4 @@
 # GNU TLS library - main runtime library
-# hello world
 package: libgnutls30t64
 
 essential:

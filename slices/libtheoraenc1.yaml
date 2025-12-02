@@ -1,5 +1,4 @@
 package: libtheoraenc1
-# hello world
 
 essential:
   - libtheoraenc1_copyright

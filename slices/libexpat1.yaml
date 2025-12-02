@@ -1,5 +1,4 @@
 package: libexpat1
-# hello world
 
 essential:
   - libexpat1_copyright

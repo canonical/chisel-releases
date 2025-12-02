@@ -1,5 +1,4 @@
 package: libk5crypto3
-# hello world
 
 essential:
   - libk5crypto3_copyright
