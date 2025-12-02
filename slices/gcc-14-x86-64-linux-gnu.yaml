@@ -4,7 +4,6 @@ essential:
   - gcc-14-x86-64-linux-gnu_copyright
 
 slices:
-
   # NOTE: You might want to create a symlink from /usr/bin/gcc to
   #       /usr/bin/x86_64-linux-gnu-gcc to use this slice.
   #       ln -s x86_64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
