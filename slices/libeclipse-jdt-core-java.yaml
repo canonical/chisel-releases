@@ -1,4 +1,5 @@
 package: libeclipse-jdt-core-java
+# hello world
 
 essential:
   - libeclipse-jdt-core-java_copyright

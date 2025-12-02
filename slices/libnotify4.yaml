@@ -1,4 +1,5 @@
 package: libnotify4
+# hello world
 
 essential:
   - libnotify4_copyright

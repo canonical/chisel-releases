@@ -1,4 +1,5 @@
 package: libgdbm6t64
+# hello world
 
 essential:
   - libgdbm6t64_copyright

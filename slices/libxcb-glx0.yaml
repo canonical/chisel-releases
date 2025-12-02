@@ -1,4 +1,5 @@
 package: libxcb-glx0
+# hello world
 
 essential:
   - libxcb-glx0_copyright

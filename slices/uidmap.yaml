@@ -1,4 +1,5 @@
 package: uidmap
+# hello world
 
 essential:
   - uidmap_copyright

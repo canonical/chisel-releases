@@ -1,4 +1,5 @@
 package: openjdk-8-jre-headless
+# hello world
 
 essential:
   - openjdk-8-jre-headless_copyright

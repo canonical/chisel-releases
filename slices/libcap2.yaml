@@ -1,4 +1,5 @@
 package: libcap2
+# hello world
 
 essential:
   - libcap2_copyright

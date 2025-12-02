@@ -1,4 +1,5 @@
 package: libopenmpt0t64
+# hello world
 
 essential:
   - libopenmpt0t64_copyright

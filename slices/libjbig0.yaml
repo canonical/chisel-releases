@@ -1,4 +1,5 @@
 package: libjbig0
+# hello world
 
 essential:
   - libjbig0_copyright

@@ -1,4 +1,5 @@
 package: libaudit1
+# hello world
 
 essential:
   - libaudit1_copyright

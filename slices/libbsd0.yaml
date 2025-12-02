@@ -1,4 +1,5 @@
 package: libbsd0
+# hello world
 
 essential:
   - libbsd0_copyright

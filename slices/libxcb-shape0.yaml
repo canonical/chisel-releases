@@ -1,4 +1,5 @@
 package: libxcb-shape0
+# hello world
 
 essential:
   - libxcb-shape0_copyright

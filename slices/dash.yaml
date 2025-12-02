@@ -1,4 +1,5 @@
 package: dash
+# hello world
 
 essential:
   - dash_copyright

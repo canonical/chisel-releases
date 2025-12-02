@@ -1,4 +1,5 @@
 package: libsnappy1v5
+# hello world
 
 essential:
   - libsnappy1v5_copyright

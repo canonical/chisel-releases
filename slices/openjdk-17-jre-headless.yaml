@@ -1,4 +1,5 @@
 package: openjdk-17-jre-headless
+# hello world
 
 essential:
   - openjdk-17-jre-headless_copyright

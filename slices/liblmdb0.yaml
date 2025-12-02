@@ -1,4 +1,5 @@
 package: liblmdb0
+# hello world
 
 essential:
   - liblmdb0_copyright

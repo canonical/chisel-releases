@@ -1,4 +1,5 @@
 package: base-files
+# hello world
 
 essential:
   - base-files_copyright

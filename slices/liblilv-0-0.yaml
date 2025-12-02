@@ -1,4 +1,5 @@
 package: liblilv-0-0
+# hello world
 
 essential:
   - liblilv-0-0_copyright

@@ -1,4 +1,5 @@
 package: libpangocairo-1.0-0
+# hello world
 
 essential:
   - libpangocairo-1.0-0_copyright

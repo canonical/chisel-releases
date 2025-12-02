@@ -1,4 +1,5 @@
 package: libdrm-radeon1
+# hello world
 
 essential:
   - libdrm-radeon1_copyright

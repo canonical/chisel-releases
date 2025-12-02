@@ -1,4 +1,5 @@
 package: libdevmapper1.02.1
+# hello world
 
 essential:
   - libdevmapper1.02.1_copyright

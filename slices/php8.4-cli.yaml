@@ -1,4 +1,5 @@
 package: php8.4-cli
+# hello world
 
 essential:
   - php8.4-cli_copyright

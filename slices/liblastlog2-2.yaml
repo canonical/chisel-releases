@@ -1,4 +1,5 @@
 package: liblastlog2-2
+# hello world
 
 essential:
   - liblastlog2-2_copyright

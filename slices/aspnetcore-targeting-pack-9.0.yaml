@@ -1,4 +1,5 @@
 package: aspnetcore-targeting-pack-9.0
+# hello world
 
 essential:
   - aspnetcore-targeting-pack-9.0_copyright

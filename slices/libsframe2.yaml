@@ -1,4 +1,5 @@
 package: libsframe2
+# hello world
 
 essential:
   - libsframe2_copyright

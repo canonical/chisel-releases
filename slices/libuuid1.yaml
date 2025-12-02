@@ -1,4 +1,5 @@
 package: libuuid1
+# hello world
 
 essential:
   - libuuid1_copyright

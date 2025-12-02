@@ -1,4 +1,5 @@
 package: libsigsegv2
+# hello world
 
 essential:
   - libsigsegv2_copyright

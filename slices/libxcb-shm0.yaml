@@ -1,4 +1,5 @@
 package: libxcb-shm0
+# hello world
 
 essential:
   - libxcb-shm0_copyright

@@ -1,4 +1,5 @@
 package: libmd0
+# hello world
 
 essential:
   - libmd0_copyright

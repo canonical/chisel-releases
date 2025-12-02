@@ -1,4 +1,5 @@
 package: rabbitmq-server
+# hello world
 
 essential:
   - rabbitmq-server_copyright

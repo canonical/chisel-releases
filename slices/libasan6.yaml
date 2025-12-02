@@ -1,4 +1,5 @@
 package: libasan6
+# hello world
 
 essential:
   - libasan6_copyright

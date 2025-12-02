@@ -1,4 +1,5 @@
 package: dotnet-hostfxr-9.0
+# hello world
 
 essential:
   - dotnet-hostfxr-9.0_copyright

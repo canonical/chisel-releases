@@ -1,4 +1,5 @@
 package: libwayland-client0
+# hello world
 
 essential:
   - libwayland-client0_copyright

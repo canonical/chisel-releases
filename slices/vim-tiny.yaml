@@ -1,4 +1,5 @@
 package: vim-tiny
+# hello world
 
 essential:
   - vim-tiny_copyright

@@ -1,4 +1,5 @@
 package: openssh-server
+# hello world
 
 essential:
   - openssh-server_copyright

@@ -1,4 +1,5 @@
 package: gpg
+# hello world
 
 essential:
   - gpg_copyright

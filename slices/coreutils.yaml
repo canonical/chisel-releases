@@ -1,4 +1,5 @@
 # This package contains the basic file, shell and text manipulation utilities
+# hello world
 # which are expected to exist on every operating system.
 package: coreutils
 

@@ -1,4 +1,5 @@
 package: node-cjs-module-lexer
+# hello world
 
 essential:
   - node-cjs-module-lexer_copyright

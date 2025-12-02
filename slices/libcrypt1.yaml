@@ -1,4 +1,5 @@
 package: libcrypt1
+# hello world
 
 essential:
   - libcrypt1_copyright

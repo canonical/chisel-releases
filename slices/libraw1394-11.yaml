@@ -1,4 +1,5 @@
 package: libraw1394-11
+# hello world
 
 essential:
   - libraw1394-11_copyright

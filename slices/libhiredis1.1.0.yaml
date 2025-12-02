@@ -1,4 +1,5 @@
 package: libhiredis1.1.0
+# hello world
 
 essential:
   - libhiredis1.1.0_copyright

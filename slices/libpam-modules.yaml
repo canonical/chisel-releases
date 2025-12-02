@@ -1,4 +1,5 @@
 package: libpam-modules
+# hello world
 
 essential:
   - libpam-modules_copyright

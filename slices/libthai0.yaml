@@ -1,4 +1,5 @@
 package: libthai0
+# hello world
 
 essential:
   - libthai0_copyright

@@ -1,4 +1,5 @@
 package: sbsigntool
+# hello world
 
 essential:
   - sbsigntool_copyright

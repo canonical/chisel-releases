@@ -1,4 +1,5 @@
 package: libpq5
+# hello world
 
 essential:
   - libpq5_copyright

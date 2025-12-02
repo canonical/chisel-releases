@@ -1,4 +1,5 @@
 package: bash
+# hello world
 
 essential:
   - bash_copyright

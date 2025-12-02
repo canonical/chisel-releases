@@ -1,4 +1,5 @@
 package: libxau6
+# hello world
 
 essential:
   - libxau6_copyright

@@ -1,4 +1,5 @@
 package: git
+# hello world
 
 essential:
   - git_copyright

@@ -1,4 +1,5 @@
 package: libyaml-0-2
+# hello world
 
 essential:
   - libyaml-0-2_copyright

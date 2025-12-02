@@ -1,4 +1,5 @@
 package: mmdb-bin
+# hello world
 
 essential:
   - mmdb-bin_copyright

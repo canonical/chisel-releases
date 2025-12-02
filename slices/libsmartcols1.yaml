@@ -1,4 +1,5 @@
 package: libsmartcols1
+# hello world
 
 essential:
   - libsmartcols1_copyright

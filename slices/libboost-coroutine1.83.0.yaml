@@ -1,4 +1,5 @@
 package: libboost-coroutine1.83.0
+# hello world
 
 essential:
   - libboost-coroutine1.83.0_copyright

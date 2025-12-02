@@ -1,4 +1,5 @@
 package: less
+# hello world
 
 essential:
   - less_copyright

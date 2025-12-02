@@ -1,4 +1,5 @@
 package: redis-server
+# hello world
 
 essential:
   - redis-server_copyright

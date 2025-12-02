@@ -1,4 +1,5 @@
 package: libgcc-s1
+# hello world
 
 essential:
   - libgcc-s1_copyright

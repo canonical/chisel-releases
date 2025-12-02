@@ -1,4 +1,5 @@
 package: libtiff6
+# hello world
 
 essential:
   - libtiff6_copyright

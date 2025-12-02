@@ -1,4 +1,5 @@
 package: fonts-freefont-ttf
+# hello world
 
 essential:
   - fonts-freefont-ttf_copyright

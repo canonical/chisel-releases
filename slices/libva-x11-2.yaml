@@ -1,4 +1,5 @@
 package: libva-x11-2
+# hello world
 
 essential:
   - libva-x11-2_copyright

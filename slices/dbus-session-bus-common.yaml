@@ -1,4 +1,5 @@
 package: dbus-session-bus-common
+# hello world
 
 essential:
   - dbus-session-bus-common_copyright

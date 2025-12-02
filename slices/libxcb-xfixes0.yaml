@@ -1,4 +1,5 @@
 package: libxcb-xfixes0
+# hello world
 
 essential:
   - libxcb-xfixes0_copyright

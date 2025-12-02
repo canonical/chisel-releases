@@ -1,4 +1,5 @@
 package: libzimg2
+# hello world
 
 essential:
   - libzimg2_copyright

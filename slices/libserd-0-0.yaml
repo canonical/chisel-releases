@@ -1,4 +1,5 @@
 package: libserd-0-0
+# hello world
 
 essential:
   - libserd-0-0_copyright

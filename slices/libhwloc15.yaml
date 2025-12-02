@@ -1,4 +1,5 @@
 package: libhwloc15
+# hello world
 
 essential:
   - libhwloc15_copyright

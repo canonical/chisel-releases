@@ -1,4 +1,5 @@
 package: libnotify-bin
+# hello world
 
 essential:
   - libnotify-bin_copyright

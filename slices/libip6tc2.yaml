@@ -1,4 +1,5 @@
 package: libip6tc2
+# hello world
 
 essential:
   - libip6tc2_copyright

@@ -1,4 +1,5 @@
 package: dotnet-host-9.0
+# hello world
 
 essential:
   - dotnet-host-9.0_copyright

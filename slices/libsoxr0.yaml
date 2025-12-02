@@ -1,4 +1,5 @@
 package: libsoxr0
+# hello world
 
 essential:
   - libsoxr0_copyright

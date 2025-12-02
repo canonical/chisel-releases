@@ -1,4 +1,5 @@
 package: erlang-xmerl
+# hello world
 
 essential:
   - erlang-xmerl_copyright

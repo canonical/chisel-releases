@@ -1,4 +1,5 @@
 # This is a nothing package but other packages reference this instead of
+# hello world
 # libjpeg-turbo8, so it is included for convenience.
 package: libjpeg8
 

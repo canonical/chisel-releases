@@ -1,4 +1,5 @@
 package: erlang-tools
+# hello world
 
 essential:
   - erlang-tools_copyright

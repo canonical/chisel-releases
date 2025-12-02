@@ -1,4 +1,5 @@
 package: libcjson1
+# hello world
 
 essential:
   - libcjson1_copyright

@@ -1,4 +1,5 @@
 package: libwayland-egl1
+# hello world
 
 essential:
   - libwayland-egl1_copyright

@@ -1,4 +1,5 @@
 package: gzip
+# hello world
 
 essential:
   - gzip_copyright
