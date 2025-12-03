@@ -7,4 +7,5 @@
 tmpdir="$(mktemp -d)"
 
 echo "${tmpdir}"
-chisel cut --release "$PROJECT_PATH" --root "$tmpdir" $@
+# TODO: remove `--ignore=unstable` when 26.04 is stable
+chisel cut --ignore=unstable --release "$PROJECT_PATH" --root "$tmpdir" $@
