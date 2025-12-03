@@ -11,8 +11,8 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libbfd-*-system.so:
-      /usr/lib/*-linux-*/libopcodes-*-system.so:
+      /usr/lib/*-linux-*/libbfd-*-system.*.so:
+      /usr/lib/*-linux-*/libopcodes-*-system.*.so:
 
   copyright:
     essential:
