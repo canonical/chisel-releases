@@ -1,4 +1,4 @@
-summary: Integration tests for .NET 9 SDK 
+summary: Integration tests for .NET 10 SDK 
 
 variants:
     - +WithoutLibicu
@@ -15,9 +15,9 @@ environment:
 prepare: |
   required_slices=(base-passwd_data)
   if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(dotnet-sdk-9.0_core)
+    required_slices+=(dotnet-sdk-10.0_core)
   else
-    required_slices+=(dotnet-sdk-9.0_standard)
+    required_slices+=(dotnet-sdk-10.0_standard)
   fi
   
   # install slices
@@ -45,6 +45,7 @@ prepare: |
   cp NuGet.Config "${rootfs}${HOME}/.nuget/NuGet/NuGet.Config"
   
   cp helloworld.fsx "${rootfs}"/helloworld.fsx
+  apt-get install strace
 
 execute: |
   rootfs="$(cat ROOTFS)"
@@ -65,4 +66,4 @@ execute: |
   chroot "${rootfs}" /usr/bin/dotnet publish /app_helloworld/app_helloworld.csproj --no-restore --no-build
   
   # Run the C# Hello World .NET app
-  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net9.0/publish/app_helloworld.dll | grep -q "Hello, World!"
+  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net10.0/publish/app_helloworld.dll | grep -q "Hello, World!"
