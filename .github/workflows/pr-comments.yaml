@@ -13,7 +13,7 @@ name: Post PR comments
 
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ["Spread"]
     types:
       - completed
 
