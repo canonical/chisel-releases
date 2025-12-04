@@ -25,7 +25,7 @@ function main {
         
         IFS=' ' read -ra items <<< "$missing"
         for item in "${items[@]}"; do
-            echo "$(echo "$item" | xargs)"
+            echo "$item"
         done
         
         echo "\`\`\`"
