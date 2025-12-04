@@ -55,5 +55,6 @@ execute: |
   curl http://localhost:5108/ | grep "Hello World!" || ret=1
 
   # Cleanup
-  kill $app_pid
+  pkill -P $app_pid
+  wait $app_pid
   exit $ret
