@@ -31,8 +31,8 @@ prepare: |
   mkdir -p "${rootfs}"/proc
   mount --bind /proc "${rootfs}"/proc
   mkdir -p "${rootfs}"/dev
-  head -c 500 /dev/urandom > "${rootfs}"/dev/random
-  head -c 500 /dev/urandom > "${rootfs}"/dev/urandom
+  head -c 10000 /dev/urandom > "${rootfs}"/dev/random
+  head -c 10000 /dev/urandom > "${rootfs}"/dev/urandom
 
 execute: |
   rootfs="$(cat ROOTFS)"
