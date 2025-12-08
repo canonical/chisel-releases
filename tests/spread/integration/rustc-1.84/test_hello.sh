@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-
-if [[ "$1" != "--spread" ]]; then
-    FILE_DIR=$(realpath "$(dirname "$0")")
-    source "$FILE_DIR"/setup.sh
-fi
-
-## TESTS 
 # spellchecker: ignore rootfs rustc binutils libgcc println
 
 arch=$(uname -m)-linux-gnu
@@ -19,6 +12,7 @@ rootfs="$(install-slices "${slices[@]}")"
 ln -s "${arch}"-gcc-14 "${rootfs}"/usr/bin/cc
 ln -s "${arch}"-ld "${rootfs}"/usr/bin/ld
 
-echo 'fn main() { println!("Hello from Rust!"); }' > "${rootfs}"/hello.rs
+cp testfiles/hello.rs "${rootfs}/hello.rs"
+
 chroot "${rootfs}" rustc-1.84 /hello.rs -o /hello
 chroot "${rootfs}" /hello | grep -q "Hello from Rust!"
