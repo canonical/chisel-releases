@@ -4,13 +4,17 @@ essential:
   - rustc-1.84_copyright
 
 slices:
+  # TODO: we do not have the arch-independent slices for gcc-14 and binutils
+  # yet, so the user needs to install the target-specific ones manually.
+  # See: https://github.com/canonical/chisel-releases/issues/761
+
   # Rust compiler needs the target-specific linker to link the final binary.
   # Depending on the target architecture, it may need a different linker.
   # For example, to use the default toolchain, install the following slices:
-  # - gcc-14-$arch_gcc-14
+  # - gcc-14-$ARCH_gcc-14
   # - binutils-$arch_linker
   # - libgcc-14-dev_core
-  # where $arch is the architecture triplet. (Note that the gcc and binutils
+  # where $ARCH is the architecture triplet. (Note that the gcc and binutils
   # slices will also require you to create links to the target-specific gcc and
   # ld binaries.)
   rustc:
