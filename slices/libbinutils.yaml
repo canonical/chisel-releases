@@ -11,8 +11,15 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libbfd-*-system.*.so:
-      /usr/lib/*-linux-*/libopcodes-*-system.*.so:
+      # NOTE: we cannot use two single globs here, since they would
+      #       https://github.com/canonical/chisel/issues/258
+      # TODO: The devel branches use a different file-naming pattern. We need
+      #       to go back to this after feature freeze.
+      #       https://git.launchpad.net/ubuntu/+source/binutils/log/?h=ubuntu/noble
+      /usr/lib/*-linux-*/libbfd-2.45.50-system.*.so:
+      /usr/lib/*-linux-*/libopcodes-2.45.50-system.*.so:
+      # /usr/lib/*-linux-*/libbfd-*-system.so:
+      # /usr/lib/*-linux-*/libopcodes-*-system.so:
 
   copyright:
     essential:
