@@ -45,7 +45,6 @@ prepare: |
   cp NuGet.Config "${rootfs}${HOME}/.nuget/NuGet/NuGet.Config"
   
   cp helloworld.fsx "${rootfs}"/helloworld.fsx
-  apt-get install strace
 
 execute: |
   rootfs="$(cat ROOTFS)"
