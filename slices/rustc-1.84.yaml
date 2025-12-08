@@ -12,7 +12,7 @@ slices:
   # Depending on the target architecture, it may need a different linker.
   # For example, to use the default toolchain, install the following slices:
   # - gcc-14-$ARCH_gcc-14
-  # - binutils-$arch_linker
+  # - binutils-$ARCH_linker
   # - libgcc-14-dev_core
   # where $ARCH is the architecture triplet. (Note that the gcc and binutils
   # slices will also require you to create links to the target-specific gcc and
