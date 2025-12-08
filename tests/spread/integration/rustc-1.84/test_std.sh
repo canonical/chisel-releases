@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs rustc binutils libgcc
 
+# NOTE: We do not have the arch-independent slices for gcc/binutils yet,
+#       so we need to determine the architecture here.
+#       See: https://github.com/canonical/chisel-releases/issues/761
 arch=$(uname -m)-linux-gnu
 slices=(
     rustc-1.84_rustc
