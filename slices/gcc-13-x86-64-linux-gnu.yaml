@@ -1,0 +1,38 @@
+package: gcc-13-x86-64-linux-gnu
+
+essential:
+  - gcc-13-x86-64-linux-gnu_copyright
+
+slices:
+  # NOTE: You might want to create a symlink from /usr/bin/gcc to
+  #       /usr/bin/x86_64-linux-gnu-gcc to use this slice.
+  #       ln -s x86_64-linux-gnu-gcc-13 "$rootfs/usr/bin/gcc"
+  # NOTE: For this slice to work, you need to also provide the linker,
+  #       the assembler and cc1 c compiler. The default ones are from
+  #       cpp-13-x86-64-linux-gnu and binutils-x86-64-linux-gnu slices.
+  #       You'll also need to create symlinks for them:
+  #       ln -s x86-64-linux-gnu-ld "$rootfs/usr/bin/ld"
+  #       ln -s x86-64-linux-gnu-as "$rootfs/usr/bin/as"
+  # TODO: we do not yet have the higher-level architecture-independent gcc-13
+  #       slices. See: https://github.com/canonical/chisel-releases/issues/761
+  #       for more info.
+  gcc-13:
+    essential:
+      - libc6_libs
+      - libgcc-13-dev_headers
+    contents:
+      /usr/bin/x86_64-linux-gnu-gcc-13:
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/13/collect2:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/13/liblto_plugin.so:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/libexec/gcc/x86_64-linux-gnu/13/collect2:
+        arch: [amd64]
+      /usr/libexec/gcc/x86_64-linux-gnu/13/liblto_plugin.so:
+        arch: [amd64]
+
+  copyright:
+    essential:
+      - gcc-13-base_copyright
+    contents:
+      /usr/share/doc/gcc-13-x86-64-linux-gnu:
