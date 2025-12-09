@@ -57,7 +57,9 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libbfd-*-arm64.so:
+      # TODO: The devel branches use a different file-naming pattern. We need
+      #       to go back to this after feature freeze.
+      /usr/lib/*-linux-*/libbfd-2.45.50-arm64.*.so:
         arch: [amd64, i386, ppc64el, s390x]
 
   cross-libctf:
@@ -82,7 +84,9 @@ slices:
       - binutils-aarch64-linux-gnu_cross-libbfd
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libopcodes-*-arm64.so:
+      # TODO: The devel branches use a different file-naming pattern. We need
+      #       to go back to this after feature freeze.
+      /usr/lib/*-linux-*/libopcodes-2.45.50-arm64.*.so:
         arch: [amd64, i386, ppc64el, s390x]
 
   ldscripts:
