@@ -20,21 +20,21 @@ else
     sysroot=""
 fi
 
-rootfs="$(install-slices gcc-14-x86-64-linux-gnu_gcc-14)"
-    ln -s "x86_64-linux-gnu-gcc-14" "${rootfs}/usr/bin/gcc"
+rootfs="$(install-slices gcc-15-x86-64-linux-gnu_gcc-15)"
+    ln -s "x86_64-linux-gnu-gcc-15" "${rootfs}/usr/bin/gcc"
 
-test "$(chroot "${rootfs}" gcc -print-search-dirs | head -n 1)" = "install: /usr/lib/$gcc_dir/x86_64-linux-gnu/14/"
-chroot "${rootfs}" gcc -print-search-dirs | head -n 2 | tail -n 1 | grep -q "/usr/libexec/$gcc_dir/x86_64-linux-gnu/14/"
+test "$(chroot "${rootfs}" gcc -print-search-dirs | head -n 1)" = "install: /usr/lib/$gcc_dir/x86_64-linux-gnu/15/"
+chroot "${rootfs}" gcc -print-search-dirs | head -n 2 | tail -n 1 | grep -q "/usr/libexec/$gcc_dir/x86_64-linux-gnu/15/"
 
 test "$(chroot "${rootfs}" gcc -print-libgcc-file-name)" = "libgcc.a"
 chroot "${rootfs}" gcc -print-file-name=libc.so.6 | grep -q "libc.so.6"
 
 # create a fake program called 'foo' in libexec dir to test -print-prog-name
-touch "${rootfs}/usr/libexec/$gcc_dir/x86_64-linux-gnu/14/foo"
-chmod +x "${rootfs}/usr/libexec/$gcc_dir/x86_64-linux-gnu/14/foo"
+touch "${rootfs}/usr/libexec/$gcc_dir/x86_64-linux-gnu/15/foo"
+chmod +x "${rootfs}/usr/libexec/$gcc_dir/x86_64-linux-gnu/15/foo"
 
 chroot "${rootfs}" gcc -print-prog-name=foo
-test "$(chroot "${rootfs}" gcc -print-prog-name=foo)" = "/usr/libexec/$gcc_dir/x86_64-linux-gnu/14/foo"
+test "$(chroot "${rootfs}" gcc -print-prog-name=foo)" = "/usr/libexec/$gcc_dir/x86_64-linux-gnu/15/foo"
 
 # we're not configured for multiple architectures
 test "$(chroot "${rootfs}" gcc -print-multiarch)" = "x86_64-linux-gnu"

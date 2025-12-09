@@ -1,4 +1,4 @@
-summary: Integration tests for gcc-14-x86-64-linux-gnu
+summary: Integration tests for gcc-15-x86-64-linux-gnu
 
 variants:
     - dump
