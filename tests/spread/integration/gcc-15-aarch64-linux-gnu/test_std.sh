@@ -13,19 +13,19 @@ else
 fi
 
 if $cross; then
-    # TODO: We do not have libgcc-14-dev-amd64-cross for cross compilation yet
+    # TODO: We do not have libgcc-15-dev-amd64-cross for cross compilation yet
     :
 else
     slices=(
-        gcc-14-aarch64-linux-gnu_gcc-14
-        cpp-14-aarch64-linux-gnu_cc1
+        gcc-15-aarch64-linux-gnu_gcc-15
+        cpp-15-aarch64-linux-gnu_cc1
         binutils-aarch64-linux-gnu_assembler
         binutils-aarch64-linux-gnu_linker
-        libgcc-14-dev_core
+        libgcc-15-dev_core
         libc6-dev_core
     )
     rootfs="$(install-slices "${slices[@]}")"
-    ln -s aarch64-linux-gnu-gcc-14 "${rootfs}/usr/bin/gcc"
+    ln -s aarch64-linux-gnu-gcc-15 "${rootfs}/usr/bin/gcc"
     ln -s aarch64-linux-gnu-as "${rootfs}/usr/bin/as"
     ln -s aarch64-linux-gnu-ld "${rootfs}/usr/bin/ld"
 
