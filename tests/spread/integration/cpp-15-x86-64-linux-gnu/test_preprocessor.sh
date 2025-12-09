@@ -14,13 +14,13 @@ fi
 
 rootfs="$(install-slices \
     base-files_bin \
-    cpp-14-x86-64-linux-gnu_cc1 \
+    cpp-15-x86-64-linux-gnu_cc1 \
 )"
 
 if $cross; then
-    ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
 else
-    ln -s "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc/x86_64-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
 fi
 
 cp question.c "${rootfs}/question.c"

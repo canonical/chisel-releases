@@ -15,7 +15,7 @@ fi
 # prepare separate rootfs with cc1, as and ld
 rootfs_cc="$(install-slices \
     base-files_bin \
-    cpp-14-aarch64-linux-gnu_cc1 \
+    cpp-15-aarch64-linux-gnu_cc1 \
     libc6-dev_headers \
 )"
 rootfs_as="$(install-slices \
@@ -27,11 +27,11 @@ rootfs_ld="$(install-slices \
 )"
 
 if $cross; then
-    ln -s "/usr/libexec/gcc-cross/aarch64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc-cross/aarch64-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
     ln -s "aarch64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
     ln -s "aarch64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 else
-    ln -s "/usr/libexec/gcc/aarch64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc/aarch64-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
     ln -s "aarch64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
     ln -s "aarch64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 fi
