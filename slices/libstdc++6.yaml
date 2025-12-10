@@ -13,6 +13,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-15-base_copyright
+      - gcc-14-base_copyright
     contents:
       /usr/share/doc/libstdc++6:
