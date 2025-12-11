@@ -4,7 +4,7 @@ essential:
   - libavahi-common-data_copyright
 
 slices:
-  resources:
+  data:
     contents:
       /usr/lib/*-linux-*/avahi/service-types.db:
 
