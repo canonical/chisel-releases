@@ -1,0 +1,18 @@
+package: gcc
+
+essential:
+  - gcc_copyright
+
+slices:
+  gcc:
+    essential:
+      - gcc-13_gcc-13
+    contents:
+      /usr/bin/gcc:  # Symlink to gcc-13
+
+  copyright:
+    v3-essential:
+      cpp-13-aarch64-linux-gnu_copyright: {arch: [arm64]}
+      cpp-13-x86-64-linux-gnu_copyright: {arch: [amd64]}
+    contents:
+      /usr/share/doc/gcc:  # Symlink to cpp-${ARCH_TRIPLET}
