@@ -1,4 +1,4 @@
-summary: Integration tests for util-linux
+summary: Integration tests for golang-1.22-go 
 
 environment:
   SLICE/core: "core-tools"
@@ -12,7 +12,20 @@ environment:
   SLICE/testing: "testing-tools"
 
 execute: |
-  rootfs="$(install-slices golang-1.22-go_${SLICE} golang-1.22-go_bins)"
+  arch=$(uname -m)
+  arch="${arch//_/-}"
+  arch_triplet="${arch}-linux-gnu"
+
+  if [ "${arch}" = "aarch64" ]; then
+    chisel_arch="arm64"
+  elif [ "${arch}" = "x86-64" ]; then
+    chisel_arch="amd64"
+  else
+    echo "Unsupported architecture: ${arch}"
+    exit 1
+  fi
+
+  rootfs="$(install-slices --arch "${chisel_arch}" golang-1.22-go_${SLICE} golang-1.22-go_bins)"
 
   # we need dev/sys mounted for some of them
   mkdir "${rootfs}"/dev
@@ -30,6 +43,9 @@ execute: |
       ;;
     cgo-tools)
       chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cgo -V
+      cp ../golang/hello/cmd/hello_cgo/main_cgo.go "${rootfs}/main_cgo.go"
+      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cgo main_cgo.go
+      objdump -t _obj/_cgo_.o | grep -q "hello_from_c"
       ;;
     buildid-tools)
       (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool buildid 2>&1 || true) | grep "usage"
