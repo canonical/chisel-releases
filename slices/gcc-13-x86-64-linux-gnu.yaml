@@ -18,7 +18,12 @@ slices:
   #       for more info.
   gcc-13:
     essential:
+      - binutils-x86-64-linux-gnu_assembler
+      - binutils-x86-64-linux-gnu_linker
+      - cpp-13-aarch64-linux-gnu_cc1
+      - cpp-13-x86-64-linux-gnu_cc1
       - libc6_libs
+      - libgcc-13-dev_core
       - libgcc-13-dev_headers
     contents:
       /usr/bin/x86_64-linux-gnu-gcc-13:

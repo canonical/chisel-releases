@@ -8,6 +8,9 @@ slices:
     v3-essential:
       gcc-13-aarch64-linux-gnu_gcc-13: {arch: [arm64]}
       gcc-13-x86-64-linux-gnu_gcc-13: {arch: [amd64]}
+    essential:
+      - binutils_assembler
+      - binutils_linker
     contents:
       /usr/bin/gcc-13:  # Symlink to ${ARCH_TRIPLET}-gcc-13
 
