@@ -4,7 +4,7 @@ essential:
   - xkb-data_copyright
 
 slices:
-  resources:
+  data:
     contents:
       /usr/share/X11/xkb/**:
 
