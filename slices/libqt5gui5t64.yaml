@@ -13,6 +13,7 @@ slices:
       - fontconfig_bins
       - libc6_libs
       - libdrm2_libs
+      - libegl1_libs
       - libfontconfig1_libs
       - libfreetype6_libs
       - libgbm1_libs
