@@ -4,10 +4,6 @@ essential:
   - libdouble-conversion3_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libdouble-conversion3/copyright:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libdouble-conversion.so*:
@@ -16,6 +12,6 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
 
-  doc:
+  copyright:
     contents:
-      /usr/share/doc/libdouble-conversion3/**:
+      /usr/share/doc/libdouble-conversion3/copyright:
