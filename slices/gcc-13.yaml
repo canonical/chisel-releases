@@ -5,6 +5,7 @@ essential:
 
 slices:
   gcc-13:
+    # Note: `v3-essential` only works for chisel>=1.3.0
     v3-essential:
       gcc-13-aarch64-linux-gnu_gcc-13: {arch: [arm64]}
       gcc-13-x86-64-linux-gnu_gcc-13: {arch: [amd64]}

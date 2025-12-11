@@ -5,6 +5,7 @@ essential:
 
 slices:
   assembler:
+    # Note: `v3-essential` only works for chisel>=1.3.0
     v3-essential:
       binutils-aarch64-linux-gnu_assembler: {arch: [arm64]}
       binutils-x86-64-linux-gnu_assembler: {arch: [amd64]}
@@ -12,6 +13,7 @@ slices:
       /usr/bin/as:  # Symlink to ${ARCH_TRIPLET}-as
 
   linker:
+    # Note: `v3-essential` only works for chisel>=1.3.0
     v3-essential:
       binutils-aarch64-linux-gnu_linker: {arch: [arm64]}
       binutils-x86-64-linux-gnu_linker: {arch: [amd64]}
