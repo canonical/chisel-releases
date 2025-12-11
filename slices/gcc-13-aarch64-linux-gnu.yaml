@@ -4,9 +4,6 @@ essential:
   - gcc-13-aarch64-linux-gnu_copyright
 
 slices:
-  # TODO: we do not yet have the higher-level architecture-independent gcc-13
-  #       slices. See: https://github.com/canonical/chisel-releases/issues/761
-  #       for more info.
   gcc-13:
     essential:
       - binutils-aarch64-linux-gnu_assembler

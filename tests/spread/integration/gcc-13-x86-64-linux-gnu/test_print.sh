@@ -26,7 +26,7 @@ rootfs="$(install-slices gcc-13-x86-64-linux-gnu_gcc-13)"
 test "$(chroot "${rootfs}" gcc -print-search-dirs | head -n 1)" = "install: /usr/lib/$gcc_dir/x86_64-linux-gnu/13/"
 chroot "${rootfs}" gcc -print-search-dirs | head -n 2 | tail -n 1 | grep -q "/usr/libexec/$gcc_dir/x86_64-linux-gnu/13/"
 
-test "$(chroot "${rootfs}" gcc -print-libgcc-file-name)" = "libgcc.a"
+test "$(chroot "${rootfs}" gcc -print-libgcc-file-name)" = "/usr/lib/$gcc_dir/x86_64-linux-gnu/13/libgcc.a"
 chroot "${rootfs}" gcc -print-file-name=libc.so.6 | grep -q "libc.so.6"
 
 # create a fake program called 'foo' in libexec dir to test -print-prog-name
