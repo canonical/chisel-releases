@@ -8,7 +8,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libavahi-common.so.3*:
     essential:
-      - libavahi-common-data_resources
+      - libavahi-common-data_data
       - libc6_libs
 
   copyright:

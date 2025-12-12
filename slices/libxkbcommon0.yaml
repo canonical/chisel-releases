@@ -9,7 +9,7 @@ slices:
       /usr/lib/*-linux-*/libxkbcommon.so.0*:
     essential:
       - libc6_libs
-      - xkb-data_resources
+      - xkb-data_data
 
   copyright:
     contents:

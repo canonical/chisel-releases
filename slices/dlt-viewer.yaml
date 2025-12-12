@@ -10,7 +10,6 @@ slices:
       /usr/bin/dlt-viewer:
     essential:
       - dlt-viewer_libs
-      - dlt-viewer_plugins
 
   data:
     contents:
