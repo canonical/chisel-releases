@@ -1,0 +1,20 @@
+package: libstd-rust-1.75
+
+essential:
+  - libstd-rust-1.75_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libllvm17t64_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/librustc_driver-*.so:
+      /usr/lib/*-linux-*/libstd-*.so:
+      /usr/lib/*-linux-*/libtest-*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.75/copyright:
