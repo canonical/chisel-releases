@@ -8,7 +8,7 @@ slices:
     essential:
       - libc6_libs
       - libgcc-s1_libs
-      - libllvm19_libs
+      - libllvm17t64_libs
       - libstdc++6_libs
     contents:
       /usr/lib/*-linux-*/librustc_driver-*.so:
