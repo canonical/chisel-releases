@@ -13,9 +13,9 @@ echo "Unsupported architecture: ${arch}"
 exit 1
 fi
 
-rootfs="$(install-slices --arch "${chisel_arch}" gcc_gcc libc6-dev_libs)"
+rootfs="$(install-slices --arch "${chisel_arch}" gcc-14_gcc-14 libc6-dev_libs)"
 
 cp ../gcc-14-${arch_triplet}/testfiles/hello.c "${rootfs}/hello.c"
 
-chroot "${rootfs}" gcc -o hello hello.c
+chroot "${rootfs}" gcc-14 -o hello hello.c
 chroot "${rootfs}" ./hello | grep "Hello from C!"
