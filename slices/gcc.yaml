@@ -16,4 +16,4 @@ slices:
       cpp-13-aarch64-linux-gnu_copyright: {arch: [arm64]}
       cpp-13-x86-64-linux-gnu_copyright: {arch: [amd64]}
     contents:
-      /usr/share/doc/gcc:  # Symlink to cpp-${ARCH_TRIPLET}
+      /usr/share/doc/gcc:  # Symlink to gcc-${ARCH_TRIPLET}
