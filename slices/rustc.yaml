@@ -4,19 +4,11 @@ essential:
   - rustc_copyright
 
 slices:
-  # TODO: we do not have the arch-independent slices for gcc-13 and binutils
-  # yet, so the user needs to install the target-specific ones manually.
-  # See: https://github.com/canonical/chisel-releases/issues/761
-
-  # Rust compiler needs the target-specific linker to link the final binary.
-  # Depending on the target architecture, it may need a different linker.
-  # For example, to use the default toolchain, install the following slices:
-  # - gcc-13-$ARCH_gcc-13
-  # - binutils-$ARCH_linker
-  # - libgcc-13-dev_core
-  # where $ARCH is the architecture triplet. (Note that the gcc and binutils
-  # slices will also require you to create links to the target-specific gcc and
-  # ld binaries.)
+  # NOTE: Rust compiler needs the target-specific linker to link the final
+  #       binary. The default toolchain included here is using gcc and binutils.
+  #       Rust calls `cc` to link the final binary so tou will need to create
+  #       the symlink for that to work:
+  #       ls -s gcc /usr/bin/cc
   rustc:
     essential:
       - base-files_tmp
@@ -24,10 +16,7 @@ slices:
       - libc6-dev_core
       - libc6-dev_libm
       - libc6_libs
-      - libgcc-s1_libs
-      - libllvm17t64_libs
       - libstd-rust-dev_libs
-      - libstdc++6_libs
     contents:
       /usr/bin/rustc:
 
