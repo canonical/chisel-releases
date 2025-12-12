@@ -20,6 +20,7 @@ slices:
   rustc:
     essential:
       - base-files_tmp
+      - gcc_gcc
       - libc6-dev_core
       - libc6-dev_libm
       - libc6_libs

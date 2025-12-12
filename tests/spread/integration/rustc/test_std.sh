@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
-# spellchecker: ignore rootfs rustc binutils libgcc
+# spellchecker: ignore rootfs rustc
 
-# NOTE: We do not have the arch-independent slices for gcc/binutils yet,
-#       so we need to determine the architecture here.
-#       See: https://github.com/canonical/chisel-releases/issues/761
-arch=$(uname -m)-linux-gnu
-slices=(
-    rustc_rustc
-    gcc-13-"${arch//_/-}"_gcc-13
-    binutils-"${arch//_/-}"_linker
-    libgcc-13-dev_core
-)
-rootfs="$(install-slices "${slices[@]}")"
-ln -s "${arch}"-gcc-13 "${rootfs}"/usr/bin/cc
-ln -s "${arch}"-ld "${rootfs}"/usr/bin/ld
+arch=$(uname -m)
+case "${arch}" in
+    aarch64) chisel_arch="arm64" ;;
+    x86_64) chisel_arch="amd64" ;;
+    *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
+esac
+
+rootfs="$(install-slices --arch "$chisel_arch" rustc_rustc)"
+ln -s gcc "$rootfs/usr/bin/cc"
 
 cp testfiles/test_std.rs "${rootfs}"/test_std.rs
 
