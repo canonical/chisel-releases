@@ -30,7 +30,7 @@ slices:
       # CGI
       /usr/lib/ruby/3.2.*/cgi.rb:
       /usr/lib/ruby/3.2.*/cgi/**:
-      
+
       /usr/lib/ruby/3.2.*/coverage.rb:
 
       # CSV
@@ -64,7 +64,7 @@ slices:
       # Forwardable: for delegating methods to other objects
       /usr/lib/ruby/3.2.*/forwardable.rb:
       /usr/lib/ruby/3.2.*/forwardable/*:
-      
+
       /usr/lib/ruby/3.2.*/getoptlong.rb:
 
       # IO: for input/output operations
