@@ -12,8 +12,9 @@ echo "Unsupported architecture: ${arch}"
 exit 1
 fi
 
-rootfs="$(install-slices --arch "${chisel_arch}" binutils_assembler binutils_linker)"
+rootfs="$(install-slices --arch "${chisel_arch}" binutils_assembler binutils_linker binutils_archiver)"
 
 chroot "${rootfs}/" as --version | grep "GNU assembler"
 chroot "${rootfs}/" ld --version | grep "GNU ld"
 chroot "${rootfs}/" ld.bfd --version | grep "GNU ld"
+chroot "${rootfs}/" ar --version | grep "GNU ar"
