@@ -20,12 +20,11 @@ slices:
       /usr/lib/ruby/3.2.*/abbrev.rb:
       /usr/lib/ruby/3.2.*/base64.rb:
       /usr/lib/ruby/3.2.*/benchmark.rb:
+      /usr/lib/ruby/3.2.*/benchmark/version.rb:
 
       # BigDecimal is a standard library in Ruby 3.2.
       /usr/lib/ruby/3.2.*/bigdecimal.rb:
       /usr/lib/ruby/3.2.*/bigdecimal/*:
-
-      /usr/lib/ruby/3.2.*/bundled_gems.rb:
 
       # CGI
       /usr/lib/ruby/3.2.*/cgi.rb:
@@ -110,10 +109,6 @@ slices:
       /usr/lib/ruby/3.2.*/pp.rb:
       /usr/lib/ruby/3.2.*/prettyprint.rb:
 
-      # Prism: a Ruby parser
-      /usr/lib/ruby/3.2.*/prism.rb:
-      /usr/lib/ruby/3.2.*/prism/**:
-
       /usr/lib/ruby/3.2.*/pstore.rb:
 
       # Psych: YAML parser and emitter
@@ -157,7 +152,6 @@ slices:
       /usr/lib/ruby/3.2.*/rubygems/platform.rb:
       /usr/lib/ruby/3.2.*/rubygems/requirement.rb:
       /usr/lib/ruby/3.2.*/rubygems/specification.rb:
-      /usr/lib/ruby/3.2.*/rubygems/specification_record.rb:
       /usr/lib/ruby/3.2.*/rubygems/stub_specification.rb:
       /usr/lib/ruby/3.2.*/rubygems/unknown_command_spell_checker.rb:
       /usr/lib/ruby/3.2.*/rubygems/util.rb:
@@ -264,7 +258,6 @@ slices:
 
       # work with prime numbers
       /usr/lib/ruby/gems/3.2.*/gems/prime-*/**:
-      /usr/lib/ruby/gems/3.2.*/gems/prism-*/:
 
       /usr/lib/ruby/gems/3.2.*/gems/pstore-*/:
       /usr/lib/ruby/gems/3.2.*/gems/psych-*/:
