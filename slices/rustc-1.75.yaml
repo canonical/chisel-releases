@@ -25,7 +25,7 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libllvm19_libs
-      - libstd-rust-1.75-dev_libs
+      - libstd-rust-dev_libs
       - libstdc++6_libs
     contents:
       /usr/bin/rustc-1.75:  # symlink to ../rust-1.75/bin/rustc
