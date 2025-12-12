@@ -1,0 +1,337 @@
+package: libruby3.2
+
+essential:
+  - libruby3.2_copyright
+
+# Slicing structure based on https://ruby-doc.org/3.2/
+slices:
+  # core: the minimum set of Ruby package contents that is required to have a
+  # production ready Ruby runtime. It doesn't contain development or interactive
+  # tools like:
+  # irb; rake; did-you-mean; minitest; test-unit; bundler; rubygems; font-lato fonts
+  core:
+    essential:
+      - libruby3.2_libs
+      - ruby-net-telnet_rubygems
+      - ruby-webrick_rubygems
+      - ruby-xmlrpc_scripts
+    contents:
+      /usr/lib/ruby/3.2.*/English.rb:
+      /usr/lib/ruby/3.2.*/abbrev.rb:
+      /usr/lib/ruby/3.2.*/base64.rb:
+      /usr/lib/ruby/3.2.*/benchmark.rb:
+
+      # BigDecimal is a standard library in Ruby 3.2.
+      /usr/lib/ruby/3.2.*/bigdecimal.rb:
+      /usr/lib/ruby/3.2.*/bigdecimal/*:
+
+      /usr/lib/ruby/3.2.*/bundled_gems.rb:
+
+      # CGI
+      /usr/lib/ruby/3.2.*/cgi.rb:
+      /usr/lib/ruby/3.2.*/cgi/**:
+      
+      /usr/lib/ruby/3.2.*/coverage.rb:
+
+      # CSV
+      /usr/lib/ruby/3.2.*/csv.rb:
+      /usr/lib/ruby/3.2.*/csv/**:
+
+      /usr/lib/ruby/3.2.*/date.rb:
+      /usr/lib/ruby/3.2.*/delegate.rb:
+
+      # Digest: for cryptographic hash functions
+      /usr/lib/ruby/3.2.*/digest.rb:
+      /usr/lib/ruby/3.2.*/digest/**:
+
+      # DRb (Distributed Ruby)
+      /usr/lib/ruby/3.2.*/drb.rb:
+      /usr/lib/ruby/3.2.*/drb/*:
+
+      # ERB, the Embedded Ruby
+      /usr/lib/ruby/3.2.*/erb.rb:
+      /usr/lib/ruby/3.2.*/erb/*:
+
+      /usr/lib/ruby/3.2.*/expect.rb:
+
+      # Fiddle: a foreign function interface for Ruby
+      /usr/lib/ruby/3.2.*/fiddle.rb:
+      /usr/lib/ruby/3.2.*/fiddle/*:
+
+      /usr/lib/ruby/3.2.*/fileutils.rb:
+      /usr/lib/ruby/3.2.*/find.rb:
+
+      # Forwardable: for delegating methods to other objects
+      /usr/lib/ruby/3.2.*/forwardable.rb:
+      /usr/lib/ruby/3.2.*/forwardable/*:
+      
+      /usr/lib/ruby/3.2.*/getoptlong.rb:
+
+      # IO: for input/output operations
+      /usr/lib/ruby/3.2.*/io/**:
+
+      /usr/lib/ruby/3.2.*/ipaddr.rb:
+
+      # JSON: for parsing and generating JSON data
+      /usr/lib/ruby/3.2.*/json.rb:
+      /usr/lib/ruby/3.2.*/json/**:
+
+      /usr/lib/ruby/3.2.*/kconv.rb:
+
+      # Logger: for logging messages
+      /usr/lib/ruby/3.2.*/logger.rb:
+      /usr/lib/ruby/3.2.*/logger/*:
+
+      /usr/lib/ruby/3.2.*/mkmf.rb:
+      /usr/lib/ruby/3.2.*/monitor.rb:
+      /usr/lib/ruby/3.2.*/mutex_m.rb:
+
+      # Net: for network protocols
+      /usr/lib/ruby/3.2.*/net/**:
+
+      /usr/lib/ruby/3.2.*/observer.rb:
+      /usr/lib/ruby/3.2.*/open-uri.rb:
+
+      # Open3: for running external commands
+      /usr/lib/ruby/3.2.*/open3.rb:
+      /usr/lib/ruby/3.2.*/open3/*:
+
+      # OpenSSL: for cryptographic operations
+      /usr/lib/ruby/3.2.*/openssl.rb:
+      /usr/lib/ruby/3.2.*/openssl/*:
+
+      # OptionParser: for command-line option parsing
+      /usr/lib/ruby/3.2.*/optionparser.rb:
+      /usr/lib/ruby/3.2.*/optparse.rb:
+      /usr/lib/ruby/3.2.*/optparse/*:
+
+      /usr/lib/ruby/3.2.*/ostruct.rb:
+      /usr/lib/ruby/3.2.*/pathname.rb:
+      /usr/lib/ruby/3.2.*/pp.rb:
+      /usr/lib/ruby/3.2.*/prettyprint.rb:
+
+      # Prism: a Ruby parser
+      /usr/lib/ruby/3.2.*/prism.rb:
+      /usr/lib/ruby/3.2.*/prism/**:
+
+      /usr/lib/ruby/3.2.*/pstore.rb:
+
+      # Psych: YAML parser and emitter
+      /usr/lib/ruby/3.2.*/psych.rb:
+      /usr/lib/ruby/3.2.*/psych/**:
+
+      # Random: for random number generation
+      /usr/lib/ruby/3.2.*/random/*:
+
+      # Rdoc: for Ruby documentation generation
+      /usr/lib/ruby/3.2.*/rdoc.rb:
+      /usr/lib/ruby/3.2.*/rdoc/**:
+
+      /usr/lib/ruby/3.2.*/resolv-replace.rb:
+      /usr/lib/ruby/3.2.*/resolv.rb:
+
+      # Rinda: for distributed Ruby applications
+      /usr/lib/ruby/3.2.*/rinda/*:
+
+      # Ripper: a Ruby parser
+      /usr/lib/ruby/3.2.*/ripper.rb:
+      /usr/lib/ruby/3.2.*/ripper/*:
+
+      ## RUBYGEMS
+      # This core slice does not include all rubygems nor its utilities, but
+      # since some gems are included above, we'll need basic 'rubygems' support,
+      # just to be able to set GEM_PATH and let the Ruby scripts load gems
+      # IMPORTANT: if installing this slice and wanting to use its gems, make
+      # sure to set the following env var:
+      # GEM_PATH="$GEM_PATH:/usr/lib/ruby/gems/3.2.0/gems:/usr/share/rubygems-integration/all"
+      /usr/lib/ruby/3.2.*/rubygems.rb:
+      /usr/lib/ruby/3.2.*/rubygems/basic_specification.rb:
+      /usr/lib/ruby/3.2.*/rubygems/compatibility.rb:
+      /usr/lib/ruby/3.2.*/rubygems/core_ext/*.rb:
+      /usr/lib/ruby/3.2.*/rubygems/defaults.rb:
+      /usr/lib/ruby/3.2.*/rubygems/dependency.rb:
+      /usr/lib/ruby/3.2.*/rubygems/deprecate.rb:
+      /usr/lib/ruby/3.2.*/rubygems/errors.rb:
+      /usr/lib/ruby/3.2.*/rubygems/exceptions.rb:
+      /usr/lib/ruby/3.2.*/rubygems/path_support.rb:
+      /usr/lib/ruby/3.2.*/rubygems/platform.rb:
+      /usr/lib/ruby/3.2.*/rubygems/requirement.rb:
+      /usr/lib/ruby/3.2.*/rubygems/specification.rb:
+      /usr/lib/ruby/3.2.*/rubygems/specification_record.rb:
+      /usr/lib/ruby/3.2.*/rubygems/stub_specification.rb:
+      /usr/lib/ruby/3.2.*/rubygems/unknown_command_spell_checker.rb:
+      /usr/lib/ruby/3.2.*/rubygems/util.rb:
+      /usr/lib/ruby/3.2.*/rubygems/util/list.rb:
+      /usr/lib/ruby/3.2.*/rubygems/version.rb:
+
+      /usr/lib/ruby/3.2.*/securerandom.rb:
+      /usr/lib/ruby/3.2.*/set.rb:
+      /usr/lib/ruby/3.2.*/set/sorted_set.rb:
+      /usr/lib/ruby/3.2.*/shellwords.rb:
+      /usr/lib/ruby/3.2.*/singleton.rb:
+      /usr/lib/ruby/3.2.*/socket.rb:
+
+      # Syslog: for system logging
+      /usr/lib/ruby/3.2.*/syslog/*:
+
+      /usr/lib/ruby/3.2.*/tempfile.rb:
+      /usr/lib/ruby/3.2.*/time.rb:
+      /usr/lib/ruby/3.2.*/timeout.rb:
+      /usr/lib/ruby/3.2.*/tmpdir.rb:
+      /usr/lib/ruby/3.2.*/tsort.rb:
+
+      /usr/lib/ruby/3.2.*/un.rb:
+
+      # UnicodeNormalize: for Unicode normalization
+      /usr/lib/ruby/3.2.*/unicode_normalize/*:
+
+      # URI: for Uniform Resource Identifier handling
+      /usr/lib/ruby/3.2.*/uri.rb:
+      /usr/lib/ruby/3.2.*/uri/*:
+
+      /usr/lib/ruby/3.2.*/weakref.rb:
+
+      # YAML: provides a Ruby interface for data serialization in YAML format.
+      /usr/lib/ruby/3.2.*/yaml.rb:
+      /usr/lib/ruby/3.2.*/yaml/*:
+
+      ## Gems
+      # native extensions for gems that require C compilation. Skip .build_complete files
+      /usr/lib/ruby/gems/3.2.*/extensions/*-linux-*/3.2.*/**/*.so:
+      /usr/lib/ruby/gems/3.2.*/extensions/*-linux-*/3.2.*/*/*.so:
+
+      /usr/lib/ruby/gems/3.2.*/gems/abbrev-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/base64-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/benchmark-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/bigdecimal-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/cgi-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/csv-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/date-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/delegate-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/digest-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/drb-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/english-*/:
+
+      # command-line tool that runs ERB scripts
+      /usr/lib/ruby/gems/3.2.*/gems/erb-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/etc-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/fcntl-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/fiddle-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/fileutils-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/find-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/forwardable-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/getoptlong-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/io-console-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/io-nonblock-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/io-wait-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/ipaddr-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/json-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/logger-*/:
+
+      # basic matrix operations
+      /usr/lib/ruby/gems/3.2.*/gems/matrix-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/mutex_m-*/:
+
+      # FTP client library
+      /usr/lib/ruby/gems/3.2.*/gems/net-ftp-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/net-http-*/:
+
+      # IMAP client
+      /usr/lib/ruby/gems/3.2.*/gems/net-imap-*/**:
+
+      # POP3 client
+      /usr/lib/ruby/gems/3.2.*/gems/net-pop-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/net-protocol-*/:
+
+      # SMTP client
+      /usr/lib/ruby/gems/3.2.*/gems/net-smtp-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/nkf-*/:
+
+      /usr/lib/ruby/gems/3.2.*/gems/observer-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/open-uri-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/open3-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/openssl-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/optparse-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/ostruct-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/pathname-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/pp-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/prettyprint-*/:
+
+      # work with prime numbers
+      /usr/lib/ruby/gems/3.2.*/gems/prime-*/**:
+      /usr/lib/ruby/gems/3.2.*/gems/prism-*/:
+
+      /usr/lib/ruby/gems/3.2.*/gems/pstore-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/psych-*/:
+
+      # built-in documentation tool
+      /usr/lib/ruby/gems/3.2.*/gems/rdoc-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/resolv-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/resolv-replace-*/:
+
+      # XML parser
+      /usr/lib/ruby/gems/3.2.*/gems/rexml-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/rinda-*/:
+
+      # parse, create, and manipulate RSS feeds
+      /usr/lib/ruby/gems/3.2.*/gems/rss-*/**:
+
+      /usr/lib/ruby/gems/3.2.*/gems/ruby2_keywords-*/:
+
+      /usr/lib/ruby/gems/3.2.*/gems/securerandom-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/set-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/shellwords-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/singleton-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/stringio-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/strscan-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/syslog-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/tempfile-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/time-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/timeout-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/tmpdir-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/tsort-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/un-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/uri-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/weakref-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/yaml-*/:
+      /usr/lib/ruby/gems/3.2.*/gems/zlib-*/:
+
+      /usr/lib/ruby/gems/3.2.*/plugins/:
+
+      # Some of the .gemspecs under this path are unnecessarily included
+      # (e.g. did_you_mean, which is not part of this slice) just so we can
+      # use a glob.
+      # These exception will be handle via https://github.com/canonical/chisel/issues/231
+      /usr/lib/ruby/gems/3.2.*/specifications/default/**:
+      /usr/lib/ruby/gems/3.2.*/specifications/matrix-*.gemspec:
+      /usr/lib/ruby/gems/3.2.*/specifications/net-*.gemspec:
+      /usr/lib/ruby/gems/3.2.*/specifications/prime-*.gemspec:
+      /usr/lib/ruby/gems/3.2.*/specifications/rexml-*.gemspec:
+      /usr/lib/ruby/gems/3.2.*/specifications/rss-*.gemspec:
+
+      /usr/lib/ruby/vendor_ruby/3.2.*/:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libcrypt1_libs
+      - libffi8_libs
+      - libgmp10_libs
+      - libssl3t64_libs
+      - libyaml-0-2_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libruby-3.2.so.3.2*:
+      /usr/lib/*-linux-*/ruby/3.2.*/**:
+      /usr/lib/*-linux-*/ruby/vendor_ruby/3.2.*/:
+
+  copyright:
+    contents:
+      /usr/share/doc/libruby3.2/copyright:
