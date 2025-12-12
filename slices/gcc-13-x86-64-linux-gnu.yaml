@@ -4,13 +4,12 @@ essential:
   - gcc-13-x86-64-linux-gnu_copyright
 
 slices:
+  # Note: The gcc-13 slice contains only the architecture-specific gcc-13 itself.
+  #       The other dependencies like binutils and cpp are included via the
+  #       gcc-13 slice gcc-13_gcc-13
   gcc-13:
     essential:
-      - binutils-x86-64-linux-gnu_assembler
-      - binutils-x86-64-linux-gnu_linker
-      - cpp-13-x86-64-linux-gnu_cc1
       - libc6_libs
-      - libgcc-13-dev_core
       - libgcc-13-dev_headers
     contents:
       /usr/bin/x86_64-linux-gnu-gcc-13:
