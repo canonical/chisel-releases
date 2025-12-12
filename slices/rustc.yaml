@@ -6,7 +6,7 @@ essential:
 slices:
   # NOTE: Rust compiler needs the target-specific linker to link the final
   #       binary. The default toolchain included here is using gcc and binutils.
-  #       Rust calls `cc` to link the final binary so tou will need to create
+  #       Rust calls `cc` to link the final binary, so you will need to create
   #       the symlink for that to work:
   #       ls -s gcc /usr/bin/cc
   rustc:
