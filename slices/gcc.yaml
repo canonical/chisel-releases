@@ -9,6 +9,9 @@ slices:
       - gcc-13_gcc-13
     contents:
       /usr/bin/gcc:  # Symlink to gcc-13
+      # created by update-alternatives in the postinst script
+      /usr/bin/cc:
+        symlink: /usr/bin/gcc
 
   copyright:
     # Note: `v3-essential` only works for chisel>=1.3.0
