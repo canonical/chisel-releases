@@ -10,7 +10,7 @@ slices:
       binutils-aarch64-linux-gnu_assembler: {arch: [arm64]}
       binutils-x86-64-linux-gnu_assembler: {arch: [amd64]}
     contents:
-      /usr/bin/as:  # -> ${ARCH_TRIPLET}-as
+      /usr/bin/as:  # Symlink to ${ARCH_TRIPLET}-as
 
   linker:
     # Note: `v3-essential` only works for chisel>=1.3.0
@@ -18,8 +18,8 @@ slices:
       binutils-aarch64-linux-gnu_linker: {arch: [arm64]}
       binutils-x86-64-linux-gnu_linker: {arch: [amd64]}
     contents:
-      /usr/bin/ld:  # -> ${ARCH_TRIPLET}-ld
-      /usr/bin/ld.bfd:  # -> ${ARCH_TRIPLET}-ld.bfd
+      /usr/bin/ld:  # Symlink to ${ARCH_TRIPLET}-ld
+      /usr/bin/ld.bfd:  # Symlink to ${ARCH_TRIPLET}-ld.bfd
 
   copyright:
     contents:
