@@ -6,7 +6,7 @@
 #       See: https://github.com/canonical/chisel-releases/issues/761
 arch=$(uname -m)-linux-gnu
 slices=(
-    rustc-1.75_rustc
+    rustc_rustc
     gcc-13-"${arch//_/-}"_gcc-13
     binutils-"${arch//_/-}"_linker
     libgcc-13-dev_core
@@ -17,5 +17,5 @@ ln -s "${arch}"-ld "${rootfs}"/usr/bin/ld
 
 cp testfiles/hello.rs "${rootfs}/hello.rs"
 
-chroot "${rootfs}" rustc-1.75 /hello.rs -o /hello
+chroot "${rootfs}" rustc /hello.rs -o /hello
 chroot "${rootfs}" /hello | grep -q "Hello from Rust!"

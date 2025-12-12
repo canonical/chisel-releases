@@ -1,7 +1,7 @@
-package: rustc-1.75
+package: rustc
 
 essential:
-  - rustc-1.75_copyright
+  - rustc_copyright
 
 slices:
   # TODO: we do not have the arch-independent slices for gcc-13 and binutils
@@ -28,9 +28,8 @@ slices:
       - libstd-rust-dev_libs
       - libstdc++6_libs
     contents:
-      /usr/bin/rustc-1.75:  # symlink to ../rust-1.75/bin/rustc
-      /usr/lib/rust-1.75/bin/rustc:
+      /usr/bin/rustc:
 
   copyright:
     contents:
-      /usr/share/doc/rustc-1.75/copyright:
+      /usr/share/doc/rustc/copyright:
