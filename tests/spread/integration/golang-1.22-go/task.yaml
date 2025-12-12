@@ -1,82 +1,18 @@
 summary: Integration tests for golang-1.22-go 
 
-environment:
-  SLICE/core: "core-tools"
-  SLICE/cgo: "cgo-tools"
-  SLICE/buildid: "buildid-tools"
-  SLICE/debug: "debug-tools"
-  SLICE/dist: "dist-tools"
-  SLICE/doc: "doc-tools"
-  SLICE/pack: "pack-tools"
-  SLICE/profiling: "profiling-tools"
-  SLICE/testing: "testing-tools"
+variants:
+  - core-tools
+  - cgo-tools
+  - buildid-tools
+  - debug-tools
+  - dist-tools
+  - doc-tools
+  - pack-tools
+  - profiling-tools
+  - testing-tools
 
 execute: |
-  arch=$(uname -m)
-  arch="${arch//_/-}"
-  arch_triplet="${arch}-linux-gnu"
-
-  if [ "${arch}" = "aarch64" ]; then
-    chisel_arch="arm64"
-  elif [ "${arch}" = "x86-64" ]; then
-    chisel_arch="amd64"
-  else
-    echo "Unsupported architecture: ${arch}"
-    exit 1
-  fi
-
-  rootfs="$(install-slices --arch "${chisel_arch}" golang-1.22-go_${SLICE} golang-1.22-go_bins)"
-
-  # we need dev/sys mounted for some of them
-  mkdir "${rootfs}"/dev
-  mkdir "${rootfs}/proc"
-
-  mount --bind /dev "${rootfs}"/dev
-  mount --bind /proc "${rootfs}/proc"
-
-  case ${SLICE} in
-    core-tools)
-        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool asm -V
-        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool compile -V
-        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool link -V
-        chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool vet -V
-      ;;
-    cgo-tools)
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cgo -V
-      cp ../golang/hello/cmd/hello_cgo/main_cgo.go "${rootfs}/main_cgo.go"
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cgo main_cgo.go
-      objdump -t _obj/_cgo_.o | grep -q "hello_from_c"
-      ;;
-    buildid-tools)
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool buildid 2>&1 || true) | grep "usage"
-      ;;
-    debug-tools)
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool fix --help 2>&1 || true) | grep "usage"
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool nm --help 2>&1 || true) | grep "usage"
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool objdump --help 2>&1 || true) | grep "usage"
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool trace --help 2>&1 || true) | grep "Usage"
-      ;;
-    dist-tools)
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool dist version
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool distpack --help 2>&1 || true) | grep "usage"
-      ;;
-    doc-tools)
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool doc help
-      ;;
-    pack-tools)
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool pack --help 2>&1 || true) | grep "Usage"
-      ;;
-    profiling-tools)
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool addr2line --help
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool pprof --help
-      ;;
-    testing-tools)
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool covdata --help 2>&1 || true) | grep "usage"
-      chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool cover -V
-      (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool test2json --help 2>&1 || true) | grep "usage"
-      ;;
-  esac
-
-  # cleanup
-  umount -l "${rootfs}"/dev
-  umount -l "${rootfs}"/proc
+  export "SLICE=${SPREAD_VARIANT}"
+  export "rootfs=$(bash -ex ./shared/preamble.sh)"
+  bash -ex ./test_${SPREAD_VARIANT}.sh
+  bash -ex ./shared/epilogue.sh

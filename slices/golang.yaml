@@ -8,7 +8,6 @@ slices:
     essential:
       - golang-1.22_all
       - golang-go_bins
-      - golang-src_src-with-tests
 
   cgo-support:
     essential:

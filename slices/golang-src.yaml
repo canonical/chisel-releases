@@ -8,8 +8,7 @@ slices:
     essential:
       - golang-1.22-src_src-with-tests
     contents:
-      # This is the symlink to ./go-1.22
-      /usr/share/go:
+      /usr/share/go:  # Symlink to go-1.22
 
   copyright:
     contents:
