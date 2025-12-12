@@ -4,10 +4,6 @@ essential:
   - libegl-mesa0_copyright
 
 slices:
-  debug:
-    contents:
-      /usr/share/bug/libegl/*:
-
   libs:
     contents:
       /usr/lib/*-linux-*/libEGL_mesa.so.0*:
