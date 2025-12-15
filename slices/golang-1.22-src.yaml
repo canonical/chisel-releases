@@ -195,6 +195,9 @@ slices:
     contents:
       /usr/share/go-1.22/api/*.txt:
 
+  # Note: The bash-scripts slice provides bash scripts used to build Go from source.
+  #       This is not tested in the integration tests, since it requires an
+  #       existing Go installation (in a different GOROOT) to run the scripts.
   bash-scripts:
     essential:
       - bash_bins
