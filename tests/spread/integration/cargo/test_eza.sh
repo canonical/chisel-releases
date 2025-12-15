@@ -32,7 +32,7 @@ cat /etc/apt/sources.list.d/ubuntu.sources
 apt update
 apt install -y dpkg-dev
 
-# Download sudo-rs source code
+# Download source
 (
     cd "$rootfs" || exit 1
     apt source rust-eza -y
