@@ -7,7 +7,6 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
       - libstd-rust-1.84_libs
     contents:
       /usr/lib/rust-1.84/lib/rustlib/*-linux-*/lib/*.rlib:
