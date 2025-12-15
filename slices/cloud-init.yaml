@@ -1,0 +1,15 @@
+package: cloud-init
+
+essential:
+  - cloud-init_copyright
+
+slices:
+  bins:
+    essential:
+      - cloud-init-base_standard
+      - python3-passlib_libs
+      - python3-serial_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/cloud-init/copyright:

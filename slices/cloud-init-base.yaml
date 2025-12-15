@@ -1,0 +1,120 @@
+package: cloud-init-base
+
+essential:
+  - cloud-init-base_copyright
+
+slices:
+  # Core cloud-init binaries
+  bins:
+    essential:
+      - libc6_libs
+      - python3_standard
+      - python3-configobj_libs
+      - python3-jinja2_libs
+      - python3-jsonpatch_libs
+      - python3-jsonschema_libs
+      - python3-oauthlib_libs
+      - python3-requests_libs
+      - python3-yaml_libs
+      - cloud-init-base_python-lib
+    contents:
+      /usr/bin/cloud-id:
+      /usr/bin/cloud-init:
+      /usr/bin/cloud-init-per:
+
+  # Helper scripts and utilities
+  utils:
+    essential:
+      - cloud-init-base_bins
+    contents:
+      /usr/lib/cloud-init/ds-identify:
+      /usr/lib/cloud-init/hook-hotplug:
+      /usr/lib/cloud-init/uncloud-init:
+      /usr/lib/cloud-init/write-ssh-key-fingerprints:
+
+  # Python libraries
+  python-lib:
+    essential:
+      - python3_standard
+      - python3-configobj_libs
+      - python3-jinja2_libs
+      - python3-jsonpatch_libs
+      - python3-jsonschema_libs
+      - python3-oauthlib_libs
+      - python3-passlib_libs
+      - python3-requests_libs
+      - python3-serial_libs
+      - python3-yaml_libs
+    contents:
+      /usr/lib/python3/dist-packages/cloudinit/**:
+
+  # Configuration files
+  config:
+    contents:
+      /etc/cloud/cloud.cfg:
+      /etc/cloud/cloud.cfg.d/:
+      /etc/logrotate.d/cloud-init-base:
+      /etc/profile.d/Z99-cloud-locale-test.sh:
+      /etc/profile.d/Z99-cloudinit-warnings.sh:
+      /etc/rsyslog.d/21-cloudinit.conf:
+
+  # Cloud-init templates
+  templates:
+    contents:
+      /etc/cloud/templates/*:
+
+  # Systemd services
+  services:
+    essential:
+      - cloud-init-base_bins
+      - cloud-init-base_utils
+      - cloud-init-base_config
+      - systemd_standard
+    contents:
+      /usr/lib/systemd/system/cloud-config.service:
+      /usr/lib/systemd/system/cloud-config.target:
+      /usr/lib/systemd/system/cloud-final.service:
+      /usr/lib/systemd/system/cloud-init-hotplugd.service:
+      /usr/lib/systemd/system/cloud-init-hotplugd.socket:
+      /usr/lib/systemd/system/cloud-init-local.service:
+      /usr/lib/systemd/system/cloud-init-main.service:
+      /usr/lib/systemd/system/cloud-init-network.service:
+      /usr/lib/systemd/system/cloud-init.target:
+
+  # Udev rules
+  udev:
+    contents:
+      /usr/lib/udev/rules.d/66-azure-ephemeral.rules:
+
+  # System generator
+  system-generator:
+    essential:
+      - cloud-init-base_bins
+    contents:
+      /usr/lib/systemd/system-generators/cloud-init-generator:
+
+  # Network dependencies (optional, for networking features)
+  network:
+    essential:
+      - cloud-guest-utils_bins
+      - dhcpcd-base_standard
+      - iproute2_bins
+      - netcat-openbsd_bins
+      - netplan.io_bins
+      - procps_bins
+
+  # Standard installation - includes all components
+  standard:
+    essential:
+      - cloud-init-base_bins
+      - cloud-init-base_utils
+      - cloud-init-base_config
+      - cloud-init-base_templates
+      - cloud-init-base_services
+      - cloud-init-base_udev
+      - cloud-init-base_system-generator
+      - cloud-init-base_network
+
+  copyright:
+    contents:
+      /usr/share/doc/cloud-init-base/copyright:

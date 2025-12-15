@@ -1,0 +1,22 @@
+package: python3-json-pointer
+
+essential:
+  - python3-json-pointer_copyright
+
+slices:
+  bins:
+    essential:
+      - python3-json-pointer_libs
+    contents:
+      /usr/bin/jsonpointer:
+
+  libs:
+    essential:
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/jsonpointer.py:
+      /usr/lib/python3/dist-packages/jsonpointer*.egg-info/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-json-pointer/copyright:
