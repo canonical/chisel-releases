@@ -1,0 +1,44 @@
+package: libstd-rustc-1.85-dev
+
+essential:
+  - libstd-rustc-1.85-dev_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstd-rust-1.85
+    contents:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libaddr2line-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libadler-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/liballoc-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libcfg_if-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libcompiler_builtins-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libcore-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libgetopts-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libgimli-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libhashbrown-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/liblibc-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libmemchr-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libminiz_oxide-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libobject-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libpanic_abort-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libpanic_unwind-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libproc_macro-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libprofiler_builtins-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/librustc_demangle-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/librustc_std_workspace_alloc-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/librustc_std_workspace_core-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/librustc_std_workspace_std-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libstd-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libstd-*.so:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libstd_detect-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libsysroot-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libtest-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libunicode_width-*.rlib:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/libunwind-*.rlib:
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.85-dev/copyright

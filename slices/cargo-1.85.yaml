@@ -1,0 +1,27 @@
+package: cargo-1.85
+
+essential:
+  - cargo-1.85_copyright
+
+slices:
+  bins:    
+    essential:
+      - binutils_linker
+      - gcc_gcc
+      - libc6_libs
+      - libcurl3t64-gnutls_libs
+      - libgcc-s1_libs
+      - libsqlite3-0_libs
+      - libssh2-1t64_libs
+      - libssl3t64_libs
+      - rustc-1.85
+      - zlib1g_libs
+    contents:
+      /usr/bin/cargo-1.85
+      /usr/lib/rust-1.85/bin/cargo
+      /usr/lib/rust-1.85/share/cargo/bin/cargo
+
+  copyright:
+    contents:
+      /usr/share/doc/cargo-1.85/copyright
+

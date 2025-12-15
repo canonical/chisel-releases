@@ -1,0 +1,19 @@
+package: libstd-rustc-1.85
+
+essential:
+  - libstd-rustc-1.85_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/rust-1.85/lib/librustc_driver-*.so:
+      /usr/lib/*-linux-*/librustc_driver-*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.85/copyright

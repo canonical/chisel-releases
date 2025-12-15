@@ -1,0 +1,18 @@
+package: rustfmt-1.85
+
+essential:
+  - rustfmt-1.85_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstd-rust-1.85
+    contents:
+      /usr/lib/rust-1.85/bin/cargo-fmt
+      /usr/lib/rust-1.85/bin/rustfmt
+
+  copyright:
+    contents:
+      /usr/share/doc/rustfmt-1.85/copyright
