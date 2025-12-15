@@ -9,7 +9,7 @@ case "${arch}" in
 esac
 
 slices=(
-    cargo-1.84_cargo
+    cargo_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
 )
@@ -27,7 +27,7 @@ mkdir -p "$rootfs/etc"
 cp /etc/resolv.conf "$rootfs/etc"/resolv.conf
 
 # Clone cargo source
-version_string=$(chroot "$rootfs" cargo-1.84 --version)
+version_string=$(chroot "$rootfs" cargo --version)
 # cargo 1.84.1 (66221abde 2024-11-19)
 sha=${version_string#* (}
 sha=${sha%% *}
@@ -55,7 +55,7 @@ fi
 # TODO: The full build fails because it needs libopenssl-dev which we don't have
 #       a slice for so we just build the build plan to verify that cargo itself
 #       works
-chroot "$rootfs" cargo-1.84 \
+chroot "$rootfs" cargo \
     -Z unstable-options \
     -C /cargo \
     build \

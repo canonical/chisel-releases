@@ -9,7 +9,7 @@ case "${arch}" in
 esac
 
 slices=(
-    cargo-1.84_cargo
+    cargo_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
 )
@@ -48,7 +48,7 @@ if [ "$sha_actual" != "$sha_expected" ]; then
 fi
 
 # Build
-chroot "$rootfs" cargo-1.84 -Z unstable-options -C /eza build
+chroot "$rootfs" cargo -Z unstable-options -C /eza build
 
 # Run the built eza binary to verify it works
 chroot "$rootfs" /eza/target/debug/eza --help | grep -q "eza \[options\] \[files...\]"

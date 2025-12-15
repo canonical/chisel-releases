@@ -1,4 +1,4 @@
-summary: Integration tests for cargo-1.84s
+summary: Integration tests for cargo
 
 variants:
     - cargo_cargo
