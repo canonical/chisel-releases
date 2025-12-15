@@ -12,7 +12,7 @@ slices=(
     cargo_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
-    libpam0g_libs  # sudo-rs dependency
+    libpam0g-dev_libs  # sudo-rs dependency
 )
 
 rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
