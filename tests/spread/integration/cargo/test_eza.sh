@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# spellchecker: ignore rootfs binutils archiver resolv
+
+arch=$(uname -m)
+case "${arch}" in
+    aarch64) chisel_arch="arm64" ;;
+    x86_64) chisel_arch="amd64" ;;
+    *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
+esac
+
+slices=(
+    cargo_cargo
+    binutils_archiver # the zlib dependency requires ar
+    ca-certificates_data # for HTTPS access to crates.io
+)
+
+rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
+ln -s gcc "$rootfs/usr/bin/cc"
+
+# Create minimal /dev/null 
+mkdir -p "$rootfs/dev"
+touch "$rootfs/dev/null"
+chmod +x "$rootfs/dev/null"
+
+# We need DNS to fetch crates.io dependencies
+mkdir -p "$rootfs/etc"
+cp /etc/resolv.conf "$rootfs/etc/resolv.conf"
+
+# Enable apt source downloads
+sed -i 's|^Types:.*|Types: deb deb-src|' /etc/apt/sources.list.d/ubuntu.sources
+cat /etc/apt/sources.list.d/ubuntu.sources
+apt update
+apt install -y dpkg-dev
+
+# Download sudo-rs source code
+(
+    cd "$rootfs" || exit 1
+    apt source rust-eza -y
+    ls
+    mv rust-eza-* rust-eza
+)
+
+# Build
+chroot "$rootfs" cargo -Z unstable-options -C /rust-eza build
+
+# Run the built eza binary to verify it works
+chroot "$rootfs" /rust-eza/target/debug/eza --help | grep -q "eza \[options\] \[files...\]"
+touch "$rootfs/tmp/testfile"
+chroot "$rootfs" /rust-eza/target/debug/eza /tmp | grep -q "testfile"
