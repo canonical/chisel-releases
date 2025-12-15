@@ -4,15 +4,15 @@ essential:
   - golang_copyright
 
 slices:
-  go-all:
+  core:
     essential:
-      - golang-1.22_all
-      - golang-go_bins
+      - golang-1.22_core
+      - golang-go_core
 
   cgo-support:
     essential:
       - golang-1.22-go_cgo-tools
-      - golang_go-all
+      - golang_core
 
   copyright:
     contents:

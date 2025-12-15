@@ -4,11 +4,10 @@ essential:
   - golang-go_copyright
 
 slices:
-  bins:
+  core:
     essential:
       - base-files_tmp
-      - golang-1.22-go_bins
-      - golang-src_src-with-tests
+      - golang-1.22-go_core
     contents:
       /usr/bin/go:  # Symlink to ../lib/go-1.22/bin/go
       /usr/bin/gofmt:  # Symlink to ../lib/go-1.22/bin/gofmt

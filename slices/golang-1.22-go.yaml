@@ -4,36 +4,57 @@ essential:
   - golang-1.22-go_copyright
 
 slices:
+  # Note: The minimal slice provides a working Go installation
+  #       that can be used to build and run simple Go programs,
+  #       such as a "Hello World" program.
+  #       See tests/spread/integration/golang-1.22-go/test_minimal.sh
+  #       for more details.
+  minimal:
+    essential:
+      - base-files_tmp
+      - golang-1.22-go_bins
+      - golang-1.22-go_build-tools
+      - golang-1.22-go_headers
+      - golang-1.22-go_symlinks
+      - golang-1.22-src_src-with-tests
+
+  # Note: The core slices provides the source code within the golang-1.22-go
+  #       package in additional to the minimal slice.
+  core:
+    essential:
+      - golang-1.22-go_cmd-src
+      - golang-1.22-go_go-build-src
+      - golang-1.22-go_internal-src
+      - golang-1.22-go_minimal
+      - golang-1.22-go_runtime-src
+      - golang-1.22-go_time-src
+
+  # Note: This slices provides the executable binaries inside the
+  #       /usr/lib/go-1.22/bin/ directory.
+  #       These files will not work with full functionality unless their
+  #       dependent slice is also installed.
+  #       Use the 'minimal' or 'core' slices to get a working Go installation.
   bins:
     essential:
-      - golang-1.22-go_core-libs
       - golang-1.22-go_go-env
     contents:
       /usr/lib/go-1.22/bin/go:
       /usr/lib/go-1.22/bin/gofmt:
 
-  core-libs:
-    essential:
-      - golang-1.22-go_cmd-src
-      - golang-1.22-go_core-tools
-      - golang-1.22-go_go-build-src
-      - golang-1.22-go_headers
-      - golang-1.22-go_internal-src
-      - golang-1.22-go_runtime-src
-      - golang-1.22-go_symlinks
-      - golang-1.22-go_time-src
-      - golang-1.22-src_src-with-tests
-
-  # Note: The following tools slices are grouped according to their
-  # functionalities listed in https://pkg.go.dev/cmd.
-  core-tools:
+  # Note: The build-tools provides the essential Go tools for building
+  #       a minimal Go program, i.e., a single Hello World program.
+  build-tools:
     contents:
       /usr/lib/go-1.22/pkg/tool/linux_*/asm:
+      /usr/lib/go-1.22/pkg/tool/linux_*/buildid:
       /usr/lib/go-1.22/pkg/tool/linux_*/compile:
       /usr/lib/go-1.22/pkg/tool/linux_*/link:
+      /usr/lib/go-1.22/pkg/tool/linux_*/pack:
       # vet is used for go test
       /usr/lib/go-1.22/pkg/tool/linux_*/vet:
 
+# Note: The following tools slices are roughly grouped according to their
+# functionalities listed in https://pkg.go.dev/cmd.
   cgo-tools:
     essential:
       - gcc_gcc
@@ -42,10 +63,6 @@ slices:
       - libc6-dev_runtime
     contents:
       /usr/lib/go-1.22/pkg/tool/linux_*/cgo:
-
-  buildid-tools:
-    contents:
-      /usr/lib/go-1.22/pkg/tool/linux_*/buildid:
 
   cmd-src:
     contents:
@@ -88,10 +105,6 @@ slices:
   internal-src:
     contents:
       /usr/share/go-1.22/src/internal/buildcfg/zbootstrap.go:
-
-  pack-tools:
-    contents:
-      /usr/lib/go-1.22/pkg/tool/linux_*/pack:
 
   profiling-tools:
     contents:

@@ -1,6 +1,5 @@
 arch=$(uname -m)
 arch="${arch//_/-}"
-arch_triplet="${arch}-linux-gnu"
 
 if [ "${arch}" = "aarch64" ]; then
 chisel_arch="arm64"

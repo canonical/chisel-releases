@@ -12,7 +12,7 @@ echo "Unsupported architecture: ${arch}"
 exit 1
 fi
 
-rootfs="$(install-slices --arch "${chisel_arch}" golang-1.22-go_${SLICE} golang-1.22-go_bins)"
+rootfs="$(install-slices --arch "${chisel_arch}" golang-1.22-go_${SLICE} golang-1.22-go_minimal)"
 
 # we need dev/sys mounted for some of them
 mkdir "${rootfs}"/dev
