@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
+# spellchecker: ignore rootfs
 
-if [[ "$1" != "--spread" ]]; then
-    FILE_DIR=$(realpath "$(dirname "$0")")
-    source "$FILE_DIR"/setup.sh
-fi
+arch=$(uname -m)
+case "${arch}" in
+    aarch64) chisel_arch="arm64" ;;
+    x86_64) chisel_arch="amd64" ;;
+    *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
+esac
 
-## TESTS 
+rootfs="$(install-slices --arch "$chisel_arch" cargo-1.84_cargo)"
+# ln -s gcc "$rootfs/usr/bin/cc"  # not needed for help/version
 
-rootfs="$(install-slices cargo-1.84_cargo)"
-ln -s cargo-1.84 "${rootfs}"/usr/bin/cargo
-
-chroot "${rootfs}/" cargo --help | grep -q "Rust's package manager"
-chroot "${rootfs}/" cargo --version | grep -q 'cargo 1.84'
+chroot "$rootfs" cargo-1.84 --help | grep -q "Rust's package manager"
+chroot "$rootfs" cargo-1.84 --version | grep -q 'cargo 1.84'

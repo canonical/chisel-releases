@@ -4,8 +4,9 @@ essential:
   - cargo-1.84_copyright
 
 slices:
-  # To use /usr/bin/cargo-1.84 in this slice, you need to also install rustc
-  # (probably the rustc-1.84_rustc slice).
+  # NOTE: Rust calls `cc` to link the final binary, so you will need to create
+  #       the symlink for that to work:
+  #       ls -s gcc /usr/bin/cc
   cargo:
     essential:
       - libc6_libs
@@ -15,6 +16,7 @@ slices:
       - libsqlite3-0_libs
       - libssh2-1t64_libs
       - libssl3t64_libs
+      - rustc_rustc
       - zlib1g_libs
     contents:
       # in the deb this is a bash script that sets RUSTC
@@ -22,7 +24,6 @@ slices:
       # but here we don't want needless dependency on bash
       /usr/bin/cargo-1.84:
         symlink: ../lib/rust-1.84/bin/cargo
-      # this is the actual binary
       /usr/lib/rust-1.84/bin/cargo:
 
   copyright:
