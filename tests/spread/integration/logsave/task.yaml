@@ -1,0 +1,7 @@
+summary: Integration tests for logsave
+
+execute: |
+  rootfs="$(install-slices logsave_bins)"
+
+  chroot "${rootfs}" /sbin/logsave --help >/dev/null 2>&1 || \
+    chroot "${rootfs}" /usr/sbin/logsave --help >/dev/null

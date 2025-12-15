@@ -1,0 +1,6 @@
+summary: Integration tests for python3-oathlib
+
+execute: |
+  rootfs="$(install-slices python3-oathlib_libs)"
+
+  chroot "${rootfs}" python3 -c "import oauthlib" >/dev/null

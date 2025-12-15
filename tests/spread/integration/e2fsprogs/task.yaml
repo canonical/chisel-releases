@@ -1,0 +1,14 @@
+summary: Integration tests for e2fsprogs
+
+execute: |
+  rootfs="$(install-slices e2fsprogs_standard)"
+
+  # Core fsck and mkfs
+  chroot "${rootfs}" /usr/sbin/e2fsck -V >/dev/null
+  chroot "${rootfs}" /usr/sbin/mke2fs -V >/dev/null
+
+  # Tuning / attributes / debug
+  chroot "${rootfs}" /usr/sbin/tune2fs -V >/dev/null
+  chroot "${rootfs}" /usr/bin/chattr -V >/dev/null
+  chroot "${rootfs}" /usr/bin/lsattr -V >/dev/null
+  chroot "${rootfs}" /usr/sbin/debugfs -V >/dev/null

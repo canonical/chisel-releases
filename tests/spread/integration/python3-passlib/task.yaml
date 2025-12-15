@@ -1,0 +1,6 @@
+summary: Integration tests for python3-passlib
+
+execute: |
+  rootfs="$(install-slices python3-passlib_libs)"
+
+  chroot "${rootfs}" python3 -c "import passlib" >/dev/null

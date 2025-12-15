@@ -1,0 +1,8 @@
+summary: Integration tests for cloud-guest-utils
+
+execute: |
+  rootfs="$(install-slices cloud-guest-utils_bins)"
+
+  chroot "${rootfs}" /usr/bin/ec2metadata --help >/dev/null
+  chroot "${rootfs}" /usr/bin/growpart --help >/dev/null
+  chroot "${rootfs}" /usr/bin/vcs-run --help >/dev/null

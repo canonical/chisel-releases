@@ -1,0 +1,10 @@
+summary: Integration tests for cloud-init-base
+
+execute: |
+  rootfs="$(install-slices cloud-init-base_bins)"
+
+  chroot "${rootfs}" /usr/bin/cloud-id --help >/dev/null
+  chroot "${rootfs}" /usr/bin/cloud-init-per --help >/dev/null
+
+  # Basic cloud-init CLI should be present
+  chroot "${rootfs}" /usr/bin/cloud-init --help >/dev/null
