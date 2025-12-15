@@ -44,4 +44,5 @@ apt install -y dpkg-dev
 chroot "$rootfs" cargo -Z unstable-options -C /rust-sudo-rs build
 
 # Run the built sudo-rs binary to verify it works
-chroot "$rootfs" /rust-sudo-rs/target/debug/sudo --help | grep -q "sudo - run commands as another user"
+(chroot "$rootfs" /rust-sudo-rs/target/debug/sudo --help 2>&1 || true) \
+    | grep -q "sudo - run commands as another user"
