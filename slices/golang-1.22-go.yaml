@@ -12,11 +12,13 @@ slices:
   minimal:
     essential:
       - base-files_tmp
-      - golang-1.22-go_bins
       - golang-1.22-go_build-tools
       - golang-1.22-go_headers
       - golang-1.22-go_symlinks
       - golang-1.22-src_src-with-tests
+    contents:
+      /usr/lib/go-1.22/bin/go:
+      /usr/lib/go-1.22/bin/gofmt:
 
   # Note: The core slices provides the source code within the golang-1.22-go
   #       package in additional to the minimal slice.
@@ -28,18 +30,6 @@ slices:
       - golang-1.22-go_minimal
       - golang-1.22-go_runtime-src
       - golang-1.22-go_time-src
-
-  # Note: This slices provides the executable binaries inside the
-  #       /usr/lib/go-1.22/bin/ directory.
-  #       These files will not work with full functionality unless their
-  #       dependent slice is also installed.
-  #       Use the 'minimal' or 'core' slices to get a working Go installation.
-  bins:
-    essential:
-      - golang-1.22-go_go-env
-    contents:
-      /usr/lib/go-1.22/bin/go:
-      /usr/lib/go-1.22/bin/gofmt:
 
   # Note: The build-tools provides the essential Go tools for building
   #       a minimal Go program, i.e., a single Hello World program.
