@@ -53,8 +53,8 @@ slices:
       # vet is used for go test
       /usr/lib/go-1.22/pkg/tool/linux_*/vet:
 
-# Note: The following tools slices are roughly grouped according to their
-# functionalities listed in https://pkg.go.dev/cmd.
+  # Note: The following tools slices are roughly grouped according to their
+  # functionalities listed in https://pkg.go.dev/cmd.
   cgo-tools:
     essential:
       - gcc_gcc

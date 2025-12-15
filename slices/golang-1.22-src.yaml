@@ -201,6 +201,7 @@ slices:
       - binutils_linker
       - coreutils_bins
       - grep_bins
+      - sed_bins
     contents:
       /usr/share/go-1.22/src/*.bash:
 
