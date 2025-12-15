@@ -115,6 +115,10 @@ slices:
       /usr/lib/ruby/3.2.*/psych.rb:
       /usr/lib/ruby/3.2.*/psych/**:
 
+      # Racc: a LALR(1) parser generator
+      /usr/lib/ruby/3.2.*/racc.rb:
+      /usr/lib/ruby/3.2.*/racc/*:
+
       # Random: for random number generation
       /usr/lib/ruby/3.2.*/random/*:
 
