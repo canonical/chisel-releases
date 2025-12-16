@@ -12,7 +12,7 @@ fi
 
 rootfs="$(install-slices --arch "${chisel_arch}" \
 golang_cgo-support \
-ca-certificates_data \  # for go get ...
+ca-certificates_data \  # for `go get` to work properly
 )"
 
 find ${rootfs}/usr/share/go-1.22 -depth \( \
