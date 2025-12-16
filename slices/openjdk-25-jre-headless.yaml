@@ -4,26 +4,6 @@ essential:
   - openjdk-25-jre-headless_copyright
 
 slices:
-  # A set of slices to run headless openjdk runtime
-  standard:
-    essential:
-      - openjdk-25-jre-headless_class-data-sharing
-      - openjdk-25-jre-headless_core
-      - openjdk-25-jre-headless_debug
-      - openjdk-25-jre-headless_jfr
-      - openjdk-25-jre-headless_management
-      - openjdk-25-jre-headless_prefs
-      - openjdk-25-jre-headless_rmi
-      - openjdk-25-jre-headless_security
-      - openjdk-25-jre-headless_tools
-
-  # List of classes required to create the Class Data Sharing archive
-  class-data-sharing:
-    essential:
-      - openjdk-25-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-25-openjdk-*/lib/classlist:
-
   # A minimal set of files to run a Java application
   # excluded dependencies:
   # - ca-certificates-java_essential - needs chisel support to run
@@ -113,6 +93,46 @@ slices:
           - armhf
           - i386
 
+  # A set of slices to run headless openjdk runtime
+  standard:
+    essential:
+      - openjdk-25-jre-headless_class-data-sharing
+      - openjdk-25-jre-headless_core
+      - openjdk-25-jre-headless_debug
+      - openjdk-25-jre-headless_jfr
+      - openjdk-25-jre-headless_management
+      - openjdk-25-jre-headless_prefs
+      - openjdk-25-jre-headless_rmi
+      - openjdk-25-jre-headless_security
+      - openjdk-25-jre-headless_tools
+
+  awt:
+    essential:
+      - libatomic1_libs
+      - libfontconfig1_libs
+      - libharfbuzz0b_libs
+      - libjpeg8_libs
+      - liblcms2-2_libs
+      - openjdk-25-jre-headless_core
+    contents:
+      /etc/java-25-openjdk/psfont.properties.ja:
+      /etc/java-25-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libawt.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libawt_headless.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libfontmanager.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/liblcms.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libmlib_image.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-25-openjdk-*/lib/psfontj2d.properties:
+
+  # List of classes required to create the Class Data Sharing archive
+  class-data-sharing:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/classlist:
+
   classcache:
     essential:
       - openjdk-25-jre-headless_core
@@ -150,21 +170,6 @@ slices:
           - armhf
           - i386
 
-  # Native part of jdk.prefs modules
-  prefs:
-    essential:
-      - openjdk-25-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libprefs.so:
-
-  # Native part of java.rmi
-  rmi:
-    essential:
-      - openjdk-25-jre-headless_security
-    contents:
-      /usr/lib/jvm/java-25-openjdk-*/bin/rmiregistry:
-      /usr/lib/jvm/java-25-openjdk-*/lib/librmi.so:
-
   # Debug support
   debug:
     essential:
@@ -181,6 +186,17 @@ slices:
           - ppc64el
           - riscv64
 
+  # Java Flight Recorder configuration and jar file
+  jfr:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /etc/java-25-openjdk/jfr/default.jfc:
+      /etc/java-25-openjdk/jfr/profile.jfc:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jfr/default.jfc:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jfr/profile.jfc:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jrt-fs.jar:
+
   # Configuration and native part of Java Management Extensions
   management:
     essential:
@@ -193,6 +209,21 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/lib/libmanagement.so:
       /usr/lib/jvm/java-25-openjdk-*/lib/libmanagement_agent.so:
       /usr/lib/jvm/java-25-openjdk-*/lib/libmanagement_ext.so:
+
+  # Native part of jdk.prefs modules
+  prefs:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libprefs.so:
+
+  # Native part of java.rmi
+  rmi:
+    essential:
+      - openjdk-25-jre-headless_security
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/rmiregistry:
+      /usr/lib/jvm/java-25-openjdk-*/lib/librmi.so:
 
   # Security configuration files and native libraries
   security:
@@ -223,6 +254,12 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/lib/security/cacerts:
       /usr/lib/jvm/java-25-openjdk-*/lib/security/public_suffix_list.dat:
 
+  stcp:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libsctp.so:
+
   # OpenJDK tools
   tools:
     essential:
@@ -230,43 +267,6 @@ slices:
     contents:
       /usr/lib/jvm/java-25-openjdk-*/bin/jpackage:
       /usr/lib/jvm/java-25-openjdk-*/bin/keytool:
-
-  # Java Flight Recorder configuration and jar file
-  jfr:
-    essential:
-      - openjdk-25-jre-headless_core
-    contents:
-      /etc/java-25-openjdk/jfr/default.jfc:
-      /etc/java-25-openjdk/jfr/profile.jfc:
-      /usr/lib/jvm/java-25-openjdk-*/lib/jfr/default.jfc:
-      /usr/lib/jvm/java-25-openjdk-*/lib/jfr/profile.jfc:
-      /usr/lib/jvm/java-25-openjdk-*/lib/jrt-fs.jar:
-
-  awt:
-    essential:
-      - libatomic1_libs
-      - libfontconfig1_libs
-      - libharfbuzz0b_libs
-      - libjpeg8_libs
-      - liblcms2-2_libs
-      - openjdk-25-jre-headless_core
-    contents:
-      /etc/java-25-openjdk/psfont.properties.ja:
-      /etc/java-25-openjdk/psfontj2d.properties:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libawt.so:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libawt_headless.so:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libfontmanager.so:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libjavajpeg.so:
-      /usr/lib/jvm/java-25-openjdk-*/lib/liblcms.so:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libmlib_image.so:
-      /usr/lib/jvm/java-25-openjdk-*/lib/psfont.properties.ja:
-      /usr/lib/jvm/java-25-openjdk-*/lib/psfontj2d.properties:
-
-  stcp:
-    essential:
-      - openjdk-25-jre-headless_core
-    contents:
-      /usr/lib/jvm/java-25-openjdk-*/lib/libsctp.so:
 
   copyright:
     contents:
