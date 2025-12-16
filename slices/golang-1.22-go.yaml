@@ -26,6 +26,7 @@ slices:
     essential:
       - golang-1.22-go_cmd-src
       - golang-1.22-go_go-build-src
+      - golang-1.22-go_go-env
       - golang-1.22-go_internal-src
       - golang-1.22-go_minimal
       - golang-1.22-go_runtime-src
