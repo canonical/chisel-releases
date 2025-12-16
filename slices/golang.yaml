@@ -6,12 +6,12 @@ essential:
 slices:
   core:
     essential:
-      - golang-1.22_core
       - golang-go_core
+      - golang-src_src-with-tests
 
   cgo-support:
     essential:
-      - golang-1.22-go_cgo-tools
+      - golang-go_cgo-tools
       - golang_core
 
   copyright:
