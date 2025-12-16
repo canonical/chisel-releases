@@ -39,7 +39,7 @@ chroot "${rootfs}/" gofmt /hello/cmd/hello/main.go > /dev/null
 chroot "${rootfs}/" go -C /hello test
 
 git clone https://github.com/canonical/chisel.git "${rootfs}/chisel"
-pushd "${rootfs}/chisel" && git checkout v1.1.0 && popd
+git -C "$rootfs/chisel" checkout v1.1.0
 cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
 
 chroot "${rootfs}/" go -C chisel build ./cmd/chisel
