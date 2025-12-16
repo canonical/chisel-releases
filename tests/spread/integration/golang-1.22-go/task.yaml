@@ -6,6 +6,7 @@ variants:
   - debug-tools
   - dist-tools
   - doc-tools
+  - minimal
   - profiling-tools
   - testing-tools
 
