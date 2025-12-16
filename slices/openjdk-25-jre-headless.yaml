@@ -4,7 +4,7 @@ essential:
   - openjdk-25-jre-headless_copyright
 
 slices:
-  # A minimal set of files to run a Java application
+  # A core set of files to run a Java application
   # excluded dependencies:
   # - ca-certificates-java_essential - needs chisel support to run
   #                                    maintainer scripts.
