@@ -1,3 +1,4 @@
+[ -n "${rootfs}" ] || { echo "rootfs not set"; exit 1; }
 chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool asm -V
 (chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool buildid 2>&1 || true) | grep "usage"
 chroot "${rootfs}" /usr/lib/go-1.22/bin/go tool compile -V
