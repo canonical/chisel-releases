@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# spellchecker: ignore rootfs binutils archiver resolv
+# spellchecker: ignore rootfs binutils archiver resolv libpam0g
 
 arch=$(uname -m)
 case "${arch}" in
@@ -19,19 +19,15 @@ rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
 ln -s gcc "$rootfs/usr/bin/cc"
 
 # Create minimal /dev/null 
-mkdir -p "$rootfs/dev"
-touch "$rootfs/dev/null"
-chmod +x "$rootfs/dev/null"
+mkdir -p "$rootfs/dev" && touch "$rootfs/dev/null" && chmod +x "$rootfs/dev/null"
 
 # We need DNS to fetch crates.io dependencies
-mkdir -p "$rootfs/etc"
-cp /etc/resolv.conf "$rootfs/etc/resolv.conf"
+mkdir -p "$rootfs/etc" && cp /etc/resolv.conf "$rootfs/etc/resolv.conf"
 
 # Enable apt source downloads
+# NOTE: we need dpkg-dev to unpack the source
 sed -i 's|^Types:.*|Types: deb deb-src|' /etc/apt/sources.list.d/ubuntu.sources
-cat /etc/apt/sources.list.d/ubuntu.sources
-apt update
-apt install -y dpkg-dev
+apt update && apt install -y dpkg-dev
 
 # Download source
 (
@@ -43,6 +39,6 @@ apt install -y dpkg-dev
 # Build
 chroot "$rootfs" cargo -Z unstable-options -C /rust-sudo-rs build
 
-# Run the built sudo-rs binary to verify it works
+# Verify the built binary works
 (chroot "$rootfs" /rust-sudo-rs/target/debug/sudo --help 2>&1 || true) \
     | grep -q "sudo - run commands as another user"
