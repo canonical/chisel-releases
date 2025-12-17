@@ -4,7 +4,8 @@ essential:
   - openjdk-25-jdk-headless_copyright
 
 slices:
-  # OpenJDK binaries slice
+  # OpenJDK binaries slice. The tools provided here are front-ends
+  # to the tools provided by openjdk-25-jre-headless_core slice.
   core:
     essential:
       - libc6_libs
