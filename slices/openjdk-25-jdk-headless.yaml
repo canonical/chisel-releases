@@ -10,7 +10,6 @@ slices:
     essential:
       - libc6_libs
       - openjdk-25-jre-headless_core
-      - zlib1g_libs
     contents:
       /usr/lib/jvm/java-25-openjdk-*/bin/javac:
       /usr/lib/jvm/java-25-openjdk-*/bin/javadoc:
