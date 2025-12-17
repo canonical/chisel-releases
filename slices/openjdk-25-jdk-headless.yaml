@@ -146,8 +146,8 @@ slices:
   headers:
     essential:
       - openjdk-25-jdk-headless_core
-      - openjdk-25-jdk-headless_jni-headers
       - openjdk-25-jdk-headless_debug-headers
+      - openjdk-25-jdk-headless_jni-headers
 
   # OpenJDK headers for JNI
   jni-headers:
