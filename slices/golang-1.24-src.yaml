@@ -230,6 +230,7 @@ slices:
     contents:
       /usr/share/go-1.24/lib/fips140/Makefile:
       /usr/share/go-1.24/lib/fips140/fips140.sum:
+      /usr/share/go-1.24/lib/fips140/inprocess.txt:
       /usr/share/go-1.24/lib/fips140/v1.0.0.zip:
       /usr/share/go-1.24/lib/time/mkzip.go:
       /usr/share/go-1.24/lib/time/update.bash:
