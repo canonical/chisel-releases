@@ -79,11 +79,18 @@ slices:
       - libselinux1_libs
       - libsmartcols1_libs
       - libtinfo6_libs
+      - util-linux_more
     contents:
       /usr/bin/fallocate:
       /usr/bin/hardlink:
-      /usr/bin/more:
       /usr/bin/rename.ul:
+
+  more:
+    essential:
+      - libc6_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/more:
 
   file-system:
     essential:
