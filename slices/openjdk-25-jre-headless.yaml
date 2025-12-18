@@ -138,6 +138,12 @@ slices:
       - openjdk-25-jre-headless_core
     contents:
       /usr/lib/jvm/java-25-openjdk-*/lib/server/*.jsa:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+          - s390x
 
   # Debug support
   debug:
