@@ -13,12 +13,12 @@ slices:
 
   libs:
     contents:
-      /usr/lib/*-linux-*/perl5/*/auto/DBI/**:
       /usr/lib/*-linux-*/perl5/*/Bundle/DBI.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/**:
       /usr/lib/*-linux-*/perl5/*/DBI/**:
-      /usr/lib/*-linux-*/perl5/*/dbixs_rev.pl:
       /usr/lib/*-linux-*/perl5/*/Win32/DBIODBC.pm:
+      /usr/lib/*-linux-*/perl5/*/auto/DBI/**:
+      /usr/lib/*-linux-*/perl5/*/dbixs_rev.pl:
       /usr/share/libdbi-perl/perl-dbdabi.make:
 
   copyright:
