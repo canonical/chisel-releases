@@ -6,9 +6,9 @@ execute: |
   rootfs="$(install-slices base-files_var base-passwd_data passwd_bins coreutils_chown coreutils_chmod squid_bins)"
 
   cp /etc/resolv.conf "${rootfs}/etc/"
-  chroot "$rootfs" mkdir /dev
-  chroot "$rootfs" touch /dev/null
-  chroot "$rootfs" mkdir -m 1777 /dev/shm 
+  mkdir "$rootfs"/dev
+  touch "$rootfs"/dev/null
+  mkdir -m 1777 "$rootfs"/dev/shm 
   chroot "$rootfs" useradd -r -d /var/spool/squid proxy
   chroot "$rootfs" chmod -R 755 /var/log/squid
   chroot "$rootfs" chown -R proxy:proxy /var/log/squid /var/spool/squid

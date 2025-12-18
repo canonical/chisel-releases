@@ -13,6 +13,8 @@ slices:
       - libcap2_libs
       - libcom-err2_libs
       - libcrypt1_libs
+      - libdbi-perl_bins
+      - libdbi-perl_libs
       - libecap3_libs
       - libexpat1_libs
       - libgcc-s1_libs
