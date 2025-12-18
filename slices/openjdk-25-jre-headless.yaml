@@ -137,38 +137,7 @@ slices:
     essential:
       - openjdk-25-jre-headless_core
     contents:
-      /usr/lib/jvm/java-25-openjdk-*/lib/server/classes.jsa:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - riscv64
-          - s390x
-      /usr/lib/jvm/java-25-openjdk-*/lib/server/classes_coh.jsa:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - riscv64
-          - s390x
-      /usr/lib/jvm/java-25-openjdk-*/lib/server/classes_nocoops.jsa:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - riscv64
-          - s390x
-      /usr/lib/jvm/java-25-openjdk-*/lib/server/classes_nocoops_coh.jsa:
-        arch:
-          - amd64
-          - arm64
-          - ppc64el
-          - riscv64
-          - s390x
-      /usr/lib/jvm/java-25-openjdk-*/lib/zero/classes.jsa:
-        arch:
-          - armhf
-          - i386
+      /usr/lib/jvm/java-25-openjdk-*/lib/server/*.jsa:
 
   # Debug support
   debug:
