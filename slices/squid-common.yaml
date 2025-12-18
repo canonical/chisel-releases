@@ -1,0 +1,20 @@
+package: squid-common
+
+essential:
+  - squid-common_copyright
+  - squid-langpack_strandard
+
+slices:
+  data:
+    contents:
+      /usr/share/squid/icons/**:
+      /usr/share/squid/mib.txt:
+      /usr/share/squid/mime.conf:
+
+  apport:
+    contents:
+      /usr/share/apport/package-hooks/source_squid.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid-common/copyright:

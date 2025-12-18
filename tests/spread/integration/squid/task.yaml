@@ -1,0 +1,8 @@
+summary: Integration tests for squid
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices base-files_var base-passwd_data squid_bins)"
+
+  chroot "${rootfs}/" squid -v

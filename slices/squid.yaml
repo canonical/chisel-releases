@@ -1,0 +1,68 @@
+package: squid
+
+essential:
+  - squid_copyright
+
+slices:
+  bins:
+    # squid actually depends on adduser as well to create and remove
+    # a user during package install/removal - however we don't support this
+    # currently so adduser is not added here.
+    essential:
+      - squid-common_data
+      - squid_config
+      - squid_vars
+      - libc6_libs
+      - libcap2_libs
+      - libcom-err2_libs
+      - libcrypt1_libs
+      - libecap3_libs
+      - libexpat1_libs
+      - libgcc-s1_libs
+      - libgnutls30t64_libs
+      - libgssapi-krb5-2_libs
+      - libldap2_libs
+      - libltdl7_libs
+      - libnetfilter-conntrack3_libs
+      - libnettle8t64_libs
+      - libpam0g_libs
+      - libsasl2-2_libs
+      - libstdc++6_libs
+      - libsystemd0_libs
+      - libtdb1_libs
+      - libxml2_libs
+      - lsb-base_bins
+      - netbase_default-hosts
+      - netbase_default-networks
+    contents:
+      /usr/lib/squid/**:
+      /usr/sbin/squid:
+
+  config:
+    contents:
+      /etc/init.d/squid:
+      /etc/logrotate.d/squid:
+      /etc/resolvconf/update-libc.d/squid:
+      /etc/squid/conf.d/debian.conf:
+      /etc/squid/errorpage.css:
+      /etc/squid/squid.conf:
+      /usr/lib/tmpfiles.d/squid.conf:
+
+  ufw-config:
+    contents:
+      /etc/ufw/applications.d/squid:
+
+  services:
+    essential:
+      - squid_bins
+    contents:
+      /usr/lib/systemd/system/squid.service:
+
+  vars:
+    contents:
+      /var/log/squid/:
+      /var/spool/squid/:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid/copyright:

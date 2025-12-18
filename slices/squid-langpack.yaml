@@ -1,0 +1,316 @@
+package: squid-langpack
+
+essential:
+  - squid-langpack_copyright
+
+slices:
+  afrikaans:
+    contents:
+      /usr/share/squid-langpack/af/**:
+
+  arabic:
+    contents:
+      /usr/share/squid-langpack/ar-*:
+      /usr/share/squid-langpack/ar/**:
+
+  armenian:
+    contents:
+      /usr/share/squid-langpack/Armenian:
+      /usr/share/squid-langpack/hy-*:
+      /usr/share/squid-langpack/hy/**:
+
+  azerbaijani:
+    contents:
+      /usr/share/squid-langpack/Azerbaijani:
+      /usr/share/squid-langpack/az-*:
+      /usr/share/squid-langpack/az/**:
+
+  bulgarian:
+    contents:
+      /usr/share/squid-langpack/Bulgarian:
+      /usr/share/squid-langpack/bg-*:
+      /usr/share/squid-langpack/bg/**:
+
+  brazilian-portuguese:
+    contents:
+      /usr/share/squid-langpack/pt-br/**:
+      /usr/share/squid-langpack/pt-bz:
+      /usr/share/squid-langpack/pt-xl:
+
+  catalan:
+    contents:
+      /usr/share/squid-langpack/Catalan:
+      /usr/share/squid-langpack/ca-*:
+      /usr/share/squid-langpack/ca/**:
+
+  chinese-simplified:
+    contents:
+      /usr/share/squid-langpack/Simplify_Chinese:
+      /usr/share/squid-langpack/zh-cn:
+      /usr/share/squid-langpack/zh-hans-*:
+      /usr/share/squid-langpack/zh-hans/**:
+      /usr/share/squid-langpack/zh-sg:
+
+  chinese-traditional:
+    contents:
+      /usr/share/squid-langpack/Traditional_Chinese:
+      /usr/share/squid-langpack/zh-hant-*:
+      /usr/share/squid-langpack/zh-hant/**:
+      /usr/share/squid-langpack/zh-hk:
+      /usr/share/squid-langpack/zh-mo:
+      /usr/share/squid-langpack/zh-tw:
+
+  czech:
+    contents:
+      /usr/share/squid-langpack/Czech:
+      /usr/share/squid-langpack/cs-*:
+      /usr/share/squid-langpack/cs/**:
+
+  danish:
+    contents:
+      /usr/share/squid-langpack/Danish:
+      /usr/share/squid-langpack/da-*:
+      /usr/share/squid-langpack/da/**:
+
+  dutch:
+    contents:
+      /usr/share/squid-langpack/Dutch:
+      /usr/share/squid-langpack/nl-*:
+      /usr/share/squid-langpack/nl/**:
+
+  english:
+    contents:
+      /usr/share/squid-langpack/English:
+      /usr/share/squid-langpack/en-*:
+      /usr/share/squid-langpack/en/**:
+
+  estonian:
+    contents:
+      /usr/share/squid-langpack/Estonian:
+      /usr/share/squid-langpack/et-*:
+      /usr/share/squid-langpack/et/**:
+
+  finnish:
+    contents:
+      /usr/share/squid-langpack/Finnish:
+      /usr/share/squid-langpack/fi-*:
+      /usr/share/squid-langpack/fi/**:
+
+  french:
+    contents:
+      /usr/share/squid-langpack/French:
+      /usr/share/squid-langpack/fr-*:
+      /usr/share/squid-langpack/fr/**:
+
+  georgian:
+    contents:
+      /usr/share/squid-langpack/ka-*:
+      /usr/share/squid-langpack/ka/**:
+
+  german:
+    contents:
+      /usr/share/squid-langpack/German:
+      /usr/share/squid-langpack/de-*:
+      /usr/share/squid-langpack/de/**:
+
+  greek:
+    contents:
+      /usr/share/squid-langpack/Greek:
+      /usr/share/squid-langpack/el-*:
+      /usr/share/squid-langpack/el/**:
+
+  hebrew:
+    contents:
+      /usr/share/squid-langpack/Hebrew:
+      /usr/share/squid-langpack/he-*:
+      /usr/share/squid-langpack/he/**:
+
+  hungarian:
+    contents:
+      /usr/share/squid-langpack/Hungarian:
+      /usr/share/squid-langpack/hu-*:
+      /usr/share/squid-langpack/hu/**:
+
+  indonesian:
+    contents:
+      /usr/share/squid-langpack/id-*:
+      /usr/share/squid-langpack/id/**:
+
+  italian:
+    contents:
+      /usr/share/squid-langpack/Italian:
+      /usr/share/squid-langpack/it-*:
+      /usr/share/squid-langpack/it/**:
+
+  japanese:
+    contents:
+      /usr/share/squid-langpack/Japanese:
+      /usr/share/squid-langpack/ja-*:
+      /usr/share/squid-langpack/ja/**:
+
+  korean:
+    contents:
+      /usr/share/squid-langpack/Korean:
+      /usr/share/squid-langpack/ko-*:
+      /usr/share/squid-langpack/ko/**:
+
+  latvian:
+    contents:
+      /usr/share/squid-langpack/lv-*:
+      /usr/share/squid-langpack/lv/**:
+
+  lithuanian:
+    contents:
+      /usr/share/squid-langpack/Lithuanian:
+      /usr/share/squid-langpack/lt-*:
+      /usr/share/squid-langpack/lt/**:
+
+  malay:
+    contents:
+      /usr/share/squid-langpack/ms-*:
+      /usr/share/squid-langpack/ms/**:
+
+  occitan:
+    contents:
+      /usr/share/squid-langpack/oc/**:
+
+  persian:
+    contents:
+      /usr/share/squid-langpack/fa-*:
+      /usr/share/squid-langpack/fa/**:
+
+  polish:
+    contents:
+      /usr/share/squid-langpack/Polish:
+      /usr/share/squid-langpack/pl/**:
+
+  portuguese:
+    contents:
+      /usr/share/squid-langpack/Portuguese:
+      /usr/share/squid-langpack/pt-pt:
+      /usr/share/squid-langpack/pt/**:
+
+  romanian:
+    contents:
+      /usr/share/squid-langpack/Romanian:
+      /usr/share/squid-langpack/ro-*:
+      /usr/share/squid-langpack/ro/**:
+
+  russian:
+    contents:
+      /usr/share/squid-langpack/Russian-1251:
+      /usr/share/squid-langpack/Russian-koi8-r:
+      /usr/share/squid-langpack/ru-*:
+      /usr/share/squid-langpack/ru/**:
+
+  serbian-cyrillic:
+    contents:
+      /usr/share/squid-langpack/sr-cyrl-*:
+      /usr/share/squid-langpack/sr-cyrl/**:
+
+  serbian-latin:
+    contents:
+      /usr/share/squid-langpack/sr-latn-*:
+      /usr/share/squid-langpack/sr-latn/**:
+
+  slovak:
+    contents:
+      /usr/share/squid-langpack/Slovak:
+      /usr/share/squid-langpack/sk-*:
+      /usr/share/squid-langpack/sk/**:
+
+  slovenian:
+    contents:
+      /usr/share/squid-langpack/sl-*:
+      /usr/share/squid-langpack/sl/**:
+
+  swedish:
+    contents:
+      /usr/share/squid-langpack/Swedish:
+      /usr/share/squid-langpack/sv-*:
+      /usr/share/squid-langpack/sv/**:
+
+  spanish:
+    contents:
+      /usr/share/squid-langpack/Spanish:
+      /usr/share/squid-langpack/es-*:
+      /usr/share/squid-langpack/es/**:
+
+  thai:
+    contents:
+      /usr/share/squid-langpack/th-*:
+      /usr/share/squid-langpack/th/**:
+
+  turkish:
+    contents:
+      /usr/share/squid-langpack/Turkish:
+      /usr/share/squid-langpack/tr-*:
+      /usr/share/squid-langpack/tr/**:
+
+  ukrainian:
+    contents:
+      /usr/share/squid-langpack/Ukrainian-1251:
+      /usr/share/squid-langpack/Ukrainian-koi8-u:
+      /usr/share/squid-langpack/Ukrainian-utf8:
+      /usr/share/squid-langpack/uk-*:
+      /usr/share/squid-langpack/uk/**:
+
+  uzbek:
+    contents:
+      /usr/share/squid-langpack/uz/**:
+
+  vietnamese:
+    contents:
+      /usr/share/squid-langpack/vi-*:
+      /usr/share/squid-langpack/vi/**:
+
+  strandard:
+    essential:
+      - squid-langpack_afrikaans
+      - squid-langpack_arabic
+      - squid-langpack_armenian
+      - squid-langpack_azerbaijani
+      - squid-langpack_bulgarian
+      - squid-langpack_catalan
+      - squid-langpack_czech
+      - squid-langpack_danish
+      - squid-langpack_dutch
+      - squid-langpack_english
+      - squid-langpack_estonian
+      - squid-langpack_finnish
+      - squid-langpack_french
+      - squid-langpack_georgian
+      - squid-langpack_german
+      - squid-langpack_greek
+      - squid-langpack_hebrew
+      - squid-langpack_hungarian
+      - squid-langpack_indonesian
+      - squid-langpack_italian
+      - squid-langpack_japanese
+      - squid-langpack_korean
+      - squid-langpack_latvian
+      - squid-langpack_lithuanian
+      - squid-langpack_malay
+      - squid-langpack_occitan
+      - squid-langpack_persian
+      - squid-langpack_polish
+      - squid-langpack_portuguese
+      - squid-langpack_romanian
+      - squid-langpack_russian
+      - squid-langpack_slovak
+      - squid-langpack_slovenian
+      - squid-langpack_spanish
+      - squid-langpack_swedish
+      - squid-langpack_thai
+      - squid-langpack_turkish
+      - squid-langpack_ukrainian
+      - squid-langpack_uzbek
+      - squid-langpack_vietnamese
+
+  templates:
+    contents:
+      /usr/share/squid-langpack/templates/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid-langpack/copyright:
