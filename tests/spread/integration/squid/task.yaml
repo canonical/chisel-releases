@@ -3,6 +3,15 @@ summary: Integration tests for squid
 execute: |
   # Chisel a minimum number of slices to give us a runnable system that we can
   # test in.
-  rootfs="$(install-slices base-files_var base-passwd_data squid_bins)"
+  rootfs="$(install-slices base-files_var base-passwd_data passwd_bins coreutils_chown coreutils_chmod squid_bins)"
 
+  cp /etc/resolv.conf "${rootfs}/etc/"
+  chroot "$rootfs" mkdir /dev
+  chroot "$rootfs" touch /dev/null
+  chroot "$rootfs" mkdir -m 1777 /dev/shm 
+  chroot "$rootfs" useradd -r -d /var/spool/squid proxy
+  chroot "$rootfs" chmod -R 755 /var/log/squid
+  chroot "$rootfs" chown -R proxy:proxy /var/log/squid /var/spool/squid
+  chroot "$rootfs" chmod u+s /usr/lib/squid/pinger
+  export VISIBLE_HOSTNAME=test-squid
   chroot "${rootfs}/" squid -v

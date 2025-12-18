@@ -264,7 +264,11 @@ slices:
       /usr/share/squid-langpack/vi-*:
       /usr/share/squid-langpack/vi/**:
 
-  strandard:
+  templates:
+    contents:
+      /usr/share/squid-langpack/templates/**:
+
+  standard:
     essential:
       - squid-langpack_afrikaans
       - squid-langpack_arabic
@@ -301,15 +305,12 @@ slices:
       - squid-langpack_slovenian
       - squid-langpack_spanish
       - squid-langpack_swedish
+      - squid-langpack_templates
       - squid-langpack_thai
       - squid-langpack_turkish
       - squid-langpack_ukrainian
       - squid-langpack_uzbek
       - squid-langpack_vietnamese
-
-  templates:
-    contents:
-      /usr/share/squid-langpack/templates/**:
 
   copyright:
     contents:

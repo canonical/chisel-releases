@@ -2,11 +2,12 @@ package: squid-common
 
 essential:
   - squid-common_copyright
-  - squid-langpack_strandard
+  - squid-langpack_standard
 
 slices:
   data:
     contents:
+      /usr/share/squid/errors:
       /usr/share/squid/icons/**:
       /usr/share/squid/mib.txt:
       /usr/share/squid/mime.conf:

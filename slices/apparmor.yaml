@@ -307,7 +307,6 @@ slices:
       /etc/apparmor.d/unix-chkpwd:
       /etc/apparmor.d/unprivileged_userns:
       /etc/apparmor.d/userbindmount:
-      /etc/apparmor.d/usr.sbin.squid:
       /etc/apparmor.d/uwsgi-core:
       /etc/apparmor.d/vdens:
       /etc/apparmor.d/virtiofsd:

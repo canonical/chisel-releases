@@ -7,8 +7,8 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libstdc++6_libs
       - libgcc-s1_libs
+      - libstdc++6_libs
     contents:
       /usr/lib/*-linux-*/libecap.so.3:
       /usr/lib/*-linux-*/libecap.so.3.*:
