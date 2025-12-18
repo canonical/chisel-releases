@@ -7,130 +7,32 @@ environment:
 
 execute: |
   set -x
-  echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins)"
-
-  pids=()
-  cleanup() {
-    for pid in "${pids[@]}"; do
-      kill -9 "$pid" 2>/dev/null || true
-    done
-    umount "$rootfs/proc"
-
-    apt remove -y --purge openjdk-25-jdk-headless
-  }
-  for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
-  trap cleanup EXIT
-
-  apt install --update -y openjdk-25-jdk-headless curl
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
-  nohup java MonitoringTest.java &
-  pid=$!
-  pids+=("$pid")
 
   # Test different slice installations
-  java=/$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
-  jlink=/$(find "$rootfs" -name jlink -type f -printf '%P\n' -quit 2>/dev/null)
-  jmod=/$(find "$rootfs" -name jmod -type f -printf '%P\n' -quit 2>/dev/null)
-  home=$(dirname ${java})
-
-  cp *.java ${rootfs}/
-  javac *.java
-  cp *.class ${rootfs}/
-
-  # Make fake /dev/null and mount /proc
-  mkdir -p "$rootfs/dev"
-  touch "$rootfs/dev/null"
-  chmod +x "$rootfs/dev/null"
-  mkdir -p "$rootfs/proc"
-  mkdir -p "$rootfs/tmp"
-  sudo mount --bind /proc "$rootfs/proc"
+  echo "SLICE=${SLICE}"
+  export ROOTFS="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins)"
+  # Find java in the chroot
+  java=/$(find "$ROOTFS" -name java -type f -printf '%P\n' -quit 2>/dev/null)
   export JAVA_HOME="$(dirname $(dirname ${java}))"
 
-  case ${SLICE} in
-    core)
-      # /usr/lib/jvm/java-25-openjdk-*/bin/javac:
-      chroot ${rootfs} ${home}/javac /Main.java -d /
-      # /usr/lib/jvm/java-25-openjdk-*/bin/javadoc:
-      chroot ${rootfs} ${home}/javadoc /Main.java
-      # /usr/lib/jvm/java-25-openjdk-*/bin/javap:
-      chroot ${rootfs} ${home}/javap -l /Main.class
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jdeprscan:
-      chroot ${rootfs} ${home}/jdeprscan --class-path . Main
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jdeps:
-      chroot ${rootfs} ${home}/jdeps -m java.base
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jimage:
-      chroot ${rootfs} ${home}/jimage info ${home}/../lib/modules
-      # /usr/lib/jvm/java-25-openjdk-*/bin/serialver:
-      chroot ${rootfs} ${home}/serialver -classpath / SerializableObject
-      ;;
-    standard)
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
-      chroot ${rootfs} ${home}/jar cvf test.jar *.java
-      DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
-      chroot ${rootfs} ${home}/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME" -alias foo
-      chroot ${rootfs} ${home}/jarsigner -keystore foo -storepass barbar test.jar foo
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jdb:
-      chroot ${rootfs} /usr/bin/sh -c "echo run | ${home}/jdb Main.java"
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jcmd:
-      chroot ${rootfs} ${home}/jcmd ${pid} VM.version
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
-      if [ -f ${home}/jhsdb ]; then
-        chroot ${rootfs} ${home}/jhsdb jstack --pid ${pid}
-      fi
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
-      # nb. we are dumping host process
-      chroot ${rootfs} ${home}/jcmd ${pid} JFR.start name=recording filename=${rootfs}/recording.jfr maxsize=1MB
-      chroot ${rootfs} ${home}/jcmd ${pid} JFR.stop
-      chroot ${rootfs} ${home}/jcmd ${pid} JFR.dump name=recording  filename=${rootfs}/recording.jfr
-      chroot ${rootfs} ${home}/jfr print recording.jfr > /dev/null
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
-      chroot ${rootfs} ${home}/jinfo ${pid}
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jshell:
-      chroot ${rootfs} /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | ${home}/jshell"
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
-      chroot ${rootfs} ${home}/jmap -clstats ${pid}
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
-      mkdir ${rootfs}/nativetest
-      cp Native.class ${rootfs}/nativetest
-      chroot ${rootfs} ${home}/jnativescan -class-path /nativetest | grep -q ALL-UNNAMED
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jps:
-      chroot ${rootfs} ${home}/jps -l
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
-      chroot ${rootfs} ${home}/jstack ${pid}
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
-      chroot ${rootfs} ${home}/jstat -gc ${pid}
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
-      nohup chroot ${rootfs} ${home}/jstatd > ./jstatd.log &
-      pids+=($!)
-      for retry in 0 1 2 3 4 5; do
-        if [ ${retry} -eq 5 ]; then
-          exit 1
-        fi
-        grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
-        sleep 10
-      done
-      # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
-      nohup chroot ${rootfs} ${home}/jwebserver &
-      sleep 10
-      pids+=($!)
-      for retry in 0 1 2 3 4 5; do
-        if [ ${retry} -eq 5 ]; then
-          exit 1
-        fi
-        curl http://127.0.0.1:8000 && break
-        sleep 10
-      done
-      # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
-      chroot ${rootfs} ${home}/jrunscript -q
-      ;;
-    modules)
-      output=$(basename $(mktemp -u))
-      chroot ${rootfs} ${jlink} --add-modules java.base --output ${output}
-      rm -rf ${rootfs}/${output}
-      home=$(dirname ${jmod})
-      chroot ${rootfs} ${jmod} list ${home}/../jmods/java.rmi.jmod
-      ;;
-  esac
+  # Make fake /dev/null and mount /proc
+  mkdir -p "$ROOTFS/dev"
+  touch "$ROOTFS/dev/null"
+  chmod +x "$ROOTFS/dev/null"
+  mkdir -p "$ROOTFS/proc"
+  mkdir -p "$ROOTFS/tmp"
+  sudo mount --bind /proc "$ROOTFS/proc"
+
+  # NOTE: we install openjdk-25-jdk-headless *on the testing host*, not in the chroot
+  apt-get install --update -y openjdk-25-jdk-headless curl
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
+
+  # Build and copy java test files
+  javac testfiles/*.java -d "$ROOTFS/"
+  cp testfiles/*.java "$ROOTFS/"
+
+  bash -ex test_${SLICE}.sh
+
+restore: |
+  apt-get remove -y --purge openjdk-25-jdk-headless

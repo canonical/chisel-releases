@@ -14,71 +14,33 @@ environment:
   SLICE/awt: "awt"
 
 execute: |
+  set -x
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-25-jre-headless_${SLICE})"
-  apt install --update -y openjdk-25-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
-  javac *.java
-  cp *.java ${rootfs}/
-  cp *.class ${rootfs}/
-
-  java=/$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
-  # Make fake /dev/null and mount /proc
-  mkdir -p "$rootfs/dev"
-  touch "$rootfs/dev/null"
-  chmod +x "$rootfs/dev/null"
-  mkdir -p "$rootfs/proc"
-  mkdir -p "$rootfs/tmp"
-  sudo mount --bind /proc "$rootfs/proc"
-  trap 'sudo umount "$rootfs/proc"' EXIT
+  export ROOTFS="$(install-slices openjdk-25-jre-headless_${SLICE})"
+  java=/$(find "$ROOTFS" -name java -type f -printf '%P\n' -quit 2>/dev/null)
   export JAVA_HOME="$(dirname $(dirname ${java}))"
 
-  chroot ${rootfs} ${java} --version
-  case ${SLICE} in
-    class-data-sharing)
-      chroot "$rootfs" ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
-    ;;
-    classcache)
-      chroot "$rootfs" ${java} -Xlog:cds -Xshare:on -version
-      chroot "$rootfs" ${java} -Xlog:cds -Xshare:on -version 2>&1 | grep -q "Opened shared archive"
-    ;;
-    core)
-      chroot "$rootfs" ${java} /Main.java
-    ;;
-    prefs)
-      chroot "$rootfs" ${java} /PrefsTest.java put
-      chroot "$rootfs" ${java} /PrefsTest.java get
-    ;;
-    debug)
-      chroot "$rootfs" ${java} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 /Main.java
-    ;;
-    management)
-      chroot "$rootfs" ${java} -Dcom.sun.management.jmxremote.port=5000 \
-        -Dcom.sun.management.jmxremote.authenticate=false \
-        -Dcom.sun.management.jmxremote=true \
-        -Dcom.sun.management.jmxremote.ssl=false -cp . TestJMX
-    ;;
-    jfr)
-      chroot "$rootfs" ${java} -XX:+FlightRecorder -XX:StartFlightRecording=duration=60s,filename=dump.jfr /Main.java
-    ;;
-    security)
-      chroot "$rootfs" ${java} /ReadCertificate.java
-    ;;
-    stcp)
-      chroot "$rootfs" ${java} -cp . STCP | grep -q "STREAM: 0: Test Message"
-    ;;
-    tools)
-      DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
-      chroot "$rootfs" $(dirname ${java})/keytool -genkeypair -keystore foo -storepass barbar -keyalg RSA -dname "$DNAME"
-    ;;
-    awt)
-      export XDG_CACHE_HOME=/tmp
-      chroot "$rootfs" ${java} /ImageTest.java
-      file -i "$rootfs/HelloWorld.png" | grep -q "image/png; charset=binary"
-    ;;
-  esac
+  # Make fake /dev/null and mount /proc
+  mkdir -p "$ROOTFS/dev"
+  touch "$ROOTFS/dev/null"
+  chmod +x "$ROOTFS/dev/null"
+  mkdir -p "$ROOTFS/proc"
+  mkdir -p "$ROOTFS/tmp"
+  sudo mount --bind /proc "$ROOTFS/proc"
+  trap 'sudo umount "$ROOTFS/proc"' EXIT
+
+  # NOTE: we install openjdk-25-jdk-headless *on the testing host*, not in the chroot
+  apt-get install --update -y openjdk-25-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
+
+  # Build and copy java test files
+  javac testfiles/*.java -d "$ROOTFS/"
+  cp testfiles/*.java "$ROOTFS/"
+
+  chroot "$ROOTFS" ${java} --version
+  bash -ex test_${SLICE}.sh
 
 restore: |
-  apt remove -y --purge openjdk-25-jdk-headless
+  apt-get remove -y --purge openjdk-25-jdk-headless
