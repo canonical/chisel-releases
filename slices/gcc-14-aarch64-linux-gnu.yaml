@@ -4,41 +4,35 @@ essential:
   - gcc-14-aarch64-linux-gnu_copyright
 
 slices:
+  # NOTE: You might want to create a symlink from /usr/bin/gcc to
+  #       /usr/bin/aarch64-linux-gnu-gcc to use this slice.
+  #       ln -s aarch64-linux-gnu-gcc-14 "$rootfs/usr/bin/gcc"
+  # NOTE: For this slice to work, you need to also provide the linker,
+  #       the assembler and cc1 c compiler. The default ones are from
+  #       cpp-12-aarch64-linux-gnu and binutils-aarch64-linux-gnu slices.
+  #       You'll also need to create symlinks for them:
+  #       ln -s aarch64-linux-gnu-ld "$rootfs/usr/bin/ld"
+  #       ln -s aarch64-linux-gnu-as "$rootfs/usr/bin/as"
+  # TODO: we do not yet have the higher-level architecture-independent gcc-14
+  #       slices. See: https://github.com/canonical/chisel-releases/issues/761
+  #       for more info.
   gcc-14:
     essential:
-      - gcc-14-aarch64-linux-gnu_native
       - libc6_libs
       - libgcc-14-dev_headers
     contents:
       /usr/bin/aarch64-linux-gnu-gcc-14:
-
-  deps:
-    essential:
-      # TODO: include binutils-${ARCH_TRIPLET}_assembler as essential
-      # TODO: include binutils-${ARCH_TRIPLET}_linker as essential
-      - binutils_assembler
-      - binutils_linker
-      - libc6_libs
-
-  native:
-    essential:
-      - gcc-14-aarch64-linux-gnu_deps
-    contents:
-      /usr/libexec/gcc/aarch64-linux-gnu/14/collect2: {arch: [arm64]}
-      /usr/libexec/gcc/aarch64-linux-gnu/14/liblto_plugin.so: {arch: [arm64]}
-
-  cross:
-    essential:
-      - gcc-14-aarch64-linux-gnu_deps
-    contents:
       /usr/libexec/gcc-cross/aarch64-linux-gnu/14/collect2:
-        {arch: [amd64, i386, ppc64el, s390x]}
+        arch: [amd64, i386, ppc64el, s390x]
       /usr/libexec/gcc-cross/aarch64-linux-gnu/14/liblto_plugin.so:
-        {arch: [amd64, i386, ppc64el, s390x]}
+        arch: [amd64, i386, ppc64el, s390x]
+      /usr/libexec/gcc/aarch64-linux-gnu/14/collect2:
+        arch: [arm64]
+      /usr/libexec/gcc/aarch64-linux-gnu/14/liblto_plugin.so:
+        arch: [arm64]
 
   copyright:
     essential:
       - gcc-14-base_copyright
     contents:
-      # Symlink to gcc-14-base
       /usr/share/doc/gcc-14-aarch64-linux-gnu:

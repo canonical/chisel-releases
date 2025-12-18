@@ -1,19 +1,6 @@
 summary: Integration tests for gcc-14
 
-execute: |
-  apt install --update -y gcc
-  # replace _ with -
-  arch=$(gcc -dumpmachine)
-  arch="${arch//_/-}"
+variants:
+    - hello
 
-  rootfs="$(install-slices gcc-14_gcc-14 \
-    gcc-14_gcc-14 \
-    gcc-14-${arch}_gcc-14 \
-    cpp-14-${arch}_native \
-    binutils-${arch}_assembler \
-    binutils-${arch}_linker \
-  )"
-
-  cp hello.c "${rootfs}/hello.c"
-  chroot ${rootfs} gcc-14 hello.c -o hello
-  chroot ${rootfs} ./hello | grep "Hello world!" || exit 1
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

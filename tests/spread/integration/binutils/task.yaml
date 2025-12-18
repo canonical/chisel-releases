@@ -1,29 +1,6 @@
 summary: Integration tests for binutils
 
-execute: |
-  apt install --update -y gcc
-  # replace _ with -
-  arch=$(gcc -dumpmachine)
-  arch="${arch//_/-}"
+variants:
+    - as_ld
 
-  rootfs="$(install-slices binutils_assembler \
-    binutils-${arch}_assembler \
-  )"
-
-  cp hello-${arch}.S "${rootfs}/hello.S"
-  chroot ${rootfs} as hello.S -o hello.o
-
-  rootfs_ld="$(install-slices binutils_linker \
-    binutils-${arch}_linker \
-  )"
-
-  mv "${rootfs}/hello.o" "${rootfs_ld}/hello.o"
-  linker_lib="$(ls ${rootfs_ld}/usr/lib*/ld-*.so*)"
-  linker_lib=${linker_lib#"${rootfs_ld}"}
-  chroot ${rootfs_ld} ld hello.o -o hello \
-    -dynamic-linker ${linker_lib} \
-    -lc \
-    /usr/lib/$(gcc -dumpmachine)/crt1.o \
-    /usr/lib/$(gcc -dumpmachine)/crti.o \
-    /usr/lib/$(gcc -dumpmachine)/crtn.o
-  chroot ${rootfs_ld} ./hello | grep "Hello world!" || exit 1
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

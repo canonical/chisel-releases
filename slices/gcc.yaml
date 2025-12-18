@@ -11,6 +11,9 @@ slices:
       /usr/bin/gcc:  # Symlink to gcc-14
 
   copyright:
-    # TODO: include cpp-${ARCH_TRIPLET}_copyright as essential
+    # Note: `v3-essential` only works for chisel>=1.3.0
+    v3-essential:
+      cpp-14-aarch64-linux-gnu_copyright: {arch: [arm64]}
+      cpp-14-x86-64-linux-gnu_copyright: {arch: [amd64]}
     contents:
-      /usr/share/doc/gcc:  # Symlink to cpp-${ARCH_TRIPLET}
+      /usr/share/doc/gcc:  # Symlink to gcc-${ARCH_TRIPLET}

@@ -5,15 +5,18 @@ essential:
 
 slices:
   assembler:
-    # TODO: include binutils-${ARCH_TRIPLET}_assembler as essential
+    # Note: `v3-essential` only works for chisel>=1.3.0
+    v3-essential:
+      binutils-aarch64-linux-gnu_assembler: {arch: [arm64]}
+      binutils-x86-64-linux-gnu_assembler: {arch: [amd64]}
     contents:
       /usr/bin/as:  # Symlink to ${ARCH_TRIPLET}-as
 
   linker:
-    # TODO: include binutils-${ARCH_TRIPLET}_linker as essential
-    essential:
-      - libc6-dev_core
-      - libgcc-14-dev_core-libs
+    # Note: `v3-essential` only works for chisel>=1.3.0
+    v3-essential:
+      binutils-aarch64-linux-gnu_linker: {arch: [arm64]}
+      binutils-x86-64-linux-gnu_linker: {arch: [amd64]}
     contents:
       /usr/bin/ld:  # Symlink to ${ARCH_TRIPLET}-ld
       /usr/bin/ld.bfd:  # Symlink to ${ARCH_TRIPLET}-ld.bfd

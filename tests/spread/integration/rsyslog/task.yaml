@@ -1,0 +1,26 @@
+summary: Integration tests for rsyslog
+
+execute: |
+  rootfs="$(install-slices base-passwd_data base-files_base rsyslog_bins)"
+  
+  mkdir "${rootfs}"/proc
+  mount --bind /proc ${rootfs}/proc
+  
+  mkdir "${rootfs}"/dev
+  mount --bind /dev ${rootfs}/dev
+  sed -i 's/^\($FileOwner[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
+  sed -i 's/^\($PrivDropToUser[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
+  sed -i 's/^\($PrivDropToGroup[[:space:]]\+\)syslog/\1root/' "${rootfs}/etc/rsyslog.conf"
+  
+  chroot ${rootfs} /usr/sbin/rsyslogd
+  pkill rsyslogd
+  # pkill is asynchronous because it sends a Linux signal to kill the process
+  # Sleep for a while to ensure rsyslogd has time to terminate before `umount`
+  count=0
+  while pgrep "rsyslogd" > /dev/null && [ $count -lt 20 ]; do
+    sleep 1
+    count=$((count+1))
+  done
+  
+  umount ${rootfs}/proc
+  umount ${rootfs}/dev
