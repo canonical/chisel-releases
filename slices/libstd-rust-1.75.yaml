@@ -11,7 +11,7 @@ slices:
       - libllvm17t64_libs
       - libstdc++6_libs
     contents:
-      # this is terribly brittle, but rust internal libraries do not have a stable soname 
+      # this is terribly brittle, but rust internal libraries do not have a stable soname
       # so we have to hardcode it for each architecture and rust toolchain release
       # we cannot use wildcards because it would conflict with other Rust slice definitions
       # (e.g. rust-1.85)
