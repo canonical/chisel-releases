@@ -19,4 +19,4 @@ test -f "$rootfs/libgreeter.a"
 
 # Compile and link C program against the static library
 chroot "$rootfs" gcc /use_greeter.c -L/ -lgreeter -o /use_greeter
-chroot "$rootfs" /use_greeter | grep -q "Hello to C from Rust static library!"
+chroot "$rootfs" /use_greeter | grep -q "Hello to C from Rust 1.85 static library!"
