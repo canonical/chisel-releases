@@ -10,7 +10,7 @@ slices:
   #       Rust calls `cc` to link the final binary, so you will need to create
   #       the symlink for that to work:
   #       ln -s gcc /usr/bin/cc
-  bins:    
+  bins:
     essential:
       - binutils_linker
       - gcc_gcc

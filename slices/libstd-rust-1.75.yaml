@@ -11,8 +11,10 @@ slices:
       - libllvm17t64_libs
       - libstdc++6_libs
     contents:
-      # this is terribly brittle, but rust internal libraries do not have a stable soname so we have to hardcode it for each architecture and rust toolchain release
-      # we cannot use wildcards because it would conflict with other versions of the slice (e.g. rust-1.85)
+      # this is terribly brittle, but rust internal libraries do not have a stable soname 
+      # so we have to hardcode it for each architecture and rust toolchain release
+      # we cannot use wildcards because it would conflict with other Rust slice definitions
+      # (e.g. rust-1.85)
       # Rust 1.75 does not use the versioned directory and symlink that newer versions do
       /usr/lib/x86_64-linux-gnu/librustc_driver-234e49097c8e48f4.so: {arch: [amd64]}
       /usr/lib/x86_64-linux-gnu/libstd-74aa92219e1a8d2b.so: {arch: [amd64]}
