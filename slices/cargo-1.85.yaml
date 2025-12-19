@@ -4,7 +4,7 @@ essential:
   - cargo-1.85_copyright
 
 slices:
-  bins:    
+  bins:
     essential:
       - binutils_linker
       - gcc_gcc
