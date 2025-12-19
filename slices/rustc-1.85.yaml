@@ -12,6 +12,7 @@ slices:
   #       ln -s gcc /usr/bin/cc
   bins:
     essential:
+      - base-files_tmp
       - binutils_linker
       - gcc_gcc
       - libc6-dev_libs
