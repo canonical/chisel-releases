@@ -16,9 +16,6 @@ slices:
       # we cannot use wildcards because it would conflict with other Rust slice definitions
       # (e.g. rust-1.85)
       # Rust 1.75 does not use the versioned directory and symlink that newer versions do
-      /usr/lib/x86_64-linux-gnu/librustc_driver-234e49097c8e48f4.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libstd-74aa92219e1a8d2b.so: {arch: [amd64]}
-      /usr/lib/x86_64-linux-gnu/libtest-3c3802afc6d0c570.so: {arch: [amd64]}
       /usr/lib/aarch64-linux-gnu/librustc_driver-a5a0b7023ef860c2.so: {arch: [arm64]}
       /usr/lib/aarch64-linux-gnu/libstd-faed613058ddb52f.so: {arch: [arm64]}
       /usr/lib/aarch64-linux-gnu/libtest-e0eff95d255e8765.so: {arch: [arm64]}
@@ -37,6 +34,9 @@ slices:
       /usr/lib/s390x-linux-gnu/librustc_driver-0a253efb3b21d718.so: {arch: [s390x]}
       /usr/lib/s390x-linux-gnu/libstd-1127e6a898e144a6.so: {arch: [s390x]}
       /usr/lib/s390x-linux-gnu/libtest-effb3e5e89e3ce9d.so: {arch: [s390x]}
+      /usr/lib/x86_64-linux-gnu/librustc_driver-234e49097c8e48f4.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libstd-74aa92219e1a8d2b.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libtest-3c3802afc6d0c570.so: {arch: [amd64]}
 
   copyright:
     contents:

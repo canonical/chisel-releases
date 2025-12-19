@@ -28,8 +28,8 @@ slices:
       /usr/bin/rustdoc-1.85:
       /usr/lib/rust-1.85/bin/rustc:
       /usr/lib/rust-1.85/bin/rustdoc:
-      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/gcc-ld/ld:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/gcc-ld/ld64:
+      /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/gcc-ld/ld:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/rust-objcopy:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/wasm-component-ld:
       /usr/lib/rust-1.85/libexec/rust-analyzer-proc-macro-srv:
