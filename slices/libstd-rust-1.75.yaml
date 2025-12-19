@@ -11,9 +11,30 @@ slices:
       - libllvm17t64_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/librustc_driver-*.so:
-      /usr/lib/*-linux-*/libstd-*.so:
-      /usr/lib/*-linux-*/libtest-*.so:
+      # this is terribly brittle, but rust internal libraries do not have a stable soname so we have to hardcode it for each architecture and rust toolchain release
+      # we cannot use wildcards because it would conflict with other versions of the slice (e.g. rust-1.85)
+      # Rust 1.75 does not use the versioned directory and symlink that newer versions do
+      /usr/lib/x86_64-linux-gnu/librustc_driver-234e49097c8e48f4.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libstd-74aa92219e1a8d2b.so: {arch: [amd64]}
+      /usr/lib/x86_64-linux-gnu/libtest-3c3802afc6d0c570.so: {arch: [amd64]}
+      /usr/lib/aarch64-linux-gnu/librustc_driver-a5a0b7023ef860c2.so: {arch: [arm64]}
+      /usr/lib/aarch64-linux-gnu/libstd-faed613058ddb52f.so: {arch: [arm64]}
+      /usr/lib/aarch64-linux-gnu/libtest-e0eff95d255e8765.so: {arch: [arm64]}
+      /usr/lib/arm-linux-gnueabihf/librustc_driver-d7bda1ea61e08e1b.so: {arch: [armhf]}
+      /usr/lib/arm-linux-gnueabihf/libstd-80ec9b877831fe6d.so: {arch: [armhf]}
+      /usr/lib/arm-linux-gnueabihf/libtest-ce37d40727bed63f.so: {arch: [armhf]}
+      /usr/lib/i386-linux-gnu/librustc_driver-10560f0510187e02.so: {arch: [i386]}
+      /usr/lib/i386-linux-gnu/libstd-9deb5b7dd00ee9c1.so: {arch: [i386]}
+      /usr/lib/i386-linux-gnu/libtest-48ef0c9454a9251c.so: {arch: [i386]}
+      /usr/lib/powerpc64le-linux-gnu/librustc_driver-e3378e2a08047ff4.so: {arch: [ppc64el]}
+      /usr/lib/powerpc64le-linux-gnu/libstd-04d769b34d3d525b.so: {arch: [ppc64el]}
+      /usr/lib/powerpc64le-linux-gnu/libtest-e0ff4a5d34807768.so: {arch: [ppc64el]}
+      /usr/lib/riscv64-linux-gnu/librustc_driver-8a394d7514f650d9.so: {arch: [riscv64]}
+      /usr/lib/riscv64-linux-gnu/libstd-0ef226c481db093d.so: {arch: [riscv64]}
+      /usr/lib/riscv64-linux-gnu/libtest-0b600aaed2ac8ef4.so: {arch: [riscv64]}
+      /usr/lib/s390x-linux-gnu/librustc_driver-0a253efb3b21d718.so: {arch: [s390x]}
+      /usr/lib/s390x-linux-gnu/libstd-1127e6a898e144a6.so: {arch: [s390x]}
+      /usr/lib/s390x-linux-gnu/libtest-effb3e5e89e3ce9d.so: {arch: [s390x]}
 
   copyright:
     contents:

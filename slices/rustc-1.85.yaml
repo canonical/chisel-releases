@@ -4,36 +4,42 @@ essential:
   - rustc-1.85_copyright
 
 slices:
+  # NOTE: Rust compiler needs the target-specific linker to link the final
+  #       binary. The default toolchain included here is using gcc and binutils,
+  #       which are already included in the gcc_gcc essential.
+  #       Rust calls `cc` to link the final binary, so you will need to create
+  #       the symlink for that to work:
+  #       ls -s gcc /usr/bin/cc
   bins:    
     essential:
       - binutils_linker
       - gcc_gcc
-      - libc6-dev
+      - libc6-dev_libs
       - libc6_libs
       - libgcc-s1_libs
-      - libstd-rust-1.85-dev
+      - libstd-rust-1.85-dev_libs
       - libstdc++6_libs
       - zlib1g_libs
     contents:
-      /usr/bin/rust-1.85-clang
-      /usr/bin/rust-1.85-lld
-      /usr/bin/rust-1.85-llvm-dwp
-      /usr/bin/rustc-1.85
-      /usr/bin/rustdoc-1.85
-      /usr/lib/rust-1.85/bin/rustc
-      /usr/lib/rust-1.85/bin/rustdoc
+      /usr/bin/rust-1.85-clang:
+      /usr/bin/rust-1.85-lld:
+      /usr/bin/rust-1.85-llvm-dwp:
+      /usr/bin/rustc-1.85:
+      /usr/bin/rustdoc-1.85:
+      /usr/lib/rust-1.85/bin/rustc:
+      /usr/lib/rust-1.85/bin/rustdoc:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/gcc-ld/ld:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/gcc-ld/ld64:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/rust-objcopy:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/bin/wasm-component-ld:
-      /usr/lib/rust-1.85/libexec/rust-analyzer-proc-macro-srv
-      /usr/share/rustc-1.85/bin/wasi-node
+      /usr/lib/rust-1.85/libexec/rust-analyzer-proc-macro-srv:
+      /usr/share/rustc-1.85/bin/wasi-node:
 
   config:
     contents:
-      /usr/share/rustc-1.85/architecture.mk
-      /usr/lib/rust-1.85/lib/rustlib/etc/rust_types.py
+      /usr/share/rustc-1.85/architecture.mk:
+      /usr/lib/rust-1.85/lib/rustlib/etc/rust_types.py:
 
   copyright:
     contents:
-      /usr/share/doc/rustc-1.85/copyright
+      /usr/share/doc/rustc-1.85/copyright:

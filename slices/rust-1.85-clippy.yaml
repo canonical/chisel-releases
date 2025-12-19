@@ -8,11 +8,11 @@ slices:
     essential:
       - libc6_libs
       - libgcc-s1_libs
-      - libstd-rust-1.85
+      - libstd-rust-1.85_libs
     contents:
-      /usr/lib/rust-1.85/bin/cargo-clippy
-      /usr/lib/rust-1.85/bin/clippy-driver
+      /usr/lib/rust-1.85/bin/cargo-clippy:
+      /usr/lib/rust-1.85/bin/clippy-driver:
 
   copyright:
     contents:
-      /usr/share/doc/rust-1.85-clippy/copyright
+      /usr/share/doc/rust-1.85-clippy/copyright:

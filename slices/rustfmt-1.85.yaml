@@ -8,11 +8,11 @@ slices:
     essential:
       - libc6_libs
       - libgcc-s1_libs
-      - libstd-rust-1.85
+      - libstd-rust-1.85_libs
     contents:
-      /usr/lib/rust-1.85/bin/cargo-fmt
-      /usr/lib/rust-1.85/bin/rustfmt
+      /usr/lib/rust-1.85/bin/cargo-fmt:
+      /usr/lib/rust-1.85/bin/rustfmt:
 
   copyright:
     contents:
-      /usr/share/doc/rustfmt-1.85/copyright
+      /usr/share/doc/rustfmt-1.85/copyright:

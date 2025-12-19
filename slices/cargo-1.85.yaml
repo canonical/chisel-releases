@@ -14,14 +14,14 @@ slices:
       - libsqlite3-0_libs
       - libssh2-1t64_libs
       - libssl3t64_libs
-      - rustc-1.85
+      - rustc-1.85_bins
       - zlib1g_libs
     contents:
-      /usr/bin/cargo-1.85
-      /usr/lib/rust-1.85/bin/cargo
-      /usr/lib/rust-1.85/share/cargo/bin/cargo
+      /usr/bin/cargo-1.85:
+      /usr/lib/rust-1.85/bin/cargo:
+      /usr/lib/rust-1.85/share/cargo/bin/cargo:
 
   copyright:
     contents:
-      /usr/share/doc/cargo-1.85/copyright
+      /usr/share/doc/cargo-1.85/copyright:
 
