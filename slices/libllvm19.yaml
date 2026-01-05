@@ -12,7 +12,7 @@ slices:
       - libffi8_libs
       - libgcc-s1_libs
       - libstdc++6_libs
-      - libxml2_libs
+      - libxml2-16_libs
       - libzstd1_libs
       - zlib1g_libs
     contents:
