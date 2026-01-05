@@ -366,13 +366,11 @@ slices:
       /usr/lib/python3.13/pydoc.py:
       /usr/lib/python3.13/pydoc_data/**:
 
-  # pyrepl:
-  #   essential:
-  #     - libpython3.13-stdlib_core
-  #     - TODO: ADD ADDITIONAL DEPENDANCIES
-  #   contents:
-  #     /usr/lib/python3.13/pydoc.py:
-  #     /usr/lib/python3.13/_pyrepl/**:
+  pyrepl:
+    essential:
+      - libpython3.13-stdlib_core
+    contents:
+      /usr/lib/python3.13/_pyrepl/**:
 
   # Text Processing Services
   # https://docs.python.org/3.13/library/text.html
