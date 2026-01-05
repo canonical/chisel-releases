@@ -2,6 +2,8 @@ summary: Integration tests for libc-bin
 
 environment:
   SLICE/getconf: "getconf"
+  SLICE/getent: "getent"
+  SLICE/iconv: "iconv"
   SLICE/ldconfig: "ldconfig"
   SLICE/locale: "locale"
 
@@ -11,6 +13,20 @@ execute: |
   case SLICE in
     getconf)
       chroot "$rootfs" getconf -a
+    ;;
+    getent)
+      chroot "$rootfs" getent --version | grep -q getent
+      chroot "${rootfs}" getent hosts
+      ! chroot "${rootfs}" getent hosts localhost
+      mkdir "${rootfs}/etc"
+      echo "::1 localhost" > "${rootfs}/etc/hosts"
+      chroot "${rootfs}" getent hosts localhost
+    ;;
+    iconv)
+      in=Foo
+      echo $in | (chroot "$rootfs" /usr/bin/iconv -f cp1252 -t UNICODE) > test.txt
+      out=$(cat test.txt | chroot "$rootfs" /usr/bin/iconv -t cp1252 -f UNICODE)
+      test "$out" = "$in"
     ;;
     ldconfig)
       chroot "$rootfs" ldconfig

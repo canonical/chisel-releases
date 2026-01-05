@@ -1,0 +1,28 @@
+package: ruby3.2
+
+essential:
+  - ruby3.2_copyright
+
+slices:
+  core:
+    essential:
+      - ruby3.2_ruby
+
+  ruby:
+    essential:
+      - libruby3.2_core
+      - ruby3.2_libs
+    contents:
+      /usr/bin/ruby3.2:
+
+  libs:
+    essential:
+      - libc6_libs
+      - libcrypt1_libs
+      - libgmp10_libs
+      - libruby3.2_libs
+      - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/ruby3.2/copyright:
