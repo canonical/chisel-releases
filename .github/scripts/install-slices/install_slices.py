@@ -212,7 +212,7 @@ def parse_package(filepath: str) -> Package:
     return pkg
 
 
-def query_package_existence(
+def _query_package_existence(
     packages: list[str],
     archive: Archive,
     arch: list[str] | None = None,
@@ -236,6 +236,7 @@ def query_package_existence(
     res = subprocess.run(args, capture_output=True, text=True, check=False)
     if res.returncode != 0:
         logging.error("Failed to query the archives %d", res.returncode)
+        logging.error("==============================================\n%s", res.stderr)
         sys.exit(res.returncode)
     output = res.stdout.rstrip()
     logging.debug("Archive query output:\n%s", output)
@@ -251,6 +252,29 @@ def query_package_existence(
     missing = list(set(packages) - set(found))
     return sorted(found), sorted(missing)
 
+
+def query_package_existence(
+    packages: list[str],
+    archive: Archive,
+    arch: list[str] | None = None,
+    batch_size: int = 50,
+) -> tuple[list[str], list[str]]:
+    """
+    Check which packages exist in the archive. Return a list of packages
+    that exist and another list for which do not.
+    This function breaks down the package list into batches, to avoid
+    URI length limits.
+    """
+    logging.info("Querying packages in %s", archive)
+    n_batches = math.ceil(len(packages) / batch_size)
+    found, missing = set(), set()
+    for i in range(n_batches):
+        batch = packages[i * batch_size : (i + 1) * batch_size]
+        logging.info("Querying packages batch %d/%d (%s ... %s)...", i + 1, n_batches, batch[0], batch[-1])
+        f, m = _query_package_existence(batch, archive, arch)
+        found.update(f)
+        missing.update(m)
+    return sorted(found), sorted(missing)
 
 def ensure_package_existence(packages: list[str], archive: Archive) -> None:
     """
@@ -289,13 +313,75 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+_patterns_to_retry: list[str] = [
+    # https://github.com/canonical/chisel-releases/issues/765
+    "cannot fetch from archive",
+    # https://github.com/canonical/chisel-releases/issues/766
+    "cannot talk to archive",
+    # https://github.com/canonical/chisel-releases/issues/768
+    "cannot find archive data",
+]
+
+def chisel_cut(
+    *,
+    arch: str,
+    release: str,
+    root: str,
+    slice_name: str,
+    chisel_version: str,
+    cache_dir: str,
+    n_retries: int = 3,
+) -> str | None:
+    """
+    Run "chisel cut" to install the slice in the given root.
+    Retry up to n_retries times if a fetch error occurs.
+    Return an error message if something went wrong, or None on success.
+    """
+    env = dict(os.environ)
+    env["XDG_CACHE_HOME"] = str(cache_dir)
+
+    args = ["chisel", "cut", "--arch", arch, "--release", release, "--root", root]
+    if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0":
+        args += ["--ignore=unstable"]
+    args += [slice_name]
+
+    for attempt in range(1, n_retries + 1):
+        res = subprocess.run(
+            args,
+            capture_output=True,
+            text=True,
+            check=False,
+            env=env,
+        )
+        if res.returncode == 0:
+            return None
+        err = res.stderr.rstrip()
+
+        # Match stderr against known patterns to retry
+        matched: None | str = None
+        for pattern in _patterns_to_retry:
+            if pattern in err:
+                matched = pattern
+                break
+        
+        if attempt < n_retries and matched is not None:
+            logging.warning(
+                "Error while installing %s (attempt %d/%d): %s. Retrying...",
+                slice_name,
+                attempt,
+                n_retries,
+                matched,
+            )
+            continue
+        return err
+
+
 def install_slices(
     chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    extra_flag = '--ignore=unstable' if chisel_version.lstrip("v").split("+", 1)[0] > "1.2.0" else ''
     for i, (pkg, slice) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
@@ -309,33 +395,16 @@ def install_slices(
         if dry_run:
             continue
         with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
-            env = dict(os.environ)
-            env["XDG_CACHE_HOME"] = str(cache_dir)
-            args=[
-                "chisel",
-                "cut",
-                "--arch",
-                arch,
-                "--release",
-                release,
-                "--root",
-                tmpfs,
-            ]
-            if extra_flag:
-                args += [extra_flag]
-            args += [slice_name]
-            res = subprocess.run(
-                args,
-                capture_output=True,
-                text=True,
-                check=False,
-                env=env,
+            err = chisel_cut(
+                arch=arch,
+                release=release,
+                root=tmpfs,
+                cache_dir=cache_dir,
+                slice_name=slice_name,
+                chisel_version=chisel_version,
             )
-            if res.returncode != 0:
-                logging.error(
-                    "==============================================\n%s",
-                    res.stderr.rstrip(),
-                )
+            if err:
+                logging.error("==============================================\n%s", err)
                 return
 
             # Check if the copyright file has been installed with this slice

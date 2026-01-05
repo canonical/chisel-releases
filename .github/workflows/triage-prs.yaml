@@ -19,15 +19,8 @@ jobs:
           set -euxo pipefail
           
           for pr_number in `gh pr list -R ${{ github.repository }} \
-            --search "-team-review-requested:canonical/${{ env.REVIEWERS }}" --json number | jq -e '.[].number' \
-            || echo fail`
+            --search "-team-review-requested:canonical/${{ env.REVIEWERS }}" --json number | jq -e '.[].number'`
             do
-              if [[ "$pr_number" == "fail" ]]
-              then
-                echo "ERR: couldn't search for PRs"
-                exit 1
-              fi
-
               echo "Requesting review from ${{ env.REVIEWERS }} on PR ${pr_number}"
 
               gh api \
