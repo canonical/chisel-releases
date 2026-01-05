@@ -1,0 +1,6 @@
+summary: Integration tests for binutils
+
+variants:
+    - as_ld
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
