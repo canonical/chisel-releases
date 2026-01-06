@@ -11,7 +11,7 @@ slices:
 
   cgo-support:
     essential:
-      - golang-1.24-go_cgo-tools
+      - golang-1.25-go_cgo-tools
       - golang_core
 
   copyright:

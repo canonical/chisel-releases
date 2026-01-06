@@ -1,0 +1,15 @@
+package: golang-1.25
+
+essential:
+  - golang-1.25_copyright
+
+slices:
+  core:
+    essential:
+      # Note: Package golang-1.25-go is not available on i386.
+      - golang-1.25-go_core
+      - golang-1.25-src_src-with-tests
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.25/copyright:
