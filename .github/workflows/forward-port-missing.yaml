@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       files_main: "main-files"
-      src_dir: ".github/scripts/forward-port-missing/src"
+      src_dir: ".github/scripts/forward-port-missing"
       default_data_file: "data.pickle.gz"
       # set the GitHub token to allow the script to add labels to the PR with
       # the `gh` CLI
@@ -82,6 +82,11 @@ jobs:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
       
+      - name: "Install dependencies"
+        run: |
+          pip install -r "${{ env.files_main }}/${{ env.src_dir }}/requirements.txt"
+          apt update && apt install -y distro-info jq
+      
       #== MAIN =================================================================
 
       - name: "Gather data"
@@ -90,13 +95,13 @@ jobs:
           CHISEL_RELEASES_URL: http://github.com/canonical/chisel-releases
         run: |
           ln -s "${{ env.files_main }}/${{ env.src_dir }}/chisel_releases_data.py" .
-          ./chisel_releases_data.py --log-level=debug -j=-1 "${{ env.DATA_FILE }}"
+          ./chisel_releases_data.py --jobs=-1 1> "${{ env.DATA_FILE }}"
 
       - name: "Check for forward port"
         if: env.RUN_FORWARD_PORT_MISSING == 'true'
         run: |
           ln -s "${{ env.files_main }}/${{ env.src_dir }}/forward_port_missing.py" .
-          ./forward_port_missing.py "${{ env.DATA_FILE }}" --log-level=debug --format=json 1> results.json
+          ./forward_port_missing.py "${{ env.DATA_FILE }}" | jq 1> results.json
           cat results.json
 
       - name: "Apply labels"
