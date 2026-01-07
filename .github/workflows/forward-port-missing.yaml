@@ -97,4 +97,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
         run: |
           ln -s "${{ env.files_main }}/${{ env.src_dir }}/apply_pr_labels.sh" .
-          cat results.json | ./apply_pr_labels.sh
+          ./apply_pr_labels.sh results.json

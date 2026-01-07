@@ -1,21 +1,59 @@
 #!/bin/bash
 # Apply or remove the "forward port missing" label on PRs based on the JSON input.
 #
-# usage: cat results.json | ./apply_pr_labels.sh --dry-run/-n
+# usage: ./apply_pr_labels.sh [options] results.json
+
+set -euo pipefail
 
 dry_run=false
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        -n|--dry-run)
-            dry_run=true
-            ;;
-        *)
-            echo "Unknown option: $1"
-            exit 1
-            ;;
-    esac
-    shift
-done
+
+usage() {
+    cat <<'EOF'
+Usage: apply_pr_labels.sh [options] results.json
+
+Arguments:
+  results.json     Path to the forward-port-missing JSON report.
+
+Options:
+  -n, --dry-run    Print commands instead of invoking gh.
+  -h, --help       Show this message and exit.
+EOF
+}
+
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -n|--dry-run)
+                dry_run=true
+                shift
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            --)
+                shift
+                break
+                ;;
+            -*|--*)
+                echo "Unknown option: $1"
+                usage
+                exit 1
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+
+    if [[ $# -ne 1 ]]; then
+        echo "Missing results.json argument."
+        usage
+        exit 1
+    fi
+
+    results_file=$1
+}
 
 _maybe_dry_run() {
     if [ "$dry_run" = true ]; then
@@ -25,14 +63,16 @@ _maybe_dry_run() {
     fi
 }
 
-function main() {
+main() {
+    local results_path="$1"
+
     if [ "$dry_run" = false ]; then
         test -z "$GITHUB_TOKEN" && { echo "GITHUB_TOKEN is not set. Aborting."; exit 1; }
         command -v gh >/dev/null 2>&1 || { echo >&2 "gh is required but it's not installed. Aborting."; exit 1; }
     fi
     command -v jq >/dev/null 2>&1 || { echo >&2 "jq is required but it's not installed. Aborting."; exit 1; }
 
-    jq -c '.[]' | while read -r pr; do
+    jq -c '.[]' "$results_path" | while read -r pr; do
         number=$(echo "$pr" | jq -r '.number')
         title=$(echo "$pr" | jq -r '.title')
         url=$(echo "$pr" | jq -r '.url')
@@ -58,5 +98,5 @@ function main() {
     done
 }
 
-
-main
+parse_args "$@"
+main "$results_file"
