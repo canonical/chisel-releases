@@ -1,0 +1,9 @@
+summary: Integration tests for rustc-1.84
+
+variants:
+    - hello
+    - help_and_version
+    - std
+    - static
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
