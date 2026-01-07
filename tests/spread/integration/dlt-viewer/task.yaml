@@ -1,7 +1,7 @@
 summary: Integration tests for dlt-viewer
 
 execute: |
-  rootfs="$(install-slices dlt-viewer_bins dlt-viewer_plugins)"
+  rootfs="$(install-slices dlt-viewer_bins)"
 
   export QT_QPA_PLATFORM=offscreen
 
