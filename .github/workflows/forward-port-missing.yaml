@@ -5,9 +5,9 @@ name: "Forward port missing"
 
 on:
   schedule:
-    # Run every 1/2 hour
+    # Run once every day
     # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
-    - cron: "*/30 * * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
   workflow_call:
 
