@@ -12,4 +12,4 @@ rootfs="$(install-slices --arch "$chisel_arch" rustc_rustc)"
 # ln -s gcc "$rootfs/usr/bin/cc"  # not needed for help/version
 
 chroot "${rootfs}/" rustc --help | grep -q "Usage: rustc"
-chroot "${rootfs}/" rustc --version | grep -q 'rustc 1.84'
+chroot "${rootfs}/" rustc --version | grep -q 'rustc 1.85'

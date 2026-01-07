@@ -8,11 +8,11 @@ case "${arch}" in
     *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
 esac
 
-rootfs="$(install-slices --arch "$chisel_arch" rustc-1.84_rustc)"
+rootfs="$(install-slices --arch "$chisel_arch" rustc-1.85_rustc)"
 ln -s gcc "$rootfs/usr/bin/cc"
 
 
 cp testfiles/test_std.rs "${rootfs}"/test_std.rs
 
-chroot "${rootfs}" rustc-1.84 /test_std.rs -o /test_std
+chroot "${rootfs}" rustc-1.85 /test_std.rs -o /test_std
 chroot "${rootfs}" /test_std

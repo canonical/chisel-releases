@@ -1,4 +1,4 @@
-summary: Integration tests for rustc-1.84
+summary: Integration tests for rustc-1.85
 
 variants:
     - hello

@@ -12,9 +12,9 @@ slices:
   #       ls -s gcc /usr/bin/cc
   rustc:
     essential:
-      - rustc-1.84_rustc
+      - rustc-1.85_rustc
     contents:
-      /usr/bin/rustc:  # symlink to ../lib/rustc-1.84/bin/rustc
+      /usr/bin/rustc:  # symlink to ../lib/rustc-1.85/bin/rustc
 
   copyright:
     contents:

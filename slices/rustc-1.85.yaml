@@ -1,7 +1,7 @@
-package: rustc-1.84
+package: rustc-1.85
 
 essential:
-  - rustc-1.84_copyright
+  - rustc-1.85_copyright
 
 slices:
   # NOTE: Rust compiler needs the target-specific linker to link the final
@@ -17,11 +17,11 @@ slices:
       - libc6-dev_core
       - libc6-dev_libm
       - libc6_libs
-      - libstd-rust-1.84-dev_libs
+      - libstd-rust-1.85-dev_libs
     contents:
-      /usr/bin/rustc-1.84:  # symlink to ../rust-1.84/bin/rustc
-      /usr/lib/rust-1.84/bin/rustc:
+      /usr/bin/rustc-1.85:  # symlink to ../rust-1.85/bin/rustc
+      /usr/lib/rust-1.85/bin/rustc:
 
   copyright:
     contents:
-      /usr/share/doc/rustc-1.84/copyright:
+      /usr/share/doc/rustc-1.85/copyright:
