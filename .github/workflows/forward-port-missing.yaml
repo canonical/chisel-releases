@@ -89,8 +89,7 @@ jobs:
         if: env.RUN_FORWARD_PORT_MISSING == 'true'
         run: |
           ln -s "${{ env.files_main }}/${{ env.src_dir }}/forward_port_missing.py" .
-          ./forward_port_missing.py data.json | jq 1> results.json
-          cat results.json
+          ./forward_port_missing.py data.json | jq | tee results.json
 
       - name: "Apply labels"
         if: env.RUN_APPLY_LABELS == 'true'
