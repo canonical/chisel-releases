@@ -9,7 +9,7 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libmd4c.so.0*:
-  
+
   copyright:
     contents:
       /usr/share/doc/libmd4c0/copyright:

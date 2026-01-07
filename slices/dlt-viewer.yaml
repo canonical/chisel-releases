@@ -28,7 +28,7 @@ slices:
       - libqt5printsupport5t64_libs
       - libqt5serialport5_libs
       - libqt5widgets5t64_libs
-      - libstdc++6_libs  
+      - libstdc++6_libs
 
   copyright:
     contents:

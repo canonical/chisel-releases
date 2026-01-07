@@ -18,7 +18,7 @@ slices:
       - libfreetype6_libs
       - libgbm1_libs
       - libgcc-s1_libs
-      - libgl1_libs # TODO: mark as not needed for armhf
+      - libgl1_libs  # TODO: mark as not needed for armhf
       - libglib2.0-0t64_libs
       - libharfbuzz0b_libs
       - libice6_libs
@@ -35,7 +35,7 @@ slices:
       - libudev1_libs
       - libx11-6_libs
       - libx11-xcb1_libs
-      - libxcb-glx0_libs # TODO: mark as not needed for armhf
+      - libxcb-glx0_libs  # TODO: mark as not needed for armhf
       - libxcb-icccm4_libs
       - libxcb-image0_libs
       - libxcb-keysyms1_libs
