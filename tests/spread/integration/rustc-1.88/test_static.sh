@@ -8,13 +8,13 @@ case "${arch}" in
     *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
 esac
 
-rootfs="$(install-slices --arch "$chisel_arch" rustc-1.85_rustc)"
+rootfs="$(install-slices --arch "$chisel_arch" rustc-1.88_rustc)"
 ln -s gcc "$rootfs/usr/bin/cc"
 
 cp testfiles/greeter.rs "$rootfs/greeter.rs"
 cp testfiles/use_greeter.c "$rootfs/use_greeter.c"
 
-chroot "$rootfs" rustc-1.85 /greeter.rs --crate-type staticlib -o /libgreeter.a
+chroot "$rootfs" rustc-1.88 /greeter.rs --crate-type staticlib -o /libgreeter.a
 test -f "$rootfs/libgreeter.a"
 
 # Compile and link C program against the static library
