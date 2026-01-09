@@ -7,8 +7,8 @@ slices:
   bins:
     essential:
       - libc6_libs
-      - libcap2_libs
       - libcap2-bin_setcap
+      - libcap2_libs
     contents:
       /sbin/capsh:
       /sbin/getcap:
