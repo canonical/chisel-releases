@@ -10,17 +10,17 @@ slices:
       - libcap2_libs
       - libcap2-bin_setcap
     contents:
-      /usr/sbin/capsh:
-      /usr/sbin/getcap:
-      /usr/sbin/getpcaps:
+      /sbin/capsh:
+      /sbin/getcap:
+      /sbin/getpcaps:
 
   setcap:
     essential:
       - libc6_libs
       - libcap2_libs
     contents:
-      /usr/sbin/setcap:
+      /sbin/setcap:
 
   copyright:
     contents:
-      /usr/share/doc/libcap2-bin/copyright:
+      /share/doc/libcap2-bin/copyright:
