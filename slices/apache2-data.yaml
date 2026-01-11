@@ -10,11 +10,11 @@ slices:
       - apache2-data_default-site
       - apache2-data_error
       - apache2-data_icons
-  
+
   default-site:
     contents:
       /usr/share/apache2/default-site/index.html:
-  
+
   error:
     contents:
       /usr/share/apache2/error/*.html.var:

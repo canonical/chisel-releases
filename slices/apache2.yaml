@@ -12,12 +12,12 @@ slices:
       - apache2_sites
       - media-types_data
       - procps_bins
-  
+
   standard:
     essential:
+      - apache2-data_data
       - apache2_core
       - apache2_scripts
-      - apache2-data_data
     contents:
       # Create the default page to copy afterwards in mutate
       /var/www/html/index.html: { mutable: true, text: "" }
@@ -57,66 +57,64 @@ slices:
       /etc/apache2/mods-available/*.load:
       /etc/apache2/mods-available/*.conf:
 
-      # Enable the default MPM module (event)
-      /etc/apache2/mods-enabled/mpm_event.load:
-        { symlink: /etc/apache2/mods-available/mpm_event.load }
-      /etc/apache2/mods-enabled/mpm_event.conf:
-        { symlink: /etc/apache2/mods-available/mpm_event.conf }
-
-      # Enable default modules
+      # Enable the default modules (maintainer scripts)
+      /etc/apache2/mods-enabled/access_compat.load:
+        { symlink: /etc/apache2/mods-available/access_compat.load }
+      /etc/apache2/mods-enabled/alias.load:
+        { symlink: /etc/apache2/mods-available/alias.load }
+      /etc/apache2/mods-enabled/autoindex.conf:
+        { symlink: /etc/apache2/mods-available/autoindex.conf }
+      /etc/apache2/mods-enabled/autoindex.load:
+        { symlink: /etc/apache2/mods-available/autoindex.load }
+      /etc/apache2/mods-enabled/auth_basic.load:
+        { symlink: /etc/apache2/mods-available/auth_basic.load }
+      /etc/apache2/mods-enabled/authn_file.load:
+        { symlink: /etc/apache2/mods-available/authn_file.load }
       /etc/apache2/mods-enabled/authz_core.load:
         { symlink: /etc/apache2/mods-available/authz_core.load }
       /etc/apache2/mods-enabled/authz_host.load:
         { symlink: /etc/apache2/mods-available/authz_host.load }
-      /etc/apache2/mods-enabled/auth_basic.load:
-        { symlink: /etc/apache2/mods-available/auth_basic.load }
-      /etc/apache2/mods-enabled/access_compat.load:
-        { symlink: /etc/apache2/mods-available/access_compat.load }
-      /etc/apache2/mods-enabled/authn_file.load:
-        { symlink: /etc/apache2/mods-available/authn_file.load }
       /etc/apache2/mods-enabled/authz_user.load:
         { symlink: /etc/apache2/mods-available/authz_user.load }
-      /etc/apache2/mods-enabled/alias.load:
-        { symlink: /etc/apache2/mods-available/alias.load }
-      /etc/apache2/mods-enabled/dir.load:
-        { symlink: /etc/apache2/mods-available/dir.load }
-      /etc/apache2/mods-enabled/dir.conf:
-        { symlink: /etc/apache2/mods-available/dir.conf }
-      /etc/apache2/mods-enabled/autoindex.load:
-        { symlink: /etc/apache2/mods-available/autoindex.load }
-      /etc/apache2/mods-enabled/autoindex.conf:
-        { symlink: /etc/apache2/mods-available/autoindex.conf }
-      /etc/apache2/mods-enabled/env.load:
-        { symlink: /etc/apache2/mods-available/env.load }
-      /etc/apache2/mods-enabled/mime.load:
-        { symlink: /etc/apache2/mods-available/mime.load }
-      /etc/apache2/mods-enabled/mime.conf:
-        { symlink: /etc/apache2/mods-available/mime.conf }
-      /etc/apache2/mods-enabled/negotiation.load:
-        { symlink: /etc/apache2/mods-available/negotiation.load }
-      /etc/apache2/mods-enabled/negotiation.conf:
-        { symlink: /etc/apache2/mods-available/negotiation.conf }
-      /etc/apache2/mods-enabled/setenvif.load:
-        { symlink: /etc/apache2/mods-available/setenvif.load }
-      /etc/apache2/mods-enabled/setenvif.conf:
-        { symlink: /etc/apache2/mods-available/setenvif.conf }
-      /etc/apache2/mods-enabled/filter.load:
-        { symlink: /etc/apache2/mods-available/filter.load }
-      /etc/apache2/mods-enabled/deflate.load:
-        { symlink: /etc/apache2/mods-available/deflate.load }
       /etc/apache2/mods-enabled/deflate.conf:
         { symlink: /etc/apache2/mods-available/deflate.conf }
-      /etc/apache2/mods-enabled/status.load:
-        { symlink: /etc/apache2/mods-available/status.load }
-      /etc/apache2/mods-enabled/status.conf:
-        { symlink: /etc/apache2/mods-available/status.conf }
-      /etc/apache2/mods-enabled/reqtimeout.load:
-        { symlink: /etc/apache2/mods-available/reqtimeout.load }
+      /etc/apache2/mods-enabled/deflate.load:
+        { symlink: /etc/apache2/mods-available/deflate.load }
+      /etc/apache2/mods-enabled/dir.conf:
+        { symlink: /etc/apache2/mods-available/dir.conf }
+      /etc/apache2/mods-enabled/dir.load:
+        { symlink: /etc/apache2/mods-available/dir.load }
+      /etc/apache2/mods-enabled/env.load:
+        { symlink: /etc/apache2/mods-available/env.load }
+      /etc/apache2/mods-enabled/filter.load:
+        { symlink: /etc/apache2/mods-available/filter.load }
+      /etc/apache2/mods-enabled/mime.conf:
+        { symlink: /etc/apache2/mods-available/mime.conf }
+      /etc/apache2/mods-enabled/mime.load:
+        { symlink: /etc/apache2/mods-available/mime.load }
+      /etc/apache2/mods-enabled/mpm_event.conf:
+        { symlink: /etc/apache2/mods-available/mpm_event.conf }
+      /etc/apache2/mods-enabled/mpm_event.load:
+        { symlink: /etc/apache2/mods-available/mpm_event.load }
+      /etc/apache2/mods-enabled/negotiation.conf:
+        { symlink: /etc/apache2/mods-available/negotiation.conf }
+      /etc/apache2/mods-enabled/negotiation.load:
+        { symlink: /etc/apache2/mods-available/negotiation.load }
       /etc/apache2/mods-enabled/reqtimeout.conf:
         { symlink: /etc/apache2/mods-available/reqtimeout.conf }
+      /etc/apache2/mods-enabled/reqtimeout.load:
+        { symlink: /etc/apache2/mods-available/reqtimeout.load }
+      /etc/apache2/mods-enabled/setenvif.conf:
+        { symlink: /etc/apache2/mods-available/setenvif.conf }
+      /etc/apache2/mods-enabled/setenvif.load:
+        { symlink: /etc/apache2/mods-available/setenvif.load }
+      /etc/apache2/mods-enabled/status.conf:
+        { symlink: /etc/apache2/mods-available/status.conf }
+      /etc/apache2/mods-enabled/status.load:
+        { symlink: /etc/apache2/mods-available/status.load }
 
   sites:
-    contents: 
+    contents:
       /etc/apache2/sites-available/*.conf:
 
       # Enable the default site
@@ -133,6 +131,7 @@ slices:
       - apache2_modules
       - coreutils_chmod
       - coreutils_chown
+      - coreutils_env
       - coreutils_id-utility
       - coreutils_mkdir
       - coreutils_mktemp
@@ -141,7 +140,6 @@ slices:
       - coreutils_rm-utility
       - coreutils_rmdir
       - coreutils_stat
-      - coreutils_env
       - coreutils_touch
       - dash_bins
       - findutils_bins
