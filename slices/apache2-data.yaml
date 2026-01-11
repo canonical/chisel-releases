@@ -1,0 +1,31 @@
+package: apache2-data
+
+essential:
+  - apache2-data_copyright
+
+slices:
+
+  data:
+    essential:
+      - apache2-data_default-site
+      - apache2-data_error
+      - apache2-data_icons
+  
+  default-site:
+    contents:
+      /usr/share/apache2/default-site/index.html:
+  
+  error:
+    contents:
+      /usr/share/apache2/error/*.html.var:
+      /usr/share/apache2/error/include/*.html:
+
+  icons:
+    contents:
+      /usr/share/apache2/icons/*.png:
+      /usr/share/apache2/icons/*.gif:
+      /usr/share/apache2/icons/*.svg:
+
+  copyright:
+    contents:
+      /usr/share/doc/apache2-data/copyright:

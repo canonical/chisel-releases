@@ -1,0 +1,75 @@
+summary: Integration tests for apache2
+
+environment:
+  SLICE/core: "core"
+  SLICE/standard: "standard"
+
+execute: |
+  echo "SLICE=${SLICE}"
+
+  # Install slices
+  rootfs="$(install-slices apache2_${SLICE} base-files_base base-passwd_data)"
+
+  # Create required directories
+  mkdir -p "$rootfs/run/apache2"
+  mkdir -p "$rootfs/var/www/html"
+  mkdir -p "$rootfs/var/lock"
+
+  # Run test based on slice type
+  if [ "$SLICE" = "standard" ]; then
+
+    # Create minimal /dev/null 
+    mkdir -p "$rootfs/dev"
+    touch "$rootfs/dev/null"
+    chmod +x "$rootfs/dev/null"
+
+    # Copy the icons (not shown in tests, but for completeness)
+    cp -r apache2-rootfs/usr/share/apache2/icons "$rootfs/var/www/html"
+
+    # Use configtest utility to verify configuration
+    sudo chroot "$rootfs" /usr/sbin/apache2ctl configtest | grep "Syntax OK" || exit 1
+
+    # Start apache2 via apachectl
+    sudo chroot "$rootfs" /usr/sbin/apachectl start
+    sleep 2
+
+    # Test the default page is present
+    curl -f http://127.0.0.1/index.html || exit 1
+
+    # Test the restart script
+    sudo chroot "$rootfs" /usr/sbin/apachectl restart
+    sleep 2
+
+    # Check the page still works after restart
+    curl -f http://127.0.0.1/index.html || exit 1
+
+    # Stop via apachectl
+    sudo chroot "$rootfs" /usr/sbin/apachectl stop
+
+    # Test the scripts
+    sudo chroot "$rootfs" /usr/sbin/a2enmod ssl
+    sudo chroot "$rootfs" /usr/sbin/a2query -m ssl | grep "ssl (enabled by"
+    sudo chroot "$rootfs" /usr/sbin/a2dismod ssl
+    ! sudo chroot "$rootfs" /usr/sbin/a2query -m | grep "ssl"
+
+    sudo chroot "$rootfs" /usr/sbin/a2query -s 000-default
+    sudo chroot "$rootfs" /usr/sbin/a2dissite 000-default
+    ! sudo chroot "$rootfs" /usr/sbin/a2query -s | grep "000-default"
+
+    sudo chroot "$rootfs" /usr/sbin/a2query -c charset
+    sudo chroot "$rootfs" /usr/sbin/a2disconf charset
+    ! sudo chroot "$rootfs" /usr/sbin/a2query -c | grep "charset"
+    
+  else
+    # Manually export envvars and run apache2
+    sudo env -i $(. apache2-rootfs/etc/apache2/envvars; env) \
+      chroot apache2-rootfs /usr/sbin/apache2 -D FOREGROUND &
+    apache2_pid=$!
+    sleep 2
+
+    # Test apache2 is running by checking the default page
+    curl -f http://127.0.0.1/ || exit 1
+
+    # Kill apache2
+    kill "$apache2_pid"
+  fi
