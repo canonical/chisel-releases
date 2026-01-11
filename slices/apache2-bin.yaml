@@ -19,8 +19,8 @@ slices:
       - libapr1t64_libs
       - libaprutil1t64_libs
       - libbrotli1_libs
-      - libcurl4t64_libs
       - libc6_libs
+      - libcurl4t64_libs
       - libjansson4_libs
       - libldap2_libs
       - liblua5.4-0_libs

@@ -62,10 +62,6 @@ slices:
         { symlink: /etc/apache2/mods-available/access_compat.load }
       /etc/apache2/mods-enabled/alias.load:
         { symlink: /etc/apache2/mods-available/alias.load }
-      /etc/apache2/mods-enabled/autoindex.conf:
-        { symlink: /etc/apache2/mods-available/autoindex.conf }
-      /etc/apache2/mods-enabled/autoindex.load:
-        { symlink: /etc/apache2/mods-available/autoindex.load }
       /etc/apache2/mods-enabled/auth_basic.load:
         { symlink: /etc/apache2/mods-available/auth_basic.load }
       /etc/apache2/mods-enabled/authn_file.load:
@@ -76,6 +72,10 @@ slices:
         { symlink: /etc/apache2/mods-available/authz_host.load }
       /etc/apache2/mods-enabled/authz_user.load:
         { symlink: /etc/apache2/mods-available/authz_user.load }
+      /etc/apache2/mods-enabled/autoindex.conf:
+        { symlink: /etc/apache2/mods-available/autoindex.conf }
+      /etc/apache2/mods-enabled/autoindex.load:
+        { symlink: /etc/apache2/mods-available/autoindex.load }
       /etc/apache2/mods-enabled/deflate.conf:
         { symlink: /etc/apache2/mods-available/deflate.conf }
       /etc/apache2/mods-enabled/deflate.load:
