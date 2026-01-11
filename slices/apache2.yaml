@@ -60,6 +60,8 @@ slices:
       # Enable the default modules (maintainer scripts)
       /etc/apache2/mods-enabled/access_compat.load:
         { symlink: /etc/apache2/mods-available/access_compat.load }
+      /etc/apache2/mods-enabled/alias.conf:
+        { symlink: /etc/apache2/mods-available/alias.conf }
       /etc/apache2/mods-enabled/alias.load:
         { symlink: /etc/apache2/mods-available/alias.load }
       /etc/apache2/mods-enabled/auth_basic.load:

@@ -23,9 +23,6 @@ execute: |
     touch "$rootfs/dev/null"
     chmod +x "$rootfs/dev/null"
 
-    # Copy the icons (not shown in tests, but for completeness)
-    cp -r "$rootfs/usr/share/apache2/icons" "$rootfs/var/www/html"
-
     # Use configtest utility to verify configuration
     chroot "$rootfs" /usr/sbin/apache2ctl configtest | grep "Syntax OK" || exit 1
 
