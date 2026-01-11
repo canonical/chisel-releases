@@ -22,8 +22,8 @@ slices:
 
   icons:
     contents:
-      /usr/share/apache2/icons/*.png:
       /usr/share/apache2/icons/*.gif:
+      /usr/share/apache2/icons/*.png:
       /usr/share/apache2/icons/*.svg:
 
   copyright:

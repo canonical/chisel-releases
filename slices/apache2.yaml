@@ -54,8 +54,8 @@ slices:
     essential:
       - apache2-bin_libs
     contents:
-      /etc/apache2/mods-available/*.load:
       /etc/apache2/mods-available/*.conf:
+      /etc/apache2/mods-available/*.load:
 
       # Enable the default modules (maintainer scripts)
       /etc/apache2/mods-enabled/access_compat.load:
@@ -146,6 +146,9 @@ slices:
       - gawk_bins
       - perl_bins
     contents:
+      # Awk symlink
+      /usr/bin/awk: { symlink: /usr/bin/gawk }
+
       # Module management scripts
       /usr/sbin/a2disconf:
       /usr/sbin/a2dismod:
@@ -158,9 +161,6 @@ slices:
       # Control script
       /usr/sbin/apache2ctl:
       /usr/sbin/apachectl:
-
-      # Awk symlink
-      /usr/bin/awk: { symlink: /usr/bin/gawk }
 
   copyright:
     contents:

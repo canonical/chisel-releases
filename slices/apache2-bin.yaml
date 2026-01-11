@@ -7,8 +7,8 @@ slices:
 
   bins:
     essential:
-      - libaprutil1t64_libs
       - libapr1t64_libs
+      - libaprutil1t64_libs
       - libc6_libs
       - libpcre2-8-0_libs
     contents:
@@ -30,8 +30,8 @@ slices:
       - libxml2_libs
       - zlib1g_libs
     contents:
-      /usr/lib/apache2/modules/httpd.exp:
       /usr/lib/apache2/modules/*.so:
+      /usr/lib/apache2/modules/httpd.exp:
 
   copyright:
     contents:
