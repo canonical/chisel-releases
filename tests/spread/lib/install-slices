@@ -13,26 +13,25 @@ function main() {
     local rootfs="$(mktemp -d)"
     #shellcheck disable=SC2086
     chisel cut --release "$PROJECT_PATH" --root "$rootfs" $slices
-    export_manifests "$rootfs"
+    [ -n "$MANIFESTS_EXPORT_DIR" ] && export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
 
     echo "${rootfs}"
 }
 
 function export_manifests() {
-    # if MANIFESTS_EXPORT_DIR is set, copy the manifests there
+    # copy the manifests to a common export directory
     # manifest is at $rootfs/var/lib/chisel/manifest.wall
-    # it will be copied to $MANIFESTS_EXPORT_DIR/$test_name/manifestXXXXX.wall where
+    # it will be copied to $manifests_export_dir/$test_name/manifestXXXXX.wall where
     # XXXXX is sequence number (starting from 00000)
     # note that install_slices can be called multiple times from the same test
     local rootfs="$1"
-    if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
-        local test_name=$(basename "$PWD")
-        test_name=${test_name:-default}
-        local export_dir="/$MANIFESTS_EXPORT_DIR/$test_name"
-        mkdir -p "$export_dir"
-        local seq=$(find "$export_dir" -type f -name 'manifest_*.wall' | wc -l)
-        cp "$rootfs/var/lib/chisel/manifest.wall" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
-    fi
+    local manifests_export_dir="$2"
+    local test_name=$(basename "$PWD")
+    test_name=${test_name:-default}
+    local export_dir="$manifests_export_dir/$test_name"
+    mkdir -p "$export_dir"
+    local seq=$(find "$export_dir" -type f -name 'manifest_*.wall' | wc -l)
+    cp "$rootfs/var/lib/chisel/manifest.wall" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
 }
 
 main "$@"
