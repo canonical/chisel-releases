@@ -5,7 +5,7 @@ on:
   workflow_call:
 
 env:
-  MANIFESTS_EXPORT_DIR: manifests
+  MANIFESTS_EXPORT_DIR: /usr/share/manifests
 
 jobs:
   spread-tests:
@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manifests_${{ matrix.runner.name }}
-          path: ~/${{ env.MANIFESTS_EXPORT_DIR }}/**/*.wall
+          path: ${{ env.MANIFESTS_EXPORT_DIR }}/**/*.wall
           overwrite: true
 
   test-coverage:
