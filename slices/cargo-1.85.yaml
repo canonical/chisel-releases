@@ -16,7 +16,7 @@ slices:
       - libsqlite3-0_libs
       - libssh2-1t64_libs
       - libssl3t64_libs
-      - rustc_rustc
+      - rustc-1.85_rustc
       - zlib1g_libs
     contents:
       # in the deb this is a bash script that sets RUSTC

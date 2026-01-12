@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# spellchecker: ignore rootfs binutils archiver resolv
+# spellchecker: ignore rootfs binutils archiver resolv libpam0g
 
 arch=$(uname -m)
 case "${arch}" in
@@ -9,9 +9,11 @@ case "${arch}" in
 esac
 
 slices=(
-    cargo_cargo
+    cargo-1.85_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
+    libpam0g-dev_libs  # sudo-rs dependency
+    tzdata_base  # sudo-rs dependency
 )
 
 rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
@@ -31,14 +33,13 @@ apt update && apt install -y dpkg-dev
 # Download source
 (
     cd "$rootfs" || exit 1
-    apt source rust-eza -y
-    mv rust-eza-* rust-eza
+    apt source rust-sudo-rs -y
+    mv rust-sudo-rs-* rust-sudo-rs
 )
 
 # Build
-chroot "$rootfs" cargo -Z unstable-options -C /rust-eza build
+chroot "$rootfs" cargo-1.85 -Z unstable-options -C /rust-sudo-rs build
 
 # Verify the built binary works
-chroot "$rootfs" /rust-eza/target/debug/eza --help | grep -q "eza \[options\] \[files...\]"
-touch "$rootfs/tmp/testfile"
-chroot "$rootfs" /rust-eza/target/debug/eza /tmp | grep -q "testfile"
+(chroot "$rootfs" /rust-sudo-rs/target/debug/sudo --help 2>&1 || true) \
+    | grep -q "sudo - run commands as another user"
