@@ -28,8 +28,13 @@ backends:
       
       # NOTE: this is a temporary fix for
       # https://bugs.launchpad.net/snapd/+bug/2127244/comments/31
-      lxc exec $SPREAD_SYSTEM -- sh -c 'echo deb http://archive.ubuntu.com/ubuntu/ $(lsb_release -cs)-proposed restricted main multiverse universe \
-        > /etc/apt/sources.list.d/ubuntu-$(lsb_release -cs)-proposed.list'
+      if [ "$(dpkg --print-architecture)" == "amd64" ]; then
+        archive_url="http://archive.ubuntu.com/ubuntu/"
+      else
+        archive_url="http://ports.ubuntu.com/ubuntu-ports/"
+      fi
+      lxc exec $SPREAD_SYSTEM -- sh -c "echo deb $archive_url jammy-proposed restricted main multiverse universe \
+        > /etc/apt/sources.list.d/ubuntu-jammy-proposed.list"
       lxc exec $SPREAD_SYSTEM -- apt-get update
       lxc exec $SPREAD_SYSTEM -- apt-get upgrade -y
       lxc exec $SPREAD_SYSTEM -- systemctl reset-failed
