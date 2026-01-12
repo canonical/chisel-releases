@@ -1,7 +1,7 @@
-package: cargo-1.84
+package: cargo-1.85
 
 essential:
-  - cargo-1.84_copyright
+  - cargo-1.85_copyright
 
 slices:
   # NOTE: Rust calls `cc` to link the final binary, so you will need to create
@@ -22,10 +22,10 @@ slices:
       # in the deb this is a bash script that sets RUSTC
       # and execs the real binary
       # but here we don't want needless dependency on bash
-      /usr/bin/cargo-1.84:
-        symlink: ../lib/rust-1.84/bin/cargo
-      /usr/lib/rust-1.84/bin/cargo:
+      /usr/bin/cargo-1.85:
+        symlink: ../lib/rust-1.85/bin/cargo
+      /usr/lib/rust-1.85/bin/cargo:
 
   copyright:
     contents:
-      /usr/share/doc/cargo-1.84/copyright:
+      /usr/share/doc/cargo-1.85/copyright:
