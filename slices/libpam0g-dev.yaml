@@ -9,10 +9,8 @@ slices:
       - libpam0g_libs
     contents:
       /usr/lib/*-linux-*/libpam.a:
-      /usr/lib/*-linux-*/libpam.so:  # Symlink to libpamc.so.0
-      /usr/lib/*-linux-*/libpam_misc.a:
+      /usr/lib/*-linux-*/libpam.so:  # Symlink to libpam.so.0
       /usr/lib/*-linux-*/libpam_misc.so:  # Symlink to libpam_misc.so.0
-      /usr/lib/*-linux-*/libpamc.a:
       /usr/lib/*-linux-*/libpamc.so:  # Symlink to libpamc.so.0
 
   headers:
