@@ -23,7 +23,7 @@ execute: |
     chmod +x "$rootfs/dev/null"
 
     # Use configtest utility to verify configuration
-    chroot "$rootfs" /usr/sbin/apache2ctl configtest | grep "Syntax OK" || exit 1
+    chroot "$rootfs" /usr/sbin/apache2ctl configtest | grep "Syntax OK"
 
     # Trap the apachectl stop on exit
     trap 'chroot "$rootfs" /usr/sbin/apachectl stop 2>/dev/null || true' EXIT
@@ -33,7 +33,7 @@ execute: |
     sleep 2
 
     # Test the default page is present
-    curl -s http://127.0.0.1/index.html || exit 1
+    curl -s http://127.0.0.1/index.html
 
     # Test the restart script
     chroot "$rootfs" /usr/sbin/apachectl restart
@@ -60,6 +60,9 @@ execute: |
     ! chroot "$rootfs" /usr/sbin/a2query -c | grep "charset"
     
   else
+    # Add a simple index.html to avoid 403 error
+    echo "<html><body><h1>It works!</h1></body></html>" > "$rootfs/var/www/html/index.html"
+
     # Manually export envvars and run apache2
     env -i bash -c '
       . "'"$rootfs"'/etc/apache2/envvars"
@@ -72,5 +75,5 @@ execute: |
     trap "kill $apache2_pid 2>/dev/null || true" EXIT
 
     # Test apache2 is running by checking the default page
-    curl -s http://127.0.0.1/
+    curl -s http://127.0.0.1/index.html | grep "It works!"
   fi
