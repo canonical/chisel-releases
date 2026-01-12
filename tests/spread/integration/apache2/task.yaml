@@ -13,7 +13,6 @@ execute: |
   # Create required directories
   mkdir -p "$rootfs/run/apache2"
   mkdir -p "$rootfs/var/www/html"
-  mkdir -p "$rootfs/var/lock"
 
   # Run test based on slice type
   if [ "$SLICE" = "standard" ]; then
