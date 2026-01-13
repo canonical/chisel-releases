@@ -16,6 +16,7 @@ slices=(
 
 rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
 ln -s gcc "$rootfs/usr/bin/cc"
+ln -s rustc-1.85 "$rootfs/usr/bin/rustc"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev" && touch "$rootfs/dev/null" && chmod +x "$rootfs/dev/null"
