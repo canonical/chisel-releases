@@ -39,7 +39,7 @@ apt update && apt install -y dpkg-dev
 )
 
 # Build
-chroot "$rootfs" cargo -Z unstable-options -C /rust-sudo-rs build
+chroot "$rootfs" cargo-1.85 -Z unstable-options -C /rust-sudo-rs build
 
 # Verify the built binary works
 (chroot "$rootfs" /rust-sudo-rs/target/debug/sudo --help 2>&1 || true) \
