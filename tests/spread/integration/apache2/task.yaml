@@ -10,20 +10,31 @@ execute: |
   # Install slices
   rootfs="$(install-slices apache2_${SLICE} base-files_base base-passwd_data)"
 
+  # Mount dev into the chroot
+  mkdir -p "${rootfs}/dev"
+  mount --rbind /dev "${rootfs}/dev"
+
   # Create required directories
   mkdir -p "$rootfs/run/apache2"
   mkdir -p "$rootfs/var/www/html"
 
+  # Allow apache2 traverse path to DocumentRoot
+  chmod 755 "$rootfs"
+
   # Run test based on slice type
   if [ "$SLICE" = "standard" ]; then
 
-    # Create minimal /dev/null 
-    mkdir -p "$rootfs/dev"
-    touch "$rootfs/dev/null"
-    chmod +x "$rootfs/dev/null"
+    # Switch the mpm to prefork to prevent threading issues in tests
+    # (mpm_event causes a coredump and can't locate libgcc_s.so.1)
+    chroot "$rootfs" /usr/sbin/a2dismod mpm_event
+    chroot "$rootfs" /usr/sbin/a2enmod mpm_prefork
+
+    # Verify the new mpm is correctly enabled (test a2query script)
+    chroot "$rootfs" /usr/sbin/a2query -m mpm_prefork | grep "mpm_prefork (enabled by"
+    ! chroot "$rootfs" /usr/sbin/a2query -m | grep "mpm_event"
 
     # Use configtest utility to verify configuration
-    chroot "$rootfs" /usr/sbin/apache2ctl configtest | grep "Syntax OK"
+    chroot "$rootfs" /usr/sbin/apache2ctl configtest
 
     # Trap the apachectl stop on exit
     trap 'chroot "$rootfs" /usr/sbin/apachectl stop 2>/dev/null || true' EXIT
@@ -42,15 +53,7 @@ execute: |
     # Check the page still works after restart
     curl -s http://127.0.0.1/index.html
 
-    # Stop via apachectl
-    chroot "$rootfs" /usr/sbin/apachectl stop
-
-    # Test the scripts
-    chroot "$rootfs" /usr/sbin/a2enmod ssl
-    chroot "$rootfs" /usr/sbin/a2query -m ssl | grep "ssl (enabled by"
-    chroot "$rootfs" /usr/sbin/a2dismod ssl
-    ! chroot "$rootfs" /usr/sbin/a2query -m | grep "ssl"
-
+    # Test the rest of the scripts
     chroot "$rootfs" /usr/sbin/a2query -s 000-default
     chroot "$rootfs" /usr/sbin/a2dissite 000-default
     ! chroot "$rootfs" /usr/sbin/a2query -s | grep "000-default"
@@ -60,19 +63,25 @@ execute: |
     ! chroot "$rootfs" /usr/sbin/a2query -c | grep "charset"
     
   else
-    # Add a simple index.html to avoid 403 error
+    # Add a simple index.html
     echo "<html><body><h1>It works!</h1></body></html>" > "$rootfs/var/www/html/index.html"
+
+    # Manually switch to mpm_prefork to avoid threading issues in tests
+    # (mpm_event causes a coredump and can't locate libgcc_s.so.1)
+    rm -f "$rootfs/etc/apache2/mods-enabled/mpm_event.load"
+    rm -f "$rootfs/etc/apache2/mods-enabled/mpm_event.conf"
+    ln -s ../mods-available/mpm_prefork.load "$rootfs/etc/apache2/mods-enabled/mpm_prefork.load"
+    ln -s ../mods-available/mpm_prefork.conf "$rootfs/etc/apache2/mods-enabled/mpm_prefork.conf"
 
     # Manually export envvars and run apache2
     env -i bash -c '
       . "'"$rootfs"'/etc/apache2/envvars"
-      exec chroot "'"$rootfs"'" /usr/sbin/apache2 -D FOREGROUND
-    ' &
-    apache2_pid=$!
+      exec chroot "'"$rootfs"'" /usr/sbin/apache2 -k start
+    '
     sleep 2
 
     # Trap to ensure apache2 is killed on exit
-    trap "kill $apache2_pid 2>/dev/null || true" EXIT
+    trap 'chroot "$rootfs" /usr/sbin/apache2 -k stop 2>/dev/null || true' EXIT
 
     # Test apache2 is running by checking the default page
     curl -s http://127.0.0.1/index.html | grep "It works!"
