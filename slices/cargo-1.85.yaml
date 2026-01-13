@@ -7,6 +7,9 @@ slices:
   # NOTE: Rust calls `cc` to link the final binary, so you will need to create
   #       the symlink for that to work:
   #       ls -s gcc /usr/bin/cc
+  # NOTE: Cargo will call rust through `rustc`, so you will need to create a
+  #       symlink pointing to the correct version of rust:
+  #       ln -s rustc-1.85 /usr/bin/rustc
   cargo:
     essential:
       - libc6_libs
@@ -16,7 +19,7 @@ slices:
       - libsqlite3-0_libs
       - libssh2-1t64_libs
       - libssl3t64_libs
-      - rustc_rustc
+      - rustc-1.85_rustc
       - zlib1g_libs
     contents:
       # in the deb this is a bash script that sets RUSTC
