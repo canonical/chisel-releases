@@ -15,6 +15,10 @@ slices:
     contents:
       /usr/share/apache2/default-site/index.html:
 
+      # ubuntu logo is used in the default site
+      # added in case this slice is installed alone
+      /usr/share/apache2/icons/ubuntu-logo.png:
+
   error:
     contents:
       /usr/share/apache2/error/*.html.var:
