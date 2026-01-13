@@ -10,6 +10,7 @@ slices:
   cargo:
     essential:
       - cargo-1.84_cargo
+      - rustc_rustc
     contents:
       /usr/bin/cargo:  # symlink to cargo-1.84
 
