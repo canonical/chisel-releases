@@ -10,7 +10,7 @@ esac
 
 rootfs="$(install-slices --arch "$chisel_arch" cargo-1.85_cargo)"
 ln -s gcc "$rootfs/usr/bin/cc"
-ln -s rustc-1.85_rustc "$rootfs/usr/bin/rustc"
+ln -s rustc-1.85 "$rootfs/usr/bin/rustc"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev"
