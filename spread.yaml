@@ -38,7 +38,7 @@ backends:
       lxc exec $SPREAD_SYSTEM -- apt-get update
       lxc exec $SPREAD_SYSTEM -- apt-get upgrade -y
       lxc exec $SPREAD_SYSTEM -- systemctl reset-failed
-      #
+      # end of NOTE
 
       until lxc exec $SPREAD_SYSTEM -- systemctl status | grep "running"
       do
