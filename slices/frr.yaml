@@ -1,0 +1,92 @@
+package: frr
+
+essential:
+  - frr_copyright
+
+slices:
+  bins:
+    essential:
+      - base-passwd_data
+      - frr_config
+      - frr_libs
+      - libaudit1_libs
+      - libc-bin_nsswitch
+      - libc6_libs
+      - libcap-ng0_libs
+      - libpam-modules_libs
+      - libpam-runtime_config
+      - libpam0g_libs
+      - libreadline8t64_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/mtracebis:
+      /usr/bin/vtysh:
+
+  libs:
+    essential:
+      - base-files_bin
+      - base-files_var
+      - bash_bins
+      - coreutils_bins
+      - dash_bins
+      - grep_bins
+      - iproute2_bins
+      - libc6_libs
+      - libcap2_libs
+      - libcares2_libs
+      - libcrypt1_libs
+      - libjson-c5_libs
+      - liblua5.4-0_libs
+      - libunwind8_libs
+      - libyang3_libs
+    contents:
+      /usr/lib/*-linux-*/frr/libfrr*.so.0*:
+      /usr/lib/*-linux-*/frr/libmgmt_be_nb.so.0*:
+      /usr/lib/*-linux-*/frr/modules/*.so:
+      /usr/lib/frr/babeld:
+      /usr/lib/frr/bfdd:
+      /usr/lib/frr/bgpd:
+      /usr/lib/frr/eigrpd:
+      /usr/lib/frr/fabricd:
+      /usr/lib/frr/frr-reload:  # Requires /bin/sh in shebang
+      /usr/lib/frr/frrcommon.sh:  # Requires /bin/bash in shebang
+      /usr/lib/frr/frrinit.sh:  # Requires /bin/bash in shebang
+      /usr/lib/frr/isisd:
+      /usr/lib/frr/ldpd:
+      /usr/lib/frr/mgmtd:
+      /usr/lib/frr/nhrpd:
+      /usr/lib/frr/ospf6d:
+      /usr/lib/frr/ospfd:
+      /usr/lib/frr/pathd:
+      /usr/lib/frr/pbrd:
+      /usr/lib/frr/pim6d:
+      /usr/lib/frr/pimd:
+      /usr/lib/frr/ripd:
+      /usr/lib/frr/ripngd:
+      /usr/lib/frr/staticd:
+      /usr/lib/frr/vrrpd:
+      /usr/lib/frr/watchfrr:
+      /usr/lib/frr/watchfrr.sh:  # Requires /bin/bash in shebang
+      /usr/lib/frr/zebra:
+      /usr/share/yang/frr-*.yang:
+      /usr/share/yang/ietf-bgp-types.yang:
+      /usr/share/yang/ietf-interfaces.yang:
+      /usr/share/yang/ietf-key-chain.yang:
+      /usr/share/yang/ietf-netconf-acm.yang:
+      /usr/share/yang/ietf-netconf-with-defaults.yang:
+      /usr/share/yang/ietf-netconf.yang:
+      /usr/share/yang/ietf-routing-types.yang:
+      /usr/share/yang/ietf-srv6-types.yang:
+
+  config:
+    contents:
+      /etc/frr/daemons:
+      /etc/frr/frr.conf:
+      /etc/frr/support_bundle_commands.conf:
+      /etc/frr/vtysh.conf:
+      /etc/iproute2/rt_protos.d/frr.conf:
+      /etc/pam.d/frr:
+
+  copyright:
+    contents:
+      /usr/share/doc/frr/copyright:

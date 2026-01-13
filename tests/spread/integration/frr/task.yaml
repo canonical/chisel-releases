@@ -1,0 +1,30 @@
+summary: Integration test for FRR
+
+execute: |
+  rootfs="$(install-slices frr_bins)"
+
+  chmod 755 "${rootfs}"
+
+  mkdir -p "${rootfs}/dev"
+  mkdir -p "${rootfs}/proc"
+  mount --bind /dev "${rootfs}/dev"
+  mount --bind /proc "${rootfs}/proc"
+
+  echo -e "frr:x:999:\nfrrvty:x:998:frr" >> "${rootfs}/etc/group"
+  echo -e "frr:x:999:999:Frr routing suite,,,:/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
+
+  cp frr.conf "${rootfs}/etc/frr/frr.conf"
+
+  mkdir -p "${rootfs}/var/lib/frr"
+  chown 999:999 "${rootfs}/var/lib/frr"
+
+  chroot "$rootfs" /usr/lib/frr/frrinit.sh start
+
+  sleep 2
+
+  chroot "$rootfs" ip route | grep 1.0.0.1
+  chroot "$rootfs" ip route get 1.0.0.1 | grep -e 'via.*dev eth0'
+
+  chroot "$rootfs" /usr/lib/frr/frrinit.sh stop
+
+  umount "${rootfs}/dev"
