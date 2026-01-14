@@ -1,0 +1,20 @@
+package: golang-1.24
+
+essential:
+  - golang-1.24_copyright
+
+slices:
+  core:
+    essential:
+      # Note: Package golang-1.24-go is not available on i386.
+      - golang-1.24-go_core
+      - golang-1.24-src_src-with-tests
+
+  cgo-support:
+    essential:
+      - golang-1.24-go_cgo-tools
+      - golang-1.24_core
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.24/copyright:
