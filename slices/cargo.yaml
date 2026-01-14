@@ -9,10 +9,10 @@ slices:
   #       ls -s gcc /usr/bin/cc
   cargo:
     essential:
-      - cargo-1.85_cargo
+      - cargo-1.88_cargo
       - rustc_rustc
     contents:
-      /usr/bin/cargo:  # symlink to cargo-1.85
+      /usr/bin/cargo:  # symlink to cargo-1.88
 
   copyright:
     contents:

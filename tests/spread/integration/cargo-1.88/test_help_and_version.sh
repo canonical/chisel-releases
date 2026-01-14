@@ -8,9 +8,9 @@ case "${arch}" in
     *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
 esac
 
-rootfs="$(install-slices --arch "$chisel_arch" cargo-1.85_cargo)"
+rootfs="$(install-slices --arch "$chisel_arch" cargo-1.88_cargo)"
 # ln -s gcc "$rootfs/usr/bin/cc"  # not needed for help/version
-# ln -s rustc-1.85 "$rootfs/usr/bin/rustc"  # not needed for help/version
+# ln -s rustc-1.88 "$rootfs/usr/bin/rustc"  # not needed for help/version
 
-chroot "$rootfs" cargo-1.85 --help | grep -q "Rust's package manager"
-chroot "$rootfs" cargo-1.85 --version | grep -q 'cargo 1.85'
+chroot "$rootfs" cargo-1.88 --help | grep -q "Rust's package manager"
+chroot "$rootfs" cargo-1.88 --version | grep -q 'cargo 1.88'
