@@ -9,7 +9,7 @@ case "${arch}" in
 esac
 
 slices=(
-    cargo-1.85_cargo
+    cargo-1.88_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
     libpam0g-dev_libs  # sudo-rs dependency
@@ -18,7 +18,7 @@ slices=(
 
 rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
 ln -s gcc "$rootfs/usr/bin/cc"
-ln -s rustc-1.85 "$rootfs/usr/bin/rustc"
+ln -s rustc-1.88 "$rootfs/usr/bin/rustc"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev" && touch "$rootfs/dev/null" && chmod +x "$rootfs/dev/null"
@@ -39,7 +39,7 @@ apt update && apt install -y dpkg-dev
 )
 
 # Build
-chroot "$rootfs" cargo-1.85 -Z unstable-options -C /rust-sudo-rs build
+chroot "$rootfs" cargo-1.88 -Z unstable-options -C /rust-sudo-rs build
 
 # Verify the built binary works
 (chroot "$rootfs" /rust-sudo-rs/target/debug/sudo --help 2>&1 || true) \

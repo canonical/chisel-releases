@@ -1,4 +1,4 @@
-summary: Integration tests for cargo-1.85
+summary: Integration tests for cargo-1.88
 
 variants:
     - eza
