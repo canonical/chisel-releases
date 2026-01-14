@@ -19,7 +19,9 @@ find ${rootfs}/usr/share/go-1.24 -depth \( \
         \( -path '*test*' \
           ! -path '*src/testing*' \
           ! -path '*src/internal/test*' \
-          ! -path '*src/runtime/synctest*' \) -o \
+          ! -path '*src/runtime/synctest*' \
+          ! -path '*synctest.go' \
+          ! -path '*synctest_o*' \) -o \
   \( -path '*/testing/*' -name '*_test.go' \) \
   \) -exec rm -rf {} +
 

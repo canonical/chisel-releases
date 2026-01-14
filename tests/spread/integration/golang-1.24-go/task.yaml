@@ -10,6 +10,9 @@ variants:
   - profiling-tools
   - testing-tools
 
+environment:
+  GOTOOLCHAIN: local
+
 execute: |
   export "SLICE=${SPREAD_VARIANT}"
   export "rootfs=$(bash -ex ./shared/prologue.sh)"
