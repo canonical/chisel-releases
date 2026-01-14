@@ -31,22 +31,7 @@ function export_manifests() {
     local export_dir="$manifests_export_dir/$test_name"
     mkdir -p "$export_dir"
     local seq=$(find "$export_dir" -type f -name 'manifest_*.wall' | wc -l)
-
-    local chisel_manifest_path=$(get_chisel_manifest_path || echo "/var/lib/chisel/manifest.wall")
-    cp "$rootfs/$chisel_manifest_path" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
-}
-
-function get_chisel_manifest_path() {
-    # attempt to parse slices/base_files.yaml, find the `chisel` slice and return
-    # the path the manifest.wall file inside it
-    _fatal() { echo "$*" >&2; return 1; }
-    local base_files_yaml="$PROJECT_PATH/slices/base_files.yaml"
-    [ -f "$base_files_yaml" ] || _fatal "no base_files.yaml found"
-    command -v yq &> /dev/null || _fatal "yq command not found, cannot parse base_files.yaml"
-    local manifest_path=$(yq '.slices.chisel.contents[0] | keys[0]' "$base_files_yaml") || _fatal "failed to parse base_files.yaml"
-    [ -n "$manifest_path" ] || _fatal "no chisel slice found in base_files.yaml"
-    manifest_path="${manifest_path/%\/\*\*/\/manifest.wall}" # convert the trailing /** to /manifest.wall
-    echo "$manifest_path"
+    cp "$rootfs/var/lib/chisel/manifest.wall" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
 }
 
 main "$@"
