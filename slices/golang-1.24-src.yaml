@@ -205,13 +205,16 @@ slices:
     contents:
       /usr/share/go-1.24/api/*.txt:
 
+  # Note: The bash-scripts slice provides bash scripts used to build Go from source.
+  #       This is not tested in the integration tests, since it requires an
+  #       existing Go installation (in a different GOROOT) to run the scripts.
   bash-scripts:
     essential:
       - bash_bins
       - binutils_linker
-      # TODO: Include binutils-${ARCH_TRIPLET}_loader as well.
       - coreutils_bins
       - grep_bins
+      - sed_bins
     contents:
       /usr/share/go-1.24/src/all.bash:
       /usr/share/go-1.24/src/bootstrap.bash:
