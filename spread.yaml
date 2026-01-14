@@ -100,6 +100,23 @@ prepare: |
   sha384sum -c chisel_v*sha384
   tar -xf chisel_v*tar.gz -C /usr/local/bin
 
+  # install yq
+  yq_version="v4.50.1"
+  if [ "$arch" = "arm64" ]; then
+    url="https://github.com/mikefarah/yq/releases/download/${yq_version}/yq_linux_arm64"
+    sha256="cf0a663d8e4e00bb61507c5237b95b45a6aaa1fbedac77f4dc8abdadd5e2b745"
+  elif [ "$arch" = "amd64" ]; then
+    url="https://github.com/mikefarah/yq/releases/download/${yq_version}/yq_linux_amd64"
+    sha256="c7a1278e6bbc4924f41b56db838086c39d13ee25dcb22089e7fbf16ac901f0d4"
+  else
+    echo "Unsupported architecture for yq: $arch"
+    exit 1
+  fi
+
+  wget -O /usr/local/bin/yq "$url"
+  echo "$sha256  /usr/local/bin/yq" | sha256sum -c -
+  chmod +x /usr/local/bin/yq
+
 prepare-each: chisel version
 
 suites:
