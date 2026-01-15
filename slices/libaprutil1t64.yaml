@@ -1,0 +1,23 @@
+
+package: libaprutil1t64
+
+essential:
+  - libaprutil1t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libapr1t64_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - libdb5.3t64_libs
+      - libexpat1_libs
+      - libgdbm6t64_libs
+      - libssl3t64_libs
+    contents:
+      /usr/lib/*-linux-*/apr-util-1/*.so:
+      /usr/lib/*-linux-*/libaprutil-1.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libaprutil1t64/copyright:
