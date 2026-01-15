@@ -11,8 +11,8 @@ slices:
       - libllvm19_libs
       - libstdc++6_libs
     contents:
-      # NOTE: we need the full rustc_driver filename to resolve conflict with libstd-rust-1.88
-      # NOTE: there is not libstdc-rust-1.85 on i386 architecture
+      # NOTE: we need the full rustc_driver filename to resolve conflict with other versions
+      # NOTE: this package does not exist on i386 architecture
       /usr/lib/*-linux-*/librustc_driver-081a7347a8720157.so:
         arch: [riscv64]
       /usr/lib/*-linux-*/librustc_driver-547da00ae0ba7b6a.so:
