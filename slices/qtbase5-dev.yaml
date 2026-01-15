@@ -11,7 +11,7 @@ slices:
       /usr/lib/*-linux-*/libQt5OpenGLExtensions.a:
       /usr/lib/*-linux-*/libQt5OpenGLExtensions.prl:
       /usr/lib/*-linux-*/metatypes/*.json:
-      /usr/lib/*-linux-*/pkgconfig/**:
+      /usr/lib/*-linux-*/pkgconfig/Qt5*:
       /usr/lib/*-linux-*/qt5/bin/*:
       /usr/lib/*-linux-*/qt5/mkspecs/Qt5*:
     essential:
