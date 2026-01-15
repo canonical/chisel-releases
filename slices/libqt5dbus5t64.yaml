@@ -1,0 +1,19 @@
+package: libqt5dbus5t64
+
+essential:
+  - libqt5dbus5t64_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libQt5DBus.so*:
+    essential:
+      - libc6_libs
+      - libdbus-1-3_libs
+      - libgcc-s1_libs
+      - libqt5core5t64_libs
+      - libstdc++6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5dbus5t64/copyright:
