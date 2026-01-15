@@ -18,7 +18,7 @@ slices:
 
   pkgconfig:
     contents:
-      /usr/lib/*-linux-*/pkgconfig/*:
+      /usr/lib/*-linux-*/pkgconfig/lib*:
 
   copyright:
     contents:

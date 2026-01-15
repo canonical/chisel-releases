@@ -13,7 +13,7 @@ slices:
       /usr/lib/*-linux-*/metatypes/*.json:
       /usr/lib/*-linux-*/pkgconfig/**:
       /usr/lib/*-linux-*/qt5/bin/*:
-      /usr/lib/*-linux-*/qt5/mkspecs/**:
+      /usr/lib/*-linux-*/qt5/mkspecs/Qt5*:
     essential:
       - libqt5core5t64_libs
 
