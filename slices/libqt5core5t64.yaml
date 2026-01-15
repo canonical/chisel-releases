@@ -16,7 +16,7 @@ slices:
       - libdouble-conversion3_libs
       - libgcc-s1_libs
       - libglib2.0-0t64_libs
-      - libicu74_libs
+      - libicu78_libs
       - libpcre2-16-0_libs
       - libstdc++6_libs
       - libzstd1_libs
