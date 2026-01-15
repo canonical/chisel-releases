@@ -10,6 +10,11 @@ slices:
       - golang-1.25-go_core
       - golang-1.25-src_src-with-tests
 
+  cgo-support:
+    essential:
+      - golang-1.25-go_cgo-tools
+      - golang-1.25_core
+
   copyright:
     contents:
       /usr/share/doc/golang-1.25/copyright:
