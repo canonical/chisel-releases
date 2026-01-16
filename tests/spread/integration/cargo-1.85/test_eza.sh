@@ -36,6 +36,18 @@ apt update && apt install -y dpkg-dev
     mv rust-eza-* rust-eza
 )
 
+# error[E0282]: type annotations needed for `Box<_>`
+#   --> /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/time-0.3.30/src/format_description/parse/mod.rs:83:9
+#    |
+# 83 |     let items = format_items
+#    |         ^^^^^
+# ...
+# 86 |     Ok(items.into())
+#    |              ---- type must be known at this point
+#    |
+#    = note: this is an inference error on crate `time` caused by an API change in Rust 1.80.0; update `time` to version `>=0.3.35` by calling `cargo update`
+chroot "$rootfs" cargo-1.85 -Z unstable-options -C /rust-eza update -p time --precise 0.3.35
+
 # Build
 chroot "$rootfs" cargo-1.85 -Z unstable-options -C /rust-eza build
 
