@@ -1,0 +1,14 @@
+package: busybox-static
+
+essential:
+  - busybox-static_copyright
+
+slices:
+  bins:
+    contents:
+      /bin/static-sh: { symlink: /usr/bin/busybox }
+      /usr/bin/busybox: { prefer: busybox }
+
+  copyright:
+    contents:
+      /usr/share/doc/busybox-static/copyright:
