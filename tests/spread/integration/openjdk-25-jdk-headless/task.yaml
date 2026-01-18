@@ -24,7 +24,7 @@ execute: |
   sudo mount --bind /proc "$ROOTFS/proc"
 
   # NOTE: we install openjdk-25-jdk-headless *on the testing host*, not in the chroot
-  apt-get install --update -y openjdk-25-jdk-headless curl
+  apt-get install --update -y openjdk-25-jdk-headless curl retry
   # Need to ensure we're using the right java version
   update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
 
@@ -33,6 +33,8 @@ execute: |
   cp testfiles/*.java "$ROOTFS/"
 
   bash -ex test_${SLICE}.sh
+
+  umount "$ROOTFS/proc"
 
 restore: |
   apt-get remove -y --purge openjdk-25-jdk-headless
