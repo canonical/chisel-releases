@@ -1,0 +1,83 @@
+package: openjdk-25-jdk-headless
+
+essential:
+  - openjdk-25-jdk-headless_copyright
+
+slices:
+  # OpenJDK binaries slice. The tools provided here are front-ends
+  # to the tools provided by openjdk-25-jre-headless_core slice.
+  core:
+    essential:
+      - libc6_libs
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/javac:
+      /usr/lib/jvm/java-25-openjdk-*/bin/javadoc:
+      /usr/lib/jvm/java-25-openjdk-*/bin/javap:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jdeprscan:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jdeps:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jimage:
+      /usr/lib/jvm/java-25-openjdk-*/bin/serialver:
+      # used by javac
+      /usr/lib/jvm/java-25-openjdk-*/lib/ct.sym:
+
+  standard:
+    essential:
+      - openjdk-25-jdk-headless_core
+      - openjdk-25-jre-headless_standard
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jar:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jcmd:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jdb:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+      /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jps:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jshell:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jwebserver:
+
+  # OpenJDK modules required to build the runtime image
+  modules:
+    essential:
+      - openjdk-25-jdk-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jlink:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jmod:
+      /usr/lib/jvm/java-25-openjdk-*/jmods/*.jmod:
+
+  headers:
+    essential:
+      - openjdk-25-jdk-headless_debug-headers
+      - openjdk-25-jdk-headless_jni-headers
+
+  # OpenJDK headers for JNI
+  jni-headers:
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/include/classfile_constants.h:
+      /usr/lib/jvm/java-25-openjdk-*/include/jni.h:
+      /usr/lib/jvm/java-25-openjdk-*/include/jvmti.h:
+      /usr/lib/jvm/java-25-openjdk-*/include/jvmticmlr.h:
+      /usr/lib/jvm/java-25-openjdk-*/include/linux/jni_md.h:
+
+  # OpenJDK headers for the debug agent development
+  debug-headers:
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/include/jdwpTransport.h:
+
+  copyright:
+    essential:
+      - openjdk-25-jre-headless_copyright
+    contents:
+      /usr/share/doc/openjdk-25-jdk-headless:
