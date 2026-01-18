@@ -10,7 +10,6 @@ cleanup() {
     for pid in "${pids[@]}"; do
         kill -9 "$pid" 2>/dev/null || true
     done
-    umount "$ROOTFS/proc"
 }
 
 for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
@@ -71,25 +70,12 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
 nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
 pids+=($!)
-for retry in 0 1 2 3 4 5; do
-    if [ "$retry" -eq 5 ]; then
-        exit 1
-    fi
-    grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
-    sleep 10
-done
+retry --times=10 --delay 2 -- grep -q "bound to /JStatRemoteHost" "jstatd.log"
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
 nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
-sleep 10
 pids+=($!)
-for retry in 0 1 2 3 4 5; do
-    if [ "$retry" -eq 5 ]; then
-        exit 1
-    fi
-    curl http://127.0.0.1:8000 && break
-    sleep 10
-done
+retry --times=10 --delay 2 -- curl http://127.0.0.1:8000
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jrunscript" -q
