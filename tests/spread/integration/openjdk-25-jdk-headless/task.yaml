@@ -34,7 +34,5 @@ execute: |
 
   bash -ex test_${SLICE}.sh
 
-  umount "$ROOTFS/proc"
-
 restore: |
   apt-get remove -y --purge openjdk-25-jdk-headless
