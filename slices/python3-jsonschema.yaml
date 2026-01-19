@@ -6,11 +6,12 @@ essential:
 slices:
   libs:
     essential:
-      - python3-attr_libs
-      - python3-pyrsistent_libs
+      - python3-jsonschema-specifications_libs
+      - python3-referencing_libs
+      - python3-rpds-py_libs
       - python3_standard
     contents:
-      /usr/lib/python3/dist-packages/jsonschema*.dist-info/**:
+      /usr/lib/python3/dist-packages/jsonschema-*.dist-info/**:
       /usr/lib/python3/dist-packages/jsonschema/**:
 
   copyright:

@@ -8,7 +8,7 @@ slices:
     essential:
       - python3_standard
     contents:
-      /usr/lib/python3/dist-packages/passlib*.egg-info/**:
+      /usr/lib/python3/dist-packages/libpass*.dist-info/**:
       /usr/lib/python3/dist-packages/passlib/**:
 
   copyright:

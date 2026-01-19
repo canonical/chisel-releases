@@ -1,8 +1,10 @@
 summary: Integration tests for cloud-guest-utils
 
 execute: |
-  rootfs="$(install-slices cloud-guest-utils_bins)"
+  rootfs="$(install-slices base-files_bin bash_bins util-linux_cli-helpers coreutils-from-gnu_cat cloud-guest-utils_bins)"
 
-  chroot "${rootfs}" /usr/bin/ec2metadata --help >/dev/null
-  chroot "${rootfs}" /usr/bin/growpart --help >/dev/null
-  chroot "${rootfs}" /usr/bin/vcs-run --help >/dev/null
+  ln ${rootfs}/bin/bash ${rootfs}/bin/sh
+
+  chroot "${rootfs}" /usr/bin/ec2metadata --help 2>&1 | grep Syntax
+  chroot "${rootfs}" /usr/bin/vcs-run --help
+  chroot "${rootfs}" /usr/bin/growpart --help

@@ -1,0 +1,23 @@
+package: python3-chardet
+
+essential:
+  - python3-chardet_copyright
+
+slices:
+  bins:
+    essential:
+      - python3-chardet_libs
+    contents:
+      /usr/bin/chardet:
+      /usr/bin/chardetect:
+
+  libs:
+    essential:
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/chardet*.dist-info/**:
+      /usr/lib/python3/dist-packages/chardet/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-chardet/copyright:

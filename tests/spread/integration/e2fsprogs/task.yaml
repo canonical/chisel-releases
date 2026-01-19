@@ -3,12 +3,17 @@ summary: Integration tests for e2fsprogs
 execute: |
   rootfs="$(install-slices e2fsprogs_standard)"
 
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+
   # Core fsck and mkfs
-  chroot "${rootfs}" /usr/sbin/e2fsck -V >/dev/null
-  chroot "${rootfs}" /usr/sbin/mke2fs -V >/dev/null
+  chroot "${rootfs}" /usr/sbin/e2fsck -V
+  chroot "${rootfs}" /usr/sbin/mke2fs -V
 
   # Tuning / attributes / debug
-  chroot "${rootfs}" /usr/sbin/tune2fs -V >/dev/null
-  chroot "${rootfs}" /usr/bin/chattr -V >/dev/null
-  chroot "${rootfs}" /usr/bin/lsattr -V >/dev/null
-  chroot "${rootfs}" /usr/sbin/debugfs -V >/dev/null
+  chroot "${rootfs}" /usr/sbin/tune2fs 2>&1 | grep Usage >/dev/null
+  chroot "${rootfs}" /usr/bin/chattr 2>&1 | grep Usage >/dev/null
+  chroot "${rootfs}" /usr/bin/lsattr
+  chroot "${rootfs}" /usr/sbin/debugfs -V
+
+  umount "${rootfs}/dev"

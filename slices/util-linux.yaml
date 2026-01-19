@@ -49,7 +49,6 @@ slices:
     contents:
       /usr/bin/getopt:
       /usr/bin/namei:
-      /usr/bin/rev:
       /usr/bin/whereis:
 
   cpu:

@@ -53,7 +53,7 @@ slices:
       - dhcpcd-base_standard
       - iproute2_bins
       - netcat-openbsd_bins
-      - netplan.io_bins
+      - netplan.io_core
       - procps_bins
 
   # Systemd services
@@ -94,7 +94,7 @@ slices:
   # Helper scripts and utilities
   utils:
     essential:
-      - libc6_libs
+      - cloud-init-base_python-lib
     contents:
       /usr/bin/cloud-id:
       /usr/lib/cloud-init/ds-identify:

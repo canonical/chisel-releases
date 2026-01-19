@@ -3,5 +3,8 @@ summary: Integration tests for libext2fs2t64
 execute: |
   rootfs="$(install-slices libext2fs2t64_libs)"
 
-  # Library should be installed somewhere under /usr/lib
-  chroot "${rootfs}" sh -c 'find /usr/lib -name "libext2fs*.so*" -print -quit | grep -q .'
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/libe2p.so.2
+  test -f ${rootfs}/usr/lib/${arch}/libext2fs.so.2

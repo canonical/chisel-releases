@@ -1,0 +1,18 @@
+package: python3-jsonschema-specifications
+
+essential:
+  - python3-jsonschema-specifications_copyright
+
+slices:
+  libs:
+    essential:
+      - python3-referencing_libs
+      - python3-rpds-py_libs
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/jsonschema_specifications-*.dist-info/**:
+      /usr/lib/python3/dist-packages/jsonschema_specifications/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-jsonschema-specifications/copyright:

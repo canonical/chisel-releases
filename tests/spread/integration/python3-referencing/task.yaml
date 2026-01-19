@@ -1,0 +1,6 @@
+summary: Integration tests for python3-referencing
+
+execute: |
+  rootfs="$(install-slices python3-referencing_libs)"
+
+  chroot "${rootfs}" python3 -c "import referencing" >/dev/null
