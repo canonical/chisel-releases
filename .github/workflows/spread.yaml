@@ -145,7 +145,7 @@ jobs:
 
       - name: Post comment to PR
         if: ${{ github.event.pull_request }}
-        uses: canonical/chisel-releases/.github/actions/add-pr-comment@main
+        uses: canonical/chisel-releases/.github/actions/upload-pr-comment@main
         with:
           message-path: coverage-summary.md
           message-id: coverage-summary
