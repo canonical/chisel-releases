@@ -1,0 +1,20 @@
+summary: Integration tests for golang-1.24-go 
+
+variants:
+  - build-tools
+  - cgo-tools
+  - debug-tools
+  - dist-tools
+  - doc-tools
+  - minimal
+  - profiling-tools
+  - testing-tools
+
+environment:
+  GOTOOLCHAIN: local
+
+execute: |
+  export "SLICE=${SPREAD_VARIANT}"
+  export "rootfs=$(bash -ex ./shared/prologue.sh)"
+  bash -ex ./test_${SPREAD_VARIANT}.sh
+  bash -ex ./shared/epilogue.sh

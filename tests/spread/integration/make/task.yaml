@@ -1,0 +1,9 @@
+summary: Integration tests for make
+
+execute: |
+  rootfs=$(install-slices make_bins)
+
+  chroot "${rootfs}" make --version | grep "GNU Make"
+
+  cp Makefile "${rootfs}/Makefile"
+  chroot "${rootfs}" make | grep -q "Hello from Makefile!"
