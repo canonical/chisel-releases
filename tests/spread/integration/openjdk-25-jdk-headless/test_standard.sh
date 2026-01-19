@@ -5,11 +5,9 @@ if [ -z "$ROOTFS" ] || [ -z "$JAVA_HOME" ]; then
   exit 1
 fi
 
-pids=()
 cleanup() {
-    for pid in "${pids[@]}"; do
-        kill -9 "$pid" 2>/dev/null || true
-    done
+     ps -ef | grep /usr/lib/jvm | awk '{ print $2 }' | xargs kill -9 2>/dev/null || true
+     kill -9 $pid || true
 }
 
 for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
@@ -17,7 +15,6 @@ trap cleanup EXIT
 
 nohup java testfiles/MonitoringTest.java &
 pid=$!
-pids+=("$pid")
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
 # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
@@ -69,12 +66,10 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
 nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
-pids+=($!)
 retry --times=10 --delay 2 -- grep -q "bound to /JStatRemoteHost" "jstatd.log"
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
 nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
-pids+=($!)
 retry --times=10 --delay 2 -- curl http://127.0.0.1:8000
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
