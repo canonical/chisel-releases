@@ -3,12 +3,41 @@
 set -euo pipefail
 
 function main {
-    json=$(cat "$1")
-
-    total=$(echo "$json" | jq -r '.total_coverage')
     echo "### Coverage Report"
-    echo "Total Coverage: ${total}%"
-    echo ""
+
+    if [ -d "$1" ]; then
+        total=0
+        count=0
+        for file in "$1"/*.json; do
+            json=$(cat "$file")
+            file_total=$(echo "$json" | jq -r '.total_coverage')
+            total=$(echo "$total + $file_total" | bc)
+            count=$((count + 1))
+        done
+        if [ "$count" -gt 0 ]; then
+            average=$(echo "scale=2; $total / $count" | bc)
+        else
+            average=0
+        fi
+        echo "Average Total Coverage: ${average}%"
+        echo ""
+        for file in "$1"/*.json; do
+            arch=$(basename "$file" | sed -E 's/coverage-report_(.*)\.json/\1/')
+            echo "---"
+            echo "#### Arch: ${arch}"
+            json_to_md "$file"
+        done
+        
+    else
+        total=$(echo "$1" | jq -r '.total_coverage')
+        echo "Total Coverage: ${total}%"
+        echo ""
+        json_to_md "$1"
+    fi
+}
+
+function json_to_md {
+    json=$(cat "$1")
 
     local jq_filter='.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
     echo "$json" | jq -r "$jq_filter" | while read -r pkg coverage count missing; do

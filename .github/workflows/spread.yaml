@@ -97,11 +97,9 @@ jobs:
       matrix:
         runner:
           - name: X64
-          # - name: ARM64
+          - name: ARM64
     env:
       main-branch-path: files-from-main
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -129,21 +127,45 @@ jobs:
         run: |
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
-          ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report.json
+          ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report_${{ matrix.runner.name }}.json
+      
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-coverage-report_${{ matrix.runner.name }}.json
+          path: coverage-report_${{ matrix.runner.name }}.json
+
+  generate-pr-comment:
+    name: Generate PR Comment
+    runs-on: ubuntu-latest
+    needs: [ test-coverage ]
+    env:
+      main-branch-path: files-from-main
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+      
+      - name: Download coverage reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: integration-test-coverage-report_*.json
+          path: coverage-reports
+          merge-multiple: true
 
       - name: Create markdown comment
         run: |
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
-          ./coverage-to-md coverage-report.json > coverage-summary.md
-
-      - name: Upload report
-        uses: actions/upload-artifact@v4
-        with:
-          name: integration-test-coverage-report.json
-          path: coverage-report.json
-
-      - name: Post comment to PR
+          ./coverage-to-md coverage-reports > coverage-summary.md
+    
+      - name: Upload comment to PR
         if: ${{ github.event.pull_request }}
         uses: canonical/chisel-releases/.github/actions/upload-pr-comment@main
         with:
