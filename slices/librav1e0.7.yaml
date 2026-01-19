@@ -1,7 +1,7 @@
-package: librav1e0.7
+package: librav1e0.8
 
 essential:
-  - librav1e0.7_copyright
+  - librav1e0.8_copyright
 
 slices:
   libs:
@@ -9,8 +9,8 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
     contents:
-      /usr/lib/*-linux-*/librav1e.so.0.7*:
+      /usr/lib/*-linux-*/librav1e.so.0.8*:
 
   copyright:
     contents:
-      /usr/share/doc/librav1e0.7/copyright:
+      /usr/share/doc/librav1e0.8/copyright:
