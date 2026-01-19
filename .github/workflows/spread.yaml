@@ -4,9 +4,6 @@ run-name: Spread for ${{ github.ref }}
 on:
   workflow_call:
 
-env:
-  MANIFESTS_EXPORT_DIR: /usr/share/manifests
-
 jobs:
   spread-tests:
     outputs:
@@ -20,6 +17,8 @@ jobs:
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
+    env:
+      MANIFESTS_EXPORT_DIR: /usr/share/manifests
     steps:
       - uses: actions/checkout@v4
 
