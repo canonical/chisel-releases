@@ -6,8 +6,6 @@ on:
 
 jobs:
   spread-tests:
-    outputs:
-      slices_files: ${{ steps.changed-slices.outputs.slices_files }}
     strategy:
       matrix:
         runner:
@@ -18,6 +16,7 @@ jobs:
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
     env:
+      main-branch-path: files-from-main
       MANIFESTS_EXPORT_DIR: /usr/share/manifests
     steps:
       - uses: actions/checkout@v4
@@ -81,55 +80,36 @@ jobs:
           (cd _spread/cmd/spread && go build)
           _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}
 
-      - name: Upload manifests
-        if: ${{ steps.run-spread.outcome == 'success' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: manifests_${{ matrix.runner.name }}
-          path: ${{ env.MANIFESTS_EXPORT_DIR }}/**/*.wall
-          overwrite: true
-
-  test-coverage:
-    name: Test Coverage | ${{ matrix.runner.name }}
-    runs-on: ubuntu-latest
-    needs: [ spread-tests ]
-    strategy:
-      matrix:
-        runner:
-          - name: X64
-          - name: ARM64
-    env:
-      main-branch-path: files-from-main
-    steps:
-      - uses: actions/checkout@v4
-
+      # Test coverage report
+      # Note that these steps depend on the success of the spread tests. This is
+      # because when no slices are changed, the spread tests are skipped, and thus
+      # there is no coverage report to generate.
       - name: Checkout main branch
+        if: ${{ steps.run-spread.conclusion == 'success' }}
         uses: actions/checkout@v4
         with:
           ref: main
           path: ${{ env.main-branch-path }}
 
-      - name: Download manifests
-        uses: actions/download-artifact@v4
-        with:
-          name: manifests_${{ matrix.runner.name }}
-
       - name: List slices in changed files
+        if: ${{ steps.run-spread.conclusion == 'success' }}
         run: |
           set -ex
           while IFS= read -r file; do
             yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")' $file
-          done <<< "${{ needs.spread-tests.outputs.slices_files }}" | \
+          done <<< "${{ steps.changed-slices.outputs.slices_files }}" | \
             xargs -n1 | sort -u > slices-in-changed-files.txt
 
       - name: Create json coverage report
+        if: ${{ steps.run-spread.conclusion == 'success' }}
         id: json-coverage-report
         run: |
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
-          ./coverage-report slices-in-changed-files.txt ./manifests > coverage-report_${{ matrix.runner.name }}.json
+          ./coverage-report slices-in-changed-files.txt $MANIFESTS_EXPORT_DIR/manifests > coverage-report_${{ matrix.runner.name }}.json
       
       - name: Upload report
+        if: ${{ steps.run-spread.conclusion == 'success' }}
         uses: actions/upload-artifact@v4
         with:
           name: integration-test-coverage-report_${{ matrix.runner.name }}.json
@@ -138,7 +118,7 @@ jobs:
   generate-pr-comment:
     name: Generate PR Comment
     runs-on: ubuntu-latest
-    needs: [ test-coverage ]
+    needs: [ spread-tests ]
     env:
       main-branch-path: files-from-main
     permissions:
