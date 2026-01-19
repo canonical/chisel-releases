@@ -8,7 +8,7 @@ slices:
     essential:
       - base-passwd_data
       - frr_config
-      - frr_libs
+      - frr_scripts
       - libaudit1_libs
       - libc-bin_nsswitch
       - libc6_libs
@@ -22,35 +22,35 @@ slices:
       /usr/bin/mtracebis:
       /usr/bin/vtysh:
 
-  libs:
+  scripts:
     essential:
       - base-files_bin
-      - base-files_var
       - bash_bins
       - coreutils_bins
       - dash_bins
+      - frr_daemons
       - grep_bins
-      - iproute2_bins
-      - libc6_libs
-      - libcap2_libs
-      - libcares2_libs
-      - libcrypt1_libs
-      - libjson-c5_libs
-      - liblua5.4-0_libs
-      - libunwind8_libs
-      - libyang3_libs
     contents:
-      /usr/lib/*-linux-*/frr/libfrr*.so.0*:
-      /usr/lib/*-linux-*/frr/libmgmt_be_nb.so.0*:
-      /usr/lib/*-linux-*/frr/modules/*.so:
+      /usr/lib/frr/frrcommon.sh:  # Requires /bin/bash in shebang
+      /usr/lib/frr/frrinit.sh:  # Requires /bin/bash in shebang
+      /usr/lib/frr/watchfrr.sh:  # Requires /bin/bash in shebang
+
+  frr-reload:
+    essential:
+      - frr-pythontools_scripts
+    contents:
+      /usr/lib/frr/frr-reload:  # Requires /bin/sh in shebang and runs a Python script
+
+  daemons:
+    essential:
+      - frr_libs
+      - iproute2_bins
+    contents:
       /usr/lib/frr/babeld:
       /usr/lib/frr/bfdd:
       /usr/lib/frr/bgpd:
       /usr/lib/frr/eigrpd:
       /usr/lib/frr/fabricd:
-      /usr/lib/frr/frr-reload:  # Requires /bin/sh in shebang
-      /usr/lib/frr/frrcommon.sh:  # Requires /bin/bash in shebang
-      /usr/lib/frr/frrinit.sh:  # Requires /bin/bash in shebang
       /usr/lib/frr/isisd:
       /usr/lib/frr/ldpd:
       /usr/lib/frr/mgmtd:
@@ -66,8 +66,23 @@ slices:
       /usr/lib/frr/staticd:
       /usr/lib/frr/vrrpd:
       /usr/lib/frr/watchfrr:
-      /usr/lib/frr/watchfrr.sh:  # Requires /bin/bash in shebang
       /usr/lib/frr/zebra:
+
+  libs:
+    essential:
+      - base-files_var
+      - libc6_libs
+      - libcap2_libs
+      - libcares2_libs
+      - libcrypt1_libs
+      - libjson-c5_libs
+      - liblua5.4-0_libs
+      - libunwind8_libs
+      - libyang3_libs
+    contents:
+      /usr/lib/*-linux-*/frr/libfrr*.so.0*:
+      /usr/lib/*-linux-*/frr/libmgmt_be_nb.so.0*:
+      /usr/lib/*-linux-*/frr/modules/*.so:
       /usr/share/yang/frr-*.yang:
       /usr/share/yang/ietf-bgp-types.yang:
       /usr/share/yang/ietf-interfaces.yang:
