@@ -13,8 +13,8 @@ slices:
 
   libs:
     essential:
-      - python3_standard
       - python3-json-pointer_libs
+      - python3_standard
     contents:
       /usr/lib/python3/dist-packages/jsonpatch*.egg-info/**:
       /usr/lib/python3/dist-packages/jsonpatch.py:

@@ -1,6 +1,6 @@
 summary: Integration tests for dhcpcd-base
 
 execute: |
-  rootfs="$(install-slices dhcpcd-base_bins)"
+  rootfs="$(install-slices dhcpcd-base_core)"
 
   chroot "${rootfs}" /usr/sbin/dhcpcd --version >/dev/null

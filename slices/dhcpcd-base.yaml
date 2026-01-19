@@ -4,15 +4,23 @@ essential:
   - dhcpcd-base_copyright
 
 slices:
-  bins:
+  core:
     essential:
+      - dhcpcd-base_hooks-core
+      - dhcpcd-base_libs
       - libc6_libs
       - libssl3t64_libs
       - libudev1_libs
-      - dhcpcd-base_libs
-      - dhcpcd-base_hooks-core
     contents:
       /usr/sbin/dhcpcd:
+
+  standard:
+    essential:
+      - dhcpcd-base_config
+      - dhcpcd-base_core
+      - dhcpcd-base_hooks-core
+      - dhcpcd-base_hooks-network
+      - dhcpcd-base_hooks-system
 
   config:
     contents:
@@ -39,20 +47,12 @@ slices:
     essential:
       - dhcpcd-base_hooks-core
     contents:
-      /usr/share/dhcpcd/hooks/15-timezone:
       /usr/lib/dhcpcd/dhcpcd-hooks/50-timesyncd.conf:
+      /usr/share/dhcpcd/hooks/15-timezone:
 
   libs:
     contents:
       /usr/lib/*-linux-*/dhcpcd/dev/udev.so:
-
-  standard:
-    essential:
-      - dhcpcd-base_bins
-      - dhcpcd-base_config
-      - dhcpcd-base_hooks-core
-      - dhcpcd-base_hooks-network
-      - dhcpcd-base_hooks-system
 
   copyright:
     contents:

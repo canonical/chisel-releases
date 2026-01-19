@@ -14,8 +14,8 @@ slices:
     essential:
       - python3_standard
     contents:
-      /usr/lib/python3/dist-packages/jsonpointer.py:
       /usr/lib/python3/dist-packages/jsonpointer*.egg-info/**:
+      /usr/lib/python3/dist-packages/jsonpointer.py:
 
   copyright:
     contents:

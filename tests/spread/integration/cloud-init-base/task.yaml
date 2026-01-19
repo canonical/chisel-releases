@@ -1,7 +1,7 @@
 summary: Integration tests for cloud-init-base
 
 execute: |
-  rootfs="$(install-slices cloud-init-base_bins)"
+  rootfs="$(install-slices cloud-init-base_utils cloud-init-base_cli-tools)"
 
   chroot "${rootfs}" /usr/bin/cloud-id --help >/dev/null
   chroot "${rootfs}" /usr/bin/cloud-init-per --help >/dev/null

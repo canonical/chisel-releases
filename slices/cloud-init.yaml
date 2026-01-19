@@ -4,7 +4,7 @@ essential:
   - cloud-init_copyright
 
 slices:
-  bins:
+  standard:
     essential:
       - cloud-init-base_standard
       - python3-passlib_libs
