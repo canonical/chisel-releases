@@ -172,5 +172,5 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/apache2/copyright:
       /usr/share/doc/apache2/NOTICE:  # Symlink to ../apache2-bin/NOTICE
+      /usr/share/doc/apache2/copyright:
