@@ -106,7 +106,10 @@ jobs:
         run: |
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
-          ./coverage-report slices-in-changed-files.txt $MANIFESTS_EXPORT_DIR/manifests > coverage-report_${{ matrix.runner.name }}.json
+          ./coverage-report slices-in-changed-files.txt $MANIFESTS_EXPORT_DIR/manifests > report.json
+
+          # Add the architecture to the report
+          jq --arg arch "${{ matrix.runner.name }}" '.arch = $arch' report.json > coverage-report_${{ matrix.runner.name }}.json
       
       - name: Upload report
         if: ${{ steps.run-spread.conclusion == 'success' }}

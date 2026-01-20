@@ -96,10 +96,17 @@ function main {
             total=$(echo "$total + $file_total" | bc)
             count=$((count + 1))
 
-            arch=$(basename "$file" | sed -E 's/coverage-report_(.*)\.json/\1/')
+            arch=$(jq -r '.arch' < "$file")
+            filename=$(basename -- "$file")
             
             md_body+="---"$'\n'
-            md_body+="#### Arch: ${arch}"$'\n'
+
+            if [[ -n "$arch" && "$arch" != "null" ]]; then
+                md_body+="#### Arch: ${arch}"$'\n'
+            else
+                md_body+="#### Coverage File: ${filename}"$'\n'
+            fi
+            
             md_body+="$(json_to_md "$file")"$'\n\n'
         done
 
