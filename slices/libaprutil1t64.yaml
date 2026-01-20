@@ -14,7 +14,9 @@ slices:
       - libgdbm6t64_libs
       - libssl3t64_libs
     contents:
-      /usr/lib/*-linux-*/apr-util-1/*.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_crypto_openssl*.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbm_db*.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbm_gdbm*.so:
       /usr/lib/*-linux-*/libaprutil-1.so.*:
 
   copyright:
