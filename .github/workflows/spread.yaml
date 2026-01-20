@@ -143,7 +143,7 @@ jobs:
         run: |
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
-          ./coverage-to-md coverage-reports > coverage-summary.md
+          ./coverage-to-md -d coverage-reports > coverage-summary.md
     
       - name: Upload comment to PR
         if: ${{ github.event.pull_request }}

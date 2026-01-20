@@ -1,46 +1,32 @@
 #!/bin/bash
+#
+# coverage-to-md - Convert coverage report JSON to Markdown format
+#
+# Usage:
+#   coverage-to-md [options] <arguments>
+#
+# Mandatory arguments to long options are mandatory for short options too.
+#   -d, --dir=DIR       Directory containing coverage report JSON files
+#   -f, --file=FILE     Single coverage report JSON file
+#
+# Exit codes:
+#   0   Success
+#   1   General error
+#
+# Examples:
+#   coverage-to-md -d /path/to/coverage/reports
+#   coverage-to-md -f /path/to/coverage/report.json
 
 set -euo pipefail
 
-function main {
-    echo "### Coverage Report"
-
-    if [ -d "$1" ]; then
-        total=0
-        count=0
-        for file in "$1"/*.json; do
-            json=$(cat "$file")
-            file_total=$(echo "$json" | jq -r '.total_coverage')
-            total=$(echo "$total + $file_total" | bc)
-            count=$((count + 1))
-        done
-        if [ "$count" -gt 0 ]; then
-            average=$(echo "scale=2; $total / $count" | bc)
-        else
-            average=0
-        fi
-        echo "Average Total Coverage: ${average}%"
-        echo ""
-        for file in "$1"/*.json; do
-            arch=$(basename "$file" | sed -E 's/coverage-report_(.*)\.json/\1/')
-            echo "---"
-            echo "#### Arch: ${arch}"
-            json_to_md "$file"
-        done
-        
-    else
-        total=$(echo "$1" | jq -r '.total_coverage')
-        echo "Total Coverage: ${total}%"
-        echo ""
-        json_to_md "$1"
-    fi
-}
-
+# json_to_md - Convert a single coverage report JSON to Markdown format
+#
+# Arguments:
+#   $1  JSON file path
+#
 function json_to_md {
-    json=$(cat "$1")
-
     local jq_filter='.tests | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
-    echo "$json" | jq -r "$jq_filter" | while read -r pkg coverage count missing; do
+    jq -r "$jq_filter" $1 | while read -r pkg coverage count missing; do
     
     echo "<details>"
     
@@ -64,6 +50,80 @@ function json_to_md {
     echo ""
     
     done
+}
+
+# Main function
+#
+function main {
+    echo "### Test Coverage"
+
+    local dir=""
+    local file=""
+
+    # Read arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -d|--dir)
+                shift
+                dir="$1"
+                ;;
+            -f|--file)
+                shift
+                file="$1"
+                ;;
+            *)
+                echo "Unknown argument: $1" >&2
+                echo "Usage: $0 -d <dir> | -f <file>" >&2
+                exit 1
+                ;;
+        esac
+        shift
+    done
+
+    # Process directory
+    if [[ -n "$dir" ]]; then
+        if [[ ! -d "$dir" ]]; then
+            echo "Directory not found: $dir" >&2
+            exit 1
+        fi
+
+        total=0
+        count=0
+
+        for file in "$dir"/*.json; do
+            file_total=$(jq -r '.total_coverage' <$file)
+            total=$(echo "$total + $file_total" | bc)
+            count=$((count + 1))
+        done
+
+        if [ "$count" -gt 0 ]; then
+            average=$(echo "scale=2; $total / $count" | bc)
+        else
+            average=0
+        fi
+
+        echo "Average Total Coverage: ${average}%"
+        echo ""
+
+        for file in "$dir"/*.json; do
+            arch=$(basename "$file" | sed -E 's/coverage-report_(.*)\.json/\1/')
+            echo "---"
+            echo "#### Arch: ${arch}"
+            json_to_md "$file"
+        done
+
+    # Process single file
+    elif [[ -n "$file" ]]; then
+        if [[ ! -f "$file" ]]; then
+            echo "File not found: $file" >&2
+            exit 1
+        fi
+
+        total=$(jq -r '.total_coverage' < "$file")
+        echo "Total Coverage: ${total}%"
+        echo ""
+        json_to_md "$file"
+    fi
 }
 
 main "$@"
