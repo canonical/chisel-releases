@@ -1,26 +1,61 @@
 #!/bin/bash
-#spellchecker: ignore zstdcat argjson
+#
+# coverage-report - Generate a coverage report for changed slices
+#
+# Usage:
+#   coverage-report <slices-in-changed-files.txt> <manifests-dir>
+#
+# Arguments:
+#   slices-in-changed-files.txt   Text file with list of changed slices (one per line)
+#   manifests-dir                 Directory containing package manifests
+#
+# Exit codes:
+#   0   Success
+#   1   General error
+#
+# Examples:
+#   coverage-report slices.txt /path/to/manifests > report.json
+#
+# spellchecker: ignore zstdcat argjson
 
 set -euo pipefail
 
+# log - Log a message if DEBUG is enabled
+#
+# Arguments:
+#   $1  Message to log
+#
 function log {
     if [ "${DEBUG:-0}" -eq 1 ]; then
         echo "[$(date --iso-8601=seconds)] $*" >&2
     fi
 }
 
+# intersection - Compute intersection of two space-separated lists
+#
+# Arguments:
+#   $1  First space-separated list
+#   $2  Second space-separated list
+#
 function intersection {
-    comm -12 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u) || true
+    comm -12 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u)
 }
 
+# difference - Compute difference of two space-separated lists
+#
+# Arguments:
+#   $1  First space-separated list
+#   $2  Second space-separated list
+#
 function difference {
-    comm -23 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u) || true
+    comm -23 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u)
 }
 
-# Count unique items in a space-separated list
-# Make sure that an empty string, or string that's all spaces, returns 0
-# accept input with any whitespace as separator, for example
-# ' a b   c  ' should return 3
+# count - Count unique items in a space-separated list
+#
+# Arguments:
+#   $1  Space-separated list
+#
 function count {
     local normalized=$(echo "$1" | tr -s '[:space:]' ' ' | xargs)
     if [ -z "$normalized" ]; then
@@ -30,26 +65,31 @@ function count {
     fi
 }
 
+# get_installed_slices - Get installed slices for a package from manifests
+#
+# Arguments:
+#   $1  Manifests directory
+#   $2  Package name
+#
 function get_installed_slices {
     local manifests_dir="$1"
     local pkg="$2"
     local installed_slices=""
     if [ -d "$manifests_dir/$pkg" ]; then
-        for file in "$manifests_dir/$pkg/"*; do
-            if [ -f "$file" ]; then
-                local slices_in_file="$(zstdcat "$file" | jq -r '. | select(.kind=="slice") | .name' || true)"
-                # filter to only slices that belong to the current package
-                slices_in_file="$(echo "$slices_in_file" | grep "^${pkg}_" || true)"
-                installed_slices="$installed_slices $slices_in_file"
+        for manifest in "$manifests_dir/$pkg/"*.wall; do
+            if [ -f "$manifest" ]; then
+                local slices_in_file="$(zstdcat "$manifest" | jq -r '. | select(.kind=="slice") | .name')"
+                installed_slices="$installed_slices $(echo "$slices_in_file" | grep "^${pkg}_" )"
             fi
         done
-        installed_slices="$(echo "$installed_slices" | tr ' ' '\n' | sort -u || true)"
+        installed_slices="$(echo "$installed_slices" | tr ' ' '\n' | sort -u)"
     fi
-    # remove leading empty newline
-    installed_slices="$(echo "$installed_slices" | sed '/^$/d' || true)"
-    echo "$installed_slices"
+    # remove leading empty newline and return
+    echo "$installed_slices" | sed '/^$/d'
 }
 
+# Main function
+#
 function main {
     if [ "$#" -ne 2 ]; then
         echo "Usage: $0 <slices-in-changed-files.txt> <manifests-dir>" >&2
@@ -67,16 +107,16 @@ function main {
 
     # For each package, get all the installed slices from the subdirectory in the manifests_dir
     for pkg in $packages; do
-        local changed="$(grep "^${pkg}_" "$slices_in_changed_files" || true)"
+        local changed="$(grep "^${pkg}_" "$slices_in_changed_files")"
         log "Changed slices for package $pkg: ${changed//[$'\n']/ }"
         
         local installed=$(get_installed_slices "$manifests_dir" "$pkg")
 
-        local extra=$(difference "$installed" "$changed" || true)
+        local extra=$(difference "$installed" "$changed")
         if [ -n "$extra" ]; then
             log "Info: package $pkg has installed slices which are not in changed files: ${extra//[$'\n']/ }"
             # remove extra slices from installed, so they don't affect coverage calculation
-            installed=$(difference "$installed" "$extra" || true)
+            installed=$(difference "$installed" "$extra")
         fi
         log "Installed slices for package $pkg: ${installed//[$'\n']/ }"
 
