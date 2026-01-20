@@ -35,3 +35,4 @@ slices:
   copyright:
     contents:
       /usr/share/doc/apache2-data/copyright:
+      /usr/share/doc/apache2-data/NOTICE:
