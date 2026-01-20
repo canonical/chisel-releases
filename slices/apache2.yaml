@@ -168,7 +168,7 @@ slices:
 
       # Control script
       /usr/sbin/apache2ctl:
-      /usr/sbin/apachectl:
+      /usr/sbin/apachectl:  # Symlink to apache2ctl
 
   copyright:
     contents:
