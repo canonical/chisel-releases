@@ -33,3 +33,4 @@ slices:
   copyright:
     contents:
       /usr/share/doc/apache2-bin/copyright:
+      /usr/share/doc/apache2-bin/NOTICE:
