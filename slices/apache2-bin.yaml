@@ -16,8 +16,6 @@ slices:
 
   libs:
     essential:
-      - libapr1t64_libs
-      - libaprutil1t64_libs
       - libbrotli1_libs
       - libc6_libs
       - libcurl4t64_libs
