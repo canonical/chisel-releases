@@ -30,7 +30,10 @@ env -i bash -c '
     . "'"$rootfs"'/etc/apache2/envvars"
     exec chroot "'"$rootfs"'" /usr/sbin/apache2 -k start
 '
-sleep 2
+# Wait for apache2 to start
+while ! lsof -iTCP:80 -sTCP:LISTEN -t >/dev/null 2>&1; do
+    sleep 0.1
+done
 
 # Trap to ensure apache2 is killed on exit
 trap 'chroot "$rootfs" /usr/sbin/apache2 -k stop 2>/dev/null || true' EXIT

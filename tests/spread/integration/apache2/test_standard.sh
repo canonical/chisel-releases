@@ -32,17 +32,28 @@ trap 'chroot "$rootfs" /usr/sbin/apachectl stop 2>/dev/null || true' EXIT
 
 # Start apache2 via apachectl
 chroot "$rootfs" /usr/sbin/apachectl start
-sleep 2
+
+# Wait for apache2 to start
+while ! lsof -iTCP:80 -sTCP:LISTEN -t >/dev/null 2>&1; do
+    sleep 0.1
+done
 
 # Test the default page is present
 curl -s http://127.0.0.1/index.html
 
 # Test the restart script
 chroot "$rootfs" /usr/sbin/apachectl restart
-sleep 2
 
-# Check the page still works after restart
-curl -s http://127.0.0.1/index.html
+# Wait for apache2 to restart
+timeout=10
+while ! curl -fs http://127.0.0.1/index.html >/dev/null; do
+    sleep 0.1
+    timeout=$((timeout - 1))
+    if [ $timeout -le 0 ]; then
+        echo "Timeout waiting for apache2 to restart"
+        exit 1
+    fi
+done
 
 # Test the rest of the scripts
 chroot "$rootfs" /usr/sbin/a2query -s 000-default
