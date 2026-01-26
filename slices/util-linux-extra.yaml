@@ -49,7 +49,7 @@ slices:
       /usr/sbin/mkfs.bfs:
       /usr/sbin/mkfs.cramfs:
       /usr/sbin/mkfs.minix:
-      /usr/bin/sg: { prefer: login } # Symlink to newgrp
+      /usr/bin/sg: { prefer: login }  # Symlink to newgrp
 
   copyright:
     contents:

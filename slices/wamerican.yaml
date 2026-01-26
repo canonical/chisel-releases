@@ -7,7 +7,7 @@ slices:
   dict:
     contents:
       /usr/share/dict/american-english:
-      /usr/share/dict/words: # Symlink to american-english
+      /usr/share/dict/words:  # Symlink to american-english
 
   copyright:
     contents:
