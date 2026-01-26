@@ -1,0 +1,56 @@
+package: util-linux-extra
+
+essential:
+  - util-linux-extra_copyright
+
+slices:
+  bins:
+    essential:
+      - libaudit1_libs
+      - libc6_libs
+      - libcrypt1_libs
+      - liblastlog2-2_libs
+      - libselinux1_libs
+      - libsmartcols1_libs
+      - libsystemd0_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/addpart:
+      /usr/bin/bits:
+      /usr/bin/blkzone:
+      /usr/bin/chcpu:
+      /usr/bin/chmem:
+      /usr/bin/coresched:
+      /usr/bin/delpart:
+      /usr/bin/enosys:
+      /usr/bin/exch:
+      /usr/bin/fadvise:
+      /usr/bin/fincore:
+      /usr/bin/isosize:
+      /usr/bin/ldattach:
+      /usr/bin/lsclocks:
+      /usr/bin/lsfd:
+      /usr/bin/lsirq:
+      /usr/bin/lslogins:
+      /usr/bin/lsmem:
+      /usr/bin/newgrp: { prefer: login }
+      /usr/bin/pipesz:
+      /usr/bin/pivot_root:
+      /usr/bin/rename.ul:
+      /usr/bin/resizepart:
+      /usr/bin/switch_root:
+      /usr/bin/waitpid:
+      /usr/bin/wdctl:
+      /usr/sbin/blkpr:
+      /usr/sbin/ctrlaltdel:
+      /usr/sbin/fsck.cramfs:
+      /usr/sbin/fsck.minix:
+      /usr/sbin/hwclock:
+      /usr/sbin/mkfs.bfs:
+      /usr/sbin/mkfs.cramfs:
+      /usr/sbin/mkfs.minix:
+      /usr/bin/sg: { prefer: login } # Symlink to newgrp
+
+  copyright:
+    contents:
+      /usr/share/doc/util-linux-extra/copyright:

@@ -1,0 +1,24 @@
+package: bsdextrautils
+
+essential:
+  - bsdextrautils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+      - libtinfo6_libs
+    contents:
+      /usr/bin/col:
+      /usr/bin/colcrt:
+      /usr/bin/colrm:
+      /usr/bin/column:
+      /usr/bin/hexdump:
+      /usr/bin/look:
+      /usr/bin/rev:
+      /usr/bin/ul:
+
+  copyright:
+    contents:
+      /usr/share/doc/bsdextrautils/copyright:
