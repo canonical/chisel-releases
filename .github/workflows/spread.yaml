@@ -84,10 +84,6 @@ jobs:
       # Note that these steps depend on the success of the spread tests. This is
       # because when no slices are changed, the spread tests are skipped, and thus
       # there is no coverage report to generate.
-
-      # TODO: Merge all into one single coverage report
-      # Then: coverage-report changed-slices.txt installed-slices.txt
-
       - name: Checkout main branch
         if: ${{ steps.run-spread.conclusion == 'success' }}
         uses: actions/checkout@v4
