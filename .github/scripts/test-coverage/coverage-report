@@ -3,18 +3,18 @@
 # coverage-report - Generate a coverage report for changed slices
 #
 # Usage:
-#   coverage-report <slices-in-changed-files.txt> <manifests-dir>
+#   coverage-report <installed-slices-file> <committed-slices-file>
 #
 # Arguments:
-#   slices-in-changed-files.txt   Text file with list of changed slices (one per line)
-#   manifests-dir                 Directory containing package manifests
+#   installed-slices-file    Text file with list of installed slices (one per line)
+#   committed-slices-file    Text file with list of committed slices (one per line)
 #
 # Exit codes:
 #   0   Success
 #   1   General error
 #
 # Examples:
-#   coverage-report slices.txt /path/to/manifests > report.json
+#   coverage-report installed_slices.txt committed_slices.txt > coverage_report.json
 #
 # spellchecker: ignore zstdcat argjson
 
@@ -65,97 +65,58 @@ function count {
     fi
 }
 
-# get_installed_slices - Get installed slices for a package from manifests
-#
-# Arguments:
-#   $1  Manifests directory
-#   $2  Package name
-#
-function get_installed_slices {
-    local manifests_dir="$1"
-    local pkg="$2"
-    local installed_slices=""
-    if [ -d "$manifests_dir/$pkg" ]; then
-        for manifest in "$manifests_dir/$pkg/"*.wall; do
-            if [ -f "$manifest" ]; then
-                local slices_in_file="$(zstdcat "$manifest" | jq -r '. | select(.kind=="slice") | .name')"
-                installed_slices="$installed_slices $(echo "$slices_in_file" | grep "^${pkg}_" )"
-            fi
-        done
-        installed_slices="$(echo "$installed_slices" | tr ' ' '\n' | sort -u)"
-    fi
-    # remove leading empty newline and return
-    echo "$installed_slices" | sed '/^$/d'
-}
-
 # Main function
 #
 function main {
+  
     if [ "$#" -ne 2 ]; then
-        echo "Usage: $0 <slices-in-changed-files.txt> <manifests-dir>" >&2
+        echo "Usage: $0 <installed-slices-file> <committed-slices-file>" >&2
         exit 1
     fi
-    local slices_in_changed_files="$1"
-    local manifests_dir="$2"
 
-    local packages="$(awk -F_ '{print $1}' "$slices_in_changed_files" | sort -u)"
-    log "Packages to check: ${packages//[$'\n']/ }"
+    local installed_slices=$(cat $1)
+    local committed_slices=$(cat $2)
+    local committed_packages="$(awk -F_ '{print $1}' <<< "$committed_slices" | sort -u)"
 
-    local tests_json="{}"
-    local total_changed=0
-    local total_present=0
+    local pkg_coverage_json="{}"
+    local total_committed_slices=0
+    local total_installed_slices=0
 
-    # For each package, get all the installed slices from the subdirectory in the manifests_dir
-    for pkg in $packages; do
-        local changed="$(grep "^${pkg}_" "$slices_in_changed_files")"
-        log "Changed slices for package $pkg: ${changed//[$'\n']/ }"
-        
-        local installed=$(get_installed_slices "$manifests_dir" "$pkg")
+    for pkg in $committed_packages; do
+        local committed_pkg_slices=$(grep "^${pkg}_" <<< "$committed_slices")
+        local installed_pkg_slices=$(grep "^${pkg}_" <<< "$installed_slices")
 
-        local extra=$(difference "$installed" "$changed")
-        if [ -n "$extra" ]; then
-            log "Info: package $pkg has installed slices which are not in changed files: ${extra//[$'\n']/ }"
-            # remove extra slices from installed, so they don't affect coverage calculation
-            installed=$(difference "$installed" "$extra")
-        fi
-        log "Installed slices for package $pkg: ${installed//[$'\n']/ }"
+        local n_committed_pkg_slices=$(count "$committed_pkg_slices")
+        local n_installed_pkg_slices=$(count "$installed_pkg_slices")
 
-        local n_changed=$(count "$changed")
-        local present=$(intersection "$changed" "$installed")
-        local n_present=$(count "$present")
-        local coverage="0.00"
-        if [ "$n_changed" -gt 0 ]; then
-            coverage=$(awk "BEGIN {printf \"%.2f\", ($n_present / $n_changed) * 100}")
-        fi
-        total_changed=$((total_changed + n_changed))
-        total_present=$((total_present + n_present))
+        # Calculate pkg coverage
+        local pkg_coverage="0.00"
+        [ $n_committed_pkg_slices -gt 0 ] && pkg_coverage=$(awk "BEGIN {printf \"%.2f\", ($n_installed_pkg_slices / $n_committed_pkg_slices) * 100}")
 
-        local missing=$(difference "$changed" "$installed")
-        log "Package $pkg: coverage $coverage%, missing slices: ${missing//[$'\n']/ }"
+        # Add counters for total coverage calculation
+        total_committed_slices=$((total_committed_slices + n_committed_pkg_slices))
+        total_installed_slices=$((total_installed_slices + n_installed_pkg_slices))
 
-        local missing_json="[]"
-        if [ -n "$missing" ]; then
-            missing_json=$(echo "$missing" | jq -R . | jq -s .)
-        fi
+        # Get slices missing tests
+        local missing_slices=$(difference "$committed_pkg_slices" "$installed_pkg_slices")
 
-        tests_json=$(jq --arg pkg "$pkg" \
-            --argjson coverage "$coverage" \
-            --argjson missing "$missing_json" \
-            '. + {($pkg): {coverage: $coverage, missing: $missing}}' \
-            <<<"$tests_json")
+        # Build the json body
+        local missing_slices_json="[]"
+        [ -n "$missing_slices" ] && missing_slices_json=$(echo "$missing_slices" | jq -R . | jq -s .)
+
+        pkg_coverage_json=$(jq --arg pkg "$pkg" --argjson coverage "$pkg_coverage" --argjson missing "$missing_slices_json" '. + {($pkg): {coverage: $coverage, missing: $missing}}' <<<$pkg_coverage_json)
     done
 
-    local total_coverage="0.00"
-    if [ "$total_changed" -gt 0 ]; then
-        total_coverage=$(awk "BEGIN {printf \"%.2f\", ($total_present / $total_changed) * 100}")
-    fi
-    log "Total coverage: $total_coverage% ($total_present/$total_changed)"
+    # Calculate total coverage
+    total_coverage="0.00"
+    [ $total_committed_slices -gt 0 ] && total_coverage=$(awk "BEGIN {printf \"%.2f\", ($total_installed_slices / $total_committed_slices) * 100}")
 
-    # Output final JSON
+    # Output final json
     jq --monochrome-output -n \
-        --argjson tests "$tests_json" \
+        --arg arch "$(uname -m)" \
+        --argjson packages "$pkg_coverage_json" \
         --argjson total_coverage "$total_coverage" \
-        '{total_coverage: $total_coverage, tests: $tests}'
+        '{total_coverage: $total_coverage, arch: $arch, packages: $packages}'
 }
 
 main "$@"

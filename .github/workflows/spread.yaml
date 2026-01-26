@@ -84,33 +84,35 @@ jobs:
       # Note that these steps depend on the success of the spread tests. This is
       # because when no slices are changed, the spread tests are skipped, and thus
       # there is no coverage report to generate.
+
+      # TODO: Merge all into one single coverage report
+      # Then: coverage-report changed-slices.txt installed-slices.txt
+
       - name: Checkout main branch
         if: ${{ steps.run-spread.conclusion == 'success' }}
         uses: actions/checkout@v4
         with:
           ref: main
           path: ${{ env.main-branch-path }}
-
-      - name: List slices in changed files
+      
+      - name: List installed and committed slices
         if: ${{ steps.run-spread.conclusion == 'success' }}
         run: |
-          set -ex
-          while IFS= read -r file; do
-            yq '.package as $pkg | .slices | keys | map("\($pkg)_\(.)") |  join(" ")' $file
-          done <<< "${{ steps.changed-slices.outputs.slices_files }}" | \
-            xargs -n1 | sort -u > slices-in-changed-files.txt
+          find "$MANIFESTS_EXPORT_DIR" -type f -name "*.wall" -exec zstdcat {} \; |
+          jq -r 'select(.kind=="slice") | .name' |
+          sort -u > installed-slices.txt
+
+          yq ea -r '.package as $pkg | .slices | keys | .[] | "\($pkg)_\(.)"' \
+          "${{ steps.changed-slices.outputs.slices_files }}" |
+          sort -u > committed-slices.txt
 
       - name: Create json coverage report
         if: ${{ steps.run-spread.conclusion == 'success' }}
         id: json-coverage-report
         run: |
-          set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
-          ./coverage-report slices-in-changed-files.txt $MANIFESTS_EXPORT_DIR/manifests > report.json
+          ./coverage-report installed-slices.txt committed-slices.txt > coverage-report_${{ matrix.runner.name }}.json
 
-          # Add the architecture to the report
-          jq --arg arch "${{ matrix.runner.name }}" '.arch = $arch' report.json > coverage-report_${{ matrix.runner.name }}.json
-      
       - name: Upload report
         if: ${{ steps.run-spread.conclusion == 'success' }}
         uses: actions/upload-artifact@v4
