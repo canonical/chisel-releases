@@ -31,16 +31,6 @@ function log {
     fi
 }
 
-# intersection - Compute intersection of two space-separated lists
-#
-# Arguments:
-#   $1  First space-separated list
-#   $2  Second space-separated list
-#
-function intersection {
-    comm -12 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u)
-}
-
 # difference - Compute difference of two space-separated lists
 #
 # Arguments:
@@ -77,6 +67,7 @@ function main {
     local installed_slices=$(cat $1)
     local committed_slices=$(cat $2)
     local committed_packages="$(awk -F_ '{print $1}' <<< "$committed_slices" | sort -u)"
+    log "Packages to check: $committed_packages"
 
     local pkg_coverage_json="{}"
     local total_committed_slices=0
@@ -87,7 +78,10 @@ function main {
         local installed_pkg_slices=$(grep "^${pkg}_" <<< "$installed_slices")
 
         local n_committed_pkg_slices=$(count "$committed_pkg_slices")
+        log "Committed slices for package $pkg: $n_committed_pkg_slices"
+
         local n_installed_pkg_slices=$(count "$installed_pkg_slices")
+        log "Installed slices for package $pkg: $n_installed_pkg_slices"
 
         # Calculate pkg coverage
         local pkg_coverage="0.00"
@@ -99,6 +93,7 @@ function main {
 
         # Get slices missing tests
         local missing_slices=$(difference "$committed_pkg_slices" "$installed_pkg_slices")
+        log "Untested slices for package $pkg: $missing_slices"
 
         # Build the json body
         local missing_slices_json="[]"
