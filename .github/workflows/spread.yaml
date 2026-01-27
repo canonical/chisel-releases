@@ -91,23 +91,15 @@ jobs:
           ref: main
           path: ${{ env.main-branch-path }}
       
-      - name: List installed and committed slices
-        if: ${{ steps.run-spread.conclusion == 'success' }}
-        run: |
-          find "$MANIFESTS_EXPORT_DIR" -type f -name "*.wall" -exec zstdcat {} \; |
-          jq -r 'select(.kind=="slice") | .name' |
-          sort -u > installed-slices.txt
-
-          yq ea -r '.package as $pkg | .slices | keys | .[] | "\($pkg)_\(.)"' \
-          "${{ steps.changed-slices.outputs.slices_files }}" |
-          sort -u > committed-slices.txt
-
       - name: Create json coverage report
         if: ${{ steps.run-spread.conclusion == 'success' }}
         id: json-coverage-report
         run: |
+          awk 'FNR==1{print "---"}{print}' "${{ steps.changed-slices.outputs.slices_files }}" > committed-slices.yaml
+          find "$MANIFESTS_EXPORT_DIR" -type f -name "*.wall" -exec zstdcat {} \; > installed-slices.wall
+
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
-          ./coverage-report installed-slices.txt committed-slices.txt > coverage-report_${{ matrix.runner.name }}.json
+          ./coverage-report installed-slices.wall committed-slices.yaml > coverage-report_${{ matrix.runner.name }}.json
 
       - name: Upload report
         if: ${{ steps.run-spread.conclusion == 'success' }}

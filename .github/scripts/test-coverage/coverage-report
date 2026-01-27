@@ -3,18 +3,18 @@
 # coverage-report - Generate a coverage report for changed slices
 #
 # Usage:
-#   coverage-report <installed-slices-file> <committed-slices-file>
+#   coverage-report <installed-slices-manifest> <committed-slices-yaml>
 #
 # Arguments:
-#   installed-slices-file    Text file with list of installed slices (one per line)
-#   committed-slices-file    Text file with list of committed slices (one per line)
+#   installed-slices-manifest    json wall manifest of installed slices
+#   committed-slices-yaml        combined yaml of committed SDFs
 #
 # Exit codes:
 #   0   Success
 #   1   General error
 #
 # Examples:
-#   coverage-report installed_slices.txt committed_slices.txt > coverage_report.json
+#   coverage-report installed_slices.wall committed_slices.yaml > coverage_report.json
 #
 # spellchecker: ignore zstdcat argjson
 
@@ -60,12 +60,13 @@ function count {
 function main {
   
     if [ "$#" -ne 2 ]; then
-        echo "Usage: $0 <installed-slices-file> <committed-slices-file>" >&2
+        echo "Usage: $0 <installed-slices-manifest> <committed-slices-yaml>" >&2
         exit 1
     fi
 
-    local installed_slices=$(cat $1)
-    local committed_slices=$(cat $2)
+    local installed_slices=$(zstdcat $1 | jq -r 'select(.kind=="slice") | .name' | sort -u)
+    local committed_slices=$(yq ea -r '.package as $pkg | .slices | keys | .[] | "\($pkg)_\(.)"' $2 | sort -u)
+
     local committed_packages="$(awk -F_ '{print $1}' <<< "$committed_slices" | sort -u)"
     log "Packages to check: $committed_packages"
 
