@@ -135,6 +135,9 @@ slices:
       /var/log/apache2/other_vhosts_access.log: { text: "", mode: 0640 }
 
   scripts:
+    # NOTE: This slice requires awk to run the scripts correctly
+    # so a symlink to gawk needs to be created when installing the slice.
+    # ln -s /usr/bin/gawk /usr/bin/awk
     essential:
       - apache2_modules
       - coreutils_chmod
@@ -154,9 +157,6 @@ slices:
       - gawk_bins
       - perl_bins
     contents:
-      # Awk symlink
-      /usr/bin/awk: { symlink: /usr/bin/gawk }
-
       # Module management scripts
       /usr/sbin/a2disconf:  # Symlink to a2enmod
       /usr/sbin/a2dismod:  # Symlink to a2enmod
