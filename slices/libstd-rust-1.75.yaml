@@ -11,7 +11,21 @@ slices:
       - libllvm17t64_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/librustc_driver-*.so:
+      # NOTE: we need the full rustc_driver filename to resolve conflict with other versions
+      /usr/lib/*-linux-*/librustc_driver-0a253efb3b21d718.so:
+        arch: [s390x]
+      /usr/lib/*-linux-*/librustc_driver-10560f0510187e02.so:
+        arch: [i386]
+      /usr/lib/*-linux-*/librustc_driver-234e49097c8e48f4.so:
+        arch: [amd64]
+      /usr/lib/*-linux-*/librustc_driver-8a394d7514f650d9.so:
+        arch: [riscv64]
+      /usr/lib/*-linux-*/librustc_driver-a5a0b7023ef860c2.so:
+        arch: [arm64]
+      /usr/lib/*-linux-*/librustc_driver-d7bda1ea61e08e1b.so:
+        arch: [armhf]
+      /usr/lib/*-linux-*/librustc_driver-e3378e2a08047ff4.so:
+        arch: [ppc64el]
       /usr/lib/*-linux-*/libstd-*.so:
       /usr/lib/*-linux-*/libtest-*.so:
 
