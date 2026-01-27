@@ -8,7 +8,7 @@ slices:
     essential:
       - libavcodec61_libs
       - libavutil59_libs
-      - libbluray2_libs
+      - libbluray3_libs
       - libbz2-1.0_libs
       - libc6_libs
       - libchromaprint1_libs
