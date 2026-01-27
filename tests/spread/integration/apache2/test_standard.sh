@@ -15,8 +15,9 @@ chmod 755 "$rootfs"
 # Clean up any process using port 80
 fuser -k 80/tcp || true
 
-# Switch the mpm to prefork to prevent threading issues in tests
-# (mpm_event causes a coredump and can't locate libgcc_s.so.1)
+# Switch the mpm to prefork to prevent threading issues when in the testing environment
+# mpm_event causes a coredump and can't locate libgcc_s.so.1 when running in spread
+# see: https://github.com/canonical/chisel-releases/issues/864
 chroot "$rootfs" /usr/sbin/a2dismod mpm_event
 chroot "$rootfs" /usr/sbin/a2enmod mpm_prefork
 

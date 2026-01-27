@@ -18,8 +18,9 @@ fuser -k 80/tcp || true
 # Add a simple index.html
 echo "<html><body><h1>It works!</h1></body></html>" > "$rootfs/var/www/html/index.html"
 
-# Manually switch to mpm_prefork to avoid threading issues in tests
-# (mpm_event causes a coredump and can't locate libgcc_s.so.1)
+# Manually switch the mpm to prefork to prevent threading issues when in the testing environment
+# mpm_event causes a coredump and can't locate libgcc_s.so.1 when running in spread
+# see: https://github.com/canonical/chisel-releases/issues/864
 rm -f "$rootfs/etc/apache2/mods-enabled/mpm_event.load"
 rm -f "$rootfs/etc/apache2/mods-enabled/mpm_event.conf"
 ln -s ../mods-available/mpm_prefork.load "$rootfs/etc/apache2/mods-enabled/mpm_prefork.load"
