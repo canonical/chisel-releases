@@ -5,8 +5,8 @@ rootfs="$(install-slices apache2_standard base-files_base base-passwd_data)"
 mkdir -p "${rootfs}/dev"
 mount --rbind /dev "${rootfs}/dev"
 
-# Create awk symlink
-ln -s "$rootfs/usr/bin/gawk" "$rootfs/usr/bin/awk"
+# Create awk symlink if not present
+[ ! -e "$rootfs/usr/bin/awk" ] && ln -s "$rootfs/usr/bin/gawk" "$rootfs/usr/bin/awk"
 
 # Create required directories
 mkdir -p "$rootfs/run/apache2"
