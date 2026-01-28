@@ -14,6 +14,7 @@ slices:
       /usr/bin/colcrt:
       /usr/bin/colrm:
       /usr/bin/column:
+      /usr/bin/hd:  # symlink to hexdump
       /usr/bin/hexdump:
       /usr/bin/look:
       /usr/bin/rev:
