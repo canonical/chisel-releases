@@ -1,0 +1,26 @@
+package: node-semver
+
+essential:
+  - node-semver_copyright
+
+slices:
+  bins:
+    essential:
+      - node-lru-cache_libs
+      - nodejs_bins
+    contents:
+      /usr/bin/semver:  # Symlink to ../share/nodejs/semver/bin/semver.js
+
+  libs:
+    contents:
+      /usr/share/nodejs/semver/bin/semver.js:
+      /usr/share/nodejs/semver/classes/**.js:
+      /usr/share/nodejs/semver/functions/**.js:
+      /usr/share/nodejs/semver/index.js:
+      /usr/share/nodejs/semver/internal/**.js:
+      /usr/share/nodejs/semver/package.json:
+      /usr/share/nodejs/semver/ranges/**.js:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-semver/copyright:
