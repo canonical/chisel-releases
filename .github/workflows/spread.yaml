@@ -73,6 +73,9 @@ jobs:
 
           echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
+          # Create directory for manifests
+          sudo mkdir -p $MANIFESTS_EXPORT_DIR && sudo chown $USER:$USER $MANIFESTS_EXPORT_DIR
+
       - name: Build and run spread
         id: run-spread
         if: ${{ steps.spread-suites.outputs.run-tasks }}
