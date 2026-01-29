@@ -9,10 +9,9 @@ slices:
       - apache2-bin_bins
       - apache2_config
       - apache2_modules
-      - apache2_sites
       - media-types_data
       - procps_bins
-    contents: 
+    contents:
       /var/log/apache2/access.log: { text: "", mode: 0640 }
       /var/log/apache2/error.log: { text: "", mode: 0640 }
       /var/log/apache2/other_vhosts_access.log: { text: "", mode: 0640 }
@@ -27,7 +26,6 @@ slices:
   index:
     essential:
       - apache2-data_index
-      - apache2_sites
     contents:
       # Create the default page to copy afterwards in mutate
       /var/www/html/index.html: { mutable: true, text: "" }
@@ -38,6 +36,8 @@ slices:
       content.write(dst, data)
 
   config:
+    essential:
+      - apache2_vhost-config
     contents:
       # Main configuration file
       /etc/apache2/apache2.conf:
@@ -59,6 +59,14 @@ slices:
       /etc/apache2/envvars:
       /etc/apache2/magic:
       /etc/apache2/ports.conf:
+
+  vhost-config:
+    contents:
+      /etc/apache2/sites-available/*.conf:
+
+      # Enable the default site
+      /etc/apache2/sites-enabled/000-default.conf:
+        { symlink: /etc/apache2/sites-available/000-default.conf }
 
   modules:
     essential:
@@ -124,14 +132,6 @@ slices:
         { symlink: /etc/apache2/mods-available/status.conf }
       /etc/apache2/mods-enabled/status.load:
         { symlink: /etc/apache2/mods-available/status.load }
-
-  sites:
-    contents:
-      /etc/apache2/sites-available/*.conf:
-
-      # Enable the default site
-      /etc/apache2/sites-enabled/000-default.conf:
-        { symlink: /etc/apache2/sites-available/000-default.conf }
 
   scripts:
     # NOTE: This slice requires awk to run the scripts correctly
