@@ -13,7 +13,7 @@ slices:
       # The gawk package is set as the default alternative and therefore provides
       # /usr/bin/awk (and /usr/bin/nawk). If you want to install mawk or original-awk
       # you will need to create these symlinks manually: ln -sf /usr/bin/mawk $rootfs/usr/bin/awk
-      # In 25.10 and onwards, this will be handled by the field 'prefer'. 
+      # In 25.10 and onwards, this will be handled by the field 'prefer'.
       /usr/bin/awk: { symlink: /usr/bin/gawk }  # symlink created in postinst
       /usr/bin/gawk:
       /usr/bin/nawk: { symlink: /usr/bin/gawk }  # symlink created in postinst
