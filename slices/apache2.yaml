@@ -63,6 +63,8 @@ slices:
       /etc/apache2/ports.conf:
 
   vhost-config:
+    # Apache2 default virtual host configuration
+    # needed for a functional web server
     contents:
       /etc/apache2/sites-available/*.conf:
 
