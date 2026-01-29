@@ -1,7 +1,7 @@
-package: liblttng-ust-ctl5t64
+package: liblttng-ust-ctl6
 
 essential:
-  - liblttng-ust-ctl5t64_copyright
+  - liblttng-ust-ctl6_copyright
 
 slices:
   libs:
@@ -14,4 +14,4 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/liblttng-ust-ctl5t64/copyright:
+      /usr/share/doc/liblttng-ust-ctl6/copyright:
