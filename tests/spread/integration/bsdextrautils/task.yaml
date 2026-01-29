@@ -1,0 +1,14 @@
+summary: Integration tests for bsdextrautils
+
+execute: |
+  rootfs="$(install-slices bsdextrautils_bins base-files_base wamerican_dict ncurses-base_terminfo)"
+
+  # tests
+  echo -e "H\e[I\bI" | chroot "${rootfs}" col -b | grep -qx "HI"
+  echo "test" | chroot "${rootfs}" colcrt | grep -qx "test"
+  echo -e "abcdef\n" | chroot "${rootfs}" colrm 3 4 | grep -qx "abef"
+  echo -e "a b\n1 2\n" | chroot "${rootfs}" column -t | grep -qx "a  b"
+  echo -n "abc" | chroot "${rootfs}" hexdump -C | grep -q "61 62 63"
+  echo -n "cat" | chroot "${rootfs}" look c | grep -q "cat"
+  echo "Hello" | chroot "${rootfs}" rev | grep -qx "olleH"
+  echo -e "t\b_est" | chroot "${rootfs}" ul -t xterm | cat -v | grep -qx "\^\[\[4mt\^\[\[24mest"
