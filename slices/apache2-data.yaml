@@ -7,9 +7,9 @@ slices:
 
   data:
     essential:
-      - apache2-data_index
       - apache2-data_error
       - apache2-data_icons
+      - apache2-data_index
 
   index:
     contents:
