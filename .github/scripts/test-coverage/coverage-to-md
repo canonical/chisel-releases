@@ -1,0 +1,87 @@
+#!/bin/bash
+#
+# coverage-to-md - Convert coverage report JSON to Markdown format
+#
+# Usage:
+#   coverage-to-md <coverage-reports>
+#
+# Arguments:
+#   <coverage-reports>  Space-separated list of coverage report JSON files
+#
+# Exit codes:
+#   0   Success
+#   1   General error
+#
+# Examples:
+#   coverage-to-md /path/to/coverage/report1.json /path/to/coverage/report2.json
+
+set -euo pipefail
+
+# json_to_md - Convert a single coverage report JSON to Markdown format
+#
+# Arguments:
+#   $1  JSON file path
+#
+function json_to_md {
+    local jq_filter='.packages | to_entries[] | "\(.key) \(.value.coverage) \(.value.missing | length) \(.value.missing | join(" "))"'
+    jq -r "$jq_filter" $1 | while read -r pkg coverage count missing; do
+    
+    echo "<details>"
+    
+    if [ "$count" -eq 0 ]; then
+        echo "<summary><code>${pkg}</code>: ☂️ ${coverage}% (0 missing)</summary>"
+    else
+        echo "<summary><code>${pkg}</code>: 🌂 ${coverage}% (${count} missing)</summary>"
+        
+        echo ""
+        echo "\`\`\`"
+        
+        IFS=' ' read -ra items <<< "$missing"
+        for item in "${items[@]}"; do
+            echo "$item"
+        done
+        
+        echo "\`\`\`"
+    fi
+    
+    echo "</details>"
+    echo ""
+    
+    done
+}
+
+# Main function
+#
+function main {
+    echo "### Test Coverage"
+
+    total=0
+    count=0
+
+    md_body=""
+    for file in "$@" ; do
+        if [[ ! -f "$file" ]]; then
+            echo "Error: File not found - $file" >&2
+            exit 1
+        fi
+
+        file_total=$(jq -r '.total_coverage' <$file)
+        arch=$(jq -r '.arch' < "$file")
+
+        md_body+="---"$'\n'
+        md_body+="#### Arch: ${arch}"$'\n\n'
+        md_body+="Coverage: ${file_total}%"$'\n\n'
+        md_body+="$(json_to_md "$file")"$'\n\n'
+        
+        total=$(echo "$total + $file_total" | bc)
+        count=$((count + 1))
+    done
+
+    # Create the Markdown output
+    average=$(echo "scale=2; $total / $count" | bc)
+    echo "Average Total Coverage: ${average}%"
+    echo ""
+    echo "$md_body"
+}
+
+main "$@"

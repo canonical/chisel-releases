@@ -15,6 +15,9 @@ jobs:
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
+    env:
+      main-branch-path: files-from-main
+      MANIFESTS_EXPORT_DIR: /usr/share/manifests
     steps:
       - uses: actions/checkout@v4
 
@@ -71,7 +74,73 @@ jobs:
           echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
       - name: Build and run spread
+        id: run-spread
         if: ${{ steps.spread-suites.outputs.run-tasks }}
         run: |
           (cd _spread/cmd/spread && go build)
           _spread/cmd/spread/spread -v ${{ steps.spread-suites.outputs.run-tasks }}
+
+      # Test coverage report
+      # Note that these steps depend on the success of the spread tests. This is
+      # because when no slices are changed, the spread tests are skipped, and thus
+      # there is no coverage report to generate.
+      - name: Checkout main branch
+        if: ${{ steps.run-spread.conclusion == 'success' }}
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+      
+      - name: Create json coverage report
+        if: ${{ steps.run-spread.conclusion == 'success' }}
+        id: json-coverage-report
+        run: |
+          awk 'FNR==1{print "---"}{print}' "${{ steps.changed-slices.outputs.slices_files }}" > committed-slices.yaml
+          find "$MANIFESTS_EXPORT_DIR" -type f -name "*.wall" -exec zstdcat {} \; > installed-slices.wall
+
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
+          ./coverage-report installed-slices.wall committed-slices.yaml > coverage-report_${{ matrix.runner.name }}.json
+
+      - name: Upload report
+        if: ${{ steps.run-spread.conclusion == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-coverage-report_${{ matrix.runner.name }}.json
+          path: coverage-report_${{ matrix.runner.name }}.json
+
+  generate-pr-comment:
+    name: Generate PR Comment
+    runs-on: ubuntu-latest
+    needs: [ spread-tests ]
+    env:
+      main-branch-path: files-from-main
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+      
+      - name: Download coverage reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: integration-test-coverage-report_*.json
+          path: coverage-reports
+          merge-multiple: true
+
+      - name: Create markdown comment
+        run: |
+          set -ex
+          ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
+          ./coverage-to-md $(ls coverage-reports/*.json | xargs) > coverage-summary.md
+    
+      - name: Upload comment to PR
+        if: ${{ github.event.pull_request }}
+        uses: canonical/chisel-releases/.github/actions/upload-pr-comment@main
+        with:
+          message-path: coverage-summary.md
+          message-id: coverage-summary
