@@ -17,12 +17,12 @@ slices:
     essential:
       - apache2-data_data
       - apache2_core
-      - apache2_default-site
+      - apache2_index
       - apache2_scripts
 
-  default-site:
+  index:
     essential:
-      - apache2-data_default-site
+      - apache2-data_index
       - apache2_sites
     contents:
       # Create the default page to copy afterwards in mutate

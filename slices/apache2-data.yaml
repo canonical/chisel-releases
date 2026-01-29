@@ -7,11 +7,11 @@ slices:
 
   data:
     essential:
-      - apache2-data_default-site
+      - apache2-data_index
       - apache2-data_error
       - apache2-data_icons
 
-  default-site:
+  index:
     contents:
       /usr/share/apache2/default-site/index.html:
 
