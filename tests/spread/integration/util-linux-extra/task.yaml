@@ -1,0 +1,81 @@
+summary: Integration tests for util-linux-extra
+
+# Binaries involving disk, partition and device operations are only tested with
+# the `--help` command as the smoke test.
+# Some of the binaries are not possible to be tested with their functionalities
+# due to the limitation of the spread test environment.
+# Some of the binaries neither changes the status of the system, nor have
+# deterministic outputs across different systems. They are tested without
+# assertions.
+
+execute: |
+  rootfs="$(install-slices util-linux-extra_bins base-files_base bash_bins base-passwd_data)"
+
+  # we need dev/sys mounted for some of them
+  mkdir "${rootfs}"/dev
+  mkdir "${rootfs}"/proc
+  mkdir "${rootfs}"/sys
+
+  mount --bind /dev "${rootfs}"/dev
+  mount --bind /proc "${rootfs}"/proc
+  mount --bind /sys "${rootfs}"/sys
+
+  # Block, partition and device related operations tested with --help
+  chroot "${rootfs}" addpart --help
+  chroot "${rootfs}" blkzone --help
+  chroot "${rootfs}" chcpu --help
+  chroot "${rootfs}" chmem --help
+  chroot "${rootfs}" coresched --help
+  chroot "${rootfs}" delpart --help
+  chroot "${rootfs}" enosys --help
+  chroot "${rootfs}" isosize --help
+  chroot "${rootfs}" ldattach --help
+  chroot "${rootfs}" pivot_root --help
+  chroot "${rootfs}" resizepart --help
+  chroot "${rootfs}" switch_root --help
+  chroot "${rootfs}" wdctl --help
+  chroot "${rootfs}" blkpr --help
+  chroot "${rootfs}" ctrlaltdel --help
+  chroot "${rootfs}" fsck.cramfs --help
+  chroot "${rootfs}" fsck.minix --help
+  chroot "${rootfs}" hwclock --help
+  chroot "${rootfs}" mkfs.bfs --help
+  chroot "${rootfs}" mkfs.cramfs --help
+  chroot "${rootfs}" mkfs.minix --help
+
+  # File related operations
+  echo foo > "${rootfs}"/file1
+  echo bar > "${rootfs}"/file2
+
+  # exch
+  chroot "${rootfs}" exch file1 file2
+  [ "$(cat $rootfs/file1)" = "bar" ]
+  [ "$(cat $rootfs/file2)" = "foo" ]
+
+  # fincore
+  chroot "${rootfs}" fincore file1 | grep "file1"
+  
+  # fadvise
+  chroot "${rootfs}" fadvise file2
+  [ $? -eq 0 ]
+
+  # tests for other binaries
+  chroot "${rootfs}" bits 5 | grep "0x20"
+  chroot "${rootfs}" lsclocks
+  chroot "${rootfs}" lsfd
+  chroot "${rootfs}" lsirq
+  chroot "${rootfs}" lslogins
+  chroot "${rootfs}" lsmem | grep "Total online memory"
+  chroot "$rootfs" newgrp root
+  chroot "$rootfs" sg root
+  echo "test" | chroot "$rootfs" pipesz -g
+  chroot "${rootfs}" rename.ul copyright copyright2 /usr/share/doc/util-linux-extra/copyright
+
+  # waitpid
+  sleep 2 &
+  chroot "${rootfs}" waitpid $!
+
+  # cleanup
+  umount -l "${rootfs}"/dev
+  umount -l "${rootfs}"/proc
+  umount -l "${rootfs}"/sys
