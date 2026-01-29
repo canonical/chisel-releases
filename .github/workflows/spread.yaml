@@ -15,6 +15,8 @@ jobs:
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
+    outputs:
+      tests-conclusion: ${{ steps.run-spread.conclusion }}
     env:
       main-branch-path: files-from-main
       MANIFESTS_EXPORT_DIR: /usr/share/manifests
@@ -115,6 +117,7 @@ jobs:
     name: Generate PR Comment
     runs-on: ubuntu-latest
     needs: [ spread-tests ]
+    if: ${{ needs.spread-tests.outputs.tests-conclusion == 'success' }}
     env:
       main-branch-path: files-from-main
     permissions:
