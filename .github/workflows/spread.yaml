@@ -15,6 +15,8 @@ jobs:
             runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
+    outputs:
+      tests-conclusion: ${{ steps.run-spread.conclusion }}
     env:
       main-branch-path: files-from-main
       MANIFESTS_EXPORT_DIR: /usr/share/manifests
@@ -73,6 +75,9 @@ jobs:
 
           echo "run-tasks=$(echo ${spread_tasks} | awk '{$1=$1};1')" >> $GITHUB_OUTPUT
 
+          # Create directory for manifests
+          sudo mkdir -p $MANIFESTS_EXPORT_DIR && sudo chown $USER:$USER $MANIFESTS_EXPORT_DIR
+
       - name: Build and run spread
         id: run-spread
         if: ${{ steps.spread-suites.outputs.run-tasks }}
@@ -112,6 +117,7 @@ jobs:
     name: Generate PR Comment
     runs-on: ubuntu-latest
     needs: [ spread-tests ]
+    if: ${{ needs.spread-tests.outputs.tests-conclusion == 'success' }}
     env:
       main-branch-path: files-from-main
     permissions:
