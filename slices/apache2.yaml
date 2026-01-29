@@ -12,6 +12,10 @@ slices:
       - apache2_sites
       - media-types_data
       - procps_bins
+    contents: 
+      /var/log/apache2/access.log: { text: "", mode: 0640 }
+      /var/log/apache2/error.log: { text: "", mode: 0640 }
+      /var/log/apache2/other_vhosts_access.log: { text: "", mode: 0640 }
 
   standard:
     essential:
@@ -128,11 +132,6 @@ slices:
       # Enable the default site
       /etc/apache2/sites-enabled/000-default.conf:
         { symlink: /etc/apache2/sites-available/000-default.conf }
-
-      # Create access log files
-      /var/log/apache2/access.log: { text: "", mode: 0640 }
-      /var/log/apache2/error.log: { text: "", mode: 0640 }
-      /var/log/apache2/other_vhosts_access.log: { text: "", mode: 0640 }
 
   scripts:
     # NOTE: This slice requires awk to run the scripts correctly
