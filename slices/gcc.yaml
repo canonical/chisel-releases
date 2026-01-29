@@ -12,6 +12,7 @@ slices:
       # - gcc (priority 20)
       # - clang (priority 10)
       # - tcc (priority 10)
+      # - pcc (priority -100)
       /usr/bin/cc:
         symlink: /usr/bin/gcc
       /usr/bin/gcc:  # Symlink to gcc-15
