@@ -12,6 +12,8 @@ slices:
       - apache2-data_index
 
   index:
+    # This slice contains the default index page for apache2
+    # which should be copied to /var/www/html/index.html
     contents:
       /usr/share/apache2/default-site/index.html:
 

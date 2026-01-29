@@ -24,10 +24,12 @@ slices:
       - apache2_scripts
 
   index:
+    # Create default index page in /var/www/html
+    # This slice creates an empty index.html and then
+    # copies the contents from apache2-data_index slice via mutate
     essential:
       - apache2-data_index
     contents:
-      # Create the default page to copy afterwards in mutate
       /var/www/html/index.html: { mutable: true, text: "" }
     mutate: |
       src = "/usr/share/apache2/default-site/index.html"
