@@ -1,0 +1,21 @@
+package: ethtool
+
+essential:
+  - ethtool_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libmnl0_libs
+    contents:
+      /usr/sbin/ethtool:
+
+  network-if:
+    contents:
+      /etc/network/if-pre-up.d/ethtool:
+      /etc/network/if-up.d/ethtool:
+
+  copyright:
+    contents:
+      /usr/share/doc/ethtool/copyright:

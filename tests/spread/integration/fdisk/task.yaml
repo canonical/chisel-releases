@@ -1,0 +1,6 @@
+summary: Integration tests for fdisk
+
+execute: |
+  rootfs="$(install-slices fdisk_bins)"
+
+  chroot "${rootfs}" /usr/sbin/fdisk -v >/dev/null

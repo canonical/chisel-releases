@@ -1,0 +1,6 @@
+summary: Integration tests for python3-attr
+
+execute: |
+  rootfs="$(install-slices python3-attr_libs)"
+
+  chroot "${rootfs}" python3 -c "import attr" >/dev/null

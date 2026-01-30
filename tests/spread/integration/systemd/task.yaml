@@ -3,7 +3,7 @@ summary: Integration tests for systemd
 execute: |
   # Chisel a minimum number of slices to give us a runnable system that we can
   # test in.
-  rootfs="$(install-slices bash_bins coreutils_bins passwd_config base-files_base systemd_bins)"
+  rootfs="$(install-slices bash_bins coreutils_bins passwd_config base-files_base systemd_standard)"
   
   # systemd needs proc mounted
   mkdir "${rootfs}"/proc

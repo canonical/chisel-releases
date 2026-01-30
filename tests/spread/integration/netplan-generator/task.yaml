@@ -1,0 +1,16 @@
+summary: Integration tests for netplan-generator
+
+execute: |
+  rootfs="$(install-slices netplan-generator_libs)"
+
+  test -x "${rootfs}/usr/libexec/netplan/generate"
+  test -x "${rootfs}/usr/lib/systemd/system-generators/netplan"
+
+  # Ensure the generator is runnable in the chiselled rootfs (i.e. no missing
+  # dynamic loader/shared libraries). Some versions may exit non-zero for
+  # "--help", so we accept any exit code but assert it doesn't fail to exec.
+  out="$(chroot "${rootfs}/" /usr/libexec/netplan/generate --help 2>&1 || true)"
+  if echo "${out}" | grep -qiE "error while loading shared libraries|No such file or directory"; then
+    echo "${out}"
+    exit 1
+  fi

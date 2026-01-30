@@ -1,0 +1,12 @@
+summary: Integration tests for logsave
+
+execute: |
+  rootfs="$(install-slices coreutils-from-gnu_ls-utility grep_bins logsave_bins)"
+
+  mkdir -p "${rootfs}/tmp"
+
+  # echo some text and capture it with logsave
+  chroot "${rootfs}/" /usr/sbin/logsave /tmp/logfile.txt ls -lR /
+
+  # verify that the text was captured correctly
+  chroot "${rootfs}/" /usr/bin/grep "bin" /tmp/logfile.txt

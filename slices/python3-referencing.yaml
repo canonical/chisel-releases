@@ -1,0 +1,19 @@
+package: python3-referencing
+
+essential:
+  - python3-referencing_copyright
+
+slices:
+  libs:
+    essential:
+      - python3-attr_libs
+      - python3-rpds-py_libs
+      - python3-typing-extensions_libs
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/referencing*.dist-info/**:
+      /usr/lib/python3/dist-packages/referencing/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-referencing/copyright:

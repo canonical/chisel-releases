@@ -1,0 +1,6 @@
+summary: Integration tests for ethtool
+
+execute: |
+  rootfs="$(install-slices ethtool_bins)"
+
+  chroot "${rootfs}/" /usr/sbin/ethtool --version

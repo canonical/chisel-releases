@@ -1,0 +1,16 @@
+package: python3-certifi
+
+essential:
+  - python3-certifi_copyright
+
+slices:
+  libs:
+    essential:
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/certifi*.dist-info/**:
+      /usr/lib/python3/dist-packages/certifi/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-certifi/copyright:
