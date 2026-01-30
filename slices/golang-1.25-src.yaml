@@ -1,0 +1,231 @@
+package: golang-1.25-src
+
+essential:
+  - golang-1.25-src_copyright
+
+slices:
+  # Note: This slice contains the source code of Go 1.25 as well as the tests.
+  # Due to Go's project layout convention, we cannot split the source code
+  # easily without Chisel's support for negative wildcards.
+  # To exclude the tests and test data, a command should be run after cutting
+  # this slice:
+  #   find . -depth \( \
+  #      \( -path '*test*' \
+  #         ! -path '*src/testing*' \
+  #         ! -path '*src/internal/test*' \
+  #         ! -path '*src/internal/synctest' \
+  #         ! -path '*synctest.go' \
+  #         ! -path '*synctest_o*' \) -o \
+  #      \( -path '*/testing/*' -name '*_test.go' \) \
+  #      \) -exec rm -rf {} +
+  src-with-tests:
+    essential:
+      - golang-1.25-src_api
+      - golang-1.25-src_libs
+    contents:
+      # Note: Some paths are explicitly listed to avoid conflicts with
+      # the paths defined in golang-1.25-go.
+      # src/cmd/** conflicts with
+      #   src/cmd/cgo/zdefaultcc.go
+      #   src/cmd/go/internal/cfg/zdefaultcc.go
+      #   src/cmd/internal/objabi/zbootstrap.go
+      # src/internal/** conflicts with
+      #   src/internal/buildcfg/zbootstrap.go
+      #   src/internal/runtime/sys/zversion.go
+      # src/time/** conflicts with
+      #   src/time/tzdata/zzipdata.go
+      /usr/share/go-1.25/misc/**:
+      /usr/share/go-1.25/src/Make.dist:
+      /usr/share/go-1.25/src/a*/**:
+      /usr/share/go-1.25/src/b*/**:
+      /usr/share/go-1.25/src/cmd/a*/**:
+      /usr/share/go-1.25/src/cmd/b*/**:
+      /usr/share/go-1.25/src/cmd/cgo/a*.go:
+      /usr/share/go-1.25/src/cmd/cgo/doc.go:
+      /usr/share/go-1.25/src/cmd/cgo/g*.go:
+      /usr/share/go-1.25/src/cmd/cgo/internal/**:
+      /usr/share/go-1.25/src/cmd/cgo/main.go:
+      /usr/share/go-1.25/src/cmd/cgo/out.go:
+      /usr/share/go-1.25/src/cmd/cgo/util.go:
+      /usr/share/go-1.25/src/cmd/co*/**:
+      /usr/share/go-1.25/src/cmd/d*/**:
+      /usr/share/go-1.25/src/cmd/f*/**:
+      /usr/share/go-1.25/src/cmd/go.mod:
+      /usr/share/go-1.25/src/cmd/go.sum:
+      /usr/share/go-1.25/src/cmd/go/*.go:
+      /usr/share/go-1.25/src/cmd/go/internal/a*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/b*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/ca*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/cfg/bench_test.go:
+      /usr/share/go-1.25/src/cmd/go/internal/cfg/cfg.go:
+      /usr/share/go-1.25/src/cmd/go/internal/cl*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/cm*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/d*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/e*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/f*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/g*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/h*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/i*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/l*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/m*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/r*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/s*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/t*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/v*/**:
+      /usr/share/go-1.25/src/cmd/go/internal/w*/**:
+      /usr/share/go-1.25/src/cmd/go/t*/**:
+      /usr/share/go-1.25/src/cmd/gof*/**:
+      /usr/share/go-1.25/src/cmd/internal/a*/**:
+      /usr/share/go-1.25/src/cmd/internal/b*/**:
+      /usr/share/go-1.25/src/cmd/internal/c*/**:
+      /usr/share/go-1.25/src/cmd/internal/d*/**:
+      /usr/share/go-1.25/src/cmd/internal/e*/**:
+      /usr/share/go-1.25/src/cmd/internal/g*/**:
+      /usr/share/go-1.25/src/cmd/internal/h*/**:
+      /usr/share/go-1.25/src/cmd/internal/m*/**:
+      /usr/share/go-1.25/src/cmd/internal/obj/**:
+      /usr/share/go-1.25/src/cmd/internal/objabi/a*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/f*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/h*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/l*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/p*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/r*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/s*:
+      /usr/share/go-1.25/src/cmd/internal/objabi/u*:
+      /usr/share/go-1.25/src/cmd/internal/objfile/*.go:
+      /usr/share/go-1.25/src/cmd/internal/os*/**:
+      /usr/share/go-1.25/src/cmd/internal/p*/**:
+      /usr/share/go-1.25/src/cmd/internal/q*/**:
+      /usr/share/go-1.25/src/cmd/internal/r*/**:
+      /usr/share/go-1.25/src/cmd/internal/s*/**:
+      /usr/share/go-1.25/src/cmd/internal/t*/**:
+      /usr/share/go-1.25/src/cmd/l*/**:
+      /usr/share/go-1.25/src/cmd/n*/**:
+      /usr/share/go-1.25/src/cmd/o*/**:
+      /usr/share/go-1.25/src/cmd/p*/**:
+      /usr/share/go-1.25/src/cmd/r*/**:
+      /usr/share/go-1.25/src/cmd/t*/**:
+      /usr/share/go-1.25/src/cmd/v*/**:
+      /usr/share/go-1.25/src/cmp/**:
+      /usr/share/go-1.25/src/co*/**:
+      /usr/share/go-1.25/src/crypto/**:
+      /usr/share/go-1.25/src/d*/**:
+      /usr/share/go-1.25/src/e*/**:
+      /usr/share/go-1.25/src/f*/**:
+      /usr/share/go-1.25/src/go.mod:
+      /usr/share/go-1.25/src/go.sum:
+      /usr/share/go-1.25/src/go/**:
+      /usr/share/go-1.25/src/h*/**:
+      /usr/share/go-1.25/src/im*/**:
+      /usr/share/go-1.25/src/ind*/**:
+      /usr/share/go-1.25/src/internal/a*/**:
+      /usr/share/go-1.25/src/internal/bi*/**:
+      /usr/share/go-1.25/src/internal/buildcfg/c*:
+      /usr/share/go-1.25/src/internal/buildcfg/e*:
+      /usr/share/go-1.25/src/internal/by*/**:
+      /usr/share/go-1.25/src/internal/c*/**:
+      /usr/share/go-1.25/src/internal/d*/**:
+      /usr/share/go-1.25/src/internal/e*/**:
+      /usr/share/go-1.25/src/internal/f*/**:
+      /usr/share/go-1.25/src/internal/g*/**:
+      /usr/share/go-1.25/src/internal/i*/**:
+      /usr/share/go-1.25/src/internal/l*/**:
+      /usr/share/go-1.25/src/internal/m*/**:
+      /usr/share/go-1.25/src/internal/n*/**:
+      /usr/share/go-1.25/src/internal/o*/**:
+      /usr/share/go-1.25/src/internal/p*/**:
+      /usr/share/go-1.25/src/internal/ra*/**:
+      /usr/share/go-1.25/src/internal/re*/**:
+      /usr/share/go-1.25/src/internal/ro*/**:
+      /usr/share/go-1.25/src/internal/runtime/a*/**:
+      /usr/share/go-1.25/src/internal/runtime/c*/**:
+      /usr/share/go-1.25/src/internal/runtime/e*/**:
+      /usr/share/go-1.25/src/internal/runtime/g*/**:
+      /usr/share/go-1.25/src/internal/runtime/m*/**:
+      /usr/share/go-1.25/src/internal/runtime/st*/**:
+      /usr/share/go-1.25/src/internal/runtime/sys/c*:
+      /usr/share/go-1.25/src/internal/runtime/sys/d*:
+      /usr/share/go-1.25/src/internal/runtime/sys/e*:
+      /usr/share/go-1.25/src/internal/runtime/sys/i*:
+      /usr/share/go-1.25/src/internal/runtime/sys/n*:
+      /usr/share/go-1.25/src/internal/runtime/sys/s*:
+      /usr/share/go-1.25/src/internal/runtime/sysc*/**:
+      /usr/share/go-1.25/src/internal/runtime/w*/**:
+      /usr/share/go-1.25/src/internal/s*/**:
+      /usr/share/go-1.25/src/internal/t*/**:
+      /usr/share/go-1.25/src/internal/u*/**:
+      /usr/share/go-1.25/src/internal/x*/**:
+      /usr/share/go-1.25/src/internal/z*/**:
+      /usr/share/go-1.25/src/io*/**:
+      /usr/share/go-1.25/src/it*/**:
+      /usr/share/go-1.25/src/l*/**:
+      /usr/share/go-1.25/src/m*/**:
+      /usr/share/go-1.25/src/n*/**:
+      /usr/share/go-1.25/src/o*/**:
+      /usr/share/go-1.25/src/p*/**:
+      /usr/share/go-1.25/src/re*/**:
+      /usr/share/go-1.25/src/runtime/**.S:
+      /usr/share/go-1.25/src/runtime/**.c:
+      /usr/share/go-1.25/src/runtime/**.h:
+      /usr/share/go-1.25/src/runtime/**.s:
+      /usr/share/go-1.25/src/runtime/*.go:
+      /usr/share/go-1.25/src/runtime/*.py:
+      /usr/share/go-1.25/src/runtime/Makefile:
+      /usr/share/go-1.25/src/runtime/a*/**:
+      /usr/share/go-1.25/src/runtime/c*/**:
+      /usr/share/go-1.25/src/runtime/d*/**:
+      # /usr/share/go-1.25/src/runtime/internal/st*/**:
+      # /usr/share/go-1.25/src/runtime/internal/w*/**:
+      /usr/share/go-1.25/src/runtime/m*/**:
+      /usr/share/go-1.25/src/runtime/p*/**:
+      /usr/share/go-1.25/src/runtime/r*/**:
+      /usr/share/go-1.25/src/runtime/t*/**:
+      /usr/share/go-1.25/src/s*/**:
+      /usr/share/go-1.25/src/te*/**:
+      /usr/share/go-1.25/src/time/*.go:
+      /usr/share/go-1.25/src/time/te*/**:
+      /usr/share/go-1.25/src/time/tzdata/tzdata.go:
+      /usr/share/go-1.25/src/u*/**:
+      /usr/share/go-1.25/src/v*/**:
+      /usr/share/go-1.25/src/w*/**:
+      /usr/share/go-1.25/test/**:
+
+  api:
+    contents:
+      /usr/share/go-1.25/api/*.txt:
+
+  bash-scripts:
+    essential:
+      - bash_bins
+      - binutils_linker
+      # TODO: Include binutils-${ARCH_TRIPLET}_loader as well.
+      - coreutils_bins
+      - grep_bins
+    contents:
+      /usr/share/go-1.25/src/all.bash:
+      /usr/share/go-1.25/src/bootstrap.bash:
+      /usr/share/go-1.25/src/buildall.bash:
+      /usr/share/go-1.25/src/clean.bash:
+      /usr/share/go-1.25/src/cmp.bash:
+      /usr/share/go-1.25/src/make.bash:
+      /usr/share/go-1.25/src/race.bash:
+      /usr/share/go-1.25/src/run.bash:
+
+  libs:
+    essential:
+      - bash_bins
+      - coreutils_bins
+      - make_bins
+    contents:
+      /usr/share/go-1.25/lib/fips140/Makefile:
+      /usr/share/go-1.25/lib/fips140/fips140.sum:
+      /usr/share/go-1.25/lib/fips140/inprocess.txt:
+      /usr/share/go-1.25/lib/fips140/v1.0.0.zip:
+      /usr/share/go-1.25/lib/time/mkzip.go:
+      /usr/share/go-1.25/lib/time/update.bash:
+      /usr/share/go-1.25/lib/time/zoneinfo.zip:
+      /usr/share/go-1.25/lib/wasm/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.25-src/copyright:

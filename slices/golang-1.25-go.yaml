@@ -1,0 +1,98 @@
+package: golang-1.25-go
+
+essential:
+  - golang-1.25-go_copyright
+
+slices:
+  # Note: The minimal slice provides a working Go installation
+  #       that can be used to build and run simple Go programs,
+  #       such as a "Hello World" program.
+  #       See tests/spread/integration/golang-1.25-go/test_minimal.sh
+  #       for more details.
+  minimal:
+    essential:
+      - base-files_tmp
+      - golang-1.25-go_build-tools
+      - golang-1.25-go_headers
+      - golang-1.25-go_symlinks
+      - golang-1.25-src_src-with-tests
+    contents:
+      /usr/lib/go-1.25/bin/go:
+      /usr/lib/go-1.25/bin/gofmt:
+
+  # Note: The core slices provides the source code within the golang-1.25-go
+  #       package in additional to the minimal slice.
+  core:
+    essential:
+      - golang-1.25-go_cmd-src
+      - golang-1.25-go_go-env
+      - golang-1.25-go_internal-src
+      - golang-1.25-go_minimal
+      - golang-1.25-go_runtime-src
+      - golang-1.25-go_time-src
+
+  # Note: The build-tools provides the essential Go tools for building
+  #       a minimal Go program, i.e., a single Hello World program.
+  build-tools:
+    contents:
+      /usr/lib/go-1.25/pkg/tool/linux_*/asm:
+      /usr/lib/go-1.25/pkg/tool/linux_*/compile:
+      /usr/lib/go-1.25/pkg/tool/linux_*/link:
+      # vet is used for go test
+      /usr/lib/go-1.25/pkg/tool/linux_*/vet:
+
+  cgo-tools:
+    essential:
+      - gcc_gcc
+      - libc6-dev_core
+      - libc6-dev_libresolv
+      - libc6-dev_runtime
+    contents:
+      /usr/lib/go-1.25/pkg/tool/linux_*/cgo:
+
+  cmd-src:
+    contents:
+      /usr/share/go-1.25/src/cmd/cgo/zdefaultcc.go:
+      /usr/share/go-1.25/src/cmd/go/internal/cfg/zdefaultcc.go:
+      /usr/share/go-1.25/src/cmd/internal/objabi/zbootstrap.go:
+
+  go-env:
+    contents:
+      /usr/lib/go-1.25/go.env:
+
+  headers:
+    contents:
+      /usr/share/go-1.25/pkg/include/*.h:
+
+  internal-src:
+    contents:
+      /usr/share/go-1.25/src/internal/buildcfg/zbootstrap.go:
+
+  profiling-tools:
+    contents:
+      /usr/lib/go-1.25/pkg/tool/linux_*/preprofile:
+
+  runtime-src:
+    contents:
+      /usr/share/go-1.25/src/internal/runtime/sys/zversion.go:
+
+  symlinks:
+    contents:
+      /usr/lib/go-1.25/api:  # Symlink to ../share/go-1.25/api
+      /usr/lib/go-1.25/lib:  # Symlink to ../share/go-1.25/lib
+      /usr/lib/go-1.25/misc:  # Symlink to ../share/go-1.25/misc
+      /usr/lib/go-1.25/pkg/include:  # Symlink to ../share/go-1.25/pkg/include
+      /usr/lib/go-1.25/src:  # Symlink to ../share/go-1.25/src
+      /usr/lib/go-1.25/test:  # Symlink to ../share/go-1.25/test
+
+  testing-tools:
+    contents:
+      /usr/lib/go-1.25/pkg/tool/linux_*/cover:
+
+  time-src:
+    contents:
+      /usr/share/go-1.25/src/time/tzdata/zzipdata.go:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.25-go/copyright:
