@@ -1,0 +1,6 @@
+summary: Integration tests for golang
+
+variants:
+  - all
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
