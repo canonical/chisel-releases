@@ -1,0 +1,6 @@
+summary: Integration tests for python3.14-venv
+
+execute: |
+  rootfs="$(install-slices python3.14-venv_ensurepip)"
+
+  chroot "$rootfs" python3.14 -m venv /my_env
