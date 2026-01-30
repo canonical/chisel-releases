@@ -1,0 +1,14 @@
+package: node-ms
+
+essential:
+  - node-ms_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/share/nodejs/ms/index.js:
+      /usr/share/nodejs/ms/package.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-ms/copyright:
