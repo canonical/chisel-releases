@@ -8,6 +8,13 @@ slices:
     essential:
       - gcc-15_gcc-15
     contents:
+      # NOTE: there are 4 packages which provide /usr/bin/cc alternative implementations:
+      # - gcc (priority 20)
+      # - clang (priority 10)
+      # - tcc (priority 10)
+      # - pcc (priority -100)
+      /usr/bin/cc:
+        symlink: /usr/bin/gcc
       /usr/bin/gcc:  # Symlink to gcc-15
 
   copyright:
