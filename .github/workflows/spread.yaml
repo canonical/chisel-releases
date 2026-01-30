@@ -100,7 +100,7 @@ jobs:
         if: ${{ steps.run-spread.conclusion == 'success' }}
         id: json-coverage-report
         run: |
-          awk 'FNR==1{print "---"}{print}' "${{ steps.changed-slices.outputs.slices_files }}" > committed-slices.yaml
+          printf '%s\n' "${{ steps.changed-slices.outputs.slices_files }}" | xargs awk 'FNR==1{print "---"}{print}' > committed-slices.yaml
           find "$MANIFESTS_EXPORT_DIR" -type f -name "*.wall" -exec zstdcat {} \; > installed-slices.wall
 
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-report" coverage-report
