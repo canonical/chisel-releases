@@ -3,6 +3,8 @@ package: coreutils
 essential:
   - coreutils_copyright
 
+# hello coreutils
+
 slices:
   libs:
     essential:
