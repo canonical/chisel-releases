@@ -33,8 +33,8 @@ prepare: |
   
   # needed by crypto libraries e.g. to generate a GUID's
   mkdir -p "${rootfs}"/dev
-  head -c 500 /dev/urandom > "${rootfs}"/dev/random
-  head -c 500 /dev/urandom > "${rootfs}"/dev/urandom
+  head -c 10000 /dev/urandom > "${rootfs}"/dev/random
+  head -c 10000 /dev/urandom > "${rootfs}"/dev/urandom
   
   # The .NET SDK creates config files in the users home directory.
   mkdir -p "${rootfs}${HOME}"
