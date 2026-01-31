@@ -9,7 +9,7 @@ slices:
   #       which are already included in the gcc_gcc essential.
   #       Rust calls `cc` to link the final binary, so you will need to create
   #       the symlink for that to work:
-  #       ls -s gcc /usr/bin/cc
+  #       ln -s gcc /usr/bin/cc
   rustc:
     essential:
       - base-files_tmp
