@@ -11,7 +11,7 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/dotnet/host/fxr/*/libhostfxr.so:
+      /usr/lib/dotnet/host/fxr/6.0.*/libhostfxr.so:
 
   copyright:
     contents:
