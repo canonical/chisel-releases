@@ -1,0 +1,23 @@
+package: libllvm20
+
+essential:
+  - libllvm20_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libedit2_libs
+      - libffi8_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libxml2-16_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libLLVM-20.so:
+      /usr/lib/*-linux-*/libLLVM.so.20.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libllvm20/copyright:
