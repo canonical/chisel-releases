@@ -245,6 +245,14 @@ slices:
     essential:
       - coreutils-from-gnu_unlink
 
+  cat:
+    essential:
+      - coreutils-from-gnu_cat
+
+  ls-utility:
+    essential:
+      - coreutils-from-gnu_ls-utility
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
