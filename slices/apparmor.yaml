@@ -19,7 +19,7 @@ slices:
       /usr/sbin/aa-load:
       /usr/sbin/aa-status:
       /usr/sbin/apparmor_status:
-  
+
   parser:
     essential:
       - libc6_libs
