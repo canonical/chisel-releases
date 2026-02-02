@@ -9,6 +9,7 @@ slices:
   bins:
     essential:
       - apparmor_config
+      - apparmor_parser
       - apparmor_profiles
       - libc6_libs
     contents:
@@ -17,43 +18,45 @@ slices:
       /usr/bin/aa-features-abi:
       /usr/sbin/aa-load:
       /usr/sbin/aa-status:
-      /usr/sbin/apparmor_parser:
       /usr/sbin/apparmor_status:
+  
+  parser:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/sbin/apparmor_parser:
 
   scripts:
     essential:
-      - apparmor_aa-remove-unknown
-      - apparmor_aa-teardown
-
-  aa-remove-unknown:
-    essential:
+      - apparmor_parser
+      - apparmor_systemd
       - base-files_bin
       - coreutils_sort
       - dash_bins
       - gawk_bins
     contents:
       /usr/sbin/aa-remove-unknown:
-
-  aa-teardown:
-    essential:
-      - apparmor_extras
-      - dash_bins
-      - base-files_bin
-    contents:
-      # NOTE: aa-teardown calls /usr/lib/apparmor/apparmor.systemd
       /usr/sbin/aa-teardown:
 
-  config:
-    contents:
-      /etc/apparmor/parser.conf:
-      /usr/lib/sysctl.d/10-apparmor.conf:
-
-  extras:
+  systemd:
+    essential:
+      - coreutils_cat
+      - coreutils_ls-utility
+      - coreutils_sort
+      - grep_bins
+      - sed_bins
+      - systemd_detect-virt
+      - procps_sysctl
     contents:
       /usr/lib/apparmor/apparmor.systemd:
       /usr/lib/apparmor/profile-load:
       /usr/lib/apparmor/rc.apparmor.functions:
       /usr/lib/systemd/system/apparmor.service:
+
+  config:
+    contents:
+      /etc/apparmor/parser.conf:
+      /usr/lib/sysctl.d/10-apparmor.conf:
 
   profiles:
     contents:

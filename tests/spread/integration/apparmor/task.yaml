@@ -2,5 +2,6 @@ summary: Integration tests for apparmor
 
 variants:
     - parser
+    - scripts
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
