@@ -6,6 +6,7 @@ environment:
   PROJECT_PATH: /chisel-releases
   SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
   PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
+  MANIFESTS_EXPORT_DIR: $(HOST:echo "${MANIFESTS_EXPORT_DIR:-/usr/share/manifests}")
 
 exclude:
   - .github
@@ -39,7 +40,13 @@ backends:
       lxc exec $SPREAD_SYSTEM -- bash -c "echo root:${SPREAD_SYSTEM_PASSWORD} | chpasswd"
       lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
       ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
-    discard: lxc stop $SPREAD_SYSTEM || true
+        
+    # When discarding the instance, pull the manifests if MANIFESTS_EXPORT_DIR is set in the HOST environment
+    # This allows us to collect the generated manifests after the test run. If the variable is not set,
+    # the pull step is skipped and the instance is stopped.
+    discard: |
+      [ -n "${MANIFESTS_EXPORT_DIR-}" ] && lxc file pull -pr $SPREAD_SYSTEM/$MANIFESTS_EXPORT_DIR $MANIFESTS_EXPORT_DIR
+      lxc stop $SPREAD_SYSTEM || true
     systems:
       - ubuntu-jammy:
           password: ubuntu
