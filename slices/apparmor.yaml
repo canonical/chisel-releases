@@ -44,9 +44,9 @@ slices:
       - coreutils_ls-utility
       - coreutils_sort
       - grep_bins
+      - procps_sysctl
       - sed_bins
       - systemd_detect-virt
-      - procps_sysctl
     contents:
       /usr/lib/apparmor/apparmor.systemd:
       /usr/lib/apparmor/profile-load:
