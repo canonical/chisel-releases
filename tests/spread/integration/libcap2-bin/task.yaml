@@ -1,0 +1,12 @@
+summary: Integration tests for libcap2-bin
+
+execute: |
+  rootfs="$(install-slices libcap2-bin_bins)"
+
+  chroot "$rootfs" capsh --print
+  chroot "$rootfs" setcap cap_net_raw+ep /sbin/capsh
+  chroot "$rootfs" getcap /sbin/capsh
+  chroot "$rootfs" getpcaps $$
+
+  rootfs_setcap="$(install-slices libcap2-bin_setcap)"
+  chroot "$rootfs_setcap" setcap cap_net_raw+ep /sbin/setcap
