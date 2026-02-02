@@ -16,11 +16,32 @@ slices:
       /usr/bin/aa-exec:
       /usr/bin/aa-features-abi:
       /usr/sbin/aa-load:
-      /usr/sbin/aa-remove-unknown:
       /usr/sbin/aa-status:
-      /usr/sbin/aa-teardown:
       /usr/sbin/apparmor_parser:
       /usr/sbin/apparmor_status:
+
+  scripts:
+    essential:
+      - apparmor_aa-remove-unknown
+      - apparmor_aa-teardown
+
+  aa-remove-unknown:
+    essential:
+      - base-files_bin
+      - coreutils_sort
+      - dash_bins
+      - gawk_bins
+    contents:
+      /usr/sbin/aa-remove-unknown:
+
+  aa-teardown:
+    essential:
+      - apparmor_extras
+      - dash_bins
+      - base-files_bin
+    contents:
+      # NOTE: aa-teardown calls /usr/lib/apparmor/apparmor.systemd
+      /usr/sbin/aa-teardown:
 
   config:
     contents:
