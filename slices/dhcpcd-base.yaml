@@ -17,7 +17,7 @@ slices:
 
   standard:
     essential:  
-      - dhcpcd-base_bins
+      - dhcpcd-base_core
       - dhcpcd-base_config
       - dhcpcd-base_hooks-core
       - dhcpcd-base_hooks-system
