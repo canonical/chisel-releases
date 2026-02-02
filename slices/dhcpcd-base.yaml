@@ -6,19 +6,19 @@ essential:
 slices:
   core:
     essential:
+      - dhcpcd-base_hooks-core
+      - dhcpcd-base_libs
       - libc6_libs
       - libssl3t64_libs
       - libudev1_libs
-      - dhcpcd-base_libs
-      - dhcpcd-base_hooks-core
     contents:
       /usr/sbin/dhcpcd:
       /var/lib/dhcpcd/: { make: true, mode: 0755 }
 
   standard:
     essential:
-      - dhcpcd-base_core
       - dhcpcd-base_config
+      - dhcpcd-base_core
       - dhcpcd-base_hooks-core
       - dhcpcd-base_hooks-system
 
