@@ -26,8 +26,10 @@ backends:
 
       echo "Allocating $SPREAD_SYSTEM..."
       lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
-      until lxc exec $SPREAD_SYSTEM -- systemctl status | grep "running"
-      do
+      while true; do
+        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
+        # NOTE: we accept 'degraded' as well. see https://github.com/canonical/chisel-releases/issues/828
+        [ "$status" = "running" ] || [ "$status" = "degraded" ] && break
         sleep 5
       done
       lxc exec $SPREAD_SYSTEM -- apt-get update
