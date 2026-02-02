@@ -6,49 +6,41 @@ essential:
 slices:
   core:
     essential:
-      - dhcpcd-base_hooks-core
-      - dhcpcd-base_libs
       - libc6_libs
       - libssl3t64_libs
       - libudev1_libs
+      - dhcpcd-base_libs
+      - dhcpcd-base_hooks-core
     contents:
       /usr/sbin/dhcpcd:
       /var/lib/dhcpcd/: { make: true, mode: 0755 }
 
   standard:
-    essential:
+    essential:  
+      - dhcpcd-base_bins
       - dhcpcd-base_config
-      - dhcpcd-base_core
       - dhcpcd-base_hooks-core
-      - dhcpcd-base_hooks-network
       - dhcpcd-base_hooks-system
 
   config:
     contents:
       /etc/dhcpcd.conf:
+      /usr/lib/sysusers.d/dhcpcd-base.conf:
 
   hooks-core:
     essential:
       - dhcpcd-base_config
     contents:
-      /usr/lib/dhcpcd/dhcpcd-hooks/01-test:
-      /usr/lib/dhcpcd/dhcpcd-hooks/20-resolv.conf:
-      /usr/lib/dhcpcd/dhcpcd-hooks/30-hostname:
-      /usr/lib/dhcpcd/dhcpcd-run-hooks:
-
-  hooks-network:
-    essential:
-      - dhcpcd-base_hooks-core
-    contents:
-      /usr/share/dhcpcd/hooks/10-wpa_supplicant:
-      /usr/share/dhcpcd/hooks/29-lookup-hostname:
+      /usr/libexec/dhcpcd-hooks/01-test:
+      /usr/libexec/dhcpcd-hooks/20-resolv.conf:
+      /usr/libexec/dhcpcd-hooks/30-hostname:
+      /usr/libexec/dhcpcd-run-hooks:
 
   hooks-system:
     essential:
       - dhcpcd-base_hooks-core
     contents:
-      /usr/lib/dhcpcd/dhcpcd-hooks/50-timesyncd.conf:
-      /usr/share/dhcpcd/hooks/15-timezone:
+      /usr/libexec/dhcpcd-hooks/50-timesyncd.conf:
 
   libs:
     contents:
