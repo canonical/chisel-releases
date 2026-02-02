@@ -2,6 +2,8 @@
 # which are expected to exist on every operating system.
 package: coreutils
 
+# hello
+
 essential:
   - coreutils_copyright
 
