@@ -9,7 +9,6 @@ case "${arch}" in
 esac
 
 rootfs="$(install-slices --arch "$chisel_arch" rustc-1.85_rustc)"
-ln -s gcc "$rootfs/usr/bin/cc"
 
 cp testfiles/greeter.rs "$rootfs/greeter.rs"
 cp testfiles/use_greeter.c "$rootfs/use_greeter.c"
