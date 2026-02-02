@@ -1,0 +1,22 @@
+summary: Integration tests for libtcnative-1
+
+execute: |
+  # libtcnative-1 installs tomcat native extensions. run
+  # tomcat version to validate that they are loaded
+  rootfs="$(install-slices tomcat9_core libtcnative-1_libs tomcat9-common_core coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
+  cd ${rootfs}
+  mkdir -p proc sys tmp dev
+  mount --bind /proc proc
+  mount --bind /sys sys
+  mount --bind /tmp tmp
+  mount --bind /dev dev
+  for java in `find usr/lib/jvm -name java`; do
+    export JAVA_HOME=/$(dirname $(dirname ${java}))
+    export CATALINA_BASE="/var/lib/tomcat9"
+    chroot . /usr/share/tomcat9/bin/catalina.sh version
+    nativeLines="$(chroot . /usr/share/tomcat9/bin/catalina.sh configtest 2>&1)"
+    if ! echo "$nativeLines" | grep 'Loaded Apache Tomcat Native library' >&2; then \
+        echo >&2 "$nativeLines"; \
+        exit 1; \
+    fi
+  done
