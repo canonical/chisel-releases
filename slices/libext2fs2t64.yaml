@@ -1,0 +1,16 @@
+package: libext2fs2t64
+
+essential:
+  - libext2fs2t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libe2p.so.2*:
+      /usr/lib/*-linux-*/libext2fs.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libext2fs2t64/copyright:
