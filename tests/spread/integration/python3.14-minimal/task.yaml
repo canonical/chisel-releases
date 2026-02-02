@@ -1,0 +1,7 @@
+summary: Integration tests for python3.14-minimal
+
+execute: |
+  rootfs="$(install-slices python3.14-minimal_bins)"
+
+  cp test.py "${rootfs}/"
+  chroot "${rootfs}" python3.14 /test.py
