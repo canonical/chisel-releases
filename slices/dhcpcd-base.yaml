@@ -16,7 +16,7 @@ slices:
       /var/lib/dhcpcd/: { make: true, mode: 0755 }
 
   standard:
-    essential:  
+    essential:
       - dhcpcd-base_core
       - dhcpcd-base_config
       - dhcpcd-base_hooks-core
