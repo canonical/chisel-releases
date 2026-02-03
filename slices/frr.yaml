@@ -41,6 +41,17 @@ slices:
     contents:
       /usr/lib/frr/frr-reload:  # Requires /bin/sh in shebang and runs a Python script
 
+  # Note: FRR expects the 'frr' user and 'frrvty' group to exist.
+  # You may need to manually add them in the chiseled rootfs using the following commands.
+  # FRR_UID, FRR_VTY_GID, and FRR_GID can be adjusted as needed.
+  #    FRR_UID=999
+  #    FRR_VTY_GID=998
+  #    FRR_GID=999
+  #    echo -e "frr:x:$FRR_UID:\nfrrvty:x:$FRR_VTY_GID:frr" >> "${rootfs}/etc/group"
+  #    echo -e "frr:x:$FRR_UID:$FRR_GID:Frr routing suite,,,:/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
+  #    mkdir -p "${rootfs}/var/lib/frr"
+  #    chown $FRR_UID:$FRR_GID "${rootfs}/var/lib/frr"
+
   daemons:
     essential:
       - frr_libs
