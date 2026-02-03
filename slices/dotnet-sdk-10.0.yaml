@@ -39,7 +39,7 @@ slices:
     essential:
       - dotnet-sdk-10.0_core
       # see comment of dotnet-sdk-10.0_core slice above:
-      - libicu76_libs
+      - libicu78_libs
 
   copyright:
     contents:

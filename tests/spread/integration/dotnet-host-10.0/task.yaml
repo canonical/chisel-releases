@@ -14,7 +14,7 @@ environment:
 prepare: |
   required_slices=(dotnet-runtime-10.0_core)
   if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(libicu76_libs)
+    required_slices+=(libicu78_libs)
   fi
   
   # install slices
@@ -26,3 +26,5 @@ execute: |
   
   # smoking test the .NET host
   chroot "${rootfs}" /usr/bin/dotnet --info
+
+  chroot "${rootfs}" /usr/bin/dnx --help

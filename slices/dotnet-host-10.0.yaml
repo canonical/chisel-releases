@@ -6,12 +6,13 @@ essential:
 slices:
   bins:
     essential:
+      - dash_bins
       - libc6_libs
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/bin/dnx:
-      /usr/bin/dotnet:
+      /usr/bin/dnx:  # Symlink to ../lib/dotnet/dnx
+      /usr/bin/dotnet:  # Symlink to ../lib/dotnet/dotnet
       /usr/lib/dotnet/dnx:
       /usr/lib/dotnet/dotnet:
 

@@ -19,7 +19,7 @@ slices:
   standard:
     essential:
       - aspnetcore-runtime-10.0_core
-      - libicu76_libs
+      - libicu78_libs
 
   notice:
     contents:

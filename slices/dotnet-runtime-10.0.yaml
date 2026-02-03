@@ -27,8 +27,10 @@ slices:
   standard:
     essential:
       - dotnet-runtime-10.0_core
-      - libicu76_libs
+      - libicu78_libs
 
   copyright:
     contents:
+      /usr/lib/dotnet/LICENSE.txt:
+      /usr/lib/dotnet/ThirdPartyNotices.txt:
       /usr/share/doc/dotnet-runtime-10.0/copyright:
