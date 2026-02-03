@@ -23,4 +23,12 @@ mount --bind /proc "${rootfs}/proc"
 
 mkdir -p "${rootfs}/tmp"
 
+# create symlinks as golang-go, but for 1.24
+ln -s ../lib/go-1.24/bin/go "${rootfs}/usr/bin/go"
+ln -s ../lib/go-1.24/bin/gofmt "${rootfs}/usr/bin/gofmt"
+ln -s ../share/go-1.24 "${rootfs}/usr/lib/go"
+
+# create symlinks as golang-src, but for 1.24
+ln -s go-1.24 "${rootfs}/usr/share/go"
+
 echo -n "${rootfs}"
