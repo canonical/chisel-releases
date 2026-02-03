@@ -31,6 +31,4 @@ slices:
 
   copyright:
     contents:
-      /usr/lib/dotnet/LICENSE.txt:
-      /usr/lib/dotnet/ThirdPartyNotices.txt:
       /usr/share/doc/dotnet-runtime-10.0/copyright:
