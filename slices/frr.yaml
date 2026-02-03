@@ -48,7 +48,8 @@ slices:
   #    FRR_VTY_GID=998
   #    FRR_GID=999
   #    echo -e "frr:x:$FRR_UID:\nfrrvty:x:$FRR_VTY_GID:frr" >> "${rootfs}/etc/group"
-  #    echo -e "frr:x:$FRR_UID:$FRR_GID:Frr routing suite,,,:/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
+  #    echo -e "frr:x:$FRR_UID:$FRR_GID:Frr routing suite,,,:/nonexistent:/usr/sbin/nologin" \
+  #        >> "${rootfs}/etc/passwd"
   #    mkdir -p "${rootfs}/var/lib/frr"
   #    chown $FRR_UID:$FRR_GID "${rootfs}/var/lib/frr"
 
