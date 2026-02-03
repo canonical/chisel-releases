@@ -4,7 +4,7 @@ essential:
   - rustfmt-1.85_copyright
 
 slices:
-  bins:
+  rustfmt:
     essential:
       - libc6_libs
       - libgcc-s1_libs

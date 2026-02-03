@@ -4,7 +4,7 @@ essential:
   - rust-1.85-clippy_copyright
 
 slices:
-  bins:
+  clippy:
     essential:
       - libc6_libs
       - libgcc-s1_libs

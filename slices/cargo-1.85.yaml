@@ -4,7 +4,7 @@ essential:
   - cargo-1.85_copyright
 
 slices:
-  bins:
+  cargo:
     essential:
       - binutils_linker
       - gcc_gcc
@@ -14,7 +14,7 @@ slices:
       - libsqlite3-0_libs
       - libssh2-1t64_libs
       - libssl3t64_libs
-      - rustc-1.85_bins
+      - rustc-1.85_rustc
       - zlib1g_libs
     contents:
       /usr/bin/cargo-1.85:
