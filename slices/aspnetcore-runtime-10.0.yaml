@@ -23,7 +23,6 @@ slices:
 
   notice:
     contents:
-      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/THIRD-PARTY-NOTICES.txt:
       /usr/share/doc/aspnetcore-runtime-10.0/NOTICE.txt.gz:
 
   copyright:
