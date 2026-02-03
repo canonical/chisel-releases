@@ -138,9 +138,6 @@ slices:
         { symlink: /etc/apache2/mods-available/status.load }
 
   scripts:
-    # NOTE: This slice requires awk to run the scripts correctly
-    # so a symlink to gawk needs to be created when installing the slice.
-    # ln -s /usr/bin/gawk /usr/bin/awk
     essential:
       - apache2_modules
       - coreutils_chmod
