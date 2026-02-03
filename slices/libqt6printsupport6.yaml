@@ -1,0 +1,22 @@
+package: libqt6printsupport6
+
+essential:
+  - libqt6printsupport6_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libQt6PrintSupport.so*:
+      /usr/lib/*-linux-*/qt6/plugins/printsupport/libcupsprintersupport.so*:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libglib2.0-0t64_libs
+      - libqt6core6t64_libs
+      - libqt6dbus6_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt6printsupport6/copyright:
