@@ -3,18 +3,25 @@ summary: Integration tests for .NET 10 Host
 variants:
     - +WithoutLibicu
     - +WithLibicu
+    - +WithDNX
 
 environment:
   # needed, because libicu is not installed
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
+  # install sdk to enable dnx run
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithDNX: "true"
   # disable noisy help text for users who run .NET for the first time
   DOTNET_NOLOGO: "true"
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
 
 prepare: |
-  required_slices=(dotnet-runtime-10.0_core)
+  required_slices=(dotnet-runtime-10.0_core dotnet-host-10.0_bins)
   if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
     required_slices+=(libicu78_libs)
+  fi
+
+  if [[ -v WITH_DNX ]]; then
+    required_slices+=(dotnet-sdk-10.0_core dotnet-host-10.0_dnx)
   fi
   
   # install slices
@@ -27,4 +34,7 @@ execute: |
   # smoking test the .NET host
   chroot "${rootfs}" /usr/bin/dotnet --info
 
-  chroot "${rootfs}" /usr/bin/dnx --help
+  if [[ -v WITH_DNX ]]; then
+    output="$(chroot "${rootfs}" /usr/bin/dnx dotnetsay "Hello, World!")"
+    grep -q "Hello, World!" <<< "${output}"
+  fi

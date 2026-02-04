@@ -4,17 +4,26 @@ essential:
   - dotnet-host-10.0_copyright
 
 slices:
+  # Note: dotnet depends on dotnet-runtime-10.0 to function properly.
   bins:
     essential:
-      - dash_bins
       - libc6_libs
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/bin/dnx:  # Symlink to ../lib/dotnet/dnx
       /usr/bin/dotnet:  # Symlink to ../lib/dotnet/dotnet
-      /usr/lib/dotnet/dnx:
       /usr/lib/dotnet/dotnet:
+
+  # Note: dnx depends on dotnet-sdk-10.0 to function properly.
+  dnx:
+    essential:
+      - base-files_bin
+      - coreutils_dirname
+      - dash_bins
+      - dotnet-host-10.0_bins
+    contents:
+      /usr/bin/dnx:  # Symlink to ../lib/dotnet/dnx
+      /usr/lib/dotnet/dnx:
 
   copyright:
     contents:
