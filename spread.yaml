@@ -19,6 +19,8 @@ backends:
     allocate: |
       set -x
       release=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $2}')
+      # TODO: remove this and the following line once resolute is stable.
+      release=$(distro-info --lts)
 
       # Ideally, we would add the ubuntu-minimal remote
       # e.g. https://cloud-images.ubuntu.com/minimal/releases/jammy/
