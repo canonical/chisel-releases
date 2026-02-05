@@ -8,14 +8,10 @@ slices:
     essential:
       - node-brace-expansion_libs
     contents:
-      /usr/share/nodejs/minimatch/dist/**.map:
-      /usr/share/nodejs/minimatch/index.js:
-      /usr/share/nodejs/minimatch/package.json:
-
-  maps:
-    contents:
       /usr/share/nodejs/minimatch/dist/**.js:
       /usr/share/nodejs/minimatch/dist/**.ts:
+      /usr/share/nodejs/minimatch/index.js:
+      /usr/share/nodejs/minimatch/package.json:
 
   copyright:
     contents:
