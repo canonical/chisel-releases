@@ -3,6 +3,6 @@ summary: Integration tests for dash
 execute: |
   rootfs="$(install-slices dash_bins)"
 
-  chroot "${rootfs}" dash -c "echo Success > /test"
+  chroot "${rootfs}" dash -c "echo Hello > /test"
 
-  test $(cat "${rootfs}/test") == "Success"
+  test $(cat "${rootfs}/test") == "Hello"
