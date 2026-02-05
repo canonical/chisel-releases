@@ -1,0 +1,27 @@
+package: rustc-1.85
+
+essential:
+  - rustc-1.85_copyright
+
+slices:
+  # NOTE: Rust compiler needs the target-specific linker to link the final
+  #       binary. The default toolchain included here is using gcc and binutils,
+  #       which are already included in the gcc_gcc essential.
+  #       Rust calls `cc` to link the final binary, so you will need to create
+  #       the symlink for that to work:
+  #       ls -s gcc /usr/bin/cc
+  rustc:
+    essential:
+      - base-files_tmp
+      - gcc_gcc
+      - libc6-dev_core
+      - libc6-dev_libm
+      - libc6_libs
+      - libstd-rust-1.85-dev_libs
+    contents:
+      /usr/bin/rustc-1.85:  # symlink to ../rust-1.85/bin/rustc
+      /usr/lib/rust-1.85/bin/rustc:
+
+  copyright:
+    contents:
+      /usr/share/doc/rustc-1.85/copyright:
