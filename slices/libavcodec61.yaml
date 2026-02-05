@@ -39,10 +39,10 @@ slices:
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: amd64
-      - libvpx9_libs
+      - libvpx11_libs
       - libwebp7_libs
       - libwebpmux3_libs
-      - libx264-164_libs
+      - libx264-165_libs
       - libx265-215_libs
       - libxvidcore4_libs
       - libzvbi0t64_libs
