@@ -1,0 +1,67 @@
+package: iproute2
+
+essential:
+  - iproute2_copyright
+
+slices:
+  bins:
+    essential:
+      - iproute2_config
+      - libbpf1_libs
+      - libc6_libs
+      - libcap2-bin_bins
+      - libcap2_libs
+      - libdb5.3t64_libs
+      - libelf1t64_libs
+      - libmnl0_libs
+      - libselinux1_libs
+      - libtirpc3t64_libs
+      - libxtables12_libs
+    contents:
+      /bin/ip:
+      /bin/ss:
+      /sbin/bridge:
+      /sbin/dcb:
+      /sbin/devlink:
+      /sbin/ip:
+      /sbin/rtacct:
+      /sbin/rtmon:
+      /sbin/tc:
+      /sbin/tipc:
+      /sbin/vdpa:
+      /usr/bin/ctstat:
+      /usr/bin/lnstat:
+      /usr/bin/nstat:
+      /usr/bin/rdma:
+      /usr/bin/rtstat:
+      /usr/sbin/arpd:
+      /usr/sbin/genl:
+
+  routel:
+    essential:
+      - coreutils_env
+      - iproute2_bins
+      - libpython3-stdlib_net-data
+      - python3_core
+    contents:
+      /usr/bin/routel:
+
+  config:
+    essential:
+      - iproute2_libs
+    contents:
+      /etc/iproute2/*:
+
+  headers:
+    contents:
+      /usr/include/iproute2/bpf_elf.h:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/tc/m_ipt.so:
+      /usr/lib/*-linux-*/tc/m_xt.so:
+      /usr/lib/*-linux-*/tc/q_atm.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/iproute2/copyright:

@@ -1,0 +1,15 @@
+package: libhttp-parser2.9
+
+essential:
+  - libhttp-parser2.9_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libhttp_parser.so.2.9*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libhttp-parser2.9/copyright:

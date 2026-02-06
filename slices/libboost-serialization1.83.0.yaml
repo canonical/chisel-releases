@@ -1,0 +1,18 @@
+package: libboost-serialization1.83.0
+
+essential:
+  - libboost-serialization1.83.0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libboost_serialization.so.1.83.0:
+      /usr/lib/*-linux-*/libboost_wserialization.so.1.83.0:
+
+  copyright:
+    contents:
+      /usr/share/doc/libboost-serialization1.83.0/copyright:

@@ -1,0 +1,30 @@
+package: debianutils
+
+essential:
+  - debianutils_copyright
+
+slices:
+  which:
+    essential:
+      - base-files_bin  # The Shebang in which.debianutils references /bin/sh
+      - dash_bins
+    contents:
+      # Note: This symlink should have a prefer: gnu-which if both are present
+      /usr/bin/which: {symlink: which.debianutils}
+      /usr/bin/which.debianutils:
+
+  ischroot:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/ischroot:
+
+  run-parts:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/run-parts:
+
+  copyright:
+    contents:
+      /usr/share/doc/debianutils/copyright:
