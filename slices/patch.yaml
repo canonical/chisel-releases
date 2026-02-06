@@ -1,0 +1,15 @@
+package: patch
+
+essential:
+  - patch_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/patch:
+
+  copyright:
+    contents:
+      /usr/share/doc/patch/copyright:

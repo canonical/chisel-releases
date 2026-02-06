@@ -1,0 +1,15 @@
+package: libprotobuf-c1
+
+essential:
+  - libprotobuf-c1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libprotobuf-c.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libprotobuf-c1/copyright:

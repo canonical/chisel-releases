@@ -1,0 +1,16 @@
+package: netcat-openbsd
+
+essential:
+  - netcat-openbsd_copyright
+
+slices:
+  bins:
+    essential:
+      - libbsd0_libs
+      - libc6_libs
+    contents:
+      /bin/nc.openbsd:
+
+  copyright:
+    contents:
+      /usr/share/doc/netcat-openbsd/copyright:

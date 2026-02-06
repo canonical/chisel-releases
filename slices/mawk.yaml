@@ -1,0 +1,15 @@
+package: mawk
+
+essential:
+  - mawk_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/mawk:
+
+  copyright:
+    contents:
+      /usr/share/doc/mawk/copyright:

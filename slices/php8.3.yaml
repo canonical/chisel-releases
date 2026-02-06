@@ -1,0 +1,17 @@
+package: php8.3
+
+essential:
+  - php8.3_copyright
+
+slices:
+  core:
+    essential:
+      - php8.3-cli_core
+
+  standard:
+    essential:
+      - php8.3-cli_standard
+
+  copyright:
+    contents:
+      /usr/share/doc/php8.3/copyright:

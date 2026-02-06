@@ -31,13 +31,30 @@ slices:
       /etc/fonts/conf.d/80-delicious.conf:
       /etc/fonts/conf.d/90-synthetic.conf:
       /etc/fonts/fonts.conf:
+      /usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf:
+      /usr/share/fontconfig/conf.avail/09-autohint-if-no-hinting.conf:
+      /usr/share/fontconfig/conf.avail/10-autohint.conf:
+      /usr/share/fontconfig/conf.avail/10-hinting-full.conf:
+      /usr/share/fontconfig/conf.avail/10-hinting-medium.conf:
+      /usr/share/fontconfig/conf.avail/10-hinting-none.conf:
       /usr/share/fontconfig/conf.avail/10-hinting-slight.conf:
+      /usr/share/fontconfig/conf.avail/10-no-antialias.conf:
       /usr/share/fontconfig/conf.avail/10-scale-bitmap-fonts.conf:
+      /usr/share/fontconfig/conf.avail/10-sub-pixel-bgr.conf:
+      /usr/share/fontconfig/conf.avail/10-sub-pixel-none.conf:
       /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf:
+      /usr/share/fontconfig/conf.avail/10-sub-pixel-vbgr.conf:
+      /usr/share/fontconfig/conf.avail/10-sub-pixel-vrgb.conf:
+      /usr/share/fontconfig/conf.avail/10-unhinted.conf:
       /usr/share/fontconfig/conf.avail/10-yes-antialias.conf:
       /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf:
+      /usr/share/fontconfig/conf.avail/11-lcdfilter-legacy.conf:
+      /usr/share/fontconfig/conf.avail/11-lcdfilter-light.conf:
+      /usr/share/fontconfig/conf.avail/11-lcdfilter-none.conf:
       /usr/share/fontconfig/conf.avail/20-unhint-small-vera.conf:
+      /usr/share/fontconfig/conf.avail/25-unhint-nonlatin.conf:
       /usr/share/fontconfig/conf.avail/30-metric-aliases.conf:
+      /usr/share/fontconfig/conf.avail/35-lang-normalize.conf:
       /usr/share/fontconfig/conf.avail/40-nonlatin.conf:
       /usr/share/fontconfig/conf.avail/45-generic.conf:
       /usr/share/fontconfig/conf.avail/45-latin.conf:
@@ -45,12 +62,18 @@ slices:
       /usr/share/fontconfig/conf.avail/49-sansserif.conf:
       /usr/share/fontconfig/conf.avail/50-user.conf:
       /usr/share/fontconfig/conf.avail/51-local.conf:
+      /usr/share/fontconfig/conf.avail/53-monospace-lcd-filter.conf:
       /usr/share/fontconfig/conf.avail/60-generic.conf:
       /usr/share/fontconfig/conf.avail/60-latin.conf:
       /usr/share/fontconfig/conf.avail/65-fonts-persian.conf:
+      /usr/share/fontconfig/conf.avail/65-khmer.conf:
       /usr/share/fontconfig/conf.avail/65-nonlatin.conf:
       /usr/share/fontconfig/conf.avail/69-unifont.conf:
+      /usr/share/fontconfig/conf.avail/70-force-bitmaps.conf:
+      /usr/share/fontconfig/conf.avail/70-no-bitmaps-and-emoji.conf:
       /usr/share/fontconfig/conf.avail/70-no-bitmaps-except-emoji.conf:
+      /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf:
+      /usr/share/fontconfig/conf.avail/70-yes-bitmaps.conf:
       /usr/share/fontconfig/conf.avail/80-delicious.conf:
       /usr/share/fontconfig/conf.avail/90-synthetic.conf:
       /usr/share/xml/fontconfig/fonts.dtd:

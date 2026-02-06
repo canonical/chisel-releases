@@ -11,11 +11,14 @@ execute: |
     for pid in "${pids[@]}"; do
       kill "$pid" 2>/dev/null
     done
+    apt remove -y --purge openjdk-21-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
   apt install --update -y openjdk-21-jdk-headless curl
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
   nohup java MonitoringTest.java &
   pid=$!
   pids+=("$pid")

@@ -80,7 +80,7 @@ slices:
   # of the runtime.
   security:
     essential:
-      - libnss3_libs
+      - libnss3_nss
       - libpcsclite1_libs
       - openjdk-8-jre-headless_core
     contents:

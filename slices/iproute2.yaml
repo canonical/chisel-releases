@@ -7,7 +7,6 @@ slices:
   bins:
     essential:
       - iproute2_config
-      - iproute2_libs
       - libbpf1_libs
       - libc6_libs
       - libcap2-bin_bins
@@ -34,31 +33,33 @@ slices:
       /usr/bin/lnstat:
       /usr/bin/nstat:
       /usr/bin/rdma:
-      /usr/bin/routel:
       /usr/bin/rtstat:
       /usr/sbin/arpd:
       /usr/sbin/genl:
 
-  config:
+  routel:
+    essential:
+      - coreutils_env
+      - iproute2_bins
+      - libpython3-stdlib_net-data
+      - python3_core
     contents:
-      /etc/iproute2/bpf_pinning:
-      /etc/iproute2/ematch_map:
-      /etc/iproute2/group:
-      /etc/iproute2/nl_protos:
-      /etc/iproute2/rt_dsfield:
-      /etc/iproute2/rt_protos:
-      /etc/iproute2/rt_realms:
-      /etc/iproute2/rt_scopes:
-      /etc/iproute2/rt_tables:
+      /usr/bin/routel:
+
+  config:
+    essential:
+      - iproute2_libs
+    contents:
+      /etc/iproute2/*:
+
+  headers:
+    contents:
+      /usr/include/iproute2/bpf_elf.h:
 
   libs:
     contents:
-      /usr/lib/*-linux-*/tc/experimental.dist:
       /usr/lib/*-linux-*/tc/m_ipt.so:
       /usr/lib/*-linux-*/tc/m_xt.so:
-      /usr/lib/*-linux-*/tc/normal.dist:
-      /usr/lib/*-linux-*/tc/pareto.dist:
-      /usr/lib/*-linux-*/tc/paretonormal.dist:
       /usr/lib/*-linux-*/tc/q_atm.so:
 
   copyright:

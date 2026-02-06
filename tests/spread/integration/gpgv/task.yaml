@@ -1,0 +1,37 @@
+summary: Integration tests for gpgv
+
+execute: |
+  rootfs="$(install-slices gpgv_bins)"
+
+  apt update
+  apt install -y gnupg
+
+  echo "Hello, World!" > message.txt
+
+  # Generate a test keypair (using gpg, not gpgv, as gpgv is verify-only)
+  gpg --batch --gen-key <<EOF
+  Key-Type: RSA
+  Key-Length: 2048
+  Name-Real: Test User
+  Name-Email: test@example.com
+  Expire-Date: 0
+  %no-protection
+  %commit
+  EOF
+
+  # Export the public key
+  gpg --export -a test@example.com > pubkey.asc
+
+  # Create a detached signature
+  gpg --output message.txt.sig --detach-sig message.txt
+
+  # Create a minimal keyring directory for gpgv
+  mkdir keyring
+  gpg --no-default-keyring --keyring ./keyring/pubring.kbx --import pubkey.asc
+
+  mv keyring "${rootfs}/keyring"
+  mv message.txt "${rootfs}/message.txt"
+  mv message.txt.sig "${rootfs}/message.txt.sig"
+
+  # Use gpgv to verify the signature
+  chroot "${rootfs}" gpgv --keyring ./keyring/pubring.kbx message.txt.sig message.txt

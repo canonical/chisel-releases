@@ -1,0 +1,13 @@
+summary: Integration tests for bc
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices bc_bins)"
+
+  chroot "${rootfs}/" bc -h
+  x=$( echo "1+2" | chroot "${rootfs}/" bc )
+  if [ "${x}" -ne 3 ]; then
+    echo "bc failed 1+2"
+    exit 1
+  fi
