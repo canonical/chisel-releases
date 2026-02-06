@@ -8,6 +8,18 @@ slices:
     essential:
       - gcc-13_gcc-13
     contents:
+      # NOTE: there are 4 packages which provide /usr/bin/cc alternative implementations:
+      # - gcc (priority 20)
+      # - clang (priority 10)
+      # - tcc (priority 10)
+      # - pentium-builder (priority 100)
+      # gcc is chosen as the default alternative for /usr/bin/cc since its the
+      # highest priority compiler (pentium-builder is a wrapper around gcc).
+      # If you want to install clang, tcc or pentium-builder, you will need to
+      # create this symlink manually: ln -sf /usr/bin/clang $rootfs/usr/bin/cc
+      # In 25.10 onwards this will be handled by the 'prefer' keyword.
+      /usr/bin/cc:
+        symlink: /usr/bin/gcc
       /usr/bin/gcc:  # Symlink to gcc-13
 
   copyright:

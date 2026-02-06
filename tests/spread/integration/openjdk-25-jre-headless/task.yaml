@@ -1,0 +1,46 @@
+summary: Integration tests for openjdk-25-jre-headless
+
+environment:
+  SLICE/classdatasharing: "class-data-sharing"
+  SLICE/classcache: "classcache"
+  SLICE/core: "core"
+  SLICE/prefs: "prefs"
+  #  SLICE/rmi: "rmi" # Tested in management slice
+  SLICE/debug: "debug"
+  SLICE/management: "management"
+  SLICE/jfr: "jfr"
+  SLICE/security: "security"
+  SLICE/tools: "tools"
+  SLICE/awt: "awt"
+
+execute: |
+  set -x
+  # Test different slice installations
+  echo "SLICE=${SLICE}"
+  export ROOTFS="$(install-slices openjdk-25-jre-headless_${SLICE})"
+  java=/$(find "$ROOTFS" -name java -type f -printf '%P\n' -quit 2>/dev/null)
+  export JAVA_HOME="$(dirname $(dirname ${java}))"
+
+  # Make fake /dev/null and mount /proc
+  mkdir -p "$ROOTFS/dev"
+  touch "$ROOTFS/dev/null"
+  chmod +x "$ROOTFS/dev/null"
+  mkdir -p "$ROOTFS/proc"
+  mkdir -p "$ROOTFS/tmp"
+  sudo mount --bind /proc "$ROOTFS/proc"
+  trap 'sudo umount "$ROOTFS/proc"' EXIT
+
+  # NOTE: we install openjdk-25-jdk-headless *on the testing host*, not in the chroot
+  apt-get install --update -y openjdk-25-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
+
+  # Build and copy java test files
+  javac testfiles/*.java -d "$ROOTFS/"
+  cp testfiles/*.java "$ROOTFS/"
+
+  chroot "$ROOTFS" ${java} --version
+  bash -ex test_${SLICE}.sh
+
+restore: |
+  apt-get remove -y --purge openjdk-25-jdk-headless
