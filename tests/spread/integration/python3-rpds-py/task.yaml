@@ -1,0 +1,6 @@
+summary: Integration tests for python3-rpds-py
+
+execute: |
+  rootfs="$(install-slices python3-rpds-py_libs)"
+
+  chroot "${rootfs}" python3 -c "import rpds" >/dev/null

@@ -1,0 +1,21 @@
+package: python3-rpds-py
+
+essential:
+  - python3-rpds-py_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/rpds/__init__.py:
+      /usr/lib/python3/dist-packages/rpds/__init__.pyi:
+      /usr/lib/python3/dist-packages/rpds/py.typed:
+      /usr/lib/python3/dist-packages/rpds/rpds.cpython-313-*-linux-*.so:
+      /usr/lib/python3/dist-packages/rpds/rpds.cpython-314-*-linux-*.so:
+      /usr/lib/python3/dist-packages/rpds_py*.dist-info/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-rpds-py/copyright:

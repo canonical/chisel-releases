@@ -1,0 +1,19 @@
+package: python3-pyrsistent
+
+essential:
+  - python3-pyrsistent_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/_pyrsistent_version.py:
+      /usr/lib/python3/dist-packages/pvectorc.cpython-313-*-linux-*.so:
+      /usr/lib/python3/dist-packages/pyrsistent*.egg-info/**:
+      /usr/lib/python3/dist-packages/pyrsistent/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-pyrsistent/copyright:

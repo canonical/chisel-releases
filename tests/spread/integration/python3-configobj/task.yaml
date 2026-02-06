@@ -1,0 +1,6 @@
+summary: Integration tests for python3-configobj
+
+execute: |
+  rootfs="$(install-slices python3-configobj_libs)"
+
+  chroot "${rootfs}" python3 -c "import configobj" >/dev/null
