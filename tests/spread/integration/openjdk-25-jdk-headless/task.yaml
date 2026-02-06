@@ -31,6 +31,7 @@ execute: |
   # Build and copy java test files
   javac testfiles/*.java -d "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
+  cp testfiles/*.sh "$ROOTFS/"
 
   bash -ex test_${SLICE}.sh
 

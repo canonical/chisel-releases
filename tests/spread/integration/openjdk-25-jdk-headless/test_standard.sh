@@ -31,7 +31,7 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" VM.version
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
 if [ -f "$JAVA_HOME/bin/jhsdb" ]; then
-    chroot "$ROOTFS" "$JAVA_HOME/bin/jhsdb" jstack --pid "$pid"
+    chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jhsdb jstack --pid
 fi
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
@@ -48,7 +48,7 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jinfo" "$pid"
 chroot "$ROOTFS" /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | '$JAVA_HOME/bin/jshell'"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
-chroot "$ROOTFS" "$JAVA_HOME/bin/jmap" -clstats "$pid"
+ chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jmap -clstats
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
 mkdir "$ROOTFS/nativetest"
@@ -59,7 +59,7 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jnativescan" -class-path /nativetest | grep -q 
 chroot "$ROOTFS" "$JAVA_HOME/bin/jps" -l
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
-chroot "$ROOTFS" "$JAVA_HOME/bin/jstack" "$pid"
+chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jstack
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
