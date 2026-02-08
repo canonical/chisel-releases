@@ -4,9 +4,6 @@ essential:
   - cargo-1.85_copyright
 
 slices:
-  # NOTE: Rust calls `cc` to link the final binary, so you will need to create
-  #       the symlink for that to work:
-  #       ln -s gcc /usr/bin/cc
   # NOTE: Cargo will call rust through `rustc`, so you will need to create a
   #       symlink pointing to the correct version of rust:
   #       ln -s rustc-1.85 /usr/bin/rustc
