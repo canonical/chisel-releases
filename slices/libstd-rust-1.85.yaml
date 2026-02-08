@@ -11,9 +11,35 @@ slices:
       - libllvm19_libs
       - libstdc++6_libs
     contents:
-      # symlink to ../rust-1.85/lib/librustc_driver-*.so
-      /usr/lib/*-linux-*/librustc_driver-*.so:
-      /usr/lib/rust-1.85/lib/librustc_driver-*.so:
+      # NOTE: we need the full rustc_driver filename to resolve conflict with libstd-rust-1.88
+      /usr/lib/*-linux-*/librustc_driver-498d2b6d02538b82.so:
+        arch: [amd64]
+      /usr/lib/*-linux-*/librustc_driver-5ee867550cbb9abb.so:
+        arch: [armhf]
+      /usr/lib/*-linux-*/librustc_driver-6bafb474fc91b9e9.so:
+        arch: [i386]
+      /usr/lib/*-linux-*/librustc_driver-7387924930d97932.so:
+        arch: [arm64]
+      /usr/lib/*-linux-*/librustc_driver-950f5a8b5358734f.so:
+        arch: [s390x]
+      /usr/lib/*-linux-*/librustc_driver-d1e9923d4c2ad78f.so:
+        arch: [ppc64el]
+      /usr/lib/*-linux-*/librustc_driver-dbd812ed845d1f44.so:
+        arch: [riscv64]
+      /usr/lib/rust-1.85/lib/librustc_driver-498d2b6d02538b82.so:
+        arch: [amd64]
+      /usr/lib/rust-1.85/lib/librustc_driver-5ee867550cbb9abb.so:
+        arch: [armhf]
+      /usr/lib/rust-1.85/lib/librustc_driver-6bafb474fc91b9e9.so:
+        arch: [i386]
+      /usr/lib/rust-1.85/lib/librustc_driver-7387924930d97932.so:
+        arch: [arm64]
+      /usr/lib/rust-1.85/lib/librustc_driver-950f5a8b5358734f.so:
+        arch: [s390x]
+      /usr/lib/rust-1.85/lib/librustc_driver-d1e9923d4c2ad78f.so:
+        arch: [ppc64el]
+      /usr/lib/rust-1.85/lib/librustc_driver-dbd812ed845d1f44.so:
+        arch: [riscv64]
 
   copyright:
     contents:

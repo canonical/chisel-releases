@@ -1,0 +1,22 @@
+package: rustc-1.88
+
+essential:
+  - rustc-1.88_copyright
+
+slices:
+  rustc:
+    essential:
+      - base-files_tmp
+      - gcc_gcc
+      - libc6-dev_core
+      - libc6-dev_libm
+      - libc6_libs
+      - libllvm20_libs
+      - libstd-rust-1.88-dev_libs
+    contents:
+      /usr/bin/rustc-1.88:  # symlink to ../rust-1.88/bin/rustc
+      /usr/lib/rust-1.88/bin/rustc:
+
+  copyright:
+    contents:
+      /usr/share/doc/rustc-1.88/copyright:
