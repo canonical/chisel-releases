@@ -9,7 +9,6 @@ case "${arch}" in
 esac
 
 rootfs="$(install-slices --arch "$chisel_arch" cargo-1.85_cargo)"
-# ln -s gcc "$rootfs/usr/bin/cc"  # not needed for help/version
 # ln -s rustc-1.85 "$rootfs/usr/bin/rustc"  # not needed for help/version
 
 chroot "$rootfs" cargo-1.85 --help | grep -q "Rust's package manager"
