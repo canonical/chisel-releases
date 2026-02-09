@@ -1,0 +1,15 @@
+package: libmtdev1t64
+
+essential:
+  - libmtdev1t64_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libmtdev.so.1*:
+    essential:
+      - libc6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libmtdev1t64/copyright:

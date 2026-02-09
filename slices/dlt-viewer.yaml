@@ -1,0 +1,35 @@
+package: dlt-viewer
+
+essential:
+  - dlt-viewer_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/bin/dlt-parser:
+      /usr/bin/dlt-viewer:
+    essential:
+      - dlt-viewer_libs
+
+  data:
+    contents:
+      /usr/share/dlt-viewer/**:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libqdlt.so*:
+      /usr/lib/*-linux-*/dlt-viewer/plugins/**:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libqt5core5t64_libs
+      - libqt5gui5t64_libs
+      - libqt5network5t64_libs
+      - libqt5printsupport5t64_libs
+      - libqt5serialport5_libs
+      - libqt5widgets5t64_libs
+      - libstdc++6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/dlt-viewer/copyright:
