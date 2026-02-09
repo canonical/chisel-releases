@@ -1,0 +1,21 @@
+package: golang-go
+
+essential:
+  - golang-go_copyright
+
+slices:
+  core:
+    essential:
+      - golang-1.24-go_core
+    contents:
+      /usr/bin/go:  # Symlink to ../lib/go-1.24/bin/go
+      /usr/bin/gofmt:  # Symlink to ../lib/go-1.24/bin/gofmt
+      /usr/lib/go:  # Symlink to ../share/go-1.24
+
+  cgo-tools:
+    essential:
+      - golang-1.24-go_cgo-tools
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-go/copyright:
