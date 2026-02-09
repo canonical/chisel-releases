@@ -1,23 +1,14 @@
 summary: Integration tests for dhcpcd-base
 
 execute: |
-  rootfs="$(install-slices dhcpcd-base_core)"
+  rootfs="$(install-slices dhcpcd-base_standard)"
 
   # Basic smoke: binary exists and runs
   test -x "${rootfs}/usr/sbin/dhcpcd"
   chroot "${rootfs}" /usr/sbin/dhcpcd --version >/dev/null
 
   # Help output (flag differs across builds). Require at least one to succeed.
-  if chroot "${rootfs}" /usr/sbin/dhcpcd --help >/dev/null 2>&1; then
-    :
-  elif chroot "${rootfs}" /usr/sbin/dhcpcd -h >/dev/null 2>&1; then
-    :
-  elif chroot "${rootfs}" /usr/sbin/dhcpcd -? >/dev/null 2>&1; then
-    :
-  else
-    echo "dhcpcd did not accept --help/-h/-?"
-    exit 1
-  fi
+  chroot "${rootfs}" /usr/sbin/dhcpcd --help >/dev/null 2>&1 || chroot "${rootfs}" /usr/sbin/dhcpcd -h >/dev/null 2>&1
 
   # Validate expected runtime state dir exists (created by slice)
   test -d "${rootfs}/var/lib/dhcpcd"

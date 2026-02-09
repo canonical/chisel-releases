@@ -34,13 +34,8 @@ slices:
       /usr/libexec/dhcpcd-hooks/01-test:
       /usr/libexec/dhcpcd-hooks/20-resolv.conf:
       /usr/libexec/dhcpcd-hooks/30-hostname:
-      /usr/libexec/dhcpcd-run-hooks:
-
-  hooks-system:
-    essential:
-      - dhcpcd-base_hooks-core
-    contents:
       /usr/libexec/dhcpcd-hooks/50-timesyncd.conf:
+      /usr/libexec/dhcpcd-run-hooks:
 
   libs:
     contents:
