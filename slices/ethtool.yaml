@@ -11,7 +11,9 @@ slices:
     contents:
       /usr/sbin/ethtool:
 
-  network-if:
+  network-if-hooks:
+    essential:
+      - ethtool_bins
     contents:
       /etc/network/if-pre-up.d/ethtool:
       /etc/network/if-up.d/ethtool:
