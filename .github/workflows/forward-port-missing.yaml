@@ -72,7 +72,7 @@ jobs:
       - name: "Install dependencies"
         run: |
           pip install -r "${{ env.files_main }}/${{ env.src_dir }}/requirements.txt"
-          apt update && apt install -y distro-info jq
+          sudo apt-get update && sudo apt-get install -y distro-info jq
       
       #== MAIN =================================================================
 
