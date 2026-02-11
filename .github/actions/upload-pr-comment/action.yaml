@@ -1,0 +1,43 @@
+name: Upload PR Comment Data
+description: |
+  Uploads PR comment message as an artifact with PR number and message ID 
+  encoded in the filename. The artifact is later picked up by a separate 
+  workflow that posts the comment to the PR.
+inputs:
+  message-path:
+    description: Path to file containing the comment message
+    required: true
+  message-id:
+    description: Unique identifier for the comment
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Validate message-id
+      shell: bash
+      run: |
+        if [[ ! "${{ inputs.message-id }}" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+          echo "Invalid message-id '${{ inputs.message-id }}'. It can only contain alphanumeric characters, hyphens, or underscores."
+          exit 1
+        fi
+
+    - name: Prepare PR comment file
+      id: prepare
+      shell: bash
+      run: |
+        if [ ! -f "${{ inputs.message-path }}" ]; then
+          echo "Message file ${{ inputs.message-path }} not found, skipping PR comment"
+          exit 0
+        fi
+        name="pr-comment_${{ github.event.number }}_${{ inputs.message-id }}"
+        cp "${{ inputs.message-path }}" "$name".txt
+        echo "name=$name" >> $GITHUB_OUTPUT
+
+    - name: Upload PR comment data
+      if: steps.prepare.outputs.name
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ steps.prepare.outputs.name }}
+        path: ${{ steps.prepare.outputs.name }}.txt
+        retention-days: 1

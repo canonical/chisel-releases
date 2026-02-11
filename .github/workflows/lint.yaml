@@ -14,8 +14,8 @@ on:
   workflow_call:
 
 env:
-  # chisel-releases branches to lint on.
-  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04","ubuntu-25.04"]') }}
+  # chisel-releases branches to lint on. 
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04","ubuntu-25.10","ubuntu-26.04"]') }}
 
 jobs:
   prepare-lint:
