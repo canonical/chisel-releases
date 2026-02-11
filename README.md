@@ -6,6 +6,7 @@
 - [The Basics](#the-basics)
 - [Using a Specific Chisel Release](#using-a-specific-chisel-release)
 - [Adding New Slice Definitions](#adding-new-slice-definitions)
+- [Chisel Releases Navigator](#chisel-releases-navigator)
 
 ## The Basics
 
@@ -68,3 +69,7 @@ Chisel will use the corresponding Git branch from this repository if it exists.
 We welcome and encourage community contributions! To better understand how to
 write and propose new package slice definitions, please read the
 [contributing guidelines](./CONTRIBUTING.md).
+
+## Chisel Releases Navigator
+
+To easily navigate through the different Chisel releases, and what slice definitions are available in each, please refer to the [Chisel Releases Navigator](https://canonical.github.io/chisel-releases-navigator/).
