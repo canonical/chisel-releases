@@ -591,7 +591,10 @@ slices:
 
   cp-utility:
     essential:
+      - libacl1_libs
+      - libattr1_libs
       - libc6_libs
+      - libselinux1_libs
     contents:
       /usr/bin/gnucp:
 
