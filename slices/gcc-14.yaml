@@ -5,8 +5,7 @@ essential:
 
 slices:
   gcc-14:
-    # Note: `v3-essential` only works for chisel>=1.3.0
-    v3-essential:
+    essential:
       binutils_assembler:
       binutils_linker:
       cpp-14-aarch64-linux-gnu_cc1: {arch: [arm64]}
