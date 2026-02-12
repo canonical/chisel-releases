@@ -16,7 +16,6 @@ slices:
       - util-linux_kernel
       - util-linux_login
       - util-linux_mcookie
-      - util-linux_memory
       - util-linux_namespace
       - util-linux_pam-profiles
       - util-linux_process
@@ -38,7 +37,6 @@ slices:
       /usr/bin/partx:
       /usr/sbin/blkdiscard:
       /usr/sbin/blkid:
-      /usr/sbin/blkzone:
       /usr/sbin/blockdev:
       /usr/sbin/zramctl:
 
@@ -49,7 +47,6 @@ slices:
     contents:
       /usr/bin/getopt:
       /usr/bin/namei:
-      /usr/bin/rev:
       /usr/bin/whereis:
 
   cpu:
@@ -58,7 +55,6 @@ slices:
       - libsmartcols1_libs
     contents:
       /usr/bin/lscpu:
-      /usr/sbin/chcpu:
 
   file-manipulation:
     essential:
@@ -71,7 +67,6 @@ slices:
     contents:
       /usr/bin/fallocate:
       /usr/bin/hardlink:
-      /usr/bin/rename.ul:
 
   more:
     essential:
@@ -96,12 +91,9 @@ slices:
       /usr/sbin/fsck:
       /usr/sbin/fsfreeze:
       /usr/sbin/fstrim:
-      /usr/sbin/isosize:
       /usr/sbin/mkfs:
       /usr/sbin/mkswap:
-      /usr/sbin/pivot_root:
       /usr/sbin/swaplabel:
-      /usr/sbin/switch_root:
       /usr/sbin/wipefs:
 
   # The following emulates the post-install script.
@@ -153,7 +145,6 @@ slices:
       - libsmartcols1_libs
       - libsystemd0_libs
     contents:
-      /usr/bin/lslogins:
       /usr/sbin/sulogin:
 
   mcookie:
@@ -161,14 +152,6 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/mcookie:
-
-  memory:
-    essential:
-      - libc6_libs
-      - libsmartcols1_libs
-    contents:
-      /usr/bin/lsmem:
-      /usr/sbin/chmem:
 
   mime:
     contents:
@@ -252,7 +235,6 @@ slices:
       - libc6_libs
       - libsmartcols1_libs
     contents:
-      /usr/bin/wdctl:
       /usr/sbin/rtcwake:
 
   tty:
@@ -264,7 +246,6 @@ slices:
       /usr/bin/setterm:
       /usr/sbin/agetty:
       /usr/sbin/getty:
-      /usr/sbin/ldattach:
 
   copyright:
     contents:

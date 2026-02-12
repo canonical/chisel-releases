@@ -5,9 +5,19 @@ essential:
 
 slices:
   gcc:
+    v3-essential:
+      gcc-aarch64-linux-gnu_gcc: {arch: [arm64]}
+      gcc-x86-64-linux-gnu_gcc: {arch: [amd64]}
     essential:
       - gcc-15_gcc-15
     contents:
+      # NOTE: there are 3 packages which provide /usr/bin/cc alternative implementations:
+      # - gcc (priority 20)
+      # - clang (priority 10)
+      # - tcc (priority 10)
+      # - pcc (priority -100)
+      /usr/bin/cc:
+        symlink: /usr/bin/gcc
       /usr/bin/gcc:  # Symlink to gcc-15
 
   copyright:
