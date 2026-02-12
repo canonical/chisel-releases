@@ -31,11 +31,11 @@ def _group_new_slices_by_pr(
         slices_in_head = slices_in_head_by_pr.get(pr, frozenset())
         slices_in_base = slices_in_base_by_pr.get(pr, frozenset())
         new_slices = slices_in_head - slices_in_base
-        removed_sliced = slices_in_base - slices_in_head
-        if removed_sliced and logging.getLogger().isEnabledFor(logging.WARNING):
-            slices_string = ", ".join(sorted(removed_sliced))
+        removed_slices = slices_in_base - slices_in_head
+        if removed_slices and logging.getLogger().isEnabledFor(logging.WARNING):
+            slices_string = ", ".join(sorted(removed_slices))
             slices_string = slices_string if len(slices_string) < 100 else slices_string[:97] + "..."
-            logging.warning("PR #%d removed %d slices: %s", pr.number, len(removed_sliced), slices_string)
+            logging.warning("PR #%d removed %d slices: %s", pr.number, len(removed_slices), slices_string)
         if new_slices:
             new_slices_by_pr[pr] = frozenset(new_slices)
     return new_slices_by_pr
