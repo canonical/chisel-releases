@@ -1,10 +1,7 @@
-summary: Integration tests for bash slice
+summary: Integration tests for bash
 
-execute: |
-  rootfs="$(install-slices bash_bins)"
+variants:
+    - bash
+    - bashbug
 
-  chroot "$rootfs" bash -c "echo Success > /test"
-
-  test $(cat "$rootfs/test") == "Success"
-
-  env --ignore-environment chroot "$rootfs" bash -c "[[ -n \$BASH_VERSION ]]"
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
