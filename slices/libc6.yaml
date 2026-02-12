@@ -50,7 +50,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/gconv/gconv-modules:
       /usr/lib/*-linux-*/gconv/gconv-modules.cache:
-      /usr/lib/*-linux-*/gconv/gconv-modules.d/gconv-modules-extra.conf:
 
   gconv-core:
     essential:
