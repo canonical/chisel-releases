@@ -63,7 +63,7 @@ class TestValidators:
         assert validate_hints.no_trailing_punctuation("Ends with parenthesis)") is None
 
         # Invalid
-        for punct in {".", "!", "?", ",", ";", ":"}:
+        for punct in {".", "!", "?", ",", ";", ":", " "}:
             assert (
                 validate_hints.no_trailing_punctuation(f"Ends with {punct}") is not None
             )
@@ -117,7 +117,7 @@ class TestValidateHints:
         assert "article (a, an, the) is not allowed: 'A'" in errors[0]
         assert "can only contain alphanumeric characters" in errors[1]
         assert "(first letter 'b' is not uppercase)" in errors[2]
-        assert "trailing punctuation is not allowed: found '.' at the end" in errors[3]
+        assert "trailing punctuation and spaces are not allowed: found '.' at the end" in errors[3]
         assert "finite verbs are not allowed" in errors[4]
 
     def test_validate_hints_malformed_yaml(self, tmp_path):

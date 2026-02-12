@@ -77,10 +77,10 @@ def no_special_characters(text: str) -> Optional[ErrorMessage]:
 
 def no_trailing_punctuation(text: str) -> Optional[ErrorMessage]:
     """Check that the text does not end with punctuation, except parentheses."""
-    punctuation_marks = {".", "!", "?", ",", ";", ":"}
+    punctuation_marks = {".", "!", "?", ",", ";", ":", " "}
 
     if text and text[-1] in punctuation_marks:
-        return f"trailing punctuation is not allowed: found '{text[-1]}' at the end"
+        return f"trailing punctuation and spaces are not allowed: found '{text[-1]}' at the end"
     return None
 
 
