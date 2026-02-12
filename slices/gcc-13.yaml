@@ -18,6 +18,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-13-base_copyright
+      gcc-13-base_copyright:
     contents:
       /usr/share/doc/gcc-13:  # Symlink to gcc-13-base
