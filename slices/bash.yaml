@@ -35,12 +35,12 @@ slices:
       - base-files_bin
       - coreutils_cat
       - coreutils_chmod
-      - coreutils_cmp
       - coreutils_cp-utility
       - coreutils_mkdir
       - coreutils_sleep
       - coreutils_uname
       - dash_bins
+      - diffutils_cmp
       - grep_bins
       - sed_bins
     contents:
