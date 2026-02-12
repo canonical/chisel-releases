@@ -1,0 +1,7 @@
+summary: Integration tests for apache2
+
+variants:
+  - standard
+  - core
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
