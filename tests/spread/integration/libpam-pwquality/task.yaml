@@ -1,0 +1,12 @@
+summary: Integration tests for libpam-pwquality
+
+execute: |
+  rootfs="$(install-slices libpam-pwquality_libs)"
+
+  # simple test that just ensures slices install and
+  # that the primary library is valid file
+
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/security/pam_pwquality.so
