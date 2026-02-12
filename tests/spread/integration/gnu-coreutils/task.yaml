@@ -95,3 +95,6 @@ execute: |
   chroot "$rootfs_uname" gnuuname --version
   test "$(chroot "$rootfs_uname" gnuuname -s)" = "Linux"
 
+  # test sleep binary
+  rootfs_sleep="$(install-slices gnu-coreutils_sleep)"
+  chroot "$rootfs_sleep" gnusleep --version

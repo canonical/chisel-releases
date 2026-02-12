@@ -330,9 +330,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/gnusleep:
+      - gnu-coreutils_sleep
 
   # Numeric operations -- These programs do numerically-related operations.
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
@@ -584,6 +582,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/gnuuname:
+
+  sleep:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnusleep:
 
   copyright:
     contents:

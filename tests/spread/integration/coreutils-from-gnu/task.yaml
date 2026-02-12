@@ -238,7 +238,7 @@ execute: |
   test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
            $'1,apple,orange\n2,banana,grape'
 
-    # test cat binary
+  # test cat binary
   rootfs_cat="$(install-slices coreutils-from-gnu_cat)"
   echo "Hello, World!" > "$rootfs_cat/test_file"
   test "$(chroot "$rootfs_cat" gnucat test_file)" = "Hello, World!"
@@ -255,3 +255,7 @@ execute: |
   rootfs_uname="$(install-slices coreutils-from-gnu_uname)"
   chroot "$rootfs_uname" uname --version
   test "$(chroot "$rootfs_uname" uname -s)" = "Linux"
+  
+  # test sleep binary
+  rootfs_sleep="$(install-slices coreutils-from-gnu_sleep)"
+  chroot "$rootfs_sleep" sleep --version

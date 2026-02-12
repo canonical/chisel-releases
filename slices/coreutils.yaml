@@ -245,9 +245,21 @@ slices:
     essential:
       - coreutils-from-gnu_unlink
 
+  cat:
+    essential:
+      - coreutils-from-gnu_cat
+
+  ls-utility:
+    essential:
+      - coreutils-from-gnu_ls-utility
+
   uname:
     essential:
       - coreutils-from-gnu_uname
+
+  sleep:
+    essential:
+      - coreutils-from-gnu_sleep
 
   copyright:
     contents:

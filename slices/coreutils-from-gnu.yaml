@@ -307,9 +307,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
+      - coreutils-from-gnu_sleep
       - gnu-coreutils_delaying
-    contents:
-      /usr/bin/sleep:
 
   # Numeric operations -- These programs do numerically-related operations.
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
@@ -528,6 +527,7 @@ slices:
       - gnu-coreutils_unlink
     contents:
       /usr/bin/unlink:
+
   cat:
     essential:
       - gnu-coreutils_cat
@@ -545,6 +545,12 @@ slices:
       - gnu-coreutils_uname
     contents:
       /usr/bin/uname:
+
+  sleep:
+    essential:
+      - gnu-coreutils_sleep
+    contents:
+      /usr/bin/sleep:
 
   copyright:
     contents:
