@@ -261,6 +261,10 @@ slices:
     essential:
       - coreutils-from-gnu_sleep
 
+  cp-utility:
+    essential:
+      - coreutils-from-gnu_cp-utility
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:

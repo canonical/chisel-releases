@@ -141,13 +141,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - coreutils-from-gnu_cp-utility
       - coreutils-from-gnu_dd-utility
       - coreutils-from-gnu_install
       - coreutils-from-gnu_mv-utility
       - coreutils-from-gnu_rm-utility
       - gnu-coreutils_basic-operations
     contents:
-      /usr/bin/cp:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -551,6 +551,12 @@ slices:
       - gnu-coreutils_sleep
     contents:
       /usr/bin/sleep:
+
+  cp-utility:
+    essential:
+      - gnu-coreutils_cp-utility
+    contents:
+      /usr/bin/cp:
 
   copyright:
     contents:

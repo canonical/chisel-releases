@@ -155,6 +155,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - gnu-coreutils_cp-utility
       - gnu-coreutils_dd-utility
       - gnu-coreutils_install
       - gnu-coreutils_mv-utility
@@ -164,7 +165,6 @@ slices:
       - libc6_libs
       - libselinux1_libs
     contents:
-      /usr/bin/gnucp:
       /usr/bin/gnushred:
 
   # Special file types -- This slice contains commands which create special
@@ -588,6 +588,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/gnusleep:
+
+  cp-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnucp:
 
   copyright:
     contents:

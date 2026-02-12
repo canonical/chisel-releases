@@ -98,3 +98,10 @@ execute: |
   # test sleep binary
   rootfs_sleep="$(install-slices gnu-coreutils_sleep)"
   chroot "$rootfs_sleep" gnusleep --version
+
+  # test cp binary
+  rootfs_cp="$(install-slices gnu-coreutils_cp-utility)"
+  chroot "$rootfs_cp" gnucp --version
+  echo "Hello, World!" > "$rootfs_cp/test_file"
+  chroot "$rootfs_cp" gnucp test_file test_file_copy
+  test "$(cat "$rootfs_cp/test_file_copy")" = "Hello, World!"

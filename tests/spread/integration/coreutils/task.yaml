@@ -247,3 +247,10 @@ execute: |
   # test sleep binary
   rootfs_sleep="$(install-slices coreutils_sleep)"
   chroot "$rootfs_sleep" sleep --version
+
+  # test cp binary
+  rootfs_cp="$(install-slices coreutils_cp-utility)"
+  chroot "$rootfs_cp" cp --version
+  echo "Hello, World!" > "$rootfs_cp/test_file"
+  chroot "$rootfs_cp" cp test_file test_file_copy
+  test "$(cat "$rootfs_cp/test_file_copy")" = "Hello, World!"
