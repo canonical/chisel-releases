@@ -225,3 +225,8 @@ execute: |
   echo -e "1,orange\n2,grape" > "$rootfs_join/file2"
   test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
            $'1,apple,orange\n2,banana,grape'
+
+  # test uname binary
+  rootfs_uname="$(install-slices coreutils_uname)"
+  chroot "$rootfs_uname" uname --version
+  test "$(chroot "$rootfs_uname" uname -s)" = "Linux"

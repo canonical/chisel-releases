@@ -89,3 +89,9 @@ execute: |
   touch "$rootfs_ls/test_dir/file2"
   test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = "$(printf "file1\nfile2")"
   test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
+
+  # test uname binary
+  rootfs_uname="$(install-slices gnu-coreutils_uname)"
+  chroot "$rootfs_uname" gnuuname --version
+  test "$(chroot "$rootfs_uname" gnuuname -s)" = "Linux"
+

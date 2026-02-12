@@ -292,12 +292,12 @@ slices:
   system-context:
     essential:
       - gnu-coreutils_date
+      - gnu-coreutils_uname
       - libc6_libs
     contents:
       /usr/bin/gnuarch:
       /usr/bin/gnuhostid:
       /usr/bin/gnunproc:
-      /usr/bin/gnuuname:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -578,6 +578,12 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/gnuunlink:
+
+  uname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuuname:
 
   copyright:
     contents:

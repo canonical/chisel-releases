@@ -270,12 +270,12 @@ slices:
   system-context:
     essential:
       - coreutils-from-gnu_date
+      - coreutils-from-gnu_uname
       - gnu-coreutils_system-context
     contents:
       /usr/bin/arch:
       /usr/bin/hostid:
       /usr/bin/nproc:
-      /usr/bin/uname:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -539,6 +539,12 @@ slices:
       - gnu-coreutils_ls-utility
     contents:
       /usr/bin/ls:
+
+  uname:
+    essential:
+      - gnu-coreutils_uname
+    contents:
+      /usr/bin/uname:
 
   copyright:
     contents:

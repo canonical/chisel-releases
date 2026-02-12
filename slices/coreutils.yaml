@@ -245,6 +245,10 @@ slices:
     essential:
       - coreutils-from-gnu_unlink
 
+  uname:
+    essential:
+      - coreutils-from-gnu_uname
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
