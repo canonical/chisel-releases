@@ -107,3 +107,7 @@ jobs:
           done
 
           exit $EXIT_CODE
+
+  validate-hints:
+    name: Validate hints
+    uses: ./.github/workflows/validate-hints.yaml
