@@ -1,13 +1,18 @@
 package: nodejs
 
 essential:
-  - nodejs_copyright
+  nodejs_copyright: {}
 
 slices:
   bins:
     essential:
+<<<<<<< HEAD
       - libc6_libs
       - libnode127_libs
+=======
+      libc6_libs: {}
+      libnode115_libs: {}
+>>>>>>> 84f4eb3 (chore: convert essential lists into maps)
     contents:
       /usr/bin/js: {symlink: /usr/bin/nodejs}
       /usr/bin/node:

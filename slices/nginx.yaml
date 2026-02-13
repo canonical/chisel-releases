@@ -1,7 +1,7 @@
 package: nginx
 
 essential:
-  - nginx_copyright
+  nginx_copyright: {}
 
 slices:
   bins:

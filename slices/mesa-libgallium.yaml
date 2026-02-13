@@ -1,13 +1,13 @@
 package: mesa-libgallium
 
 essential:
-  - mesa-libgallium_copyright
+  mesa-libgallium_copyright: {}
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm-amdgpu1_libs
+      libc6_libs: {}
+      libdrm-amdgpu1_libs: {}
       # The libdrm-intel1_libs dependency is currently ommited, it can be
       # added again once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93

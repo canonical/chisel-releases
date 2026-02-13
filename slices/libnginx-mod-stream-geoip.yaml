@@ -1,7 +1,7 @@
 package: libnginx-mod-stream-geoip
 
 essential:
-  - libnginx-mod-stream-geoip_copyright
+  libnginx-mod-stream-geoip_copyright: {}
 
 slices:
   modules:
