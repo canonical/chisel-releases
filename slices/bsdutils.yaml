@@ -1,0 +1,21 @@
+package: bsdutils
+
+essential:
+  - bsdutils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/logger:
+      /usr/bin/renice:
+      /usr/bin/script:
+      /usr/bin/scriptlive:
+      /usr/bin/scriptreplay:
+      /usr/bin/wall:
+
+  copyright:
+    contents:
+      /usr/share/doc/bsdutils/copyright:

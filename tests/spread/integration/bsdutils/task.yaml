@@ -1,0 +1,21 @@
+summary: Integration tests for bsdutils
+
+execute: |
+  rootfs="$(install-slices bsdutils_bins)"
+
+  # needs dev/run (definitely not normally ok) mounted
+  mkdir -p "${rootfs}"/dev
+  mkdir -p "${rootfs}"/run
+
+  mount --rbind /dev "${rootfs}"/dev
+  mount --rbind /run "${rootfs}"/run
+
+  # smoke test the logger binary
+  chroot "${rootfs}" /usr/bin/logger "hello from spread"
+
+  # should now be visible in journal
+  journalctl -b | grep "hello from spread"
+  
+  # cleanup
+  umount -l "${rootfs}"/run
+  umount -l "${rootfs}"/dev
