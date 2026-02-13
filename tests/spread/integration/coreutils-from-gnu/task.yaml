@@ -238,7 +238,7 @@ execute: |
   test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
            $'1,apple,orange\n2,banana,grape'
 
-    # test cat binary
+  # test cat binary
   rootfs_cat="$(install-slices coreutils-from-gnu_cat)"
   echo "Hello, World!" > "$rootfs_cat/test_file"
   test "$(chroot "$rootfs_cat" gnucat test_file)" = "Hello, World!"

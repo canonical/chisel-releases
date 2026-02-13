@@ -225,3 +225,16 @@ execute: |
   echo -e "1,orange\n2,grape" > "$rootfs_join/file2"
   test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
            $'1,apple,orange\n2,banana,grape'
+  
+  # test cat binary
+  rootfs_cat="$(install-slices coreutils_cat)"
+  echo "Hello, World!" > "$rootfs_cat/test_file"
+  test "$(chroot "$rootfs_cat" gnucat test_file)" = "Hello, World!"
+
+  # test ls binary
+  rootfs_ls="$(install-slices coreutils_ls-utility)"
+  mkdir -p "$rootfs_ls/test_dir"
+  touch "$rootfs_ls/test_dir/file1"
+  touch "$rootfs_ls/test_dir/file2"
+  test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = "$(printf "file1\nfile2")"
+  test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
