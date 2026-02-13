@@ -95,8 +95,10 @@ jobs:
 
           for filename in $(find slices/ | grep "\.yaml$" | sort); do
             for slice in $(yq '.slices | keys | .[]' "$filename"); do
+              # Because of chisel format "v3", essential can either be a map or an array
+              # so the following "essential" check needs to cope with that and verify the type of essential
               key="$slice" yq \
-                '.slices | with_entries(select(.key == env(key))) | .[].essential[]' \
+                '.slices | with_entries(select(.key == env(key))) | .[] | select(.essential != null) | (.essential | select(tag == "!!map") | keys) // .essential | .[]' \
                 "$filename" | sort -C || \
                 err "$filename: $slice: \"essential\" entries are not sorted"
               key="$slice" yq \
