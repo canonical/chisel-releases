@@ -1,7 +1,7 @@
 package: libboost-coroutine1.83.0
 
 essential:
-  - libboost-coroutine1.83.0_copyright
+  libboost-coroutine1.83.0_copyright: {}
 
 slices:
   libs:

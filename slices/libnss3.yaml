@@ -7,7 +7,7 @@
 package: libnss3
 
 essential:
-  - libnss3_copyright
+  libnss3_copyright: {}
 
 slices:
   # The libs slice contains all the libraries coming from this package.
@@ -21,17 +21,17 @@ slices:
 
   nss:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libsqlite3-0_libs
+      libc6_libs: {}
+      libnspr4_libs: {}
+      libsqlite3-0_libs: {}
     contents:
       /usr/lib/*-linux-*/libnss3.so:
       /usr/lib/*-linux-*/libnssutil3.so:
 
   smime:
     essential:
-      - libc6_libs
-      - libnspr4_libs
+      libc6_libs: {}
+      libnspr4_libs: {}
     contents:
       /usr/lib/*-linux-*/libsmime3.so:
 

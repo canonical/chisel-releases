@@ -1,24 +1,24 @@
 package: libavcodec61
 
 essential:
-  - libavcodec61_copyright
+  libavcodec61_copyright: {}
 
 slices:
   libs:
     essential:
-      - libaom3_libs
-      - libavutil59_libs
-      - libc6_libs
-      - libcairo2_libs
-      - libcodec2-1.2_libs
-      - libdav1d7_libs
-      - libglib2.0-0t64_libs
-      - libgsm1_libs
-      - libjxl0.11_libs
-      - liblzma5_libs
-      - libmp3lame0_libs
-      - libopenjp2-7_libs
-      - libopus0_libs
+      libaom3_libs: {}
+      libavutil59_libs: {}
+      libc6_libs: {}
+      libcairo2_libs: {}
+      libcodec2-1.2_libs: {}
+      libdav1d7_libs: {}
+      libglib2.0-0t64_libs: {}
+      libgsm1_libs: {}
+      libjxl0.11_libs: {}
+      liblzma5_libs: {}
+      libmp3lame0_libs: {}
+      libopenjp2-7_libs: {}
+      libopus0_libs: {}
       # The librav1e0.7_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
