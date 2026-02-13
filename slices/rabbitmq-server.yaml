@@ -1,7 +1,7 @@
 package: rabbitmq-server
 
 essential:
-  - rabbitmq-server_copyright
+  rabbitmq-server_copyright: {}
 
 # NOTE: erlang* packages do not exist for i386.
 # The following commented slices should be manually included when cutting the
@@ -13,13 +13,13 @@ slices:
 
   bins:
     essential:
-      - base-files_bin
-      - base-files_etc
-      - base-files_home
-      - base-files_var
-      - base-passwd_data
-      - bash_bins
-      - coreutils_bins
+      base-files_bin: {}
+      base-files_etc: {}
+      base-files_home: {}
+      base-files_var: {}
+      base-passwd_data: {}
+      bash_bins: {}
+      coreutils_bins: {}
       # TODO: The slices bellow are necessary to run RabbitMQ server for amd64 and arm64,
       #       but are not included by default to avoid dependency issues with other
       #       architectures such as i386.

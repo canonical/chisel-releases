@@ -1,13 +1,13 @@
 package: less
 
 essential:
-  - less_copyright
+  less_copyright: {}
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libtinfo6_libs
+      libc6_libs: {}
+      libtinfo6_libs: {}
     contents:
       /usr/bin/less:
       /usr/bin/lessecho:

@@ -1,7 +1,7 @@
 package: binutils
 
 essential:
-  - binutils_copyright
+  binutils_copyright: {}
 
 slices:
   archiver:
