@@ -6,10 +6,10 @@ essential:
 slices:
   libs:
     essential:
-      - node-busboy_libs
+      - node-llhttp_libs
     contents:
-      /usr/share/nodejs/binary-search/*.js:
       /usr/share/nodejs/undici/index-fetch.js:
+      /usr/share/nodejs/undici/index.d.ts:
       /usr/share/nodejs/undici/index.js:
       /usr/share/nodejs/undici/lib/**.js:
       /usr/share/nodejs/undici/package.json:

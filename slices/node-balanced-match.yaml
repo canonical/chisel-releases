@@ -1,0 +1,14 @@
+package: node-balanced-match
+
+essential:
+  - node-balanced-match_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/share/nodejs/balanced-match/index.js:
+      /usr/share/nodejs/balanced-match/package.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-balanced-match/copyright:
