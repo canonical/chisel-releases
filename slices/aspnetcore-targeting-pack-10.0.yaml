@@ -1,0 +1,13 @@
+package: aspnetcore-targeting-pack-10.0
+
+essential:
+  - aspnetcore-targeting-pack-10.0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Ref/10.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/aspnetcore-targeting-pack-10.0/copyright:
