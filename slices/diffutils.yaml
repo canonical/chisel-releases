@@ -6,12 +6,18 @@ essential:
 slices:
   bins:
     essential:
+      - diffutils_cmp
       - libc6_libs
     contents:
-      /usr/bin/cmp:
       /usr/bin/diff:
       /usr/bin/diff3:
       /usr/bin/sdiff:
+
+  cmp:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/cmp:
 
   copyright:
     contents:
