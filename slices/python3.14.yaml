@@ -1,0 +1,62 @@
+package: python3.14
+
+essential:
+  - python3.14_copyright
+
+slices:
+  # The "core" slice provides a very minimal, yet functioning python3.14.
+  # It includes very few modules from the libpython3.14-stdlib package.
+  core:
+    essential:
+      - libpython3.14-stdlib_core
+      - media-types_data
+      - python3.14-minimal_bins
+
+  # The "standard" slice extends "core" with all the Python
+  # modules from the libpython3.14-stdlib package.
+  standard:
+    essential:
+      - libpython3.14-stdlib_aix-support
+      - libpython3.14-stdlib_all-os
+      - libpython3.14-stdlib_concurrency
+      - libpython3.14-stdlib_core
+      - libpython3.14-stdlib_crypto
+      - libpython3.14-stdlib_custom-interpreters
+      - libpython3.14-stdlib_data-persistence
+      - libpython3.14-stdlib_data-types
+      - libpython3.14-stdlib_debug
+      - libpython3.14-stdlib_development-tools
+      - libpython3.14-stdlib_distribution
+      - libpython3.14-stdlib_extras
+      - libpython3.14-stdlib_file-formats
+      - libpython3.14-stdlib_filesys
+      - libpython3.14-stdlib_frameworks
+      - libpython3.14-stdlib_importing
+      - libpython3.14-stdlib_internet
+      - libpython3.14-stdlib_ipc
+      - libpython3.14-stdlib_language
+      - libpython3.14-stdlib_markup-tools
+      - libpython3.14-stdlib_multimedia
+      - libpython3.14-stdlib_net-data
+      - libpython3.14-stdlib_numeric
+      - libpython3.14-stdlib_osx-support
+      - libpython3.14-stdlib_pydoc
+      - libpython3.14-stdlib_text
+      - libpython3.14-stdlib_unix
+      - python3.14_core
+      - tzdata_zoneinfo
+
+  # The "utlis" slice extends "core" with various tools.
+  utils:
+    essential:
+      - libpython3.14-stdlib_debug
+      - libpython3.14-stdlib_pydoc
+      - python3.14_core
+    contents:
+      /usr/bin/pdb3.14:
+      /usr/bin/pydoc3.14:
+      /usr/bin/pygettext3.14:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3.14/copyright:
