@@ -1,0 +1,13 @@
+package: fonts-tlwg-loma-otf
+
+essential:
+  - fonts-tlwg-loma-otf_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/opentype/tlwg/Loma*:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-tlwg-loma-otf/copyright:
