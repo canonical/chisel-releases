@@ -1,0 +1,17 @@
+package: libavahi-common3
+
+essential:
+  - libavahi-common3_copyright
+
+slices:
+  libs:
+    # libavahi-common3 also depends on libavahi-common-data, but that is probably not necessary
+    # for most distroless use cases
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libavahi-common.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libavahi-common3/copyright:
