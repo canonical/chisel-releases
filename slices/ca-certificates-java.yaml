@@ -4,7 +4,7 @@ essential:
   - ca-certificates-java_copyright
 
 slices:
-  bins:
+  jars:
     essential:
       - ca-certificates-java_data-with-certs
       - ca-certificates_bins
@@ -24,7 +24,7 @@ slices:
       # sudo chroot . /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java \
       #    -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
       # rm certs
-      # See tests/spread/integration/ca-certificates-java/task.yaml
+      # See tests/spread/integration/ca-certificates-java/test_jars.sh
       /etc/ssl/certs/java/:
       /usr/share/ca-certificates-java/ca-certificates-java.jar:
 
