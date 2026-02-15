@@ -1,0 +1,17 @@
+package: fonts-ipafont-gothic
+
+essential:
+  - fonts-ipafont-gothic_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/opentype/ipafont-gothic/*:
+
+  config:
+    contents:
+      /etc/fonts/conf.avail/65-fonts-ipafont-gothic.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-ipafont-gothic/copyright:

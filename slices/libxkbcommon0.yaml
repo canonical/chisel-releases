@@ -1,0 +1,17 @@
+package: libxkbcommon0
+
+essential:
+  - libxkbcommon0_copyright
+
+slices:
+  libs:
+    essential:
+      # libxkbcommon0 also depends on xkb-data, but that is probably not necessary
+      # for most distroless use cases
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libxkbcommon.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxkbcommon0/copyright:
