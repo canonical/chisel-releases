@@ -47,7 +47,6 @@ slices:
     essential:
       - base-files_bin
       - base-files_tmp
-      - dash_bins
       - coreutils_basename
       - coreutils_cat
       - coreutils_chmod
@@ -58,6 +57,7 @@ slices:
       - coreutils_rm-utility
       - coreutils_sort
       - coreutils_wc-utility
+      - dash_bins
       - findutils_bins
       - openssl_bins
       - sed_bins
