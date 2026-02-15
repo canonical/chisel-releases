@@ -1,0 +1,21 @@
+package: fonts-wqy-zenhei
+
+essential:
+  - fonts-wqy-zenhei_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/truetype/wqy/wqy-zenhei.ttc:
+
+  config:
+    contents:
+      /etc/fonts/conf.avail/25-wqy-zenhei.conf:
+      /etc/fonts/conf.avail/63-wqy-zenhei-sharp.conf:
+      /etc/fonts/conf.avail/64-wqy-zenhei.conf:
+      /etc/fonts/conf.d/25-wqy-zenhei.conf:
+      /etc/fonts/conf.d/64-wqy-zenhei.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-wqy-zenhei/copyright:
