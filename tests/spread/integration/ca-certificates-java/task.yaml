@@ -1,12 +1,8 @@
 summary: Integration tests for ca-certificates-java
 
-environment:
-  SLICE/bins: "bins"
-
 execute: |
   # Test bins slice installation
-  echo "SLICE=${SLICE}"
-  rootfs="$(install-slices ca-certificates-java_${SLICE} openjdk-8-jre-headless_security)"
+  rootfs="$(install-slices ca-certificates-java_bins openjdk-8-jre-headless_security)"
 
   cd ${rootfs}
   chroot . /bin/bash /usr/sbin/update-ca-certificates
