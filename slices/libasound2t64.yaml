@@ -1,0 +1,17 @@
+package: libasound2t64
+
+essential:
+  - libasound2t64_copyright
+
+slices:
+  libs:
+    essential:
+      # libasound2t64 also depends on libasound2-data, but that is probably not necessary
+      # for most distroless use cases
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libasound.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libasound2t64/copyright:
