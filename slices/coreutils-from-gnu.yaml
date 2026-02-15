@@ -77,6 +77,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Summarizing-files.html
   summarizing-files:
     essential:
+      - coreutils-from-gnu_wc-utility
       - gnu-coreutils_summarizing-files
     contents:
       /usr/bin/b2sum:
@@ -88,7 +89,6 @@ slices:
       /usr/bin/sha384sum:
       /usr/bin/sha512sum:
       /usr/bin/sum:
-      /usr/bin/wc:
 
   # Operating on sorted files -- These commands work with (or produce) sorted
   # files.
@@ -539,6 +539,12 @@ slices:
       - gnu-coreutils_ls-utility
     contents:
       /usr/bin/ls:
+
+  wc-utility:
+    essential:
+      - gnu-coreutils_wc-utility
+    contents:
+      /usr/bin/wc:
 
   copyright:
     contents:
