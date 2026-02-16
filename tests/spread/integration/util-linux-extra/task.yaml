@@ -66,6 +66,8 @@ execute: |
   chroot "${rootfs}" lsirq
   chroot "${rootfs}" lslogins
   chroot "${rootfs}" lsmem | grep "Total online memory"
+  chroot "$rootfs" newgrp root
+  chroot "$rootfs" sg root
   echo "test" | chroot "$rootfs" pipesz -g
   chroot "${rootfs}" rename.ul copyright copyright2 /usr/share/doc/util-linux-extra/copyright
 
