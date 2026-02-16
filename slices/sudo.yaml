@@ -42,7 +42,7 @@ slices:
           %sudo	ALL=(ALL:ALL) ALL
           @includedir /etc/sudoers.d
         mode: 440
-      /etc/sudoers.d:
+      /etc/sudoers.d/:
       /usr/lib/tmpfiles.d/sudo.conf:
 
   services:
