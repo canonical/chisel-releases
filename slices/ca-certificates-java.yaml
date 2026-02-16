@@ -17,7 +17,7 @@ slices:
       # output directory and openjdk-8-jre-headless_security is
       # also installed.
       # cd rootfs
-      # sudo chroot . /bin/bash /usr/sbin/update-ca-certificates
+      # sudo chroot . /usr/sbin/update-ca-certificates
       # sudo chroot . find /etc/ssl/certs/ -name *.pem -exec echo +{} \; > certs
       # `mkdir proc && mount -t proc /proc proc/` or
       # `chroot . ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java proc/self/exe`

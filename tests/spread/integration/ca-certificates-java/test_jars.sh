@@ -4,7 +4,7 @@
 rootfs="$(install-slices ca-certificates-java_jars openjdk-8-jre-headless_security)"
 
 cd "$rootfs" || exit 1
-chroot . /bin/bash /usr/sbin/update-ca-certificates
+chroot . /usr/sbin/update-ca-certificates
 chroot . find /etc/ssl/certs/ -name *.pem -exec echo +{} \; > "$rootfs/certs"
 
 mkdir -p proc/self
