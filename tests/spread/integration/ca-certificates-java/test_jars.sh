@@ -3,6 +3,10 @@
 
 rootfs="$(install-slices ca-certificates-java_jars openjdk-8-jre-headless_security)"
 
+# mock /dev/null
+mkdir -p "$rootfs/dev"
+touch "$rootfs/dev/null"
+
 cd "$rootfs" || exit 1
 chroot . /usr/sbin/update-ca-certificates
 chroot . find /etc/ssl/certs/ -name *.pem -exec echo +{} \; > "$rootfs/certs"
