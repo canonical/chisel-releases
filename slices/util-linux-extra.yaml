@@ -33,10 +33,12 @@ slices:
       /usr/bin/lsirq:
       /usr/bin/lslogins:
       /usr/bin/lsmem:
+      /usr/bin/newgrp:
       /usr/bin/pipesz:
       /usr/bin/pivot_root:
       /usr/bin/rename.ul:
       /usr/bin/resizepart:
+      /usr/bin/sg:
       /usr/bin/switch_root:
       /usr/bin/waitpid:
       /usr/bin/wdctl:
