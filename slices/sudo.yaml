@@ -36,6 +36,13 @@ slices:
     contents:
       /etc/sudo.conf:
       /etc/sudo_logsrvd.conf:
+      /etc/sudoers:
+        text: |
+          root	ALL=(ALL:ALL) ALL
+          %sudo	ALL=(ALL:ALL) ALL
+          @includedir /etc/sudoers.d
+        mode: 440
+      /etc/sudoers.d:
       /usr/lib/tmpfiles.d/sudo.conf:
 
   services:
