@@ -5,6 +5,9 @@ essential:
 
 slices:
   gcc:
+    v3-essential:
+      gcc-aarch64-linux-gnu_gcc: {arch: [arm64]}
+      gcc-x86-64-linux-gnu_gcc: {arch: [amd64]}
     essential:
       - gcc-15_gcc-15
     contents:
