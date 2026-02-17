@@ -9,3 +9,4 @@ bin_path=$(find "$rootfs" -type f -executable -name "gdk-pixbuf-query-loaders" -
 svg_loader=$(chroot "$rootfs" "$bin_path")
 
 echo "$svg_loader" | grep -q "libpixbufloader_svg.so"
+
