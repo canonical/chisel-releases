@@ -127,6 +127,15 @@ class TestValidateHints:
         assert len(errors) == 1
         assert "Failed to parse YAML" in errors[0]
 
+    def test_validate_hints_non_dict_yaml(self, tmp_path):
+        f = tmp_path / "bad.yaml"
+        f.write_text("- foo", encoding="utf-8")
+
+        errors = validate_hints.validate_hints(str(f))
+        assert len(errors) == 1
+        assert "Failed to parse YAML" in errors[0]
+        assert "YAML mapping" in errors[0]
+
 
 class TestMain:
     """Test the main execution flow."""

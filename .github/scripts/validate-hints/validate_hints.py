@@ -32,7 +32,9 @@ def no_finite_verbs(text: str) -> ErrorMessage | None:
     doc = NLP(text)
     findings: list[str] = []
     for token in doc:
-        if token.pos_ in ["VERB", "AUX"] and token.morph.get("VerbForm", None) == ["Fin"]:
+        if token.pos_ in ["VERB", "AUX"] and token.morph.get("VerbForm", None) == [
+            "Fin"
+        ]:
             findings.append(f"{token.text} ({token.lemma_})")
 
     if findings:
@@ -97,9 +99,7 @@ def is_sentence_case(text: str) -> ErrorMessage | None:
 
         # Check if first letter is upper
         if not s_text[0].isupper():
-            findings.append(
-                f"'{s_text}' (first letter '{s_text[0]}' is not uppercase)"
-            )
+            findings.append(f"'{s_text}' (first letter '{s_text[0]}' is not uppercase)")
 
     if findings:
         return f"text must be sentence case: {', '.join(findings)}"
@@ -114,9 +114,13 @@ def validate_hints(file_path: str) -> list[str]:
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = yaml.safe_load(f)
+
+        assert isinstance(
+            content, dict
+        ), f"Expected {file_path} to be a YAML mapping (dict) at the top level"
     except Exception as e:
         return [f"File={file_path}, Error=Failed to parse YAML: {e}"]
-    
+
     slices = content.get("slices", {})
     if not isinstance(slices, dict):
         return []
@@ -149,9 +153,7 @@ def validate_hints(file_path: str) -> list[str]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Validate hints in slice definitions"
-    )
+    parser = argparse.ArgumentParser(description="Validate hints in slice definitions")
     parser.add_argument("files", nargs="+", help="Slice definition files to validate")
     args = parser.parse_args()
 
@@ -162,7 +164,7 @@ def main() -> None:
         all_errors.extend(validate_hints(input_file))
 
     if all_errors:
-        logging.error("\033[91mThe following 'hints' are not valid\033[0m")
+        logging.error("\033[91mThe 'hint' validation steps failed\033[0m")
         all_errors.sort()
         for error in all_errors:
             logging.error(error)
