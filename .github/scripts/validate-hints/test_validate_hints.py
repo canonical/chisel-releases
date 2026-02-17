@@ -12,7 +12,26 @@ import validate_hints
 
 
 class TestValidators:
-    """Test individual validator functions."""
+    """Test individual validator functions, including NLP initialization."""
+
+    def test_get_nlp_caching(self):
+        # Ensure that the NLP model is loaded and cached
+        nlp1 = validate_hints.get_nlp()
+        nlp2 = validate_hints.get_nlp()
+        assert nlp1 is nlp2, "NLP model should be cached and reused"
+
+    @patch("spacy.load")
+    @patch("spacy.cli.download")
+    def test_nonexistent_model(self, mock_download, mock_load):
+        # Simulate the case where the model is not available and needs to be downloaded
+        validate_hints.get_nlp()  # Ensure model is loaded and cached
+        mock_load.side_effect = [OSError("Model not found"), validate_hints._NLP_CACHE]
+        
+        validate_hints._NLP_CACHE = None  # Reset cache
+        nlp = validate_hints.get_nlp()
+        mock_load.assert_called_with("en_core_web_sm")
+        mock_download.assert_called_with("en_core_web_sm")
+        assert nlp is not None, "NLP model should be loaded after download"
 
     def test_no_finite_verbs(self):
         # Valid cases

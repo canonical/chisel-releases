@@ -12,19 +12,8 @@ from typing import Callable
 import spacy
 import yaml
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-# Load NLP model
-try:
-    NLP = spacy.load("en_core_web_sm")
-except OSError:
-    logging.warning("Downloading en_core_web_sm model...")
-    from spacy.cli import download
-
-    download("en_core_web_sm")
-    NLP = spacy.load("en_core_web_sm")
-
+_NLP_CACHE: spacy.language.Language | None = None
 ErrorMessage = str
 COLORED_LOGGING: dict[str, str] = {
     "red": "\033[31m",
@@ -32,9 +21,25 @@ COLORED_LOGGING: dict[str, str] = {
 }
 
 
+def get_nlp() -> spacy.language.Language:
+    """Lazy load the NLP model."""
+    global _NLP_CACHE
+    if _NLP_CACHE is None:
+        try:
+            _NLP_CACHE = spacy.load("en_core_web_sm")
+        except OSError:
+            logging.warning("Downloading en_core_web_sm model...")
+            from spacy.cli import download
+
+            download("en_core_web_sm")
+            _NLP_CACHE = spacy.load("en_core_web_sm")
+
+    return _NLP_CACHE
+
+
 def no_finite_verbs(text: str) -> ErrorMessage | None:
     """Check that the text does not contain finite verbs."""
-    doc = NLP(text)
+    doc = get_nlp()(text)
     findings: list[str] = []
     for token in doc:
         if token.pos_ in ["VERB", "AUX"] and token.morph.get("VerbForm", None) == [
@@ -94,7 +99,7 @@ def is_sentence_case(text: str) -> ErrorMessage | None:
     """Check that each sentence in the text starts with an uppercase letter."""
     # It is not enough to split the text by '.' and check each sentence separately,
     # because we can have complex punctuation like "Single 1.1 sentence"
-    doc = NLP(text)
+    doc = get_nlp()(text)
     findings: list[str] = []
 
     for sent in doc.sents:
@@ -117,7 +122,7 @@ def no_consecutive_spaces(text: str) -> ErrorMessage | None:
 
     if re.search(pattern, text):
         return "contains two or more consecutive spaces"
-    return None                 
+    return None
 
 
 def validate_hints(file_path: str) -> list[str]:
@@ -171,6 +176,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Validate hints in slice definitions")
     parser.add_argument("files", nargs="+", help="Slice definition files to validate")
     args = parser.parse_args()
+
+    # Configure logging
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     logging.info("Validating slice definition hints")
 
