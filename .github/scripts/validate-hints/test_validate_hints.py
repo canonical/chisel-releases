@@ -84,14 +84,14 @@ class TestValidators:
         assert err is not None
         assert "'s'" in err
 
-    def test_has_consecutive_spaces(self):
+    def test_no_consecutive_spaces(self):
         # Valid
-        assert validate_hints.has_consecutive_spaces("System configuration") is None
+        assert validate_hints.no_consecutive_spaces("System configuration") is None
 
         # Invalid
         err = [
-            validate_hints.has_consecutive_spaces("No  consecutive spaces"),
-            validate_hints.has_consecutive_spaces("Ends with\t\tspace"),
+            validate_hints.no_consecutive_spaces("No  consecutive spaces"),
+            validate_hints.no_consecutive_spaces("Ends with\t\tspace"),
         ]
 
         assert None not in err
