@@ -84,6 +84,19 @@ class TestValidators:
         assert err is not None
         assert "'s'" in err
 
+    def test_has_consecutive_spaces(self):
+        # Valid
+        assert validate_hints.has_consecutive_spaces("System configuration") is None
+
+        # Invalid
+        err = [
+            validate_hints.has_consecutive_spaces("No  consecutive spaces"),
+            validate_hints.has_consecutive_spaces("Ends with\t\tspace"),
+        ]
+
+        assert None not in err
+        assert all("two or more consecutive spaces" in e for e in err)
+
 
 class TestValidateHints:
     """Test the file validation logic."""
@@ -116,7 +129,10 @@ class TestValidateHints:
         assert "article (a, an, the) is not allowed: 'A'" in errors[0]
         assert "can only contain alphanumeric characters" in errors[1]
         assert "(first letter 'b' is not uppercase)" in errors[2]
-        assert "trailing punctuation and spaces are not allowed: found '.' at the end" in errors[3]
+        assert (
+            "trailing punctuation and spaces are not allowed: found '.' at the end"
+            in errors[3]
+        )
         assert "finite verbs are not allowed" in errors[4]
 
     def test_validate_hints_malformed_yaml(self, tmp_path):

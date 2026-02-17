@@ -111,6 +111,15 @@ def is_sentence_case(text: str) -> ErrorMessage | None:
     return None
 
 
+def has_consecutive_spaces(text: str) -> ErrorMessage | None:
+    """Check that the text does not contain consecutive spaces."""
+    pattern = r"\s{2,}"
+
+    if re.search(pattern, text):
+        return "contains two or more consecutive spaces"
+    return None                 
+
+
 def validate_hints(file_path: str) -> list[str]:
     """Validate hints in a single slice definition file."""
     logging.info(f"Processing {file_path}...")
@@ -136,6 +145,7 @@ def validate_hints(file_path: str) -> list[str]:
         no_special_characters,
         no_trailing_punctuation,
         is_sentence_case,
+        has_consecutive_spaces,
     ]
 
     for slice_name, values in slices.items():
