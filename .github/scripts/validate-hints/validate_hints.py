@@ -26,6 +26,10 @@ except OSError:
     NLP = spacy.load("en_core_web_sm")
 
 ErrorMessage = str
+COLORED_LOGGING = {
+    "red": "\033[31m",
+    "reset": "\033[0m",
+}
 
 
 def no_finite_verbs(text: str) -> ErrorMessage | None:
@@ -165,7 +169,9 @@ def main() -> None:
         all_errors.extend(validate_hints(input_file))
 
     if all_errors:
-        logging.error("\033[91mThe 'hint' validation steps failed\033[0m")
+        logging.error(
+            f"{COLORED_LOGGING['red']}The 'hint' validation steps failed{COLORED_LOGGING['reset']}"
+        )
         all_errors.sort()
         for error in all_errors:
             logging.error(error)
