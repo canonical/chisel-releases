@@ -7,6 +7,7 @@ import argparse
 import logging
 import re
 import sys
+from typing import Callable
 
 import spacy
 import yaml
@@ -125,7 +126,7 @@ def validate_hints(file_path: str) -> list[str]:
     if not isinstance(slices, dict):
         return []
 
-    validators = [
+    validators: list[Callable[[str], ErrorMessage | None]] = [
         no_finite_verbs,
         no_starting_articles,
         no_special_characters,
