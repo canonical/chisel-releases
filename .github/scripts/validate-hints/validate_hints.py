@@ -26,7 +26,7 @@ except OSError:
     NLP = spacy.load("en_core_web_sm")
 
 ErrorMessage = str
-COLORED_LOGGING = {
+COLORED_LOGGING: dict[str, str] = {
     "red": "\033[31m",
     "reset": "\033[0m",
 }
@@ -111,7 +111,7 @@ def is_sentence_case(text: str) -> ErrorMessage | None:
     return None
 
 
-def has_consecutive_spaces(text: str) -> ErrorMessage | None:
+def no_consecutive_spaces(text: str) -> ErrorMessage | None:
     """Check that the text does not contain consecutive spaces."""
     pattern = r"\s{2,}"
 
@@ -145,7 +145,7 @@ def validate_hints(file_path: str) -> list[str]:
         no_special_characters,
         no_trailing_punctuation,
         is_sentence_case,
-        has_consecutive_spaces,
+        no_consecutive_spaces,
     ]
 
     for slice_name, values in slices.items():
