@@ -30,7 +30,7 @@ ErrorMessage = str
 def no_finite_verbs(text: str) -> ErrorMessage | None:
     """Check that the text does not contain finite verbs."""
     doc = NLP(text)
-    findings = []
+    findings: list[str] = []
     for token in doc:
         if token.pos_ in ["VERB", "AUX"] and token.morph.get("VerbForm") == ["Fin"]:
             findings.append(f"{token.text} ({token.lemma_})")
@@ -47,7 +47,7 @@ def no_starting_articles(text: str) -> ErrorMessage | None:
         return None
 
     first_word = words[0]
-    articles = {"a", "an", "the"}
+    articles: set[str] = {"a", "an", "the"}
     if first_word.lower() in articles:
         return (
             f"starting with an article ({', '.join(sorted(articles))}) "
@@ -76,7 +76,7 @@ def no_special_characters(text: str) -> ErrorMessage | None:
 
 def no_trailing_punctuation(text: str) -> ErrorMessage | None:
     """Check that the text does not end with punctuation, except parentheses."""
-    punctuation_marks = {".", "!", "?", ",", ";", ":", " "}
+    punctuation_marks: set[str] = {".", "!", "?", ",", ";", ":", " "}
 
     if text and text[-1] in punctuation_marks:
         return f"trailing punctuation and spaces are not allowed: found '{text[-1]}' at the end"
@@ -88,7 +88,7 @@ def is_sentence_case(text: str) -> ErrorMessage | None:
     # It is not enough to split the text by '.' and check each sentence separately,
     # because we can have complex punctuation like "Single 1.1 sentence"
     doc = NLP(text)
-    findings = []
+    findings: list[str] = []
 
     for sent in doc.sents:
         s_text = sent.text.strip()
@@ -109,7 +109,7 @@ def is_sentence_case(text: str) -> ErrorMessage | None:
 def validate_hints(file_path: str) -> list[str]:
     """Validate hints in a single slice definition file."""
     logging.info(f"Processing {file_path}...")
-    errors = []
+    errors: list[str] = []
 
     try:
         with open(file_path, "r", encoding="utf-8") as f:
@@ -148,7 +148,7 @@ def validate_hints(file_path: str) -> list[str]:
     return errors
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Validate hints in slice definitions"
     )
@@ -157,7 +157,7 @@ def main():
 
     logging.info("Validating slice definition hints")
 
-    all_errors = []
+    all_errors: list[str] = []
     for input_file in args.files:
         all_errors.extend(validate_hints(input_file))
 
