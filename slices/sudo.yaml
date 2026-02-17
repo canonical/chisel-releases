@@ -38,6 +38,7 @@ slices:
       /etc/sudo_logsrvd.conf:
       /etc/sudoers:
         text: |
+          # Minimal sudoers file based on 25.10
           root	ALL=(ALL:ALL) ALL
           %sudo	ALL=(ALL:ALL) ALL
           @includedir /etc/sudoers.d
