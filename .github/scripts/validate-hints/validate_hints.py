@@ -32,7 +32,7 @@ def no_finite_verbs(text: str) -> ErrorMessage | None:
     doc = NLP(text)
     findings: list[str] = []
     for token in doc:
-        if token.pos_ in ["VERB", "AUX"] and token.morph.get("VerbForm") == ["Fin"]:
+        if token.pos_ in ["VERB", "AUX"] and token.morph.get("VerbForm", None) == ["Fin"]:
             findings.append(f"{token.text} ({token.lemma_})")
 
     if findings:
