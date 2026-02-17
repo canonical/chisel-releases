@@ -7,7 +7,6 @@ import argparse
 import logging
 import re
 import sys
-from typing import List, Optional
 
 import spacy
 import yaml
@@ -28,7 +27,7 @@ except OSError:
 ErrorMessage = str
 
 
-def no_finite_verbs(text: str) -> Optional[ErrorMessage]:
+def no_finite_verbs(text: str) -> ErrorMessage | None:
     """Check that the text does not contain finite verbs."""
     doc = NLP(text)
     findings = []
@@ -41,7 +40,7 @@ def no_finite_verbs(text: str) -> Optional[ErrorMessage]:
     return None
 
 
-def no_starting_articles(text: str) -> Optional[ErrorMessage]:
+def no_starting_articles(text: str) -> ErrorMessage | None:
     """Check that the text does not start with an article."""
     words = text.split()
     if not words:
@@ -57,7 +56,7 @@ def no_starting_articles(text: str) -> Optional[ErrorMessage]:
     return None
 
 
-def no_special_characters(text: str) -> Optional[ErrorMessage]:
+def no_special_characters(text: str) -> ErrorMessage | None:
     """
     Check that the text contains only allowed characters.
     Allowed: alphanumeric, periods, commas, semicolons, parentheses.
@@ -75,7 +74,7 @@ def no_special_characters(text: str) -> Optional[ErrorMessage]:
     return None
 
 
-def no_trailing_punctuation(text: str) -> Optional[ErrorMessage]:
+def no_trailing_punctuation(text: str) -> ErrorMessage | None:
     """Check that the text does not end with punctuation, except parentheses."""
     punctuation_marks = {".", "!", "?", ",", ";", ":", " "}
 
@@ -84,7 +83,7 @@ def no_trailing_punctuation(text: str) -> Optional[ErrorMessage]:
     return None
 
 
-def is_sentence_case(text: str) -> Optional[ErrorMessage]:
+def is_sentence_case(text: str) -> ErrorMessage | None:
     """Check that each sentence in the text starts with an uppercase letter."""
     # It is not enough to split the text by '.' and check each sentence separately,
     # because we can have complex punctuation like "Single 1.1 sentence"
@@ -107,7 +106,7 @@ def is_sentence_case(text: str) -> Optional[ErrorMessage]:
     return None
 
 
-def validate_hints(file_path: str) -> List[str]:
+def validate_hints(file_path: str) -> list[str]:
     """Validate hints in a single slice definition file."""
     logging.info(f"Processing {file_path}...")
     errors = []
