@@ -1,0 +1,21 @@
+package: frr-pythontools
+
+essential:
+  - frr-pythontools_copyright
+
+slices:
+  scripts:
+    essential:
+      - frr_bins
+      - libpython3.13-stdlib_data-types
+      - python3-minimal_python3
+      - python3.13_core
+    contents:
+      /usr/lib/frr/frr-reload.py:
+      /usr/lib/frr/frr_babeltrace.py:
+      /usr/lib/frr/generate_support_bundle.py:
+      /usr/lib/frr/ospfclient.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/frr-pythontools/copyright:

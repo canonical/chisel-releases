@@ -1,0 +1,12 @@
+summary: Integration test for FRR
+
+variants:
+  - frr-reload
+  - staticd
+  - zebra-lo
+
+
+execute: |
+  export "rootfs=$(bash -ex ./shared/prologue.sh)"
+  bash -ex ./test_${SPREAD_VARIANT}.sh
+  bash -ex ./shared/epilogue.sh
