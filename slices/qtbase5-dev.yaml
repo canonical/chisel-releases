@@ -4,18 +4,163 @@ essential:
   - qtbase5-dev_copyright
 
 slices:
-  core:
+
+  bins:
+    essential:
+      - qtbase5-dev-tools_bins
+      - qtbase5-dev-tools_scripts
     contents:
-      /usr/include/*-linux-*/qt5/**:
-      /usr/lib/*-linux-*/cmake/Qt5/**:
-      /usr/lib/*-linux-*/libQt5OpenGLExtensions.a:
-      /usr/lib/*-linux-*/libQt5OpenGLExtensions.prl:
-      /usr/lib/*-linux-*/metatypes/*.json:
-      /usr/lib/*-linux-*/pkgconfig/Qt5*:
-      /usr/lib/*-linux-*/qt5/bin/*:
-      /usr/lib/*-linux-*/qt5/mkspecs/**:
+      /usr/lib/aarch64-linux-gnu/qt5/bin/fixqt4headers.pl:  # Symlink to ../../../qt5/bin/fixqt4headers.pl
+      /usr/lib/aarch64-linux-gnu/qt5/bin/moc:  # Symlink to ../../../qt5/bin/moc
+      /usr/lib/aarch64-linux-gnu/qt5/bin/qdbuscpp2xml:  # Symlink to ../../../qt5/bin/qdbuscpp2xml
+      /usr/lib/aarch64-linux-gnu/qt5/bin/qdbusxml2cpp:  # Symlink to ../../../qt5/bin/qdbusxml2cpp
+      /usr/lib/aarch64-linux-gnu/qt5/bin/qlalr:  # Symlink to ../../../qt5/bin/qlalr
+      /usr/lib/aarch64-linux-gnu/qt5/bin/rcc:  # Symlink to ../../../qt5/bin/rcc
+      /usr/lib/aarch64-linux-gnu/qt5/bin/syncqt.pl:  # Symlink to ../../../qt5/bin/syncqt.pl
+      /usr/lib/aarch64-linux-gnu/qt5/bin/uic:  # Symlink to ../../../qt5/bin/uic
+
+  libs:
     essential:
       - libqt5core5t64_libs
+      - libqt5dbus5t64_libs
+      - libqt5gui5t64_libegldevice
+      - libqt5gui5t64_libeglsupport
+      - libqt5gui5t64_libgui
+      - libqt5gui5t64_libxcbqpa
+      - libqt5network5t64_libnetwork
+      - libqt5printsupport5t64_libprintsupport
+      - libqt5sql5t64_libsql
+      - libqt5widgets5t64_libs
+    contents:
+      # /usr/lib/*-linux-*/libQt5Concurrent.so:  # Symlink to libQt5Concurrent.so.5.15.18
+      /usr/lib/*-linux-*/libQt5Core.so:  # Symlink to libQt5Core.so.5.15.18
+      /usr/lib/*-linux-*/libQt5DBus.so:  # Symlink to libQt5DBus.so.5.15.18
+      /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.so:  # Symlink to libQt5EglFSDeviceIntegration.so.5.15.18
+      /usr/lib/*-linux-*/libQt5EglFsKmsSupport.so:  # Symlink to libQt5EglFsKmsSupport.so.5.15.18
+      /usr/lib/*-linux-*/libQt5Gui.so:  # Symlink to libQt5Gui.so.5.15.18
+      /usr/lib/*-linux-*/libQt5Network.so:  # Symlink to libQt5Network.so.5.15.18
+      /usr/lib/*-linux-*/libQt5OpenGLExtensions.a:
+      /usr/lib/*-linux-*/libQt5PrintSupport.so:  # Symlink to libQt5PrintSupport.so.5.15.18
+      # /usr/lib/*-linux-*/libQt5Sql.so:  # Symlink to libQt5Sql.so.5.15.18
+      # /usr/lib/*-linux-*/libQt5Test.so:  # Symlink to libQt5Test.so.5.15.18
+      /usr/lib/*-linux-*/libQt5Widgets.so:  # Symlink to libQt5Widgets.so.5.15.18
+      /usr/lib/*-linux-*/libQt5XcbQpa.so:  # Symlink to libQt5XcbQpa.so.5.15.18
+      # /usr/lib/*-linux-*/libQt5Xml.so:  # Symlink to libQt5Xml.so.5.15.18
+
+  include:
+    contents:
+      /usr/include/*-linux-*/qt5/QtConcurrent/*.h:
+      /usr/include/*-linux-*/qt5/QtCore*.h:
+      /usr/include/*-linux-*/qt5/QtDBus*.h:
+      /usr/include/*-linux-*/qt5/QtGui*.h:
+      /usr/include/*-linux-*/qt5/QtNetwork*.h:
+      /usr/include/*-linux-*/qt5/QtOpenGLExtensions*.h:
+      /usr/include/*-linux-*/qt5/QtPlatformHeaders*.h:
+      /usr/include/*-linux-*/qt5/QtPrintSupport*.h:
+      /usr/include/*-linux-*/qt5/QtSql*.h:
+      /usr/include/*-linux-*/qt5/QtTest*.h:
+      /usr/include/*-linux-*/qt5/QtWidgets*.h:
+      /usr/include/*-linux-*/qt5/QtXml*.h:
+
+  cmake:
+    contents:
+      /usr/lib/*-linux-*/cmake/Qt5/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Concurrent/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Core/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5DBus/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5EglFsKmsSupport/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Gui/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Network/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5OpenGLExtensions/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5PrintSupport/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Sql/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Test/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Widgets/*.cmake:
+      /usr/lib/*-linux-*/cmake/Qt5Xml/*.cmake:
+
+  pkgconfig:
+    contents:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Concurrent.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Core.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5DBus.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Gui.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Network.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5OpenGLExtensions.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5PrintSupport.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Sql.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Test.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Widgets.pc:
+      /usr/lib/*-linux-*/pkgconfig/Qt5Xml.pc:
+
+  metatypes:
+    contents:
+      /usr/lib/*-linux-*/metatypes/qt5core_metatypes.json:
+      /usr/lib/*-linux-*/metatypes/qt5gui_metatypes.json:
+      /usr/lib/*-linux-*/metatypes/qt5widgets_metatypes.json:
+
+  # TODO: add qt5-qmake once sliced
+  qmake:
+    # qmake metadata files 
+    # essential:
+    #   - qt5-qmake_bins
+    contents:
+      /usr/lib/*-linux-*/libQt5Concurrent.prl:
+      /usr/lib/*-linux-*/libQt5Core.prl:
+      /usr/lib/*-linux-*/libQt5DBus.prl:
+      /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.prl:
+      /usr/lib/*-linux-*/libQt5EglFsKmsSupport.prl:
+      /usr/lib/*-linux-*/libQt5Gui.prl:
+      /usr/lib/*-linux-*/libQt5Network.prl:
+      /usr/lib/*-linux-*/libQt5OpenGLExtensions.prl:
+      /usr/lib/*-linux-*/libQt5PrintSupport.prl:
+      /usr/lib/*-linux-*/libQt5Sql.prl:
+      /usr/lib/*-linux-*/libQt5Test.prl:
+      /usr/lib/*-linux-*/libQt5Widgets.prl:
+      /usr/lib/*-linux-*/libQt5XcbQpa.prl:
+      /usr/lib/*-linux-*/libQt5Xml.prl:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_accessibility_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_bootstrap_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_concurrent.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_concurrent_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_core.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_core_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_dbus.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_dbus_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_devicediscovery_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_edid_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_egl_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_eglfs_kms_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_fb_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_glx_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_gui.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_gui_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_kms_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_network.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_network_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_opengl_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_openglextensions.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_openglextensions_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_platformcompositor_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_printsupport.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_service_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_sql.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_sql_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_testlib.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_theme_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_vulkan_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_widgets.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_xkbcommon_support_private.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_xml.pri:
+      /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_xml_private.pri:
 
   copyright:
     contents:
