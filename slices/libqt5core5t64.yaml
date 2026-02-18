@@ -18,7 +18,7 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libQt5Core.so*:
+      /usr/lib/*-linux-*/libQt5Core.so.5*:
 
   copyright:
     contents:
