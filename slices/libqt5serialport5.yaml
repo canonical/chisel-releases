@@ -11,7 +11,7 @@ slices:
       - libstdc++6_libs
       - libudev1_libs
     contents:
-      /usr/lib/*-linux-*/libQt5SerialPort.so*:
+      /usr/lib/*-linux-*/libQt5SerialPort.so.5*:
 
   copyright:
     contents:
