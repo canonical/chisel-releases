@@ -127,7 +127,7 @@ slices:
       - libmtdev1t64_libs
       - libqt5core5t64_libs
       - libqt5gui5t64_libgui
-      - libqt5network5t64_libs
+      - libqt5network5t64_libnetwork
       - libstdc++6_libs
       - libudev1_libs
       - libxkbcommon0_libs
@@ -179,7 +179,7 @@ slices:
       - libqt5gui5t64_libegldevice
       - libqt5gui5t64_libgui
       - libqt5gui5t64_libxcbqpa
-      - libqt5network5t64_libs
+      - libqt5network5t64_libnetwork
       - libstdc++6_libs
       - libudev1_libs
       - libx11-6_libs
