@@ -105,8 +105,8 @@ slices:
       - libegl1_libs
       - libgbm1_libs
       - libqt5core5t64_libs
-      - libqt5gui5t64_libeglsupport
       - libqt5gui5t64_libegldevice
+      - libqt5gui5t64_libeglsupport
       - libqt5gui5t64_libgui
       - libstdc++6_libs
       - libudev1_libs
@@ -175,8 +175,8 @@ slices:
       - libmtdev1t64_libs
       - libqt5core5t64_libs
       - libqt5dbus5t64_libs
-      - libqt5gui5t64_libgui
       - libqt5gui5t64_libegldevice
+      - libqt5gui5t64_libgui
       - libqt5gui5t64_libxcbqpa
       - libqt5network5t64_libs
       - libstdc++6_libs
