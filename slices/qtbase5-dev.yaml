@@ -55,17 +55,17 @@ slices:
   include:
     contents:
       /usr/include/*-linux-*/qt5/QtConcurrent/*.h:
-      /usr/include/*-linux-*/qt5/QtCore*.h:
-      /usr/include/*-linux-*/qt5/QtDBus*.h:
-      /usr/include/*-linux-*/qt5/QtGui*.h:
-      /usr/include/*-linux-*/qt5/QtNetwork*.h:
-      /usr/include/*-linux-*/qt5/QtOpenGLExtensions*.h:
-      /usr/include/*-linux-*/qt5/QtPlatformHeaders*.h:
-      /usr/include/*-linux-*/qt5/QtPrintSupport*.h:
-      /usr/include/*-linux-*/qt5/QtSql*.h:
-      /usr/include/*-linux-*/qt5/QtTest*.h:
-      /usr/include/*-linux-*/qt5/QtWidgets*.h:
-      /usr/include/*-linux-*/qt5/QtXml*.h:
+      /usr/include/*-linux-*/qt5/QtCore/*.h:
+      /usr/include/*-linux-*/qt5/QtDBus/*.h:
+      /usr/include/*-linux-*/qt5/QtGui/*.h:
+      /usr/include/*-linux-*/qt5/QtNetwork/*.h:
+      /usr/include/*-linux-*/qt5/QtOpenGLExtensions/*.h:
+      /usr/include/*-linux-*/qt5/QtPlatformHeaders/*.h:
+      /usr/include/*-linux-*/qt5/QtPrintSupport/*.h:
+      /usr/include/*-linux-*/qt5/QtSql/*.h:
+      /usr/include/*-linux-*/qt5/QtTest/*.h:
+      /usr/include/*-linux-*/qt5/QtWidgets/*.h:
+      /usr/include/*-linux-*/qt5/QtXml/*.h:
 
   cmake:
     contents:
