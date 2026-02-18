@@ -24,7 +24,7 @@ slices:
       - libc6_libs
       - libqt5core5t64_libs
       - libqt5dbus5t64_libs
-      - libqt5network5t64_libs
+      - libqt5network5t64_libnetwork
       - libstdc++6_libs
     contents:
       /usr/lib/*-linux-*/qt5/plugins/bearer/libqconnmanbearer.so*:
