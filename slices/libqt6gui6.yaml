@@ -149,8 +149,8 @@ slices:
       - libxcb-glx0_libs
       - libxcb1_libs
     contents:
-      /usr/lib/*-linux-*/qt6/plugins/xcbglintegrations/libqxcb-egl-integration.so":
-      /usr/lib/*-linux-*/qt6/plugins/xcbglintegrations/libqxcb-glx-integration.so":
+      /usr/lib/*-linux-*/qt6/plugins/xcbglintegrations/libqxcb-egl-integration.so:
+      /usr/lib/*-linux-*/qt6/plugins/xcbglintegrations/libqxcb-glx-integration.so:
 
   copyright:
     contents:
