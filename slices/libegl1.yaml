@@ -4,13 +4,14 @@ essential:
   - libegl1_copyright
 
 slices:
-  copyright:
-    contents:
-      /usr/share/doc/libegl1/copyright:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libEGL.so*:
     essential:
       - libc6_libs
       - libegl-mesa0_libs
       - libglvnd0_libs
+    contents:
+      /usr/lib/*-linux-*/libEGL.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libegl1/copyright:
