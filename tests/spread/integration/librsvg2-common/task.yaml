@@ -1,7 +1,6 @@
-summary: Integration tests for libgdk-pixbuf-2.0-0
+summary: Integration tests for librsvg2-common
 
 variants:
-    - no_loaders
     - svg_loader
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
