@@ -33,17 +33,11 @@ slices:
       /usr/sbin/visudo.ws:
 
   config:
+    essential:
+      - sudo-common_config
     contents:
       /etc/sudo.conf:
       /etc/sudo_logsrvd.conf:
-      /etc/sudoers:
-        text: |
-          # Minimal sudoers file based on 25.10
-          root	ALL=(ALL:ALL) ALL
-          %sudo	ALL=(ALL:ALL) ALL
-          @includedir /etc/sudoers.d
-        mode: 440
-      /etc/sudoers.d/:
       /usr/lib/tmpfiles.d/sudo.conf:
 
   services:
