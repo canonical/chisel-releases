@@ -15,7 +15,7 @@ slices:
       /usr/lib/*-linux-*/qt5/bin/qlalr:  # Symlink to ../../../qt5/bin/qlalr
       /usr/lib/*-linux-*/qt5/bin/rcc:  # Symlink to ../../../qt5/bin/rcc
       /usr/lib/*-linux-*/qt5/bin/uic:  # Symlink to ../../../qt5/bin/uic
-  
+
   scripts:
     essential:
       - qtbase5-dev-tools_scripts
@@ -23,7 +23,7 @@ slices:
       # Symlink to ../../../qt5/bin/fixqt4headers.pl
       /usr/lib/*-linux-*/qt5/bin/fixqt4headers.pl:
       /usr/lib/*-linux-*/qt5/bin/syncqt.pl:  # Symlink to ../../../qt5/bin/syncqt.pl
-  
+
   libs:
     essential:
       - libqt5core5t64_libs
