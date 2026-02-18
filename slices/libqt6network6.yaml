@@ -24,9 +24,9 @@ slices:
       /usr/lib/*-linux-*/libQt6Network.so*:
 
   plugins:
-   essential:
-     - libqt6network6_plugins-networkinformation
-     - libqt6network6_plugins-tls
+    essential:
+      - libqt6network6_plugins-networkinformation
+      - libqt6network6_plugins-tls
 
   plugins-networkinformation:
     essential:
