@@ -22,7 +22,7 @@ slices:
       /usr/lib/qt5/bin/rcc:
       /usr/lib/qt5/bin/tracegen:
       /usr/lib/qt5/bin/uic:
-  
+
   scripts:
     essential:
       - perl_bins

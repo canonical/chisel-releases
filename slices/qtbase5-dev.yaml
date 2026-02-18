@@ -10,7 +10,8 @@ slices:
       - qtbase5-dev-tools_bins
       - qtbase5-dev-tools_scripts
     contents:
-      /usr/lib/aarch64-linux-gnu/qt5/bin/fixqt4headers.pl:  # Symlink to ../../../qt5/bin/fixqt4headers.pl
+      # Symlink to ../../../qt5/bin/fixqt4headers.pl
+      /usr/lib/aarch64-linux-gnu/qt5/bin/fixqt4headers.pl:
       /usr/lib/aarch64-linux-gnu/qt5/bin/moc:  # Symlink to ../../../qt5/bin/moc
       /usr/lib/aarch64-linux-gnu/qt5/bin/qdbuscpp2xml:  # Symlink to ../../../qt5/bin/qdbuscpp2xml
       /usr/lib/aarch64-linux-gnu/qt5/bin/qdbusxml2cpp:  # Symlink to ../../../qt5/bin/qdbusxml2cpp
@@ -35,7 +36,8 @@ slices:
       # /usr/lib/*-linux-*/libQt5Concurrent.so:  # Symlink to libQt5Concurrent.so.5.15.18
       /usr/lib/*-linux-*/libQt5Core.so:  # Symlink to libQt5Core.so.5.15.18
       /usr/lib/*-linux-*/libQt5DBus.so:  # Symlink to libQt5DBus.so.5.15.18
-      /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.so:  # Symlink to libQt5EglFSDeviceIntegration.so.5.15.18
+      # Symlink to libQt5EglFSDeviceIntegration.so.5.15.18
+      /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.so:
       /usr/lib/*-linux-*/libQt5EglFsKmsSupport.so:  # Symlink to libQt5EglFsKmsSupport.so.5.15.18
       /usr/lib/*-linux-*/libQt5Gui.so:  # Symlink to libQt5Gui.so.5.15.18
       /usr/lib/*-linux-*/libQt5Network.so:  # Symlink to libQt5Network.so.5.15.18
@@ -100,7 +102,7 @@ slices:
 
   # TODO: add qt5-qmake once sliced
   qmake:
-    # qmake metadata files 
+    # qmake metadata files
     # essential:
     #   - qt5-qmake_bins
     contents:
