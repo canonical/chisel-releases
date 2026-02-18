@@ -4,7 +4,6 @@ essential:
   - libb2-1_copyright
 
 slices:
-
   libs:
     essential:
       - libc6_libs
