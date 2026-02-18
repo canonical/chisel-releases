@@ -1,0 +1,15 @@
+package: libevdev2
+
+essential:
+  - libevdev2_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libevdev.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libevdev2/copyright:
