@@ -17,7 +17,7 @@ slices:
       - libstdc++6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libQt5Network.so*:
+      /usr/lib/*-linux-*/libQt5Network.so.5*:
 
   plugins:
     essential:
