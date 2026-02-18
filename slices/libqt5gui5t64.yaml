@@ -10,6 +10,7 @@ slices:
       - libqt5gui5t64_libeglsupport
       - libqt5gui5t64_libgui
       - libqt5gui5t64_libxcbqpa
+      - libqt5gui5t64_plugins
 
   libegldevice:
     essential:
