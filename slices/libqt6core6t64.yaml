@@ -19,7 +19,7 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libQt6Core.so*:
+      /usr/lib/*-linux-*/libQt6Core.so.6*:
 
   copyright:
     contents:
