@@ -29,7 +29,7 @@ slices:
       - libudev1_libs
       - libxkbcommon0_libs
     contents:
-      /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.so*:
+      /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.so.5*:
 
   libeglsupport:
     essential:
@@ -39,7 +39,7 @@ slices:
       - libqt5gui5t64_libgui
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libQt5EglFSKmsSupport.so*:
+      /usr/lib/*-linux-*/libQt5EglFSKmsSupport.so.5*:
 
   libgui:
     essential:
@@ -52,7 +52,7 @@ slices:
       - libstdc++6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libQt5Gui.so*:
+      /usr/lib/*-linux-*/libQt5Gui.so.5*:
 
   libxcbqpa:
     essential:
@@ -86,7 +86,7 @@ slices:
       - libxkbcommon0_libs
       - libxrender1_libs
     contents:
-      /usr/lib/*-linux-*/libQt5XcbQpa.so*:
+      /usr/lib/*-linux-*/libQt5XcbQpa.so.5*:
 
   ## PLUGINS
 
