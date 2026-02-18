@@ -4,23 +4,51 @@ essential:
   - libqt6network6_copyright
 
 slices:
+
   libs:
-    contents:
-      /usr/lib/*-linux-*/libQt6Network.so*:
-      /usr/lib/*-linux-*/qt6/plugins/networkinformation/*.so*:
-      /usr/lib/*-linux-*/qt6/plugins/tls/*.so*:
+    essential:
+      - libqt6network6_libnetwork
+      - libqt6network6_plugins
+
+  libnetwork:
     essential:
       - libbrotli1_libs
       - libc6_libs
-      - libgcc-s1_libs
-      - libglib2.0-0t64_libs
       - libgssapi-krb5-2_libs
       - libproxy1v5_libs
       - libqt6core6t64_libs
-      - libqt6dbus6_libs
       - libstdc++6_libs
       - libzstd1_libs
       - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libQt6Network.so*:
+
+  plugins:
+   essential:
+     - libqt6network6_plugins-networkinformation
+     - libqt6network6_plugins-tls
+
+  plugins-networkinformation:
+    essential:
+      - libc6_libs
+      - libglib2.0-0t64_libs
+      - libqt6core6t64_libs
+      - libqt6dbus6_libs
+      - libqt6network6_libnetwork
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/qt6/plugins/networkinformation/libqglib.so:
+      /usr/lib/*-linux-*/qt6/plugins/networkinformation/libqnetworkmanager.so:
+
+  plugins-tls:
+    essential:
+      - libc6_libs
+      - libqt6core6t64_libs
+      - libqt6network6_libnetwork
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/qt6/plugins/tls/libqcertonlybackend.so:
+      /usr/lib/*-linux-*/qt6/plugins/tls/libqopensslbackend.so:
 
   copyright:
     contents:
