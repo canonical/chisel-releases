@@ -11,8 +11,15 @@ cd "$rootfs" || exit 1
 chroot . /usr/sbin/update-ca-certificates
 chroot . find /etc/ssl/certs/ -name *.pem -exec echo +{} \; > "$rootfs/certs"
 
+# find java in the rootfs
+java="$(find "$rootfs" -name java -type f -printf '/%P\n' -quit 2>/dev/null)"
+
+# check we found a correct version
+test -n "$java"
+echo "$java" | grep -q '/usr/lib/jvm'
+
+# mock /proc/self/exe
 mkdir -p proc/self
-for java in $(find /usr/lib/jvm -name java -type f); do
-  ln -s "/$java" proc/self/exe
-  chroot . "/$java" -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
-done
+ln -s "$java" proc/self/exe
+
+chroot . "$java" -jar /usr/share/ca-certificates-java/ca-certificates-java.jar < certs
