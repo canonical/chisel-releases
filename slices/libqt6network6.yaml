@@ -21,7 +21,7 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libQt6Network.so*:
+      /usr/lib/*-linux-*/libQt6Network.so.6*:
 
   plugins:
     essential:
