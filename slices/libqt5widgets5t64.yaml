@@ -5,13 +5,13 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libQt5Widgets.so*:
     essential:
       - libc6_libs
       - libgcc-s1_libs
       - libqt5core5t64_libs
       - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libQt5Widgets.so*:
 
   copyright:
     contents:
