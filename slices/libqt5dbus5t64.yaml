@@ -11,7 +11,7 @@ slices:
       - libqt5core5t64_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libQt5DBus.so*:
+      /usr/lib/*-linux-*/libQt5DBus.so.5*:
 
   copyright:
     contents:
