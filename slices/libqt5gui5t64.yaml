@@ -39,7 +39,7 @@ slices:
       - libqt5gui5t64_libgui
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libQt5EglFSKmsSupport.so.5*:
+      /usr/lib/*-linux-*/libQt5EglFsKmsSupport.so.5*:
 
   libgui:
     essential:
