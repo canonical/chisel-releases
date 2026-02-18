@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     # NOTE: libqt5core5t64 deb declares a dependency on shared-mime-info
-    # but this lib does not link with it. 
+    # but this lib does not link with it.
     essential:
       - libc6_libs
       - libdouble-conversion3_libs
