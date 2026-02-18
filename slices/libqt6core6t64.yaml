@@ -5,6 +5,8 @@ essential:
 
 slices:
   libs:
+    # NOTE: libqt6core6t64 deb declares a dependency on shared-mime-info
+    # but this lib does not link with it.
     essential:
       - libb2-1_libs
       - libc6_libs
@@ -15,8 +17,6 @@ slices:
       - libpcre2-16-0_libs
       - libstdc++6_libs
       - libzstd1_libs
-      - shared-mime-info_bins
-      - shared-mime-info_data
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libQt6Core.so*:
