@@ -1,0 +1,16 @@
+package: node-lru-cache
+
+essential:
+  - node-lru-cache_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/share/nodejs/lru-cache/dist/**.js:
+      /usr/share/nodejs/lru-cache/dist/**.json:
+      /usr/share/nodejs/lru-cache/dist/**.ts:
+      /usr/share/nodejs/lru-cache/package.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-lru-cache/copyright:
