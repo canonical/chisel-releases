@@ -5,7 +5,7 @@ execute: |
 
   gcc testdlt.c -ldlt -o testfile.dlt
 
-  rootfs="$(install-slices dlt-viewer_bins dlt-viewer_plugins libqt6gui6_plugins)"
+  rootfs="$(install-slices dlt-viewer_bins dlt-viewer_plugins)"
 
   cp testfile.dlt "$rootfs"
 
