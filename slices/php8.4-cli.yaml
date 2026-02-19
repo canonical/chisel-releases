@@ -1,0 +1,91 @@
+package: php8.4-cli
+
+essential:
+  - php8.4-cli_copyright
+
+slices:
+  core:
+    essential:
+      - libargon2-1_libs
+      - libc6_libs
+      - libedit2_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libssl3t64_libs
+      - libxml2-16_libs
+      - media-types_data
+      - php-common_session
+      - php8.4-cli_modules
+      - tzdata_zoneinfo
+      - zlib1g_libs
+    contents:
+      /usr/bin/php: { symlink: /usr/bin/php8.4 }
+      /usr/bin/php8.4:
+      /usr/lib/php/8.4/sapi/cli:
+
+  standard:
+    essential:
+      - php-common_scripts
+      - php8.4-cli_core
+      - php8.4-opcache_cli-module
+      - php8.4-readline_cli-module
+    contents:
+      /usr/bin/phar: { symlink: /usr/bin/phar8.4 }
+      /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.4 }
+      /usr/bin/phar.phar8.4:
+      /usr/bin/phar8.4:
+      /usr/bin/phar8.4.phar:
+
+  modules:
+    essential:
+      - php8.4-common_module-libs
+    contents:
+      # When a module is enabled in php (via phpenmod), the symlink is created with the format
+      # <priority>-<name>. The priority is defined inside the .ini file itself.
+      # It is important for them to have the correct name so they can be deactivated with phpdismod
+      /etc/php/8.4/cli/conf.d/10-pdo.ini:
+        { symlink: /etc/php/8.4/mods-available/pdo.ini }
+      /etc/php/8.4/cli/conf.d/20-calendar.ini:
+        { symlink: /etc/php/8.4/mods-available/calendar.ini }
+      /etc/php/8.4/cli/conf.d/20-ctype.ini:
+        { symlink: /etc/php/8.4/mods-available/ctype.ini }
+      /etc/php/8.4/cli/conf.d/20-exif.ini:
+        { symlink: /etc/php/8.4/mods-available/exif.ini }
+      /etc/php/8.4/cli/conf.d/20-ffi.ini:
+        { symlink: /etc/php/8.4/mods-available/ffi.ini }
+      /etc/php/8.4/cli/conf.d/20-fileinfo.ini:
+        { symlink: /etc/php/8.4/mods-available/fileinfo.ini }
+      /etc/php/8.4/cli/conf.d/20-ftp.ini:
+        { symlink: /etc/php/8.4/mods-available/ftp.ini }
+      /etc/php/8.4/cli/conf.d/20-gettext.ini:
+        { symlink: /etc/php/8.4/mods-available/gettext.ini }
+      /etc/php/8.4/cli/conf.d/20-iconv.ini:
+        { symlink: /etc/php/8.4/mods-available/iconv.ini }
+      /etc/php/8.4/cli/conf.d/20-phar.ini:
+        { symlink: /etc/php/8.4/mods-available/phar.ini }
+      /etc/php/8.4/cli/conf.d/20-posix.ini:
+        { symlink: /etc/php/8.4/mods-available/posix.ini }
+      /etc/php/8.4/cli/conf.d/20-shmop.ini:
+        { symlink: /etc/php/8.4/mods-available/shmop.ini }
+      /etc/php/8.4/cli/conf.d/20-sockets.ini:
+        { symlink: /etc/php/8.4/mods-available/sockets.ini }
+      /etc/php/8.4/cli/conf.d/20-sysvmsg.ini:
+        { symlink: /etc/php/8.4/mods-available/sysvmsg.ini }
+      /etc/php/8.4/cli/conf.d/20-sysvsem.ini:
+        { symlink: /etc/php/8.4/mods-available/sysvsem.ini }
+      /etc/php/8.4/cli/conf.d/20-sysvshm.ini:
+        { symlink: /etc/php/8.4/mods-available/sysvshm.ini }
+      /etc/php/8.4/cli/conf.d/20-tokenizer.ini:
+        { symlink: /etc/php/8.4/mods-available/tokenizer.ini }
+      /etc/php/8.4/cli/php.ini: { mutable: true, text: "" }
+    mutate: |
+      src = "/usr/lib/php/8.4/php.ini-production"
+      dst = "/etc/php/8.4/cli/php.ini"
+      data = content.read(src)
+      content.write(dst, data)
+
+  copyright:
+    essential:
+      - php8.4-common_copyright
+    contents:
+      /usr/share/doc/php8.4-cli:

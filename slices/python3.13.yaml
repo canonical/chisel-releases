@@ -41,6 +41,7 @@ slices:
       - libpython3.13-stdlib_numeric
       - libpython3.13-stdlib_osx-support
       - libpython3.13-stdlib_pydoc
+      - libpython3.13-stdlib_pyrepl
       - libpython3.13-stdlib_text
       - libpython3.13-stdlib_unix
       - python3.13_core

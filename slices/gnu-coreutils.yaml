@@ -52,13 +52,13 @@ slices:
   output-of-entire-files:
     essential:
       - gnu-coreutils_cat
+      - gnu-coreutils_od-utility
       - libc6_libs
     contents:
       /usr/bin/gnubase32:
       /usr/bin/gnubase64:
       /usr/bin/gnubasenc:
       /usr/bin/gnunl:
-      /usr/bin/gnuod:
       /usr/bin/gnutac:
 
   # Formatting file contents -- These commands reformat the contents of files.
@@ -75,12 +75,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
   output-of-parts-of-files:
     essential:
+      - gnu-coreutils_head
+      - gnu-coreutils_split
+      - gnu-coreutils_tail
       - libc6_libs
     contents:
       /usr/bin/gnucsplit:
-      /usr/bin/gnuhead:
-      /usr/bin/gnusplit:
-      /usr/bin/gnutail:
 
   # Summarizing files -- These commands generate just a few numbers representing
   # entire contents of files.
@@ -120,20 +120,20 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
   operating-on-fields:
     essential:
+      - gnu-coreutils_cut
+      - gnu-coreutils_join
       - libc6_libs
     contents:
-      /usr/bin/gnucut:
-      /usr/bin/gnujoin:
       /usr/bin/gnupaste:
 
   # Operating on characters -- These commands operate on individual characters.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
   operating-on-characters:
     essential:
+      - gnu-coreutils_tr-utility
       - libc6_libs
     contents:
       /usr/bin/gnuexpand:
-      /usr/bin/gnutr:
       /usr/bin/gnuunexpand:
 
   # Directory listing -- This slice contains the ls command and its variants dir
@@ -141,12 +141,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
   directory-listing:
     essential:
+      - gnu-coreutils_dir
       - gnu-coreutils_ls-utility
       - libc6_libs
       - libcap2_libs
       - libselinux1_libs
     contents:
-      /usr/bin/gnudir:
       /usr/bin/gnudircolors:
       /usr/bin/gnuvdir:
 
@@ -155,6 +155,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - gnu-coreutils_dd-utility
+      - gnu-coreutils_install
+      - gnu-coreutils_mv-utility
       - gnu-coreutils_rm-utility
       - libacl1_libs
       - libattr1_libs
@@ -162,9 +165,6 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/gnucp:
-      /usr/bin/gnudd:
-      /usr/bin/gnuinstall:
-      /usr/bin/gnumv:
       /usr/bin/gnushred:
 
   # Special file types -- This slice contains commands which create special
@@ -173,28 +173,28 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
   special-file-types:
     essential:
+      - gnu-coreutils_link
       - gnu-coreutils_ln-utility
       - gnu-coreutils_mkdir
       - gnu-coreutils_readlink
+      - gnu-coreutils_rmdir
+      - gnu-coreutils_unlink
       - libc6_libs
       - libselinux1_libs
     contents:
-      /usr/bin/gnulink:
       /usr/bin/gnumkfifo:
       /usr/bin/gnumknod:
-      /usr/bin/gnurmdir:
-      /usr/bin/gnuunlink:
 
   # Changing file attributes -- These commands change file attributes.
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      - gnu-coreutils_chmod
+      - gnu-coreutils_chown
       - gnu-coreutils_touch
       - libc6_libs
     contents:
       /usr/bin/gnuchgrp:
-      /usr/bin/gnuchmod:
-      /usr/bin/gnuchown:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -202,12 +202,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-space-usage.html
   file-space-usage:
     essential:
+      - gnu-coreutils_stat
       - libc6_libs
       - libselinux1_libs
     contents:
       /usr/bin/gnudf:
       /usr/bin/gnudu:
-      /usr/bin/gnustat:
       /usr/bin/gnusync:
       /usr/bin/gnutruncate:
 
@@ -228,12 +228,11 @@ slices:
   conditions:
     essential:
       - gnu-coreutils_expr
+      - gnu-coreutils_test
       - libc6_libs
       - libgmp10_libs
     contents:
-      /usr/bin/gnu[:
       /usr/bin/gnufalse:
-      /usr/bin/gnutest:
       /usr/bin/gnutrue:
 
   # Redirection -- This slice contains the tee command.
@@ -249,11 +248,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:
+      - gnu-coreutils_basename
       - gnu-coreutils_dirname
+      - gnu-coreutils_mktemp
       - libc6_libs
     contents:
-      /usr/bin/gnubasename:
-      /usr/bin/gnumktemp:
       /usr/bin/gnupathchk:
       /usr/bin/gnurealpath:
 
@@ -275,12 +274,12 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
   user-information:
     essential:
+      - gnu-coreutils_id-utility
       - libc6_libs
       - libselinux1_libs
       - libsystemd0_libs
     contents:
       /usr/bin/gnugroups:
-      /usr/bin/gnuid:
       /usr/bin/gnulogname:
       /usr/bin/gnupinky:
       /usr/bin/gnuusers:
@@ -292,10 +291,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
   system-context:
     essential:
+      - gnu-coreutils_date
       - libc6_libs
     contents:
       /usr/bin/gnuarch:
-      /usr/bin/gnudate:
       /usr/bin/gnuhostid:
       /usr/bin/gnunproc:
       /usr/bin/gnuuname:
@@ -318,13 +317,13 @@ slices:
   modified-command-invocation:
     essential:
       - gnu-coreutils_libs
+      - gnu-coreutils_timeout
       - libc6_libs
     contents:
       /usr/bin/gnuenv:
       /usr/bin/gnunice:
       /usr/bin/gnunohup:
       /usr/bin/gnustdbuf:
-      /usr/bin/gnutimeout:
       /usr/sbin/gnuchroot:
 
   # Delaying.
@@ -417,6 +416,50 @@ slices:
     contents:
       /usr/bin/gnuprintf:
 
+  basename:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnubasename:
+
+  chmod:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuchmod:
+
+  chown:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuchown:
+
+  cut:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnucut:
+
+  date:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnudate:
+
+  dd-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnudd:
+
+  dir:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnudir:
+
   cat:
     essential:
       - libc6_libs
@@ -430,6 +473,111 @@ slices:
       - libselinux1_libs
     contents:
       /usr/bin/gnuls:
+
+  head:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuhead:
+
+  install:
+    essential:
+      - libacl1_libs
+      - libattr1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnuinstall:
+
+  id-utility:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnuid:
+
+  join:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnujoin:
+
+  link:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnulink:
+
+  mktemp:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnumktemp:
+
+  mv-utility:
+    essential:
+      - libacl1_libs
+      - libattr1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnumv:
+
+  od-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuod:
+
+  rmdir:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnurmdir:
+
+  stat:
+    essential:
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnustat:
+
+  split:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnusplit:
+
+  tail:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnutail:
+
+  test:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnu[:
+      /usr/bin/gnutest:
+
+  timeout:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnutimeout:
+
+  tr-utility:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnutr:
+
+  unlink:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuunlink:
 
   copyright:
     contents:

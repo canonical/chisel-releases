@@ -1,0 +1,64 @@
+package: libgcc-14-dev
+
+essential:
+  - libgcc-14-dev_copyright
+
+slices:
+  # Runtime objects for linking with gcc-14
+  # The {e,n}crti.o and {e,n}crtn.o files are the startup
+  # https://gcc.gnu.org/legacy-ml/gcc-patches/2009-01/msg01151.html
+  runtime:
+    contents:
+      /usr/lib/gcc/*-linux-*/14/crtbegin.o:
+      /usr/lib/gcc/*-linux-*/14/crtbeginS.o:
+      /usr/lib/gcc/*-linux-*/14/crtbeginT.o:
+      /usr/lib/gcc/*-linux-*/14/crtend.o:
+      /usr/lib/gcc/*-linux-*/14/crtendS.o:
+      /usr/lib/gcc/*-linux-*/14/crtfastmath.o:
+        arch: [amd64, arm64, armhf, i386]
+      /usr/lib/gcc/*-linux-*/14/crti.o:
+        arch: [riscv64]
+      /usr/lib/gcc/*-linux-*/14/crtn.o:
+        arch: [riscv64]
+      /usr/lib/gcc/*-linux-*/14/crtoffloadbegin.o:
+        arch: [amd64, arm64, ppc64el]
+      /usr/lib/gcc/*-linux-*/14/crtoffloadend.o:
+        arch: [amd64, arm64, ppc64el]
+      /usr/lib/gcc/*-linux-*/14/crtoffloadtable.o:
+        arch: [amd64, arm64, ppc64el]
+      /usr/lib/gcc/*-linux-*/14/crtoffloadtableS.o:
+        arch: [amd64, arm64, ppc64el]
+      /usr/lib/gcc/*-linux-*/14/crtprec32.o:
+        arch: [amd64, i386]
+      /usr/lib/gcc/*-linux-*/14/crtprec64.o:
+        arch: [amd64, i386]
+      /usr/lib/gcc/*-linux-*/14/crtprec80.o:
+        arch: [amd64, i386]
+      /usr/lib/gcc/*-linux-*/14/ecrti.o:
+        arch: [ppc64el]
+      /usr/lib/gcc/*-linux-*/14/ecrtn.o:
+        arch: [ppc64el]
+      /usr/lib/gcc/*-linux-*/14/ncrti.o:
+        arch: [ppc64el]
+      /usr/lib/gcc/*-linux-*/14/ncrtn.o:
+        arch: [ppc64el]
+
+  core:
+    essential:
+      - libgcc-14-dev_runtime
+      - libgcc-s1_libs
+    contents:
+      /usr/lib/gcc/*-linux-*/14/libgcc.a:
+      # linker script which links to libgcc_s.so.1 from libgcc-s1 and adds -lgcc as a link option
+      /usr/lib/gcc/*-linux-*/14/libgcc_s.so:
+
+  headers:
+    contents:
+      /usr/lib/gcc/*-linux-*/14/include/*.h:
+      /usr/lib/gcc/*-linux-*/14/include/sanitizer/*.h:
+
+  copyright:
+    essential:
+      - gcc-14-base_copyright
+    contents:
+      /usr/share/doc/libgcc-14-dev:

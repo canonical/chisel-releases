@@ -6,7 +6,7 @@ essential:
   - coreutils_copyright
 
 # From 25.10 onward, coreutils ships can either deliver coreutils-from-gnu
-# or coreutils-from-uutils. The former is the default in 25.10.
+# or coreutils-from-uutils. coreutils-from-gnu is the default in 25.10.
 slices:
   libs:
     essential:
@@ -152,6 +152,98 @@ slices:
   printf:
     essential:
       - coreutils-from-gnu_printf
+
+  basename:
+    essential:
+      - coreutils-from-gnu_basename
+
+  chmod:
+    essential:
+      - coreutils-from-gnu_chmod
+
+  chown:
+    essential:
+      - coreutils-from-gnu_chown
+
+  cut:
+    essential:
+      - coreutils-from-gnu_cut
+
+  date:
+    essential:
+      - coreutils-from-gnu_date
+
+  dd-utility:
+    essential:
+      - coreutils-from-gnu_dd-utility
+
+  dir:
+    essential:
+      - coreutils-from-gnu_dir
+
+  head:
+    essential:
+      - coreutils-from-gnu_head
+
+  install:
+    essential:
+      - coreutils-from-gnu_install
+
+  id-utility:
+    essential:
+      - coreutils-from-gnu_id-utility
+
+  join:
+    essential:
+      - coreutils-from-gnu_join
+
+  link:
+    essential:
+      - coreutils-from-gnu_link
+
+  mktemp:
+    essential:
+      - coreutils-from-gnu_mktemp
+
+  mv-utility:
+    essential:
+      - coreutils-from-gnu_mv-utility
+
+  od-utility:
+    essential:
+      - coreutils-from-gnu_od-utility
+
+  rmdir:
+    essential:
+      - coreutils-from-gnu_rmdir
+
+  stat:
+    essential:
+      - coreutils-from-gnu_stat
+
+  split:
+    essential:
+      - coreutils-from-gnu_split
+
+  tail:
+    essential:
+      - coreutils-from-gnu_tail
+
+  test:
+    essential:
+      - coreutils-from-gnu_test
+
+  timeout:
+    essential:
+      - coreutils-from-gnu_timeout
+
+  tr-utility:
+    essential:
+      - coreutils-from-gnu_tr-utility
+
+  unlink:
+    essential:
+      - coreutils-from-gnu_unlink
 
   copyright:
     contents:

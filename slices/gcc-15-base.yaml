@@ -1,0 +1,9 @@
+package: gcc-15-base
+
+essential:
+  - gcc-15-base_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/gcc-15-base/copyright:

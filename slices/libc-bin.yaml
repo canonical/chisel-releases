@@ -40,6 +40,14 @@ slices:
     contents:
       /usr/bin/getconf:
 
+  iconv:
+    essential:
+      - libc6_gconv-core
+      - libc6_iconv-config
+      - libc6_libs
+    contents:
+      /usr/bin/iconv:
+
   getent:
     essential:
       - libc6_libs

@@ -112,9 +112,9 @@ slices:
     essential:
       - libpython3.13-stdlib_pydoc
 
-  # pyrepl:
-  #   essential:
-  #     - libpython3.13-stdlib_pyrepl -- See TODO
+  pyrepl:
+    essential:
+      - libpython3.13-stdlib_pyrepl
 
   text:
     essential:

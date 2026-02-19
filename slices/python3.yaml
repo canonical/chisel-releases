@@ -36,6 +36,7 @@ slices:
       - libpython3-stdlib_numeric
       - libpython3-stdlib_osx-support
       - libpython3-stdlib_pydoc
+      - libpython3-stdlib_pyrepl
       - libpython3-stdlib_text
       - libpython3-stdlib_unix
       - python3-minimal_bins

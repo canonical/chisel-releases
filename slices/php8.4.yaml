@@ -1,0 +1,17 @@
+package: php8.4
+
+essential:
+  - php8.4_copyright
+
+slices:
+  core:
+    essential:
+      - php8.4-cli_core
+
+  standard:
+    essential:
+      - php8.4-cli_standard
+
+  copyright:
+    contents:
+      /usr/share/doc/php8.4/copyright:
