@@ -5,12 +5,13 @@ execute: |
 
   gcc testdlt.c -ldlt -o testfile.dlt
 
-  rootfs="$(install-slices dlt-viewer_bins dlt-viewer_plugins libqt6gui6_plugins-platforms)"
+  rootfs="$(install-slices dlt-viewer_bins dlt-viewer_plugins libqt6gui6_plugins)"
 
-  cp testfile.dlt "${rootfs}/"
+  cp testfile.dlt "$rootfs"
 
+  export QT_DEBUG_PLUGINS=1
   export QT_QPA_PLATFORM=offscreen
 
   chroot "$rootfs" dlt-viewer -csv -s -t -c output.csv testfile.dlt
 
-  test -f ${rootfs}/output.csv
+  test -f $rootfs/output.csv
