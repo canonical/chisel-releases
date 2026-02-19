@@ -26,7 +26,7 @@ slices:
       - systemd_pcrlock
       - systemd_system-generators
       - systemd_system-services
-      - systemd_user-services
+      # - systemd_user-services
     contents:
       /usr/bin/busctl:
       /usr/bin/hostnamectl:
@@ -190,6 +190,7 @@ slices:
       /usr/lib/systemd/system-generators/systemd-system-update-generator:
       /usr/lib/systemd/system-generators/systemd-sysv-generator:
       /usr/lib/systemd/system-generators/systemd-tpm2-generator:
+        arch: [amd64, arm64, armhf, riscv64]
 
   system-services:
     essential:
@@ -462,7 +463,6 @@ slices:
       /usr/share/dbus-1/system.d/org.freedesktop.network1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
-      /usr/share/dbus-1/system.d/systemd-localed-read-only.conf:
 
   extras:
     contents:
