@@ -21,15 +21,6 @@ slices:
       /usr/bin/dlt-parser:
       /usr/bin/dlt-viewer:
 
-  bins:
-    contents:
-      /usr/bin/dlt-parser:
-      /usr/bin/dlt-viewer:
-    essential:
-      - dlt-viewer_libs
-      - dlt-viewer_plugins
-      - qtcreator_bins
-
   libs:
     essential:
       - libc6_libs
