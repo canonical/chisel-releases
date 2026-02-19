@@ -6,7 +6,6 @@ essential:
 slices:
   libs:
     essential:
-      # also depends on at-spi2-common, but it's empty anyway
       - libc6_libs
       - libglib2.0-0t64_core
     contents:
