@@ -1,0 +1,15 @@
+package: libestr0
+
+essential:
+  - libestr0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libestr.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libestr0/copyright:
