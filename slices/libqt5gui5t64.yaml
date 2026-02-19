@@ -53,6 +53,8 @@ slices:
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libQt5Gui.so.5*:
+      /usr/lib/*-linux-*/sse2/libQt5Gui.so.5*:
+        arch: [i386]
 
   libxcbqpa:
     essential:
@@ -208,6 +210,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/xcbglintegrations/libqxcb-egl-integration.so:
       /usr/lib/*-linux-*/qt5/plugins/xcbglintegrations/libqxcb-glx-integration.so:
+        arch: [amd64, arm64, i386, ppc64el, riscv64, s390x]
 
   copyright:
     contents:
