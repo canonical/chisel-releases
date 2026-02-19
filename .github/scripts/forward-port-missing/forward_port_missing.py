@@ -52,7 +52,12 @@ class Comparison:
 
     # Slices from the ubuntu release of the base PR that have been
     # discontinued in the ubuntu release of the future PR.
-    discontinued_slices: frozenset[str] = field(default_factory=frozenset, init=False)
+    discontinued_slices: frozenset[str] = field(
+        default_factory=frozenset,
+        init=False,
+        compare=False,
+        hash=False,
+    )
 
     @property
     def ubuntu_release(self) -> UbuntuRelease:
