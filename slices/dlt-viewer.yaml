@@ -11,8 +11,8 @@ slices:
       - libc6_libs
       - libgcc-s1_libs
       - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libqt6network6_libnetwork
+      - libqt6gui6_libs
+      - libqt6network6_libs
       - libqt6serialport6_libs
       - libqt6widgets6_libs
       - libstdc++6_libs
@@ -21,12 +21,31 @@ slices:
       /usr/bin/dlt-parser:
       /usr/bin/dlt-viewer:
 
+  bins:
+    contents:
+      /usr/bin/dlt-parser:
+      /usr/bin/dlt-viewer:
+    essential:
+      - dlt-viewer_libs
+      - dlt-viewer_plugins
+      - qtcreator_bins
+
   libs:
     essential:
       - libc6_libs
+      - libegl1_libs
       - libgcc-s1_libs
+      - libopengl0_libs
       - libqt6core6t64_libs
+      - libqt6gui6_libs  # TODO: does this only need some libs from libqt6gui6 ?
+      - libqt6network6_libs  # TODO: does this only need libqt6network6_libnetwork ?
+      - libqt6printsupport6_libs  # TODO: does this only need libqt6printsupport6_libprintsupport ?
+      - libqt6serialport6_libs
+      - libqt6widgets6_libs
       - libstdc++6_libs
+      - libxkbcommon0_libs
+      - qtcreator_libs
+      - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libqdlt.so:
 
