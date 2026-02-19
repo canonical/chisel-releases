@@ -5,8 +5,7 @@ essential:
 
 slices:
   libs:
-    # libavahi-common3 also depends on libavahi-common-data, but that is probably not necessary
-    # for most distroless use cases
+    # NOTE: libavahi-common3 deb also depends on libavahi-common-data
     essential:
       - libc6_libs
     contents:

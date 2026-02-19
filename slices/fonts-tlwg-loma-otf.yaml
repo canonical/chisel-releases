@@ -6,7 +6,7 @@ essential:
 slices:
   fonts:
     contents:
-      /usr/share/fonts/opentype/tlwg/Loma*:
+      /usr/share/fonts/opentype/tlwg/Loma-*.otf:
 
   copyright:
     contents:

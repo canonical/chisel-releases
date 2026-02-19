@@ -6,7 +6,7 @@ essential:
 slices:
   fonts:
     contents:
-      /usr/share/fonts/opentype/unifont/*:
+      /usr/share/fonts/opentype/unifont/unifont_*.otf:
 
   copyright:
     contents:

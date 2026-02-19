@@ -23,12 +23,15 @@ slices:
 
   ckbi:
     essential:
-      - libnss3_nss
+      - libc6_libs
+      - libnspr4_libs
     contents:
       /usr/lib/*-linux-*/libnssckbi.so:
 
   dbm:
     essential:
+      - libc6_libs
+      - libnspr4_libs
       - libnss3_nss
     contents:
       /usr/lib/*-linux-*/libnssdbm3.so:
@@ -51,6 +54,8 @@ slices:
 
   softokn:
     essential:
+      - libc6_libs
+      - libnspr4_libs
       - libnss3_nss
       - libsqlite3-0_libs
     contents:
@@ -60,11 +65,13 @@ slices:
     essential:
       - libc6_libs
       - libnspr4_libs
+      - libnss3_nss
     contents:
       /usr/lib/*-linux-*/libsmime3.so:
 
   ssl:
     essential:
+      - libc6_libs
       - libnspr4_libs
       - libnss3_nss
     contents:

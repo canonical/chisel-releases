@@ -13,8 +13,8 @@ slices:
       /etc/fonts/conf.avail/25-wqy-zenhei.conf:
       /etc/fonts/conf.avail/63-wqy-zenhei-sharp.conf:
       /etc/fonts/conf.avail/64-wqy-zenhei.conf:
-      /etc/fonts/conf.d/25-wqy-zenhei.conf:
-      /etc/fonts/conf.d/64-wqy-zenhei.conf:
+      /etc/fonts/conf.d/25-wqy-zenhei.conf:  # Symlink to ../conf.avail/25-wqy-zenhei.conf
+      /etc/fonts/conf.d/64-wqy-zenhei.conf:  # Symlink to ../conf.avail/64-wqy-zenhei.conf
 
   copyright:
     contents:
