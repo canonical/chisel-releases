@@ -190,7 +190,7 @@ slices:
       /usr/lib/systemd/system-generators/systemd-system-update-generator:
       /usr/lib/systemd/system-generators/systemd-sysv-generator:
       /usr/lib/systemd/system-generators/systemd-tpm2-generator:
-        arch: [amd64, arm64, armhf, riscv64]
+        arch: [amd64, arm64, riscv64]
 
   system-services:
     essential:
