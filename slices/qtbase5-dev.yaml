@@ -140,7 +140,7 @@ slices:
       /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_fb_support_private.pri:
       /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
       /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_glx_support_private.pri:
-          arch: [amd64, arm64, i386, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, i386, ppc64el, riscv64, s390x]
       /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_gui.pri:
       /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_gui_private.pri:
       /usr/lib/*-linux-*/qt5/mkspecs/modules/qt_lib_input_support_private.pri:
