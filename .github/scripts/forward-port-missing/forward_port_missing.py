@@ -52,12 +52,7 @@ class Comparison:
 
     # Slices from the ubuntu release of the base PR that have been
     # discontinued in the ubuntu release of the future PR.
-    discontinued_slices: frozenset[str] = field(
-        default_factory=frozenset,
-        init=False,
-        compare=False,
-        hash=False,
-    )
+    discontinued_slices: frozenset[str] = field(default_factory=frozenset)
 
     @property
     def ubuntu_release(self) -> UbuntuRelease:
@@ -98,6 +93,7 @@ class Comparison:
 def _get_comparisons(
     prs_by_ubuntu_release: Mapping[UbuntuRelease, frozenset[PR]],
     new_slices_by_pr: Mapping[PR, frozenset[str]],
+    packages_by_release: Mapping[UbuntuRelease, set[str]],
 ) -> frozenset[Comparison]:
     prs: set[PR] = set()
     for prs_in_release in prs_by_ubuntu_release.values():
@@ -123,12 +119,17 @@ def _get_comparisons(
 
                 for pr_future in prs_into_future_release:
                     new_slices_in_future = new_slices_by_pr.get(pr_future, frozenset())
+
+                    # figure out which slices have been discontinued in the future release, so we don't consider them as missing
+                    discontinued_slices = new_slices - packages_by_release.get(future_release, frozenset())
+
                     comparisons.add(
                         Comparison(
                             pr=pr,
                             slices=new_slices,
                             pr_future=pr_future,
                             slices_future=new_slices_in_future,
+                            discontinued_slices=discontinued_slices,
                         )
                     )
     return frozenset(comparisons)
@@ -137,8 +138,9 @@ def _get_comparisons(
 def _get_grouped_comparisons(
     prs_by_ubuntu_release: Mapping[UbuntuRelease, frozenset[PR]],
     new_slices_by_pr: Mapping[PR, frozenset[str]],
+    packages_by_release: Mapping[UbuntuRelease, set[str]],
 ) -> Mapping[PR, Mapping[UbuntuRelease, frozenset[Comparison]]]:
-    comparisons = _get_comparisons(prs_by_ubuntu_release, new_slices_by_pr)
+    comparisons = _get_comparisons(prs_by_ubuntu_release, new_slices_by_pr, packages_by_release)
 
     # For convenience we group the comparisons by the PR in the current release, and then by the future release.
     grouped_comparisons: dict[PR, dict[UbuntuRelease, set[Comparison]]] = {}
@@ -191,26 +193,6 @@ def _group_prs_by_ubuntu_release(
             prs_by_ubuntu_release[ubuntu_release] = frozenset()
 
     return prs_by_ubuntu_release
-
-
-def _add_discontinued_slices(
-    grouped_comparisons: Mapping[PR, Mapping[UbuntuRelease, frozenset[Comparison]]],
-    packages_by_release: Mapping[UbuntuRelease, set[str]],
-) -> None:
-    for _pr, results_by_future in grouped_comparisons.items():
-        for future_release, comparisons in results_by_future.items():
-            packages = packages_by_release.get(future_release, set())
-            if not packages:
-                continue
-            _comparison = next(iter(comparisons), None)
-            if not _comparison:
-                continue
-            discontinued_slices = _comparison.slices - packages
-            if not discontinued_slices:
-                continue
-
-            for comparison in comparisons:
-                comparison.discontinued_slices = frozenset(discontinued_slices)
 
 
 def forward_porting_status(
@@ -296,8 +278,7 @@ def main(args: argparse.Namespace) -> None:
 
     prs_by_ubuntu_release = _group_prs_by_ubuntu_release(prs, ubuntu_releases)
     new_slices_by_pr = _group_new_slices_by_pr(slices_in_head_by_pr, slices_in_base_by_pr)
-    grouped_comparisons = _get_grouped_comparisons(prs_by_ubuntu_release, new_slices_by_pr)
-    _add_discontinued_slices(grouped_comparisons, packages_by_release)
+    grouped_comparisons = _get_grouped_comparisons(prs_by_ubuntu_release, new_slices_by_pr, packages_by_release)
 
     print_pipe_friendly(format_forward_port_json(grouped_comparisons, new_slices_by_pr, add_extra_info=False))
 
