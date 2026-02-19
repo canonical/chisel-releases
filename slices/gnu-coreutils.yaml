@@ -598,6 +598,14 @@ slices:
     contents:
       /usr/bin/gnucp:
 
+  wc-utility:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnuwc:
+
   copyright:
     contents:
       /usr/share/doc/gnu-coreutils/copyright:

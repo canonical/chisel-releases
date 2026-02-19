@@ -265,6 +265,10 @@ slices:
     essential:
       - coreutils-from-gnu_cp-utility
 
+  wc-utility:
+    essential:
+      - coreutils-from-gnu_wc-utility
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
