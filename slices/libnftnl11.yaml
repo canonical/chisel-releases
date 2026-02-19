@@ -1,0 +1,16 @@
+package: libnftnl11
+
+essential:
+  - libnftnl11_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libmnl0_libs
+    contents:
+      /usr/lib/*-linux-*/libnftnl.so.11*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnftnl11/copyright:

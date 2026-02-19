@@ -1,0 +1,21 @@
+package: crun
+
+essential:
+  - crun_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libcap2_libs
+      - libseccomp2_libs
+      - libsystemd0_libs
+      - libyajl2_libs
+    contents:
+      /usr/bin/crun:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libcrun.a:
+  copyright:
+    contents:
+      /usr/share/doc/crun/copyright:

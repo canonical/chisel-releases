@@ -1,0 +1,17 @@
+package: libxml2-utils
+
+essential:
+  - libxml2-utils_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libxml2_libs
+    contents:
+      /usr/bin/xmlcatalog:
+      /usr/bin/xmllint:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxml2-utils/copyright:

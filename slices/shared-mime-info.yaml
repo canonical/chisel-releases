@@ -1,0 +1,25 @@
+package: shared-mime-info
+
+essential:
+  - shared-mime-info_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libglib2.0-0t64_core
+      - libstdc++6_libs
+      - libxml2_libs
+    contents:
+      /usr/bin/update-mime-database:
+
+  data:
+    contents:
+      /usr/share/gettext/its/shared-mime-info.*:
+      /usr/share/mime/packages/freedesktop.org.xml:
+      /usr/share/pkgconfig/shared-mime-info.pc:
+
+  copyright:
+    contents:
+      /usr/share/doc/shared-mime-info/copyright:

@@ -1,0 +1,13 @@
+package: gosu
+
+essential:
+  - gosu_copyright
+
+slices:
+  bins:
+    contents:
+      /usr/sbin/gosu:
+
+  copyright:
+    contents:
+      /usr/share/doc/gosu/copyright:

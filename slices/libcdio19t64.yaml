@@ -1,0 +1,15 @@
+package: libcdio19t64
+
+essential:
+  - libcdio19t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libcdio.so.19*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcdio19t64/copyright:

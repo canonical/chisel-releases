@@ -1,0 +1,33 @@
+package: unzip
+
+essential:
+  - unzip_copyright
+
+slices:
+  bins:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+    contents:
+      /usr/bin/funzip:
+      /usr/bin/unzip:
+      /usr/bin/unzipsfx:
+      # Should be a hard link, but Chisel does not yet support hard links
+      # not yet support hard links.
+      # TODO update this to a hard link once a
+      # newer version of Chisel is released with
+      # https://github.com/canonical/chisel/commit/9d9d2144cf47586d02ff7566b8764e70057987a4
+      /usr/bin/zipinfo: {symlink: /usr/bin/unzip}
+
+  scripts:
+    essential:
+      - dash_bins
+      - grep_deprecated
+      - sed_bins
+      - unzip_bins
+    contents:
+      /usr/bin/zipgrep:
+
+  copyright:
+    contents:
+      /usr/share/doc/unzip/copyright:

@@ -1,0 +1,15 @@
+package: libexif12
+
+essential:
+  - libexif12_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libexif.so.12*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libexif12/copyright:

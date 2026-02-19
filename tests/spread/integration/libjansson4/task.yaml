@@ -1,0 +1,7 @@
+summary: Integration tests for libjansson4
+
+execute: |
+  rootfs="$(install-slices libjansson4_libs)"
+  arch=$(uname -m)-linux-gnu
+
+  test -f ${rootfs}/usr/lib/${arch}/libjansson.so.4

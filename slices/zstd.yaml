@@ -1,0 +1,36 @@
+package: zstd
+
+essential:
+  - zstd_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - liblz4-1_libs
+      - liblzma5_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/pzstd:
+      /usr/bin/unzstd:
+      /usr/bin/zstd:
+      /usr/bin/zstdcat:
+      /usr/bin/zstdmt:
+
+  scripts:
+    essential:
+      # shebang in scripts reference interpreter in /bin not /usr/bin
+      - base-files_bin
+      - bash_bins  # needed for zstdless
+      - grep_bins  # needed for zstdgrep
+      - less_bins  # needed for zstdless
+      - zstd_bins
+    contents:
+      /usr/bin/zstdgrep:
+      /usr/bin/zstdless:
+
+  copyright:
+    contents:
+      /usr/share/doc/zstd/copyright:

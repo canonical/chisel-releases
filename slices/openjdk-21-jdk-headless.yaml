@@ -1,0 +1,160 @@
+package: openjdk-21-jdk-headless
+
+essential:
+  - openjdk-21-jdk-headless_copyright
+
+slices:
+
+  # OpenJDK binaries slice
+  core:
+    essential:
+      - libc6_libs
+      - openjdk-21-jre-headless_core
+      - zlib1g_libs
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/javac:
+      /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
+      /usr/lib/jvm/java-21-openjdk-*/bin/javap:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jdeprscan:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jdeps:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jimage:
+      /usr/lib/jvm/java-21-openjdk-*/bin/serialver:
+      # used by javac
+      /usr/lib/jvm/java-21-openjdk-*/lib/ct.sym:
+
+  standard:
+    essential:
+      - openjdk-21-jdk-headless_core
+      - openjdk-21-jre-headless_standard
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jar:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jcmd:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jdb:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jfr:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jhsdb:
+        arch:
+          - amd64
+          - arm64
+      /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jps:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jshell:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jstack:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jwebserver:
+
+  # OpenJDK modules required to build the runtime image
+  modules:
+    essential:
+      - openjdk-21-jdk-headless_core
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jlink:
+      /usr/lib/jvm/java-21-openjdk-*/bin/jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.base.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.compiler.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.datatransfer.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.desktop.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.instrument.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.logging.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.management.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.management.rmi.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.naming.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.net.http.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.prefs.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.rmi.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.scripting.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.se.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.security.jgss.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.security.sasl.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.smartcardio.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.sql.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.sql.rowset.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.transaction.xa.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.xml.crypto.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/java.xml.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.accessibility.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.attach.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.charsets.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.compiler.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.crypto.cryptoki.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.crypto.ec.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.dynalink.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.editpad.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.hotspot.agent.jmod:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.httpserver.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.ed.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.jvmstat.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.le.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.opt.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.ci.jmod:
+        arch:
+          - amd64
+          - arm64
+          - riscv64
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.compiler.jmod:
+        arch:
+          - amd64
+          - arm64
+          - riscv64
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.internal.vm.compiler.management.jmod:
+        arch:
+          - amd64
+          - arm64
+          - riscv64
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jartool.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.javadoc.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jcmd.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jconsole.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jdeps.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jdi.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jdwp.agent.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jfr.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jlink.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jpackage.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jshell.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jsobject.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.jstatd.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.localedata.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.management.agent.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.management.jfr.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.management.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.naming.dns.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.naming.rmi.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.net.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.nio.mapmode.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.random.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.sctp.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.security.auth.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.security.jgss.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.unsupported.desktop.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.unsupported.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.xml.dom.jmod:
+      /usr/lib/jvm/java-21-openjdk-*/jmods/jdk.zipfs.jmod:
+
+  # OpenJDK headers for JNI
+  headers:
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/include/classfile_constants.h:
+      /usr/lib/jvm/java-21-openjdk-*/include/jni.h:
+      /usr/lib/jvm/java-21-openjdk-*/include/jvmti.h:
+      /usr/lib/jvm/java-21-openjdk-*/include/jvmticmlr.h:
+      /usr/lib/jvm/java-21-openjdk-*/include/linux/jni_md.h:
+
+  # OpenJDK headers for the debug agent development
+  debug-headers:
+    contents:
+      /usr/lib/jvm/java-21-openjdk-*/include/jdwpTransport.h:
+
+  copyright:
+    essential:
+      - openjdk-21-jre-headless_copyright
+    contents:
+      /usr/share/doc/openjdk-21-jdk-headless:

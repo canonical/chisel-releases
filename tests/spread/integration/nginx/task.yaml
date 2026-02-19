@@ -1,0 +1,8 @@
+summary: Integration tests for nginx
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices base-files_var base-passwd_data nginx_bins)"
+
+  chroot "${rootfs}/" nginx -t

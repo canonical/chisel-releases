@@ -1,0 +1,12 @@
+summary: Integration tests for dpkg
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices coreutils_bins diffutils_bins dpkg_bins)"
+
+  # Get a sample deb file to install. Contains no dependencies or install scripts.
+  wget -P "${rootfs}/" http://archive.ubuntu.com/ubuntu/pool/main/l/lsb-release-minimal/lsb-release_12.1-1_all.deb
+
+  # Run a smoke test for dpkg to ensure that it does not throw an error
+  chroot "${rootfs}/" dpkg --install ./lsb-release_12.1-1_all.deb

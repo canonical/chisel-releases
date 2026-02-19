@@ -1,0 +1,26 @@
+package: redis-tools
+
+essential:
+  - redis-tools_copyright
+
+slices:
+  bins:
+    # redis-tools actually depends on adduser as well to create and remove
+    # a user during package install/removal - however we don't support this
+    # currently so adduser is not added here.
+    essential:
+      - libatomic1_libs
+      - libc6_libs
+      - libjemalloc2_libs
+      - liblzf1_libs
+      - libssl3t64_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/redis-benchmark:
+      /usr/bin/redis-check-aof:
+      /usr/bin/redis-check-rdb:
+      /usr/bin/redis-cli:
+
+  copyright:
+    contents:
+      /usr/share/doc/redis-tools/copyright:

@@ -1,0 +1,9 @@
+summary: Integration tests for sqlite3
+
+execute: |
+  rootfs="$(install-slices sqlite3_bins)"
+
+  chroot "${rootfs}/" sqlite3 -version
+  chroot "${rootfs}/" sqlite3 test.db \
+  "CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT); \
+  INSERT INTO test (name) VALUES ('FOO'); SELECT * FROM test;"

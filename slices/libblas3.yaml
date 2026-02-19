@@ -11,6 +11,29 @@ slices:
     contents:
       /usr/lib/*-linux-*/blas/libblas.so.3*:
 
+      # The following symlinks replace the following command that normally
+      # runs as a post-install script:
+      #   update-alternatives --install /usr/lib/x86_64-linux-gnu/libblas.so.3 \
+      #     libblas.so.3-x86_64-linux-gnu /usr/lib/x86_64-linux-gnu/blas/libblas.so.3 10
+      /usr/lib/aarch64-linux-gnu/libblas.so.3:
+        arch: [arm64]
+        symlink: /usr/lib/aarch64-linux-gnu/blas/libblas.so.3
+      /usr/lib/arm-linux-gnu/libblas.so.3:
+        arch: [armhf]
+        symlink: /usr/lib/arm-linux-gnu/blas/libblas.so.3
+      /usr/lib/powerpc64le-linux-gnu/libblas.so.3:
+        arch: [ppc64el]
+        symlink: /usr/lib/powerpc64le-linux-gnu/blas/libblas.so.3
+      /usr/lib/riscv64-linux-gnu/libblas.so.3:
+        arch: [riscv64]
+        symlink: /usr/lib/riscv64-linux-gnu/blas/libblas.so.3
+      /usr/lib/s390x-linux-gnu/libblas.so.3:
+        arch: [s390x]
+        symlink: /usr/lib/s390x-linux-gnu/blas/libblas.so.3
+      /usr/lib/x86_64-linux-gnu/libblas.so.3:
+        arch: [amd64]
+        symlink: /usr/lib/x86_64-linux-gnu/blas/libblas.so.3
+
   copyright:
     contents:
       /usr/share/doc/libblas3/copyright:

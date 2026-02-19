@@ -1,0 +1,78 @@
+package: perl-base
+
+essential:
+  - perl-base_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      # perl binary requires libcrypt.so.1 upon loading
+      - libcrypt1_libs
+    contents:
+      # hard link
+      /usr/bin/perl:
+      /usr/bin/perl5.38.2: {copy: /usr/bin/perl}
+
+  modules:
+    essential:
+      - libc6_libs
+      - libcrypt1_libs
+    contents:
+      /usr/lib/*-linux-*/perl-base/AutoLoader.pm:
+      /usr/lib/*-linux-*/perl-base/Carp.pm:
+      /usr/lib/*-linux-*/perl-base/Carp/**.pm:
+      /usr/lib/*-linux-*/perl-base/Config.pm:
+      /usr/lib/*-linux-*/perl-base/Config_git.pl:
+      /usr/lib/*-linux-*/perl-base/Config_heavy.pl:
+      /usr/lib/*-linux-*/perl-base/Cwd.pm:
+      /usr/lib/*-linux-*/perl-base/DynaLoader.pm:
+      /usr/lib/*-linux-*/perl-base/Errno.pm:
+      /usr/lib/*-linux-*/perl-base/Exporter.pm:
+      /usr/lib/*-linux-*/perl-base/Exporter/**.pm:
+      /usr/lib/*-linux-*/perl-base/Fcntl.pm:
+      /usr/lib/*-linux-*/perl-base/File/**.pm:
+      /usr/lib/*-linux-*/perl-base/FileHandle.pm:
+      /usr/lib/*-linux-*/perl-base/Getopt/**.pm:
+      /usr/lib/*-linux-*/perl-base/Hash/**.pm:
+      /usr/lib/*-linux-*/perl-base/IO.pm:
+      /usr/lib/*-linux-*/perl-base/IO/**.pm:
+      /usr/lib/*-linux-*/perl-base/IPC/**.pm:
+      /usr/lib/*-linux-*/perl-base/List/**.pm:
+      /usr/lib/*-linux-*/perl-base/POSIX.pm:
+      /usr/lib/*-linux-*/perl-base/Scalar/**.pm:
+      /usr/lib/*-linux-*/perl-base/SelectSaver.pm:
+      /usr/lib/*-linux-*/perl-base/Socket.pm:
+      /usr/lib/*-linux-*/perl-base/Symbol.pm:
+      /usr/lib/*-linux-*/perl-base/Text/**.pm:
+      /usr/lib/*-linux-*/perl-base/Tie/**.pm:
+      /usr/lib/*-linux-*/perl-base/XSLoader.pm:
+      /usr/lib/*-linux-*/perl-base/attributes.pm:
+      /usr/lib/*-linux-*/perl-base/auto/**.so:
+      /usr/lib/*-linux-*/perl-base/base.pm:
+      /usr/lib/*-linux-*/perl-base/builtin.pm:
+      /usr/lib/*-linux-*/perl-base/bytes.pm:
+      /usr/lib/*-linux-*/perl-base/bytes_heavy.pl:
+      /usr/lib/*-linux-*/perl-base/constant.pm:
+      /usr/lib/*-linux-*/perl-base/feature.pm:
+      /usr/lib/*-linux-*/perl-base/fields.pm:
+      /usr/lib/*-linux-*/perl-base/integer.pm:
+      /usr/lib/*-linux-*/perl-base/lib.pm:
+      /usr/lib/*-linux-*/perl-base/locale.pm:
+      /usr/lib/*-linux-*/perl-base/overload.pm:
+      /usr/lib/*-linux-*/perl-base/overloading.pm:
+      /usr/lib/*-linux-*/perl-base/parent.pm:
+      /usr/lib/*-linux-*/perl-base/re.pm:
+      /usr/lib/*-linux-*/perl-base/strict.pm:
+      /usr/lib/*-linux-*/perl-base/utf8.pm:
+      /usr/lib/*-linux-*/perl-base/vars.pm:
+      /usr/lib/*-linux-*/perl-base/warnings.pm:
+      /usr/lib/*-linux-*/perl-base/warnings/**.pm:
+
+  unicore:
+    contents:
+      /usr/lib/*-linux-*/perl-base/unicore/**.pl:
+
+  copyright:
+    contents:
+      /usr/share/doc/perl-base/copyright:

@@ -1,0 +1,17 @@
+package: geoip-bin
+
+essential:
+  - geoip-bin_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgeoip1t64_libs
+    contents:
+      /usr/bin/geoiplookup:
+      /usr/bin/geoiplookup6:
+
+  copyright:
+    contents:
+      /usr/share/doc/geoip-bin/copyright:

@@ -1,0 +1,14 @@
+summary: The integration test of the perl-modules-5.38 package slices
+
+execute: |
+  apt update
+  apt install libmodule-scandeps-perl -y
+  python3 prepare_test_imports.py
+
+  for slice in $(ls cases); do
+    slice_name=$(echo $slice | cut -d'.' -f1)
+    rootfs=$(install-slices perl-modules-5.38_$slice_name base-files_base perl-base_bins)
+    cp cases/$slice $rootfs/
+    chroot $rootfs /usr/bin/perl $slice
+  done
+  

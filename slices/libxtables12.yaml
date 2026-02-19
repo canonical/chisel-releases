@@ -1,0 +1,15 @@
+package: libxtables12
+
+essential:
+  - libxtables12_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libxtables.so.12*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxtables12/copyright:

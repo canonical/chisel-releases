@@ -16,6 +16,7 @@ slices:
   etc:
     contents:
       /etc/:
+      /etc/profile.d/:
 
   bin:
     contents:
@@ -65,6 +66,13 @@ slices:
       /etc/lsb-release:
       /etc/os-release:
       /usr/lib/os-release:
+
+  # Dedicated slice for generating the Chisel manifest.
+  chisel:
+    essential:
+      - base-files_var
+    contents:
+      /var/lib/chisel/**: {generate: manifest}
 
   copyright:
     contents:

@@ -1,0 +1,8 @@
+summary: Integration tests for python3-pip
+
+execute: |
+  rootfs="$(install-slices python3-pip_bins)"
+
+  # Smoke tests.
+  chroot ${rootfs} /usr/bin/pip --version
+  chroot ${rootfs} /usr/bin/pip install --upgrade setuptools

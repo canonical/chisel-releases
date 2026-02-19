@@ -6,6 +6,7 @@ environment:
   PROJECT_PATH: /chisel-releases
   SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
   PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
+  MANIFESTS_EXPORT_DIR: $(HOST:echo "${MANIFESTS_EXPORT_DIR:-/usr/share/manifests}")
 
 exclude:
   - .github
@@ -29,6 +30,7 @@ backends:
       do
         sleep 5
       done
+      lxc exec $SPREAD_SYSTEM -- apt-get update
       lxc exec $SPREAD_SYSTEM -- systemctl enable --now ssh
       lxc exec $SPREAD_SYSTEM -- sed -i 's/^\s*#\?\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/\1 yes/' /etc/ssh/sshd_config
       lxc exec $SPREAD_SYSTEM -- bash -c "sed -i 's/^\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/# COMMENTED OUT BY SPREAD: \0/' /etc/ssh/sshd_config.d/* || true"
@@ -36,7 +38,13 @@ backends:
       lxc exec $SPREAD_SYSTEM -- bash -c "echo root:${SPREAD_SYSTEM_PASSWORD} | chpasswd"
       lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
       ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
-    discard: lxc stop $SPREAD_SYSTEM || true
+    
+    # When discarding the instance, pull the manifests if MANIFESTS_EXPORT_DIR is set in the HOST environment
+    # This allows us to collect the generated manifests after the test run. If the variable is not set,
+    # the pull step is skipped and the instance is stopped.
+    discard: |
+      [ -n "${MANIFESTS_EXPORT_DIR-}" ] && lxc file pull -pr $SPREAD_SYSTEM/$MANIFESTS_EXPORT_DIR $MANIFESTS_EXPORT_DIR
+      lxc stop $SPREAD_SYSTEM || true
     systems:
       - ubuntu-noble:
           password: ubuntu
@@ -84,19 +92,21 @@ backends:
 prepare: |
   # Deb arch to GOARCH
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
-  chisel_tar="chisel.tar.gz"
 
   apt install -y curl wget
   curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
-    | awk "/browser_download_url/ && /chisel_v/ && /$arch/" \
+    | awk "/browser_download_url/ && /chisel_v/ && /_$arch\./" \
     | cut -d : -f 2,3 \
     | tr -d \" \
-    | xargs wget -O $chisel_tar
+    | xargs wget
 
-  tar -xf $chisel_tar -C /usr/local/bin
+  sha384sum -c chisel_v*sha384
+  tar -xf chisel_v*tar.gz -C /usr/local/bin
 
 prepare-each: chisel version
 
 suites:
   tests/spread/integration/:
     summary: Tests common scenarios
+
+kill-timeout: 1.5h

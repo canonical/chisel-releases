@@ -1,0 +1,23 @@
+summary: Integration tests for libgdk-pixbuf-2.0-0
+
+execute: |
+  if [[ $(uname -m) == "s390x" ]]; then
+    rootfs="$(install-slices dash_bins libgdk-pixbuf-2.0-0_bins)"
+  else
+    rootfs="$(install-slices dash_bins liblerc4_libs libgdk-pixbuf-2.0-0_bins)"
+  fi
+
+  chroot "${rootfs}" sh -c '/usr/lib/*-linux-*/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders' > loaders
+
+  grep -q "libpixbufloader-ani.so" loaders
+  grep -q "libpixbufloader-bmp.so" loaders
+  grep -q "libpixbufloader-gif.so" loaders
+  grep -q "libpixbufloader-icns.so" loaders
+  grep -q "libpixbufloader-ico.so" loaders
+  grep -q "libpixbufloader-pnm.so" loaders
+  grep -q "libpixbufloader-qtif.so" loaders
+  ! grep -q "libpixbufloader-svg.so" loaders  # svg should not be installed
+  grep -q "libpixbufloader-tga.so" loaders
+  grep -q "libpixbufloader-tiff.so" loaders
+  grep -q "libpixbufloader-xbm.so" loaders
+  grep -q "libpixbufloader-xpm.so" loaders

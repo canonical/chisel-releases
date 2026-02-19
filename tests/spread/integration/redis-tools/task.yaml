@@ -1,0 +1,13 @@
+summary: Integration tests for redis-tools
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices redis-tools_bins)"
+
+  touch "${rootfs}/foo"
+
+  chroot "${rootfs}/" redis-benchmark -v
+  chroot "${rootfs}/" redis-cli -v
+  chroot "${rootfs}/" redis-check-aof /foo
+  chroot "${rootfs}/" redis-check-rdb -v

@@ -1,0 +1,50 @@
+summary: Integration tests for bzip2
+
+execute: |
+
+  # testing for only bins slice
+  rootfs_bins="$(install-slices bzip2_bins)"
+  mkdir "${rootfs_bins}"/dev
+  mount --rbind /dev "${rootfs_bins}"/dev
+
+  # generate a test file
+  echo "this is a test file we use for compression with bzip2" > "${rootfs_bins}/input.txt"
+
+  # test compression commands
+  chroot "${rootfs_bins}" /usr/bin/bzip2 -k input.txt
+  cmp "${rootfs_bins}/input.txt" <(chroot "${rootfs_bins}" bzip2 -d -c input.txt.bz2)
+  cmp "${rootfs_bins}/input.txt" <(chroot "${rootfs_bins}" bunzip2 -c input.txt.bz2)
+  cmp "${rootfs_bins}/input.txt" <(chroot "${rootfs_bins}" bzcat input.txt.bz2)
+
+  # test bzip2recover
+  chroot "${rootfs_bins}" bzip2recover  input.txt.bz2
+
+  umount "${rootfs_bins}"/dev -l  
+
+
+  # testing for only scripts slice
+  rootfs_script="$(install-slices bzip2_scripts)"
+  mkdir "${rootfs_script}"/dev
+  mount --rbind /dev "${rootfs_script}"/dev
+
+  # generate a test file
+  echo "this is a test file we use for compression with bzip2" > "${rootfs_script}/input.txt"
+  cp $SHELL "${rootfs_script}/shell"
+  chroot "${rootfs_script}" /usr/bin/bzip2 -k input.txt
+
+  # test executable util
+  chroot "${rootfs_script}" bzexe shell
+  head -n1 "${rootfs_script}/shell" | grep "/bin/sh"
+
+  # test text utils
+  chroot "${rootfs_script}" bzcmp input.txt.bz2 input.txt.bz2 | exit_code=$?
+  chroot "${rootfs_script}" bzdiff input.txt.bz2 input.txt.bz2 | exit_code=$?
+  chroot "${rootfs_script}" bzgrep "test" input.txt.bz2
+  chroot "${rootfs_script}" bzfgrep "test" input.txt.bz2
+  chroot "${rootfs_script}" bzegrep "test" input.txt.bz2
+
+  # test pagers
+  chroot "${rootfs_script}" bzless "test" input.txt.bz2 > /dev/null
+  chroot "${rootfs_script}" bzmore "test" input.txt.bz2 > /dev/null
+
+  umount "${rootfs_script}"/dev -l  

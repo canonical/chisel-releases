@@ -1,0 +1,15 @@
+package: libgdbm6t64
+
+essential:
+  - libgdbm6t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libgdbm.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgdbm6t64/copyright:

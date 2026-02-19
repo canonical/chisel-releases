@@ -1,0 +1,522 @@
+package: perl-modules-5.38
+
+essential:
+  - perl-modules-5.38_copyright
+
+slices:
+  # The _core slice contains the perl modules that are tightly
+  # dependent upon each other. Splitting them into separate slices
+  # would cause cyclic dependencies.
+  core:
+    essential:
+      - perl-base_modules
+    contents:
+      /usr/share/perl/5.38:
+      /usr/share/perl/5.38*/AutoLoader.pm:
+      /usr/share/perl/5.38*/AutoSplit.pm:
+      /usr/share/perl/5.38*/Carp.pm:
+      /usr/share/perl/5.38*/Carp/**.pm:
+      /usr/share/perl/5.38*/Class/**.pm:
+      /usr/share/perl/5.38*/Compress/**.pm:
+      /usr/share/perl/5.38*/DirHandle.pm:
+      /usr/share/perl/5.38*/Exporter.pm:
+      /usr/share/perl/5.38*/Exporter/**.pm:
+      /usr/share/perl/5.38*/Fatal.pm:
+      /usr/share/perl/5.38*/File/**.pm:
+      /usr/share/perl/5.38*/FileCache.pm:
+      /usr/share/perl/5.38*/FileHandle.pm:
+      /usr/share/perl/5.38*/FindBin.pm:
+      /usr/share/perl/5.38*/I18N/**.pm:
+      /usr/share/perl/5.38*/IO/**.pm:
+      /usr/share/perl/5.38*/IO/**.pod:
+      /usr/share/perl/5.38*/IPC/**.pm:
+      /usr/share/perl/5.38*/Locale/Maketext.pm:
+      /usr/share/perl/5.38*/Locale/Maketext.pod:
+      /usr/share/perl/5.38*/Locale/Maketext/**.pm:
+      /usr/share/perl/5.38*/Locale/Maketext/**.pod:
+      /usr/share/perl/5.38*/SelectSaver.pm:
+      /usr/share/perl/5.38*/SelfLoader.pm:
+      /usr/share/perl/5.38*/Symbol.pm:
+      /usr/share/perl/5.38*/Text/**.pm:
+      /usr/share/perl/5.38*/Tie/**.pm:
+      /usr/share/perl/5.38*/XSLoader.pm:
+      /usr/share/perl/5.38*/_charnames.pm:
+      /usr/share/perl/5.38*/base.pm:
+      /usr/share/perl/5.38*/builtin.pm:
+      /usr/share/perl/5.38*/bytes.pm:
+      /usr/share/perl/5.38*/bytes_heavy.pl:
+      /usr/share/perl/5.38*/charnames.pm:
+      /usr/share/perl/5.38*/constant.pm:
+      /usr/share/perl/5.38*/deprecate.pm:
+      /usr/share/perl/5.38*/experimental.pm:
+      /usr/share/perl/5.38*/feature.pm:
+      /usr/share/perl/5.38*/fields.pm:
+      /usr/share/perl/5.38*/filetest.pm:
+      /usr/share/perl/5.38*/if.pm:
+      /usr/share/perl/5.38*/integer.pm:
+      /usr/share/perl/5.38*/locale.pm:
+      /usr/share/perl/5.38*/overload.pm:
+      /usr/share/perl/5.38*/overload/**.pm:
+      /usr/share/perl/5.38*/overloading.pm:
+      /usr/share/perl/5.38*/parent.pm:
+      /usr/share/perl/5.38*/stable.pm:
+      /usr/share/perl/5.38*/strict.pm:
+      /usr/share/perl/5.38*/utf8.pm:
+      /usr/share/perl/5.38*/vars.pm:
+      /usr/share/perl/5.38*/warnings.pm:
+      /usr/share/perl/5.38*/warnings/register.pm:
+
+  standard:
+    essential:
+      - perl-base_modules
+      - perl-modules-5.38_app-cpan
+      - perl-modules-5.38_app-prove
+      - perl-modules-5.38_archive
+      - perl-modules-5.38_attribute
+      - perl-modules-5.38_autodie
+      - perl-modules-5.38_autouse
+      - perl-modules-5.38_benchmark
+      - perl-modules-5.38_bigmath
+      - perl-modules-5.38_blib
+      - perl-modules-5.38_compiler-utils
+      - perl-modules-5.38_config
+      - perl-modules-5.38_core-routines
+      - perl-modules-5.38_cpan
+      - perl-modules-5.38_databases
+      - perl-modules-5.38_debug
+      - perl-modules-5.38_devel
+      - perl-modules-5.38_diagnostics
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_dumps
+      - perl-modules-5.38_encodings
+      - perl-modules-5.38_english
+      - perl-modules-5.38_exutils
+      - perl-modules-5.38_filters
+      - perl-modules-5.38_internals
+      - perl-modules-5.38_json-pp
+      - perl-modules-5.38_less
+      - perl-modules-5.38_math
+      - perl-modules-5.38_memoize
+      - perl-modules-5.38_misc
+      - perl-modules-5.38_module
+      - perl-modules-5.38_networking
+      - perl-modules-5.38_next
+      - perl-modules-5.38_params
+      - perl-modules-5.38_perl-ostype
+      - perl-modules-5.38_perlio
+      - perl-modules-5.38_pod
+      - perl-modules-5.38_safe
+      - perl-modules-5.38_search
+      - perl-modules-5.38_sort
+      - perl-modules-5.38_subs
+      - perl-modules-5.38_system-utils
+      - perl-modules-5.38_tap
+      - perl-modules-5.38_term
+      - perl-modules-5.38_thread
+      - perl-modules-5.38_time
+      - perl-modules-5.38_unicode
+      - perl-modules-5.38_unicore
+      - perl-modules-5.38_universal
+      - perl-modules-5.38_user
+      - perl-modules-5.38_version
+      - perl-modules-5.38_vmsish
+
+  app-prove:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_system-utils
+    contents:
+      /usr/share/perl/5.38*/App/Prove.pm:
+      /usr/share/perl/5.38*/App/Prove/**.pm:
+
+  app-cpan:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_encodings
+      - perl-modules-5.38_networking
+      - perl-modules-5.38_time
+    contents:
+      /usr/share/perl/5.38*/App/Cpan.pm:
+
+  archive:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Archive/**.pm:
+
+  attribute:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Attribute/**.pm:
+
+  autodie:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/autodie.pm:
+      /usr/share/perl/5.38*/autodie/Scope/**.pm:
+      /usr/share/perl/5.38*/autodie/Util.pm:
+      /usr/share/perl/5.38*/autodie/exception.pm:
+      /usr/share/perl/5.38*/autodie/exception/**.pm:
+      /usr/share/perl/5.38*/autodie/hints.pm:
+      /usr/share/perl/5.38*/autodie/skip.pm:
+
+  autouse:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/autouse.pm:
+
+  benchmark:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Benchmark.pm:
+
+  bigmath:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/bigfloat.pm:
+      /usr/share/perl/5.38*/bigint.pm:
+      /usr/share/perl/5.38*/bignum.pm:
+      /usr/share/perl/5.38*/bigrat.pm:
+
+  blib:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/blib.pm:
+
+  compiler-utils:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/B/**.pm:
+
+  config:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
+    contents:
+      /usr/share/perl/5.38*/Config/**.pm:
+
+  # CORE - Namespace for Perl's core routines
+  # https://perldoc.perl.org/CORE
+  core-routines:
+    essential:
+      - perl-base_modules
+    contents:
+      /usr/share/perl/5.38*/CORE.pod:
+
+  # CPAN - query, download and build perl modules from CPAN sites
+  # https://perldoc.perl.org/CPAN
+  cpan:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_encodings
+      - perl-modules-5.38_networking
+      - perl-modules-5.38_time
+    contents:
+      /usr/share/perl/5.38*/CPAN.pm:
+      /usr/share/perl/5.38*/CPAN/**:
+      /usr/share/perl/5.38*/Parse/CPAN/Meta.pm:
+
+  databases:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/AnyDBM_File.pm:
+      /usr/share/perl/5.38*/DBM_Filter.pm:
+      /usr/share/perl/5.38*/DBM_Filter/**.pm:
+
+  debug:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/DB.pm:
+
+  devel:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Devel/**.pm:
+
+  diagnostics:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/diagnostics.pm:
+
+  digest:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Digest.pm:
+      /usr/share/perl/5.38*/Digest/**.pm:
+
+  dumps:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Dumpvalue.pm:
+      /usr/share/perl/5.38*/dumpvar.pl:
+
+  encodings:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Encode/**:
+      /usr/share/perl/5.38*/encoding/warnings.pm:
+
+  english:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/English.pm:
+
+  exutils:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_system-utils
+    contents:
+      /usr/share/perl/5.38*/ExtUtils/**.pm:
+      /usr/share/perl/5.38*/ExtUtils/**.pod:
+      /usr/share/perl/5.38*/ExtUtils/MANIFEST.SKIP:
+      /usr/share/perl/5.38*/ExtUtils/typemap:
+      /usr/share/perl/5.38*/ExtUtils/xsubpp:
+
+  filters:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Filter/**.pm:
+
+  # Internals - Reserved special namespace for internals related functions
+  # https://perldoc.perl.org/Internals
+  internals:
+    essential:
+      - perl-base_modules
+    contents:
+      /usr/share/perl/5.38*/Internals.pod:
+
+  json-pp:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/JSON/PP.pm:
+      /usr/share/perl/5.38*/JSON/PP/**.pm:
+
+  less:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/less.pm:
+
+  math:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Math/**.pm:
+
+  memoize:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Memoize.pm:
+      /usr/share/perl/5.38*/Memoize/**.pm:
+
+  misc:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/meta_notation.pm:
+      /usr/share/perl/5.38*/perl5db.pl:
+      /usr/share/perl/5.38*/perlfaq.pm:
+      /usr/share/perl/5.38*/pod/perldiag.pod:
+
+  module:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Module/**.pm:
+      /usr/share/perl/5.38*/Module/**.pod:
+
+  networking:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_encodings
+      - perl-modules-5.38_time
+    contents:
+      /usr/share/perl/5.38*/HTTP/**.pm:
+      /usr/share/perl/5.38*/Net/**.pm:
+      /usr/share/perl/5.38*/Net/**.pod:
+
+  next:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/NEXT.pm:
+
+  params:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Params/Check.pm:
+
+  perl-ostype:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Perl/OSType.pm:
+
+  perlio:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/PerlIO.pm:
+      /usr/share/perl/5.38*/PerlIO/**.pm:
+      /usr/share/perl/5.38*/open.pm:
+
+  pod:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_digest
+      - perl-modules-5.38_encodings
+      - perl-modules-5.38_networking
+      - perl-modules-5.38_system-utils
+      - perl-modules-5.38_time
+    contents:
+      /usr/share/perl/5.38*/Pod/**.pm:
+      /usr/share/perl/5.38*/Pod/**.pod:
+
+  safe:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Safe.pm:
+
+  search:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Search/**.pm:
+
+  sort:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/sort.pm:
+
+  subs:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/subs.pm:
+
+  system-utils:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Env.pm:
+      /usr/share/perl/5.38*/Getopt/**.pm:
+      /usr/share/perl/5.38*/sigtrap.pm:
+
+  tap:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_test2
+    contents:
+      /usr/share/perl/5.38*/TAP/**.pm:
+      /usr/share/perl/5.38*/TAP/**.pod:
+
+  term:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Term/**.pm:
+
+  test:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Test.pm:
+      /usr/share/perl/5.38*/Test/**.pm:
+      /usr/share/perl/5.38*/Test/**.pod:
+      /usr/share/perl/5.38*/ok.pm:
+
+  test2:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_term
+    contents:
+      /usr/share/perl/5.38*/Test2.pm:
+      /usr/share/perl/5.38*/Test2/**.pm:
+      /usr/share/perl/5.38*/Test2/**.pod:
+
+  thread:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Thread.pm:
+      /usr/share/perl/5.38*/Thread/**.pm:
+
+  time:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/Time/**.pm:
+
+  unicode:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_test
+      - perl-modules-5.38_test2
+    contents:
+      /usr/share/perl/5.38*/Unicode/**.pl:
+      /usr/share/perl/5.38*/Unicode/**.pm:
+      /usr/share/perl/5.38*/Unicode/**.txt:
+
+  unicore:
+    essential:
+      - perl-modules-5.38_core
+      - perl-modules-5.38_test
+      - perl-modules-5.38_test2
+    contents:
+      /usr/share/perl/5.38*/unicore/**:
+
+  universal:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/UNIVERSAL.pm:
+
+  user:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/User/**.pm:
+
+  version:
+    essential:
+      - perl-modules-5.38_core
+    contents:
+      /usr/share/perl/5.38*/version.pm:
+      /usr/share/perl/5.38*/version.pod:
+      /usr/share/perl/5.38*/version/Internals.pod:
+      /usr/share/perl/5.38*/version/regex.pm:
+
+  # vmsish - Control VMS-specific language features
+  vmsish:
+    essential:
+      - perl-base_modules
+    contents:
+      /usr/share/perl/5.38*/vmsish.pm:
+
+  copyright:
+    contents:
+      /usr/share/doc/perl-modules-5.38/copyright:

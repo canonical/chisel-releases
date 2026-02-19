@@ -1,0 +1,8 @@
+summary: Integration tests for xdg-user-dirs
+
+execute: |
+  rootfs="$(install-slices xdg-user-dirs_scripts)"
+
+  test -d ${rootfs}/etc/xdg/autostart
+  test -f ${rootfs}/etc/xdg/user-dirs.conf
+  test -f ${rootfs}/etc/xdg/user-dirs.defaults

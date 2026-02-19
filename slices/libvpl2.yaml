@@ -1,0 +1,21 @@
+package: libvpl2
+
+essential:
+  - libvpl2_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdrm-intel1_libs
+      - libdrm2_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libwayland-client0_libs
+    contents:
+      /usr/lib/*-linux-*/libvpl.so.2*:
+      /usr/lib/*-linux-*/vpl/libvpl_wayland.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libvpl2/copyright:

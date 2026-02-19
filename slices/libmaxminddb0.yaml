@@ -1,0 +1,15 @@
+package: libmaxminddb0
+
+essential:
+  - libmaxminddb0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libmaxminddb.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmaxminddb0/copyright:

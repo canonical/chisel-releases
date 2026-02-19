@@ -1,0 +1,8 @@
+summary: Integration tests for dash
+
+execute: |
+  rootfs="$(install-slices dash_bins)"
+
+  chroot "${rootfs}" dash -c "echo Success > /test"
+
+  test $(cat "${rootfs}/test") == "Success"

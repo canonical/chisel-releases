@@ -1,0 +1,16 @@
+package: rfkill
+
+essential:
+  - rfkill_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libsmartcols1_libs
+    contents:
+      /usr/sbin/rfkill:
+
+  copyright:
+    contents:
+      /usr/share/doc/rfkill/copyright:

@@ -1,0 +1,24 @@
+summary: Integration tests for dosfstools
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices dosfstools_bins)"
+  
+  # create a test image
+  dd if=/dev/zero of="${rootfs}/test.img" bs=1M count=250
+
+  # format the test image as fat
+  chroot "${rootfs}" mkfs.fat test.img
+
+  # check that the format was fine
+  chroot "${rootfs}" fsck.fat test.img | grep "0 files"
+
+  # change the label of the image
+  chroot "${rootfs}" fatlabel test.img "TESTIMG"
+
+  # verify it changed
+  chroot "${rootfs}" fatlabel test.img | grep "TESTIMG"
+
+  # cleanup
+  rm "${rootfs}/test.img"
