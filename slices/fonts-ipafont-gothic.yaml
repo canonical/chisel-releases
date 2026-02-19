@@ -6,7 +6,7 @@ essential:
 slices:
   fonts:
     contents:
-      /usr/share/fonts/opentype/ipafont-gothic/*:
+      /usr/share/fonts/opentype/ipafont-gothic/*.ttf:
 
   config:
     contents:
