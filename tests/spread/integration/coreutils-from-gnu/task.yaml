@@ -250,3 +250,11 @@ execute: |
   touch "$rootfs_ls/test_dir/file2"
   test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = "$(printf "file1\nfile2")"
   test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
+
+  # test wc binary
+  rootfs_wc="$(install-slices coreutils-from-gnu_wc-utility)"
+  chroot "$rootfs_wc" gnuwc --version
+  echo -e "line1\nline2\nline3" > "$rootfs_wc/test_file"
+  test "$(chroot "$rootfs_wc" gnuwc -l test_file | awk '{print $1}')" = "3"
+  test "$(chroot "$rootfs_wc" gnuwc -w test_file | awk '{print $1}')" = "3"
+  test "$(chroot "$rootfs_wc" gnuwc -c test_file | awk '{print $1}')" = "18"
