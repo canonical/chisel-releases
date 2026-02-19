@@ -6,8 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      # libxkbcommon0 also depends on xkb-data, but that is probably not necessary
-      # for most distroless use cases
+      # NOTE: libxkbcommon0 deb also depends on xkb-data
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libxkbcommon.so.0*:
