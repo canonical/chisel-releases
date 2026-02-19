@@ -54,7 +54,7 @@ slices:
       # - libqt6svg6_libs
       # - libqt6test6_libs
       - libqt6widgets6_libs
-      - libqt6xml6_libs
+      # - libqt6xml6_libs
       - libstdc++6_libs
     contents:
       /usr/lib/*-linux-*/qtcreator/**:
