@@ -26,7 +26,7 @@ slices:
       - systemd_pcrlock
       - systemd_system-generators
       - systemd_system-services
-      # - systemd_user-services
+      - systemd_user-services
     contents:
       /usr/bin/busctl:
       /usr/bin/hostnamectl:
@@ -445,6 +445,34 @@ slices:
       /usr/lib/systemd/system/user@.service.d/timeout.conf:
       /usr/lib/systemd/system/user@0.service.d/10-login-barrier.conf:
       /usr/lib/systemd/system/x11-common.service:
+
+  user-services:
+    contents:
+      /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
+      /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
+      /usr/lib/systemd/user-preset/90-systemd.preset:
+      /usr/lib/systemd/user/app.slice:
+      /usr/lib/systemd/user/background.slice:
+      /usr/lib/systemd/user/basic.target:
+      /usr/lib/systemd/user/bluetooth.target:
+      /usr/lib/systemd/user/capsule@.target:
+      /usr/lib/systemd/user/default.target:
+      /usr/lib/systemd/user/exit.target:
+      /usr/lib/systemd/user/graphical-session-pre.target:
+      /usr/lib/systemd/user/graphical-session.target:
+      /usr/lib/systemd/user/paths.target:
+      /usr/lib/systemd/user/printer.target:
+      /usr/lib/systemd/user/session.slice:
+      /usr/lib/systemd/user/shutdown.target:
+      /usr/lib/systemd/user/smartcard.target:
+      /usr/lib/systemd/user/sockets.target:
+      /usr/lib/systemd/user/sound.target:
+      /usr/lib/systemd/user/systemd-exit.service:
+      /usr/lib/systemd/user/systemd-tmpfiles-clean.service:
+      /usr/lib/systemd/user/systemd-tmpfiles-clean.timer:
+      /usr/lib/systemd/user/systemd-tmpfiles-setup.service:
+      /usr/lib/systemd/user/timers.target:
+      /usr/lib/systemd/user/xdg-desktop-autostart.target:
 
   dbus-services:
     essential:
