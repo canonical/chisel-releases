@@ -1,0 +1,48 @@
+summary: Integration tests for postgresql-client-16
+
+execute: |
+  rootfs="$(install-slices postgresql-client-16_bins)"
+
+  # Smoke tests
+  chroot "${rootfs}/" psql --version
+  chroot "${rootfs}/" createdb --version
+  chroot "${rootfs}/" dropdb --version
+  chroot "${rootfs}/" pg_dump --version
+
+  # Functional tests (prepare)
+  export PGPASSWORD=qwe123
+  declare -a OPT_S=("--username=postgres" "--host=/tmp")
+  declare -a OPT_H=("--username=postgres" "--host=127.0.0.1")
+  snap install postgresql --channel 16/stable
+  postgresql.psql "${OPT_S[@]}" -c "select 'DB Started'"
+  postgresql.psql "${OPT_S[@]}" -c "alter user postgres with password '${PGPASSWORD}'"
+  postgresql.psql "${OPT_H[@]}" -c "select 'DB reachable'"
+
+  # Functional tests ('psql')
+  chroot "${rootfs}/" psql "${OPT_H[@]}" -d postgres -c "select now()"
+
+  # Functional tests ('createdb'/'dropdb')
+  chroot "${rootfs}/" dropdb   "${OPT_H[@]}" test123 && false || true # must fail: no DB
+  chroot "${rootfs}/" createdb "${OPT_H[@]}" test123 # must pass
+  chroot "${rootfs}/" createdb "${OPT_H[@]}" test123 && false || true # must fail: duplicate DB
+  chroot "${rootfs}/" dropdb   "${OPT_H[@]}" test123 # must pass
+  chroot "${rootfs}/" dropdb   "${OPT_H[@]}" test123 && false || true # must fail: DB done
+
+  # Functional tests ('pg_dump')
+  chroot "${rootfs}/" createdb "${OPT_H[@]}"    testdb
+  chroot "${rootfs}/" psql     "${OPT_H[@]}" -d testdb -c "
+    CREATE TABLE test (id SERIAL PRIMARY KEY, name TEXT);
+    INSERT INTO test (name) VALUES ('test1');
+    SELECT * from test;
+  "
+
+  dump_file=mydump.sql
+  chroot "${rootfs}/" pg_dump "${OPT_H[@]}" -d testdb -c -C > "${dump_file}"
+  chroot "${rootfs}/" psql    "${OPT_H[@]}" -d testdb -c "DROP TABLE test"
+  chroot "${rootfs}/" psql    "${OPT_H[@]}" -d testdb -c "SELECT * from test" && false || true # must fail: no table
+  chroot "${rootfs}/" psql    "${OPT_H[@]}" -d testdb < "${dump_file}"
+  chroot "${rootfs}/" psql    "${OPT_H[@]}" -d testdb -c "SELECT * from test"
+
+  # Functional tests (cleanup)
+  snap remove postgresql  --terminate --purge
+
