@@ -1,0 +1,17 @@
+package: libegl1
+
+essential:
+  - libegl1_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libEGL.so.1*:
+    essential:
+      - libc6_libs
+      - libegl-mesa0_libs
+      - libglvnd0_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libegl1/copyright:

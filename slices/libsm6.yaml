@@ -1,0 +1,17 @@
+package: libsm6
+
+essential:
+  - libsm6_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libSM.so.6*:
+    essential:
+      - libc6_libs
+      - libice6_libs
+      - libuuid1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libsm6/copyright:

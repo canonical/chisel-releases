@@ -1,0 +1,9 @@
+summary: Integration tests for dlt-viewer
+
+execute: |
+  rootfs="$(install-slices dlt-viewer_bins)"
+
+  export QT_QPA_PLATFORM=offscreen
+
+  chroot "$rootfs" dlt-viewer --help
+  chroot "$rootfs" dlt-viewer --version

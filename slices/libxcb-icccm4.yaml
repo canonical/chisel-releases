@@ -1,0 +1,16 @@
+package: libxcb-icccm4
+
+essential:
+  - libxcb-icccm4_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxcb-icccm.so.4*:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-icccm4/copyright:

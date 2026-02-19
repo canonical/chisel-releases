@@ -1,0 +1,16 @@
+package: libxcb-xinput0
+
+essential:
+  - libxcb-xinput0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxcb-xinput.so.0*:
+    essential:
+      - libc6_libs
+      - libxcb1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcb-xinput0/copyright:
