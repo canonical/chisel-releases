@@ -1,16 +1,7 @@
-summary: Integration tests for CA Certificates
+summary: Integration tests for ca-certificates
 
-execute: |
-  # Test 1: Test that the ca-certificates.crt file is created and linked to /etc/ssl/certs/ca-certificates.crt
-  rootfs="$(install-slices ca-certificates_data python3.13_core)"
-  cp /etc/resolv.conf "${rootfs}/etc/"
-  chroot ${rootfs} /usr/bin/python3.13 -c "import urllib.request;urllib.request.urlopen('https://example.com')"
+variants:
+    - data
+    - scripts
 
-  # Test 2: Test that the /etc/ca-certificates.conf file is created and update-ca-certificates works
-  rootfs=$(install-slices ca-certificates_data-with-certs ca-certificates_bins)
-  test -f ${rootfs}/etc/ca-certificates.conf
-  ln ${rootfs}/bin/bash ${rootfs}/bin/sh
-  mkdir -p ${rootfs}/dev
-  touch ${rootfs}/dev/null
-  chroot ${rootfs} /usr/sbin/update-ca-certificates
-  test $(find ${rootfs}/etc/ssl/certs -maxdepth 1 -type f ! -name 'ca-certificates.crt' | wc -l) -eq 0
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
