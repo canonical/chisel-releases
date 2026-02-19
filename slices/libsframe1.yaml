@@ -1,0 +1,15 @@
+package: libsframe1
+
+essential:
+  - libsframe1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libsframe.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsframe1/copyright:
