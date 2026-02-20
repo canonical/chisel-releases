@@ -18,7 +18,24 @@ jobs:
           # We do need to fetch all history for all branches.
           fetch-depth: 0
 
+      - name: "Install distro-info and update data"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y distro-info distro-info-data
+
+      - name: "Check if running against devel branch"
+        id: check-skip
+        run: |
+          DEVEL=$(distro-info --devel --release | cut -d' ' -f1)
+          if [[ "${{ github.base_ref }}" == "ubuntu-$DEVEL" ]]; then
+            echo "should_skip=true" >> $GITHUB_OUTPUT
+            echo "Skipping workflow as PR is against devel branch ubuntu-$DEVEL"
+          else
+            echo "should_skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: "Set reference to main branch"
+        if: steps.check-skip.outputs.should_skip != 'true'
         id: set-main-ref
         run: |
           if [[ "${{ github.base_ref }}" == "main" ]]; then
@@ -30,12 +47,14 @@ jobs:
           fi
 
       - name: "Checkout main branch"
+        if: steps.check-skip.outputs.should_skip != 'true'
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
 
       - name: "Check for removed slices"
+        if: steps.check-skip.outputs.should_skip != 'true'
         run: |
           ln -s "${{ env.files_main }}/.github/scripts/removed-slices/removed-slices" .
           # For pull request events, use github.event.pull_request.base.sha as
