@@ -9,8 +9,14 @@ slices:
       - libc6_libs
       - perl-modules-5.40_standard
     contents:
-      /usr/bin/cpan5.40*-*-linux-*:
-      /usr/bin/perl5.40*-*-linux-*:
+      /usr/bin/perl5.40-*-linux-*:
+
+  scripts:
+    essential:
+      - libc6_libs
+      - perl-modules-5.40_standard
+    contents:
+      /usr/bin/cpan5.40-*-linux-*:
 
   core-libs:
     contents:
