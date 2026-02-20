@@ -9,6 +9,7 @@ slices:
       /usr/lib/file/magic.mgc:
       /usr/share/file/magic.mgc:
       /usr/share/misc/magic.mgc:
+      /usr/share/file/magic/:
 
   copyright:
     contents:
