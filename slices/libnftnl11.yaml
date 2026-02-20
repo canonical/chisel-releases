@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libmnl0_libs: {}
+      libc6_libs:
+      libmnl0_libs:
     contents:
       /usr/lib/*-linux-*/libnftnl.so.11*:
 

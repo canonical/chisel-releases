@@ -6,12 +6,12 @@ essential:
 slices:
   bins:
     essential:
-      libaudit1_libs: {}
-      libc6_libs: {}
-      libcrypt1_libs: {}
-      libpam0g_libs: {}
-      libselinux1_libs: {}
-      libsystemd0_libs: {}
+      libaudit1_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      libpam0g_libs:
+      libselinux1_libs:
+      libsystemd0_libs:
     contents:
       /usr/sbin/faillock:
       /usr/sbin/mkhomedir_helper:

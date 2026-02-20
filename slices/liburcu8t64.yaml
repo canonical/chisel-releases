@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/liburcu-bp.so.8*:
       /usr/lib/*-linux-*/liburcu-cds.so.8*:

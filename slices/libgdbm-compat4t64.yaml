@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgdbm6t64_libs: {}
+      libc6_libs:
+      libgdbm6t64_libs:
     contents:
       /usr/lib/*-linux-*/libgdbm_compat.so.4*:
 

@@ -10,7 +10,7 @@ slices:
 
   config:
     essential:
-      vim-common_runtime: {}
+      vim-common_runtime:
     contents:
       /etc/vim/vimrc:
 

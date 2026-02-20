@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libsensors-config_config: {}
+      libc6_libs:
+      libsensors-config_config:
     contents:
       /usr/lib/*-linux-*/libsensors.so.5*:
 

@@ -8,9 +8,9 @@ slices:
   # to determine if any non default homedir has been configured.
   bins:
     essential:
-      apparmor_config: {}
-      apparmor_profiles: {}
-      libc6_libs: {}
+      apparmor_config:
+      apparmor_profiles:
+      libc6_libs:
     contents:
       /usr/bin/aa-enabled:
       /usr/bin/aa-exec:

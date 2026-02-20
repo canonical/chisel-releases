@@ -6,10 +6,10 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      liblttng-ust-common1t64_libs: {}
-      liblttng-ust-ctl6_libs: {}
-      libnuma1_libs: {}
+      libc6_libs:
+      liblttng-ust-common1t64_libs:
+      liblttng-ust-ctl6_libs:
+      libnuma1_libs:
     contents:
       /usr/lib/*-linux-*/liblttng-ust-cyg-profile-fast.so.*:
       /usr/lib/*-linux-*/liblttng-ust-cyg-profile.so.*:

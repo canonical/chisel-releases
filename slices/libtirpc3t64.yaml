@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgssapi-krb5-2_libs: {}
-      libtirpc-common_config: {}
+      libc6_libs:
+      libgssapi-krb5-2_libs:
+      libtirpc-common_config:
     contents:
       /usr/lib/*-linux-*/libtirpc.so.3*:
 

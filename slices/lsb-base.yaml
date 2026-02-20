@@ -6,7 +6,7 @@ essential:
 slices:
   bins:
     essential:
-      sysvinit-utils_bins: {}
+      sysvinit-utils_bins:
 
   copyright:
     contents:

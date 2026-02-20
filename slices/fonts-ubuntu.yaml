@@ -6,10 +6,10 @@ essential:
 slices:
   all:
     essential:
-      fonts-ubuntu_ubuntu: {}
-      fonts-ubuntu_ubuntu-mono: {}
-      fonts-ubuntu_ubuntu-sans: {}
-      fonts-ubuntu_ubuntu-sans-mono: {}
+      fonts-ubuntu_ubuntu:
+      fonts-ubuntu_ubuntu-mono:
+      fonts-ubuntu_ubuntu-sans:
+      fonts-ubuntu_ubuntu-sans-mono:
 
   config:
     contents:

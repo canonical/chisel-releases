@@ -6,10 +6,10 @@ essential:
 slices:
   bins:
     essential:
-      libc6_libs: {}
-      libcap2-bin_bins: {}
-      libcap2_libs: {}
-      libidn2-0_libs: {}
+      libc6_libs:
+      libcap2-bin_bins:
+      libcap2_libs:
+      libidn2-0_libs:
     contents:
       /usr/bin/ping:
 

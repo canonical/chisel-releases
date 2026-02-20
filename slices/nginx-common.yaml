@@ -53,7 +53,7 @@ slices:
 
   vim-addons:
     essential:
-      nginx-common_vim-config: {}
+      nginx-common_vim-config:
     contents:
       /usr/share/vim/addons/ftdetect/nginx.vim:
       /usr/share/vim/addons/ftplugin/nginx.vim:

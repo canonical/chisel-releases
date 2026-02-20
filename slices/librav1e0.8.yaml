@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgcc-s1_libs: {}
+      libc6_libs:
+      libgcc-s1_libs:
     contents:
       /usr/lib/*-linux-*/librav1e.so.0.8*:
 

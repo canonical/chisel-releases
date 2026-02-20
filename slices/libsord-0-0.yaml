@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libserd-0-0_libs: {}
-      libzix-0-0_libs: {}
+      libc6_libs:
+      libserd-0-0_libs:
+      libzix-0-0_libs:
     contents:
       /usr/lib/*-linux-*/libsord-0.so.0*:
 

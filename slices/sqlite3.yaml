@@ -6,10 +6,10 @@ essential:
 slices:
   bins:
     essential:
-      libc6_libs: {}
-      libreadline8t64_libs: {}
-      libsqlite3-0_libs: {}
-      zlib1g_libs: {}
+      libc6_libs:
+      libreadline8t64_libs:
+      libsqlite3-0_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/sqlite3:
 

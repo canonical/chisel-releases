@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgomp1_libs: {}
+      libc6_libs:
+      libgomp1_libs:
     contents:
       /usr/lib/*-linux-*/libvidstab.so.1.1*:
 

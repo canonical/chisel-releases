@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      node-llhttp_libs: {}
+      node-llhttp_libs:
     contents:
       /usr/share/nodejs/undici/index-fetch.js:
       /usr/share/nodejs/undici/index.d.ts:

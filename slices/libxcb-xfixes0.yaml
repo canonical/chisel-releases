@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libxcb1_libs: {}
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-xfixes.so.0*:
 

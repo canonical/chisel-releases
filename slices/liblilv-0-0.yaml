@@ -6,11 +6,11 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libserd-0-0_libs: {}
-      libsord-0-0_libs: {}
-      libsratom-0-0_libs: {}
-      libzix-0-0_libs: {}
+      libc6_libs:
+      libserd-0-0_libs:
+      libsord-0-0_libs:
+      libsratom-0-0_libs:
+      libzix-0-0_libs:
     contents:
       /usr/lib/*-linux-*/liblilv-0.so.0*:
 

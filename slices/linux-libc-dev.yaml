@@ -11,7 +11,7 @@ slices:
 
   linux-headers:
     essential:
-      linux-libc-dev_asm-headers: {}
+      linux-libc-dev_asm-headers:
     contents:
       /usr/include/linux/**.h:
 

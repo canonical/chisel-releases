@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libcjson1_libs: {}
-      libmbedcrypto16_libs: {}
+      libc6_libs:
+      libcjson1_libs:
+      libmbedcrypto16_libs:
     contents:
       /usr/lib/*-linux-*/librist.so.4*:
 

@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      liblttng-ust-common1t64_libs: {}
-      libnuma1_libs: {}
+      libc6_libs:
+      liblttng-ust-common1t64_libs:
+      libnuma1_libs:
     contents:
       /usr/lib/*-linux-*/liblttng-ust-ctl.so.*:
 

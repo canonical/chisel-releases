@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libpcre2-8-0_libs: {}
+      libc6_libs:
+      libpcre2-8-0_libs:
     contents:
       /usr/lib/*-linux-*/libselinux.so.1:
 

@@ -6,7 +6,7 @@ essential:
 slices:
   data:
     essential:
-      libx11-data_locale: {}
+      libx11-data_locale:
     contents:
       /usr/share/X11/XErrorDB:
 

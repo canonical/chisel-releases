@@ -6,12 +6,12 @@ essential:
 slices:
   bins:
     essential:
-      bind9-host_bins: {}
-      bind9-libs_libs: {}
-      libc6_libs: {}
-      libedit2_libs: {}
-      libidn2-0_libs: {}
-      libkrb5-3_libs: {}
+      bind9-host_bins:
+      bind9-libs_libs:
+      libc6_libs:
+      libedit2_libs:
+      libidn2-0_libs:
+      libkrb5-3_libs:
     contents:
       /usr/bin/delv:
       /usr/bin/dig:

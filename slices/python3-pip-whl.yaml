@@ -6,7 +6,7 @@ essential:
 slices:
   wheels:
     essential:
-      ca-certificates_data: {}
+      ca-certificates_data:
     contents:
       /usr/share/python-wheels/pip-*-py3-none-any.whl:
 

@@ -6,13 +6,13 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libcairo2_libs: {}
-      libfontconfig1_libs: {}
-      libglib2.0-0t64_libs: {}
-      libharfbuzz0b_libs: {}
-      libpango-1.0-0_libs: {}
-      libpangoft2-1.0-0_libs: {}
+      libc6_libs:
+      libcairo2_libs:
+      libfontconfig1_libs:
+      libglib2.0-0t64_libs:
+      libharfbuzz0b_libs:
+      libpango-1.0-0_libs:
+      libpangoft2-1.0-0_libs:
     contents:
       /usr/lib/*-linux-*/libpangocairo-1.0.so.0*:
 

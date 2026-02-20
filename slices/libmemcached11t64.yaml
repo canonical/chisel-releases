@@ -6,11 +6,11 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgcc-s1_libs: {}
-      libhashkit2t64_libs: {}
-      libsasl2-2_libs: {}
-      libstdc++6_libs: {}
+      libc6_libs:
+      libgcc-s1_libs:
+      libhashkit2t64_libs:
+      libsasl2-2_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libmemcached.so.11*:
 

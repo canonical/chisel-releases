@@ -10,7 +10,7 @@ slices:
 
   terminfo:
     essential:
-      ncurses-base_tabset: {}
+      ncurses-base_tabset:
     contents:
       /usr/share/terminfo/**:
 

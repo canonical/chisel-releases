@@ -6,15 +6,15 @@ essential:
 slices:
   libs:
     essential:
-      libacl1_libs: {}
-      libbz2-1.0_libs: {}
-      libc6_libs: {}
-      liblz4-1_libs: {}
-      liblzma5_libs: {}
-      libnettle8t64_libs: {}
-      libxml2-16_libs: {}
-      libzstd1_libs: {}
-      zlib1g_libs: {}
+      libacl1_libs:
+      libbz2-1.0_libs:
+      libc6_libs:
+      liblz4-1_libs:
+      liblzma5_libs:
+      libnettle8t64_libs:
+      libxml2-16_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libarchive.so.13*:
 

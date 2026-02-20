@@ -10,8 +10,8 @@ slices:
 
   services:
     essential:
-      sbsigntool_bins: {}
-      secureboot-db_data: {}
+      sbsigntool_bins:
+      secureboot-db_data:
     contents:
       /usr/lib/systemd/system/secureboot-db.service:
 

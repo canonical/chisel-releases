@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      libc6_libs: {}
-      libmaxminddb0_libs: {}
+      libc6_libs:
+      libmaxminddb0_libs:
     contents:
       /usr/bin/mmdblookup:
 

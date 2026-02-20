@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libvorbis0a_libs: {}
+      libc6_libs:
+      libvorbis0a_libs:
     contents:
       /usr/lib/*-linux-*/libvorbisenc.so.2*:
 

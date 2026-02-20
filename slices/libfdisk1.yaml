@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libblkid1_libs: {}
-      libc6_libs: {}
-      libuuid1_libs: {}
+      libblkid1_libs:
+      libc6_libs:
+      libuuid1_libs:
     contents:
       /usr/lib/*-linux-*/libfdisk.so.1*:
 

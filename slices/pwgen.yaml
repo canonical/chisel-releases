@@ -6,7 +6,7 @@ essential:
 slices:
   bins:
     essential:
-      libc6_libs: {}
+      libc6_libs:
     contents:
       /usr/bin/pwgen:
 

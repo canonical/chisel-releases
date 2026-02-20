@@ -6,12 +6,12 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libatomic.so.1*:
 
   copyright:
     essential:
-      gcc-14-base_copyright: {}
+      gcc-14-base_copyright:
     contents:
       /usr/share/doc/libatomic1:

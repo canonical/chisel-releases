@@ -6,10 +6,10 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgcc-s1_libs: {}
-      libstdc++6_libs: {}
-      libuuid1_libs: {}
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      libuuid1_libs:
     contents:
       /usr/lib/*-linux-*/libgearman.so.8*:
 

@@ -8,7 +8,7 @@ essential:
 slices:
   libs:
     essential:
-      libjpeg-turbo8_libs: {}
+      libjpeg-turbo8_libs:
 
   copyright:
     contents:

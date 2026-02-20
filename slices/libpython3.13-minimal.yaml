@@ -18,9 +18,9 @@ slices:
 
   libs:
     essential:
-      libc6_libs: {}
-      libpython3.13-minimal_config: {}
-      libssl3t64_libs: {}
+      libc6_libs:
+      libpython3.13-minimal_config:
+      libssl3t64_libs:
     contents:
       /usr/lib/python3.13/__future__.py:
       /usr/lib/python3.13/_collections_abc.py:

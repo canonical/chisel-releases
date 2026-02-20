@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libserd-0-0_libs: {}
-      libsord-0-0_libs: {}
+      libc6_libs:
+      libserd-0-0_libs:
+      libsord-0-0_libs:
     contents:
       /usr/lib/*-linux-*/libsratom-0.so.0*:
 

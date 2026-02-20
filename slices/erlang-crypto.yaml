@@ -6,15 +6,15 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libssl3t64_libs: {}
+      libc6_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/erlang/lib/crypto-*/priv/lib/**:
 
   modules:
     essential:
-      erlang-base_bins: {}
-      erlang-base_modules: {}
+      erlang-base_bins:
+      erlang-base_modules:
     contents:
       /usr/lib/erlang/lib/crypto-*/ebin/**:
       /usr/lib/erlang/lib/crypto-*/priv/lib/**:

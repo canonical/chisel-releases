@@ -6,18 +6,18 @@ essential:
 slices:
   libs:
     essential:
-      libbz2-1.0_libs: {}
-      libc6_libs: {}
-      libgcc-s1_libs: {}
-      liblz4-1_libs: {}
-      liblzma5_libs: {}
-      libssl3t64_libs: {}
-      libstdc++6_libs: {}
-      libsystemd0_libs: {}
-      libudev1_libs: {}
-      libxxhash0_libs: {}
-      libzstd1_libs: {}
-      zlib1g_libs: {}
+      libbz2-1.0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      liblz4-1_libs:
+      liblzma5_libs:
+      libssl3t64_libs:
+      libstdc++6_libs:
+      libsystemd0_libs:
+      libudev1_libs:
+      libxxhash0_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libapt-pkg.so.7.0*:
 

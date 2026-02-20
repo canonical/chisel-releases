@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libcdio-cdda2t64_libs: {}
-      libcdio19t64_libs: {}
+      libc6_libs:
+      libcdio-cdda2t64_libs:
+      libcdio19t64_libs:
     contents:
       /usr/lib/*-linux-*/libcdio_paranoia.so.2*:
 

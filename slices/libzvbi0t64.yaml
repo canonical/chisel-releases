@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libpng16-16t64_libs: {}
+      libc6_libs:
+      libpng16-16t64_libs:
       # The dependency on libzvbi-common is omitted as that package only contains
       # translation strings in machine object files under /usr/share/locale
     contents:

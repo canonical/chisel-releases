@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      libc6_libs: {}
-      libnode127_libs: {}
+      libc6_libs:
+      libnode127_libs:
     contents:
       /usr/bin/js: {symlink: /usr/bin/nodejs}
       /usr/bin/node:

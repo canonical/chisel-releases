@@ -6,6 +6,6 @@ essential:
 slices:
   copyright:
     essential:
-      libruby3.3_copyright: {}
+      libruby3.3_copyright:
     contents:
       /usr/share/doc/libruby/copyright:

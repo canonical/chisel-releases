@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libcairo2_libs: {}
-      libglib2.0-0t64_libs: {}
+      libcairo2_libs:
+      libglib2.0-0t64_libs:
     contents:
       /usr/lib/*-linux-*/libcairo-gobject.so.2*:
 

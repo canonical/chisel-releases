@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libdrm-common_data: {}
+      libc6_libs:
+      libdrm-common_data:
     contents:
       /usr/lib/*-linux-*/libdrm.so.2*:
 

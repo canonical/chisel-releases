@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
+      libc6_libs:
     contents:
       /lib/*-linux-*/libpcre.so.3*:
       /usr/lib/*-linux-*/libpcreposix.so.3*:

@@ -8,7 +8,7 @@ essential:
 slices:
   bins:
     essential:
-      sensible-utils_bins: {}
+      sensible-utils_bins:
     contents:
       /usr/bin/ucf:
       /usr/bin/ucfq:

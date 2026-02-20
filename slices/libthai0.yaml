@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libdatrie1_libs: {}
-      libthai-data_data: {}
+      libc6_libs:
+      libdatrie1_libs:
+      libthai-data_data:
     contents:
       /usr/lib/*-linux-*/libthai.so.0*:
 

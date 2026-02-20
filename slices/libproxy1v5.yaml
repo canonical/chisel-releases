@@ -6,10 +6,10 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libcurl3t64-gnutls_libs: {}
-      libduktape207_libs: {}
-      libglib2.0-0t64_libs: {}
+      libc6_libs:
+      libcurl3t64-gnutls_libs:
+      libduktape207_libs:
+      libglib2.0-0t64_libs:
 
     contents:
       /usr/lib/*-linux-*/libproxy.so.*:

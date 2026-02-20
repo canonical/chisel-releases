@@ -13,9 +13,9 @@ slices:
 
   bins:
     essential:
-      bash_config: {}
-      libc6_libs: {}
-      libtinfo6_libs: {}
+      bash_config:
+      libc6_libs:
+      libtinfo6_libs:
     contents:
       # user should manually link /bin/sh to /bin/bash
       /usr/bin/bash:

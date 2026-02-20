@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libapr1t64_libs: {}
-      libc6_libs: {}
-      libssl3t64_libs: {}
+      libapr1t64_libs:
+      libc6_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/libtcnative-1.so*:
 

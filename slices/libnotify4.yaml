@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libgdk-pixbuf-2.0-0_libs: {}
-      libglib2.0-0t64_libs: {}
+      libc6_libs:
+      libgdk-pixbuf-2.0-0_libs:
+      libglib2.0-0t64_libs:
     contents:
       /usr/lib/*-linux-*/libnotify.so.4*:
 

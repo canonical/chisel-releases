@@ -10,8 +10,8 @@ slices:
 
   libs:
     essential:
-      libattr1_config: {}
-      libc6_libs: {}
+      libattr1_config:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libattr.so.1*:
 

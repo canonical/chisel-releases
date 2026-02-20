@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libcairo2_libs: {}
+      libc6_libs:
+      libcairo2_libs:
     contents:
       /usr/lib/*-linux-*/libtheoradec.so.1*:
   copyright:

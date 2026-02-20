@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libsasl2-modules-db_libs: {}
-      libssl3t64_libs: {}
+      libc6_libs:
+      libsasl2-modules-db_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/libsasl2.so.2*:
 

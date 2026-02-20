@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libdrm2_libs: {}
+      libc6_libs:
+      libdrm2_libs:
     contents:
       /usr/lib/*-linux-*/libdrm_amdgpu.so.1*:
 

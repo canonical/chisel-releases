@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libwebp7_libs: {}
+      libc6_libs:
+      libwebp7_libs:
     contents:
       /usr/lib/*-linux-*/libwebpmux.so.3*:
 

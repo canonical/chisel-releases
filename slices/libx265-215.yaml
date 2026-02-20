@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libnuma1_libs: {}
-      libstdc++6_libs: {}
+      libc6_libs:
+      libnuma1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libx265.so.215*:
 

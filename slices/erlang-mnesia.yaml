@@ -6,8 +6,8 @@ essential:
 slices:
   modules:
     essential:
-      erlang-base_bins: {}
-      erlang-base_modules: {}
+      erlang-base_bins:
+      erlang-base_modules:
     contents:
       /usr/lib/erlang/lib/mnesia-*/ebin/**:
 

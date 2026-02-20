@@ -6,9 +6,9 @@ essential:
 slices:
   bins:
     essential:
-      bind9-libs_libs: {}
-      libc6_libs: {}
-      libidn2-0_libs: {}
+      bind9-libs_libs:
+      libc6_libs:
+      libidn2-0_libs:
     contents:
       /usr/bin/host:
 

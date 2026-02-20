@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      libc6_libs: {}
-      libstd-rust-1.85_libs: {}
+      libc6_libs:
+      libstd-rust-1.85_libs:
     contents:
       /usr/lib/rust-1.85/lib/rustlib/*-linux-*/lib/*.rlib:
 
