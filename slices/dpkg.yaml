@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       coreutils_rm-utility: {}
-      diffutils_bins  # used by dpkg -i: {}
+      diffutils_bins:  # used by dpkg -i
       dpkg_config: {}
       dpkg_scripts: {}
       dpkg_tables: {}
