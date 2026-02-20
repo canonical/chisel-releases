@@ -46,6 +46,7 @@ slices:
 
   wall:
     essential:
+      - base-passwd_data
       - libc6_libs
     contents:
       /usr/bin/wall:

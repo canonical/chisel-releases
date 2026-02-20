@@ -6,6 +6,6 @@ variants:
     - script
     - scriptlive
     - scriptreplay
-    # - wall
+    - wall
 
 execute: bash ./test_${SPREAD_VARIANT}.sh
