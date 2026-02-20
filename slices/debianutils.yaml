@@ -6,7 +6,7 @@ essential:
 slices:
   which:
     essential:
-      base-files_bin  # The Shebang in which.debianutils references /bin/sh: {}
+      base-files_bin:  # The Shebang in which.debianutils references /bin/sh
       dash_bins: {}
     contents:
       # Note: This symlink should have a prefer: gnu-which if both are present
