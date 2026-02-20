@@ -155,6 +155,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      - gnu-coreutils_cp-utility
       - gnu-coreutils_dd-utility
       - gnu-coreutils_install
       - gnu-coreutils_mv-utility
@@ -164,7 +165,6 @@ slices:
       - libc6_libs
       - libselinux1_libs
     contents:
-      /usr/bin/gnucp:
       /usr/bin/gnushred:
 
   # Special file types -- This slice contains commands which create special
@@ -292,12 +292,12 @@ slices:
   system-context:
     essential:
       - gnu-coreutils_date
+      - gnu-coreutils_uname
       - libc6_libs
     contents:
       /usr/bin/gnuarch:
       /usr/bin/gnuhostid:
       /usr/bin/gnunproc:
-      /usr/bin/gnuuname:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -330,9 +330,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
-      - libc6_libs
-    contents:
-      /usr/bin/gnusleep:
+      - gnu-coreutils_sleep
 
   # Numeric operations -- These programs do numerically-related operations.
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
@@ -578,6 +576,27 @@ slices:
       - libc6_libs
     contents:
       /usr/bin/gnuunlink:
+
+  uname:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnuuname:
+
+  sleep:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/gnusleep:
+
+  cp-utility:
+    essential:
+      - libacl1_libs
+      - libattr1_libs
+      - libc6_libs
+      - libselinux1_libs
+    contents:
+      /usr/bin/gnucp:
 
   wc-utility:
     essential:

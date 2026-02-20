@@ -253,6 +253,18 @@ slices:
     essential:
       - coreutils-from-gnu_ls-utility
 
+  uname:
+    essential:
+      - coreutils-from-gnu_uname
+
+  sleep:
+    essential:
+      - coreutils-from-gnu_sleep
+
+  cp-utility:
+    essential:
+      - coreutils-from-gnu_cp-utility
+
   wc-utility:
     essential:
       - coreutils-from-gnu_wc-utility

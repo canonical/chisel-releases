@@ -225,7 +225,7 @@ execute: |
   echo -e "1,orange\n2,grape" > "$rootfs_join/file2"
   test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
            $'1,apple,orange\n2,banana,grape'
-  
+
   # test cat binary
   rootfs_cat="$(install-slices coreutils_cat)"
   echo "Hello, World!" > "$rootfs_cat/test_file"
@@ -238,6 +238,22 @@ execute: |
   touch "$rootfs_ls/test_dir/file2"
   test "$(chroot "$rootfs_ls" ls test_dir | sort)" = "$(printf "file1\nfile2")"
   test "$(chroot "$rootfs_ls" ls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
+
+  # test uname binary
+  rootfs_uname="$(install-slices coreutils_uname)"
+  chroot "$rootfs_uname" uname --version
+  test "$(chroot "$rootfs_uname" uname -s)" = "Linux"
+
+  # test sleep binary
+  rootfs_sleep="$(install-slices coreutils_sleep)"
+  chroot "$rootfs_sleep" sleep --version
+
+  # test cp binary
+  rootfs_cp="$(install-slices coreutils_cp-utility)"
+  chroot "$rootfs_cp" cp --version
+  echo "Hello, World!" > "$rootfs_cp/test_file"
+  chroot "$rootfs_cp" cp test_file test_file_copy
+  test "$(cat "$rootfs_cp/test_file_copy")" = "Hello, World!"
 
   # test wc binary
   rootfs_wc="$(install-slices coreutils_wc-utility)"
