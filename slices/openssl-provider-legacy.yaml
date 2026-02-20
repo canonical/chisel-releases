@@ -7,7 +7,7 @@ slices:
   libs:
     essential:
       libc6_libs:
-      # - libssl3t64_libs # prevent circular dependency with libssl3t64
+      # libssl3t64_libs: # prevent circular dependency with libssl3t64
     contents:
       /usr/lib/*-linux-*/ossl-modules/legacy.so:
 
