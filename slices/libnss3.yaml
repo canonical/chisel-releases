@@ -16,8 +16,8 @@ slices:
       # This package still has many other libraries which are not part of any
       # slices yet. Upon creation of new slices containing those libraries,
       # make sure to add those slices in this list.
-      - libnss3_nss
-      - libnss3_smime
+      libnss3_nss:
+      libnss3_smime:
 
   nss:
     essential:
