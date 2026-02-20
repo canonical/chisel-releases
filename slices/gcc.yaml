@@ -6,9 +6,9 @@ essential:
 slices:
   gcc:
     essential:
+      gcc-15_gcc-15:
       gcc-aarch64-linux-gnu_gcc: {arch: [arm64]}
       gcc-x86-64-linux-gnu_gcc: {arch: [amd64]}
-      gcc-15_gcc-15:
     contents:
       # NOTE: there are 3 packages which provide /usr/bin/cc alternative implementations:
       # - gcc (priority 20)
