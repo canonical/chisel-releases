@@ -71,9 +71,9 @@ slices:
 
   ssl:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libnss3_nss
+      libc6_libs:
+      libnspr4_libs:
+      libnss3_nss:
     contents:
       /usr/lib/*-linux-*/libssl3.so:
 

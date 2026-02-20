@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libglib2.0-0t64_core
+      libc6_libs:
+      libglib2.0-0t64_core:
     contents:
       /usr/lib/*-linux-*/libatk-1.0.so.0*:
 

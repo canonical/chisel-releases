@@ -6,11 +6,11 @@ essential:
 slices:
   libs:
     essential:
-      - libatk1.0-0t64_libs
-      - libatspi2.0-0t64_libs
-      - libc6_libs
-      - libdbus-1-3_libs
-      - libglib2.0-0t64_core
+      libatk1.0-0t64_libs:
+      libatspi2.0-0t64_libs:
+      libc6_libs:
+      libdbus-1-3_libs:
+      libglib2.0-0t64_core:
     contents:
       /usr/lib/*-linux-*/libatk-bridge-2.0.so.0*:
 

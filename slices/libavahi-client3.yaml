@@ -6,9 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      - libavahi-common3_libs
-      - libc6_libs
-      - libdbus-1-3_libs
+      libavahi-common3_libs:
+      libc6_libs:
+      libdbus-1-3_libs:
     contents:
       /usr/lib/*-linux-*/libavahi-client.so.3*:
 
