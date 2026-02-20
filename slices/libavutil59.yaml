@@ -16,8 +16,8 @@ slices:
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: amd64
-      - libx11-6_libs
-      - ocl-icd-libopencl1_libs
+      libx11-6_libs: {}
+      ocl-icd-libopencl1_libs: {}
     contents:
       /usr/lib/*-linux-*/libavutil.so.59*:
 
