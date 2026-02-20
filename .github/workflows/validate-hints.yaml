@@ -1,0 +1,61 @@
+name: Validate hints
+
+on:
+  workflow_call:
+
+jobs:
+  check-changed-files:
+    name: Prepare files to be validated
+    runs-on: ubuntu-latest
+    # Needs to be called, from a workflow triggered by a PR
+    if: |
+      startswith(github.event_name, 'pull_request') &&
+      startswith(github.base_ref, 'ubuntu-')
+    outputs:
+      changed-files: ${{ steps.changed-paths.outputs.slices_files }}
+      has-changes: ${{ steps.changed-paths.outputs.slices }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Check changed paths
+        id: changed-paths
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
+
+  validate:
+    name: Validate hints
+    runs-on: ubuntu-latest
+    needs: [ check-changed-files ]
+    if: needs.check-changed-files.outputs.has-changes == 'true'
+    env:
+      main-branch-path: files-from-main
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          pip-install: -r ${{ env.main-branch-path }}/.github/scripts/validate-hints/requirements.txt
+
+      - name: Validate hints
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/validate-hints"
+        run: |
+          ./${{ env.script-dir }}/validate_hints.py \
+            ${{ needs.check-changed-files.outputs.changed-files }}
