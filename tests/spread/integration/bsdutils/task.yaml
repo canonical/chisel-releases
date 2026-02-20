@@ -1,6 +1,6 @@
 summary: Integration tests for bsdutils
 
 variants:
-    - bins
+    - logger
 
 execute: bash ./test_${SPREAD_VARIANT}.sh
