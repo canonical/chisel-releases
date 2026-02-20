@@ -13,7 +13,7 @@ slices:
       # armhf, i386 and riscv64 architectures.
       # - libcrypt1_libs
       # - libpam0g_libs
-      - libselinux1_libs
+      libselinux1_libs: {}
       # - libsemanage2_libs
     contents:
       /usr/lib/*-linux-*/libsubid.so.5*:

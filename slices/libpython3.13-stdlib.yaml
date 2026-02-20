@@ -24,11 +24,11 @@ slices:
       # vice versa. We don't allow that circular dependency to exist in Chisel
       # and libgcc-s1 already depends on libc6, so we'll have to include this
       # line here, explicitly.
-      - libgcc-s1_libs
-      - liblzma5_libs
-      - libpython3.13-minimal_libs
-      - media-types_data
-      - netbase_config
+      libgcc-s1_libs: {}
+      liblzma5_libs: {}
+      libpython3.13-minimal_libs: {}
+      media-types_data: {}
+      netbase_config: {}
     contents:
       /usr/lib/python3.13/_compression.py:
       /usr/lib/python3.13/_pydatetime.py:

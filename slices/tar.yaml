@@ -14,15 +14,15 @@ slices:
     essential:
       base-files_bin: {}
       # For dd
-      - coreutils_basic-operations
+      coreutils_basic-operations: {}
       # For tr
-      - coreutils_operating-on-characters
+      coreutils_operating-on-characters: {}
       # For cut
-      - coreutils_operating-on-fields
+      coreutils_operating-on-fields: {}
       # For cat
-      - coreutils_output-of-entire-files
-      - dash_bins
-      - tar_tar
+      coreutils_output-of-entire-files: {}
+      dash_bins: {}
+      tar_tar: {}
     contents:
       /usr/sbin/tarcat:
 

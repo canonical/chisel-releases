@@ -8,7 +8,7 @@ slices:
     essential:
       libc6_libs: {}
       # perl binary requires libcrypt.so.1 upon loading
-      - libcrypt1_libs
+      libcrypt1_libs: {}
     contents:
       # hard link
       /usr/bin/perl:

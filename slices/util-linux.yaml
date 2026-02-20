@@ -102,8 +102,8 @@ slices:
       # Since the more binary is located at ./usr/bin/more and /bin points
       # to /usr/bin via base-files, the base-files_bin slice is included
       # here.
-      - base-files_bin
-      - util-linux_file-manipulation
+      base-files_bin: {}
+      util-linux_file-manipulation: {}
     contents:
       /usr/bin/pager: {symlink: /bin/more}
 
@@ -221,11 +221,11 @@ slices:
       libcap-ng0_libs: {}
       # Libraries from libpam-modules are required as the libpam-runtime
       # configs reference them.
-      - libpam-modules_libs
+      libpam-modules_libs: {}
       # su reads the configs in /etc/pam.d to authenticate the user.
-      - libpam-runtime_config
-      - libpam0g_libs
-      - util-linux_pam-profiles
+      libpam-runtime_config: {}
+      libpam0g_libs: {}
+      util-linux_pam-profiles: {}
     contents:
       /usr/bin/su:
       /usr/sbin/runuser:

@@ -8,8 +8,8 @@ slices:
     essential:
       libc6_libs: {}
       # libsnappy1v5 depends on libgcc-s1 on i386, riscv64 and armhf
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libgcc-s1_libs: {}
+      libstdc++6_libs: {}
     contents:
       /usr/lib/*-linux-*/libsnappy.so.1*:
 
