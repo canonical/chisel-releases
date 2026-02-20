@@ -1,0 +1,18 @@
+package: libegl1
+
+essential:
+  - libegl1_copyright
+
+slices:
+  libs:
+    # NOTE: libegl1 deb declared dependency on libegl-mesa0 but it
+    # is not linked with by libEGL.so.1
+    essential:
+      - libc6_libs
+      - libglvnd0_libs
+    contents:
+      /usr/lib/*-linux-*/libEGL.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libegl1/copyright:

@@ -1,0 +1,16 @@
+package: libts0t64
+
+essential:
+  - libts0t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libts.so.0*:
+      /usr/lib/*-linux-*/ts0/*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libts0t64/copyright:

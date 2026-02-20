@@ -1,0 +1,18 @@
+package: libqt5serialport5
+
+essential:
+  - libqt5serialport5_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libqt5core5t64_libs
+      - libstdc++6_libs
+      - libudev1_libs
+    contents:
+      /usr/lib/*-linux-*/libQt5SerialPort.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5serialport5/copyright:

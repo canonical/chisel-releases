@@ -9,8 +9,7 @@ slices:
       - libcrypt1_libs
     contents:
       /usr/lib/*-linux-*/libcrypt.a:
-      # Symlink to .so in libcrypt1
-      /usr/lib/*-linux-*/libcrypt.so:
+      /usr/lib/*-linux-*/libcrypt.so:  # Symlink to .so in libcrypt1
 
   headers:
     contents:
@@ -18,7 +17,8 @@ slices:
 
   pkgconfig:
     contents:
-      /usr/lib/*-linux-*/pkgconfig/*:
+      /usr/lib/*-linux-*/pkgconfig/libcrypt.pc:  # Symlink to libxcrypt.pc
+      /usr/lib/*-linux-*/pkgconfig/libxcrypt.pc:
 
   copyright:
     contents:
