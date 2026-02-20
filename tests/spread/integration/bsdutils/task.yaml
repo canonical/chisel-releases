@@ -3,9 +3,9 @@ summary: Integration tests for bsdutils
 variants:
     - logger
     - renice
-    # - script
-    # - scriptlive
-    # - scriptreplay
+    - script
+    - scriptlive
+    - scriptreplay
     # - wall
 
 execute: bash ./test_${SPREAD_VARIANT}.sh
