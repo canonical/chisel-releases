@@ -1,7 +1,7 @@
 package: libcups2t64
 
 essential:
-  - libcups2t64_copyright
+  libcups2t64_copyright:
 
 slices:
   libs:

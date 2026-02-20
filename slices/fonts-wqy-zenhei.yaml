@@ -1,7 +1,7 @@
 package: fonts-wqy-zenhei
 
 essential:
-  - fonts-wqy-zenhei_copyright
+  fonts-wqy-zenhei_copyright:
 
 slices:
   fonts:

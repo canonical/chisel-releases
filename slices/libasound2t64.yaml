@@ -1,7 +1,7 @@
 package: libasound2t64
 
 essential:
-  - libasound2t64_copyright
+  libasound2t64_copyright:
 
 slices:
   libs:

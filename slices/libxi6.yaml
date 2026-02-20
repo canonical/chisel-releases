@@ -1,7 +1,7 @@
 package: libxi6
 
 essential:
-  - libxi6_copyright
+  libxi6_copyright:
 
 slices:
   libs:

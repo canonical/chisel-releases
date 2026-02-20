@@ -1,7 +1,7 @@
 package: libxrandr2
 
 essential:
-  - libxrandr2_copyright
+  libxrandr2_copyright:
 
 slices:
   libs:

@@ -1,7 +1,7 @@
 package: libatspi2.0-0t64
 
 essential:
-  - libatspi2.0-0t64_copyright
+  libatspi2.0-0t64_copyright:
 
 slices:
   libs:

@@ -1,7 +1,7 @@
 package: libxkbcommon0
 
 essential:
-  - libxkbcommon0_copyright
+  libxkbcommon0_copyright:
 
 slices:
   libs:

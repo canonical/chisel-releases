@@ -1,7 +1,7 @@
 package: libavahi-client3
 
 essential:
-  - libavahi-client3_copyright
+  libavahi-client3_copyright:
 
 slices:
   libs:
