@@ -247,15 +247,15 @@ slices:
 
   cat:
     essential:
-      - coreutils-from-gnu_cat
+      coreutils-from-gnu_cat:
 
   ls-utility:
     essential:
-      - coreutils-from-gnu_ls-utility
+      coreutils-from-gnu_ls-utility:
 
   wc-utility:
     essential:
-      - coreutils-from-gnu_wc-utility
+      coreutils-from-gnu_wc-utility:
 
   copyright:
     contents:

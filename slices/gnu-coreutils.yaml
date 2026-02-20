@@ -581,9 +581,9 @@ slices:
 
   wc-utility:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libselinux1_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnuwc:
 

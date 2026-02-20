@@ -1,12 +1,12 @@
 package: node-minimatch
 
 essential:
-  - node-minimatch_copyright
+  node-minimatch_copyright:
 
 slices:
   libs:
     essential:
-      - node-brace-expansion_libs
+      node-brace-expansion_libs:
     contents:
       /usr/share/nodejs/minimatch/dist/**.js:
       /usr/share/nodejs/minimatch/dist/**.ts:

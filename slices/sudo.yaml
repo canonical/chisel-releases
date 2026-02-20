@@ -34,7 +34,7 @@ slices:
 
   config:
     essential:
-      - sudo-common_config
+      sudo-common_config:
     contents:
       /etc/sudo.conf:
       /etc/sudo_logsrvd.conf:

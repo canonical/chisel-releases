@@ -1,7 +1,7 @@
 package: sudo-common
 
 essential:
-  - sudo-common_copyright
+  sudo-common_copyright:
 
 slices:
   config:

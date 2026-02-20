@@ -13,7 +13,7 @@ slices:
     essential:
       # This adds the symlink at etc/ssl/certs.pem for OpenSSL to look up the
       # bundled certificate file. See "openssl_data" for details.
-      - openssl_data
+      openssl_data:
     contents:
       /etc/ssl/certs/ca-certificates.crt: {text: FIXME, mutable: true}
       /usr/share/ca-certificates/mozilla/: {until: mutate}
@@ -45,22 +45,22 @@ slices:
 
   scripts:
     essential:
-      - base-files_bin
-      - base-files_tmp
-      - coreutils_basename
-      - coreutils_cat
-      - coreutils_chmod
-      - coreutils_ln-utility
-      - coreutils_mktemp
-      - coreutils_mv-utility
-      - coreutils_readlink
-      - coreutils_rm-utility
-      - coreutils_sort
-      - coreutils_wc-utility
-      - dash_bins
-      - findutils_bins
-      - openssl_bins
-      - sed_bins
+      base-files_bin:
+      base-files_tmp:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_ln-utility:
+      coreutils_mktemp:
+      coreutils_mv-utility:
+      coreutils_readlink:
+      coreutils_rm-utility:
+      coreutils_sort:
+      coreutils_wc-utility:
+      dash_bins:
+      findutils_bins:
+      openssl_bins:
+      sed_bins:
     contents:
       # To run update-ca-certificates without breaking the default certificates
       # at /etc/ssl/certs/ca-certificates.crt, the "_data-with-certs" slice should
