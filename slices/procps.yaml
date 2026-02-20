@@ -11,6 +11,7 @@ slices:
       - libproc2-0_libs
       - libsystemd0_libs
       - libtinfo6_libs
+      - procps_sysctl
     contents:
       /usr/bin/free:
       /usr/bin/kill:
@@ -29,6 +30,11 @@ slices:
       /usr/bin/vmstat:
       /usr/bin/w:
       /usr/bin/watch:
+
+  sysctl:
+    essential:
+      - libc6_libs
+    contents:
       /usr/sbin/sysctl:
 
   config:
