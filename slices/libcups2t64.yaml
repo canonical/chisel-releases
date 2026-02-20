@@ -13,7 +13,7 @@ slices:
       - libgssapi-krb5-2_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libcups.so.2*:
+      /usr/lib/*-linux-*/libcups.so.2:
 
   copyright:
     contents:
