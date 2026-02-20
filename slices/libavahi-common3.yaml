@@ -1,13 +1,13 @@
 package: libavahi-common3
 
 essential:
-  - libavahi-common3_copyright
+  libavahi-common3_copyright:
 
 slices:
   libs:
     # NOTE: libavahi-common3 deb also depends on libavahi-common-data
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libavahi-common.so.3*:
 

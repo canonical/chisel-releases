@@ -1,17 +1,17 @@
 package: libcups2t64
 
 essential:
-  - libcups2t64_copyright
+  libcups2t64_copyright:
 
 slices:
   libs:
     essential:
-      - libavahi-client3_libs
-      - libavahi-common3_libs
-      - libc6_libs
-      - libgnutls30t64_libs
-      - libgssapi-krb5-2_libs
-      - zlib1g_libs
+      libavahi-client3_libs:
+      libavahi-common3_libs:
+      libc6_libs:
+      libgnutls30t64_libs:
+      libgssapi-krb5-2_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libcups.so.2:
 

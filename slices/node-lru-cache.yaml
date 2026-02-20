@@ -1,7 +1,7 @@
 package: node-lru-cache
 
 essential:
-  - node-lru-cache_copyright
+  node-lru-cache_copyright:
 
 slices:
   libs:

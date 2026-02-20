@@ -1,13 +1,13 @@
 package: libasound2t64
 
 essential:
-  - libasound2t64_copyright
+  libasound2t64_copyright:
 
 slices:
   libs:
     essential:
       # NOTE: libasound2t64 deb also depends on libasound2-data
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libasound.so.2*:
 

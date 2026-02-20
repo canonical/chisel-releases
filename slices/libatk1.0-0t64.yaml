@@ -1,13 +1,13 @@
 package: libatk1.0-0t64
 
 essential:
-  - libatk1.0-0t64_copyright
+  libatk1.0-0t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libglib2.0-0t64_core
+      libc6_libs:
+      libglib2.0-0t64_core:
     contents:
       /usr/lib/*-linux-*/libatk-1.0.so.0*:
 

@@ -1,15 +1,15 @@
 package: node-semver
 
 essential:
-  - node-semver_copyright
+  node-semver_copyright:
 
 slices:
   scripts:
     essential:
-      - coreutils_env
-      - node-lru-cache_libs
-      - node-semver_libs
-      - nodejs_bins
+      coreutils_env:
+      node-lru-cache_libs:
+      node-semver_libs:
+      nodejs_bins:
     contents:
       /usr/bin/semver:  # Symlink to ../share/nodejs/semver/bin/semver.js
       /usr/share/nodejs/semver/bin/semver.js:
