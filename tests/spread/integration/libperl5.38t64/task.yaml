@@ -1,6 +1,8 @@
 summary: Integration tests for libperl5.38t64
 
 variants:
+    - bins
+    - scripts
     - slices_with_modules
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
