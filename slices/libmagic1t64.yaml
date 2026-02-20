@@ -9,7 +9,6 @@ slices:
       - libbz2-1.0_libs
       - libc6_libs
       - liblzma5_libs
-      - libmagic-mgc_data
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libmagic.so.1*:
