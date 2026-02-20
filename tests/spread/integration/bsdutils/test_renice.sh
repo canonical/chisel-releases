@@ -4,7 +4,7 @@
 rootfs="$(install-slices bsdutils_renice)"
 
 chroot "$rootfs" /usr/bin/renice --help | grep -q "Usage:"
-chroot "$rootfs" /usr/bin/renice --version | grep -q "renice"
+chroot "$rootfs" /usr/bin/renice --version | grep -q "renice from"
 
 # test altering the priority of a process
 rootfs_sleep="$(install-slices bsdutils_renice coreutils_delaying dash_bins)"
