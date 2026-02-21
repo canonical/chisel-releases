@@ -1,0 +1,13 @@
+package: dotnet-targeting-pack-10.0
+
+essential:
+  - dotnet-targeting-pack-10.0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Ref/10.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-targeting-pack-10.0/copyright:

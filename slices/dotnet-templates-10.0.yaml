@@ -1,0 +1,15 @@
+package: dotnet-templates-10.0
+
+essential:
+  - dotnet-templates-10.0_copyright
+
+slices:
+  libs:
+    essential:
+      - dotnet-host-10.0_bins
+    contents:
+      /usr/lib/dotnet/templates/10.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-templates-10.0/copyright:
