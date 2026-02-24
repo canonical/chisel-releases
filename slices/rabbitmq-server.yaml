@@ -18,8 +18,8 @@ slices:
       - base-files_home
       - base-files_var
       - base-passwd_data
-      - bash_bins
       - coreutils_bins
+      - dash_bins
       - grep_bins
       - libc-bin_locale
       - libc-bin_nsswitch
