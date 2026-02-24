@@ -47,6 +47,8 @@ jobs:
           ref: main
           path: ${{ env.main-branch-path }}
 
+      - uses: actions/checkout@v4
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
