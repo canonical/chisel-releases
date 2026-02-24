@@ -3,15 +3,15 @@ package: libxrandr2
 essential:
   - libxrandr2_copyright
 
-slices:
+slices: 
   libs:
+    contents:
+      /usr/lib/*-linux-*/libXrandr.so*:
     essential:
       - libc6_libs
       - libx11-6_libs
       - libxext6_libs
       - libxrender1_libs
-    contents:
-      /usr/lib/*-linux-*/libXrandr.so.2*:
 
   copyright:
     contents:

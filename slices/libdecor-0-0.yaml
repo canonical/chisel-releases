@@ -1,0 +1,16 @@
+package: libdecor-0-0
+
+essential:
+  - libdecor-0-0_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libdecor-0.so*:
+    essential:
+      - libc6_libs
+      - libwayland-client0_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libdecor-0-0/copyright:

@@ -1,0 +1,32 @@
+package: libsdl2-2.0-0
+
+essential:
+  - libsdl2-2.0-0_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libSDL2-2.0.so*:
+    essential:
+      - libasound2t64_libs
+      - libc6_libs
+      - libdecor-0-0_libs
+      - libdrm2_libs
+      - libgbm1_libs
+      - libpulse0_libs
+      - libsamplerate0_libs
+      - libwayland-client0_libs
+      - libwayland-cursor0_libs
+      - libwayland-egl1_libs
+      - libx11-6_libs
+      - libxcursor1_libs
+      - libxext6_libs
+      - libxfixes3_libs
+      - libxi6_libs
+      - libxkbcommon0_libs
+      - libxrandr2_libs
+      - libxss1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libsdl2-2.0-0/copyright:

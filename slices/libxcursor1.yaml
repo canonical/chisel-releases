@@ -1,0 +1,18 @@
+package: libxcursor1
+
+essential:
+  - libxcursor1_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libXcursor.so*:
+    essential:
+      - libc6_libs
+      - libx11-6_libs
+      - libxfixes3_libs
+      - libxrender1_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcursor1/copyright:

@@ -1,0 +1,16 @@
+package: libpostproc57
+
+essential:
+  - libpostproc57_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libpostproc.so*:
+    essential:
+      - libavutil58_libs
+      - libc6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libpostproc57/copyright:

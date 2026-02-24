@@ -1,0 +1,20 @@
+package: libass9
+
+essential:
+  - libass9_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libass.so*:
+    essential:
+      - libc6_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libfribidi0_libs
+      - libharfbuzz0b_libs
+      - libunibreak5_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libass9/copyright:

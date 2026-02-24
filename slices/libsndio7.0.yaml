@@ -1,0 +1,17 @@
+package: libsndio7.0
+
+essential:
+  - libsndio7.0_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libsndio.so*:
+    essential:
+      - libasound2t64_libs
+      - libbsd0_libs
+      - libc6_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libsndio7.0/copyright:

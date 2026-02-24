@@ -1,0 +1,16 @@
+package: libwayland-cursor0
+
+essential:
+  - libwayland-cursor0_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libwayland-cursor.so*:
+    essential:
+      - libc6_libs
+      - libwayland-client0_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libwayland-cursor0/copyright:

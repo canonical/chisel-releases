@@ -1,12 +1,12 @@
-package: libxi6
+package: libxv1
 
 essential:
-  - libxi6_copyright
+  - libxv1_copyright
 
 slices: 
   libs:
     contents:
-      /usr/lib/*-linux-*/libXi.so*:
+      /usr/lib/*-linux-*/libXv.so*:
     essential:
       - libc6_libs
       - libx11-6_libs
@@ -14,4 +14,4 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/libxi6/copyright:
+      /usr/share/doc/libxv1/copyright:

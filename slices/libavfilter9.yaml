@@ -1,0 +1,43 @@
+package: libavfilter9
+
+essential:
+  - libavfilter9_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libavfilter.so*:
+    essential:
+      - libass9_libs
+      - libavcodec60_libs
+      - libavformat60_libs
+      - libavutil58_libs
+      - libbs2b0_libs
+      - libc6_libs
+      - libflite1_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libfribidi0_libs
+      - libharfbuzz0b_libs
+      - liblilv-0-0_libs
+      - libmysofa1_libs
+      - libplacebo338_libs
+      - libpostproc57_libs
+      - librubberband2_libs
+      - libstdc++6_libs
+      - libswresample4_libs
+      - libswscale7_libs
+      - libva2_libs
+      - libvidstab1.1_libs
+      - libzimg2_libs
+      - libzmq5_libs
+      - ocl-icd-libopencl1_libs
+      - zlib1g_libs
+    v3-essential:
+      libpocketsphinx3_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
+      libsphinxbase3t64_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
+      libvpl2_libs: {arch: [amd64]}
+
+  copyright:
+    contents:
+      /usr/share/doc/libavfilter9/copyright:

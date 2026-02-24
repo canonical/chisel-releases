@@ -1,0 +1,10 @@
+package: libgfortran5
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libgfortran.so*:
+    essential:
+      - gcc-14-base_copyright
+      - libc6_libs
+      - libgcc-s1_libs

@@ -1,0 +1,16 @@
+package: libmysofa1
+
+essential:
+  - libmysofa1_copyright
+
+slices: 
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libmysofa.so*:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libmysofa1/copyright:
