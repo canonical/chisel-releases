@@ -8,4 +8,4 @@ variants:
     - scriptreplay
     - wall
 
-execute: bash ./test_${SPREAD_VARIANT}.sh
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
