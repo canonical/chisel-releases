@@ -9,7 +9,11 @@ chroot "$rootfs" /usr/bin/script --version | grep -q "script from"
 rootfs_printf=$(install-slices bsdutils_script dash_bins)
 mkdir -p "$rootfs_printf"/dev && mount --rbind /dev "$rootfs_printf"/dev
 mkdir -p "$rootfs_printf"/dev/pts && mount -t devpts devpts "$rootfs_printf"/dev/pts
+mkdir -p "$rootfs_printf"/proc && mount -t proc proc "$rootfs_printf"/proc
+mkdir -p "$rootfs_printf"/sys && mount -t sysfs sysfs "$rootfs_printf"/sys
 cleanup() {
+    umount -l "$rootfs_printf"/sys || true
+    umount -l "$rootfs_printf"/proc || true
     umount -l "$rootfs_printf"/dev/pts || true
     umount -l "$rootfs_printf"/dev || true
 }
