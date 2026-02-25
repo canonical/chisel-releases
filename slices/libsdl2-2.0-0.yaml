@@ -3,7 +3,7 @@ package: libsdl2-2.0-0
 essential:
   - libsdl2-2.0-0_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libSDL2-2.0.so*:

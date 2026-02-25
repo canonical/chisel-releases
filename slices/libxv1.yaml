@@ -3,7 +3,7 @@ package: libxv1
 essential:
   - libxv1_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libXv.so*:

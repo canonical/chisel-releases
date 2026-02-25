@@ -3,7 +3,7 @@ package: libxrandr2
 essential:
   - libxrandr2_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libXrandr.so*:

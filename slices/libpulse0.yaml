@@ -3,7 +3,7 @@ package: libpulse0
 essential:
   - libpulse0_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libpulse*.so*:

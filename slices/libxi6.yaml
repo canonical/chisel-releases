@@ -3,7 +3,7 @@ package: libxi6
 essential:
   - libxi6_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libXi.so*:

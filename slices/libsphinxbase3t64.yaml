@@ -3,7 +3,7 @@ package: libsphinxbase3t64
 essential:
   - libsphinxbase3t64_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libsphinxbase.so*:

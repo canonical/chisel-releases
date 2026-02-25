@@ -3,7 +3,7 @@ package: libwayland-cursor0
 essential:
   - libwayland-cursor0_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libwayland-cursor.so*:

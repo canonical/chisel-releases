@@ -3,7 +3,7 @@ package: libasound2t64
 essential:
   - libasound2t64_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libasound.so*:

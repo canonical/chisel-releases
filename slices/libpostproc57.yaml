@@ -3,7 +3,7 @@ package: libpostproc57
 essential:
   - libpostproc57_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libpostproc.so*:

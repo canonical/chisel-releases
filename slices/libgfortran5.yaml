@@ -1,6 +1,6 @@
 package: libgfortran5
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libgfortran.so*:

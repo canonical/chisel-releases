@@ -3,7 +3,7 @@ package: libxcursor1
 essential:
   - libxcursor1_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libXcursor.so*:

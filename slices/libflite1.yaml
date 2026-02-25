@@ -3,7 +3,7 @@ package: libflite1
 essential:
   - libflite1_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libflite*.so*:

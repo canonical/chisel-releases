@@ -3,7 +3,7 @@ package: libsndio7.0
 essential:
   - libsndio7.0_copyright
 
-slices: 
+slices:
   libs:
     contents:
       /usr/lib/*-linux-*/libsndio.so*:
