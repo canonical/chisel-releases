@@ -41,13 +41,13 @@ jobs:
     env:
       main-branch-path: files-from-main
     steps:
+      - uses: actions/checkout@v4
+
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           ref: main
           path: ${{ env.main-branch-path }}
-
-      - uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v6
