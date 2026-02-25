@@ -1,0 +1,18 @@
+package: node-minimatch
+
+essential:
+  - node-minimatch_copyright
+
+slices:
+  libs:
+    essential:
+      - node-brace-expansion_libs
+    contents:
+      /usr/share/nodejs/minimatch/dist/**.js:
+      /usr/share/nodejs/minimatch/dist/**.ts:
+      /usr/share/nodejs/minimatch/index.js:
+      /usr/share/nodejs/minimatch/package.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/node-minimatch/copyright:

@@ -1,0 +1,248 @@
+package: openjdk-25-jre-headless
+
+essential:
+  - openjdk-25-jre-headless_copyright
+
+slices:
+  # A core set of files to run a Java application
+  # excluded dependencies:
+  # - ca-certificates-java_essential - needs chisel support to run
+  #                                    maintainer scripts.
+  # - java-common                    - provides update-alternatives,
+  #                                    not relevant.
+  # - util-linux                     - needed for bash completion
+  #                                    not relevant.
+  # - libjpeg8                       - used in awt, not relevant
+  # - liblcms2-2                     - used in awt, not relevant
+  # excluded libraries:
+  # - /usr/lib/jvm/java-25-openjdk-*/lib/libjsound.so
+  #   audio support
+  # - /usr/lib/jvm/java-25-openjdk-arm64/lib/libsleef.so
+  # - /usr/lib/jvm/java-25-openjdk-*/lib/libjsvml.so
+  #   Vector incubating API
+  #
+  core:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /etc/java-25-openjdk/jaxp-strict.properties:
+      /etc/java-25-openjdk/jaxp.properties:
+      /etc/java-25-openjdk/jvm-*.cfg:
+      /etc/java-25-openjdk/logging.properties:
+      /etc/java-25-openjdk/net.properties:
+      /etc/java-25-openjdk/security/java.security:
+      /usr/lib/jvm/java-25-openjdk-*/bin/java:
+      /usr/lib/jvm/java-25-openjdk-*/conf/jaxp-strict.properties:
+      /usr/lib/jvm/java-25-openjdk-*/conf/jaxp-strict.properties.template:
+      /usr/lib/jvm/java-25-openjdk-*/conf/jaxp.properties:
+      /usr/lib/jvm/java-25-openjdk-*/conf/logging.properties:
+      /usr/lib/jvm/java-25-openjdk-*/conf/net.properties:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/java.security:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jexec:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jspawnhelper:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jvm.cfg:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jvm.cfg-default:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libextnet.so:
+      # FFI linker
+      /usr/lib/jvm/java-25-openjdk-*/lib/libfallbackLinker.so:
+        arch:
+          - armhf
+          - i386
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjava.so:
+      # lib/modules support
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjimage.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjli.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjsig.so:
+      # required for IO.
+      /usr/lib/jvm/java-25-openjdk-*/lib/libnet.so:
+      # required for IO.
+      /usr/lib/jvm/java-25-openjdk-*/lib/libnio.so:
+      # qsort implementation
+      /usr/lib/jvm/java-25-openjdk-*/lib/libsimdsort.so:
+        arch:
+          - amd64
+      # dummy FFI lookup implementation
+      /usr/lib/jvm/java-25-openjdk-*/lib/libsyslookup.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libverify.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libzip.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/modules:
+      /usr/lib/jvm/java-25-openjdk-*/lib/server/libjsig.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+          - s390x
+      /usr/lib/jvm/java-25-openjdk-*/lib/server/libjvm.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+          - s390x
+      /usr/lib/jvm/java-25-openjdk-*/lib/tzdb.dat:
+      /usr/lib/jvm/java-25-openjdk-*/lib/zero/libjsig.so:
+        arch:
+          - armhf
+          - i386
+      /usr/lib/jvm/java-25-openjdk-*/lib/zero/libjvm.so:
+        arch:
+          - armhf
+          - i386
+
+  # A set of slices to run headless openjdk runtime
+  standard:
+    essential:
+      - openjdk-25-jre-headless_class-data-sharing
+      - openjdk-25-jre-headless_core
+      - openjdk-25-jre-headless_debug
+      - openjdk-25-jre-headless_jfr
+      - openjdk-25-jre-headless_management
+      - openjdk-25-jre-headless_prefs
+      - openjdk-25-jre-headless_rmi
+      - openjdk-25-jre-headless_security
+      - openjdk-25-jre-headless_tools
+
+  awt:
+    essential:
+      - libatomic1_libs
+      - libfontconfig1_libs
+      - libharfbuzz0b_libs
+      - libjpeg8_libs
+      - liblcms2-2_libs
+      - openjdk-25-jre-headless_core
+    contents:
+      /etc/java-25-openjdk/psfont.properties.ja:
+      /etc/java-25-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libawt.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libawt_headless.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libfontmanager.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/liblcms.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libmlib_image.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-25-openjdk-*/lib/psfontj2d.properties:
+
+  # List of classes required to create the Class Data Sharing archive
+  class-data-sharing:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/classlist:
+
+  classcache:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/server/*.jsa:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+          - s390x
+
+  # Debug support
+  debug:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libattach.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libdt_socket.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libinstrument.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjdwp.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libsaproc.so:
+        arch:
+          - amd64
+          - arm64
+          - ppc64el
+          - riscv64
+
+  # Java Flight Recorder configuration and jar file
+  jfr:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /etc/java-25-openjdk/jfr/default.jfc:
+      /etc/java-25-openjdk/jfr/profile.jfc:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jfr/default.jfc:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jfr/profile.jfc:
+      /usr/lib/jvm/java-25-openjdk-*/lib/jrt-fs.jar:
+
+  # Configuration and native part of Java Management Extensions
+  management:
+    essential:
+      - openjdk-25-jre-headless_rmi
+    contents:
+      /etc/java-25-openjdk/management/jmxremote.access:
+      /etc/java-25-openjdk/management/management.properties:
+      /usr/lib/jvm/java-25-openjdk-*/conf/management/jmxremote.access:
+      /usr/lib/jvm/java-25-openjdk-*/conf/management/management.properties:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libmanagement.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libmanagement_agent.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libmanagement_ext.so:
+
+  # Native part of jdk.prefs modules
+  prefs:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libprefs.so:
+
+  # Native part of java.rmi
+  rmi:
+    essential:
+      - openjdk-25-jre-headless_security
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/rmiregistry:
+      /usr/lib/jvm/java-25-openjdk-*/lib/librmi.so:
+
+  # Security configuration files and native libraries
+  security:
+    essential:
+      - libnss3_nss
+      - libpcsclite1_libs
+      - openjdk-25-jre-headless_core
+    contents:
+      /etc/java-25-openjdk/security/blocked.certs:
+      /etc/java-25-openjdk/security/nss.cfg:
+      /etc/java-25-openjdk/security/policy/limited/default_US_export.policy:
+      /etc/java-25-openjdk/security/policy/limited/default_local.policy:
+      /etc/java-25-openjdk/security/policy/limited/exempt_local.policy:
+      /etc/java-25-openjdk/security/policy/unlimited/default_US_export.policy:
+      /etc/java-25-openjdk/security/policy/unlimited/default_local.policy:
+      /etc/java-25-openjdk/security/public_suffix_list.dat:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/nss.cfg:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/policy/limited/default_US_export.policy:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/policy/limited/default_local.policy:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/policy/limited/exempt_local.policy:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/policy/unlimited/default_US_export.policy:
+      /usr/lib/jvm/java-25-openjdk-*/conf/security/policy/unlimited/default_local.policy:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libj2gss.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libj2pcsc.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libj2pkcs11.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjaas.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/security/blocked.certs:
+      /usr/lib/jvm/java-25-openjdk-*/lib/security/cacerts:
+      /usr/lib/jvm/java-25-openjdk-*/lib/security/public_suffix_list.dat:
+
+  stcp:
+    essential:
+      - openjdk-25-jre-headless_core
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libsctp.so:
+
+  # OpenJDK tools
+  tools:
+    essential:
+      - openjdk-25-jre-headless_security
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jpackage:
+      /usr/lib/jvm/java-25-openjdk-*/bin/keytool:
+
+  copyright:
+    contents:
+      /usr/share/doc/openjdk-25-jre-headless/copyright:

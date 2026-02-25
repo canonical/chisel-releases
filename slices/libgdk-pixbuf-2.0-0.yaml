@@ -6,7 +6,9 @@ essential:
 slices:
   bins:
     essential:
+      - libc6_libs
       - libgdk-pixbuf-2.0-0_libs
+      - libglib2.0-0t64_libs
     contents:
       /usr/lib/*-linux-*/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders:
 
@@ -14,12 +16,9 @@ slices:
     essential:
       - libc6_libs
       - libglib2.0-0t64_libs
-      - libjpeg8_libs
-      - libpng16-16t64_libs
-      - libtiff6_libs
+      - libglycin-2-0_libs
       - shared-mime-info_data
     contents:
-      /usr/lib/*-linux-*/gdk-pixbuf-2.0/*/loaders/*:
       /usr/lib/*-linux-*/libgdk_pixbuf-2.0.so.0*:
 
   copyright:

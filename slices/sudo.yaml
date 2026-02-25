@@ -33,12 +33,11 @@ slices:
       /usr/sbin/visudo.ws:
 
   config:
+    essential:
+      - sudo-common_config
     contents:
-      /etc/pam.d/sudo:
-      /etc/pam.d/sudo-i:
       /etc/sudo.conf:
       /etc/sudo_logsrvd.conf:
-      /etc/sudoers:
       /usr/lib/tmpfiles.d/sudo.conf:
 
   services:

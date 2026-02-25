@@ -73,13 +73,11 @@ slices:
       /usr/lib/systemd/systemd-boot-check-no-failures:
       /usr/lib/systemd/systemd-bsod:
         arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
-      /usr/lib/systemd/systemd-cgroups-agent:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-fsck:
       /usr/lib/systemd/systemd-growfs:
       /usr/lib/systemd/systemd-hibernate-resume:
       /usr/lib/systemd/systemd-hostnamed:
-      /usr/lib/systemd/systemd-initctl:
       /usr/lib/systemd/systemd-journald:
       /usr/lib/systemd/systemd-localed:
       /usr/lib/systemd/systemd-logind:
@@ -192,6 +190,7 @@ slices:
       /usr/lib/systemd/system-generators/systemd-system-update-generator:
       /usr/lib/systemd/system-generators/systemd-sysv-generator:
       /usr/lib/systemd/system-generators/systemd-tpm2-generator:
+        arch: [amd64, arm64, riscv64]
 
   system-services:
     essential:
@@ -255,7 +254,6 @@ slices:
       /usr/lib/systemd/system/ldconfig.service:
       /usr/lib/systemd/system/local-fs-pre.target:
       /usr/lib/systemd/system/local-fs.target:
-      /usr/lib/systemd/system/local-fs.target.wants/run-lock.mount:
       /usr/lib/systemd/system/local-fs.target.wants/tmp.mount:
       /usr/lib/systemd/system/machine.slice:
       /usr/lib/systemd/system/modprobe@.service:
@@ -285,14 +283,6 @@ slices:
       /usr/lib/systemd/system/rescue.service:
       /usr/lib/systemd/system/rescue.target:
       /usr/lib/systemd/system/rpcbind.target:
-      /usr/lib/systemd/system/run-lock.mount:
-      /usr/lib/systemd/system/runlevel0.target:
-      /usr/lib/systemd/system/runlevel1.target:
-      /usr/lib/systemd/system/runlevel2.target:
-      /usr/lib/systemd/system/runlevel3.target:
-      /usr/lib/systemd/system/runlevel4.target:
-      /usr/lib/systemd/system/runlevel5.target:
-      /usr/lib/systemd/system/runlevel6.target:
       /usr/lib/systemd/system/serial-getty@.service:
       /usr/lib/systemd/system/shutdown.target:
       /usr/lib/systemd/system/sigpwr.target:
@@ -302,7 +292,6 @@ slices:
       /usr/lib/systemd/system/sockets.target:
       /usr/lib/systemd/system/sockets.target.wants/systemd-creds.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-initctl.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journald.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket:
@@ -387,8 +376,6 @@ slices:
       /usr/lib/systemd/system/systemd-hostnamed.service:
       /usr/lib/systemd/system/systemd-hostnamed.socket:
       /usr/lib/systemd/system/systemd-hybrid-sleep.service:
-      /usr/lib/systemd/system/systemd-initctl.service:
-      /usr/lib/systemd/system/systemd-initctl.socket:
       /usr/lib/systemd/system/systemd-journal-catalog-update.service:
       /usr/lib/systemd/system/systemd-journal-flush.service:
       /usr/lib/systemd/system/systemd-journald-audit.socket:
@@ -504,7 +491,6 @@ slices:
       /usr/share/dbus-1/system.d/org.freedesktop.network1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
-      /usr/share/dbus-1/system.d/systemd-localed-read-only.conf:
 
   extras:
     contents:
