@@ -14,11 +14,11 @@ slices:
     # Also, debconf is used by the pkg's maintainer scripts, which are handled
     # differently in Chisel.
     essential:
-      - iproute2_config
-      - iproute2_dist
-      - libbpf1_libs
-      - libcap2-bin_bins
-      - libmnl0_libs
+      iproute2_config:
+      iproute2_dist:
+      libbpf1_libs:
+      libcap2-bin_bins:
+      libmnl0_libs:
     contents:
       /usr/bin/ctstat:
       /usr/bin/ip:

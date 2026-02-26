@@ -1,15 +1,15 @@
 package: libyang3
 
 essential:
-  - libyang3_copyright
+  libyang3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libpcre2-8-0_libs
-      - libxxhash0_libs
-      - libyang3_modules
+      libc6_libs:
+      libpcre2-8-0_libs:
+      libxxhash0_libs:
+      libyang3_modules:
     contents:
       /usr/lib/*-linux-*/libyang.so.3*:
 
