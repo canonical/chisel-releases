@@ -1,7 +1,7 @@
 package: libthai-data
 
 essential:
-  - libthai-data_copyright
+  libthai-data_copyright:
 
 slices:
   data:

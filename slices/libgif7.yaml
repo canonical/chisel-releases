@@ -2,12 +2,12 @@
 package: libgif7
 
 essential:
-  - libgif7_copyright
+  libgif7_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libgif.so.7*:
 

@@ -1,7 +1,7 @@
 package: node-cjs-module-lexer
 
 essential:
-  - node-cjs-module-lexer_copyright
+  node-cjs-module-lexer_copyright:
 
 slices:
   libs:

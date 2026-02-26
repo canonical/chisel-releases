@@ -1,14 +1,14 @@
 package: libtbbmalloc2
 
 essential:
-  - libtbbmalloc2_copyright
+  libtbbmalloc2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libtbbmalloc.so.2*:
       /usr/lib/*-linux-*/libtbbmalloc_proxy.so.2*:

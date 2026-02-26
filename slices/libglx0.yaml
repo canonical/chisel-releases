@@ -1,15 +1,15 @@
 package: libglx0
 
 essential:
-  - libglx0_copyright
+  libglx0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libglvnd0_libs
-      - libglx-mesa0_libs
-      - libx11-6_libs
+      libc6_libs:
+      libglvnd0_libs:
+      libglx-mesa0_libs:
+      libx11-6_libs:
     contents:
       /usr/lib/*-linux-*/libGLX.so.0*:
 

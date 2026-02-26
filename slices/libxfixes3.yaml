@@ -1,13 +1,13 @@
 package: libxfixes3
 
 essential:
-  - libxfixes3_copyright
+  libxfixes3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libx11-6_libs
+      libc6_libs:
+      libx11-6_libs:
     contents:
       /usr/lib/*-linux-*/libXfixes.so.3*:
 

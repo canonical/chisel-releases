@@ -1,7 +1,7 @@
 package: perl-modules-5.40
 
 essential:
-  - perl-modules-5.40_copyright
+  perl-modules-5.40_copyright:
 
 slices:
   # The _core slice contains the perl modules that are tightly
@@ -9,7 +9,7 @@ slices:
   # would cause cyclic dependencies.
   core:
     essential:
-      - perl-base_modules
+      perl-base_modules:
     contents:
       /usr/share/perl/5.40:
       /usr/share/perl/5.40*/AutoLoader.pm:
@@ -67,92 +67,92 @@ slices:
 
   standard:
     essential:
-      - perl-base_modules
-      - perl-modules-5.40_app-cpan
-      - perl-modules-5.40_app-prove
-      - perl-modules-5.40_archive
-      - perl-modules-5.40_attribute
-      - perl-modules-5.40_autodie
-      - perl-modules-5.40_autouse
-      - perl-modules-5.40_benchmark
-      - perl-modules-5.40_bigmath
-      - perl-modules-5.40_blib
-      - perl-modules-5.40_compiler-utils
-      - perl-modules-5.40_config
-      - perl-modules-5.40_core-routines
-      - perl-modules-5.40_cpan
-      - perl-modules-5.40_databases
-      - perl-modules-5.40_debug
-      - perl-modules-5.40_devel
-      - perl-modules-5.40_diagnostics
-      - perl-modules-5.40_digest
-      - perl-modules-5.40_dumps
-      - perl-modules-5.40_encodings
-      - perl-modules-5.40_english
-      - perl-modules-5.40_exutils
-      - perl-modules-5.40_filters
-      - perl-modules-5.40_internals
-      - perl-modules-5.40_json-pp
-      - perl-modules-5.40_less
-      - perl-modules-5.40_math
-      - perl-modules-5.40_memoize
-      - perl-modules-5.40_misc
-      - perl-modules-5.40_module
-      - perl-modules-5.40_networking
-      - perl-modules-5.40_next
-      - perl-modules-5.40_params
-      - perl-modules-5.40_perl-ostype
-      - perl-modules-5.40_perlio
-      - perl-modules-5.40_pod
-      - perl-modules-5.40_safe
-      - perl-modules-5.40_search
-      - perl-modules-5.40_sort
-      - perl-modules-5.40_subs
-      - perl-modules-5.40_system-utils
-      - perl-modules-5.40_tap
-      - perl-modules-5.40_term
-      - perl-modules-5.40_thread
-      - perl-modules-5.40_time
-      - perl-modules-5.40_unicode
-      - perl-modules-5.40_unicore
-      - perl-modules-5.40_universal
-      - perl-modules-5.40_user
-      - perl-modules-5.40_version
-      - perl-modules-5.40_vmsish
+      perl-base_modules:
+      perl-modules-5.40_app-cpan:
+      perl-modules-5.40_app-prove:
+      perl-modules-5.40_archive:
+      perl-modules-5.40_attribute:
+      perl-modules-5.40_autodie:
+      perl-modules-5.40_autouse:
+      perl-modules-5.40_benchmark:
+      perl-modules-5.40_bigmath:
+      perl-modules-5.40_blib:
+      perl-modules-5.40_compiler-utils:
+      perl-modules-5.40_config:
+      perl-modules-5.40_core-routines:
+      perl-modules-5.40_cpan:
+      perl-modules-5.40_databases:
+      perl-modules-5.40_debug:
+      perl-modules-5.40_devel:
+      perl-modules-5.40_diagnostics:
+      perl-modules-5.40_digest:
+      perl-modules-5.40_dumps:
+      perl-modules-5.40_encodings:
+      perl-modules-5.40_english:
+      perl-modules-5.40_exutils:
+      perl-modules-5.40_filters:
+      perl-modules-5.40_internals:
+      perl-modules-5.40_json-pp:
+      perl-modules-5.40_less:
+      perl-modules-5.40_math:
+      perl-modules-5.40_memoize:
+      perl-modules-5.40_misc:
+      perl-modules-5.40_module:
+      perl-modules-5.40_networking:
+      perl-modules-5.40_next:
+      perl-modules-5.40_params:
+      perl-modules-5.40_perl-ostype:
+      perl-modules-5.40_perlio:
+      perl-modules-5.40_pod:
+      perl-modules-5.40_safe:
+      perl-modules-5.40_search:
+      perl-modules-5.40_sort:
+      perl-modules-5.40_subs:
+      perl-modules-5.40_system-utils:
+      perl-modules-5.40_tap:
+      perl-modules-5.40_term:
+      perl-modules-5.40_thread:
+      perl-modules-5.40_time:
+      perl-modules-5.40_unicode:
+      perl-modules-5.40_unicore:
+      perl-modules-5.40_universal:
+      perl-modules-5.40_user:
+      perl-modules-5.40_version:
+      perl-modules-5.40_vmsish:
 
   app-prove:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_system-utils
+      perl-modules-5.40_core:
+      perl-modules-5.40_system-utils:
     contents:
       /usr/share/perl/5.40*/App/Prove.pm:
       /usr/share/perl/5.40*/App/Prove/**.pm:
 
   app-cpan:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_digest
-      - perl-modules-5.40_encodings
-      - perl-modules-5.40_networking
-      - perl-modules-5.40_time
+      perl-modules-5.40_core:
+      perl-modules-5.40_digest:
+      perl-modules-5.40_encodings:
+      perl-modules-5.40_networking:
+      perl-modules-5.40_time:
     contents:
       /usr/share/perl/5.40*/App/Cpan.pm:
 
   archive:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Archive/**.pm:
 
   attribute:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Attribute/**.pm:
 
   autodie:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/autodie.pm:
       /usr/share/perl/5.40*/autodie/Scope/**.pm:
@@ -164,19 +164,19 @@ slices:
 
   autouse:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/autouse.pm:
 
   benchmark:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Benchmark.pm:
 
   bigmath:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/bigfloat.pm:
       /usr/share/perl/5.40*/bigint.pm:
@@ -185,20 +185,20 @@ slices:
 
   blib:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/blib.pm:
 
   compiler-utils:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/B/**.pm:
 
   config:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_digest
+      perl-modules-5.40_core:
+      perl-modules-5.40_digest:
     contents:
       /usr/share/perl/5.40*/Config/**.pm:
 
@@ -206,7 +206,7 @@ slices:
   # https://perldoc.perl.org/CORE
   core-routines:
     essential:
-      - perl-base_modules
+      perl-base_modules:
     contents:
       /usr/share/perl/5.40*/CORE.pod:
 
@@ -214,11 +214,11 @@ slices:
   # https://perldoc.perl.org/CPAN
   cpan:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_digest
-      - perl-modules-5.40_encodings
-      - perl-modules-5.40_networking
-      - perl-modules-5.40_time
+      perl-modules-5.40_core:
+      perl-modules-5.40_digest:
+      perl-modules-5.40_encodings:
+      perl-modules-5.40_networking:
+      perl-modules-5.40_time:
     contents:
       /usr/share/perl/5.40*/CPAN.pm:
       /usr/share/perl/5.40*/CPAN/**:
@@ -226,7 +226,7 @@ slices:
 
   databases:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/AnyDBM_File.pm:
       /usr/share/perl/5.40*/DBM_Filter.pm:
@@ -234,53 +234,53 @@ slices:
 
   debug:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/DB.pm:
 
   devel:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Devel/**.pm:
 
   diagnostics:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/diagnostics.pm:
 
   digest:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Digest.pm:
       /usr/share/perl/5.40*/Digest/**.pm:
 
   dumps:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Dumpvalue.pm:
       /usr/share/perl/5.40*/dumpvar.pl:
 
   encodings:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Encode/**:
       /usr/share/perl/5.40*/encoding/warnings.pm:
 
   english:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/English.pm:
 
   exutils:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_system-utils
+      perl-modules-5.40_core:
+      perl-modules-5.40_system-utils:
     contents:
       /usr/share/perl/5.40*/ExtUtils/**.pm:
       /usr/share/perl/5.40*/ExtUtils/**.pod:
@@ -290,7 +290,7 @@ slices:
 
   filters:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Filter/**.pm:
 
@@ -298,39 +298,39 @@ slices:
   # https://perldoc.perl.org/Internals
   internals:
     essential:
-      - perl-base_modules
+      perl-base_modules:
     contents:
       /usr/share/perl/5.40*/Internals.pod:
 
   json-pp:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/JSON/PP.pm:
       /usr/share/perl/5.40*/JSON/PP/**.pm:
 
   less:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/less.pm:
 
   math:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Math/**.pm:
 
   memoize:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Memoize.pm:
       /usr/share/perl/5.40*/Memoize/**.pm:
 
   misc:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/meta_notation.pm:
       /usr/share/perl/5.40*/perl5db.pl:
@@ -339,17 +339,17 @@ slices:
 
   module:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Module/**.pm:
       /usr/share/perl/5.40*/Module/**.pod:
 
   networking:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_digest
-      - perl-modules-5.40_encodings
-      - perl-modules-5.40_time
+      perl-modules-5.40_core:
+      perl-modules-5.40_digest:
+      perl-modules-5.40_encodings:
+      perl-modules-5.40_time:
     contents:
       /usr/share/perl/5.40*/HTTP/**.pm:
       /usr/share/perl/5.40*/Net/**.pm:
@@ -357,25 +357,25 @@ slices:
 
   next:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/NEXT.pm:
 
   params:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Params/Check.pm:
 
   perl-ostype:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Perl/OSType.pm:
 
   perlio:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/PerlIO.pm:
       /usr/share/perl/5.40*/PerlIO/**.pm:
@@ -383,43 +383,43 @@ slices:
 
   pod:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_digest
-      - perl-modules-5.40_encodings
-      - perl-modules-5.40_networking
-      - perl-modules-5.40_system-utils
-      - perl-modules-5.40_time
+      perl-modules-5.40_core:
+      perl-modules-5.40_digest:
+      perl-modules-5.40_encodings:
+      perl-modules-5.40_networking:
+      perl-modules-5.40_system-utils:
+      perl-modules-5.40_time:
     contents:
       /usr/share/perl/5.40*/Pod/**.pm:
       /usr/share/perl/5.40*/Pod/**.pod:
 
   safe:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Safe.pm:
 
   search:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Search/**.pm:
 
   sort:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/sort.pm:
 
   subs:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/subs.pm:
 
   system-utils:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Env.pm:
       /usr/share/perl/5.40*/Getopt/**.pm:
@@ -427,21 +427,21 @@ slices:
 
   tap:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_test2
+      perl-modules-5.40_core:
+      perl-modules-5.40_test2:
     contents:
       /usr/share/perl/5.40*/TAP/**.pm:
       /usr/share/perl/5.40*/TAP/**.pod:
 
   term:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Term/**.pm:
 
   test:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Test.pm:
       /usr/share/perl/5.40*/Test/**.pm:
@@ -450,8 +450,8 @@ slices:
 
   test2:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_term
+      perl-modules-5.40_core:
+      perl-modules-5.40_term:
     contents:
       /usr/share/perl/5.40*/Test2.pm:
       /usr/share/perl/5.40*/Test2/**.pm:
@@ -459,22 +459,22 @@ slices:
 
   thread:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Thread.pm:
       /usr/share/perl/5.40*/Thread/**.pm:
 
   time:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/Time/**.pm:
 
   unicode:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_test
-      - perl-modules-5.40_test2
+      perl-modules-5.40_core:
+      perl-modules-5.40_test:
+      perl-modules-5.40_test2:
     contents:
       /usr/share/perl/5.40*/Unicode/**.pl:
       /usr/share/perl/5.40*/Unicode/**.pm:
@@ -482,27 +482,27 @@ slices:
 
   unicore:
     essential:
-      - perl-modules-5.40_core
-      - perl-modules-5.40_test
-      - perl-modules-5.40_test2
+      perl-modules-5.40_core:
+      perl-modules-5.40_test:
+      perl-modules-5.40_test2:
     contents:
       /usr/share/perl/5.40*/unicore/**:
 
   universal:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/UNIVERSAL.pm:
 
   user:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/User/**.pm:
 
   version:
     essential:
-      - perl-modules-5.40_core
+      perl-modules-5.40_core:
     contents:
       /usr/share/perl/5.40*/version.pm:
       /usr/share/perl/5.40*/version.pod:
@@ -512,7 +512,7 @@ slices:
   # vmsish - Control VMS-specific language features
   vmsish:
     essential:
-      - perl-base_modules
+      perl-base_modules:
     contents:
       /usr/share/perl/5.40*/vmsish.pm:
 

@@ -1,13 +1,13 @@
 package: libvorbis0a
 
 essential:
-  - libvorbis0a_copyright
+  libvorbis0a_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libogg0_libs
+      libc6_libs:
+      libogg0_libs:
     contents:
       /usr/lib/*-linux-*/libvorbis.so.0*:
 

@@ -1,14 +1,14 @@
 package: sbsigntool
 
 essential:
-  - sbsigntool_copyright
+  sbsigntool_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libssl3t64_libs
-      - libuuid1_libs
+      libc6_libs:
+      libssl3t64_libs:
+      libuuid1_libs:
     contents:
       /usr/bin/kmodsign:
       /usr/bin/sbattach:

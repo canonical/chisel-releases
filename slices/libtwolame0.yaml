@@ -1,12 +1,12 @@
 package: libtwolame0
 
 essential:
-  - libtwolame0_copyright
+  libtwolame0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libtwolame.so.0*:
 

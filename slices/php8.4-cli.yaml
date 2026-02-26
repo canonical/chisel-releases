@@ -1,23 +1,23 @@
 package: php8.4-cli
 
 essential:
-  - php8.4-cli_copyright
+  php8.4-cli_copyright:
 
 slices:
   core:
     essential:
-      - libargon2-1_libs
-      - libc6_libs
-      - libedit2_libs
-      - libpcre2-8-0_libs
-      - libsodium23_libs
-      - libssl3t64_libs
-      - libxml2-16_libs
-      - media-types_data
-      - php-common_session
-      - php8.4-cli_modules
-      - tzdata_zoneinfo
-      - zlib1g_libs
+      libargon2-1_libs:
+      libc6_libs:
+      libedit2_libs:
+      libpcre2-8-0_libs:
+      libsodium23_libs:
+      libssl3t64_libs:
+      libxml2-16_libs:
+      media-types_data:
+      php-common_session:
+      php8.4-cli_modules:
+      tzdata_zoneinfo:
+      zlib1g_libs:
     contents:
       /usr/bin/php: { symlink: /usr/bin/php8.4 }
       /usr/bin/php8.4:
@@ -25,10 +25,10 @@ slices:
 
   standard:
     essential:
-      - php-common_scripts
-      - php8.4-cli_core
-      - php8.4-opcache_cli-module
-      - php8.4-readline_cli-module
+      php-common_scripts:
+      php8.4-cli_core:
+      php8.4-opcache_cli-module:
+      php8.4-readline_cli-module:
     contents:
       /usr/bin/phar: { symlink: /usr/bin/phar8.4 }
       /usr/bin/phar.phar: { symlink: /usr/bin/phar.phar8.4 }
@@ -38,7 +38,7 @@ slices:
 
   modules:
     essential:
-      - php8.4-common_module-libs
+      php8.4-common_module-libs:
     contents:
       # When a module is enabled in php (via phpenmod), the symlink is created with the format
       # <priority>-<name>. The priority is defined inside the .ini file itself.
@@ -86,6 +86,6 @@ slices:
 
   copyright:
     essential:
-      - php8.4-common_copyright
+      php8.4-common_copyright:
     contents:
       /usr/share/doc/php8.4-cli:

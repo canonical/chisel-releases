@@ -1,29 +1,29 @@
 package: libavformat61
 
 essential:
-  - libavformat61_copyright
+  libavformat61_copyright:
 
 slices:
   libs:
     essential:
-      - libavcodec61_libs
-      - libavutil59_libs
-      - libbluray3_libs
-      - libbz2-1.0_libs
-      - libc6_libs
-      - libchromaprint1_libs
-      - libdvdnav4_libs
-      - libdvdread8t64_libs
-      - libgme0_libs
-      - libgnutls30t64_libs
-      - libopenmpt0t64_libs
-      - librabbitmq4_libs
-      - librist4_libs
-      - libsrt1.5-gnutls_libs
-      - libssh-4_libs
-      - libxml2-16_libs
-      - libzmq5_libs
-      - zlib1g_libs
+      libavcodec61_libs:
+      libavutil59_libs:
+      libbluray3_libs:
+      libbz2-1.0_libs:
+      libc6_libs:
+      libchromaprint1_libs:
+      libdvdnav4_libs:
+      libdvdread8t64_libs:
+      libgme0_libs:
+      libgnutls30t64_libs:
+      libopenmpt0t64_libs:
+      librabbitmq4_libs:
+      librist4_libs:
+      libsrt1.5-gnutls_libs:
+      libssh-4_libs:
+      libxml2-16_libs:
+      libzmq5_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libavformat.so.61*:
 

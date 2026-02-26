@@ -1,16 +1,16 @@
 package: libsrt1.5-gnutls
 
 essential:
-  - libsrt1.5-gnutls_copyright
+  libsrt1.5-gnutls_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libgnutls30t64_libs
-      - libnettle8t64_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libgnutls30t64_libs:
+      libnettle8t64_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libsrt-gnutls.so.1.5*:
 

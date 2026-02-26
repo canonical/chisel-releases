@@ -1,21 +1,21 @@
 package: nginx
 
 essential:
-  - nginx_copyright
+  nginx_copyright:
 
 slices:
   bins:
     essential:
       # iproute2 seems to only be required for executing the maintainer
       # scripts, which is something that is handled differently in Chisel.
-      # - iproute2_bins
-      - libc6_libs
-      - libcrypt1_libs
-      - libpcre2-8-0_libs
-      - libssl3t64_libs
-      - nginx-common_config
-      - nginx-common_modules
-      - zlib1g_libs
+      # iproute2_bins:
+      libc6_libs:
+      libcrypt1_libs:
+      libpcre2-8-0_libs:
+      libssl3t64_libs:
+      nginx-common_config:
+      nginx-common_modules:
+      zlib1g_libs:
     contents:
       /usr/sbin/nginx:
 

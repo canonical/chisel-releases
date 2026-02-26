@@ -1,25 +1,25 @@
 package: dbus
 
 essential:
-  - dbus_copyright
+  dbus_copyright:
 
 slices:
   bins:
     essential:
-      - dbus-bin_bins
-      - dbus-daemon_bins
-      - dbus-system-bus-common_config
-      - libc6_libs
-      - libdbus-1-3_libs
-      - libexpat1_libs
-      - libsystemd0_libs
+      dbus-bin_bins:
+      dbus-daemon_bins:
+      dbus-system-bus-common_config:
+      libc6_libs:
+      libdbus-1-3_libs:
+      libexpat1_libs:
+      libsystemd0_libs:
     contents:
       /usr/lib/dbus-*/dbus-daemon-launch-helper:
 
   services:
     essential:
-      - dbus-system-bus-common_services
-      - dbus_bins
+      dbus-system-bus-common_services:
+      dbus_bins:
     contents:
       /usr/lib/systemd/system/dbus.service:
       /usr/lib/systemd/system/multi-user.target.wants/dbus.service:

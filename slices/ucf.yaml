@@ -1,14 +1,14 @@
 package: ucf
 
 essential:
-  - ucf_copyright
+  ucf_copyright:
 
 # Uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
 # during install and removal.
 slices:
   bins:
     essential:
-      - sensible-utils_bins
+      sensible-utils_bins:
     contents:
       /usr/bin/ucf:
       /usr/bin/ucfq:

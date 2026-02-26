@@ -1,7 +1,7 @@
 package: libpam-modules
 
 essential:
-  - libpam-modules_copyright
+  libpam-modules_copyright:
 
 slices:
   config:
@@ -20,13 +20,13 @@ slices:
 
   libs:
     essential:
-      - libaudit1_libs
-      - libc6_libs
-      - libcrypt1_libs
-      - libdb5.3t64_libs
-      - libpam0g_libs
-      - libselinux1_libs
-      - libsystemd0_libs
+      libaudit1_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      libdb5.3t64_libs:
+      libpam0g_libs:
+      libselinux1_libs:
+      libsystemd0_libs:
     contents:
       /usr/lib/*-linux-*/security/pam_access.so:
       /usr/lib/*-linux-*/security/pam_debug.so:

@@ -1,7 +1,7 @@
 package: libeclipse-jdt-core-compiler-batch-java
 
 essential:
-  - libeclipse-jdt-core-compiler-batch-java_copyright
+  libeclipse-jdt-core-compiler-batch-java_copyright:
 
 slices:
   jars:

@@ -1,13 +1,13 @@
 package: libhwloc15
 
 essential:
-  - libhwloc15_copyright
+  libhwloc15_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libudev1_libs
+      libc6_libs:
+      libudev1_libs:
     contents:
       /usr/lib/*-linux-*/libhwloc.so.15*:
 

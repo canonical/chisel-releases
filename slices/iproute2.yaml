@@ -1,7 +1,7 @@
 package: iproute2
 
 essential:
-  - iproute2_copyright
+  iproute2_copyright:
 
 slices:
   # iproute2 is a utility package which typically could be split into

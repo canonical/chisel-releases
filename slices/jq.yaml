@@ -1,13 +1,13 @@
 package: jq
 
 essential:
-  - jq_copyright
+  jq_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libjq1_libs
+      libc6_libs:
+      libjq1_libs:
     contents:
       /usr/bin/jq:
   copyright:

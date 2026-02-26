@@ -1,7 +1,7 @@
 package: erlang-inets
 
 essential:
-  - erlang-inets_copyright
+  erlang-inets_copyright:
 
 slices:
   scripts:
@@ -10,14 +10,14 @@ slices:
 
   modules:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
-      - erlang-ftp_modules
-      - erlang-mnesia_modules
-      - erlang-runtime-tools_libs
-      - erlang-runtime-tools_modules
-      - erlang-ssl_modules
-      - erlang-tftp_modules
+      erlang-base_bins:
+      erlang-base_modules:
+      erlang-ftp_modules:
+      erlang-mnesia_modules:
+      erlang-runtime-tools_libs:
+      erlang-runtime-tools_modules:
+      erlang-ssl_modules:
+      erlang-tftp_modules:
     contents:
       /usr/lib/erlang/lib/inets-*/ebin/**:
       /usr/lib/erlang/lib/inets-*/include/**:

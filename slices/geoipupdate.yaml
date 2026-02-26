@@ -1,14 +1,14 @@
 package: geoipupdate
 
 essential:
-  - geoipupdate_copyright
+  geoipupdate_copyright:
 
 slices:
   bins:
     essential:
-      - ca-certificates_data
-      - geoipupdate_config
-      - libc6_libs
+      ca-certificates_data:
+      geoipupdate_config:
+      libc6_libs:
     contents:
       /usr/bin/geoipupdate:
 

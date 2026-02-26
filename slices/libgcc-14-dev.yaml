@@ -1,7 +1,7 @@
 package: libgcc-14-dev
 
 essential:
-  - libgcc-14-dev_copyright
+  libgcc-14-dev_copyright:
 
 slices:
   # Runtime objects for linking with gcc-14
@@ -45,8 +45,8 @@ slices:
 
   core:
     essential:
-      - libgcc-14-dev_runtime
-      - libgcc-s1_libs
+      libgcc-14-dev_runtime:
+      libgcc-s1_libs:
     contents:
       /usr/lib/gcc/*-linux-*/14/libgcc.a:
       # linker script which links to libgcc_s.so.1 from libgcc-s1 and adds -lgcc as a link option
@@ -59,6 +59,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-14-base_copyright
+      gcc-14-base_copyright:
     contents:
       /usr/share/doc/libgcc-14-dev:
