@@ -5,8 +5,6 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libjack.so*:
     essential:
       - libc6_libs
       - libdb5.3t64_libs
@@ -14,6 +12,8 @@ slices:
       - libopus0_libs
       - libsamplerate0_libs
       - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libjack.so*:
 
   copyright:
     contents:

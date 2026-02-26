@@ -5,11 +5,6 @@ essential:
 
 slices:
   bins:
-    contents:
-      /usr/bin/ffmpeg:
-      /usr/bin/ffplay:
-      /usr/bin/ffprobe:
-      /usr/bin/qt-faststart:
     essential:
       - libavcodec60_libs
       - libavdevice60_libs
@@ -21,6 +16,11 @@ slices:
       - libsdl2-2.0-0_libs
       - libswresample4_libs
       - libswscale7_libs
+    contents:
+      /usr/bin/ffmpeg:
+      /usr/bin/ffplay:
+      /usr/bin/ffprobe:
+      /usr/bin/qt-faststart:
 
   conf:
     contents:

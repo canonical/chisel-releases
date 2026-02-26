@@ -5,11 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libiec61883.so*:
     essential:
       - libc6_libs
       - libraw1394-11_libs
+    contents:
+      /usr/lib/*-linux-*/libiec61883.so*:
 
   copyright:
     contents:

@@ -5,11 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libwayland-cursor.so*:
     essential:
       - libc6_libs
       - libwayland-client0_libs
+    contents:
+      /usr/lib/*-linux-*/libwayland-cursor.so*:
 
   copyright:
     contents:

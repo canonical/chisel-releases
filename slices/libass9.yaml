@@ -5,8 +5,6 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libass.so*:
     essential:
       - libc6_libs
       - libfontconfig1_libs
@@ -14,6 +12,8 @@ slices:
       - libfribidi0_libs
       - libharfbuzz0b_libs
       - libunibreak5_libs
+    contents:
+      /usr/lib/*-linux-*/libass.so*:
 
   copyright:
     contents:

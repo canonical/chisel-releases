@@ -5,9 +5,6 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libpulse*.so*:
-      /usr/lib/*-linux-*/pulseaudio/libpulsecommon*.so*:
     essential:
       - libapparmor1_libs
       - libasyncns0_libs
@@ -18,6 +15,9 @@ slices:
       - libx11-6_libs
       - libx11-xcb1_libs
       - libxcb1_libs
+    contents:
+      /usr/lib/*-linux-*/libpulse*.so*:
+      /usr/lib/*-linux-*/pulseaudio/libpulsecommon*.so*:
 
   copyright:
     contents:

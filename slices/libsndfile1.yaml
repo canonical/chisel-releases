@@ -5,8 +5,6 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libsndfile.so*:
     essential:
       - libc6_libs
       - libflac12t64_libs
@@ -16,6 +14,8 @@ slices:
       - libopus0_libs
       - libvorbis0a_libs
       - libvorbisenc2_libs
+    contents:
+      /usr/lib/*-linux-*/libsndfile.so*:
 
   copyright:
     contents:

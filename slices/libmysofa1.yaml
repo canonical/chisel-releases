@@ -5,11 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libmysofa.so*:
     essential:
       - libc6_libs
       - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libmysofa.so*:
 
   copyright:
     contents:

@@ -5,13 +5,13 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libopenal.so*:
     essential:
       - libc6_libs
       - libgcc-s1_libs
       - libsndio7.0_libs
       - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libopenal.so*:
 
   copyright:
     contents:

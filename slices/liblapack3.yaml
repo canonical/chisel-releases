@@ -5,6 +5,13 @@ essential:
 
 slices:
   libs:
+    essential:
+      - libblas3_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libgfortran5_libs
+      - libpulse0_libs
+
     contents:
       /usr/lib/*-linux-*/lapack/liblapack.so.3:
       /usr/lib/*-linux-*/lapack/liblapack.so.3.*.*:
@@ -31,13 +38,6 @@ slices:
       /usr/lib/x86_64-linux-gnu/liblapack.so.3:
         arch: [amd64]
         symlink: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3
-
-    essential:
-      - libblas3_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libgfortran5_libs
-      - libpulse0_libs
 
   copyright:
     contents:

@@ -5,12 +5,12 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libXi.so*:
     essential:
       - libc6_libs
       - libx11-6_libs
       - libxext6_libs
+    contents:
+      /usr/lib/*-linux-*/libXi.so*:
 
   copyright:
     contents:

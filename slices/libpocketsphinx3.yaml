@@ -5,11 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libpocketsphinx.so*:
     essential:
       - libc6_libs
       - libsphinxbase3t64_libs
+    contents:
+      /usr/lib/*-linux-*/libpocketsphinx.so*:
 
   copyright:
     contents:

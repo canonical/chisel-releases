@@ -5,13 +5,13 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libsphinxbase.so*:
     essential:
       - libblas3_libs
       - libc6_libs
       - liblapack3_libs
       - libpulse0_libs
+    contents:
+      /usr/lib/*-linux-*/libsphinxbase.so*:
 
   copyright:
     contents:

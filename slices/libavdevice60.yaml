@@ -5,8 +5,6 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libavdevice.so*:
     essential:
       - libasound2t64_libs
       - libavc1394-0_libs
@@ -34,6 +32,8 @@ slices:
       - libxcb1_libs
       - libxext6_libs
       - libxv1_libs
+    contents:
+      /usr/lib/*-linux-*/libavdevice.so*:
 
   copyright:
     contents:

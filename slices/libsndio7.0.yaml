@@ -5,12 +5,12 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libsndio.so*:
     essential:
       - libasound2t64_libs
       - libbsd0_libs
       - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libsndio.so*:
 
   copyright:
     contents:

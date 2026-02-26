@@ -5,11 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libasound.so*:
     essential:
       - libasound2-data_data
       - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libasound.so*:
 
   copyright:
     contents:

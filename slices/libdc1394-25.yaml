@@ -5,12 +5,12 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libdc1394.so*:
     essential:
       - libc6_libs
       - libraw1394-11_libs
       - libusb-1.0-0_libs
+    contents:
+      /usr/lib/*-linux-*/libdc1394.so*:
 
   copyright:
     contents:

@@ -5,12 +5,12 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libavc1394.so*:
-      /usr/lib/*-linux-*/librom1394.so*:
     essential:
       - libc6_libs
       - libraw1394-11_libs
+    contents:
+      /usr/lib/*-linux-*/libavc1394.so*:
+      /usr/lib/*-linux-*/librom1394.so*:
 
   copyright:
     contents:
