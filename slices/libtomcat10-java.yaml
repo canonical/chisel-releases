@@ -1,7 +1,7 @@
 package: libtomcat10-java
 
 essential:
-  - libtomcat10-java_copyright
+  libtomcat10-java_copyright:
 
 slices:
   i18n:
@@ -27,8 +27,8 @@ slices:
 
   jars:
     essential:
-      - libeclipse-jdt-core-compiler-batch-java_jars
-      - libeclipse-jdt-core-java_jars
+      libeclipse-jdt-core-compiler-batch-java_jars:
+      libeclipse-jdt-core-java_jars:
     contents:
       /usr/share/java/tomcat10-annotations-api-10*.jar:
       /usr/share/java/tomcat10-annotations-api.jar:
@@ -82,7 +82,7 @@ slices:
 #  Will be needed for tomcat10-admin package slices
 #  ant:
 #    essential:
-#      - libtomcat10-java_jars
+#      libtomcat10-java_jars:
 #    contents:
 #      /usr/share/java/tomcat10-catalina-ant-10*.jar:
 #      /usr/share/java/tomcat10-catalina-ant.jar:

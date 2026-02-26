@@ -1,12 +1,12 @@
 package: libsframe3
 
 essential:
-  - libsframe3_copyright
+  libsframe3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libsframe.so.3*:
 

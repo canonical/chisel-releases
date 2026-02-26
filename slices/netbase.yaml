@@ -1,7 +1,7 @@
 package: netbase
 
 essential:
-  - netbase_copyright
+  netbase_copyright:
 
 slices:
   config:
@@ -18,7 +18,7 @@ slices:
 
   default-hosts:
     essential:
-      - netbase_config
+      netbase_config:
     contents:
       /etc/hosts:
         text: |
@@ -29,7 +29,7 @@ slices:
 
   default-networks:
     essential:
-      - netbase_config
+      netbase_config:
     contents:
       /etc/networks:
         text: |

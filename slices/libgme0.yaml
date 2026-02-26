@@ -1,15 +1,15 @@
 package: libgme0
 
 essential:
-  - libgme0_copyright
+  libgme0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libgme.so.0*:
 

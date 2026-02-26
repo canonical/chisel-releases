@@ -1,12 +1,12 @@
 package: sysvinit-utils
 
 essential:
-  - sysvinit-utils_copyright
+  sysvinit-utils_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/pidof:
       /usr/lib/init/init-d-script:

@@ -1,13 +1,13 @@
 package: zip
 
 essential:
-  - zip_copyright
+  zip_copyright:
 
 slices:
   bins:
     essential:
-      - libbz2-1.0_libs
-      - libc6_libs
+      libbz2-1.0_libs:
+      libc6_libs:
     contents:
       /usr/bin/zip:
       /usr/bin/zipcloak:

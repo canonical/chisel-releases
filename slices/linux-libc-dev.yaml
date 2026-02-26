@@ -1,7 +1,7 @@
 package: linux-libc-dev
 
 essential:
-  - linux-libc-dev_copyright
+  linux-libc-dev_copyright:
 
 slices:
   asm-headers:
@@ -11,7 +11,7 @@ slices:
 
   linux-headers:
     essential:
-      - linux-libc-dev_asm-headers
+      linux-libc-dev_asm-headers:
     contents:
       /usr/include/linux/**.h:
 

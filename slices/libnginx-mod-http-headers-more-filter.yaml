@@ -1,16 +1,16 @@
 package: libnginx-mod-http-headers-more-filter
 
 essential:
-  - libnginx-mod-http-headers-more-filter_copyright
+  libnginx-mod-http-headers-more-filter_copyright:
 
 slices:
   modules:
     essential:
       # libnginx-mod-http-headers-more-filter depends on nginx-abi, which is
       # a virtual package provided by nginx, hence the dependency on nginx_bins.
-      - libc6_libs
-      - libnginx-mod-http-headers-more-filter_config
-      - nginx_bins
+      libc6_libs:
+      libnginx-mod-http-headers-more-filter_config:
+      nginx_bins:
     contents:
       /usr/lib/nginx/modules/ngx_http_headers_more_filter_module.so:
 

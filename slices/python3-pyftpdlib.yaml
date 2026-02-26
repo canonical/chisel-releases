@@ -1,13 +1,13 @@
 package: python3-pyftpdlib
 
 essential:
-  - python3-pyftpdlib_copyright
+  python3-pyftpdlib_copyright:
 
 slices:
   libs:
     essential:
-      - python3-standard-asynchat_libs
-      - python3_standard
+      python3-standard-asynchat_libs:
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/pyftpdlib/*.py:
 

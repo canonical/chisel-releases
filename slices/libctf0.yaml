@@ -1,19 +1,19 @@
 package: libctf0
 
 essential:
-  - libctf0_copyright
+  libctf0_copyright:
 
 slices:
   libs:
     essential:
-      - libbinutils_libs
-      - libc6_libs
-      - zlib1g_libs
+      libbinutils_libs:
+      libc6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libctf.so.0*:
 
   copyright:
     essential:
-      - libbinutils_copyright
+      libbinutils_copyright:
     contents:
       /usr/share/doc/libctf0:

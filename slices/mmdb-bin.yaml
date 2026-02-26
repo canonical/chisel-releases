@@ -1,13 +1,13 @@
 package: mmdb-bin
 
 essential:
-  - mmdb-bin_copyright
+  mmdb-bin_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libmaxminddb0_libs
+      libc6_libs:
+      libmaxminddb0_libs:
     contents:
       /usr/bin/mmdblookup:
 

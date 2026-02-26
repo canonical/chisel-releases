@@ -1,12 +1,12 @@
 package: libcodec2-1.2
 
 essential:
-  - libcodec2-1.2_copyright
+  libcodec2-1.2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libcodec2.so.1.2:
 

@@ -1,12 +1,12 @@
 package: libglvnd0
 
 essential:
-  - libglvnd0_copyright
+  libglvnd0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libGLdispatch.so.0*:
 

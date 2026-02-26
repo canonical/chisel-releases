@@ -1,12 +1,12 @@
 package: fonts-noto-core
 
 essential:
-  - fonts-noto-core_copyright
+  fonts-noto-core_copyright:
 
 slices:
   fonts:
     essential:
-      - fonts-noto-mono_fonts
+      fonts-noto-mono_fonts:
     contents:
       /usr/share/fonts/truetype/noto/NotoKufiArabic-*.ttf:
       /usr/share/fonts/truetype/noto/NotoLoopedLao-*.ttf:
@@ -201,7 +201,7 @@ slices:
 
   config:
     essential:
-      - fonts-noto-mono_config
+      fonts-noto-mono_config:
     contents:
       /etc/fonts/conf.avail/30-droid-noto.conf:
 

@@ -1,12 +1,12 @@
 package: gawk
 
 essential:
-  - gawk_copyright
+  gawk_copyright:
 
 slices:
   bins:
     essential:
-      - gawk_libs
+      gawk_libs:
     contents:
       # NOTE: there are 3 packages which provide /usr/bin/awk alternative implementations:
       # gawk (priority 10), mawk (priority 5), and original-awk (priority 0).
@@ -28,11 +28,11 @@ slices:
       /usr/include/gawkapi.h:
   libs:
     essential:
-      - libc6_libs
-      - libgmp10_libs
-      - libmpfr6_libs
-      - libreadline8t64_libs
-      - libsigsegv2_libs
+      libc6_libs:
+      libgmp10_libs:
+      libmpfr6_libs:
+      libreadline8t64_libs:
+      libsigsegv2_libs:
     contents:
       /usr/lib/*-linux-*/gawk/*.so:
 

@@ -1,13 +1,13 @@
 package: erlang-syntax-tools
 
 essential:
-  - erlang-syntax-tools_copyright
+  erlang-syntax-tools_copyright:
 
 slices:
   modules:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
+      erlang-base_bins:
+      erlang-base_modules:
     contents:
       /usr/lib/erlang/lib/syntax_tools-*/ebin/**:
       /usr/lib/erlang/lib/syntax_tools-*/include/**:

@@ -1,19 +1,19 @@
 package: cpp-15-aarch64-linux-gnu
 
 essential:
-  - cpp-15-aarch64-linux-gnu_copyright
+  cpp-15-aarch64-linux-gnu_copyright:
 
 slices:
   cc1:
     essential:
-      - libc6-dev_headers
-      - libc6_libs
-      - libgmp10_libs
-      - libisl23_libs
-      - libmpc3_libs
-      - libmpfr6_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6-dev_headers:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/libexec/gcc-cross/aarch64-linux-gnu/15/cc1:
         arch: [amd64, i386, ppc64el, s390x]
@@ -22,6 +22,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-15-base_copyright
+      gcc-15-base_copyright:
     contents:
       /usr/share/doc/cpp-15-aarch64-linux-gnu:

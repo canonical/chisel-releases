@@ -1,7 +1,7 @@
 package: dbus-system-bus-common
 
 essential:
-  - dbus-system-bus-common_copyright
+  dbus-system-bus-common_copyright:
 
 slices:
   # Depends on adduser, however it's used by the dbus postinst

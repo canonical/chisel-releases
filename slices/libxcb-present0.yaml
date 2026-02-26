@@ -1,13 +1,13 @@
 package: libxcb-present0
 
 essential:
-  - libxcb-present0_copyright
+  libxcb-present0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-present.so.0*:
 

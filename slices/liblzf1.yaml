@@ -1,12 +1,12 @@
 package: liblzf1
 
 essential:
-  - liblzf1_copyright
+  liblzf1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/liblzf.so.1*:
 

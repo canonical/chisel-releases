@@ -1,15 +1,15 @@
 package: apache2-data
 
 essential:
-  - apache2-data_copyright
+  apache2-data_copyright:
 
 slices:
 
   data:
     essential:
-      - apache2-data_error
-      - apache2-data_icons
-      - apache2-data_index
+      apache2-data_error:
+      apache2-data_icons:
+      apache2-data_index:
 
   index:
     # This slice contains the default index page for apache2

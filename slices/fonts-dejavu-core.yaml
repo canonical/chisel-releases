@@ -1,12 +1,12 @@
 package: fonts-dejavu-core
 
 essential:
-  - fonts-dejavu-core_copyright
+  fonts-dejavu-core_copyright:
 
 slices:
   fonts:
     essential:
-      - fonts-dejavu-mono_fonts
+      fonts-dejavu-mono_fonts:
     contents:
       /usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:
       /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:
@@ -15,8 +15,8 @@ slices:
 
   config:
     essential:
-      - fonts-dejavu-core_fonts
-      - fonts-dejavu-mono_config
+      fonts-dejavu-core_fonts:
+      fonts-dejavu-mono_config:
     contents:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans.conf:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-serif.conf:

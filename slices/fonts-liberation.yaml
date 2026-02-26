@@ -1,7 +1,7 @@
 package: fonts-liberation
 
 essential:
-  - fonts-liberation_copyright
+  fonts-liberation_copyright:
 
 slices:
   fonts:

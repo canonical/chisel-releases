@@ -1,16 +1,16 @@
 package: apache2
 
 essential:
-  - apache2_copyright
+  apache2_copyright:
 
 slices:
   core:
     essential:
-      - apache2-bin_bins
-      - apache2_config
-      - apache2_modules
-      - media-types_data
-      - procps_bins
+      apache2-bin_bins:
+      apache2_config:
+      apache2_modules:
+      media-types_data:
+      procps_bins:
     contents:
       /var/log/apache2/access.log: { text: "", mode: 0640 }
       /var/log/apache2/error.log: { text: "", mode: 0640 }
@@ -18,17 +18,17 @@ slices:
 
   standard:
     essential:
-      - apache2-data_data
-      - apache2_core
-      - apache2_index
-      - apache2_scripts
+      apache2-data_data:
+      apache2_core:
+      apache2_index:
+      apache2_scripts:
 
   index:
     # Create default index page in /var/www/html
     # This slice creates an empty index.html and then
     # copies the contents from apache2-data_index slice via mutate
     essential:
-      - apache2-data_index
+      apache2-data_index:
     contents:
       /var/www/html/index.html: { mutable: true, text: "" }
     mutate: |
@@ -39,7 +39,7 @@ slices:
 
   config:
     essential:
-      - apache2_vhost-config
+      apache2_vhost-config:
     contents:
       # Main configuration file
       /etc/apache2/apache2.conf:
@@ -74,7 +74,7 @@ slices:
 
   modules:
     essential:
-      - apache2-bin_libs
+      apache2-bin_libs:
     contents:
       /etc/apache2/mods-available/*.conf:
       /etc/apache2/mods-available/*.load:
@@ -139,23 +139,23 @@ slices:
 
   scripts:
     essential:
-      - apache2_modules
-      - coreutils_chmod
-      - coreutils_chown
-      - coreutils_env
-      - coreutils_id-utility
-      - coreutils_mkdir
-      - coreutils_mktemp
-      - coreutils_mv-utility
-      - coreutils_readlink
-      - coreutils_rm-utility
-      - coreutils_rmdir
-      - coreutils_stat
-      - coreutils_touch
-      - dash_bins
-      - findutils_bins
-      - gawk_bins
-      - perl_bins
+      apache2_modules:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_env:
+      coreutils_id-utility:
+      coreutils_mkdir:
+      coreutils_mktemp:
+      coreutils_mv-utility:
+      coreutils_readlink:
+      coreutils_rm-utility:
+      coreutils_rmdir:
+      coreutils_stat:
+      coreutils_touch:
+      dash_bins:
+      findutils_bins:
+      gawk_bins:
+      perl_bins:
     contents:
       # Module management scripts
       /usr/sbin/a2disconf:  # Symlink to a2enmod

@@ -1,12 +1,12 @@
 package: libvpx11
 
 essential:
-  - libvpx11_copyright
+  libvpx11_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libvpx.so.11*:
 

@@ -1,24 +1,24 @@
 package: passwd
 
 essential:
-  - passwd_copyright
+  passwd_copyright:
 
 slices:
   # Binaries used to manage system users. These rely on configuratiopn
   # files provided also by the package.
   bins:
     essential:
-      - libacl1_libs
-      - libattr1_libs
-      - libaudit1_libs
-      - libbsd0_libs
-      - libc6_libs
-      - libcrypt1_libs
-      - libpam-modules_libs
-      - libpam0g_libs
-      - libselinux1_libs
-      - libsemanage2_libs
-      - passwd_config
+      libacl1_libs:
+      libattr1_libs:
+      libaudit1_libs:
+      libbsd0_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      libpam-modules_libs:
+      libpam0g_libs:
+      libselinux1_libs:
+      libsemanage2_libs:
+      passwd_config:
     contents:
       /usr/bin/chage:
       /usr/bin/chfn:
@@ -54,7 +54,7 @@ slices:
   # Essential configurations used by useradd(8) and friends.
   config:
     essential:
-      - base-passwd_data
+      base-passwd_data:
     contents:
       /etc/default/useradd:
       /usr/lib/tmpfiles.d/passwd.conf:

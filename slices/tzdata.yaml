@@ -1,7 +1,7 @@
 package: tzdata
 
 essential:
-  - tzdata_copyright
+  tzdata_copyright:
 
 slices:
   # The "base" slice contains Canonical timezone abbreviations. These are
@@ -19,7 +19,7 @@ slices:
 
   africa:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/Africa/Abidjan:
       /usr/share/zoneinfo/Africa/Accra:
@@ -77,7 +77,7 @@ slices:
 
   america:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/America/Adak:
       /usr/share/zoneinfo/America/Anchorage:
@@ -229,7 +229,7 @@ slices:
 
   antarctica:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/Antarctica/Casey:
       /usr/share/zoneinfo/Antarctica/Davis:
@@ -245,15 +245,15 @@ slices:
 
   arctic:
     essential:
-      - tzdata_config
-      - tzdata_eurasia
+      tzdata_config:
+      tzdata_eurasia:
     contents:
       /usr/share/zoneinfo/Arctic/**:
 
   atlantic:
     essential:
-      - tzdata_config
-      - tzdata_eurasia
+      tzdata_config:
+      tzdata_eurasia:
     contents:
       /usr/share/zoneinfo/Atlantic/Azores:
       /usr/share/zoneinfo/Atlantic/Bermuda:
@@ -269,7 +269,7 @@ slices:
 
   australia:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/Australia/Adelaide:
       /usr/share/zoneinfo/Australia/Brisbane:
@@ -306,7 +306,7 @@ slices:
 
   eurasia:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/Asia/Aden:
       /usr/share/zoneinfo/Asia/Almaty:
@@ -459,13 +459,13 @@ slices:
 
   indian:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/Indian/**:
 
   pacific:
     essential:
-      - tzdata_config
+      tzdata_config:
     contents:
       /usr/share/zoneinfo/Pacific/Apia:
       /usr/share/zoneinfo/Pacific/Auckland:
@@ -512,18 +512,18 @@ slices:
   # Install all timezones.
   zoneinfo:
     essential:
-      - tzdata_africa
-      - tzdata_america
-      - tzdata_antarctica
-      - tzdata_arctic
-      - tzdata_atlantic
-      - tzdata_australia
-      - tzdata_base
-      - tzdata_config
-      - tzdata_etc
-      - tzdata_eurasia
-      - tzdata_indian
-      - tzdata_pacific
+      tzdata_africa:
+      tzdata_america:
+      tzdata_antarctica:
+      tzdata_arctic:
+      tzdata_atlantic:
+      tzdata_australia:
+      tzdata_base:
+      tzdata_config:
+      tzdata_etc:
+      tzdata_eurasia:
+      tzdata_indian:
+      tzdata_pacific:
 
   copyright:
     contents:

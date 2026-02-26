@@ -1,14 +1,14 @@
 package: libboost-filesystem1.83.0
 
 essential:
-  - libboost-filesystem1.83.0_copyright
+  libboost-filesystem1.83.0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libboost_filesystem.so.1.83.0:
   copyright:

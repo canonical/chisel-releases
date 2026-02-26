@@ -1,7 +1,7 @@
 package: tzdata-legacy
 
 essential:
-  - tzdata-legacy_copyright
+  tzdata-legacy_copyright:
 
 slices:
   # The "base" slice contains Canonical timezone abbreviations. These are
@@ -11,10 +11,10 @@ slices:
   base:
     essential:
       # TODO: should we copy the necessary from these slices?
-      - tzdata-legacy_america  # /usr/share/zoneinfo/right/CST6CDT -> America/Chicago
-      - tzdata-legacy_eurasia  # /usr/share/zoneinfo/right/CET -> Europe/Brussels
-      - tzdata-legacy_pacific  # /usr/share/zoneinfo/right/HST -> Pacific/Honolulu broken
-      - tzdata_base
+      tzdata-legacy_america:  # /usr/share/zoneinfo/right/CST6CDT -> America/Chicago
+      tzdata-legacy_eurasia:  # /usr/share/zoneinfo/right/CET -> Europe/Brussels
+      tzdata-legacy_pacific:  # /usr/share/zoneinfo/right/HST -> Pacific/Honolulu broken
+      tzdata_base:
     contents:
       /usr/share/zoneinfo/right/CET:
       /usr/share/zoneinfo/right/CST6CDT:
@@ -31,7 +31,7 @@ slices:
 
   africa:
     essential:
-      - tzdata_africa
+      tzdata_africa:
     contents:
       /usr/share/zoneinfo/Africa/Asmera:
       /usr/share/zoneinfo/Egypt:
@@ -42,7 +42,7 @@ slices:
 
   america:
     essential:
-      - tzdata_america
+      tzdata_america:
     contents:
       /usr/share/zoneinfo/America/Argentina/ComodRivadavia:
       /usr/share/zoneinfo/America/Buenos_Aires:
@@ -66,29 +66,29 @@ slices:
 
   antarctica:
     essential:
-      - tzdata_antarctica
+      tzdata_antarctica:
     contents:
       /usr/share/zoneinfo/Antarctica/South_Pole:
       /usr/share/zoneinfo/right/Antarctica/**:
 
   arctic:
     essential:
-      - tzdata-legacy_eurasia
-      - tzdata_arctic
+      tzdata-legacy_eurasia:
+      tzdata_arctic:
     contents:
       /usr/share/zoneinfo/right/Arctic/*:
 
   atlantic:
     essential:
-      - tzdata-legacy_eurasia
-      - tzdata_atlantic
+      tzdata-legacy_eurasia:
+      tzdata_atlantic:
     contents:
       /usr/share/zoneinfo/Atlantic/Faeroe:
       /usr/share/zoneinfo/right/Atlantic/**:
 
   australia:
     essential:
-      - tzdata_australia
+      tzdata_australia:
     contents:
       /usr/share/zoneinfo/Australia/ACT:
       /usr/share/zoneinfo/Australia/LHI:
@@ -105,7 +105,7 @@ slices:
   # in their own slice since that is how they are structured in the tzdata deb.
   brazil:
     essential:
-      - tzdata-legacy_america
+      tzdata-legacy_america:
     contents:
       /usr/share/zoneinfo/Brazil/Acre:
       /usr/share/zoneinfo/Brazil/DeNoronha:
@@ -115,15 +115,15 @@ slices:
 
   canada:
     essential:
-      - tzdata-legacy_america
+      tzdata-legacy_america:
     contents:
       /usr/share/zoneinfo/Canada/**:
       /usr/share/zoneinfo/right/Canada/**:
 
   chile:
     essential:
-      - tzdata-legacy_america
-      - tzdata-legacy_pacific
+      tzdata-legacy_america:
+      tzdata-legacy_pacific:
     contents:
       /usr/share/zoneinfo/Chile/**:
       /usr/share/zoneinfo/right/Chile/**:
@@ -134,7 +134,7 @@ slices:
   # derive from different domains (like the military). Same for others.
   etc:
     essential:
-      - tzdata_etc
+      tzdata_etc:
     contents:
       /usr/share/zoneinfo/GMT+0:
       /usr/share/zoneinfo/GMT-0:
@@ -156,7 +156,7 @@ slices:
 
   eurasia:
     essential:
-      - tzdata_eurasia
+      tzdata_eurasia:
     contents:
       /usr/share/zoneinfo/Asia/Ashkhabad:
       /usr/share/zoneinfo/Asia/Calcutta:
@@ -207,27 +207,27 @@ slices:
 
   iceland:
     essential:
-      - tzdata-legacy_atlantic
+      tzdata-legacy_atlantic:
     contents:
       /usr/share/zoneinfo/Iceland:
       /usr/share/zoneinfo/right/Iceland:
 
   indian:
     essential:
-      - tzdata_indian
+      tzdata_indian:
     contents:
       /usr/share/zoneinfo/right/Indian/**:
 
   mexico:
     essential:
-      - tzdata-legacy_america
+      tzdata-legacy_america:
     contents:
       /usr/share/zoneinfo/Mexico/*:
       /usr/share/zoneinfo/right/Mexico/*:
 
   pacific:
     essential:
-      - tzdata_pacific
+      tzdata_pacific:
     contents:
       /usr/share/zoneinfo/Kwajalein:
       /usr/share/zoneinfo/NZ:
@@ -242,8 +242,8 @@ slices:
 
   united-states:
     essential:
-      - tzdata-legacy_america
-      - tzdata-legacy_pacific
+      tzdata-legacy_america:
+      tzdata-legacy_pacific:
     contents:
       /usr/share/zoneinfo/US/*:
       /usr/share/zoneinfo/right/US/*:
@@ -251,24 +251,24 @@ slices:
   # Install all timezones.
   zoneinfo:
     essential:
-      - tzdata-legacy_africa
-      - tzdata-legacy_america
-      - tzdata-legacy_antarctica
-      - tzdata-legacy_arctic
-      - tzdata-legacy_atlantic
-      - tzdata-legacy_australia
-      - tzdata-legacy_base
-      - tzdata-legacy_brazil
-      - tzdata-legacy_canada
-      - tzdata-legacy_chile
-      - tzdata-legacy_etc
-      - tzdata-legacy_eurasia
-      - tzdata-legacy_iceland
-      - tzdata-legacy_indian
-      - tzdata-legacy_mexico
-      - tzdata-legacy_pacific
-      - tzdata-legacy_united-states
-      - tzdata_zoneinfo
+      tzdata-legacy_africa:
+      tzdata-legacy_america:
+      tzdata-legacy_antarctica:
+      tzdata-legacy_arctic:
+      tzdata-legacy_atlantic:
+      tzdata-legacy_australia:
+      tzdata-legacy_base:
+      tzdata-legacy_brazil:
+      tzdata-legacy_canada:
+      tzdata-legacy_chile:
+      tzdata-legacy_etc:
+      tzdata-legacy_eurasia:
+      tzdata-legacy_iceland:
+      tzdata-legacy_indian:
+      tzdata-legacy_mexico:
+      tzdata-legacy_pacific:
+      tzdata-legacy_united-states:
+      tzdata_zoneinfo:
 
   copyright:
     contents:

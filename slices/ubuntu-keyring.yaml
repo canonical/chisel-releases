@@ -1,7 +1,7 @@
 package: ubuntu-keyring
 
 essential:
-  - ubuntu-keyring_copyright
+  ubuntu-keyring_copyright:
 
 slices:
   keys:

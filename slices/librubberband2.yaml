@@ -1,16 +1,16 @@
 package: librubberband2
 
 essential:
-  - librubberband2_copyright
+  librubberband2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libfftw3-double3_libs
-      - libgcc-s1_libs
-      - libsamplerate0_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libfftw3-double3_libs:
+      libgcc-s1_libs:
+      libsamplerate0_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/librubberband.so.2*:
 

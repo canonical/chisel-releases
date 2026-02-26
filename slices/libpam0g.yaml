@@ -1,13 +1,13 @@
 package: libpam0g
 
 essential:
-  - libpam0g_copyright
+  libpam0g_copyright:
 
 slices:
   libs:
     essential:
-      - libaudit1_libs
-      - libc6_libs
+      libaudit1_libs:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libpam.so.0*:
       /usr/lib/*-linux-*/libpam_misc.so.0*:

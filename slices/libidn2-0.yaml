@@ -1,13 +1,13 @@
 package: libidn2-0
 
 essential:
-  - libidn2-0_copyright
+  libidn2-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libunistring5_libs
+      libc6_libs:
+      libunistring5_libs:
     contents:
       /usr/lib/*-linux-*/libidn2.so.0*:
 
