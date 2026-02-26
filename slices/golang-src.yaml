@@ -1,12 +1,12 @@
 package: golang-src
 
 essential:
-  - golang-src_copyright
+  golang-src_copyright:
 
 slices:
   src-with-tests:
     essential:
-      - golang-1.25-src_src-with-tests
+      golang-1.25-src_src-with-tests:
     contents:
       /usr/share/go:  # Symlink to go-1.25
 

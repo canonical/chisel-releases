@@ -1,12 +1,12 @@
 package: golang-go
 
 essential:
-  - golang-go_copyright
+  golang-go_copyright:
 
 slices:
   core:
     essential:
-      - golang-1.25-go_core
+      golang-1.25-go_core:
     contents:
       /usr/bin/go:  # Symlink to ../lib/go-1.25/bin/go
       /usr/bin/gofmt:  # Symlink to ../lib/go-1.25/bin/gofmt
@@ -14,7 +14,7 @@ slices:
 
   cgo-tools:
     essential:
-      - golang-1.25-go_cgo-tools
+      golang-1.25-go_cgo-tools:
 
   copyright:
     contents:
