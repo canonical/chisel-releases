@@ -1,13 +1,13 @@
 package: python3-rpds-py
 
 essential:
-  - python3-rpds-py_copyright
+  python3-rpds-py_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - python3_standard
+      libc6_libs:
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/rpds/__init__.py:
       /usr/lib/python3/dist-packages/rpds/__init__.pyi:

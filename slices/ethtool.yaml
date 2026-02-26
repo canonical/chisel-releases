@@ -1,13 +1,13 @@
 package: ethtool
 
 essential:
-  - ethtool_copyright
+  ethtool_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libmnl0_libs
+      libc6_libs:
+      libmnl0_libs:
     contents:
       /usr/sbin/ethtool:
 

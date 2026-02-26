@@ -1,14 +1,14 @@
 package: cloud-guest-utils
 
 essential:
-  - cloud-guest-utils_copyright
+  cloud-guest-utils_copyright:
 
 slices:
   bins:
     essential:
-      - e2fsprogs_standard
-      - fdisk_bins
-      - python3_standard
+      e2fsprogs_standard:
+      fdisk_bins:
+      python3_standard:
     contents:
       /usr/bin/ec2metadata:
       /usr/bin/growpart:

@@ -1,18 +1,18 @@
 package: cloud-init-base
 
 essential:
-  - cloud-init-base_copyright
+  cloud-init-base_copyright:
 
 slices:
   # Standard installation - includes all components
   standard:
     essential:
-      - cloud-init-base_config
-      - cloud-init-base_network
-      - cloud-init-base_services
-      - cloud-init-base_templates
-      - cloud-init-base_udev
-      - cloud-init-base_utils
+      cloud-init-base_config:
+      cloud-init-base_network:
+      cloud-init-base_services:
+      cloud-init-base_templates:
+      cloud-init-base_udev:
+      cloud-init-base_utils:
 
   # Configuration files
   config:
@@ -26,7 +26,7 @@ slices:
 
   cli-tools:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/cloud-init:
       /usr/bin/cloud-init-per:
@@ -34,37 +34,37 @@ slices:
   # Python libraries
   python-lib:
     essential:
-      - python3-configobj_libs
-      - python3-jinja2_libs
-      - python3-jsonpatch_libs
-      - python3-jsonschema_libs
-      - python3-oauthlib_libs
-      - python3-passlib_libs
-      - python3-requests_libs
-      - python3-serial_libs
-      - python3-yaml_libs
-      - python3_standard
+      python3-configobj_libs:
+      python3-jinja2_libs:
+      python3-jsonpatch_libs:
+      python3-jsonschema_libs:
+      python3-oauthlib_libs:
+      python3-passlib_libs:
+      python3-requests_libs:
+      python3-serial_libs:
+      python3-yaml_libs:
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/cloudinit/**:
 
   # Network dependencies (optional, for networking features)
   network:
     essential:
-      - dhcpcd-base_standard
-      - iproute2_bins
-      - netcat-openbsd_bins
-      - netplan.io_core
-      - procps_bins
+      dhcpcd-base_standard:
+      iproute2_bins:
+      netcat-openbsd_bins:
+      netplan.io_core:
+      procps_bins:
 
   # Systemd services
   services:
     essential:
-      - cloud-init-base_cli-tools
-      - cloud-init-base_config
-      - cloud-init-base_python-lib
-      - cloud-init-base_system-generator
-      - cloud-init-base_utils
-      - systemd_standard
+      cloud-init-base_cli-tools:
+      cloud-init-base_config:
+      cloud-init-base_python-lib:
+      cloud-init-base_system-generator:
+      cloud-init-base_utils:
+      systemd_standard:
     contents:
       /usr/lib/systemd/system/cloud-config.service:
       /usr/lib/systemd/system/cloud-config.target:
@@ -94,7 +94,7 @@ slices:
   # Helper scripts and utilities
   utils:
     essential:
-      - cloud-init-base_python-lib
+      cloud-init-base_python-lib:
     contents:
       /usr/bin/cloud-id:
       /usr/lib/cloud-init/ds-identify:

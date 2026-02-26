@@ -7,25 +7,25 @@ slices:
   # now a placeholder, just redirects to core
   bins:
     essential:
-      - systemd_core
+      systemd_core:
 
   # Core systemd daemon
   core:
     essential:
-      - libacl1_libs
-      - libapparmor1_libs
-      - libc6_libs
-      - liblzma5_libs
-      - libmount1_libs
-      - libpam0g_libs
-      - libseccomp2_libs
-      - libselinux1_libs
-      - libsystemd-shared_libs
-      - libsystemd0_libs
-      - mount_bins
-      - systemd_catalog
-      - systemd_config
-      - systemd_system-generators
+      libacl1_libs:
+      libapparmor1_libs:
+      libc6_libs:
+      liblzma5_libs:
+      libmount1_libs:
+      libpam0g_libs:
+      libseccomp2_libs:
+      libselinux1_libs:
+      libsystemd-shared_libs:
+      libsystemd0_libs:
+      mount_bins:
+      systemd_catalog:
+      systemd_config:
+      systemd_system-generators:
     contents:
       /usr/bin/systemctl:
       /usr/bin/systemd-analyze:
@@ -41,25 +41,25 @@ slices:
   # Standard installation - includes core system components
   standard:
     essential:
-      - systemd_core
-      - systemd_dbus-services
-      - systemd_hostname
-      - systemd_journal
-      - systemd_locale
-      - systemd_login
-      - systemd_network
-      - systemd_services
-      - systemd_timedate
-      - systemd_utils
+      systemd_core:
+      systemd_dbus-services:
+      systemd_hostname:
+      systemd_journal:
+      systemd_locale:
+      systemd_login:
+      systemd_network:
+      systemd_services:
+      systemd_timedate:
+      systemd_utils:
 
   # Journal management
   journal:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - libsystemd0_libs
-      - systemd_config
-      - systemd_system-services
+      libc6_libs:
+      libsystemd-shared_libs:
+      libsystemd0_libs:
+      systemd_config:
+      systemd_system-services:
     contents:
       /usr/bin/journalctl:
       /usr/lib/systemd/system/systemd-journal-catalog-update.service:
@@ -78,15 +78,15 @@ slices:
   # Login and session management
   login:
     essential:
-      - libc6_libs
-      - libpam0g_libs
-      - libsystemd-shared_libs
-      - libsystemd0_libs
-      - systemd_config
-      - systemd_pam-profile
-      - systemd_polkit
-      - systemd_system-services
-      - systemd_udev-rules
+      libc6_libs:
+      libpam0g_libs:
+      libsystemd-shared_libs:
+      libsystemd0_libs:
+      systemd_config:
+      systemd_pam-profile:
+      systemd_polkit:
+      systemd_system-services:
+      systemd_udev-rules:
     contents:
       /usr/bin/loginctl:
       /usr/lib/systemd/system/dbus-org.freedesktop.login1.service:
@@ -105,10 +105,10 @@ slices:
   # Hostname management
   hostname:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_polkit
-      - systemd_system-services
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_polkit:
+      systemd_system-services:
     contents:
       /usr/bin/hostnamectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.hostname1.service:
@@ -119,10 +119,10 @@ slices:
   # Locale management
   locale:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_polkit
-      - systemd_system-services
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_polkit:
+      systemd_system-services:
     contents:
       /usr/bin/localectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.locale1.service:
@@ -133,10 +133,10 @@ slices:
   # Time and date management
   timedate:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_polkit
-      - systemd_system-services
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_polkit:
+      systemd_system-services:
     contents:
       /usr/bin/timedatectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.timedate1.service:
@@ -146,13 +146,13 @@ slices:
   # Network management
   network:
     essential:
-      - libc6_libs
-      - libssl3t64_libs
-      - libsystemd-shared_libs
-      - systemd_config
-      - systemd_network-config
-      - systemd_polkit
-      - systemd_system-services
+      libc6_libs:
+      libssl3t64_libs:
+      libsystemd-shared_libs:
+      systemd_config:
+      systemd_network-config:
+      systemd_polkit:
+      systemd_system-services:
     contents:
       /usr/bin/networkctl:
       /usr/lib/systemd/system/systemd-network-generator.service:
@@ -184,9 +184,9 @@ slices:
   # Advanced utilities
   utils:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_core
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_core:
     contents:
       /usr/bin/busctl:
       /usr/bin/systemd-ac-power:
@@ -214,26 +214,26 @@ slices:
   # Run0 (sudo alternative)
   run0:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_polkit
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_polkit:
     contents:
       /usr/bin/run0:
 
   # Detect virtualization
   detect-virt:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
+      libc6_libs:
+      libsystemd-shared_libs:
     contents:
       /usr/bin/systemd-detect-virt:
 
   # System services and daemons
   services:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_config
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_config:
     contents:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
@@ -267,9 +267,9 @@ slices:
   # TPM2 and measured boot support
   tpm2:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
-      - systemd_pcrlock
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_pcrlock:
     contents:
       /usr/lib/systemd/systemd-measure:
         arch: [amd64, arm64, riscv64]

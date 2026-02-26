@@ -1,31 +1,31 @@
 package: netplan.io
 
 essential:
-  - netplan.io_copyright
+  netplan.io_copyright:
 
 slices:
   core:
     essential:
-      - libc6_libs
-      - libglib2.0-0t64_libs
-      - libnetplan1_libs
-      - netplan.io_daemon
+      libc6_libs:
+      libglib2.0-0t64_libs:
+      libnetplan1_libs:
+      netplan.io_daemon:
     contents:
       /usr/sbin/netplan:
 
   daemon:
     essential:
-      - ethtool_bins
-      - ethtool_network-if
-      - iproute2_bins
-      - libc6_libs
-      - libglib2.0-0t64_libs
-      - libnetplan1_libs
-      - libsystemd0_libs
-      - netplan-generator_libs
-      - netplan.io_dbus-services
-      - netplan.io_pylib
-      - systemd_services
+      ethtool_bins:
+      ethtool_network-if:
+      iproute2_bins:
+      libc6_libs:
+      libglib2.0-0t64_libs:
+      libnetplan1_libs:
+      libsystemd0_libs:
+      netplan-generator_libs:
+      netplan.io_dbus-services:
+      netplan.io_pylib:
+      systemd_services:
     contents:
       /usr/libexec/netplan/netplan-dbus:
 
@@ -36,9 +36,9 @@ slices:
 
   pylib:
     essential:
-      - python3-netplan_libs
-      - python3-yaml_libs
-      - python3_standard
+      python3-netplan_libs:
+      python3-yaml_libs:
+      python3_standard:
     contents:
       /usr/share/netplan/netplan.script:
       /usr/share/netplan/netplan_cli/**:

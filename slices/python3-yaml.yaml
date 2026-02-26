@@ -1,14 +1,14 @@
 package: python3-yaml
 
 essential:
-  - python3-yaml_copyright
+  python3-yaml_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libyaml-0-2_libs
-      - python3_standard
+      libc6_libs:
+      libyaml-0-2_libs:
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/_yaml/**:
       /usr/lib/python3/dist-packages/pyyaml*.dist-info/**:

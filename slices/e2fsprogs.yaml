@@ -1,27 +1,27 @@
 package: e2fsprogs
 
 essential:
-  - e2fsprogs_copyright
+  e2fsprogs_copyright:
 
 slices:
   standard:
     essential:
-      - e2fsprogs_advanced
-      - e2fsprogs_attr
-      - e2fsprogs_debug
-      - e2fsprogs_fsck
-      - e2fsprogs_mkfs
-      - e2fsprogs_services
-      - e2fsprogs_tune
+      e2fsprogs_advanced:
+      e2fsprogs_attr:
+      e2fsprogs_debug:
+      e2fsprogs_fsck:
+      e2fsprogs_mkfs:
+      e2fsprogs_services:
+      e2fsprogs_tune:
 
   # Core filesystem checking and repair tools
   fsck:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libcom-err2_libs
-      - libext2fs2t64_libs
-      - libuuid1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libcom-err2_libs:
+      libext2fs2t64_libs:
+      libuuid1_libs:
     contents:
       /usr/sbin/e2fsck:
       /usr/sbin/fsck.ext2:
@@ -31,12 +31,12 @@ slices:
   # Filesystem creation tools
   mkfs:
     essential:
-      - e2fsprogs_config
-      - libblkid1_libs
-      - libc6_libs
-      - libcom-err2_libs
-      - libext2fs2t64_libs
-      - libuuid1_libs
+      e2fsprogs_config:
+      libblkid1_libs:
+      libc6_libs:
+      libcom-err2_libs:
+      libext2fs2t64_libs:
+      libuuid1_libs:
     contents:
       /usr/sbin/mke2fs:
       /usr/sbin/mkfs.ext2:
@@ -46,11 +46,11 @@ slices:
   # Filesystem tuning and maintenance
   tune:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libcom-err2_libs
-      - libext2fs2t64_libs
-      - libuuid1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libcom-err2_libs:
+      libext2fs2t64_libs:
+      libuuid1_libs:
     contents:
       /usr/sbin/e2label:
       /usr/sbin/resize2fs:
@@ -59,12 +59,12 @@ slices:
   # Debugging and diagnostic tools
   debug:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libcom-err2_libs
-      - libext2fs2t64_libs
-      - libss2_libs
-      - libuuid1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libcom-err2_libs:
+      libext2fs2t64_libs:
+      libss2_libs:
+      libuuid1_libs:
     contents:
       /usr/sbin/badblocks:
       /usr/sbin/debugfs:
@@ -76,8 +76,8 @@ slices:
   # File attribute tools
   attr:
     essential:
-      - libc6_libs
-      - libcom-err2_libs
+      libc6_libs:
+      libcom-err2_libs:
     contents:
       /usr/bin/chattr:
       /usr/bin/lsattr:
@@ -85,8 +85,8 @@ slices:
   # Advanced features
   advanced:
     essential:
-      - libc6_libs
-      - libext2fs2t64_libs
+      libc6_libs:
+      libext2fs2t64_libs:
     contents:
       /usr/sbin/e2undo:
       /usr/sbin/e4crypt:
@@ -97,9 +97,9 @@ slices:
   # Scrubbing/integrity checking
   scrub:
     essential:
-      - e2fsprogs_config
-      - e2fsprogs_fsck
-      - systemd_services
+      e2fsprogs_config:
+      e2fsprogs_fsck:
+      systemd_services:
     contents:
       /usr/libexec/e2fsprogs/e2scrub_all_cron:
       /usr/libexec/e2fsprogs/e2scrub_fail:
@@ -113,8 +113,8 @@ slices:
 
   services:
     essential:
-      - e2fsprogs_scrub
-      - logsave_bins
+      e2fsprogs_scrub:
+      logsave_bins:
     contents:
       /etc/cron.d/e2scrub_all:
       /usr/lib/systemd/system/e2scrub@.service:
