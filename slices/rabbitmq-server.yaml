@@ -21,8 +21,8 @@ slices:
       coreutils_bins:
       dash_bins:
       erlang-base_bins: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
-      erlang-inets_scripts: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
       erlang-inets_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-inets_scripts: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
       erlang-os-mon_bins: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
       grep_bins:
       libc-bin_locale:
