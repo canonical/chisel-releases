@@ -1,12 +1,12 @@
 package: libpcre2-8-0
 
 essential:
-  - libpcre2-8-0_copyright
+  libpcre2-8-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libpcre2-8.so.0*:
 

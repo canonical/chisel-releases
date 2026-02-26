@@ -1,7 +1,7 @@
 package: binutils-aarch64-linux-gnu
 
 essential:
-  - binutils-aarch64-linux-gnu_copyright
+  binutils-aarch64-linux-gnu_copyright:
 
 slices:
   # NOTE: You might want to create a symlink from /usr/bin/as to
@@ -9,10 +9,10 @@ slices:
   #       ln -s aarch64-linux-gnu-as "$rootfs/usr/bin/as"
   assembler:
     essential:
-      - libbinutils_libs
-      - libc6_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libbinutils_libs:
+      libc6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/aarch64-linux-gnu/bin/as:
         arch: [amd64, i386, ppc64el, s390x]
@@ -20,10 +20,10 @@ slices:
 
   linker:
     essential:
-      - libbinutils_libs
-      - libc6_libs
-      - libctf0_libs
-      - libjansson4_libs
+      libbinutils_libs:
+      libc6_libs:
+      libctf0_libs:
+      libjansson4_libs:
     contents:
       /usr/aarch64-linux-gnu/bin/ld:
         arch: [amd64, i386, ppc64el, s390x]
@@ -34,8 +34,8 @@ slices:
 
   archiver:
     essential:
-      - libbinutils_libs
-      - libc6_libs
+      libbinutils_libs:
+      libc6_libs:
     contents:
       /usr/aarch64-linux-gnu/bin/ar:
         arch: [amd64, i386, ppc64el, s390x]
@@ -45,42 +45,42 @@ slices:
   # There is no `binutils-aarch64-linux-gnu` deb for riscv64 and armhf
   cross-libs:
     essential:
-      - binutils-aarch64-linux-gnu_cross-libbfd
-      - binutils-aarch64-linux-gnu_cross-libctf
-      - binutils-aarch64-linux-gnu_cross-libctf-nobfd
-      - binutils-aarch64-linux-gnu_cross-libopcodes
+      binutils-aarch64-linux-gnu_cross-libbfd:
+      binutils-aarch64-linux-gnu_cross-libctf:
+      binutils-aarch64-linux-gnu_cross-libctf-nobfd:
+      binutils-aarch64-linux-gnu_cross-libopcodes:
 
   cross-libbfd:
     essential:
-      - libc6_libs
-      - libsframe3_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libsframe3_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libbfd-*-arm64.so:
         arch: [amd64, i386, ppc64el, s390x]
 
   cross-libctf:
     essential:
-      - binutils-aarch64-linux-gnu_cross-libbfd
-      - libc6_libs
-      - zlib1g_libs
+      binutils-aarch64-linux-gnu_cross-libbfd:
+      libc6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libctf-arm64.so*:
         arch: [amd64, i386, ppc64el, s390x]
 
   cross-libctf-nobfd:
     essential:
-      - libc6_libs
-      - zlib1g_libs
+      libc6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libctf-nobfd-arm64.so*:
         arch: [amd64, i386, ppc64el, s390x]
 
   cross-libopcodes:
     essential:
-      - binutils-aarch64-linux-gnu_cross-libbfd
-      - libc6_libs
+      binutils-aarch64-linux-gnu_cross-libbfd:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libopcodes-*-arm64.so:
         arch: [amd64, i386, ppc64el, s390x]
@@ -91,13 +91,13 @@ slices:
 
   bfd-plugins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/aarch64-linux-gnu/bfd-plugins/libdep.so:
 
   copyright:
     essential:
-      - libbinutils_copyright
+      libbinutils_copyright:
     contents:
       /usr/share/doc/binutils-aarch64-linux-gnu:
         arch: [arm64]

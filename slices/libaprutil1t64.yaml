@@ -1,18 +1,18 @@
 package: libaprutil1t64
 
 essential:
-  - libaprutil1t64_copyright
+  libaprutil1t64_copyright:
 
 slices:
   libs:
     essential:
-      - libapr1t64_libs
-      - libc6_libs
-      - libcrypt1_libs
-      - libdb5.3t64_libs
-      - libexpat1_libs
-      - libgdbm6t64_libs
-      - libssl3t64_libs
+      libapr1t64_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      libdb5.3t64_libs:
+      libexpat1_libs:
+      libgdbm6t64_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/apr-util-1/apr_crypto_openssl*.so:
       /usr/lib/*-linux-*/apr-util-1/apr_dbm_db*.so:

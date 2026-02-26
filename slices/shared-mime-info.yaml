@@ -1,16 +1,16 @@
 package: shared-mime-info
 
 essential:
-  - shared-mime-info_copyright
+  shared-mime-info_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libglib2.0-0t64_core
-      - libstdc++6_libs
-      - libxml2-16_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libglib2.0-0t64_core:
+      libstdc++6_libs:
+      libxml2-16_libs:
     contents:
       /usr/bin/update-mime-database:
 

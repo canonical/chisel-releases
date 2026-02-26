@@ -1,7 +1,7 @@
 package: fonts-tlwg-loma-otf
 
 essential:
-  - fonts-tlwg-loma-otf_copyright
+  fonts-tlwg-loma-otf_copyright:
 
 slices:
   fonts:

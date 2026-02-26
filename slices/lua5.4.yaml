@@ -1,13 +1,13 @@
 package: lua5.4
 
 essential:
-  - lua5.4_copyright
+  lua5.4_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libreadline8t64_libs
+      libc6_libs:
+      libreadline8t64_libs:
     contents:
       /usr/bin/lua:
         symlink: /usr/bin/lua5.4

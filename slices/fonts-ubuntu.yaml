@@ -1,15 +1,15 @@
 package: fonts-ubuntu
 
 essential:
-  - fonts-ubuntu_copyright
+  fonts-ubuntu_copyright:
 
 slices:
   all:
     essential:
-      - fonts-ubuntu_ubuntu
-      - fonts-ubuntu_ubuntu-mono
-      - fonts-ubuntu_ubuntu-sans
-      - fonts-ubuntu_ubuntu-sans-mono
+      fonts-ubuntu_ubuntu:
+      fonts-ubuntu_ubuntu-mono:
+      fonts-ubuntu_ubuntu-sans:
+      fonts-ubuntu_ubuntu-sans-mono:
 
   config:
     contents:

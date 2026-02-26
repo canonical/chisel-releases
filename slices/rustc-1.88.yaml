@@ -1,7 +1,7 @@
 package: rustc-1.88
 
 essential:
-  - rustc-1.88_copyright
+  rustc-1.88_copyright:
 
 slices:
   # NOTE: Rust compiler needs the target-specific linker to link the final
@@ -12,13 +12,13 @@ slices:
   #       ls -s gcc /usr/bin/cc
   rustc:
     essential:
-      - base-files_tmp
-      - gcc_gcc
-      - libc6-dev_core
-      - libc6-dev_libm
-      - libc6_libs
-      - libllvm20_libs
-      - libstd-rust-1.88-dev_libs
+      base-files_tmp:
+      gcc_gcc:
+      libc6-dev_core:
+      libc6-dev_libm:
+      libc6_libs:
+      libllvm20_libs:
+      libstd-rust-1.88-dev_libs:
     contents:
       /usr/bin/rustc-1.88:  # symlink to ../rust-1.88/bin/rustc
       /usr/lib/rust-1.88/bin/rustc:

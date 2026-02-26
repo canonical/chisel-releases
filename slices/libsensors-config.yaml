@@ -1,7 +1,7 @@
 package: libsensors-config
 
 essential:
-  - libsensors-config_copyright
+  libsensors-config_copyright:
 
 slices:
   config:

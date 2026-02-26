@@ -1,14 +1,14 @@
 package: libhwy1t64
 
 essential:
-  - libhwy1t64_copyright
+  libhwy1t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libhwy.so.1*:
       /usr/lib/*-linux-*/libhwy_contrib.so.1*:

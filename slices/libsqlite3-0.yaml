@@ -1,12 +1,12 @@
 package: libsqlite3-0
 
 essential:
-  - libsqlite3-0_copyright
+  libsqlite3-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libsqlite3.so.0*:
 

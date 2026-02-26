@@ -1,17 +1,17 @@
 package: base-files
 
 essential:
-  - base-files_copyright
+  base-files_copyright:
 
 slices:
   base:
     essential:
-      - base-files_bin
-      - base-files_etc
-      - base-files_home
-      - base-files_lib
-      - base-files_tmp
-      - base-files_var
+      base-files_bin:
+      base-files_etc:
+      base-files_home:
+      base-files_lib:
+      base-files_tmp:
+      base-files_var:
 
   etc:
     contents:
@@ -56,8 +56,8 @@ slices:
 
   release-info:
     essential:
-      - base-files_etc
-      - base-files_lib
+      base-files_etc:
+      base-files_lib:
     contents:
       /etc/debian_version:
       /etc/dpkg/origins/debian:
@@ -73,7 +73,7 @@ slices:
   # Dedicated slice for generating the Chisel manifest.
   chisel:
     essential:
-      - base-files_var
+      base-files_var:
     contents:
       /var/lib/chisel/**: {generate: manifest}
 

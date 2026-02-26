@@ -1,7 +1,7 @@
 package: x11-common
 
 essential:
-  - x11-common_copyright
+  x11-common_copyright:
 
 slices:
   resources:
@@ -10,7 +10,7 @@ slices:
 
   services:
     essential:
-      - lsb-base_bins
+      lsb-base_bins:
     contents:
       /etc/init.d/x11-common:
 

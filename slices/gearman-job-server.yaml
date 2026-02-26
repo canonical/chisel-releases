@@ -1,7 +1,7 @@
 package: gearman-job-server
 
 essential:
-  - gearman-job-server_copyright
+  gearman-job-server_copyright:
 
 slices:
   bins:
@@ -9,17 +9,17 @@ slices:
     # remove a user during package install/removal - however we don't
     # support this currently so adduser is not added here.
     essential:
-      - libboost-program-options1.88.0_libs
-      - libc6_libs
-      - libevent-2.1-7t64_libs
-      - libevent-pthreads-2.1-7t64_libs
-      - libgcc-s1_libs
-      - libhiredis1.1.0_libs
-      - libmemcached11t64_libs
-      - libmysqlclient24_libs
-      - libpq5_libs
-      - libsqlite3-0_libs
-      - libstdc++6_libs
+      libboost-program-options1.88.0_libs:
+      libc6_libs:
+      libevent-2.1-7t64_libs:
+      libevent-pthreads-2.1-7t64_libs:
+      libgcc-s1_libs:
+      libhiredis1.1.0_libs:
+      libmemcached11t64_libs:
+      libmysqlclient24_libs:
+      libpq5_libs:
+      libsqlite3-0_libs:
+      libstdc++6_libs:
     contents:
       /usr/sbin/gearmand:
 

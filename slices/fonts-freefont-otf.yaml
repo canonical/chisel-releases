@@ -1,7 +1,7 @@
 package: fonts-freefont-otf
 
 essential:
-  - fonts-freefont-otf_copyright
+  fonts-freefont-otf_copyright:
 
 slices:
   fonts:

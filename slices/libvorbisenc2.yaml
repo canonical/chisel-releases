@@ -1,13 +1,13 @@
 package: libvorbisenc2
 
 essential:
-  - libvorbisenc2_copyright
+  libvorbisenc2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libvorbis0a_libs
+      libc6_libs:
+      libvorbis0a_libs:
     contents:
       /usr/lib/*-linux-*/libvorbisenc.so.2*:
 

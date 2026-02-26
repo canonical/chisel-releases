@@ -1,23 +1,23 @@
 package: iptables
 
 essential:
-  - iptables_copyright
+  iptables_copyright:
 
 slices:
   bins:
     essential:
-      - iptables_libs
-      - iptables_links
-      - libc6_libs
-      - libip4tc2_libs
-      - libip6tc2_libs
-      - libmnl0_libs
-      - libnetfilter-conntrack3_libs
-      - libnfnetlink0_libs
-      - libnftnl11_libs
-      - libxtables12_libs
-      - netbase_default-hosts
-      - netbase_default-networks
+      iptables_libs:
+      iptables_links:
+      libc6_libs:
+      libip4tc2_libs:
+      libip6tc2_libs:
+      libmnl0_libs:
+      libnetfilter-conntrack3_libs:
+      libnfnetlink0_libs:
+      libnftnl11_libs:
+      libxtables12_libs:
+      netbase_default-hosts:
+      netbase_default-networks:
     contents:
       /usr/sbin/arptables-nft:
       /usr/sbin/arptables-nft-restore:

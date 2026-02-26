@@ -7,73 +7,73 @@
 package: libnss3
 
 essential:
-  - libnss3_copyright
+  libnss3_copyright:
 
 slices:
   # The libs slice contains all the libraries coming from this package.
   libs:
     essential:
-      - libnss3_ckbi
-      - libnss3_dbm
-      - libnss3_freebl
-      - libnss3_nss
-      - libnss3_smime
-      - libnss3_softokn
-      - libnss3_ssl
+      libnss3_ckbi:
+      libnss3_dbm:
+      libnss3_freebl:
+      libnss3_nss:
+      libnss3_smime:
+      libnss3_softokn:
+      libnss3_ssl:
 
   ckbi:
     essential:
-      - libc6_libs
-      - libnspr4_libs
+      libc6_libs:
+      libnspr4_libs:
     contents:
       /usr/lib/*-linux-*/libnssckbi.so:
 
   dbm:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libnss3_nss
+      libc6_libs:
+      libnspr4_libs:
+      libnss3_nss:
     contents:
       /usr/lib/*-linux-*/libnssdbm3.so:
 
   nss:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libsqlite3-0_libs
+      libc6_libs:
+      libnspr4_libs:
+      libsqlite3-0_libs:
     contents:
       /usr/lib/*-linux-*/libnss3.so:
       /usr/lib/*-linux-*/libnssutil3.so:
 
   freebl:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libfreebl3.so:
       /usr/lib/*-linux-*/libfreeblpriv3.so:
 
   softokn:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libnss3_nss
-      - libsqlite3-0_libs
+      libc6_libs:
+      libnspr4_libs:
+      libnss3_nss:
+      libsqlite3-0_libs:
     contents:
       /usr/lib/*-linux-*/libsoftokn3.so:
 
   smime:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libnss3_nss
+      libc6_libs:
+      libnspr4_libs:
+      libnss3_nss:
     contents:
       /usr/lib/*-linux-*/libsmime3.so:
 
   ssl:
     essential:
-      - libc6_libs
-      - libnspr4_libs
-      - libnss3_nss
+      libc6_libs:
+      libnspr4_libs:
+      libnss3_nss:
     contents:
       /usr/lib/*-linux-*/libssl3.so:
 

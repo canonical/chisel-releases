@@ -1,30 +1,30 @@
 package: libnode127
 
 essential:
-  - libnode127_copyright
+  libnode127_copyright:
 
 slices:
   libs:
     essential:
-      - libbrotli1_libs
-      - libc6_libs
-      - libcares2_libs
-      - libgcc-s1_libs
-      - libicu78_libs
-      - libllhttp9.3_libs
-      - libnghttp2-14_libs
-      - libsimdjson29_libs
-      - libsimdutf29_libs
-      - libsqlite3-0_libs
-      - libssl3t64_libs
-      - libstdc++6_libs
-      - libuv1t64_libs
-      - libzstd1_libs
-      - node-acorn_libs
-      - node-cjs-module-lexer_libs
-      - node-minimatch_libs
-      - node-undici_libs
-      - zlib1g_libs
+      libbrotli1_libs:
+      libc6_libs:
+      libcares2_libs:
+      libgcc-s1_libs:
+      libicu78_libs:
+      libllhttp9.3_libs:
+      libnghttp2-14_libs:
+      libsimdjson29_libs:
+      libsimdutf29_libs:
+      libsqlite3-0_libs:
+      libssl3t64_libs:
+      libstdc++6_libs:
+      libuv1t64_libs:
+      libzstd1_libs:
+      node-acorn_libs:
+      node-cjs-module-lexer_libs:
+      node-minimatch_libs:
+      node-undici_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libnode.so.127:
 

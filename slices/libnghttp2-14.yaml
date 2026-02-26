@@ -1,12 +1,12 @@
 package: libnghttp2-14
 
 essential:
-  - libnghttp2-14_copyright
+  libnghttp2-14_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libnghttp2.so.14*:
 

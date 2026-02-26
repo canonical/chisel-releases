@@ -1,14 +1,14 @@
 package: conmon
 
 essential:
-  - conmon_copyright
+  conmon_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libglib2.0-0t64_libs
-      - libsystemd0_libs
+      libc6_libs:
+      libglib2.0-0t64_libs:
+      libsystemd0_libs:
     contents:
       /usr/bin/conmon:
 

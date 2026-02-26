@@ -1,12 +1,12 @@
 package: libgsm1
 
 essential:
-  - libgsm1_copyright
+  libgsm1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libgsm.so.1*:
 

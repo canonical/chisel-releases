@@ -1,12 +1,12 @@
 package: logsave
 
 essential:
-  - logsave_copyright
+  logsave_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/sbin/logsave:
 

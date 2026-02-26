@@ -1,13 +1,13 @@
 package: libwebp7
 
 essential:
-  - libwebp7_copyright
+  libwebp7_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libsharpyuv0_libs
+      libc6_libs:
+      libsharpyuv0_libs:
     contents:
       /usr/lib/*-linux-*/libwebp.so.7*:
 

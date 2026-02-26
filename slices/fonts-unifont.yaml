@@ -1,7 +1,7 @@
 package: fonts-unifont
 
 essential:
-  - fonts-unifont_copyright
+  fonts-unifont_copyright:
 
 slices:
   fonts:

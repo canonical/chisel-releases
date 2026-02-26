@@ -1,7 +1,7 @@
 package: gnu-coreutils
 
 essential:
-  - gnu-coreutils_copyright
+  gnu-coreutils_copyright:
 
 # The gnu-coreutils package contains three standard data slices:
 #   - libs: contains all shared object files.
@@ -15,45 +15,45 @@ essential:
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/libexec/coreutils/libstdbuf.so:
 
   # The bins slice contains all of the binaries in the coreutils package.
   bins:
     essential:
-      - gnu-coreutils_basic-operations
-      - gnu-coreutils_changing-file-attributes
-      - gnu-coreutils_conditions
-      - gnu-coreutils_delaying
-      - gnu-coreutils_directory-listing
-      - gnu-coreutils_file-name-manipulation
-      - gnu-coreutils_file-space-usage
-      - gnu-coreutils_formatting-file-contents
-      - gnu-coreutils_modified-command-invocation
-      - gnu-coreutils_numeric-operations
-      - gnu-coreutils_operating-on-characters
-      - gnu-coreutils_operating-on-fields
-      - gnu-coreutils_operating-on-sorted-files
-      - gnu-coreutils_output-of-entire-files
-      - gnu-coreutils_output-of-parts-of-files
-      - gnu-coreutils_printing-text
-      - gnu-coreutils_redirection
-      - gnu-coreutils_selinux-context
-      - gnu-coreutils_special-file-types
-      - gnu-coreutils_summarizing-files
-      - gnu-coreutils_system-context
-      - gnu-coreutils_user-information
-      - gnu-coreutils_working-context
+      gnu-coreutils_basic-operations:
+      gnu-coreutils_changing-file-attributes:
+      gnu-coreutils_conditions:
+      gnu-coreutils_delaying:
+      gnu-coreutils_directory-listing:
+      gnu-coreutils_file-name-manipulation:
+      gnu-coreutils_file-space-usage:
+      gnu-coreutils_formatting-file-contents:
+      gnu-coreutils_modified-command-invocation:
+      gnu-coreutils_numeric-operations:
+      gnu-coreutils_operating-on-characters:
+      gnu-coreutils_operating-on-fields:
+      gnu-coreutils_operating-on-sorted-files:
+      gnu-coreutils_output-of-entire-files:
+      gnu-coreutils_output-of-parts-of-files:
+      gnu-coreutils_printing-text:
+      gnu-coreutils_redirection:
+      gnu-coreutils_selinux-context:
+      gnu-coreutils_special-file-types:
+      gnu-coreutils_summarizing-files:
+      gnu-coreutils_system-context:
+      gnu-coreutils_user-information:
+      gnu-coreutils_working-context:
 
   # Output of entire files -- These commands read and write entire files,
   # possibly transforming them in some way.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
-      - gnu-coreutils_cat
-      - gnu-coreutils_od-utility
-      - libc6_libs
+      gnu-coreutils_cat:
+      gnu-coreutils_od-utility:
+      libc6_libs:
     contents:
       /usr/bin/gnubase32:
       /usr/bin/gnubase64:
@@ -65,7 +65,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-contents.html
   formatting-file-contents:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnufmt:
       /usr/bin/gnufold:
@@ -75,10 +75,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
   output-of-parts-of-files:
     essential:
-      - gnu-coreutils_head
-      - gnu-coreutils_split
-      - gnu-coreutils_tail
-      - libc6_libs
+      gnu-coreutils_head:
+      gnu-coreutils_split:
+      gnu-coreutils_tail:
+      libc6_libs:
     contents:
       /usr/bin/gnucsplit:
 
@@ -87,8 +87,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Summarizing-files.html
   summarizing-files:
     essential:
-      - libc6_libs
-      - libssl3t64_libs
+      libc6_libs:
+      libssl3t64_libs:
     contents:
       /usr/bin/gnub2sum:
       /usr/bin/gnucksum:
@@ -106,9 +106,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-sorted-files.html
   operating-on-sorted-files:
     essential:
-      - gnu-coreutils_sort
-      - libc6_libs
-      - libssl3t64_libs
+      gnu-coreutils_sort:
+      libc6_libs:
+      libssl3t64_libs:
     contents:
       /usr/bin/gnucomm:
       /usr/bin/gnuptx:
@@ -120,9 +120,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
   operating-on-fields:
     essential:
-      - gnu-coreutils_cut
-      - gnu-coreutils_join
-      - libc6_libs
+      gnu-coreutils_cut:
+      gnu-coreutils_join:
+      libc6_libs:
     contents:
       /usr/bin/gnupaste:
 
@@ -130,8 +130,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
   operating-on-characters:
     essential:
-      - gnu-coreutils_tr-utility
-      - libc6_libs
+      gnu-coreutils_tr-utility:
+      libc6_libs:
     contents:
       /usr/bin/gnuexpand:
       /usr/bin/gnuunexpand:
@@ -141,11 +141,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
   directory-listing:
     essential:
-      - gnu-coreutils_dir
-      - gnu-coreutils_ls-utility
-      - libc6_libs
-      - libcap2_libs
-      - libselinux1_libs
+      gnu-coreutils_dir:
+      gnu-coreutils_ls-utility:
+      libc6_libs:
+      libcap2_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnudircolors:
       /usr/bin/gnuvdir:
@@ -155,14 +155,14 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
-      - gnu-coreutils_dd-utility
-      - gnu-coreutils_install
-      - gnu-coreutils_mv-utility
-      - gnu-coreutils_rm-utility
-      - libacl1_libs
-      - libattr1_libs
-      - libc6_libs
-      - libselinux1_libs
+      gnu-coreutils_dd-utility:
+      gnu-coreutils_install:
+      gnu-coreutils_mv-utility:
+      gnu-coreutils_rm-utility:
+      libacl1_libs:
+      libattr1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnucp:
       /usr/bin/gnushred:
@@ -173,14 +173,14 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
   special-file-types:
     essential:
-      - gnu-coreutils_link
-      - gnu-coreutils_ln-utility
-      - gnu-coreutils_mkdir
-      - gnu-coreutils_readlink
-      - gnu-coreutils_rmdir
-      - gnu-coreutils_unlink
-      - libc6_libs
-      - libselinux1_libs
+      gnu-coreutils_link:
+      gnu-coreutils_ln-utility:
+      gnu-coreutils_mkdir:
+      gnu-coreutils_readlink:
+      gnu-coreutils_rmdir:
+      gnu-coreutils_unlink:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnumkfifo:
       /usr/bin/gnumknod:
@@ -189,10 +189,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
-      - gnu-coreutils_chmod
-      - gnu-coreutils_chown
-      - gnu-coreutils_touch
-      - libc6_libs
+      gnu-coreutils_chmod:
+      gnu-coreutils_chown:
+      gnu-coreutils_touch:
+      libc6_libs:
     contents:
       /usr/bin/gnuchgrp:
 
@@ -202,9 +202,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-space-usage.html
   file-space-usage:
     essential:
-      - gnu-coreutils_stat
-      - libc6_libs
-      - libselinux1_libs
+      gnu-coreutils_stat:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnudf:
       /usr/bin/gnudu:
@@ -215,9 +215,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
   printing-text:
     essential:
-      - gnu-coreutils_echo
-      - gnu-coreutils_printf
-      - libc6_libs
+      gnu-coreutils_echo:
+      gnu-coreutils_printf:
+      libc6_libs:
     contents:
       /usr/bin/gnuyes:
 
@@ -227,10 +227,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Conditions.html
   conditions:
     essential:
-      - gnu-coreutils_expr
-      - gnu-coreutils_test
-      - libc6_libs
-      - libgmp10_libs
+      gnu-coreutils_expr:
+      gnu-coreutils_test:
+      libc6_libs:
+      libgmp10_libs:
     contents:
       /usr/bin/gnufalse:
       /usr/bin/gnutrue:
@@ -239,7 +239,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Redirection.html
   redirection:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnutee:
 
@@ -248,10 +248,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:
-      - gnu-coreutils_basename
-      - gnu-coreutils_dirname
-      - gnu-coreutils_mktemp
-      - libc6_libs
+      gnu-coreutils_basename:
+      gnu-coreutils_dirname:
+      gnu-coreutils_mktemp:
+      libc6_libs:
     contents:
       /usr/bin/gnupathchk:
       /usr/bin/gnurealpath:
@@ -262,7 +262,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Working-context.html
   working-context:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuprintenv:
       /usr/bin/gnupwd:
@@ -274,10 +274,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
   user-information:
     essential:
-      - gnu-coreutils_id-utility
-      - libc6_libs
-      - libselinux1_libs
-      - libsystemd0_libs
+      gnu-coreutils_id-utility:
+      libc6_libs:
+      libselinux1_libs:
+      libsystemd0_libs:
     contents:
       /usr/bin/gnugroups:
       /usr/bin/gnulogname:
@@ -291,8 +291,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
   system-context:
     essential:
-      - gnu-coreutils_date
-      - libc6_libs
+      gnu-coreutils_date:
+      libc6_libs:
     contents:
       /usr/bin/gnuarch:
       /usr/bin/gnuhostid:
@@ -304,8 +304,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/SELinux-context.html
   selinux-context:
     essential:
-      - libc6_libs
-      - libselinux1_libs
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnuchcon:
       /usr/bin/gnuruncon:
@@ -316,9 +316,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Modified-command-invocation.html
   modified-command-invocation:
     essential:
-      - gnu-coreutils_libs
-      - gnu-coreutils_timeout
-      - libc6_libs
+      gnu-coreutils_libs:
+      gnu-coreutils_timeout:
+      libc6_libs:
     contents:
       /usr/bin/gnuenv:
       /usr/bin/gnunice:
@@ -330,7 +330,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnusleep:
 
@@ -338,8 +338,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
   numeric-operations:
     essential:
-      - libc6_libs
-      - libgmp10_libs
+      libc6_libs:
+      libgmp10_libs:
     contents:
       /usr/bin/gnufactor:
       /usr/bin/gnunumfmt:
@@ -349,241 +349,241 @@ slices:
 
   env:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuenv:
 
   expr:
     essential:
-      - libc6_libs
-      - libgmp10_libs
+      libc6_libs:
+      libgmp10_libs:
     contents:
       /usr/bin/gnuexpr:
 
   mkdir:
     essential:
-      - libc6_libs
-      - libselinux1_libs
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnumkdir:
 
   echo:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuecho:
 
   # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
   ln-utility:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuln:
 
   rm-utility:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnurm:
 
   readlink:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnureadlink:
 
   sort:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnusort:
 
   dirname:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnudirname:
 
   touch:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnutouch:
 
   printf:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuprintf:
 
   basename:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnubasename:
 
   chmod:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuchmod:
 
   chown:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuchown:
 
   cut:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnucut:
 
   date:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnudate:
 
   dd-utility:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnudd:
 
   dir:
     essential:
-      - libc6_libs
-      - libcap2_libs
-      - libselinux1_libs
+      libc6_libs:
+      libcap2_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnudir:
 
   cat:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnucat:
 
   ls-utility:
     essential:
-      - libc6_libs
-      - libcap2_libs
-      - libselinux1_libs
+      libc6_libs:
+      libcap2_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnuls:
 
   head:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuhead:
 
   install:
     essential:
-      - libacl1_libs
-      - libattr1_libs
-      - libc6_libs
-      - libselinux1_libs
+      libacl1_libs:
+      libattr1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnuinstall:
 
   id-utility:
     essential:
-      - libc6_libs
-      - libselinux1_libs
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnuid:
 
   join:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnujoin:
 
   link:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnulink:
 
   mktemp:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnumktemp:
 
   mv-utility:
     essential:
-      - libacl1_libs
-      - libattr1_libs
-      - libc6_libs
-      - libselinux1_libs
+      libacl1_libs:
+      libattr1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnumv:
 
   od-utility:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuod:
 
   rmdir:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnurmdir:
 
   stat:
     essential:
-      - libc6_libs
-      - libselinux1_libs
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnustat:
 
   split:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnusplit:
 
   tail:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnutail:
 
   test:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnu[:
       /usr/bin/gnutest:
 
   timeout:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnutimeout:
 
   tr-utility:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnutr:
 
   unlink:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gnuunlink:
 
   wc-utility:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libselinux1_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/gnuwc:
 

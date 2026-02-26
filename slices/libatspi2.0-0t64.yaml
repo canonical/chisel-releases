@@ -1,16 +1,16 @@
 package: libatspi2.0-0t64
 
 essential:
-  - libatspi2.0-0t64_copyright
+  libatspi2.0-0t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdbus-1-3_libs
-      - libglib2.0-0t64_core
-      - libx11-6_libs
-      - libxi6_libs
+      libc6_libs:
+      libdbus-1-3_libs:
+      libglib2.0-0t64_core:
+      libx11-6_libs:
+      libxi6_libs:
     contents:
       /usr/lib/*-linux-*/libatspi.so.0*:
 

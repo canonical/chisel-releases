@@ -1,22 +1,22 @@
 package: libbinutils
 
 essential:
-  - libbinutils_copyright
+  libbinutils_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libsframe3_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libsframe3_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libbfd-*-system.so:
       /usr/lib/*-linux-*/libopcodes-*-system.so:
 
   copyright:
     essential:
-      - binutils-common_copyright
+      binutils-common_copyright:
     contents:
       # Symlink to binutils-common
       /usr/share/doc/libbinutils:

@@ -2,17 +2,17 @@
 package: librtmp1
 
 essential:
-  - librtmp1_copyright
+  librtmp1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgmp10_libs
-      - libgnutls30t64_libs
-      - libhogweed6t64_libs
-      - libnettle8t64_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgmp10_libs:
+      libgnutls30t64_libs:
+      libhogweed6t64_libs:
+      libnettle8t64_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/librtmp.so.1:
 

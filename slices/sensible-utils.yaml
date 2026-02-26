@@ -1,7 +1,7 @@
 package: sensible-utils
 
 essential:
-  - sensible-utils_copyright
+  sensible-utils_copyright:
 
 slices:
   bins:

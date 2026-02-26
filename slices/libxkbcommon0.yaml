@@ -1,13 +1,13 @@
 package: libxkbcommon0
 
 essential:
-  - libxkbcommon0_copyright
+  libxkbcommon0_copyright:
 
 slices:
   libs:
     essential:
       # NOTE: libxkbcommon0 deb also depends on xkb-data
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libxkbcommon.so.0*:
 

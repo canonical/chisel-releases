@@ -1,12 +1,12 @@
 package: node-undici
 
 essential:
-  - node-undici_copyright
+  node-undici_copyright:
 
 slices:
   libs:
     essential:
-      - node-llhttp_libs
+      node-llhttp_libs:
     contents:
       /usr/share/nodejs/undici/index-fetch.js:
       /usr/share/nodejs/undici/index.d.ts:

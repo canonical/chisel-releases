@@ -1,7 +1,7 @@
 package: publicsuffix
 
 essential:
-  - publicsuffix_copyright
+  publicsuffix_copyright:
 
 slices:
   data:

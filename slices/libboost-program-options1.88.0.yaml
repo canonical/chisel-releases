@@ -1,14 +1,14 @@
 package: libboost-program-options1.88.0
 
 essential:
-  - libboost-program-options1.88.0_copyright
+  libboost-program-options1.88.0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libboost_program_options.so.1.88.0:
 

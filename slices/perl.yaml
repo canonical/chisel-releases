@@ -1,22 +1,22 @@
 package: perl
 
 essential:
-  - perl_copyright
+  perl_copyright:
 
 slices:
   bins:
     essential:
-      - perl_encodings
-      - perl_misc
-      - perl_pod
-      - perl_ptar
-      - perl_utils
-      - perl_zip
+      perl_encodings:
+      perl_misc:
+      perl_pod:
+      perl_ptar:
+      perl_utils:
+      perl_zip:
 
   encodings:
     essential:
-      - libperl5.40_standard
-      - perl-base_bins
+      libperl5.40_standard:
+      perl-base_bins:
     contents:
       /usr/bin/enc2xs:
       /usr/bin/encguess:
@@ -25,8 +25,8 @@ slices:
 
   ptar:
     essential:
-      - libperl5.40_standard
-      - perl-base_bins
+      libperl5.40_standard:
+      perl-base_bins:
     contents:
       /usr/bin/ptar:
       /usr/bin/ptardiff:
@@ -34,8 +34,8 @@ slices:
 
   pod:
     essential:
-      - libperl5.40_standard
-      - perl-base_bins
+      libperl5.40_standard:
+      perl-base_bins:
     contents:
       /usr/bin/pod2html:
       /usr/bin/pod2man:
@@ -45,16 +45,16 @@ slices:
 
   zip:
     essential:
-      - libperl5.40_standard
-      - perl-base_bins
+      libperl5.40_standard:
+      perl-base_bins:
     contents:
       /usr/bin/streamzip:
       /usr/bin/zipdetails:
 
   utils:
     essential:
-      - libperl5.40_standard
-      - perl-base_bins
+      libperl5.40_standard:
+      perl-base_bins:
     contents:
       /usr/bin/h2ph:
       /usr/bin/h2xs:
@@ -70,9 +70,9 @@ slices:
 
   misc:
     essential:
-      - libperl5.40_standard
-      - perl-base_bins
-      - perl_config
+      libperl5.40_standard:
+      perl-base_bins:
+      perl_config:
     contents:
       /usr/bin/corelist:
       /usr/bin/cpan:

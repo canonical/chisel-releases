@@ -1,19 +1,19 @@
 package: libzmq5
 
 essential:
-  - libzmq5_copyright
+  libzmq5_copyright:
 
 slices:
   libs:
     essential:
-      - libbsd0_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libgssapi-krb5-2_libs
-      - libnorm1t64_libs
-      - libpgm-5.3-0t64_libs
-      - libsodium23_libs
-      - libstdc++6_libs
+      libbsd0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libgssapi-krb5-2_libs:
+      libnorm1t64_libs:
+      libpgm-5.3-0t64_libs:
+      libsodium23_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libzmq.so.5*:
 

@@ -1,12 +1,12 @@
 package: libcrypt-dev
 
 essential:
-  - libcrypt-dev_copyright
+  libcrypt-dev_copyright:
 
 slices:
   libs:
     essential:
-      - libcrypt1_libs
+      libcrypt1_libs:
     contents:
       /usr/lib/*-linux-*/libcrypt.a:
       # Symlink to .so in libcrypt1

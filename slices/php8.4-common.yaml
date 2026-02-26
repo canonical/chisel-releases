@@ -1,15 +1,15 @@
 package: php8.4-common
 
 essential:
-  - php8.4-common_copyright
+  php8.4-common_copyright:
 
 slices:
   module-libs:
     essential:
-      - libc6_libs
-      - libffi8_libs
-      - libssl3t64_libs
-      - php8.4-common_module-config
+      libc6_libs:
+      libffi8_libs:
+      libssl3t64_libs:
+      php8.4-common_module-config:
     contents:
       /usr/lib/php/*/calendar.so:
       /usr/lib/php/*/ctype.so:

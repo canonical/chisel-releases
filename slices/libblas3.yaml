@@ -1,13 +1,13 @@
 package: libblas3
 
 essential:
-  - libblas3_copyright
+  libblas3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
+      libc6_libs:
+      libgcc-s1_libs:
     contents:
       /usr/lib/*-linux-*/blas/libblas.so.3*:
 

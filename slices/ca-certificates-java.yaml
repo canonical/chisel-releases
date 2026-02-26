@@ -1,16 +1,16 @@
 package: ca-certificates-java
 
 essential:
-  - ca-certificates-java_copyright
+  ca-certificates-java_copyright:
 
 slices:
   jars:
     essential:
-      - ca-certificates-java_data-with-certs
-      - ca-certificates_scripts
+      ca-certificates-java_data-with-certs:
+      ca-certificates_scripts:
       # chisel tool does not allow per-architecture packages
       # openjdk-8 is not published for RISCV in the archive
-      # - openjdk-8-jre-headless_security
+      # openjdk-8-jre-headless_security:
     contents:
       # In order to generate Java keystore in a chiselled chroot
       # execute following commands, assuming that 'rootfs' is the
@@ -30,7 +30,7 @@ slices:
 
   data-with-certs:
     essential:
-      - ca-certificates_data-with-certs
+      ca-certificates_data-with-certs:
     contents:
       /etc/ssl/certs/java/:
 

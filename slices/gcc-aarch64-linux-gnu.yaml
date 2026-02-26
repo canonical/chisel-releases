@@ -1,17 +1,17 @@
 package: gcc-aarch64-linux-gnu
 
 essential:
-  - gcc-aarch64-linux-gnu_copyright
+  gcc-aarch64-linux-gnu_copyright:
 
 slices:
   gcc:
     essential:
-      - gcc-15-aarch64-linux-gnu_gcc-15
+      gcc-15-aarch64-linux-gnu_gcc-15:
     contents:
       /usr/bin/aarch64-linux-gnu-gcc:  # Symlink to aarch64-linux-gnu-gcc-15
 
   copyright:
     essential:
-      - cpp-aarch64-linux-gnu_copyright
+      cpp-aarch64-linux-gnu_copyright:
     contents:
       /usr/share/doc/gcc-aarch64-linux-gnu:  # Symlink to cpp-aarch64-linux-gnu

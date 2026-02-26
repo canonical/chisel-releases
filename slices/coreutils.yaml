@@ -3,259 +3,259 @@
 package: coreutils
 
 essential:
-  - coreutils_copyright
+  coreutils_copyright:
 
 # From 25.10 onward, coreutils ships can either deliver coreutils-from-gnu
 # or coreutils-from-uutils. coreutils-from-gnu is the default in 25.10.
 slices:
   libs:
     essential:
-      - coreutils-from-gnu_libs
+      coreutils-from-gnu_libs:
 
   bins:
     essential:
-      - coreutils-from-gnu_bins
+      coreutils-from-gnu_bins:
 
   output-of-entire-files:
     essential:
-      - coreutils-from-gnu_output-of-entire-files
+      coreutils-from-gnu_output-of-entire-files:
 
   formatting-file-contents:
     essential:
-      - coreutils-from-gnu_formatting-file-contents
+      coreutils-from-gnu_formatting-file-contents:
 
   output-of-parts-of-files:
     essential:
-      - coreutils-from-gnu_output-of-parts-of-files
+      coreutils-from-gnu_output-of-parts-of-files:
 
   summarizing-files:
     essential:
-      - coreutils-from-gnu_summarizing-files
+      coreutils-from-gnu_summarizing-files:
 
   operating-on-sorted-files:
     essential:
-      - coreutils-from-gnu_operating-on-sorted-files
+      coreutils-from-gnu_operating-on-sorted-files:
 
   operating-on-fields:
     essential:
-      - coreutils-from-gnu_operating-on-fields
+      coreutils-from-gnu_operating-on-fields:
 
   operating-on-characters:
     essential:
-      - coreutils-from-gnu_operating-on-characters
+      coreutils-from-gnu_operating-on-characters:
 
   directory-listing:
     essential:
-      - coreutils-from-gnu_directory-listing
+      coreutils-from-gnu_directory-listing:
 
   basic-operations:
     essential:
-      - coreutils-from-gnu_basic-operations
+      coreutils-from-gnu_basic-operations:
 
   special-file-types:
     essential:
-      - coreutils-from-gnu_special-file-types
+      coreutils-from-gnu_special-file-types:
 
   changing-file-attributes:
     essential:
-      - coreutils-from-gnu_changing-file-attributes
+      coreutils-from-gnu_changing-file-attributes:
 
   file-space-usage:
     essential:
-      - coreutils-from-gnu_file-space-usage
+      coreutils-from-gnu_file-space-usage:
 
   printing-text:
     essential:
-      - coreutils-from-gnu_printing-text
+      coreutils-from-gnu_printing-text:
 
   conditions:
     essential:
-      - coreutils-from-gnu_conditions
+      coreutils-from-gnu_conditions:
 
   redirection:
     essential:
-      - coreutils-from-gnu_redirection
+      coreutils-from-gnu_redirection:
 
   file-name-manipulation:
     essential:
-      - coreutils-from-gnu_file-name-manipulation
+      coreutils-from-gnu_file-name-manipulation:
 
   working-context:
     essential:
-      - coreutils-from-gnu_working-context
+      coreutils-from-gnu_working-context:
 
   user-information:
     essential:
-      - coreutils-from-gnu_user-information
+      coreutils-from-gnu_user-information:
 
   system-context:
     essential:
-      - coreutils-from-gnu_system-context
+      coreutils-from-gnu_system-context:
 
   selinux-context:
     essential:
-      - coreutils-from-gnu_selinux-context
+      coreutils-from-gnu_selinux-context:
 
   modified-command-invocation:
     essential:
-      - coreutils-from-gnu_modified-command-invocation
+      coreutils-from-gnu_modified-command-invocation:
 
   delaying:
     essential:
-      - coreutils-from-gnu_delaying
+      coreutils-from-gnu_delaying:
 
   numeric-operations:
     essential:
-      - coreutils-from-gnu_numeric-operations
+      coreutils-from-gnu_numeric-operations:
 
   # Single-binary slices
   env:
     essential:
-      - coreutils-from-gnu_env
+      coreutils-from-gnu_env:
 
   expr:
     essential:
-      - coreutils-from-gnu_expr
+      coreutils-from-gnu_expr:
 
   mkdir:
     essential:
-      - coreutils-from-gnu_mkdir
+      coreutils-from-gnu_mkdir:
 
   echo:
     essential:
-      - coreutils-from-gnu_echo
+      coreutils-from-gnu_echo:
 
   ln-utility:
     essential:
-      - coreutils-from-gnu_ln-utility
+      coreutils-from-gnu_ln-utility:
 
   rm-utility:
     essential:
-      - coreutils-from-gnu_rm-utility
+      coreutils-from-gnu_rm-utility:
 
   readlink:
     essential:
-      - coreutils-from-gnu_readlink
+      coreutils-from-gnu_readlink:
 
   sort:
     essential:
-      - coreutils-from-gnu_sort
+      coreutils-from-gnu_sort:
 
   dirname:
     essential:
-      - coreutils-from-gnu_dirname
+      coreutils-from-gnu_dirname:
 
   touch:
     essential:
-      - coreutils-from-gnu_touch
+      coreutils-from-gnu_touch:
 
   printf:
     essential:
-      - coreutils-from-gnu_printf
+      coreutils-from-gnu_printf:
 
   basename:
     essential:
-      - coreutils-from-gnu_basename
+      coreutils-from-gnu_basename:
 
   chmod:
     essential:
-      - coreutils-from-gnu_chmod
+      coreutils-from-gnu_chmod:
 
   chown:
     essential:
-      - coreutils-from-gnu_chown
+      coreutils-from-gnu_chown:
 
   cut:
     essential:
-      - coreutils-from-gnu_cut
+      coreutils-from-gnu_cut:
 
   date:
     essential:
-      - coreutils-from-gnu_date
+      coreutils-from-gnu_date:
 
   dd-utility:
     essential:
-      - coreutils-from-gnu_dd-utility
+      coreutils-from-gnu_dd-utility:
 
   dir:
     essential:
-      - coreutils-from-gnu_dir
+      coreutils-from-gnu_dir:
 
   head:
     essential:
-      - coreutils-from-gnu_head
+      coreutils-from-gnu_head:
 
   install:
     essential:
-      - coreutils-from-gnu_install
+      coreutils-from-gnu_install:
 
   id-utility:
     essential:
-      - coreutils-from-gnu_id-utility
+      coreutils-from-gnu_id-utility:
 
   join:
     essential:
-      - coreutils-from-gnu_join
+      coreutils-from-gnu_join:
 
   link:
     essential:
-      - coreutils-from-gnu_link
+      coreutils-from-gnu_link:
 
   mktemp:
     essential:
-      - coreutils-from-gnu_mktemp
+      coreutils-from-gnu_mktemp:
 
   mv-utility:
     essential:
-      - coreutils-from-gnu_mv-utility
+      coreutils-from-gnu_mv-utility:
 
   od-utility:
     essential:
-      - coreutils-from-gnu_od-utility
+      coreutils-from-gnu_od-utility:
 
   rmdir:
     essential:
-      - coreutils-from-gnu_rmdir
+      coreutils-from-gnu_rmdir:
 
   stat:
     essential:
-      - coreutils-from-gnu_stat
+      coreutils-from-gnu_stat:
 
   split:
     essential:
-      - coreutils-from-gnu_split
+      coreutils-from-gnu_split:
 
   tail:
     essential:
-      - coreutils-from-gnu_tail
+      coreutils-from-gnu_tail:
 
   test:
     essential:
-      - coreutils-from-gnu_test
+      coreutils-from-gnu_test:
 
   timeout:
     essential:
-      - coreutils-from-gnu_timeout
+      coreutils-from-gnu_timeout:
 
   tr-utility:
     essential:
-      - coreutils-from-gnu_tr-utility
+      coreutils-from-gnu_tr-utility:
 
   unlink:
     essential:
-      - coreutils-from-gnu_unlink
+      coreutils-from-gnu_unlink:
 
   cat:
     essential:
-      - coreutils-from-gnu_cat
+      coreutils-from-gnu_cat:
 
   ls-utility:
     essential:
-      - coreutils-from-gnu_ls-utility
+      coreutils-from-gnu_ls-utility:
 
   wc-utility:
     essential:
-      - coreutils-from-gnu_wc-utility
+      coreutils-from-gnu_wc-utility:
 
   copyright:
     contents:

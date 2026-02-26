@@ -1,7 +1,7 @@
 package: fonts-texgyre
 
 essential:
-  - fonts-texgyre_copyright
+  fonts-texgyre_copyright:
 
 slices:
   fonts:

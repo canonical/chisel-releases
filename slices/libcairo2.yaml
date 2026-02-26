@@ -1,23 +1,23 @@
 package: libcairo2
 
 essential:
-  - libcairo2_copyright
+  libcairo2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libpixman-1-0_libs
-      - libpng16-16t64_libs
-      - libx11-6_libs
-      - libxcb-render0_libs
-      - libxcb-shm0_libs
-      - libxcb1_libs
-      - libxext6_libs
-      - libxrender1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libpixman-1-0_libs:
+      libpng16-16t64_libs:
+      libx11-6_libs:
+      libxcb-render0_libs:
+      libxcb-shm0_libs:
+      libxcb1_libs:
+      libxext6_libs:
+      libxrender1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libcairo.so.2*:
 

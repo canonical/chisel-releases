@@ -1,49 +1,49 @@
 package: coreutils-from-gnu
 
 essential:
-  - coreutils-from-gnu_copyright
+  coreutils-from-gnu_copyright:
 
 # This pkg creates the usual coreutils paths as symlinks
 # to the gnu-coreutils
 slices:
   libs:
     essential:
-      - gnu-coreutils_libs
+      gnu-coreutils_libs:
 
   bins:
     essential:
-      - coreutils-from-gnu_basic-operations
-      - coreutils-from-gnu_changing-file-attributes
-      - coreutils-from-gnu_conditions
-      - coreutils-from-gnu_delaying
-      - coreutils-from-gnu_directory-listing
-      - coreutils-from-gnu_file-name-manipulation
-      - coreutils-from-gnu_file-space-usage
-      - coreutils-from-gnu_formatting-file-contents
-      - coreutils-from-gnu_modified-command-invocation
-      - coreutils-from-gnu_numeric-operations
-      - coreutils-from-gnu_operating-on-characters
-      - coreutils-from-gnu_operating-on-fields
-      - coreutils-from-gnu_operating-on-sorted-files
-      - coreutils-from-gnu_output-of-entire-files
-      - coreutils-from-gnu_output-of-parts-of-files
-      - coreutils-from-gnu_printing-text
-      - coreutils-from-gnu_redirection
-      - coreutils-from-gnu_selinux-context
-      - coreutils-from-gnu_special-file-types
-      - coreutils-from-gnu_summarizing-files
-      - coreutils-from-gnu_system-context
-      - coreutils-from-gnu_user-information
-      - coreutils-from-gnu_working-context
+      coreutils-from-gnu_basic-operations:
+      coreutils-from-gnu_changing-file-attributes:
+      coreutils-from-gnu_conditions:
+      coreutils-from-gnu_delaying:
+      coreutils-from-gnu_directory-listing:
+      coreutils-from-gnu_file-name-manipulation:
+      coreutils-from-gnu_file-space-usage:
+      coreutils-from-gnu_formatting-file-contents:
+      coreutils-from-gnu_modified-command-invocation:
+      coreutils-from-gnu_numeric-operations:
+      coreutils-from-gnu_operating-on-characters:
+      coreutils-from-gnu_operating-on-fields:
+      coreutils-from-gnu_operating-on-sorted-files:
+      coreutils-from-gnu_output-of-entire-files:
+      coreutils-from-gnu_output-of-parts-of-files:
+      coreutils-from-gnu_printing-text:
+      coreutils-from-gnu_redirection:
+      coreutils-from-gnu_selinux-context:
+      coreutils-from-gnu_special-file-types:
+      coreutils-from-gnu_summarizing-files:
+      coreutils-from-gnu_system-context:
+      coreutils-from-gnu_user-information:
+      coreutils-from-gnu_working-context:
 
   # Output of entire files -- These commands read and write entire files,
   # possibly transforming them in some way.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-entire-files.html
   output-of-entire-files:
     essential:
-      - coreutils-from-gnu_cat
-      - coreutils-from-gnu_od-utility
-      - gnu-coreutils_output-of-entire-files
+      coreutils-from-gnu_cat:
+      coreutils-from-gnu_od-utility:
+      gnu-coreutils_output-of-entire-files:
     contents:
       /usr/bin/base32:
       /usr/bin/base64:
@@ -55,7 +55,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-contents.html
   formatting-file-contents:
     essential:
-      - gnu-coreutils_formatting-file-contents
+      gnu-coreutils_formatting-file-contents:
     contents:
       /usr/bin/fmt:
       /usr/bin/fold:
@@ -65,10 +65,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
   output-of-parts-of-files:
     essential:
-      - coreutils-from-gnu_head
-      - coreutils-from-gnu_split
-      - coreutils-from-gnu_tail
-      - gnu-coreutils_output-of-parts-of-files
+      coreutils-from-gnu_head:
+      coreutils-from-gnu_split:
+      coreutils-from-gnu_tail:
+      gnu-coreutils_output-of-parts-of-files:
     contents:
       /usr/bin/csplit:
 
@@ -77,8 +77,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Summarizing-files.html
   summarizing-files:
     essential:
-      - coreutils-from-gnu_wc-utility
-      - gnu-coreutils_summarizing-files
+      coreutils-from-gnu_wc-utility:
+      gnu-coreutils_summarizing-files:
     contents:
       /usr/bin/b2sum:
       /usr/bin/cksum:
@@ -95,8 +95,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-sorted-files.html
   operating-on-sorted-files:
     essential:
-      - coreutils-from-gnu_sort
-      - gnu-coreutils_operating-on-sorted-files
+      coreutils-from-gnu_sort:
+      gnu-coreutils_operating-on-sorted-files:
     contents:
       /usr/bin/comm:
       /usr/bin/ptx:
@@ -108,9 +108,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
   operating-on-fields:
     essential:
-      - coreutils-from-gnu_cut
-      - coreutils-from-gnu_join
-      - gnu-coreutils_operating-on-fields
+      coreutils-from-gnu_cut:
+      coreutils-from-gnu_join:
+      gnu-coreutils_operating-on-fields:
     contents:
       /usr/bin/paste:
 
@@ -118,8 +118,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
   operating-on-characters:
     essential:
-      - coreutils-from-gnu_tr-utility
-      - gnu-coreutils_operating-on-characters
+      coreutils-from-gnu_tr-utility:
+      gnu-coreutils_operating-on-characters:
     contents:
       /usr/bin/expand:
       /usr/bin/unexpand:
@@ -129,9 +129,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Directory-listing.html
   directory-listing:
     essential:
-      - coreutils-from-gnu_dir
-      - coreutils-from-gnu_ls-utility
-      - gnu-coreutils_directory-listing
+      coreutils-from-gnu_dir:
+      coreutils-from-gnu_ls-utility:
+      gnu-coreutils_directory-listing:
     contents:
       /usr/bin/dircolors:
       /usr/bin/vdir:
@@ -141,11 +141,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
-      - coreutils-from-gnu_dd-utility
-      - coreutils-from-gnu_install
-      - coreutils-from-gnu_mv-utility
-      - coreutils-from-gnu_rm-utility
-      - gnu-coreutils_basic-operations
+      coreutils-from-gnu_dd-utility:
+      coreutils-from-gnu_install:
+      coreutils-from-gnu_mv-utility:
+      coreutils-from-gnu_rm-utility:
+      gnu-coreutils_basic-operations:
     contents:
       /usr/bin/cp:
       /usr/bin/shred:
@@ -156,13 +156,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Special-file-types.html
   special-file-types:
     essential:
-      - coreutils-from-gnu_link
-      - coreutils-from-gnu_ln-utility
-      - coreutils-from-gnu_mkdir
-      - coreutils-from-gnu_readlink
-      - coreutils-from-gnu_rmdir
-      - coreutils-from-gnu_unlink
-      - gnu-coreutils_special-file-types
+      coreutils-from-gnu_link:
+      coreutils-from-gnu_ln-utility:
+      coreutils-from-gnu_mkdir:
+      coreutils-from-gnu_readlink:
+      coreutils-from-gnu_rmdir:
+      coreutils-from-gnu_unlink:
+      gnu-coreutils_special-file-types:
     contents:
       /usr/bin/mkfifo:
       /usr/bin/mknod:
@@ -171,10 +171,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
-      - coreutils-from-gnu_chmod
-      - coreutils-from-gnu_chown
-      - coreutils-from-gnu_touch
-      - gnu-coreutils_changing-file-attributes
+      coreutils-from-gnu_chmod:
+      coreutils-from-gnu_chown:
+      coreutils-from-gnu_touch:
+      gnu-coreutils_changing-file-attributes:
     contents:
       /usr/bin/chgrp:
 
@@ -184,8 +184,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-space-usage.html
   file-space-usage:
     essential:
-      - coreutils-from-gnu_stat
-      - gnu-coreutils_file-space-usage
+      coreutils-from-gnu_stat:
+      gnu-coreutils_file-space-usage:
     contents:
       /usr/bin/df:
       /usr/bin/du:
@@ -196,9 +196,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
   printing-text:
     essential:
-      - coreutils-from-gnu_echo
-      - coreutils-from-gnu_printf
-      - gnu-coreutils_printing-text
+      coreutils-from-gnu_echo:
+      coreutils-from-gnu_printf:
+      gnu-coreutils_printing-text:
     contents:
       /usr/bin/yes:
 
@@ -208,9 +208,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Conditions.html
   conditions:
     essential:
-      - coreutils-from-gnu_expr
-      - coreutils-from-gnu_test
-      - gnu-coreutils_conditions
+      coreutils-from-gnu_expr:
+      coreutils-from-gnu_test:
+      gnu-coreutils_conditions:
     contents:
       /usr/bin/false:
       /usr/bin/true:
@@ -219,7 +219,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Redirection.html
   redirection:
     essential:
-      - gnu-coreutils_redirection
+      gnu-coreutils_redirection:
     contents:
       /usr/bin/tee:
 
@@ -228,10 +228,10 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/File-name-manipulation.html
   file-name-manipulation:
     essential:
-      - coreutils-from-gnu_basename
-      - coreutils-from-gnu_dirname
-      - coreutils-from-gnu_mktemp
-      - gnu-coreutils_file-name-manipulation
+      coreutils-from-gnu_basename:
+      coreutils-from-gnu_dirname:
+      coreutils-from-gnu_mktemp:
+      gnu-coreutils_file-name-manipulation:
     contents:
       /usr/bin/pathchk:
       /usr/bin/realpath:
@@ -242,7 +242,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Working-context.html
   working-context:
     essential:
-      - gnu-coreutils_working-context
+      gnu-coreutils_working-context:
     contents:
       /usr/bin/printenv:
       /usr/bin/pwd:
@@ -254,8 +254,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
   user-information:
     essential:
-      - coreutils-from-gnu_id-utility
-      - gnu-coreutils_user-information
+      coreutils-from-gnu_id-utility:
+      gnu-coreutils_user-information:
     contents:
       /usr/bin/groups:
       /usr/bin/logname:
@@ -269,8 +269,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/System-context.html
   system-context:
     essential:
-      - coreutils-from-gnu_date
-      - gnu-coreutils_system-context
+      coreutils-from-gnu_date:
+      gnu-coreutils_system-context:
     contents:
       /usr/bin/arch:
       /usr/bin/hostid:
@@ -282,7 +282,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/SELinux-context.html
   selinux-context:
     essential:
-      - gnu-coreutils_selinux-context
+      gnu-coreutils_selinux-context:
     contents:
       /usr/bin/chcon:
       /usr/bin/runcon:
@@ -293,9 +293,9 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Modified-command-invocation.html
   modified-command-invocation:
     essential:
-      - coreutils-from-gnu_libs
-      - coreutils-from-gnu_timeout
-      - gnu-coreutils_modified-command-invocation
+      coreutils-from-gnu_libs:
+      coreutils-from-gnu_timeout:
+      gnu-coreutils_modified-command-invocation:
     contents:
       /usr/bin/env:
       /usr/bin/nice:
@@ -307,7 +307,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
-      - gnu-coreutils_delaying
+      gnu-coreutils_delaying:
     contents:
       /usr/bin/sleep:
 
@@ -315,7 +315,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
   numeric-operations:
     essential:
-      - gnu-coreutils_numeric-operations
+      gnu-coreutils_numeric-operations:
     contents:
       /usr/bin/factor:
       /usr/bin/numfmt:
@@ -325,224 +325,224 @@ slices:
 
   env:
     essential:
-      - gnu-coreutils_env
+      gnu-coreutils_env:
     contents:
       /usr/bin/env:
 
   expr:
     essential:
-      - gnu-coreutils_expr
+      gnu-coreutils_expr:
     contents:
       /usr/bin/expr:
 
   mkdir:
     essential:
-      - gnu-coreutils_mkdir
+      gnu-coreutils_mkdir:
     contents:
       /usr/bin/mkdir:
 
   echo:
     essential:
-      - gnu-coreutils_echo
+      gnu-coreutils_echo:
     contents:
       /usr/bin/echo:
 
   # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
   ln-utility:
     essential:
-      - gnu-coreutils_ln-utility
+      gnu-coreutils_ln-utility:
     contents:
       /usr/bin/ln:
 
   rm-utility:
     essential:
-      - gnu-coreutils_rm-utility
+      gnu-coreutils_rm-utility:
     contents:
       /usr/bin/rm:
 
   readlink:
     essential:
-      - gnu-coreutils_readlink
+      gnu-coreutils_readlink:
     contents:
       /usr/bin/readlink:
 
   sort:
     essential:
-      - gnu-coreutils_sort
+      gnu-coreutils_sort:
     contents:
       /usr/bin/sort:
 
   dirname:
     essential:
-      - gnu-coreutils_dirname
+      gnu-coreutils_dirname:
     contents:
       /usr/bin/dirname:
 
   touch:
     essential:
-      - gnu-coreutils_touch
+      gnu-coreutils_touch:
     contents:
       /usr/bin/touch:
 
   printf:
     essential:
-      - gnu-coreutils_printf
+      gnu-coreutils_printf:
     contents:
       /usr/bin/printf:
 
   basename:
     essential:
-      - gnu-coreutils_basename
+      gnu-coreutils_basename:
     contents:
       /usr/bin/basename:
 
   chmod:
     essential:
-      - gnu-coreutils_chmod
+      gnu-coreutils_chmod:
     contents:
       /usr/bin/chmod:
 
   chown:
     essential:
-      - gnu-coreutils_chown
+      gnu-coreutils_chown:
     contents:
       /usr/bin/chown:
 
   cut:
     essential:
-      - gnu-coreutils_cut
+      gnu-coreutils_cut:
     contents:
       /usr/bin/cut:
 
   date:
     essential:
-      - gnu-coreutils_date
+      gnu-coreutils_date:
     contents:
       /usr/bin/date:
 
   dd-utility:
     essential:
-      - gnu-coreutils_dd-utility
+      gnu-coreutils_dd-utility:
     contents:
       /usr/bin/dd:
 
   dir:
     essential:
-      - gnu-coreutils_dir
+      gnu-coreutils_dir:
     contents:
       /usr/bin/dir:
 
   head:
     essential:
-      - gnu-coreutils_head
+      gnu-coreutils_head:
     contents:
       /usr/bin/head:
 
   install:
     essential:
-      - gnu-coreutils_install
+      gnu-coreutils_install:
     contents:
       /usr/bin/install:
 
   id-utility:
     essential:
-      - gnu-coreutils_id-utility
+      gnu-coreutils_id-utility:
     contents:
       /usr/bin/id:
 
   join:
     essential:
-      - gnu-coreutils_join
+      gnu-coreutils_join:
     contents:
       /usr/bin/join:
 
   link:
     essential:
-      - gnu-coreutils_link
+      gnu-coreutils_link:
     contents:
       /usr/bin/link:
 
   mktemp:
     essential:
-      - gnu-coreutils_mktemp
+      gnu-coreutils_mktemp:
     contents:
       /usr/bin/mktemp:
 
   mv-utility:
     essential:
-      - gnu-coreutils_mv-utility
+      gnu-coreutils_mv-utility:
     contents:
       /usr/bin/mv:
 
   od-utility:
     essential:
-      - gnu-coreutils_od-utility
+      gnu-coreutils_od-utility:
     contents:
       /usr/bin/od:
 
   rmdir:
     essential:
-      - gnu-coreutils_rmdir
+      gnu-coreutils_rmdir:
     contents:
       /usr/bin/rmdir:
 
   stat:
     essential:
-      - gnu-coreutils_stat
+      gnu-coreutils_stat:
     contents:
       /usr/bin/stat:
 
   split:
     essential:
-      - gnu-coreutils_split
+      gnu-coreutils_split:
     contents:
       /usr/bin/split:
 
   tail:
     essential:
-      - gnu-coreutils_tail
+      gnu-coreutils_tail:
     contents:
       /usr/bin/tail:
 
   test:
     essential:
-      - gnu-coreutils_test
+      gnu-coreutils_test:
     contents:
       /usr/bin/[:
       /usr/bin/test:
 
   timeout:
     essential:
-      - gnu-coreutils_timeout
+      gnu-coreutils_timeout:
     contents:
       /usr/bin/timeout:
 
   tr-utility:
     essential:
-      - gnu-coreutils_tr-utility
+      gnu-coreutils_tr-utility:
     contents:
       /usr/bin/tr:
 
   unlink:
     essential:
-      - gnu-coreutils_unlink
+      gnu-coreutils_unlink:
     contents:
       /usr/bin/unlink:
   cat:
     essential:
-      - gnu-coreutils_cat
+      gnu-coreutils_cat:
     contents:
       /usr/bin/cat:
 
   ls-utility:
     essential:
-      - gnu-coreutils_ls-utility
+      gnu-coreutils_ls-utility:
     contents:
       /usr/bin/ls:
 
   wc-utility:
     essential:
-      - gnu-coreutils_wc-utility
+      gnu-coreutils_wc-utility:
     contents:
       /usr/bin/wc:
 

@@ -1,13 +1,13 @@
 package: libsoxr0
 
 essential:
-  - libsoxr0_copyright
+  libsoxr0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgomp1_libs
+      libc6_libs:
+      libgomp1_libs:
     contents:
       /usr/lib/*-linux-*/libsoxr.so.0*:
 

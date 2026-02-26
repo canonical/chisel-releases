@@ -1,12 +1,12 @@
 package: python3-pip-whl
 
 essential:
-  - python3-pip-whl_copyright
+  python3-pip-whl_copyright:
 
 slices:
   wheels:
     essential:
-      - ca-certificates_data
+      ca-certificates_data:
     contents:
       /usr/share/python-wheels/pip-*-py3-none-any.whl:
 

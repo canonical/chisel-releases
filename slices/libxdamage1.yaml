@@ -1,13 +1,13 @@
 package: libxdamage1
 
 essential:
-  - libxdamage1_copyright
+  libxdamage1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libx11-6_libs
+      libc6_libs:
+      libx11-6_libs:
     contents:
       /usr/lib/*-linux-*/libXdamage.so.1*:
 

@@ -1,21 +1,21 @@
 package: sudo
 
 essential:
-  - sudo_copyright
+  sudo_copyright:
 
 slices:
   bins:
     essential:
-      - libapparmor1_libs
-      - libaudit1_libs
-      - libc6_libs
-      - libpam-modules_libs
-      - libpam0g_libs
-      - libselinux1_libs
-      - libssl3t64_libs
-      - sudo_config
-      - sudo_libs
-      - zlib1g_libs
+      libapparmor1_libs:
+      libaudit1_libs:
+      libc6_libs:
+      libpam-modules_libs:
+      libpam0g_libs:
+      libselinux1_libs:
+      libssl3t64_libs:
+      sudo_config:
+      sudo_libs:
+      zlib1g_libs:
     # sudo and visudo are symlinked to their .ws variants
     # to mimic the behavior of postinst which uses `update-alternatives`
     # in the future use `prefer` to resolve any conflicts with other
@@ -34,7 +34,7 @@ slices:
 
   config:
     essential:
-      - sudo-common_config
+      sudo-common_config:
     contents:
       /etc/sudo.conf:
       /etc/sudo_logsrvd.conf:
@@ -42,7 +42,7 @@ slices:
 
   services:
     essential:
-      - sudo_bins
+      sudo_bins:
     contents:
       /usr/lib/systemd/system/sudo.service:
 
