@@ -1,19 +1,19 @@
 package: openssh-sftp-server
 
 essential:
-  - openssh-sftp-server_copyright
+  openssh-sftp-server_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - openssh-client_bins
+      libc6_libs:
+      openssh-client_bins:
     contents:
       /usr/lib/openssh/sftp-server:
       /usr/lib/sftp-server:
 
   copyright:
     essential:
-      - openssh-client_copyright
+      openssh-client_copyright:
     contents:
       /usr/share/doc/openssh-sftp-server:

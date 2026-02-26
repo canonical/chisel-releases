@@ -2,15 +2,15 @@
 package: metapixel
 
 essential:
-  - metapixel_copyright
+  metapixel_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libgif7_libs
-      - libjpeg8_libs
-      - libpng16-16t64_libs
+      libc6_libs:
+      libgif7_libs:
+      libjpeg8_libs:
+      libpng16-16t64_libs:
     contents:
       /usr/bin/metapixel:
       /usr/bin/metapixel-imagesize:

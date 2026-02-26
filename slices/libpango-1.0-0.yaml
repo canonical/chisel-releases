@@ -1,17 +1,17 @@
 package: libpango-1.0-0
 
 essential:
-  - libpango-1.0-0_copyright
+  libpango-1.0-0_copyright:
 
 slices:
   libs:
     essential:
-      - fontconfig_bins
-      - libc6_libs
-      - libfribidi0_libs
-      - libglib2.0-0t64_libs
-      - libharfbuzz0b_libs
-      - libthai0_libs
+      fontconfig_bins:
+      libc6_libs:
+      libfribidi0_libs:
+      libglib2.0-0t64_libs:
+      libharfbuzz0b_libs:
+      libthai0_libs:
     contents:
       /usr/lib/*-linux-*/libpango-1.0.so.0*:
 

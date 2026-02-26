@@ -1,13 +1,13 @@
 package: libdrm-nouveau2
 
 essential:
-  - libdrm-nouveau2_copyright
+  libdrm-nouveau2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
+      libc6_libs:
+      libdrm2_libs:
     contents:
       /usr/lib/*-linux-*/libdrm_nouveau.so.2*:
 

@@ -1,16 +1,16 @@
 package: libmagic1t64
 
 essential:
-  - libmagic1t64_copyright
+  libmagic1t64_copyright:
 
 slices:
   libs:
     essential:
-      - libbz2-1.0_libs
-      - libc6_libs
-      - liblzma5_libs
-      - libmagic-mgc_data
-      - zlib1g_libs
+      libbz2-1.0_libs:
+      libc6_libs:
+      liblzma5_libs:
+      libmagic-mgc_data:
+      zlib1g_libs:
     contents:
       /etc/magic:
       /etc/magic.mime:

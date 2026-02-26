@@ -1,12 +1,12 @@
 package: libeclipse-jdt-core-java
 
 essential:
-  - libeclipse-jdt-core-java_copyright
+  libeclipse-jdt-core-java_copyright:
 
 slices:
   jars:
     essential:
-      - libeclipse-jdt-core-compiler-batch-java_jars
+      libeclipse-jdt-core-compiler-batch-java_jars:
     contents:
       /usr/share/java/eclipse-jdt-core-3.*.jar:
       /usr/share/java/eclipse-jdt-core.jar:

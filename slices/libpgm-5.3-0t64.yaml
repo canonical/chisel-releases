@@ -1,12 +1,12 @@
 package: libpgm-5.3-0t64
 
 essential:
-  - libpgm-5.3-0t64_copyright
+  libpgm-5.3-0t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libpgm-5.3.so.0*:
 

@@ -1,13 +1,13 @@
 package: libjq1
 
 essential:
-  - libjq1_copyright
+  libjq1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libonig5_libs
+      libc6_libs:
+      libonig5_libs:
     contents:
       /usr/lib/*-linux-*/libjq.so.1*:
   copyright:

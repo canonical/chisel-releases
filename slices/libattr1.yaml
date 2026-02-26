@@ -1,7 +1,7 @@
 package: libattr1
 
 essential:
-  - libattr1_copyright
+  libattr1_copyright:
 
 slices:
   config:
@@ -10,8 +10,8 @@ slices:
 
   libs:
     essential:
-      - libattr1_config
-      - libc6_libs
+      libattr1_config:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libattr.so.1*:
 

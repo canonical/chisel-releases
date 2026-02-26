@@ -1,7 +1,7 @@
 package: node-busboy
 
 essential:
-  - node-busboy_copyright
+  node-busboy_copyright:
 
 slices:
   libs:

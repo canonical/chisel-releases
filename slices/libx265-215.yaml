@@ -1,14 +1,14 @@
 package: libx265-215
 
 essential:
-  - libx265-215_copyright
+  libx265-215_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libnuma1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libnuma1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libx265.so.215*:
 

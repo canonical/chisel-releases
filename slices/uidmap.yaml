@@ -1,15 +1,15 @@
 package: uidmap
 
 essential:
-  - uidmap_copyright
+  uidmap_copyright:
 
 slices:
   bins:
     essential:
-      - libaudit1_libs
-      - libc6_libs
-      - libselinux1_libs
-      - libsubid5_libs
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+      libsubid5_libs:
     contents:
       /usr/bin/getsubids:
       /usr/bin/newgidmap:

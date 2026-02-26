@@ -1,12 +1,12 @@
 package: liblmdb0
 
 essential:
-  - liblmdb0_copyright
+  liblmdb0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/liblmdb.so.0*:
 

@@ -1,13 +1,13 @@
 package: unzip
 
 essential:
-  - unzip_copyright
+  unzip_copyright:
 
 slices:
   bins:
     essential:
-      - libbz2-1.0_libs
-      - libc6_libs
+      libbz2-1.0_libs:
+      libc6_libs:
     contents:
       /usr/bin/funzip:
       /usr/bin/unzip:
@@ -21,10 +21,10 @@ slices:
 
   scripts:
     essential:
-      - dash_bins
-      - grep_deprecated
-      - sed_bins
-      - unzip_bins
+      dash_bins:
+      grep_deprecated:
+      sed_bins:
+      unzip_bins:
     contents:
       /usr/bin/zipgrep:
 

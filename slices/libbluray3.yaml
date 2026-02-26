@@ -1,16 +1,16 @@
 package: libbluray3
 
 essential:
-  - libbluray3_copyright
+  libbluray3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libudfread3_libs
-      - libxml2-16_libs
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libudfread3_libs:
+      libxml2-16_libs:
     contents:
       /usr/lib/*-linux-*/libbluray.so.3*:
 

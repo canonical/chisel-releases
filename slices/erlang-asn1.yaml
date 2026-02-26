@@ -1,19 +1,19 @@
 package: erlang-asn1
 
 essential:
-  - erlang-asn1_copyright
+  erlang-asn1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/erlang/lib/asn1-*/priv/**:
 
   modules:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
+      erlang-base_bins:
+      erlang-base_modules:
     contents:
       /usr/lib/erlang/lib/asn1-*/ebin/**:
 

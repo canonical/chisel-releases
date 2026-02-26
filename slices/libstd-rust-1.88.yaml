@@ -1,15 +1,15 @@
 package: libstd-rust-1.88
 
 essential:
-  - libstd-rust-1.88_copyright
+  libstd-rust-1.88_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libllvm20_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libllvm20_libs:
+      libstdc++6_libs:
     contents:
       # NOTE: we need the full rustc_driver filename to resolve conflict with libstd-rust-1.85
       /usr/lib/*-linux-*/librustc_driver-016cb2833503e84c.so:

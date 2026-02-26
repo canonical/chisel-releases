@@ -1,16 +1,16 @@
 package: fontconfig
 
 essential:
-  - fontconfig_copyright
+  fontconfig_copyright:
 
 slices:
   bins:
     essential:
-      - fontconfig-config_config
-      - fontconfig_cache
-      - libc6_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
+      fontconfig-config_config:
+      fontconfig_cache:
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
     contents:
       /usr/bin/fc-cache:
       /usr/bin/fc-cat:

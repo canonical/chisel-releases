@@ -1,26 +1,26 @@
 package: dpkg
 
 essential:
-  - dpkg_copyright
+  dpkg_copyright:
 
 slices:
   bins:
     essential:
-      - coreutils_rm-utility
-      - diffutils_bins  # used by dpkg -i
-      - dpkg_config
-      - dpkg_scripts
-      - dpkg_tables
-      - dpkg_var
-      - libbz2-1.0_libs
-      - libc-bin_ldconfig
-      - libc6_libs
-      - liblzma5_libs
-      - libmd0_libs
-      - libselinux1_libs
-      - libzstd1_libs
-      - tar_tar
-      - zlib1g_libs
+      coreutils_rm-utility:
+      diffutils_bins:  # used by dpkg -i
+      dpkg_config:
+      dpkg_scripts:
+      dpkg_tables:
+      dpkg_var:
+      libbz2-1.0_libs:
+      libc-bin_ldconfig:
+      libc6_libs:
+      liblzma5_libs:
+      libmd0_libs:
+      libselinux1_libs:
+      libzstd1_libs:
+      tar_tar:
+      zlib1g_libs:
     contents:
       /usr/bin/dpkg:
       /usr/bin/dpkg-deb:
@@ -42,13 +42,13 @@ slices:
 
   locales:
     essential:
-      - dpkg_bins
+      dpkg_bins:
     contents:
       /usr/share/locale/**/dpkg.mo:
 
   scripts:
     essential:
-      - coreutils_echo
+      coreutils_echo:
     contents:
       # Note: This file defines the color scheme used by dpkg.
       # It is sourced by dpkg's `dpkg-maintscript-helper` script.
@@ -61,7 +61,7 @@ slices:
   var:
     # /var/log is required for dpkg to write logs to
     essential:
-      - base-files_var
+      base-files_var:
     # Directories that are included in the tarball because they need to exist in /var
     contents:
       /var/lib/dpkg/alternatives/:
@@ -71,10 +71,10 @@ slices:
 
   maintscript-support:
     essential:
-      - base-files_bin
-      - coreutils_bins
-      - dpkg_bins
-      - sed_bins
+      base-files_bin:
+      coreutils_bins:
+      dpkg_bins:
+      sed_bins:
 
   copyright:
     contents:

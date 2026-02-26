@@ -1,24 +1,24 @@
 package: libgdiplus
 
 essential:
-  - libgdiplus_copyright
+  libgdiplus_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libcairo2_libs
-      - libexif12_libs
-      - libfontconfig1_libs
-      - libgif7_libs
-      - libglib2.0-0t64_libs
-      - libharfbuzz0b_libs
-      - libjpeg8_libs
-      - libpango-1.0-0_libs
-      - libpangocairo-1.0-0_libs
-      - libpng16-16t64_libs
-      - libtiff6_libs
-      - libx11-6_libs
+      libc6_libs:
+      libcairo2_libs:
+      libexif12_libs:
+      libfontconfig1_libs:
+      libgif7_libs:
+      libglib2.0-0t64_libs:
+      libharfbuzz0b_libs:
+      libjpeg8_libs:
+      libpango-1.0-0_libs:
+      libpangocairo-1.0-0_libs:
+      libpng16-16t64_libs:
+      libtiff6_libs:
+      libx11-6_libs:
     contents:
       /usr/lib/libgdiplus.so.0*:
 

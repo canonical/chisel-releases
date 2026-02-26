@@ -1,37 +1,37 @@
 package: util-linux
 
 essential:
-  - util-linux_copyright
+  util-linux_copyright:
 
 slices:
   bins:
     essential:
-      - util-linux_block-devices
-      - util-linux_cli-helpers
-      - util-linux_cpu
-      - util-linux_file-manipulation
-      - util-linux_file-system
-      - util-linux_generated
-      - util-linux_ipc
-      - util-linux_kernel
-      - util-linux_login
-      - util-linux_mcookie
-      - util-linux_namespace
-      - util-linux_pam-profiles
-      - util-linux_process
-      - util-linux_set-arch
-      - util-linux_su-support
-      - util-linux_timer
-      - util-linux_tty
+      util-linux_block-devices:
+      util-linux_cli-helpers:
+      util-linux_cpu:
+      util-linux_file-manipulation:
+      util-linux_file-system:
+      util-linux_generated:
+      util-linux_ipc:
+      util-linux_kernel:
+      util-linux_login:
+      util-linux_mcookie:
+      util-linux_namespace:
+      util-linux_pam-profiles:
+      util-linux_process:
+      util-linux_set-arch:
+      util-linux_su-support:
+      util-linux_timer:
+      util-linux_tty:
 
   block-devices:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libmount1_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
-      - libudev1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libmount1_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
+      libudev1_libs:
     contents:
       /usr/bin/lsblk:
       /usr/bin/partx:
@@ -42,8 +42,8 @@ slices:
 
   cli-helpers:
     essential:
-      - libc6_libs
-      - libselinux1_libs
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/getopt:
       /usr/bin/namei:
@@ -51,39 +51,39 @@ slices:
 
   cpu:
     essential:
-      - libc6_libs
-      - libsmartcols1_libs
+      libc6_libs:
+      libsmartcols1_libs:
     contents:
       /usr/bin/lscpu:
 
   file-manipulation:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libmount1_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
-      - util-linux_more
+      libblkid1_libs:
+      libc6_libs:
+      libmount1_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
+      util-linux_more:
     contents:
       /usr/bin/fallocate:
       /usr/bin/hardlink:
 
   more:
     essential:
-      - libc6_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libtinfo6_libs:
     contents:
       /usr/bin/more:
 
   file-system:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libmount1_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
-      - libudev1_libs
-      - libuuid1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libmount1_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
+      libudev1_libs:
+      libuuid1_libs:
     contents:
       /usr/bin/findmnt:
       /usr/bin/mountpoint:
@@ -102,15 +102,15 @@ slices:
       # Since the more binary is located at ./usr/bin/more and /bin points
       # to /usr/bin via base-files, the base-files_bin slice is included
       # here.
-      - base-files_bin
-      - util-linux_file-manipulation
+      base-files_bin:
+      util-linux_file-manipulation:
     contents:
       /usr/bin/pager: {symlink: /bin/more}
 
   ipc:
     essential:
-      - libc6_libs
-      - libsmartcols1_libs
+      libc6_libs:
+      libsmartcols1_libs:
     contents:
       /usr/bin/ipcmk:
       /usr/bin/ipcrm:
@@ -119,37 +119,37 @@ slices:
 
   kernel:
     essential:
-      - libc6_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libtinfo6_libs:
     contents:
       /usr/bin/dmesg:
       /usr/sbin/readprofile:
 
   lock:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libmount1_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libmount1_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
     contents:
       /usr/bin/flock:
       /usr/bin/lslocks:
 
   login:
     essential:
-      - libc6_libs
-      - libcrypt1_libs
-      - liblastlog2-2_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
-      - libsystemd0_libs
+      libc6_libs:
+      libcrypt1_libs:
+      liblastlog2-2_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
+      libsystemd0_libs:
     contents:
       /usr/sbin/sulogin:
 
   mcookie:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/mcookie:
 
@@ -159,11 +159,11 @@ slices:
 
   namespace:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libmount1_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libmount1_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
     contents:
       /usr/bin/lsns:
       /usr/bin/nsenter:
@@ -178,9 +178,9 @@ slices:
 
   process:
     essential:
-      - libc6_libs
-      - libcap-ng0_libs
-      - libsmartcols1_libs
+      libc6_libs:
+      libcap-ng0_libs:
+      libsmartcols1_libs:
     contents:
       /usr/bin/choom:
       /usr/bin/chrt:
@@ -193,14 +193,14 @@ slices:
 
   services:
     essential:
-      - util-linux_bins
+      util-linux_bins:
     contents:
       /usr/lib/systemd/system/fstrim.service:
       /usr/lib/systemd/system/fstrim.timer:
 
   set-arch:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/i386: { arch: [i386, amd64] }
       /usr/bin/linux32:
@@ -217,31 +217,31 @@ slices:
   # and group IDs.
   su-support:
     essential:
-      - libc6_libs
-      - libcap-ng0_libs
+      libc6_libs:
+      libcap-ng0_libs:
       # Libraries from libpam-modules are required as the libpam-runtime
       # configs reference them.
-      - libpam-modules_libs
+      libpam-modules_libs:
       # su reads the configs in /etc/pam.d to authenticate the user.
-      - libpam-runtime_config
-      - libpam0g_libs
-      - util-linux_pam-profiles
+      libpam-runtime_config:
+      libpam0g_libs:
+      util-linux_pam-profiles:
     contents:
       /usr/bin/su:
       /usr/sbin/runuser:
 
   timer:
     essential:
-      - libc6_libs
-      - libsmartcols1_libs
+      libc6_libs:
+      libsmartcols1_libs:
     contents:
       /usr/sbin/rtcwake:
 
   tty:
     essential:
-      - libc6_libs
-      - libsystemd0_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libsystemd0_libs:
+      libtinfo6_libs:
     contents:
       /usr/bin/setterm:
       /usr/sbin/agetty:

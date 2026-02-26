@@ -1,13 +1,13 @@
 package: libhashkit2t64
 
 essential:
-  - libhashkit2t64_copyright
+  libhashkit2t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libssl3t64_libs
+      libc6_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/libhashkit.so.2*:
 

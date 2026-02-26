@@ -1,7 +1,7 @@
 package: git
 
 essential:
-  - git_copyright
+  git_copyright:
 
 slices:
   bins:
@@ -20,9 +20,9 @@ slices:
     # - rev-list
     # - status
     essential:
-      - libc6_libs
-      - libpcre2-8-0_libs
-      - zlib1g_libs
+      libc6_libs:
+      libpcre2-8-0_libs:
+      zlib1g_libs:
     contents:
       # /usr/bin/git is a regular file in the package, but shares
       # the same hash of /usr/lib/git-core/git. That's why this
@@ -33,16 +33,16 @@ slices:
   daemon:
     # Adds support for cloning over git daemon
     essential:
-      - git_bins
+      git_bins:
     contents:
       /usr/lib/git-core/git-daemon:
 
   http-support:
     # Adds support for cloning over HTTP e.g. git clone https://...
     essential:
-      - git_bins
-      - libcurl3t64-gnutls_libs
-      - libexpat1_libs
+      git_bins:
+      libcurl3t64-gnutls_libs:
+      libexpat1_libs:
     contents:
       /usr/lib/git-core/git-remote-http:
       /usr/lib/git-core/git-remote-https:  # link pointing to git-remote-http
@@ -50,7 +50,7 @@ slices:
   ftp-support:
     # Adds support for cloning over FTP e.g. git clone ftp://...
     essential:
-      - git_http-support
+      git_http-support:
     contents:
       /usr/lib/git-core/git-remote-ftp:
 

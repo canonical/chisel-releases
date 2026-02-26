@@ -1,13 +1,13 @@
 package: libboost-context1.83.0
 
 essential:
-  - libboost-context1.83.0_copyright
+  libboost-context1.83.0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libboost_context.so.1.83.0:
   copyright:

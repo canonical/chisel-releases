@@ -1,12 +1,12 @@
 package: php8.4-readline
 
 essential:
-  - php8.4-readline_copyright
+  php8.4-readline_copyright:
 
 slices:
   cli-module:
     essential:
-      - php8.4-readline_libs
+      php8.4-readline_libs:
     contents:
       # This symlink enables this module for the CLI SAPI
       /etc/php/8.4/cli/conf.d/20-readline.ini:
@@ -14,9 +14,9 @@ slices:
 
   libs:
     essential:
-      - libc6_libs
-      - libedit2_libs
-      - php8.4-readline_config
+      libc6_libs:
+      libedit2_libs:
+      php8.4-readline_config:
     contents:
       /usr/lib/php/*/readline.so:
       /var/lib/php/modules/8.4/registry/readline: { text: "" }
@@ -28,6 +28,6 @@ slices:
 
   copyright:
     essential:
-      - php8.4-common_copyright
+      php8.4-common_copyright:
     contents:
       /usr/share/doc/php8.4-readline:

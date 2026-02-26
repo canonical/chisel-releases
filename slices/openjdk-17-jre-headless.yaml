@@ -1,26 +1,26 @@
 package: openjdk-17-jre-headless
 
 essential:
-  - openjdk-17-jre-headless_copyright
+  openjdk-17-jre-headless_copyright:
 
 slices:
 
   standard:
     essential:
-      - openjdk-17-jre-headless_class-data-sharing
-      - openjdk-17-jre-headless_core
-      - openjdk-17-jre-headless_debug
-      - openjdk-17-jre-headless_jfr
-      - openjdk-17-jre-headless_management
-      - openjdk-17-jre-headless_prefs
-      - openjdk-17-jre-headless_rmi
-      - openjdk-17-jre-headless_security
-      - openjdk-17-jre-headless_tools
+      openjdk-17-jre-headless_class-data-sharing:
+      openjdk-17-jre-headless_core:
+      openjdk-17-jre-headless_debug:
+      openjdk-17-jre-headless_jfr:
+      openjdk-17-jre-headless_management:
+      openjdk-17-jre-headless_prefs:
+      openjdk-17-jre-headless_rmi:
+      openjdk-17-jre-headless_security:
+      openjdk-17-jre-headless_tools:
 
   # List of classes required to create the Class Data Sharing archive
   class-data-sharing:
     essential:
-      - openjdk-17-jre-headless_core
+      openjdk-17-jre-headless_core:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/classlist:
 
@@ -34,10 +34,10 @@ slices:
   #                                    not relevant.
   core:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      zlib1g_libs:
     contents:
       /etc/java-17-openjdk/jvm-*.cfg:
       /etc/java-17-openjdk/logging.properties:
@@ -72,14 +72,14 @@ slices:
   # Native part of jdk.prefs modules
   prefs:
     essential:
-      - openjdk-17-jre-headless_core
+      openjdk-17-jre-headless_core:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/libprefs.so:
 
   # Native part of java.rmi
   rmi:
     essential:
-      - openjdk-17-jre-headless_security
+      openjdk-17-jre-headless_security:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/rmiregistry:
       /usr/lib/jvm/java-17-openjdk-*/lib/librmi.so:
@@ -87,7 +87,7 @@ slices:
   # Debug support
   debug:
     essential:
-      - openjdk-17-jre-headless_core
+      openjdk-17-jre-headless_core:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/libattach.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/libdt_socket.so:
@@ -103,7 +103,7 @@ slices:
   # Configuration and native part of Java Management Extensions
   management:
     essential:
-      - openjdk-17-jre-headless_rmi
+      openjdk-17-jre-headless_rmi:
     contents:
       /etc/java-17-openjdk/management/jmxremote.access:
       /etc/java-17-openjdk/management/management.properties:
@@ -116,9 +116,9 @@ slices:
   # Security configuration files and native libraries
   security:
     essential:
-      - libnss3_nss
-      - libpcsclite1_libs
-      - openjdk-17-jre-headless_core
+      libnss3_nss:
+      libpcsclite1_libs:
+      openjdk-17-jre-headless_core:
     contents:
       /etc/java-17-openjdk/security/blocked.certs:
       /etc/java-17-openjdk/security/default.policy:
@@ -147,7 +147,7 @@ slices:
   # OpenJDK tools
   tools:
     essential:
-      - openjdk-17-jre-headless_security
+      openjdk-17-jre-headless_security:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/keytool:
       /usr/lib/jvm/java-17-openjdk-amd64/bin/jpackage:
@@ -157,7 +157,7 @@ slices:
   # Java Flight Recorder configuration and jar file
   jfr:
     essential:
-      - openjdk-17-jre-headless_core
+      openjdk-17-jre-headless_core:
     contents:
       /etc/java-17-openjdk/jfr/default.jfc:
       /etc/java-17-openjdk/jfr/profile.jfc:
@@ -168,19 +168,19 @@ slices:
   # Javac JDK API signatures for the backwards compatibility
   javac:
     essential:
-      - openjdk-17-jre-headless_core
+      openjdk-17-jre-headless_core:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/lib/ct.sym:
 
   # headless UI
   awt:
     essential:
-      - libatomic1_libs
-      - libfontconfig1_libs
-      - libharfbuzz0b_libs
-      - libjpeg8_libs
-      - liblcms2-2_libs
-      - openjdk-17-jre-headless_core
+      libatomic1_libs:
+      libfontconfig1_libs:
+      libharfbuzz0b_libs:
+      libjpeg8_libs:
+      liblcms2-2_libs:
+      openjdk-17-jre-headless_core:
     contents:
       /etc/java-17-openjdk/psfont.properties.ja:
       /etc/java-17-openjdk/psfontj2d.properties:

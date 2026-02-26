@@ -1,12 +1,12 @@
 package: libsvtav1enc2
 
 essential:
-  - libsvtav1enc2_copyright
+  libsvtav1enc2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libSvtAv1Enc.so.2*:
 

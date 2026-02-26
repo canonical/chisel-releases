@@ -1,12 +1,12 @@
 package: libtasn1-6
 
 essential:
-  - libtasn1-6_copyright
+  libtasn1-6_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libtasn1.so.6*:
 

@@ -1,7 +1,7 @@
 package: libmagic-mgc
 
 essential:
-  - libmagic-mgc_copyright
+  libmagic-mgc_copyright:
 
 slices:
   data:

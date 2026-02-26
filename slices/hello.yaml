@@ -1,12 +1,12 @@
 package: hello
 
 essential:
-  - hello_copyright
+  hello_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/hello:
 

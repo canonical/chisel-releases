@@ -1,14 +1,14 @@
 package: bsdextrautils
 
 essential:
-  - bsdextrautils_copyright
+  bsdextrautils_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libsmartcols1_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libsmartcols1_libs:
+      libtinfo6_libs:
     contents:
       /usr/bin/col:
       /usr/bin/colcrt:

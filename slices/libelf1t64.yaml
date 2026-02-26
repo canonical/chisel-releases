@@ -1,14 +1,14 @@
 package: libelf1t64
 
 essential:
-  - libelf1t64_copyright
+  libelf1t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libelf-0.*.so*:
       /usr/lib/*-linux-*/libelf.so.1*:

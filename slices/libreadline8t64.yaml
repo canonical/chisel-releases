@@ -1,14 +1,14 @@
 package: libreadline8t64
 
 essential:
-  - libreadline8t64_copyright
+  libreadline8t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libtinfo6_libs
-      - readline-common_config
+      libc6_libs:
+      libtinfo6_libs:
+      readline-common_config:
     contents:
       /usr/lib/*-linux-*/libhistory.so.8*:
       /usr/lib/*-linux-*/libreadline.so.8*:

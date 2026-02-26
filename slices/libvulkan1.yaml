@@ -1,12 +1,12 @@
 package: libvulkan1
 
 essential:
-  - libvulkan1_copyright
+  libvulkan1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libvulkan.so.1*:
 

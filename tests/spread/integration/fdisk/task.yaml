@@ -1,0 +1,43 @@
+summary: Integration tests for fdisk
+
+execute: |
+  rootfs="$(install-slices fdisk_bins)"
+
+  # Basic smoke: binaries exist and run
+  chroot "${rootfs}" /usr/sbin/fdisk -v >/dev/null
+  chroot "${rootfs}" /usr/sbin/cfdisk --version >/dev/null
+  chroot "${rootfs}" /usr/sbin/sfdisk --version >/dev/null
+
+  chroot "${rootfs}" /usr/sbin/fdisk --help >/dev/null
+  chroot "${rootfs}" /usr/sbin/cfdisk --help >/dev/null
+  chroot "${rootfs}" /usr/sbin/sfdisk --help >/dev/null
+
+  # Exercise a loopback device (no real disks touched)
+  loopdev=""
+  cleanup() {
+    if [ -n "${loopdev}" ]; then
+      losetup -d "${loopdev}" || true
+    fi
+    umount -l "${rootfs}/dev" 2>/dev/null || true
+    rm -f "${rootfs}/test.img"
+  }
+  trap cleanup EXIT
+
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+
+  if command -v losetup >/dev/null && [ -e /dev/loop-control ]; then
+    dd if=/dev/zero of="${rootfs}/test.img" bs=1M count=8
+    loopdev="$(losetup --find --show "${rootfs}/test.img")"
+
+    # Create an MBR partition table (fdisk is interactive; feed minimal input)
+    printf 'o\nw\n' | chroot "${rootfs}" /usr/sbin/fdisk "${loopdev}" >/dev/null
+
+    # Verify sfdisk can read it back deterministically
+    chroot "${rootfs}" /usr/sbin/sfdisk --dump "${loopdev}" | grep -E '^label: dos$' >/dev/null
+
+    # And fdisk can list the device
+    chroot "${rootfs}" /usr/sbin/fdisk -l "${loopdev}" | grep -F "${loopdev}" >/dev/null
+  else
+    echo "losetup/loop devices not available; skipping loopback smoke test"
+  fi

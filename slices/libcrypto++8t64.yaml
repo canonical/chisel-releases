@@ -1,14 +1,14 @@
 package: libcrypto++8t64
 
 essential:
-  - libcrypto++8t64_copyright
+  libcrypto++8t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libcrypto++.so.8*:
       /usr/lib/*-linux-*/libcryptopp.so.8*:
