@@ -1,19 +1,19 @@
 package: libubsan1
 
 essential:
-  - libubsan1_copyright
+  libubsan1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libubsan.so.1*:
 
   copyright:
     essential:
-      - gcc-14-base_copyright
+      gcc-14-base_copyright:
     contents:
       /usr/share/doc/libubsan1:

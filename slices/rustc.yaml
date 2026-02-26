@@ -1,7 +1,7 @@
 package: rustc
 
 essential:
-  - rustc_copyright
+  rustc_copyright:
 
 slices:
   # NOTE: Rust compiler needs the target-specific linker to link the final
@@ -12,7 +12,7 @@ slices:
   #       ls -s gcc /usr/bin/cc
   rustc:
     essential:
-      - rustc-1.88_rustc
+      rustc-1.88_rustc:
     contents:
       /usr/bin/rustc:  # symlink to ../lib/rustc-1.88/bin/rustc
 

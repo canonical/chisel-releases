@@ -1,29 +1,29 @@
 package: gpgconf
 
 essential:
-  - gpgconf_copyright
+  gpgconf_copyright:
 
 slices:
   bins:
     essential:
-      - gpgconf_gpg-connect-agent
-      - gpgconf_gpgconf
+      gpgconf_gpg-connect-agent:
+      gpgconf_gpgconf:
 
   gpg-connect-agent:
     essential:
-      - libassuan9_libs
-      - libc6_libs
-      - libgcrypt20_libs
-      - libgpg-error0_libs
-      - libreadline8t64_libs
+      libassuan9_libs:
+      libc6_libs:
+      libgcrypt20_libs:
+      libgpg-error0_libs:
+      libreadline8t64_libs:
     contents:
       /usr/bin/gpg-connect-agent:
 
   gpgconf:
     essential:
-      - libc6_libs
-      - libgcrypt20_libs
-      - libgpg-error0_libs
+      libc6_libs:
+      libgcrypt20_libs:
+      libgpg-error0_libs:
     contents:
       /usr/bin/gpgconf:
 

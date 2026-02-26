@@ -1,18 +1,18 @@
 package: wget
 
 essential:
-  - wget_copyright
+  wget_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libidn2-0_libs
-      - libpcre2-8-0_libs
-      - libpsl5t64_libs
-      - libssl3t64_libs
-      - libuuid1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libidn2-0_libs:
+      libpcre2-8-0_libs:
+      libpsl5t64_libs:
+      libssl3t64_libs:
+      libuuid1_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/wget:
   copyright:

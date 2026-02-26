@@ -1,12 +1,12 @@
 package: xdg-user-dirs
 
 essential:
-  - xdg-user-dirs_copyright
+  xdg-user-dirs_copyright:
 
 slices:
   config:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /etc/xdg/autostart/xdg-user-dirs.desktop:
       /etc/xdg/user-dirs.conf:
@@ -14,7 +14,7 @@ slices:
 
   scripts:
     essential:
-      - xdg-user-dirs_config
+      xdg-user-dirs_config:
     contents:
       /usr/bin/xdg-user-dir:
       /usr/bin/xdg-user-dirs-update:

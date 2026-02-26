@@ -1,13 +1,13 @@
 package: libxdmcp6
 
 essential:
-  - libxdmcp6_copyright
+  libxdmcp6_copyright:
 
 slices:
   libs:
     essential:
-      - libbsd0_libs
-      - libc6_libs
+      libbsd0_libs:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libXdmcp.so.6*:
 

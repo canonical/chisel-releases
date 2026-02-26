@@ -1,17 +1,17 @@
 package: libsemanage2
 
 essential:
-  - libsemanage2_copyright
+  libsemanage2_copyright:
 
 slices:
   libs:
     essential:
-      - libaudit1_libs
-      - libbz2-1.0_libs
-      - libc6_libs
-      - libselinux1_libs
-      - libsemanage-common_config
-      - libsepol2_libs
+      libaudit1_libs:
+      libbz2-1.0_libs:
+      libc6_libs:
+      libselinux1_libs:
+      libsemanage-common_config:
+      libsepol2_libs:
     contents:
       /usr/lib/*-linux-*/libsemanage.so.2*:
 

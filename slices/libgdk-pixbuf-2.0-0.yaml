@@ -1,28 +1,28 @@
 package: libgdk-pixbuf-2.0-0
 
 essential:
-  - libgdk-pixbuf-2.0-0_copyright
+  libgdk-pixbuf-2.0-0_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libgdk-pixbuf-2.0-0_libs
-      - libglib2.0-0t64_libs
+      libc6_libs:
+      libgdk-pixbuf-2.0-0_libs:
+      libglib2.0-0t64_libs:
     contents:
       /usr/lib/*-linux-*/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders:
 
   libs:
     essential:
-      - libc6_libs
-      - libglib2.0-0t64_libs
-      - libglycin-2-0_libs
-      - shared-mime-info_data
+      libc6_libs:
+      libglib2.0-0t64_libs:
+      libglycin-2-0_libs:
+      shared-mime-info_data:
     contents:
       /usr/lib/*-linux-*/libgdk_pixbuf-2.0.so.0*:
 
   copyright:
     essential:
-      - libgdk-pixbuf2.0-common_copyright
+      libgdk-pixbuf2.0-common_copyright:
     contents:
       /usr/share/doc/libgdk-pixbuf-2.0-0/copyright:

@@ -1,53 +1,53 @@
 package: libglib2.0-0t64
 
 essential:
-  - libglib2.0-0t64_copyright
+  libglib2.0-0t64_copyright:
 
 slices:
   bins:
     essential:
       # On armhf (only), these also need libgcc-s1_libs
-      - libglib2.0-0t64_libs
+      libglib2.0-0t64_libs:
     contents:
       /usr/lib/*-linux-*/glib-2.0/*:
 
   core:
     essential:
-      - libatomic1_libs
-      - libc6_libs
-      - libpcre2-8-0_libs
+      libatomic1_libs:
+      libc6_libs:
+      libpcre2-8-0_libs:
     contents:
       /usr/lib/*-linux-*/libglib-2.0.so.0*:
 
   libgmodule:
     essential:
-      - libglib2.0-0t64_core
+      libglib2.0-0t64_core:
     contents:
       /usr/lib/*-linux-*/libgmodule-2.0.so.0*:
 
   libgobject:
     essential:
-      - libffi8_libs
-      - libglib2.0-0t64_core
+      libffi8_libs:
+      libglib2.0-0t64_core:
     contents:
       /usr/lib/*-linux-*/libgobject-2.0.so.0*:
 
   libgthread:
     essential:
-      - libglib2.0-0t64_core
+      libglib2.0-0t64_core:
     contents:
       /usr/lib/*-linux-*/libgthread-2.0.so.0*:
 
   libs:
     essential:
-      - libffi8_libs
-      - libglib2.0-0t64_core
-      - libglib2.0-0t64_libgmodule
-      - libglib2.0-0t64_libgobject
-      - libglib2.0-0t64_libgthread
-      - libmount1_libs
-      - libselinux1_libs
-      - zlib1g_libs
+      libffi8_libs:
+      libglib2.0-0t64_core:
+      libglib2.0-0t64_libgmodule:
+      libglib2.0-0t64_libgobject:
+      libglib2.0-0t64_libgthread:
+      libmount1_libs:
+      libselinux1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libgio-2.0.so.0*:
 

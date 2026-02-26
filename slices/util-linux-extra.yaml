@@ -1,19 +1,19 @@
 package: util-linux-extra
 
 essential:
-  - util-linux-extra_copyright
+  util-linux-extra_copyright:
 
 slices:
   bins:
     essential:
-      - libaudit1_libs
-      - libc6_libs
-      - libcrypt1_libs
-      - liblastlog2-2_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
-      - libsystemd0_libs
-      - zlib1g_libs
+      libaudit1_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      liblastlog2-2_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
+      libsystemd0_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/addpart:
       /usr/bin/bits:

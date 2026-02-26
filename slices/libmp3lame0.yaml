@@ -1,12 +1,12 @@
 package: libmp3lame0
 
 essential:
-  - libmp3lame0_copyright
+  libmp3lame0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libmp3lame.so.0*:
 

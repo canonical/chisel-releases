@@ -1,14 +1,14 @@
 package: libtirpc3t64
 
 essential:
-  - libtirpc3t64_copyright
+  libtirpc3t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgssapi-krb5-2_libs
-      - libtirpc-common_config
+      libc6_libs:
+      libgssapi-krb5-2_libs:
+      libtirpc-common_config:
     contents:
       /usr/lib/*-linux-*/libtirpc.so.3*:
 

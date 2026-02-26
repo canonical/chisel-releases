@@ -1,13 +1,13 @@
 package: libbs2b0
 
 essential:
-  - libbs2b0_copyright
+  libbs2b0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libbs2b.so.0*:
 

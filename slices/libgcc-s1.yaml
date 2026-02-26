@@ -1,17 +1,17 @@
 package: libgcc-s1
 
 essential:
-  - libgcc-s1_copyright
+  libgcc-s1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libgcc_s.so.*:
 
   copyright:
     essential:
-      - gcc-14-base_copyright
+      gcc-14-base_copyright:
     contents:
       /usr/share/doc/libgcc-s1:

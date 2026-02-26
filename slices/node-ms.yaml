@@ -1,7 +1,7 @@
 package: node-ms
 
 essential:
-  - node-ms_copyright
+  node-ms_copyright:
 
 slices:
   libs:

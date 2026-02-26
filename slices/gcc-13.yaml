@@ -1,12 +1,11 @@
 package: gcc-13
 
 essential:
-  - gcc-13_copyright
+  gcc-13_copyright:
 
 slices:
   gcc-13:
-    # Note: `v3-essential` only works for chisel>=1.3.0
-    v3-essential:
+    essential:
       binutils_assembler:
       binutils_linker:
       cpp-13-aarch64-linux-gnu_cc1: {arch: [arm64]}
@@ -19,6 +18,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-13-base_copyright
+      gcc-13-base_copyright:
     contents:
       /usr/share/doc/gcc-13:  # Symlink to gcc-13-base

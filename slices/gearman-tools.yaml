@@ -1,16 +1,16 @@
 package: gearman-tools
 
 essential:
-  - gearman-tools_copyright
+  gearman-tools_copyright:
 
 slices:
   bins:
     essential:
-      - libboost-program-options1.88.0_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libgearman8t64_libs
-      - libstdc++6_libs
+      libboost-program-options1.88.0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libgearman8t64_libs:
+      libstdc++6_libs:
     contents:
       /usr/bin/gearadmin:
       /usr/bin/gearman:

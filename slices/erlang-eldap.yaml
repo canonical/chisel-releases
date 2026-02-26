@@ -1,16 +1,16 @@
 package: erlang-eldap
 
 essential:
-  - erlang-eldap_copyright
+  erlang-eldap_copyright:
 
 slices:
   modules:
     essential:
-      - erlang-asn1_libs
-      - erlang-asn1_modules
-      - erlang-base_bins
-      - erlang-base_modules
-      - erlang-ssl_modules
+      erlang-asn1_libs:
+      erlang-asn1_modules:
+      erlang-base_bins:
+      erlang-base_modules:
+      erlang-ssl_modules:
     contents:
       /usr/lib/erlang/lib/eldap-*/ebin/**:
 

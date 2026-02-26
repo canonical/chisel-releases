@@ -1,15 +1,15 @@
 package: p11-kit-modules
 
 essential:
-  - p11-kit-modules_copyright
+  p11-kit-modules_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libffi8_libs
-      - libp11-kit0_libs
-      - libtasn1-6_libs
+      libc6_libs:
+      libffi8_libs:
+      libp11-kit0_libs:
+      libtasn1-6_libs:
     contents:
       /usr/lib/*-linux-*/p11-kit-proxy.so:
       /usr/lib/*-linux-*/pkcs11/p11-kit-client.so:
@@ -17,6 +17,6 @@ slices:
 
   copyright:
     essential:
-      - libp11-kit0_copyright
+      libp11-kit0_copyright:
     contents:
       /usr/share/doc/p11-kit-modules:

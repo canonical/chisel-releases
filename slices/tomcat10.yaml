@@ -1,12 +1,12 @@
 package: tomcat10
 
 essential:
-  - tomcat10_copyright
+  tomcat10_copyright:
 
 slices:
   core:
     essential:
-      - tomcat10-common_scripts
+      tomcat10-common_scripts:
     contents:
       /etc/tomcat10/Catalina/:
       /etc/tomcat10/catalina.properties:
@@ -39,13 +39,13 @@ slices:
 
   standard:
     essential:
-      - tomcat10-common_i18n
-      - tomcat10_core
+      tomcat10-common_i18n:
+      tomcat10_core:
 
   dev:
     essential:
-      - tomcat10-common_extra-scripts
-      - tomcat10_standard
+      tomcat10-common_extra-scripts:
+      tomcat10_standard:
 
   copyright:
     content:

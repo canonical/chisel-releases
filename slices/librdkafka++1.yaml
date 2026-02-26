@@ -1,15 +1,15 @@
 package: librdkafka++1
 
 essential:
-  - librdkafka++1_copyright
+  librdkafka++1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - librdkafka1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      librdkafka1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/librdkafka++.so.1:
 

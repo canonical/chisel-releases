@@ -1,17 +1,17 @@
 package: xfonts-utils
 
 essential:
-  - xfonts-utils_copyright
+  xfonts-utils_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libfontenc1_libs
-      - libfreetype6_libs
-      - xfonts-encodings_encodings
-      - xfonts-utils_utils
-      - zlib1g_libs
+      libc6_libs:
+      libfontenc1_libs:
+      libfreetype6_libs:
+      xfonts-encodings_encodings:
+      xfonts-utils_utils:
+      zlib1g_libs:
     contents:
       /usr/bin/bdftopcf:
       /usr/bin/bdftruncate:

@@ -1,12 +1,12 @@
 package: node-debug
 
 essential:
-  - node-debug_copyright
+  node-debug_copyright:
 
 slices:
   libs:
     essential:
-      - node-ms_libs
+      node-ms_libs:
     contents:
       /usr/share/nodejs/debug/node.js:  # Symlink to src/node.js
       /usr/share/nodejs/debug/package.json:

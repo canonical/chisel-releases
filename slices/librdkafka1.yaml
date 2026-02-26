@@ -1,18 +1,18 @@
 package: librdkafka1
 
 essential:
-  - librdkafka1_copyright
+  librdkafka1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libcurl4t64_libs
-      - liblz4-1_libs
-      - libsasl2-2_libs
-      - libssl3t64_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libcurl4t64_libs:
+      liblz4-1_libs:
+      libsasl2-2_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/librdkafka.so.1:
 

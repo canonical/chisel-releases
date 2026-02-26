@@ -1,12 +1,12 @@
 package: node-brace-expansion
 
 essential:
-  - node-brace-expansion_copyright
+  node-brace-expansion_copyright:
 
 slices:
   libs:
     essential:
-      - node-balanced-match_libs
+      node-balanced-match_libs:
     contents:
       /usr/share/nodejs/brace-expansion/index.js:
       /usr/share/nodejs/brace-expansion/package.json:

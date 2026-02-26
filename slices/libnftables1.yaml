@@ -1,17 +1,17 @@
 package: libnftables1
 
 essential:
-  - libnftables1_copyright
+  libnftables1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgmp10_libs
-      - libjansson4_libs
-      - libmnl0_libs
-      - libnftnl11_libs
-      - libxtables12_libs
+      libc6_libs:
+      libgmp10_libs:
+      libjansson4_libs:
+      libmnl0_libs:
+      libnftnl11_libs:
+      libxtables12_libs:
     contents:
       /usr/lib/*-linux-*/libnftables.so.1*:
 

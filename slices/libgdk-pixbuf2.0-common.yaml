@@ -1,7 +1,7 @@
 package: libgdk-pixbuf2.0-common
 
 essential:
-  - libgdk-pixbuf2.0-common_copyright
+  libgdk-pixbuf2.0-common_copyright:
 
 slices:
   copyright:

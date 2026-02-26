@@ -1,12 +1,12 @@
 package: mawk
 
 essential:
-  - mawk_copyright
+  mawk_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/mawk:
 

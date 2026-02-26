@@ -1,32 +1,32 @@
 package: systemd
 
 essential:
-  - systemd_copyright
+  systemd_copyright:
 
 slices:
   bins:
     essential:
-      - libacl1_libs
-      - libapparmor1_libs
-      - libc6_libs
-      - liblzma5_libs
-      - libmount1_libs
-      - libpam0g_libs
-      - libseccomp2_libs
-      - libselinux1_libs
-      - libssl3t64_libs
-      - libsystemd-shared_libs
-      - libsystemd0_libs
-      - mount_bins
-      - systemd_catalog
-      - systemd_config
-      - systemd_detect-virt
-      - systemd_kernel-parameters
-      - systemd_network
-      - systemd_pcrlock
-      - systemd_system-generators
-      - systemd_system-services
-      - systemd_user-services
+      libacl1_libs:
+      libapparmor1_libs:
+      libc6_libs:
+      liblzma5_libs:
+      libmount1_libs:
+      libpam0g_libs:
+      libseccomp2_libs:
+      libselinux1_libs:
+      libssl3t64_libs:
+      libsystemd-shared_libs:
+      libsystemd0_libs:
+      mount_bins:
+      systemd_catalog:
+      systemd_config:
+      systemd_detect-virt:
+      systemd_kernel-parameters:
+      systemd_network:
+      systemd_pcrlock:
+      systemd_system-generators:
+      systemd_system-services:
+      systemd_user-services:
     contents:
       /usr/bin/busctl:
       /usr/bin/hostnamectl:
@@ -118,8 +118,8 @@ slices:
 
   detect-virt:
     essential:
-      - libc6_libs
-      - libsystemd-shared_libs
+      libc6_libs:
+      libsystemd-shared_libs:
     contents:
       /usr/bin/systemd-detect-virt:
 
@@ -145,10 +145,10 @@ slices:
 
   config:
     essential:
-      - systemd_modprobe-config
-      - systemd_pam-profile
-      - systemd_sysusers-config
-      - systemd_tmpfiles-config
+      systemd_modprobe-config:
+      systemd_pam-profile:
+      systemd_sysusers-config:
+      systemd_tmpfiles-config:
     contents:
       /etc/systemd/journald.conf:
       /etc/systemd/logind.conf:
@@ -194,7 +194,7 @@ slices:
 
   system-services:
     essential:
-      - systemd_generated-services
+      systemd_generated-services:
     contents:
       /usr/lib/systemd/system-preset/90-systemd.preset:
       /usr/lib/systemd/system/autovt@.service:
@@ -476,7 +476,7 @@ slices:
 
   dbus-services:
     essential:
-      - systemd-dev_dbus-interfaces
+      systemd-dev_dbus-interfaces:
     contents:
       /usr/share/dbus-1/services/org.freedesktop.systemd1.service:
       /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service:

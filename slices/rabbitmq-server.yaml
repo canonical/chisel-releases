@@ -1,7 +1,7 @@
 package: rabbitmq-server
 
 essential:
-  - rabbitmq-server_copyright
+  rabbitmq-server_copyright:
 
 # NOTE: erlang* packages do not exist for i386.
 # The following commented slices should be manually included when cutting the
@@ -13,33 +13,33 @@ slices:
 
   bins:
     essential:
-      - base-files_bin
-      - base-files_etc
-      - base-files_home
-      - base-files_var
-      - base-passwd_data
-      - bash_bins
-      - coreutils_bins
+      base-files_bin:
+      base-files_etc:
+      base-files_home:
+      base-files_var:
+      base-passwd_data:
+      bash_bins:
+      coreutils_bins:
       # TODO: The slices bellow are necessary to run RabbitMQ server for amd64 and arm64,
       #       but are not included by default to avoid dependency issues with other
       #       architectures such as i386.
-      # - erlang-base_bins
-      # - erlang-inets_scripts
-      # - erlang-inets_modules
-      # - erlang-os-mon_bins
-      - grep_bins
-      - libc-bin_locale
-      - libc-bin_nsswitch
-      - libtinfo6_libs
-      - login_bins
-      - netbase_default-hosts
-      - netbase_default-networks
-      - passwd_bins
-      - python3.13_standard
-      - rabbitmq-server_config
-      - rabbitmq-server_modules
-      - sed_bins
-      - util-linux_su-support
+      # erlang-base_bins:
+      # erlang-inets_scripts:
+      # erlang-inets_modules:
+      # erlang-os-mon_bins:
+      grep_bins:
+      libc-bin_locale:
+      libc-bin_nsswitch:
+      libtinfo6_libs:
+      login_bins:
+      netbase_default-hosts:
+      netbase_default-networks:
+      passwd_bins:
+      python3.13_standard:
+      rabbitmq-server_config:
+      rabbitmq-server_modules:
+      sed_bins:
+      util-linux_su-support:
     contents:
       /usr/bin/rabbitmqadmin:
       /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:

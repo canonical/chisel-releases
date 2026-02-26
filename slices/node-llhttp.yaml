@@ -1,13 +1,13 @@
 package: node-llhttp
 
 essential:
-  - node-llhttp_copyright
+  node-llhttp_copyright:
 
 slices:
   libs:
     essential:
-      - node-debug_libs
-      - node-semver_libs
+      node-debug_libs:
+      node-semver_libs:
     contents:
       /usr/share/nodejs/binary-search/binary-search.d.ts:
       /usr/share/nodejs/binary-search/index.js:

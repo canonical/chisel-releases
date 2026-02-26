@@ -1,13 +1,13 @@
 package: less
 
 essential:
-  - less_copyright
+  less_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libtinfo6_libs:
     contents:
       /usr/bin/less:
       /usr/bin/lessecho:
@@ -20,7 +20,7 @@ slices:
   # is merged for chisel.
   # pager:
   #   essential:
-  #     - less_bins
+  #     less_bins:
   #   contents:
   #     /usr/bin/pager: {symlink: /usr/bin/less}
 

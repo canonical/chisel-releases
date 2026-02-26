@@ -1,18 +1,18 @@
 package: libglycin-2-0
 
 essential:
-  - libglycin-2-0_copyright
+  libglycin-2-0_copyright:
 
 slices:
 
   libs:
     essential:
-      - libc6_libs
-      - libfontconfig1_libs
-      - libgcc-s1_libs
-      - libglib2.0-0t64_libs
-      - liblcms2-2_libs
-      - libseccomp2_libs
+      libc6_libs:
+      libfontconfig1_libs:
+      libgcc-s1_libs:
+      libglib2.0-0t64_libs:
+      liblcms2-2_libs:
+      libseccomp2_libs:
     contents:
       /usr/lib/*-linux-*/libglycin-2.so.0:
 

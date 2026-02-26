@@ -1,12 +1,12 @@
 package: dash
 
 essential:
-  - dash_copyright
+  dash_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/dash:
       /usr/bin/sh:

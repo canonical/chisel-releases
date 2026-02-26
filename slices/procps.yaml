@@ -1,16 +1,16 @@
 package: procps
 
 essential:
-  - procps_copyright
+  procps_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libncursesw6_libs
-      - libproc2-0_libs
-      - libsystemd0_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libncursesw6_libs:
+      libproc2-0_libs:
+      libsystemd0_libs:
+      libtinfo6_libs:
     contents:
       /usr/bin/free:
       /usr/bin/kill:

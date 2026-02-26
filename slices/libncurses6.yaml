@@ -1,13 +1,13 @@
 package: libncurses6
 
 essential:
-  - libncurses6_copyright
+  libncurses6_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libtinfo6_libs:
     contents:
       /usr/lib/*-linux-*/libform.so.6*:
       /usr/lib/*-linux-*/libmenu.so.6*:
@@ -16,6 +16,6 @@ slices:
 
   copyright:
     essential:
-      - libtinfo6_copyright
+      libtinfo6_copyright:
     contents:
       /usr/share/doc/libncurses6/copyright: {symlink: /usr/share/doc/libtinfo6/copyright}

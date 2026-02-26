@@ -1,13 +1,13 @@
 package: liblz4-1
 
 essential:
-  - liblz4-1_copyright
+  liblz4-1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxxhash0_libs
+      libc6_libs:
+      libxxhash0_libs:
     contents:
       /usr/lib/*-linux-*/liblz4.so.1*:
 

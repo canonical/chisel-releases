@@ -1,14 +1,14 @@
 package: libchromaprint1
 
 essential:
-  - libchromaprint1_copyright
+  libchromaprint1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libchromaprint.so.1*:
 

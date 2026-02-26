@@ -1,19 +1,19 @@
 package: cpp-14-x86-64-linux-gnu
 
 essential:
-  - cpp-14-x86-64-linux-gnu_copyright
+  cpp-14-x86-64-linux-gnu_copyright:
 
 slices:
   cc1:
     essential:
-      - libc6-dev_headers
-      - libc6_libs
-      - libgmp10_libs
-      - libisl23_libs
-      - libmpc3_libs
-      - libmpfr6_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6-dev_headers:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/libexec/gcc-cross/x86_64-linux-gnu/14/cc1:
         arch: [arm64, i386, ppc64el, s390x]
@@ -22,6 +22,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-14-base_copyright
+      gcc-14-base_copyright:
     contents:
       /usr/share/doc/cpp-14-x86-64-linux-gnu:
