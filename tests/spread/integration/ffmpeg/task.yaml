@@ -1,0 +1,26 @@
+summary: Integration tests for ffmpeg
+
+execute: |
+  rootfs="$(install-slices ffmpeg_bins ffmpeg_conf)"
+
+  cp PE2_Leopard_1080.mkv "${rootfs}/sample.mkv"
+
+  chroot "${rootfs}" ffmpeg -version
+  chroot "${rootfs}" ffprobe -version
+  chroot "${rootfs}" ffplay -version
+
+  probe_output="$(chroot "${rootfs}" ffprobe -v error \
+    -show_entries stream=codec_type,width,height \
+    -of default=noprint_wrappers=1 /sample.mkv)"
+
+  echo "${probe_output}"
+  echo "${probe_output}" | grep -q '^codec_type=video$'
+  echo "${probe_output}" | grep -q '^width='
+  echo "${probe_output}" | grep -q '^height='
+
+  chroot "${rootfs}" ffmpeg -v error -y -i /sample.mkv -frames:v 1 /frame.jpg
+  test -s "${rootfs}/frame.jpg"
+
+  qt_faststart_output="$(chroot "${rootfs}" qt-faststart 2>&1 || true)"
+  echo "${qt_faststart_output}"
+  echo "${qt_faststart_output}" | grep -qi "usage"
