@@ -1,16 +1,16 @@
 package: p11-kit
 
 essential:
-  - p11-kit_copyright
+  p11-kit_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libp11-kit0_libs
-      - libtasn1-6_libs
-      - p11-kit-modules_libs
-      - p11-kit_config
+      libc6_libs:
+      libp11-kit0_libs:
+      libtasn1-6_libs:
+      p11-kit-modules_libs:
+      p11-kit_config:
     contents:
       /usr/bin/p11-kit:
       /usr/bin/trust:

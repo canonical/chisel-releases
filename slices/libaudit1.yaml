@@ -1,14 +1,14 @@
 package: libaudit1
 
 essential:
-  - libaudit1_copyright
+  libaudit1_copyright:
 
 slices:
   libs:
     essential:
-      - libaudit-common_config
-      - libc6_libs
-      - libcap-ng0_libs
+      libaudit-common_config:
+      libc6_libs:
+      libcap-ng0_libs:
     contents:
       /usr/lib/*-linux-*/libaudit.so.1*:
 

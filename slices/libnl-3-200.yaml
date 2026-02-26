@@ -1,12 +1,12 @@
 package: libnl-3-200
 
 essential:
-  - libnl-3-200_copyright
+  libnl-3-200_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libnl-3.so.200*:
 

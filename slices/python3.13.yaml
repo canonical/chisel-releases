@@ -1,58 +1,58 @@
 package: python3.13
 
 essential:
-  - python3.13_copyright
+  python3.13_copyright:
 
 slices:
   # The "core" slice provides a very minimal, yet functioning python3.13.
   # It includes very few modules from the libpython3.13-stdlib package.
   core:
     essential:
-      - libpython3.13-stdlib_core
-      - media-types_data
-      - python3.13-minimal_bins
+      libpython3.13-stdlib_core:
+      media-types_data:
+      python3.13-minimal_bins:
 
   # The "standard" slice extends "core" with all the Python
   # modules from the libpython3.13-stdlib package.
   standard:
     essential:
-      - libpython3.13-stdlib_aix-support
-      - libpython3.13-stdlib_all-os
-      - libpython3.13-stdlib_concurrency
-      - libpython3.13-stdlib_core
-      - libpython3.13-stdlib_crypto
-      - libpython3.13-stdlib_custom-interpreters
-      - libpython3.13-stdlib_data-persistence
-      - libpython3.13-stdlib_data-types
-      - libpython3.13-stdlib_debug
-      - libpython3.13-stdlib_development-tools
-      - libpython3.13-stdlib_distribution
-      - libpython3.13-stdlib_extras
-      - libpython3.13-stdlib_file-formats
-      - libpython3.13-stdlib_filesys
-      - libpython3.13-stdlib_frameworks
-      - libpython3.13-stdlib_importing
-      - libpython3.13-stdlib_internet
-      - libpython3.13-stdlib_ipc
-      - libpython3.13-stdlib_language
-      - libpython3.13-stdlib_markup-tools
-      - libpython3.13-stdlib_multimedia
-      - libpython3.13-stdlib_net-data
-      - libpython3.13-stdlib_numeric
-      - libpython3.13-stdlib_osx-support
-      - libpython3.13-stdlib_pydoc
-      - libpython3.13-stdlib_pyrepl
-      - libpython3.13-stdlib_text
-      - libpython3.13-stdlib_unix
-      - python3.13_core
-      - tzdata_zoneinfo
+      libpython3.13-stdlib_aix-support:
+      libpython3.13-stdlib_all-os:
+      libpython3.13-stdlib_concurrency:
+      libpython3.13-stdlib_core:
+      libpython3.13-stdlib_crypto:
+      libpython3.13-stdlib_custom-interpreters:
+      libpython3.13-stdlib_data-persistence:
+      libpython3.13-stdlib_data-types:
+      libpython3.13-stdlib_debug:
+      libpython3.13-stdlib_development-tools:
+      libpython3.13-stdlib_distribution:
+      libpython3.13-stdlib_extras:
+      libpython3.13-stdlib_file-formats:
+      libpython3.13-stdlib_filesys:
+      libpython3.13-stdlib_frameworks:
+      libpython3.13-stdlib_importing:
+      libpython3.13-stdlib_internet:
+      libpython3.13-stdlib_ipc:
+      libpython3.13-stdlib_language:
+      libpython3.13-stdlib_markup-tools:
+      libpython3.13-stdlib_multimedia:
+      libpython3.13-stdlib_net-data:
+      libpython3.13-stdlib_numeric:
+      libpython3.13-stdlib_osx-support:
+      libpython3.13-stdlib_pydoc:
+      libpython3.13-stdlib_pyrepl:
+      libpython3.13-stdlib_text:
+      libpython3.13-stdlib_unix:
+      python3.13_core:
+      tzdata_zoneinfo:
 
   # The "utlis" slice extends "core" with various tools.
   utils:
     essential:
-      - libpython3.13-stdlib_debug
-      - libpython3.13-stdlib_pydoc
-      - python3.13_core
+      libpython3.13-stdlib_debug:
+      libpython3.13-stdlib_pydoc:
+      python3.13_core:
     contents:
       /usr/bin/pdb3.13:
       /usr/bin/pydoc3.13:

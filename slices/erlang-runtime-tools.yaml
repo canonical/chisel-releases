@@ -1,20 +1,20 @@
 package: erlang-runtime-tools
 
 essential:
-  - erlang-runtime-tools_copyright
+  erlang-runtime-tools_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/erlang/lib/runtime_tools-*/priv/**:
 
   modules:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
-      - erlang-mnesia_modules
+      erlang-base_bins:
+      erlang-base_modules:
+      erlang-mnesia_modules:
     contents:
       /usr/lib/erlang/lib/runtime_tools-*/ebin/**:
 

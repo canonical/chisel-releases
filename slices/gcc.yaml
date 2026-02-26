@@ -1,15 +1,14 @@
 package: gcc
 
 essential:
-  - gcc_copyright
+  gcc_copyright:
 
 slices:
   gcc:
-    v3-essential:
+    essential:
+      gcc-15_gcc-15:
       gcc-aarch64-linux-gnu_gcc: {arch: [arm64]}
       gcc-x86-64-linux-gnu_gcc: {arch: [amd64]}
-    essential:
-      - gcc-15_gcc-15
     contents:
       # NOTE: there are 3 packages which provide /usr/bin/cc alternative implementations:
       # - gcc (priority 20)
@@ -21,8 +20,7 @@ slices:
       /usr/bin/gcc:  # Symlink to gcc-15
 
   copyright:
-    # Note: `v3-essential` only works for chisel>=1.3.0
-    v3-essential:
+    essential:
       cpp-15-aarch64-linux-gnu_copyright: {arch: [arm64]}
       cpp-15-x86-64-linux-gnu_copyright: {arch: [amd64]}
     contents:

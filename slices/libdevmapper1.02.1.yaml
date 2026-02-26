@@ -1,14 +1,14 @@
 package: libdevmapper1.02.1
 
 essential:
-  - libdevmapper1.02.1_copyright
+  libdevmapper1.02.1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libselinux1_libs
-      - libudev1_libs
+      libc6_libs:
+      libselinux1_libs:
+      libudev1_libs:
     contents:
       /usr/lib/*-linux-*/libdevmapper.so.1.02.1:
 

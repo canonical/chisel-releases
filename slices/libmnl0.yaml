@@ -1,12 +1,12 @@
 package: libmnl0
 
 essential:
-  - libmnl0_copyright
+  libmnl0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libmnl.so.0*:
 

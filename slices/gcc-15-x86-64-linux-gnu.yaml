@@ -1,7 +1,7 @@
 package: gcc-15-x86-64-linux-gnu
 
 essential:
-  - gcc-15-x86-64-linux-gnu_copyright
+  gcc-15-x86-64-linux-gnu_copyright:
 
 slices:
   # NOTE: You might want to create a symlink from /usr/bin/gcc to
@@ -18,8 +18,8 @@ slices:
   #       for more info.
   gcc-15:
     essential:
-      - libc6_libs
-      - libgcc-15-dev_headers
+      libc6_libs:
+      libgcc-15-dev_headers:
     contents:
       /usr/bin/x86_64-linux-gnu-gcc-15:
       /usr/libexec/gcc-cross/x86_64-linux-gnu/15/collect2:
@@ -33,6 +33,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-15-base_copyright
+      gcc-15-base_copyright:
     contents:
       /usr/share/doc/gcc-15-x86-64-linux-gnu:

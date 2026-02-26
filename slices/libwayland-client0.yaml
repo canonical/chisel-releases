@@ -1,13 +1,13 @@
 package: libwayland-client0
 
 essential:
-  - libwayland-client0_copyright
+  libwayland-client0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libffi8_libs
+      libc6_libs:
+      libffi8_libs:
     contents:
       /usr/lib/*-linux-*/libwayland-client.so.0*:
 

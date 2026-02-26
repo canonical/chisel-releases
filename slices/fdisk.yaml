@@ -1,18 +1,18 @@
 package: fdisk
 
 essential:
-  - fdisk_copyright
+  fdisk_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libfdisk1_libs
-      - libmount1_libs
-      - libncursesw6_libs
-      - libreadline8t64_libs
-      - libsmartcols1_libs
-      - libtinfo6_libs
+      libc6_libs:
+      libfdisk1_libs:
+      libmount1_libs:
+      libncursesw6_libs:
+      libreadline8t64_libs:
+      libsmartcols1_libs:
+      libtinfo6_libs:
     contents:
       /usr/sbin/cfdisk:
       /usr/sbin/fdisk:

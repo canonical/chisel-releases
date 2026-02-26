@@ -1,18 +1,18 @@
 package: cpio
 
 essential:
-  - cpio_copyright
+  cpio_copyright:
 
 slices:
   cpio:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/cpio:
 
   mt-gnu:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/mt-gnu:
 

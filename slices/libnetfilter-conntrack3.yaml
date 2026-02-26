@@ -1,14 +1,14 @@
 package: libnetfilter-conntrack3
 
 essential:
-  - libnetfilter-conntrack3_copyright
+  libnetfilter-conntrack3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libmnl0_libs
-      - libnfnetlink0_libs
+      libc6_libs:
+      libmnl0_libs:
+      libnfnetlink0_libs:
     contents:
       /usr/lib/*-linux-*/libnetfilter_conntrack.so.3*:
 

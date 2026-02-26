@@ -1,13 +1,13 @@
 package: libproc2-0
 
 essential:
-  - libproc2-0_copyright
+  libproc2-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libsystemd0_libs
+      libc6_libs:
+      libsystemd0_libs:
     contents:
       /usr/lib/*-linux-*/libproc2.so.0*:
 

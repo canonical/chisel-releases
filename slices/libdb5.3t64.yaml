@@ -1,12 +1,12 @@
 package: libdb5.3t64
 
 essential:
-  - libdb5.3t64_copyright
+  libdb5.3t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libdb-5.3.so:
 

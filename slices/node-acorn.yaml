@@ -1,12 +1,12 @@
 package: node-acorn
 
 essential:
-  - node-acorn_copyright
+  node-acorn_copyright:
 
 slices:
   libs:
     essential:
-      - node-xtend_libs
+      node-xtend_libs:
     contents:
       # basically avoiding all the .map files (line tables) and unittest drivers
       /usr/share/nodejs/acorn-bigint/index.js:

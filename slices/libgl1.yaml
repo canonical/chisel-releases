@@ -1,14 +1,14 @@
 package: libgl1
 
 essential:
-  - libgl1_copyright
+  libgl1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libglvnd0_libs
-      - libglx0_libs
+      libc6_libs:
+      libglvnd0_libs:
+      libglx0_libs:
     contents:
       /usr/lib/*-linux-*/libGL.so.1*:
 

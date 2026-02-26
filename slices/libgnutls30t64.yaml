@@ -2,19 +2,19 @@
 package: libgnutls30t64
 
 essential:
-  - libgnutls30t64_copyright
+  libgnutls30t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgmp10_libs
-      - libhogweed6t64_libs
-      - libidn2-0_libs
-      - libnettle8t64_libs
-      - libp11-kit0_libs
-      - libtasn1-6_libs
-      - libunistring5_libs
+      libc6_libs:
+      libgmp10_libs:
+      libhogweed6t64_libs:
+      libidn2-0_libs:
+      libnettle8t64_libs:
+      libp11-kit0_libs:
+      libtasn1-6_libs:
+      libunistring5_libs:
     contents:
       /usr/lib/*-linux-*/libgnutls.so.30*:
 

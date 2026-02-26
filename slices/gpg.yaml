@@ -1,21 +1,21 @@
 package: gpg
 
 essential:
-  - gpg_copyright
+  gpg_copyright:
 
 slices:
   bins:
     essential:
       # gpgconf is not included here as some gpg tasks work without it.
-      - libassuan9_libs
-      - libbz2-1.0_libs
-      - libc6_libs
-      - libgcrypt20_libs
-      - libgpg-error0_libs
-      - libnpth0t64_libs
-      - libreadline8t64_libs
-      - libsqlite3-0_libs
-      - zlib1g_libs
+      libassuan9_libs:
+      libbz2-1.0_libs:
+      libc6_libs:
+      libgcrypt20_libs:
+      libgpg-error0_libs:
+      libnpth0t64_libs:
+      libreadline8t64_libs:
+      libsqlite3-0_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/gpg:
 

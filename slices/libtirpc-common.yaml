@@ -1,7 +1,7 @@
 package: libtirpc-common
 
 essential:
-  - libtirpc-common_copyright
+  libtirpc-common_copyright:
 
 slices:
   config:

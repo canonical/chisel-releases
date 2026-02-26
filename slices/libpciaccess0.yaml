@@ -1,13 +1,13 @@
 package: libpciaccess0
 
 essential:
-  - libpciaccess0_copyright
+  libpciaccess0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - zlib1g_libs
+      libc6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libpciaccess.so.0*:
 

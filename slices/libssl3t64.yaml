@@ -1,15 +1,15 @@
 package: libssl3t64
 
 essential:
-  - libssl3t64_copyright
+  libssl3t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libzstd1_libs
-      - openssl-provider-legacy_libs
-      - zlib1g_libs
+      libc6_libs:
+      libzstd1_libs:
+      openssl-provider-legacy_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/engines-3/afalg.so:
       /usr/lib/*-linux-*/engines-3/loader_attic.so:

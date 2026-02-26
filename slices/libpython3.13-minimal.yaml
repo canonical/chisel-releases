@@ -9,7 +9,7 @@ package: libpython3.13-minimal
 # The reason is simple, the libraries in this package are tightly
 # dependent upon each other.
 essential:
-  - libpython3.13-minimal_copyright
+  libpython3.13-minimal_copyright:
 
 slices:
   config:
@@ -18,9 +18,9 @@ slices:
 
   libs:
     essential:
-      - libc6_libs
-      - libpython3.13-minimal_config
-      - libssl3t64_libs
+      libc6_libs:
+      libpython3.13-minimal_config:
+      libssl3t64_libs:
     contents:
       /usr/lib/python3.13/__future__.py:
       /usr/lib/python3.13/_collections_abc.py:

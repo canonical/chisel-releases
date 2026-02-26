@@ -1,17 +1,17 @@
 package: openjdk-17-jdk-headless
 
 essential:
-  - openjdk-17-jdk-headless_copyright
+  openjdk-17-jdk-headless_copyright:
 
 slices:
 
   # OpenJDK binaries slice
   core:
     essential:
-      - libc6_libs
-      - openjdk-17-jre-headless_core
-      - openjdk-17-jre-headless_javac
-      - zlib1g_libs
+      libc6_libs:
+      openjdk-17-jre-headless_core:
+      openjdk-17-jre-headless_javac:
+      zlib1g_libs:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/javac:
       /usr/lib/jvm/java-17-openjdk-*/bin/javadoc:
@@ -23,8 +23,8 @@ slices:
 
   standard:
     essential:
-      - openjdk-17-jdk-headless_core
-      - openjdk-17-jre-headless_standard
+      openjdk-17-jdk-headless_core:
+      openjdk-17-jre-headless_standard:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/jar:
       /usr/lib/jvm/java-17-openjdk-*/bin/jarsigner:
@@ -47,7 +47,7 @@ slices:
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
-      - openjdk-17-jdk-headless_core
+      openjdk-17-jdk-headless_core:
     contents:
       /usr/lib/jvm/java-17-openjdk-*/bin/jlink:
       /usr/lib/jvm/java-17-openjdk-*/bin/jmod:
@@ -151,6 +151,6 @@ slices:
 
   copyright:
     essential:
-      - openjdk-17-jre-headless_copyright
+      openjdk-17-jre-headless_copyright:
     contents:
       /usr/share/doc/openjdk-17-jdk-headless:

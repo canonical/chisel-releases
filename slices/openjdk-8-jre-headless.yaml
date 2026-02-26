@@ -1,18 +1,18 @@
 package: openjdk-8-jre-headless
 
 essential:
-  - openjdk-8-jre-headless_copyright
+  openjdk-8-jre-headless_copyright:
 
 slices:
   # The "core" slice provides a minimal, yet functional JRE8.
   core:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
-      - openjdk-8-jre-headless_client-vm
-      - openjdk-8-jre-headless_server-vm
-      - zlib1g_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      openjdk-8-jre-headless_client-vm:
+      openjdk-8-jre-headless_server-vm:
+      zlib1g_libs:
     contents:
       /etc/java-8-openjdk/calendars.properties:
       /etc/java-8-openjdk/content-types.properties:
@@ -44,18 +44,18 @@ slices:
 
   client-vm:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjsig.so: {arch: armhf}
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/client/libjvm.so: {arch: armhf}
 
   server-vm:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjsig.so:
         arch:
@@ -71,7 +71,7 @@ slices:
 
   locale:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/cldrdata.jar:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/localedata.jar:
@@ -80,9 +80,9 @@ slices:
   # of the runtime.
   security:
     essential:
-      - libnss3_nss
-      - libpcsclite1_libs
-      - openjdk-8-jre-headless_core
+      libnss3_nss:
+      libpcsclite1_libs:
+      openjdk-8-jre-headless_core:
     contents:
       /etc/java-8-openjdk/security/blacklisted.certs:
       /etc/java-8-openjdk/security/java.security:
@@ -108,11 +108,11 @@ slices:
   # Classes and components for creating GUI elements (windows, graphics, etc.).
   awt:
     essential:
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libjpeg-turbo8_libs
-      - liblcms2-2_libs
-      - openjdk-8-jre-headless_core
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libjpeg-turbo8_libs:
+      liblcms2-2_libs:
+      openjdk-8-jre-headless_core:
     contents:
       /etc/java-8-openjdk/flavormap.properties:
       /etc/java-8-openjdk/images/cursors/cursors.properties:
@@ -140,7 +140,7 @@ slices:
   # Enabled management and monitoring capabilities for Java apps.
   management:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /etc/java-8-openjdk/management/management.properties:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libmanagement.so:
@@ -150,7 +150,7 @@ slices:
   # Java Flight Recorder - API for collecting diagnostic and profilling data.
   jfr:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/jfr.jar:
         arch: [amd64, arm64, armhf, ppc64el]
@@ -158,7 +158,7 @@ slices:
   # Shared libraries for supporting heap profilling.
   hprof:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libhprof.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjava_crw_demo.so:
@@ -170,7 +170,7 @@ slices:
   # Shared libraries for supporting debugging capabilities.
   debug:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libdt_socket.so:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libjdwp.so:
@@ -181,7 +181,7 @@ slices:
 
   tools:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/bin/keytool:
       /usr/lib/jvm/java-8-openjdk-*/jre/bin/keytool:
@@ -189,27 +189,27 @@ slices:
   # Java Programming Language Instrumentation Services interface.
   jplis:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libinstrument.so:
 
   # Allow querying of DNS records through JNDI.
   jndidns:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/dnsns.jar:
 
   zipfs:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/ext/zipfs.jar:
 
   # No internal usages in JRE8, but part of the com.sun.nio.sctp private API.
   sctp:
     essential:
-      - openjdk-8-jre-headless_core
+      openjdk-8-jre-headless_core:
     contents:
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/libsctp.so:
 

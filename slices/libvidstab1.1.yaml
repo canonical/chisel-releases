@@ -1,13 +1,13 @@
 package: libvidstab1.1
 
 essential:
-  - libvidstab1.1_copyright
+  libvidstab1.1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgomp1_libs
+      libc6_libs:
+      libgomp1_libs:
     contents:
       /usr/lib/*-linux-*/libvidstab.so.1.1*:
 

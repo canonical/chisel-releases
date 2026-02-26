@@ -1,12 +1,12 @@
 package: libblkid1
 
 essential:
-  - libblkid1_copyright
+  libblkid1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libblkid.so.1*:
 

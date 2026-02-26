@@ -1,14 +1,14 @@
 package: libxml2-utils
 
 essential:
-  - libxml2-utils_copyright
+  libxml2-utils_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libreadline8t64_libs
-      - libxml2-16_libs
+      libc6_libs:
+      libreadline8t64_libs:
+      libxml2-16_libs:
     contents:
       /usr/bin/xmlcatalog:
       /usr/bin/xmllint:

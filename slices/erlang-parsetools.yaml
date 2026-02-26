@@ -1,13 +1,13 @@
 package: erlang-parsetools
 
 essential:
-  - erlang-parsetools_copyright
+  erlang-parsetools_copyright:
 
 slices:
   modules:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
+      erlang-base_bins:
+      erlang-base_modules:
     contents:
       /usr/lib/erlang/lib/parsetools-*/ebin/**:
 

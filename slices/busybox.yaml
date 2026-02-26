@@ -1,12 +1,12 @@
 package: busybox
 
 essential:
-  - busybox_copyright
+  busybox_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/busybox:
 

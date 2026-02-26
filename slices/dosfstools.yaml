@@ -1,12 +1,12 @@
 package: dosfstools
 
 essential:
-  - dosfstools_copyright
+  dosfstools_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/sbin/dosfsck:
       /usr/sbin/dosfslabel:

@@ -1,12 +1,12 @@
 package: libargon2-1
 
 essential:
-  - libargon2-1_copyright
+  libargon2-1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libargon2.so.1:
 

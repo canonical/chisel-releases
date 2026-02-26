@@ -1,23 +1,23 @@
 package: libavutil59
 
 essential:
-  - libavutil59_copyright
+  libavutil59_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libva-drm2_libs
-      - libva-x11-2_libs
-      - libva2_libs
-      - libvdpau1_libs
+      libc6_libs:
+      libdrm2_libs:
+      libva-drm2_libs:
+      libva-x11-2_libs:
+      libva2_libs:
+      libvdpau1_libs:
       # The libvpl2_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: amd64
-      - libx11-6_libs
-      - ocl-icd-libopencl1_libs
+      libx11-6_libs:
+      ocl-icd-libopencl1_libs:
     contents:
       /usr/lib/*-linux-*/libavutil.so.59*:
 

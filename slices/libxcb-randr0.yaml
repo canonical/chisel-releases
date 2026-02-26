@@ -1,13 +1,13 @@
 package: libxcb-randr0
 
 essential:
-  - libxcb-randr0_copyright
+  libxcb-randr0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-randr.so.0*:
 

@@ -1,12 +1,12 @@
 package: ocl-icd-libopencl1
 
 essential:
-  - ocl-icd-libopencl1_copyright
+  ocl-icd-libopencl1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libOpenCL.so.1*:
 

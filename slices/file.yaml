@@ -1,13 +1,13 @@
 package: file
 
 essential:
-  - file_copyright
+  file_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libmagic1t64_libs
+      libc6_libs:
+      libmagic1t64_libs:
     contents:
       /usr/bin/file:
 

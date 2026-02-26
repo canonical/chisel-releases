@@ -1,7 +1,7 @@
 package: openssh-client
 
 essential:
-  - openssh-client_copyright
+  openssh-client_copyright:
 
 slices:
   bins:
@@ -11,14 +11,14 @@ slices:
     # Likewise, the init-system-helpers dependency is for the postinst
     # script to configure systemd for the socket.
     essential:
-      - libc6_libs
-      - libedit2_libs
-      - libfido2-1_libs
-      - libgssapi-krb5-2_libs
-      - libselinux1_libs
-      - libssl3t64_libs
-      - passwd_config
-      - zlib1g_libs
+      libc6_libs:
+      libedit2_libs:
+      libfido2-1_libs:
+      libgssapi-krb5-2_libs:
+      libselinux1_libs:
+      libssl3t64_libs:
+      passwd_config:
+      zlib1g_libs:
     contents:
       /usr/bin/scp:
       /usr/bin/sftp:
@@ -39,17 +39,17 @@ slices:
 
   scripts:
     essential:
-      - openssh-client_ssh-argv0
-      - openssh-client_ssh-copy-id
+      openssh-client_ssh-argv0:
+      openssh-client_ssh-copy-id:
 
   ssh-argv0:
     # ssh-copy-id is a shell script that needs all of these
     # None of these extra requirements are part of the openssh-client package's
     # requirements.
     essential:
-      - coreutils_conditions
-      - dash_bins
-      - openssh-client_bins
+      coreutils_conditions:
+      dash_bins:
+      openssh-client_bins:
     contents:
       /usr/bin/ssh-argv0:
 
@@ -58,18 +58,18 @@ slices:
     # None of these extra requirements are part of the openssh-client package's
     # requirements.
     essential:
-      - coreutils_changing-file-attributes
-      - coreutils_expr
-      - coreutils_file-name-manipulation
-      - coreutils_operating-on-characters
-      - coreutils_output-of-entire-files
-      - coreutils_output-of-parts-of-files
-      - coreutils_rm-utility
-      - coreutils_summarizing-files
-      - dash_bins
-      - grep_bins
-      - openssh-client_bins
-      - sed_bins
+      coreutils_changing-file-attributes:
+      coreutils_expr:
+      coreutils_file-name-manipulation:
+      coreutils_operating-on-characters:
+      coreutils_output-of-entire-files:
+      coreutils_output-of-parts-of-files:
+      coreutils_rm-utility:
+      coreutils_summarizing-files:
+      dash_bins:
+      grep_bins:
+      openssh-client_bins:
+      sed_bins:
     contents:
       /usr/bin/ssh-copy-id:
 

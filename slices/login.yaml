@@ -1,17 +1,17 @@
 package: login
 
 essential:
-  - login_copyright
+  login_copyright:
 
 slices:
   bins:
     essential:
-      - libaudit1_libs
-      - libc6_libs
-      - libpam-modules_libs
-      - libpam-runtime_config
-      - libpam0g_libs
-      - login_config
+      libaudit1_libs:
+      libc6_libs:
+      libpam-modules_libs:
+      libpam-runtime_config:
+      libpam0g_libs:
+      login_config:
     contents:
       /usr/bin/login:
       /usr/sbin/nologin:

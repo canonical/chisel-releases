@@ -1,12 +1,12 @@
 ﻿package: libnettle8t64
 
 essential:
-  - libnettle8t64_copyright
+  libnettle8t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libnettle.so.8*:
 

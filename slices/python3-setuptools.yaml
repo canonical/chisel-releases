@@ -1,13 +1,13 @@
 package: python3-setuptools
 
 essential:
-  - python3-setuptools_copyright
+  python3-setuptools_copyright:
 
 slices:
   libs:
     essential:
-      - python3-pkg-resources_libs
-      - python3_standard
+      python3-pkg-resources_libs:
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/_distutils_hack/**:
       /usr/lib/python3/dist-packages/setuptools-*.egg-info/**:
