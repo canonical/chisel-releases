@@ -13,8 +13,7 @@ slices:
       - libpulse0_libs
 
     contents:
-      /usr/lib/*-linux-*/lapack/liblapack.so.3:
-      /usr/lib/*-linux-*/lapack/liblapack.so.3.*.*:
+      /usr/lib/*-linux-*/lapack/liblapack.so.3*:
 
       # The following symlinks replace the following command that normally
       # runs as a post-install script:
