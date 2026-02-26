@@ -1,14 +1,14 @@
 package: curl
 
 essential:
-  - curl_copyright
+  curl_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libcurl4t64_libs
-      - zlib1g_libs
+      libc6_libs:
+      libcurl4t64_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/curl:
 

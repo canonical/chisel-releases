@@ -1,16 +1,16 @@
 package: crun
 
 essential:
-  - crun_copyright
+  crun_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libcap2_libs
-      - libseccomp2_libs
-      - libsystemd0_libs
-      - libyajl2_libs
+      libc6_libs:
+      libcap2_libs:
+      libseccomp2_libs:
+      libsystemd0_libs:
+      libyajl2_libs:
     contents:
       /usr/bin/crun:
   libs:

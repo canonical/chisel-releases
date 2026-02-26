@@ -1,12 +1,12 @@
 package: libip6tc2
 
 essential:
-  - libip6tc2_copyright
+  libip6tc2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libip6tc.so.2*:
 

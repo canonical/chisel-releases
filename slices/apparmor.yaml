@@ -1,16 +1,16 @@
 package: apparmor
 
 essential:
-  - apparmor_copyright
+  apparmor_copyright:
 
 slices:
   # Also relies on debconf, however it is solely used by install hook
   # to determine if any non default homedir has been configured.
   bins:
     essential:
-      - apparmor_config
-      - apparmor_profiles
-      - libc6_libs
+      apparmor_config:
+      apparmor_profiles:
+      libc6_libs:
     contents:
       /usr/bin/aa-enabled:
       /usr/bin/aa-exec:

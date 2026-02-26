@@ -1,13 +1,13 @@
 package: libp11-kit0
 
 essential:
-  - libp11-kit0_copyright
+  libp11-kit0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libffi8_libs
+      libc6_libs:
+      libffi8_libs:
     contents:
       /usr/lib/*-linux-*/libp11-kit.so.0*:
 

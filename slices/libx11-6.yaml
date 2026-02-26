@@ -1,14 +1,14 @@
 package: libx11-6
 
 essential:
-  - libx11-6_copyright
+  libx11-6_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libx11-data_data
-      - libxcb1_libs
+      libc6_libs:
+      libx11-data_data:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libX11.so.6*:
 

@@ -1,12 +1,12 @@
 package: libserd-0-0
 
 essential:
-  - libserd-0-0_copyright
+  libserd-0-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libserd-0.so.0*:
 

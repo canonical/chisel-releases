@@ -2,14 +2,14 @@
 package: libhogweed6t64
 
 essential:
-  - libhogweed6t64_copyright
+  libhogweed6t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgmp10_libs
-      - libnettle8t64_libs
+      libc6_libs:
+      libgmp10_libs:
+      libnettle8t64_libs:
     contents:
       /usr/lib/*-linux-*/libhogweed.so.6*:
 

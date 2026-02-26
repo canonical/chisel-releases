@@ -1,13 +1,13 @@
 package: libnss-extrausers
 
 essential:
-  - libnss-extrausers_copyright
+  libnss-extrausers_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libnss-extrausers_var
+      libc6_libs:
+      libnss-extrausers_var:
     contents:
       /usr/lib/libnss_extrausers.so.*:
       /usr/lib32/libnss_extrausers.so.*: { arch: [amd64] }

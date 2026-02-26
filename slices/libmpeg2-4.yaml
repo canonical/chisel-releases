@@ -1,12 +1,12 @@
 package: libmpeg2-4
 
 essential:
-  - libmpeg2-4_copyright
+  libmpeg2-4_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libmpeg2.so.0*:
       /usr/lib/*-linux-*/libmpeg2convert.so.0*:

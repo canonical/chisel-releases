@@ -1,25 +1,25 @@
 package: php-common
 
 essential:
-  - php-common_copyright
+  php-common_copyright:
 
 slices:
   scripts:
     essential:
-      - coreutils_dirname
-      - coreutils_echo
-      - coreutils_expr
-      - coreutils_ln-utility
-      - coreutils_mkdir
-      - coreutils_printf
-      - coreutils_readlink
-      - coreutils_rm-utility
-      - coreutils_sort
-      - coreutils_touch
-      - dash_bins
-      - findutils_bins
-      - php-common_registry
-      - sed_bins
+      coreutils_dirname:
+      coreutils_echo:
+      coreutils_expr:
+      coreutils_ln-utility:
+      coreutils_mkdir:
+      coreutils_printf:
+      coreutils_readlink:
+      coreutils_rm-utility:
+      coreutils_sort:
+      coreutils_touch:
+      dash_bins:
+      findutils_bins:
+      php-common_registry:
+      sed_bins:
     contents:
       /usr/lib/php/php-fpm-socket-helper:
       /usr/lib/php/php-helper:

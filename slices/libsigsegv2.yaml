@@ -1,12 +1,12 @@
 package: libsigsegv2
 
 essential:
-  - libsigsegv2_copyright
+  libsigsegv2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libsigsegv.so.2*:
 

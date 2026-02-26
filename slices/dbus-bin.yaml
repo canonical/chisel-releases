@@ -1,13 +1,13 @@
 package: dbus-bin
 
 essential:
-  - dbus-bin_copyright
+  dbus-bin_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libdbus-1-3_libs
+      libc6_libs:
+      libdbus-1-3_libs:
     contents:
       /usr/bin/dbus-cleanup-sockets:
       /usr/bin/dbus-monitor:

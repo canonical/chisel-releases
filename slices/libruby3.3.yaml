@@ -1,7 +1,7 @@
 package: libruby3.3
 
 essential:
-  - libruby3.3_copyright
+  libruby3.3_copyright:
 
 # Slicing structure based on https://ruby-doc.org/3.3.7/
 slices:
@@ -11,10 +11,10 @@ slices:
   # irb; rake; did-you-mean; minitest; test-unit; bundler; rubygems; font-lato fonts
   core:
     essential:
-      - libruby3.3_libs
-      - ruby-net-telnet_rubygems
-      - ruby-webrick_rubygems
-      - ruby-xmlrpc_scripts
+      libruby3.3_libs:
+      ruby-net-telnet_rubygems:
+      ruby-webrick_rubygems:
+      ruby-xmlrpc_scripts:
     contents:
       /usr/lib/ruby/3.3.*/English.rb:
       /usr/lib/ruby/3.3.*/abbrev.rb:
@@ -320,13 +320,13 @@ slices:
 
   libs:
     essential:
-      - libc6_libs
-      - libcrypt1_libs
-      - libffi8_libs
-      - libgmp10_libs
-      - libssl3t64_libs
-      - libyaml-0-2_libs
-      - zlib1g_libs
+      libc6_libs:
+      libcrypt1_libs:
+      libffi8_libs:
+      libgmp10_libs:
+      libssl3t64_libs:
+      libyaml-0-2_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libruby-3.3.so.3.3*:
       /usr/lib/*-linux-*/ruby/3.3.*/**:

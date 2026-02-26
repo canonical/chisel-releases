@@ -3,12 +3,12 @@
 package: libjpeg8
 
 essential:
-  - libjpeg8_copyright
+  libjpeg8_copyright:
 
 slices:
   libs:
     essential:
-      - libjpeg-turbo8_libs
+      libjpeg-turbo8_libs:
 
   copyright:
     contents:

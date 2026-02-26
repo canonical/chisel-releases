@@ -1,7 +1,7 @@
 package: libldap-common
 
 essential:
-  - libldap-common_copyright
+  libldap-common_copyright:
 
 slices:
   config:

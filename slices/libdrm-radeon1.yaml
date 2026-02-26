@@ -1,13 +1,13 @@
 package: libdrm-radeon1
 
 essential:
-  - libdrm-radeon1_copyright
+  libdrm-radeon1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
+      libc6_libs:
+      libdrm2_libs:
     contents:
       /usr/lib/*-linux-*/libdrm_radeon.so.1*:
 

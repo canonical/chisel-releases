@@ -1,13 +1,13 @@
 package: libassuan9
 
 essential:
-  - libassuan9_copyright
+  libassuan9_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgpg-error0_libs
+      libc6_libs:
+      libgpg-error0_libs:
     contents:
       /usr/lib/*-linux-*/libassuan.so.9*:
 

@@ -1,7 +1,7 @@
 package: fonts-urw-base35
 
 essential:
-  - fonts-urw-base35_copyright
+  fonts-urw-base35_copyright:
 
 slices:
   config:

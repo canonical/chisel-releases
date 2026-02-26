@@ -1,17 +1,17 @@
 package: libcryptsetup12
 
 essential:
-  - libcryptsetup12_copyright
+  libcryptsetup12_copyright:
 
 slices:
   libs:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libdevmapper1.02.1_libs
-      - libjson-c5_libs
-      - libssl3t64_libs
-      - libuuid1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libdevmapper1.02.1_libs:
+      libjson-c5_libs:
+      libssl3t64_libs:
+      libuuid1_libs:
     contents:
       /usr/lib/*-linux-*/libcryptsetup.so.12*:
 

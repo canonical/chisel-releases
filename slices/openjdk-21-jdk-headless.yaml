@@ -1,16 +1,16 @@
 package: openjdk-21-jdk-headless
 
 essential:
-  - openjdk-21-jdk-headless_copyright
+  openjdk-21-jdk-headless_copyright:
 
 slices:
 
   # OpenJDK binaries slice
   core:
     essential:
-      - libc6_libs
-      - openjdk-21-jre-headless_core
-      - zlib1g_libs
+      libc6_libs:
+      openjdk-21-jre-headless_core:
+      zlib1g_libs:
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/javac:
       /usr/lib/jvm/java-21-openjdk-*/bin/javadoc:
@@ -24,8 +24,8 @@ slices:
 
   standard:
     essential:
-      - openjdk-21-jdk-headless_core
-      - openjdk-21-jre-headless_standard
+      openjdk-21-jdk-headless_core:
+      openjdk-21-jre-headless_standard:
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/jar:
       /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
@@ -49,7 +49,7 @@ slices:
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
-      - openjdk-21-jdk-headless_core
+      openjdk-21-jdk-headless_core:
     contents:
       /usr/lib/jvm/java-21-openjdk-*/bin/jlink:
       /usr/lib/jvm/java-21-openjdk-*/bin/jmod:
@@ -155,6 +155,6 @@ slices:
 
   copyright:
     essential:
-      - openjdk-21-jre-headless_copyright
+      openjdk-21-jre-headless_copyright:
     contents:
       /usr/share/doc/openjdk-21-jdk-headless:

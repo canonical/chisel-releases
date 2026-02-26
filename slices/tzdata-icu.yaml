@@ -1,7 +1,7 @@
 package: tzdata-icu
 
 essential:
-  - tzdata-icu_copyright
+  tzdata-icu_copyright:
 
 slices:
   # Specific for applications that use the ICU library.

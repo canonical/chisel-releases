@@ -1,16 +1,16 @@
 package: libc6-dev
 
 essential:
-  - libc6-dev_copyright
+  libc6-dev_copyright:
 
 slices:
   # The main library slice, including the core runtime and most-common
   # optional libraries.
   libs:
     essential:
-      - libc6-dev_core
-      - libc6-dev_libm
-      - libc6-dev_symlink-libc6-libs
+      libc6-dev_core:
+      libc6-dev_libm:
+      libc6-dev_symlink-libc6-libs:
 
   # C runtime libraries, needed to start a C program
   # - https://stackoverflow.com/a/16436294/2531987
@@ -41,8 +41,8 @@ slices:
 
   core:
     essential:
-      - libc6-dev_runtime
-      - libc6_libs
+      libc6-dev_runtime:
+      libc6_libs:
     contents:
       # dummy file to allow linking with -lanl. this functionality in integrated into libc
       /usr/lib/*-linux-*/libanl.a:
@@ -69,8 +69,8 @@ slices:
   # only needed if linking with -lm
   libm:
     essential:
-      - libc6-dev_core
-      - libc6_libs
+      libc6-dev_core:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libm-2.*.a:
         arch: [amd64, arm64]
@@ -88,14 +88,14 @@ slices:
   # only needed if linking with -lmcheck
   libmcheck:
     essential:
-      - libc6-dev_core
+      libc6-dev_core:
     contents:
       /usr/lib/*-linux-*/libmcheck.a:
 
   # only needed if linking with -lresolv
   libresolv:
     essential:
-      - libc6-dev_core
+      libc6-dev_core:
     contents:
       # static libresolv version
       /usr/lib/*-linux-*/libresolv.a:
@@ -106,20 +106,20 @@ slices:
   # needs to be manually enabled with e.g. LD_AUDIT=<path to sotruss-lib.so>
   audit:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/audit/sotruss-lib.so:
 
   # legacy locale support library, usually not needed
   libbrokenlocale:
     essential:
-      - libc6-dev_core
+      libc6-dev_core:
     contents:
       /usr/lib/*-linux-*/libBrokenLocale.so:
 
   symlink-libc6-libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libc_malloc_debug.so:
       /usr/lib/*-linux-*/libnss_compat.so:
@@ -130,8 +130,8 @@ slices:
   headers:
     # We need `libcrypt-dev_headers` for the crypt.h header which is referenced from unistd.h
     essential:
-      - libcrypt-dev_headers
-      - linux-libc-dev_linux-headers
+      libcrypt-dev_headers:
+      linux-libc-dev_linux-headers:
     contents:
       /usr/include/*-linux-*/a.out.h:
       /usr/include/*-linux-*/bits/a.out.h:

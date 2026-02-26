@@ -1,12 +1,12 @@
 package: libnspr4
 
 essential:
-  - libnspr4_copyright
+  libnspr4_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libnspr4.so:
       /usr/lib/*-linux-*/libplc4.so:

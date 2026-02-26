@@ -1,12 +1,12 @@
 package: libkeyutils1
 
 essential:
-  - libkeyutils1_copyright
+  libkeyutils1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libkeyutils.so.1*:
 

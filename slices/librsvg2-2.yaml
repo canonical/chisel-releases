@@ -1,20 +1,20 @@
 package: librsvg2-2
 
 essential:
-  - librsvg2-2_copyright
+  librsvg2-2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libcairo-gobject2_libs
-      - libcairo2_libs
-      - libgcc-s1_libs
-      - libgdk-pixbuf-2.0-0_libs
-      - libglib2.0-0t64_libs
-      - libpango-1.0-0_libs
-      - libpangocairo-1.0-0_libs
-      - libxml2-16_libs
+      libc6_libs:
+      libcairo-gobject2_libs:
+      libcairo2_libs:
+      libgcc-s1_libs:
+      libgdk-pixbuf-2.0-0_libs:
+      libglib2.0-0t64_libs:
+      libpango-1.0-0_libs:
+      libpangocairo-1.0-0_libs:
+      libxml2-16_libs:
     contents:
       /usr/lib/*-linux-*/librsvg-2.so.2*:
 

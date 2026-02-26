@@ -1,23 +1,23 @@
 package: openssl
 
 essential:
-  - openssl_copyright
+  openssl_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_config
-      - libc6_libs
-      - libssl3t64_libs
-      - openssl_config
-      - openssl_data
+      libc6_config:
+      libc6_libs:
+      libssl3t64_libs:
+      openssl_config:
+      openssl_data:
     contents:
       /usr/bin/openssl:
 
   scripts:
     essential:
-      - openssl_bins
-      - perl-base_bins
+      openssl_bins:
+      perl-base_bins:
     contents:
       /usr/bin/c_rehash:
 
@@ -36,6 +36,6 @@ slices:
 
   copyright:
     essential:
-      - libssl3t64_copyright
+      libssl3t64_copyright:
     contents:
       /usr/share/doc/openssl/copyright:

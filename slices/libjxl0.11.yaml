@@ -1,17 +1,17 @@
 package: libjxl0.11
 
 essential:
-  - libjxl0.11_copyright
+  libjxl0.11_copyright:
 
 slices:
   libs:
     essential:
-      - libbrotli1_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libhwy1t64_libs
-      - liblcms2-2_libs
-      - libstdc++6_libs
+      libbrotli1_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libhwy1t64_libs:
+      liblcms2-2_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libjxl.so.0.11*:
       /usr/lib/*-linux-*/libjxl_cms.so.0.11*:

@@ -1,14 +1,14 @@
 package: libedit2
 
 essential:
-  - libedit2_copyright
+  libedit2_copyright:
 
 slices:
   libs:
     essential:
-      - libbsd0_libs
-      - libc6_libs
-      - libtinfo6_libs
+      libbsd0_libs:
+      libc6_libs:
+      libtinfo6_libs:
     contents:
       /usr/lib/*-linux-*/libedit.so.2*:
 

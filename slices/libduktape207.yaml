@@ -1,12 +1,12 @@
 package: libduktape207
 
 essential:
-  - libduktape207_copyright
+  libduktape207_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libduktape.so.207:
 

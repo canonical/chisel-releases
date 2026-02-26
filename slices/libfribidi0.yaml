@@ -1,12 +1,12 @@
 package: libfribidi0
 
 essential:
-  - libfribidi0_copyright
+  libfribidi0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libfribidi.so.0*:
 

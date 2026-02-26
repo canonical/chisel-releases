@@ -1,28 +1,25 @@
 package: binutils
 
 essential:
-  - binutils_copyright
+  binutils_copyright:
 
 slices:
   archiver:
-    # Note: `v3-essential` only works for chisel>=1.3.0
-    v3-essential:
+    essential:
       binutils-aarch64-linux-gnu_archiver: {arch: [arm64]}
       binutils-x86-64-linux-gnu_archiver: {arch: [amd64]}
     contents:
       /usr/bin/ar:  # Symlink to ${ARCH_TRIPLET}-ar
 
   assembler:
-    # Note: `v3-essential` only works for chisel>=1.3.0
-    v3-essential:
+    essential:
       binutils-aarch64-linux-gnu_assembler: {arch: [arm64]}
       binutils-x86-64-linux-gnu_assembler: {arch: [amd64]}
     contents:
       /usr/bin/as:  # Symlink to ${ARCH_TRIPLET}-as
 
   linker:
-    # Note: `v3-essential` only works for chisel>=1.3.0
-    v3-essential:
+    essential:
       binutils-aarch64-linux-gnu_linker: {arch: [arm64]}
       binutils-x86-64-linux-gnu_linker: {arch: [amd64]}
     contents:

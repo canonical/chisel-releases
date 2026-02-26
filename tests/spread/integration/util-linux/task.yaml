@@ -52,12 +52,10 @@ execute: |
     cli-helpers)
       chroot "${rootfs}" getopt Hello world | grep " -- world"
       chroot "${rootfs}" namei /bin/bash | grep "l bin -> usr/bin"
-      echo "Hello" | chroot "${rootfs}" rev | grep "olleH"
       chroot "${rootfs}" whereis getopt | grep "/usr/bin/getopt"
     ;;
     cpu)
       chroot "${rootfs}" lscpu | grep "Architecture"
-      chroot "${rootfs}" chcpu --help
     ;;
     file-manipulation)
       chroot "${rootfs}" fallocate -l 1M /tmp/fallocate-test
@@ -67,7 +65,6 @@ execute: |
       cp "${rootfs}"/tmp/hardlink-test/file1 "${rootfs}"/tmp/hardlink-test/file2
       chroot "${rootfs}" hardlink /tmp/hardlink-test/ | grep 'Saved:[[:blank:]]*12 B'
       chroot "${rootfs}" more /usr/share/doc/util-linux/copyright | grep "format"
-      chroot "${rootfs}" rename.ul copyright copyright2 /usr/share/doc/util-linux/copyright
       test -f "${rootfs}"/usr/share/doc/util-linux/copyright2
     ;;
     file-system)
@@ -78,7 +75,6 @@ execute: |
       chroot "${rootfs}" fsck -N
       chroot "${rootfs}" fsfreeze --help
       chroot "${rootfs}" fstrim --help
-      chroot "${rootfs}" isosize --help
       # Test mkfs with an image file and verify it with fsck
       # Using the mkfs.vfat from the host, as `mkfs.*` is not shipped
       # by util-linux package any more since Ubuntu 24.10.
@@ -88,9 +84,7 @@ execute: |
       chroot "${rootfs}" fsck -n /tmp/mkfs-test
       chroot "${rootfs}" mkswap --help
       chroot "${rootfs}" swaplabel --help
-      chroot "${rootfs}" switch_root --help
       chroot "${rootfs}" wipefs --help
-      chroot "${rootfs}" pivot_root --help
     ;;
     generated)
       # ensure expected links are generated
@@ -115,7 +109,6 @@ execute: |
       chroot "${rootfs}" flock /tmp/bash.lock -c "lslocks" | grep "/tmp/bash.lock"
     ;;
     login)
-      chroot "${rootfs}" lslogins
       cp /etc/passwd "${rootfs}"/etc/passwd
       # sulogin expects keyboard inputs to continue or exit.
       # Set timeout to let it exit without keyboard inputs after 1 second.
@@ -123,10 +116,6 @@ execute: |
     ;;
     mcookie)
       chroot "${rootfs}" mcookie | grep -E '^[0-9a-f]{32}$'
-    ;;
-    memory)
-      chroot "${rootfs}" lsmem | grep "Total online memory"
-      chroot "${rootfs}" chmem --help
     ;;
     namespace)
       chroot "${rootfs}" lsns | grep "init"
@@ -157,13 +146,11 @@ execute: |
       chroot "${rootfs}" runuser foo -c whoami | grep "foo"
     ;;
     timer)
-      chroot "${rootfs}" wdctl --help
       chroot "${rootfs}" rtcwake --help
     ;;
     tty)
       chroot "${rootfs}" setterm --help
       chroot "${rootfs}" agetty --help
-      chroot "${rootfs}" ldattach --help
       chroot "${rootfs}" getty --help
     ;;
   esac

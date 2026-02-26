@@ -2,23 +2,23 @@
 package: libcurl4t64
 
 essential:
-  - libcurl4t64_copyright
+  libcurl4t64_copyright:
 
 slices:
   libs:
     essential:
-      - libbrotli1_libs
-      - libc6_libs
-      - libgssapi-krb5-2_libs
-      - libidn2-0_libs
-      - libldap2_libs
-      - libnghttp2-14_libs
-      - libpsl5t64_libs
-      - librtmp1_libs
-      - libssh2-1t64_libs
-      - libssl3t64_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libbrotli1_libs:
+      libc6_libs:
+      libgssapi-krb5-2_libs:
+      libidn2-0_libs:
+      libldap2_libs:
+      libnghttp2-14_libs:
+      libpsl5t64_libs:
+      librtmp1_libs:
+      libssh2-1t64_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libcurl.so.4*:
 

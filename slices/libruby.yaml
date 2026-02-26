@@ -1,11 +1,11 @@
 package: libruby
 
 essential:
-  - libruby_copyright
+  libruby_copyright:
 
 slices:
   copyright:
     essential:
-      - libruby3.3_copyright
+      libruby3.3_copyright:
     contents:
       /usr/share/doc/libruby/copyright:

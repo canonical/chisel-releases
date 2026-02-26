@@ -1,16 +1,16 @@
 package: mount
 
 essential:
-  - mount_copyright
+  mount_copyright:
 
 slices:
   bins:
     essential:
-      - libblkid1_libs
-      - libc6_libs
-      - libmount1_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
+      libblkid1_libs:
+      libc6_libs:
+      libmount1_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
     contents:
       /usr/bin/mount:
       /usr/bin/umount:

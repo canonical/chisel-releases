@@ -1,12 +1,12 @@
 package: libwrap0
 
 essential:
-  - libwrap0_copyright
+  libwrap0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libwrap.so.0*:
 

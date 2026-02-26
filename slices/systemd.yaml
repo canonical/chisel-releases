@@ -1,7 +1,7 @@
 package: systemd
 
 essential:
-  - systemd_copyright
+  systemd_copyright:
 
 slices:
   # now a placeholder, just redirects to core
@@ -302,10 +302,10 @@ slices:
 
   config:
     essential:
-      - systemd_modprobe-config
-      - systemd_pam-profile
-      - systemd_sysusers-config
-      - systemd_tmpfiles-config
+      systemd_modprobe-config:
+      systemd_pam-profile:
+      systemd_sysusers-config:
+      systemd_tmpfiles-config:
     contents:
       /etc/systemd/journald.conf:
       /etc/systemd/logind.conf:
@@ -335,7 +335,7 @@ slices:
 
   system-services:
     essential:
-      - systemd_generated-services
+      systemd_generated-services:
     contents:
       /usr/lib/lsb/init-functions.d/40-systemd:
       /usr/lib/systemd/system-preset/90-systemd.preset:
@@ -584,7 +584,7 @@ slices:
 
   dbus-services:
     essential:
-      - systemd-dev_dbus-interfaces
+      systemd-dev_dbus-interfaces:
     contents:
       /usr/share/dbus-1/services/org.freedesktop.systemd1.service:
       /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service:
