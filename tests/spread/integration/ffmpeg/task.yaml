@@ -3,7 +3,7 @@ summary: Integration tests for ffmpeg
 execute: |
   rootfs="$(install-slices ffmpeg_bins ffmpeg_conf)"
 
-  cp PE2_Leopard_1080.mkv "${rootfs}/sample.mkv"
+  cp test_file.mkv "${rootfs}/sample.mkv"
 
   chroot "${rootfs}" ffmpeg -version
   chroot "${rootfs}" ffprobe -version
