@@ -1,7 +1,7 @@
 package: aspnetcore-runtime-10.0
 
 essential:
-  - aspnetcore-runtime-10.0_copyright
+  aspnetcore-runtime-10.0_copyright:
 
 slices:
   # libicu is not needed if the environment is set to invariant by using
@@ -12,14 +12,14 @@ slices:
   # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
     essential:
-      - dotnet-runtime-10.0_core
+      dotnet-runtime-10.0_core:
     contents:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/**:
 
   standard:
     essential:
-      - aspnetcore-runtime-10.0_core
-      - libicu78_libs
+      aspnetcore-runtime-10.0_core:
+      libicu78_libs:
 
   notice:
     contents:
