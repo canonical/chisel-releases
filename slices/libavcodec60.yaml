@@ -19,6 +19,7 @@ slices:
       - libmp3lame0_libs
       - libopenjp2-7_libs
       - libopus0_libs
+      - librav1e0_libs
       - librsvg2-2_libs
       - libshine3_libs
       - libsnappy1v5_libs
@@ -39,7 +40,6 @@ slices:
       - libzvbi0t64_libs
       - zlib1g_libs
     v3-essential:
-      librav1e0_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
       libvpl2_libs: {arch: [amd64]}
     contents:
       /usr/lib/*-linux-*/libavcodec.so.60*:
