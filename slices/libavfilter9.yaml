@@ -23,7 +23,6 @@ slices:
       - libpocketsphinx3_libs
       - libpostproc57_libs
       - librubberband2_libs
-      - libsphinxbase3t64_libs
       - libstdc++6_libs
       - libswresample4_libs
       - libswscale7_libs
@@ -37,6 +36,7 @@ slices:
       /usr/lib/*-linux-*/libavfilter.so*:
     v3-essential:
       libvpl2_libs: {arch: [amd64]}
+      libsphinxbase3t64_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
 
   copyright:
     contents:

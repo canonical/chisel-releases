@@ -7,9 +7,10 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libsphinxbase3t64_libs
     contents:
       /usr/lib/*-linux-*/libpocketsphinx.so*:
+    v3-essential:
+      libsphinxbase3t64_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
 
   copyright:
     contents:
