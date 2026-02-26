@@ -1,13 +1,13 @@
 package: libxcb-xinerama0
 
 essential:
-  - libxcb-xinerama0_copyright
+  libxcb-xinerama0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-xinerama.so.0*:
 

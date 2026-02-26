@@ -1,13 +1,13 @@
 package: libxcb-keysyms1
 
 essential:
-  - libxcb-keysyms1_copyright
+  libxcb-keysyms1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-keysyms.so.1*:
 

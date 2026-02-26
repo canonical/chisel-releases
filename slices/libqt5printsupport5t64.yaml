@@ -1,33 +1,33 @@
 package: libqt5printsupport5t64
 
 essential:
-  - libqt5printsupport5t64_copyright
+  libqt5printsupport5t64_copyright:
 
 slices:
   libs:
     essential:
-      - libqt5printsupport5t64_libprintsupport
-      - libqt5printsupport5t64_plugins
+      libqt5printsupport5t64_libprintsupport:
+      libqt5printsupport5t64_plugins:
 
   libprintsupport:
     essential:
-      - libc6_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libqt5widgets5t64_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libqt5widgets5t64_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libQt5PrintSupport.so.5*:
 
   plugins:
     essential:
-      - libc6_libs
-      - libcups2t64_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libqt5printsupport5t64_libprintsupport
-      - libqt5widgets5t64_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libcups2t64_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libqt5printsupport5t64_libprintsupport:
+      libqt5widgets5t64_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/printsupport/libcupsprintersupport.so:
 

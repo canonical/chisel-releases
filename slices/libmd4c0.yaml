@@ -1,12 +1,12 @@
 package: libmd4c0
 
 essential:
-  - libmd4c0_copyright
+  libmd4c0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libmd4c.so.0*:
 

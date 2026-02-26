@@ -1,15 +1,15 @@
 package: libqt6widgets6
 
 essential:
-  - libqt6widgets6_copyright
+  libqt6widgets6_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libstdc++6_libs
+      libc6_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libQt6Widgets.so.6*:
 

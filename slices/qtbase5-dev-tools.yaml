@@ -1,18 +1,18 @@
 package: qtbase5-dev-tools
 
 essential:
-  - qtbase5-dev-tools_copyright
+  qtbase5-dev-tools_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libstdc++6_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libstdc++6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/qt5/bin/moc:
       /usr/lib/qt5/bin/qdbuscpp2xml:
@@ -25,7 +25,7 @@ slices:
 
   scripts:
     essential:
-      - perl_bins
+      perl_bins:
     contents:
       /usr/lib/qt5/bin/fixqt4headers.pl:
       /usr/lib/qt5/bin/syncqt.pl:

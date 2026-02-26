@@ -1,31 +1,31 @@
 package: libqt5network5t64
 
 essential:
-  - libqt5network5t64_copyright
+  libqt5network5t64_copyright:
 
 slices:
   libs:
     essential:
-      - libqt5network5t64_libnetwork
-      - libqt5network5t64_plugins
+      libqt5network5t64_libnetwork:
+      libqt5network5t64_plugins:
 
   libnetwork:
     essential:
-      - libc6_libs
-      - libgssapi-krb5-2_libs
-      - libqt5core5t64_libs
-      - libstdc++6_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgssapi-krb5-2_libs:
+      libqt5core5t64_libs:
+      libstdc++6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libQt5Network.so.5*:
 
   plugins:
     essential:
-      - libc6_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5network5t64_libnetwork
-      - libstdc++6_libs
+      libc6_libs:
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libqt5network5t64_libnetwork:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/bearer/libqconnmanbearer.so*:
       /usr/lib/*-linux-*/qt5/plugins/bearer/libqgenericbearer.so*:

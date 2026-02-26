@@ -1,56 +1,56 @@
 package: libqt5gui5t64
 
 essential:
-  - libqt5gui5t64_copyright
+  libqt5gui5t64_copyright:
 
 slices:
   libs:
     essential:
-      - libqt5gui5t64_libegldevice
-      - libqt5gui5t64_libeglsupport
-      - libqt5gui5t64_libgui
-      - libqt5gui5t64_libxcbqpa
-      - libqt5gui5t64_plugins
+      libqt5gui5t64_libegldevice:
+      libqt5gui5t64_libeglsupport:
+      libqt5gui5t64_libgui:
+      libqt5gui5t64_libxcbqpa:
+      libqt5gui5t64_plugins:
 
   libegldevice:
     essential:
-      - libc6_libs
-      - libegl1_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libgl1_libs
-      - libglib2.0-0t64_libs
-      - libinput10_libs
-      - libmtdev1t64_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5gui5t64_libgui
-      - libstdc++6_libs
-      - libudev1_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libegl1_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libgl1_libs:
+      libglib2.0-0t64_libs:
+      libinput10_libs:
+      libmtdev1t64_libs:
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libqt5gui5t64_libgui:
+      libstdc++6_libs:
+      libudev1_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/libQt5EglFSDeviceIntegration.so.5*:
 
   libeglsupport:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libstdc++6_libs
+      libc6_libs:
+      libdrm2_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libQt5EglFsKmsSupport.so.5*:
 
   libgui:
     essential:
-      - libc6_libs
-      - libgl1_libs
-      - libharfbuzz0b_libs
-      - libmd4c0_libs
-      - libpng16-16t64_libs
-      - libqt5core5t64_libs
-      - libstdc++6_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgl1_libs:
+      libharfbuzz0b_libs:
+      libmd4c0_libs:
+      libpng16-16t64_libs:
+      libqt5core5t64_libs:
+      libstdc++6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libQt5Gui.so.5*:
       /usr/lib/*-linux-*/sse2/libQt5Gui.so.5*:
@@ -58,35 +58,35 @@ slices:
 
   libxcbqpa:
     essential:
-      - libc6_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libglib2.0-0t64_libs
-      - libice6_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5gui5t64_libgui
-      - libsm6_libs
-      - libstdc++6_libs
-      - libx11-6_libs
-      - libx11-xcb1_libs
-      - libxcb-icccm4_libs
-      - libxcb-image0_libs
-      - libxcb-keysyms1_libs
-      - libxcb-randr0_libs
-      - libxcb-render-util0_libs
-      - libxcb-render0_libs
-      - libxcb-shape0_libs
-      - libxcb-shm0_libs
-      - libxcb-sync1_libs
-      - libxcb-xfixes0_libs
-      - libxcb-xinerama0_libs
-      - libxcb-xinput0_libs
-      - libxcb-xkb1_libs
-      - libxcb1_libs
-      - libxkbcommon-x11-0_libs
-      - libxkbcommon0_libs
-      - libxrender1_libs
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libglib2.0-0t64_libs:
+      libice6_libs:
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libqt5gui5t64_libgui:
+      libsm6_libs:
+      libstdc++6_libs:
+      libx11-6_libs:
+      libx11-xcb1_libs:
+      libxcb-icccm4_libs:
+      libxcb-image0_libs:
+      libxcb-keysyms1_libs:
+      libxcb-randr0_libs:
+      libxcb-render-util0_libs:
+      libxcb-render0_libs:
+      libxcb-shape0_libs:
+      libxcb-shm0_libs:
+      libxcb-sync1_libs:
+      libxcb-xfixes0_libs:
+      libxcb-xinerama0_libs:
+      libxcb-xinput0_libs:
+      libxcb-xkb1_libs:
+      libxcb1_libs:
+      libxkbcommon-x11-0_libs:
+      libxkbcommon0_libs:
+      libxrender1_libs:
     contents:
       /usr/lib/*-linux-*/libQt5XcbQpa.so.5*:
 
@@ -94,28 +94,28 @@ slices:
 
   plugins:
     essential:
-      - libqt5gui5t64_plugins-egldeviceintegrations
-      - libqt5gui5t64_plugins-generic
-      - libqt5gui5t64_plugins-imageformats
-      - libqt5gui5t64_plugins-platforminputcontexts
-      - libqt5gui5t64_plugins-platforms
-      - libqt5gui5t64_plugins-xcbglintegrations
+      libqt5gui5t64_plugins-egldeviceintegrations:
+      libqt5gui5t64_plugins-generic:
+      libqt5gui5t64_plugins-imageformats:
+      libqt5gui5t64_plugins-platforminputcontexts:
+      libqt5gui5t64_plugins-platforms:
+      libqt5gui5t64_plugins-xcbglintegrations:
 
   plugins-egldeviceintegrations:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libegl1_libs
-      - libgbm1_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libegldevice
-      - libqt5gui5t64_libeglsupport
-      - libqt5gui5t64_libgui
-      - libstdc++6_libs
-      - libudev1_libs
-      - libx11-6_libs
-      - libx11-xcb1_libs
-      - libxcb1_libs
+      libc6_libs:
+      libdrm2_libs:
+      libegl1_libs:
+      libgbm1_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libegldevice:
+      libqt5gui5t64_libeglsupport:
+      libqt5gui5t64_libgui:
+      libstdc++6_libs:
+      libudev1_libs:
+      libx11-6_libs:
+      libx11-xcb1_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/egldeviceintegrations/libqeglfs-emu-integration.so:
       /usr/lib/*-linux-*/qt5/plugins/egldeviceintegrations/libqeglfs-kms-egldevice-integration.so:
@@ -124,15 +124,15 @@ slices:
 
   plugins-generic:
     essential:
-      - libc6_libs
-      - libinput10_libs
-      - libmtdev1t64_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libqt5network5t64_libnetwork
-      - libstdc++6_libs
-      - libudev1_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libinput10_libs:
+      libmtdev1t64_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libqt5network5t64_libnetwork:
+      libstdc++6_libs:
+      libudev1_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/generic/libqevdevkeyboardplugin.so:
       /usr/lib/*-linux-*/qt5/plugins/generic/libqevdevmouseplugin.so:
@@ -143,11 +143,11 @@ slices:
 
   plugins-imageformats:
     essential:
-      - libc6_libs
-      - libjpeg-turbo8_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libstdc++6_libs
+      libc6_libs:
+      libjpeg-turbo8_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/imageformats/libqgif.so:
       /usr/lib/*-linux-*/qt5/plugins/imageformats/libqico.so:
@@ -155,37 +155,37 @@ slices:
 
   plugins-platforminputcontexts:
     essential:
-      - libc6_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5gui5t64_libgui
-      - libstdc++6_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libqt5gui5t64_libgui:
+      libstdc++6_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so:
       /usr/lib/*-linux-*/qt5/plugins/platforminputcontexts/libibusplatforminputcontextplugin.so:
 
   plugins-platforms:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libegl1_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libgl1_libs
-      - libglib2.0-0t64_libs
-      - libinput10_libs
-      - libmtdev1t64_libs
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5gui5t64_libegldevice
-      - libqt5gui5t64_libgui
-      - libqt5gui5t64_libxcbqpa
-      - libqt5network5t64_libnetwork
-      - libstdc++6_libs
-      - libudev1_libs
-      - libx11-6_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libdrm2_libs:
+      libegl1_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libgl1_libs:
+      libglib2.0-0t64_libs:
+      libinput10_libs:
+      libmtdev1t64_libs:
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libqt5gui5t64_libegldevice:
+      libqt5gui5t64_libgui:
+      libqt5gui5t64_libxcbqpa:
+      libqt5network5t64_libnetwork:
+      libstdc++6_libs:
+      libudev1_libs:
+      libx11-6_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/platforms/libqeglfs.so:
       /usr/lib/*-linux-*/qt5/plugins/platforms/libqlinuxfb.so:
@@ -197,16 +197,16 @@ slices:
 
   plugins-xcbglintegrations:
     essential:
-      - libc6_libs
-      - libegl1_libs
-      - libgl1_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libqt5gui5t64_libxcbqpa
-      - libstdc++6_libs
-      - libx11-6_libs
-      - libxcb-glx0_libs
-      - libxcb1_libs
+      libc6_libs:
+      libegl1_libs:
+      libgl1_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libqt5gui5t64_libxcbqpa:
+      libstdc++6_libs:
+      libx11-6_libs:
+      libxcb-glx0_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/qt5/plugins/xcbglintegrations/libqxcb-egl-integration.so:
       /usr/lib/*-linux-*/qt5/plugins/xcbglintegrations/libqxcb-glx-integration.so:

@@ -1,13 +1,13 @@
 package: qtbase5-dev
 
 essential:
-  - qtbase5-dev_copyright
+  qtbase5-dev_copyright:
 
 slices:
 
   bins:
     essential:
-      - qtbase5-dev-tools_bins
+      qtbase5-dev-tools_bins:
     contents:
       /usr/lib/*-linux-*/qt5/bin/moc:  # Symlink to ../../../qt5/bin/moc
       /usr/lib/*-linux-*/qt5/bin/qdbuscpp2xml:  # Symlink to ../../../qt5/bin/qdbuscpp2xml
@@ -18,7 +18,7 @@ slices:
 
   scripts:
     essential:
-      - qtbase5-dev-tools_scripts
+      qtbase5-dev-tools_scripts:
     contents:
       # Symlink to ../../../qt5/bin/fixqt4headers.pl
       /usr/lib/*-linux-*/qt5/bin/fixqt4headers.pl:
@@ -26,15 +26,15 @@ slices:
 
   libs:
     essential:
-      - libqt5core5t64_libs
-      - libqt5dbus5t64_libs
-      - libqt5gui5t64_libegldevice
-      - libqt5gui5t64_libeglsupport
-      - libqt5gui5t64_libgui
-      - libqt5gui5t64_libxcbqpa
-      - libqt5network5t64_libnetwork
-      - libqt5printsupport5t64_libprintsupport
-      - libqt5widgets5t64_libs
+      libqt5core5t64_libs:
+      libqt5dbus5t64_libs:
+      libqt5gui5t64_libegldevice:
+      libqt5gui5t64_libeglsupport:
+      libqt5gui5t64_libgui:
+      libqt5gui5t64_libxcbqpa:
+      libqt5network5t64_libnetwork:
+      libqt5printsupport5t64_libprintsupport:
+      libqt5widgets5t64_libs:
     contents:
       # /usr/lib/*-linux-*/libQt5Concurrent.so:  # Symlink to libQt5Concurrent.so.5.15.18
       /usr/lib/*-linux-*/libQt5Core.so:  # Symlink to libQt5Core.so.5.15.18

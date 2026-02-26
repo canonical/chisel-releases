@@ -1,26 +1,26 @@
 package: qtcreator
 
 essential:
-  - qtcreator_copyright
+  qtcreator_copyright:
 
 slices:
   bins:
     contents:
       /usr/bin/qtcreator:
     essential:
-      - qtcreator_libs
-      - qtcreator_plugins
+      qtcreator_libs:
+      qtcreator_plugins:
 
   # TODO: slice missing libs
   libexec:
     essential:
-      - libc6_libs
+      libc6_libs:
       # - libdw1t64_libs
-      - libelf1t64_libs
-      - libgcc-s1_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libqt6network6_libnetwork
+      libelf1t64_libs:
+      libgcc-s1_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libqt6network6_libnetwork:
       # - libqt6qml6_libs
       # - libqt6quick3d6_libs
       # - libqt6quick3dassetimport6_libs
@@ -28,34 +28,34 @@ slices:
       # - libqt6quick3druntimerender6_libs
       # - libqt6quick3dutils6_libs
       # - libqt6quick6_libs
-      - libqt6widgets6_libs
-      - libstdc++6_libs
-      - libzstd1_libs
+      libqt6widgets6_libs:
+      libstdc++6_libs:
+      libzstd1_libs:
       # - qml6-module-qtquick3d-particles3d_libs
-      - qtcreator_libs
+      qtcreator_libs:
     contents:
       /usr/libexec/qtcreator/**:
 
   # TODO: slice missing libs
   libs:
     essential:
-      - libarchive13t64_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libglib2.0-0t64_libs
-      - libqt6core6t64_libs
-      - libqt6dbus6_libs
-      - libqt6gui6_libgui
-      - libqt6network6_libnetwork
-      - libqt6printsupport6_libprintsupport
+      libarchive13t64_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libglib2.0-0t64_libs:
+      libqt6core6t64_libs:
+      libqt6dbus6_libs:
+      libqt6gui6_libgui:
+      libqt6network6_libnetwork:
+      libqt6printsupport6_libprintsupport:
       # - libqt6qml6_libs
       # - libqt6quick6_libs
       # - libqt6quickwidgets6_libs
       # - libqt6svg6_libs
       # - libqt6test6_libs
-      - libqt6widgets6_libs
+      libqt6widgets6_libs:
       # - libqt6xml6_libs
-      - libstdc++6_libs
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/qtcreator/**:
 

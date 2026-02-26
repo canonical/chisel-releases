@@ -1,22 +1,22 @@
 package: libqt5core5t64
 
 essential:
-  - libqt5core5t64_copyright
+  libqt5core5t64_copyright:
 
 slices:
   libs:
     # NOTE: libqt5core5t64 deb declares a dependency on shared-mime-info
     # but this lib does not link with it.
     essential:
-      - libc6_libs
-      - libdouble-conversion3_libs
-      - libgcc-s1_libs
-      - libglib2.0-0t64_libs
-      - libicu78_libs
-      - libpcre2-16-0_libs
-      - libstdc++6_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libdouble-conversion3_libs:
+      libgcc-s1_libs:
+      libglib2.0-0t64_libs:
+      libicu78_libs:
+      libpcre2-16-0_libs:
+      libstdc++6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libQt5Core.so.5*:
 

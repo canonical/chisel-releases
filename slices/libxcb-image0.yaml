@@ -1,15 +1,15 @@
 package: libxcb-image0
 
 essential:
-  - libxcb-image0_copyright
+  libxcb-image0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb-shm0_libs
-      - libxcb-util1_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb-shm0_libs:
+      libxcb-util1_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-image.so.0*:
 

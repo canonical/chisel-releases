@@ -1,33 +1,33 @@
 package: libqt6printsupport6
 
 essential:
-  - libqt6printsupport6_copyright
+  libqt6printsupport6_copyright:
 
 slices:
   libs:
     essential:
-      - libqt6printsupport6_libprintsupport
-      - libqt6printsupport6_plugins
+      libqt6printsupport6_libprintsupport:
+      libqt6printsupport6_plugins:
 
   libprintsupport:
     essential:
-      - libc6_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libqt6widgets6_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libqt6widgets6_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libQt6PrintSupport.so.6*:
 
   plugins:
     essential:
-      - libc6_libs
-      - libcups2t64_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libqt6printsupport6_libprintsupport
-      - libqt6widgets6_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libcups2t64_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libqt6printsupport6_libprintsupport:
+      libqt6widgets6_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/qt6/plugins/printsupport/libcupsprintersupport.so:
 

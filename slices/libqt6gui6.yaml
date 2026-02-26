@@ -1,85 +1,85 @@
 package: libqt6gui6
 
 essential:
-  - libqt6gui6_copyright
+  libqt6gui6_copyright:
 
 slices:
   libs:
     essential:
-      - libqt6gui6_libgui
-      - libqt6gui6_libxcbqpa
-      - libqt6gui6_plugins
+      libqt6gui6_libgui:
+      libqt6gui6_libxcbqpa:
+      libqt6gui6_plugins:
 
   libgui:
     essential:
-      - libc6_libs
-      - libegl1_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libglib2.0-0t64_libs
-      - libglx0_libs
-      - libharfbuzz0b_libs
-      - libmd4c0_libs
-      - libopengl0_libs
-      - libpng16-16t64_libs
-      - libqt6core6t64_libs
-      - libqt6dbus6_libs
-      - libstdc++6_libs
-      - libx11-6_libs
-      - libxkbcommon0_libs
-      - zlib1g_libs
+      libc6_libs:
+      libegl1_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libglib2.0-0t64_libs:
+      libglx0_libs:
+      libharfbuzz0b_libs:
+      libmd4c0_libs:
+      libopengl0_libs:
+      libpng16-16t64_libs:
+      libqt6core6t64_libs:
+      libqt6dbus6_libs:
+      libstdc++6_libs:
+      libx11-6_libs:
+      libxkbcommon0_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libQt6Gui.so*:
 
   libxcbqpa:
     essential:
-      - libc6_libs
-      - libglib2.0-0t64_libs
-      - libice6_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libsm6_libs
-      - libstdc++6_libs
-      - libx11-6_libs
-      - libx11-xcb1_libs
-      - libxcb-cursor0_libs
-      - libxcb-icccm4_libs
-      - libxcb-image0_libs
-      - libxcb-keysyms1_libs
-      - libxcb-randr0_libs
-      - libxcb-render-util0_libs
-      - libxcb-render0_libs
-      - libxcb-shape0_libs
-      - libxcb-shm0_libs
-      - libxcb-sync1_libs
-      - libxcb-xfixes0_libs
-      - libxcb-xinput0_libs
-      - libxcb-xkb1_libs
-      - libxcb1_libs
-      - libxkbcommon-x11-0_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libglib2.0-0t64_libs:
+      libice6_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libsm6_libs:
+      libstdc++6_libs:
+      libx11-6_libs:
+      libx11-xcb1_libs:
+      libxcb-cursor0_libs:
+      libxcb-icccm4_libs:
+      libxcb-image0_libs:
+      libxcb-keysyms1_libs:
+      libxcb-randr0_libs:
+      libxcb-render-util0_libs:
+      libxcb-render0_libs:
+      libxcb-shape0_libs:
+      libxcb-shm0_libs:
+      libxcb-sync1_libs:
+      libxcb-xfixes0_libs:
+      libxcb-xinput0_libs:
+      libxcb-xkb1_libs:
+      libxcb1_libs:
+      libxkbcommon-x11-0_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/libQt6XcbQpa.so*:
 
   plugins:
     essential:
-      - libqt6gui6_plugins-generic
-      - libqt6gui6_plugins-imageformats
-      - libqt6gui6_plugins-platforminputcontexts
-      - libqt6gui6_plugins-platforms
-      - libqt6gui6_plugins-xcbglintegrations
+      libqt6gui6_plugins-generic:
+      libqt6gui6_plugins-imageformats:
+      libqt6gui6_plugins-platforminputcontexts:
+      libqt6gui6_plugins-platforms:
+      libqt6gui6_plugins-xcbglintegrations:
 
   plugins-generic:
     essential:
-      - libc6_libs
-      - libinput10_libs
-      - libmtdev1t64_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libstdc++6_libs
-      - libts0t64_libs
-      - libudev1_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libinput10_libs:
+      libmtdev1t64_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libstdc++6_libs:
+      libts0t64_libs:
+      libudev1_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/qt6/plugins/generic/libqevdevkeyboardplugin.so:
       /usr/lib/*-linux-*/qt6/plugins/generic/libqevdevmouseplugin.so:
@@ -90,11 +90,11 @@ slices:
 
   plugins-imageformats:
     essential:
-      - libc6_libs
-      - libjpeg-turbo8_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libstdc++6_libs
+      libc6_libs:
+      libjpeg-turbo8_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/qt6/plugins/imageformats/libqgif.so:
       /usr/lib/*-linux-*/qt6/plugins/imageformats/libqico.so:
@@ -102,32 +102,32 @@ slices:
 
   plugins-platforminputcontexts:
     essential:
-      - libc6_libs
-      - libqt6core6t64_libs
-      - libqt6dbus6_libs
-      - libqt6gui6_libgui
-      - libstdc++6_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libqt6core6t64_libs:
+      libqt6dbus6_libs:
+      libqt6gui6_libgui:
+      libstdc++6_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/qt6/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so:
       /usr/lib/*-linux-*/qt6/plugins/platforminputcontexts/libibusplatforminputcontextplugin.so:
 
   plugins-platforms:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libglx0_libs
-      - libinput10_libs
-      - libmtdev1t64_libs
-      - libopengl0_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libqt6gui6_libxcbqpa
-      - libstdc++6_libs
-      - libts0t64_libs
-      - libudev1_libs
-      - libx11-6_libs
-      - libxkbcommon0_libs
+      libc6_libs:
+      libdrm2_libs:
+      libglx0_libs:
+      libinput10_libs:
+      libmtdev1t64_libs:
+      libopengl0_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libqt6gui6_libxcbqpa:
+      libstdc++6_libs:
+      libts0t64_libs:
+      libudev1_libs:
+      libx11-6_libs:
+      libxkbcommon0_libs:
     contents:
       /usr/lib/*-linux-*/qt6/plugins/platforms/libqlinuxfb.so:
       /usr/lib/*-linux-*/qt6/plugins/platforms/libqminimal.so:
@@ -137,17 +137,17 @@ slices:
 
   plugins-xcbglintegrations:
     essential:
-      - libc6_libs
-      - libegl1_libs
-      - libglx0_libs
-      - libopengl0_libs
-      - libqt6core6t64_libs
-      - libqt6gui6_libgui
-      - libqt6gui6_libxcbqpa
-      - libstdc++6_libs
-      - libx11-6_libs
-      - libxcb-glx0_libs
-      - libxcb1_libs
+      libc6_libs:
+      libegl1_libs:
+      libglx0_libs:
+      libopengl0_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libgui:
+      libqt6gui6_libxcbqpa:
+      libstdc++6_libs:
+      libx11-6_libs:
+      libxcb-glx0_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/qt6/plugins/xcbglintegrations/libqxcb-egl-integration.so:
       /usr/lib/*-linux-*/qt6/plugins/xcbglintegrations/libqxcb-glx-integration.so:

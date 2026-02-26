@@ -1,15 +1,15 @@
 package: libqt5widgets5t64
 
 essential:
-  - libqt5widgets5t64_copyright
+  libqt5widgets5t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libqt5core5t64_libs
-      - libqt5gui5t64_libgui
-      - libstdc++6_libs
+      libc6_libs:
+      libqt5core5t64_libs:
+      libqt5gui5t64_libgui:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libQt5Widgets.so.5*:
 
