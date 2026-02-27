@@ -1,7 +1,7 @@
-package: libxi6
+package: libxss1
 
 essential:
-  - libxi6_copyright
+  - libxss1_copyright
 
 slices:
   libs:
@@ -9,9 +9,10 @@ slices:
       - libc6_libs
       - libx11-6_libs
       - libxext6_libs
+      - x11-common_services
     contents:
-      /usr/lib/*-linux-*/libXi.so*:
+      /usr/lib/*-linux-*/libXss.so*:
 
   copyright:
     contents:
-      /usr/share/doc/libxi6/copyright:
+      /usr/share/doc/libxss1/copyright:

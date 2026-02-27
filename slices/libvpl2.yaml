@@ -1,4 +1,5 @@
 package: libvpl2
+# This package is only available for amd64 currently
 
 essential:
   - libvpl2_copyright
