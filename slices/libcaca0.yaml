@@ -3,7 +3,7 @@ package: libcaca0
 essential:
   libcaca0_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:

@@ -3,7 +3,7 @@ package: libpostproc58
 essential:
   libpostproc58_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libavutil59_libs:

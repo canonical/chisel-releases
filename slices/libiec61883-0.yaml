@@ -3,7 +3,7 @@ package: libiec61883-0
 essential:
   libiec61883-0_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:

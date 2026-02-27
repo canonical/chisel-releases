@@ -1,6 +1,6 @@
 package: libgfortran5
 
-slices: 
+slices:
   libs:
     essential:
       gcc-14-base_copyright:

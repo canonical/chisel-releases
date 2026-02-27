@@ -3,7 +3,7 @@ package: libpulse0
 essential:
   libpulse0_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libapparmor1_libs:

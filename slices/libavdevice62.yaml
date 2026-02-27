@@ -3,7 +3,7 @@ package: libavdevice62
 essential:
   libavdevice62_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libasound2t64_libs:

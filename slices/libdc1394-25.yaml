@@ -3,7 +3,7 @@ package: libdc1394-25
 essential:
   libdc1394-25_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:
