@@ -3,7 +3,7 @@ package: libxss1
 essential:
   libxss1_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:

@@ -3,7 +3,7 @@ package: libdecor-0-0
 essential:
   libdecor-0-0_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:

@@ -3,7 +3,7 @@ package: libasound2-data
 essential:
   libasound2-data_copyright:
 
-slices: 
+slices:
   data:
     contents:
       /usr/share/alsa/**:

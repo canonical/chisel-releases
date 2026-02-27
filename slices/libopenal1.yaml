@@ -3,7 +3,7 @@ package: libopenal1
 essential:
   libopenal1_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:

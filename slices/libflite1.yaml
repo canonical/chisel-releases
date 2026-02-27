@@ -3,7 +3,7 @@ package: libflite1
 essential:
   libflite1_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libasound2t64_libs:

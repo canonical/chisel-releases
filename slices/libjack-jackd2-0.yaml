@@ -3,7 +3,7 @@ package: libjack-jackd2-0
 essential:
   libjack-jackd2-0_copyright:
 
-slices: 
+slices:
   libs:
     essential:
       libc6_libs:
