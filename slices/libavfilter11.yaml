@@ -1,0 +1,38 @@
+package: libavfilter11
+
+essential:
+  libavfilter11_copyright:
+
+slices:
+  libs:
+    essential:
+      libass9_libs:
+      libavcodec62_libs:
+      libavformat62_libs:
+      libavutil60_libs:
+      libbs2b0_libs:
+      libc6_libs:
+      libflite1_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libfribidi0_libs:
+      libharfbuzz0b_libs:
+      liblilv-0-0_libs:
+      libmysofa1_libs:
+      libplacebo360_libs:
+      librubberband3_libs:
+      libstdc++6_libs:
+      libswresample6_libs:
+      libswscale9_libs:
+      libva2_libs:
+      libvidstab1.1_libs:
+      libzimg2_libs:
+      libzmq5_libs:
+      ocl-icd-libopencl1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libavfilter.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libavfilter11/copyright:

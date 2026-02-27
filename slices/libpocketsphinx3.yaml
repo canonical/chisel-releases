@@ -1,0 +1,16 @@
+package: libpocketsphinx3
+
+essential:
+  libpocketsphinx3_copyright:
+
+slices: 
+  libs:
+    essential:
+      libc6_libs:
+      libsphinxbase3t64_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
+    contents:
+      /usr/lib/*-linux-*/libpocketsphinx.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpocketsphinx3/copyright:

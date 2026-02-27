@@ -1,0 +1,16 @@
+package: libusb-1.0-0
+
+essential:
+  libusb-1.0-0_copyright:
+
+slices: 
+  libs:
+    essential:
+      libc6_libs:
+      libudev1_libs:
+    contents:
+      /usr/lib/*-linux-*/libusb-1.0.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libusb-1.0-0/copyright:

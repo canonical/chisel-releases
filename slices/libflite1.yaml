@@ -1,0 +1,16 @@
+package: libflite1
+
+essential:
+  libflite1_copyright:
+
+slices: 
+  libs:
+    essential:
+      libasound2t64_libs:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libflite*.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libflite1/copyright:

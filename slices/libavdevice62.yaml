@@ -1,0 +1,37 @@
+package: libavdevice62
+
+essential:
+  libavdevice62_copyright:
+
+slices: 
+  libs:
+    essential:
+      libasound2t64_libs:
+      libavc1394-0_libs:
+      libavcodec62_libs:
+      libavfilter11_libs:
+      libavformat62_libs:
+      libavutil60_libs:
+      libc6_libs:
+      libcdio-cdda2t64_libs:
+      libcdio-paranoia2t64_libs:
+      libdc1394-25_libs:
+      libdrm2_libs:
+      libiec61883-0_libs:
+      libjack-jackd2-0_libs:
+      libopenal1_libs:
+      libpulse0_libs:
+      libraw1394-11_libs:
+      libx11-6_libs:
+      libxcb-shape0_libs:
+      libxcb-shm0_libs:
+      libxcb-xfixes0_libs:
+      libxcb1_libs:
+      libxext6_libs:
+      libxv1_libs:
+    contents:
+      /usr/lib/*-linux-*/libavdevice.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libavdevice62/copyright:
