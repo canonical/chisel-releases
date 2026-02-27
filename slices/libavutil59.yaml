@@ -1,0 +1,24 @@
+package: libavutil59
+
+essential:
+  - libavutil59_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdrm2_libs
+      - libva-drm2_libs
+      - libva-x11-2_libs
+      - libva2_libs
+      - libvdpau1_libs
+      - libx11-6_libs
+      - ocl-icd-libopencl1_libs
+    v3-essential:
+      libvpl2_libs: {arch: [amd64]}
+    contents:
+      /usr/lib/*-linux-*/libavutil.so.59*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libavutil59/copyright:

@@ -1,0 +1,21 @@
+package: libcaca0
+
+essential:
+  - libcaca0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libncursesw6_libs
+      - libslang2_libs
+      - libstdc++6_libs
+      - libtinfo6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libcaca.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libcaca0/copyright:
