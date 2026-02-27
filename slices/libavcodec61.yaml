@@ -1,52 +1,52 @@
 package: libavcodec61
 
 essential:
-  - libavcodec61_copyright
+  libavcodec61_copyright:
 
 slices:
   libs:
     essential:
-      - libaom3_libs
-      - libavutil59_libs
-      - libc6_libs
-      - libcairo2_libs
-      - libcodec2-1.2_libs
-      - libdav1d7_libs
-      - libglib2.0-0t64_libs
-      - libgsm1_libs
-      - libjxl0.11_libs
-      - liblzma5_libs
-      - libmp3lame0_libs
-      - libopenjp2-7_libs
-      - libopus0_libs
+      libaom3_libs:
+      libavutil59_libs:
+      libc6_libs:
+      libcairo2_libs:
+      libcodec2-1.2_libs:
+      libdav1d7_libs:
+      libglib2.0-0t64_libs:
+      libgsm1_libs:
+      libjxl0.11_libs:
+      liblzma5_libs:
+      libmp3lame0_libs:
+      libopenjp2-7_libs:
+      libopus0_libs:
       # The librav1e0.7_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: not i386
-      - librsvg2-2_libs
-      - libshine3_libs
-      - libsnappy1v5_libs
-      - libspeex1_libs
-      - libsvtav1enc2_libs
-      - libswresample5_libs
-      - libtheoradec1_libs
-      - libtheoraenc1_libs
-      - libtwolame0_libs
-      - libva2_libs
-      - libvorbis0a_libs
-      - libvorbisenc2_libs
+      librsvg2-2_libs:
+      libshine3_libs:
+      libsnappy1v5_libs:
+      libspeex1_libs:
+      libsvtav1enc2_libs:
+      libswresample5_libs:
+      libtheoradec1_libs:
+      libtheoraenc1_libs:
+      libtwolame0_libs:
+      libva2_libs:
+      libvorbis0a_libs:
+      libvorbisenc2_libs:
       # The libvpl2_libs dependency is currently ommited, it can be added again
       # once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: amd64
-      - libvpx11_libs
-      - libwebp7_libs
-      - libwebpmux3_libs
-      - libx264-165_libs
-      - libx265-215_libs
-      - libxvidcore4_libs
-      - libzvbi0t64_libs
-      - zlib1g_libs
+      libvpx11_libs:
+      libwebp7_libs:
+      libwebpmux3_libs:
+      libx264-165_libs:
+      libx265-215_libs:
+      libxvidcore4_libs:
+      libzvbi0t64_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libavcodec.so.61*:
 

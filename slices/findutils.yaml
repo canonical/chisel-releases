@@ -1,13 +1,13 @@
 package: findutils
 
 essential:
-  - findutils_copyright
+  findutils_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libselinux1_libs
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/find:
       /usr/bin/xargs:

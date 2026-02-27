@@ -1,7 +1,7 @@
 package: libc-bin
 
 essential:
-  - libc-bin_copyright
+  libc-bin_copyright:
 
 slices:
   nsswitch:
@@ -10,14 +10,14 @@ slices:
 
   ldconfig:
     essential:
-      - base-files_bin
-      - dash_bins
+      base-files_bin:
+      dash_bins:
     contents:
       /usr/sbin/ldconfig:
 
   locale:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/locale:
       /usr/lib/locale/C.utf8/LC_ADDRESS:
@@ -35,21 +35,21 @@ slices:
 
   getconf:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/getconf:
 
   iconv:
     essential:
-      - libc6_gconv-core
-      - libc6_iconv-config
-      - libc6_libs
+      libc6_gconv-core:
+      libc6_iconv-config:
+      libc6_libs:
     contents:
       /usr/bin/iconv:
 
   getent:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/getent:
 

@@ -1,7 +1,7 @@
 package: squashfs-tools
 
 essential:
-  - squashfs-tools_copyright
+  squashfs-tools_copyright:
 
 slices:
   bins:
@@ -12,13 +12,13 @@ slices:
     # and libgcc-s1 already depends on libc6, so we'll have to include this
     # line here, explicitly.
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - liblz4-1_libs
-      - liblzma5_libs
-      - liblzo2-2_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      liblz4-1_libs:
+      liblzma5_libs:
+      liblzo2-2_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/mksquashfs:
       /usr/bin/sqfscat:

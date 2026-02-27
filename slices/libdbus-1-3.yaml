@@ -1,13 +1,13 @@
 package: libdbus-1-3
 
 essential:
-  - libdbus-1-3_copyright
+  libdbus-1-3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libsystemd0_libs
+      libc6_libs:
+      libsystemd0_libs:
     contents:
       /usr/lib/*-linux-*/libdbus-1.so.3*:
 

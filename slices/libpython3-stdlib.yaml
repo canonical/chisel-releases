@@ -1,132 +1,132 @@
 package: libpython3-stdlib
 
 essential:
-  - libpython3-stdlib_copyright
+  libpython3-stdlib_copyright:
 
 slices:
   core:
     essential:
-      - libpython3.13-stdlib_core
+      libpython3.13-stdlib_core:
 
   aix-support:
     essential:
-      - libpython3.13-stdlib_aix-support
+      libpython3.13-stdlib_aix-support:
 
   all-os:
     essential:
-      - libpython3.13-stdlib_all-os
+      libpython3.13-stdlib_all-os:
 
   android-support:
     essential:
-      - libpython3.13-stdlib_android-support
+      libpython3.13-stdlib_android-support:
 
   apple-support:
     essential:
-      - libpython3.13-stdlib_apple-support
+      libpython3.13-stdlib_apple-support:
 
   concurrency:
     essential:
-      - libpython3.13-stdlib_concurrency
+      libpython3.13-stdlib_concurrency:
 
   crypto:
     essential:
-      - libpython3.13-stdlib_crypto
+      libpython3.13-stdlib_crypto:
 
   custom-interpreters:
     essential:
-      - libpython3.13-stdlib_custom-interpreters
+      libpython3.13-stdlib_custom-interpreters:
 
   data-persistence:
     essential:
-      - libpython3.13-stdlib_data-persistence
+      libpython3.13-stdlib_data-persistence:
 
   data-types:
     essential:
-      - libpython3.13-stdlib_data-types
+      libpython3.13-stdlib_data-types:
 
   debug:
     essential:
-      - libpython3.13-stdlib_debug
+      libpython3.13-stdlib_debug:
 
   development-tools:
     essential:
-      - libpython3.13-stdlib_development-tools
+      libpython3.13-stdlib_development-tools:
 
   distribution:
     essential:
-      - libpython3.13-stdlib_distribution
+      libpython3.13-stdlib_distribution:
 
   file-formats:
     essential:
-      - libpython3.13-stdlib_file-formats
+      libpython3.13-stdlib_file-formats:
 
   filesys:
     essential:
-      - libpython3.13-stdlib_filesys
+      libpython3.13-stdlib_filesys:
 
   frameworks:
     essential:
-      - libpython3.13-stdlib_frameworks
+      libpython3.13-stdlib_frameworks:
 
   importing:
     essential:
-      - libpython3.13-stdlib_importing
+      libpython3.13-stdlib_importing:
 
   internet:
     essential:
-      - libpython3.13-stdlib_internet
+      libpython3.13-stdlib_internet:
 
   ios-support:
     essential:
-      - libpython3.13-stdlib_ios-support
+      libpython3.13-stdlib_ios-support:
 
   ipc:
     essential:
-      - libpython3.13-stdlib_ipc
+      libpython3.13-stdlib_ipc:
 
   language:
     essential:
-      - libpython3.13-stdlib_language
+      libpython3.13-stdlib_language:
 
   markup-tools:
     essential:
-      - libpython3.13-stdlib_markup-tools
+      libpython3.13-stdlib_markup-tools:
 
   multimedia:
     essential:
-      - libpython3.13-stdlib_multimedia
+      libpython3.13-stdlib_multimedia:
 
   net-data:
     essential:
-      - libpython3.13-stdlib_net-data
+      libpython3.13-stdlib_net-data:
 
   numeric:
     essential:
-      - libpython3.13-stdlib_numeric
+      libpython3.13-stdlib_numeric:
 
   osx-support:
     essential:
-      - libpython3.13-stdlib_osx-support
+      libpython3.13-stdlib_osx-support:
 
   pydoc:
     essential:
-      - libpython3.13-stdlib_pydoc
+      libpython3.13-stdlib_pydoc:
 
   pyrepl:
     essential:
-      - libpython3.13-stdlib_pyrepl
+      libpython3.13-stdlib_pyrepl:
 
   text:
     essential:
-      - libpython3.13-stdlib_text
+      libpython3.13-stdlib_text:
 
   unix:
     essential:
-      - libpython3.13-stdlib_unix
+      libpython3.13-stdlib_unix:
 
   extras:
     essential:
-      - libpython3.13-stdlib_extras
+      libpython3.13-stdlib_extras:
 
   copyright:
     contents:

@@ -1,12 +1,12 @@
 package: libaom3
 
 essential:
-  - libaom3_copyright
+  libaom3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libaom.so.3*:
 

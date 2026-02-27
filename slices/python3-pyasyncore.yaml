@@ -1,12 +1,12 @@
 package: python3-pyasyncore
 
 essential:
-  - python3-pyasyncore_copyright
+  python3-pyasyncore_copyright:
 
 slices:
   libs:
     essential:
-      - python3_standard
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/asyncore/*.py:
 

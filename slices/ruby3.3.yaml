@@ -1,27 +1,27 @@
 package: ruby3.3
 
 essential:
-  - ruby3.3_copyright
+  ruby3.3_copyright:
 
 slices:
   core:
     essential:
-      - ruby3.3_ruby
+      ruby3.3_ruby:
 
   ruby:
     essential:
-      - libruby3.3_core
-      - ruby3.3_libs
+      libruby3.3_core:
+      ruby3.3_libs:
     contents:
       /usr/bin/ruby3.3:
 
   libs:
     essential:
-      - libc6_libs
-      - libcrypt1_libs
-      - libgmp10_libs
-      - libruby3.3_libs
-      - zlib1g_libs
+      libc6_libs:
+      libcrypt1_libs:
+      libgmp10_libs:
+      libruby3.3_libs:
+      zlib1g_libs:
 
   copyright:
     contents:

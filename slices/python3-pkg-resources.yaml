@@ -1,12 +1,12 @@
 package: python3-pkg-resources
 
 essential:
-  - python3-pkg-resources_copyright
+  python3-pkg-resources_copyright:
 
 slices:
   libs:
     essential:
-      - python3_standard
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/pkg_resources/**:
 

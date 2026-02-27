@@ -1,22 +1,22 @@
 package: dbus-daemon
 
 essential:
-  - dbus-daemon_copyright
+  dbus-daemon_copyright:
 
 slices:
   bins:
     essential:
-      - dbus-bin_bins
-      - dbus-daemon_config
-      - dbus-session-bus-common_config
-      - libapparmor1_libs
-      - libaudit1_libs
-      - libc6_libs
-      - libcap-ng0_libs
-      - libdbus-1-3_libs
-      - libexpat1_libs
-      - libselinux1_libs
-      - libsystemd0_libs
+      dbus-bin_bins:
+      dbus-daemon_config:
+      dbus-session-bus-common_config:
+      libapparmor1_libs:
+      libaudit1_libs:
+      libc6_libs:
+      libcap-ng0_libs:
+      libdbus-1-3_libs:
+      libexpat1_libs:
+      libselinux1_libs:
+      libsystemd0_libs:
     contents:
       /usr/bin/dbus-daemon:
       /usr/bin/dbus-run-session:

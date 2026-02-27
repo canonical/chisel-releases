@@ -1,13 +1,13 @@
 package: libxcb-sync1
 
 essential:
-  - libxcb-sync1_copyright
+  libxcb-sync1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-sync.so.1*:
 

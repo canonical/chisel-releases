@@ -1,14 +1,14 @@
 package: libmpc3
 
 essential:
-  - libmpc3_copyright
+  libmpc3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgmp10_libs
-      - libmpfr6_libs
+      libc6_libs:
+      libgmp10_libs:
+      libmpfr6_libs:
     contents:
       /usr/lib/*-linux-*/libmpc.so.3*:
 

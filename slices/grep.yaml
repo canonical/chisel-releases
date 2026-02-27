@@ -1,13 +1,13 @@
 package: grep
 
 essential:
-  - grep_copyright
+  grep_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libpcre2-8-0_libs
+      libc6_libs:
+      libpcre2-8-0_libs:
     contents:
       /usr/bin/grep:
 
@@ -16,8 +16,8 @@ slices:
     # /usr/bin/sh.
     # See: https://manpages.ubuntu.com/manpages/noble/en/man1/grep.1.html
     essential:
-      - dash_bins
-      - grep_bins
+      dash_bins:
+      grep_bins:
     contents:
       /usr/bin/egrep:
       /usr/bin/fgrep:

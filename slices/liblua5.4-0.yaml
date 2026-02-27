@@ -1,13 +1,13 @@
 package: liblua5.4-0
 
 essential:
-  - liblua5.4-0_copyright
+  liblua5.4-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/liblua5.4-c++.so.*:
       /usr/lib/*-linux-*/liblua5.4.so.*:

@@ -1,13 +1,13 @@
 package: netcat-openbsd
 
 essential:
-  - netcat-openbsd_copyright
+  netcat-openbsd_copyright:
 
 slices:
   bins:
     essential:
-      - libbsd0_libs
-      - libc6_libs
+      libbsd0_libs:
+      libc6_libs:
     contents:
       /usr/bin/nc.openbsd:
 

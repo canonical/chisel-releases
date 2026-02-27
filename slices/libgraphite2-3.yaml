@@ -1,12 +1,12 @@
 package: libgraphite2-3
 
 essential:
-  - libgraphite2-3_copyright
+  libgraphite2-3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libgraphite2.so.2*:
       /usr/lib/*-linux-*/libgraphite2.so.3*:

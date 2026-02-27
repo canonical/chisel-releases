@@ -1,12 +1,12 @@
 package: diffutils
 
 essential:
-  - diffutils_copyright
+  diffutils_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/cmp:
       /usr/bin/diff:

@@ -1,21 +1,21 @@
 package: python3-pip
 
 essential:
-  - python3-pip_copyright
+  python3-pip_copyright:
 
 slices:
   bins:
     essential:
-      - python3-pip_libs
+      python3-pip_libs:
     contents:
       /usr/bin/pip:
       /usr/bin/pip3:
 
   libs:
     essential:
-      - ca-certificates_data
-      - python3-wheel_libs
-      - python3_standard
+      ca-certificates_data:
+      python3-wheel_libs:
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/pip-*.dist-info/**:
       /usr/lib/python3/dist-packages/pip/**:

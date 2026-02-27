@@ -1,17 +1,17 @@
 package: httping
 
 essential:
-  - httping_copyright
+  httping_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libfftw3-double3_libs
-      - libncursesw6_libs
-      - libssl3t64_libs
-      - libtinfo6_libs
-      - openssl_bins
+      libc6_libs:
+      libfftw3-double3_libs:
+      libncursesw6_libs:
+      libssl3t64_libs:
+      libtinfo6_libs:
+      openssl_bins:
     contents:
       /usr/bin/httping:
 

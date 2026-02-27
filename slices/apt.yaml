@@ -1,7 +1,7 @@
 package: apt
 
 essential:
-  - apt_copyright
+  apt_copyright:
 
 slices:
   config:
@@ -16,21 +16,21 @@ slices:
 
   apt-get:
     essential:
-      - apt_config
-      - apt_default-source-list
-      - apt_var
-      - base-files_bin
-      - base-files_tmp
-      - dpkg_maintscript-support
-      - gpgv_bins
-      - libapt-pkg7.0_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libgnutls30t64_libs
-      - libseccomp2_libs
-      - libssl3t64_libs
-      - libstdc++6_libs
-      - libsystemd0_libs
+      apt_config:
+      apt_default-source-list:
+      apt_var:
+      base-files_bin:
+      base-files_tmp:
+      dpkg_maintscript-support:
+      gpgv_bins:
+      libapt-pkg7.0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libgnutls30t64_libs:
+      libseccomp2_libs:
+      libssl3t64_libs:
+      libstdc++6_libs:
+      libsystemd0_libs:
     contents:
       /usr/bin/apt:
       /usr/bin/apt-config:
@@ -53,7 +53,7 @@ slices:
   # the generated source list.
   default-source-list:
     essential:
-      - ubuntu-keyring_keys
+      ubuntu-keyring_keys:
     contents:
       /etc/apt/sources.list.d/ubuntu-default.sources:
         arch: [amd64, i386]

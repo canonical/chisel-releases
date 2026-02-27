@@ -1,29 +1,22 @@
 package: libbinutils
 
 essential:
-  - libbinutils_copyright
+  libbinutils_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libsframe3_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libc6_libs:
+      libsframe3_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
-      # NOTE: we cannot use two single globs here, since they would
-      #       https://github.com/canonical/chisel/issues/258
-      # TODO: The devel branches use a different file-naming pattern. We need
-      #       to go back to this after feature freeze.
-      #       https://git.launchpad.net/ubuntu/+source/binutils/log/?h=ubuntu/noble
-      /usr/lib/*-linux-*/libbfd-2.45.50-system.*.so:
-      /usr/lib/*-linux-*/libopcodes-2.45.50-system.*.so:
-      # /usr/lib/*-linux-*/libbfd-*-system.so:
-      # /usr/lib/*-linux-*/libopcodes-*-system.so:
+      /usr/lib/*-linux-*/libbfd-*-system.so:
+      /usr/lib/*-linux-*/libopcodes-*-system.so:
 
   copyright:
     essential:
-      - binutils-common_copyright
+      binutils-common_copyright:
     contents:
       # Symlink to binutils-common
       /usr/share/doc/libbinutils:

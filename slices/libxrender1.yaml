@@ -1,13 +1,13 @@
 package: libxrender1
 
 essential:
-  - libxrender1_copyright
+  libxrender1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libx11-6_libs
+      libc6_libs:
+      libx11-6_libs:
     contents:
       /usr/lib/*-linux-*/libXrender.so.1*:
 

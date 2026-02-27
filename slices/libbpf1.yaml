@@ -1,14 +1,14 @@
 package: libbpf1
 
 essential:
-  - libbpf1_copyright
+  libbpf1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libelf1t64_libs
-      - zlib1g_libs
+      libc6_libs:
+      libelf1t64_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libbpf.so.1*:
 

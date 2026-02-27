@@ -1,12 +1,12 @@
 package: libcares2
 
 essential:
-  - libcares2_copyright
+  libcares2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libcares.so.2*:
 

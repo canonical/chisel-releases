@@ -1,12 +1,12 @@
 package: libmpg123-0t64
 
 essential:
-  - libmpg123-0t64_copyright
+  libmpg123-0t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libmpg123.so.0*:
 

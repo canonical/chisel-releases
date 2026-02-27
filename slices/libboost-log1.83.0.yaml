@@ -1,16 +1,16 @@
 package: libboost-log1.83.0
 
 essential:
-  - libboost-log1.83.0_copyright
+  libboost-log1.83.0_copyright:
 
 slices:
   libs:
     essential:
-      - libboost-filesystem1.83.0_libs
-      - libboost-thread1.83.0_libs
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
+      libboost-filesystem1.83.0_libs:
+      libboost-thread1.83.0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libboost_log.so.1.83.0:
       /usr/lib/*-linux-*/libboost_log_setup.so.1.83.0:

@@ -1,12 +1,12 @@
 package: libuuid1
 
 essential:
-  - libuuid1_copyright
+  libuuid1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libuuid.so.1*:
 

@@ -1,27 +1,27 @@
 package: gzip
 
 essential:
-  - gzip_copyright
+  gzip_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/bin/gzip:
 
   scripts:
     essential:
-      - base-files_bin
-      - base-files_tmp
-      - bash_bins
-      - coreutils_bins
-      - diffutils_bins
-      - grep_bins
-      - gzip_bins
-      - less_bins
-      - sed_bins
-      - util-linux_more
+      base-files_bin:
+      base-files_tmp:
+      bash_bins:
+      coreutils_bins:
+      diffutils_bins:
+      grep_bins:
+      gzip_bins:
+      less_bins:
+      sed_bins:
+      util-linux_more:
     contents:
       /usr/bin/gunzip:
       /usr/bin/gzexe:

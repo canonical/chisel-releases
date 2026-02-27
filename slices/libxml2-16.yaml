@@ -1,14 +1,14 @@
 package: libxml2-16
 
 essential:
-  - libxml2-16_copyright
+  libxml2-16_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - liblzma5_libs
-      - zlib1g_libs
+      libc6_libs:
+      liblzma5_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libxml2.so.16*:
 

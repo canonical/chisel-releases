@@ -1,12 +1,12 @@
 package: libcbor0.10
 
 essential:
-  - libcbor0.10_copyright
+  libcbor0.10_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libcbor.so.0.10*:
 

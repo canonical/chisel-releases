@@ -1,18 +1,18 @@
 package: libnginx-mod-stream-geoip2
 
 essential:
-  - libnginx-mod-stream-geoip2_copyright
+  libnginx-mod-stream-geoip2_copyright:
 
 slices:
   modules:
     essential:
       # libnginx-mod-stream-geoip2 depends on nginx-abi, which is a virtual
       # package provided by nginx, hence the dependency on nginx_bins.
-      - libc6_libs
-      - libmaxminddb0_libs
-      - libnginx-mod-stream-geoip2_config
-      - libnginx-mod-stream_modules
-      - nginx_bins
+      libc6_libs:
+      libmaxminddb0_libs:
+      libnginx-mod-stream-geoip2_config:
+      libnginx-mod-stream_modules:
+      nginx_bins:
     contents:
       /usr/lib/nginx/modules/ngx_stream_geoip2_module.so:
 

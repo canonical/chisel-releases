@@ -1,21 +1,21 @@
 package: erlang-snmp
 
 essential:
-  - erlang-snmp_copyright
+  erlang-snmp_copyright:
 
 slices:
   bins:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
-      - erlang-crypto_libs
-      - erlang-crypto_modules
-      - erlang-mnesia_modules
-      - erlang-runtime-tools_libs
-      - erlang-runtime-tools_modules
-      - erlang-snmp_config
-      - erlang-snmp_data
-      - erlang-snmp_modules
+      erlang-base_bins:
+      erlang-base_modules:
+      erlang-crypto_libs:
+      erlang-crypto_modules:
+      erlang-mnesia_modules:
+      erlang-runtime-tools_libs:
+      erlang-runtime-tools_modules:
+      erlang-snmp_config:
+      erlang-snmp_data:
+      erlang-snmp_modules:
     contents:
       /usr/bin/snmpc:
       /usr/lib/erlang/lib/snmp-*/bin/snmpc:

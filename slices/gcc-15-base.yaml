@@ -1,7 +1,7 @@
 package: gcc-15-base
 
 essential:
-  - gcc-15-base_copyright
+  gcc-15-base_copyright:
 
 slices:
   copyright:

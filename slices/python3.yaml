@@ -1,53 +1,53 @@
 package: python3
 
 essential:
-  - python3_copyright
+  python3_copyright:
 
 slices:
   core:
     essential:
-      - libpython3-stdlib_core
-      - python3-minimal_python3
-      - python3.13_core
+      libpython3-stdlib_core:
+      python3-minimal_python3:
+      python3.13_core:
 
   standard:
     essential:
-      - libpython3-stdlib_aix-support
-      - libpython3-stdlib_all-os
-      - libpython3-stdlib_concurrency
-      - libpython3-stdlib_crypto
-      - libpython3-stdlib_custom-interpreters
-      - libpython3-stdlib_data-persistence
-      - libpython3-stdlib_data-types
-      - libpython3-stdlib_debug
-      - libpython3-stdlib_development-tools
-      - libpython3-stdlib_distribution
-      - libpython3-stdlib_extras
-      - libpython3-stdlib_file-formats
-      - libpython3-stdlib_filesys
-      - libpython3-stdlib_frameworks
-      - libpython3-stdlib_importing
-      - libpython3-stdlib_internet
-      - libpython3-stdlib_ipc
-      - libpython3-stdlib_language
-      - libpython3-stdlib_markup-tools
-      - libpython3-stdlib_multimedia
-      - libpython3-stdlib_net-data
-      - libpython3-stdlib_numeric
-      - libpython3-stdlib_osx-support
-      - libpython3-stdlib_pydoc
-      - libpython3-stdlib_pyrepl
-      - libpython3-stdlib_text
-      - libpython3-stdlib_unix
-      - python3-minimal_bins
-      - python3.13_standard
-      - python3_core
+      libpython3-stdlib_aix-support:
+      libpython3-stdlib_all-os:
+      libpython3-stdlib_concurrency:
+      libpython3-stdlib_crypto:
+      libpython3-stdlib_custom-interpreters:
+      libpython3-stdlib_data-persistence:
+      libpython3-stdlib_data-types:
+      libpython3-stdlib_debug:
+      libpython3-stdlib_development-tools:
+      libpython3-stdlib_distribution:
+      libpython3-stdlib_extras:
+      libpython3-stdlib_file-formats:
+      libpython3-stdlib_filesys:
+      libpython3-stdlib_frameworks:
+      libpython3-stdlib_importing:
+      libpython3-stdlib_internet:
+      libpython3-stdlib_ipc:
+      libpython3-stdlib_language:
+      libpython3-stdlib_markup-tools:
+      libpython3-stdlib_multimedia:
+      libpython3-stdlib_net-data:
+      libpython3-stdlib_numeric:
+      libpython3-stdlib_osx-support:
+      libpython3-stdlib_pydoc:
+      libpython3-stdlib_pyrepl:
+      libpython3-stdlib_text:
+      libpython3-stdlib_unix:
+      python3-minimal_bins:
+      python3.13_standard:
+      python3_core:
 
   utils:
     essential:
-      - libpython3-stdlib_debug
-      - libpython3-stdlib_pydoc
-      - python3.13_utils
+      libpython3-stdlib_debug:
+      libpython3-stdlib_pydoc:
+      python3.13_utils:
     contents:
       /usr/bin/pdb3:
       /usr/bin/pydoc3:

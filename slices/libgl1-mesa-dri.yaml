@@ -1,16 +1,16 @@
 package: libgl1-mesa-dri
 
 essential:
-  - libgl1-mesa-dri_copyright
+  libgl1-mesa-dri_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgbm1_libs
-      - libgcc-s1_libs
-      - libgl1-mesa-dri_config
-      - libvulkan1_libs
+      libc6_libs:
+      libgbm1_libs:
+      libgcc-s1_libs:
+      libgl1-mesa-dri_config:
+      libvulkan1_libs:
     contents:
       /usr/lib/*-linux-*/dri/armada-drm_dri.so:
         arch:

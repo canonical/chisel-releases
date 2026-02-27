@@ -1,7 +1,7 @@
 package: secureboot-db
 
 essential:
-  - secureboot-db_copyright
+  secureboot-db_copyright:
 
 slices:
   data:
@@ -10,8 +10,8 @@ slices:
 
   services:
     essential:
-      - sbsigntool_bins
-      - secureboot-db_data
+      sbsigntool_bins:
+      secureboot-db_data:
     contents:
       /usr/lib/systemd/system/secureboot-db.service:
 

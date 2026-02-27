@@ -1,22 +1,22 @@
 package: libsystemd-shared
 
 essential:
-  - libsystemd-shared_copyright
+  libsystemd-shared_copyright:
 
 slices:
   libs:
     essential:
-      - libacl1_libs
-      - libaudit1_libs
-      - libblkid1_libs
-      - libc6_libs
-      - libcap2_libs
-      - libcrypt1_libs
-      - libmount1_libs
-      - libpam0g_libs
-      - libseccomp2_libs
-      - libselinux1_libs
-      - libssl3t64_libs
+      libacl1_libs:
+      libaudit1_libs:
+      libblkid1_libs:
+      libc6_libs:
+      libcap2_libs:
+      libcrypt1_libs:
+      libmount1_libs:
+      libpam0g_libs:
+      libseccomp2_libs:
+      libselinux1_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:

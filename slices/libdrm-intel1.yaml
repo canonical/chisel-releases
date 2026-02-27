@@ -1,14 +1,14 @@
 package: libdrm-intel1
 
 essential:
-  - libdrm-intel1_copyright
+  libdrm-intel1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libpciaccess0_libs
+      libc6_libs:
+      libdrm2_libs:
+      libpciaccess0_libs:
     contents:
       /usr/lib/*-linux-*/libdrm_intel.so.1*:
 
