@@ -1,7 +1,7 @@
-package: libsdl2-2.0-0
+package: libsdl2-classic
 
 essential:
-  libsdl2-2.0-0_copyright:
+  libsdl2-classic_copyright:
 
 slices:
   libs:
@@ -13,7 +13,6 @@ slices:
       libgbm1_libs:
       libpulse0_libs:
       libsamplerate0_libs:
-      libsdl2-classic_libs:
       libwayland-client0_libs:
       libwayland-cursor0_libs:
       libwayland-egl1_libs:
@@ -26,8 +25,8 @@ slices:
       libxrandr2_libs:
       libxss1_libs:
     contents:
-      /usr/lib/*-linux-*/libSDL2-2.0.so*:
+      /usr/lib/*-linux-*/sdl2-classic/libSDL2-2.0.so*:
 
   copyright:
     contents:
-      /usr/share/doc/libsdl2-2.0-0/copyright:
+      /usr/share/doc/libsdl2-classic/copyright:
