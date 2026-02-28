@@ -1,0 +1,10 @@
+summary: Integration tests for libext2fs2t64
+
+execute: |
+  rootfs="$(install-slices libext2fs2t64_libs)"
+
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/libe2p.so.2
+  test -f ${rootfs}/usr/lib/${arch}/libext2fs.so.2
