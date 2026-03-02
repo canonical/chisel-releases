@@ -33,7 +33,7 @@ slices:
       - libxext6_libs
       - libxv1_libs
     contents:
-      /usr/lib/*-linux-*/libavdevice.so*:
+      /usr/lib/*-linux-*/libavdevice.so.60*:
 
   copyright:
     contents:
