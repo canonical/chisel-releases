@@ -17,10 +17,6 @@ slices:
       ca-certificates_data:
       dotnet-apphost-pack-10.0_libs:
       dotnet-runtime-10.0_core:
-      # chisel does not support adding a slice only for amd64 and arm64
-      # Until support for this is added we have to remove this
-      # recommended dependency
-      # - dotnet-sdk-aot-10.0_libs
       dotnet-targeting-pack-10.0_libs:
       dotnet-templates-10.0_libs:
       libc6_libs:
@@ -29,15 +25,16 @@ slices:
     contents:
       /usr/lib/dotnet/library-packs/Microsoft.DotNet.ILCompiler.10.0.*.nupkg: {arch: [amd64, arm64]}
       /usr/lib/dotnet/library-packs/Microsoft.NET.ILLink.Tasks.10.0.*.nupkg: {arch: [amd64, arm64]}
-      /usr/lib/dotnet/metadata/workloads/10.0.100/userlocal:
+      /usr/lib/dotnet/metadata/workloads/10.0.*/userlocal:
       /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/10.0.*/**:
       /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.*/10.0.*/**:
-      /usr/lib/dotnet/sdk-manifests/10.0.100/microsoft.net.workload.*/**:
+      /usr/lib/dotnet/sdk-manifests/10.0.*/microsoft.net.workload.*/**:
       /usr/lib/dotnet/sdk/10.0.*/**:
 
   standard:
     essential:
       dotnet-sdk-10.0_core:
+      dotnet-sdk-aot-10.0_libs: {arch: [amd64, arm64]}
       # see comment of dotnet-sdk-10.0_core slice above:
       libicu78_libs:
 

@@ -21,10 +21,7 @@ slices:
       aspnetcore-runtime-10.0_core:
       libicu78_libs:
 
-  notice:
-    contents:
-      /usr/share/doc/aspnetcore-runtime-10.0/NOTICE.txt.gz:
-
   copyright:
     contents:
+      /usr/share/doc/aspnetcore-runtime-10.0/NOTICE.txt.gz:
       /usr/share/doc/aspnetcore-runtime-10.0/copyright:
