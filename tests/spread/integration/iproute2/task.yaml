@@ -1,0 +1,7 @@
+summary: Integration tests for iproute2
+
+variants:
+    - routel
+    - ip
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
