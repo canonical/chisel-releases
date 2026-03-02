@@ -36,7 +36,7 @@ jobs:
         env:
           # we authenticate ourselves with the actions token to avoid hitting the unauthenticated rate limit
           GITHUB_TOKEN: ${{ github.token }}
-        run: ${{ env.script }}/forward_port_missing.py data.json | tee results.txt
+        run: ${{ env.script }}/forward_port_missing.py | tee results.txt
       
       - name: Apply labels
         env:
