@@ -5,7 +5,7 @@ missing forward ports to future releases, and therefore which PRs should be labe
 (and which should have that label removed).
 
 The script checks out chisel-releases to determine which releases are supported, and what slices are currently
-present in each release. The it makes a bunch of calls to github api to fetch the data about PRs, and what new
+present in each release. Then it makes a bunch of calls to the GitHub API to fetch the data about PRs, and what new
 slices do they introduce. Finally, to determine the PR status, for each PR we check whether the slices introduced
 by that particular PR are either already present in the future release, or are being introduced by another PR.
 Any slices for any discontinued packages are ignored.
