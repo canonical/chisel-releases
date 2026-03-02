@@ -14,7 +14,9 @@ jobs:
       files_main: "main-files"
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          # We do need to fetch all history for all branches.
+          fetch-depth: 0
 
         # NOTE: the github runner might have an older version of distro-info-data
         #  which does not know about the latest Ubuntu release, so we update it.
