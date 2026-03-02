@@ -198,7 +198,7 @@ class DistsHTMLParser(HTMLParser):
 
 
 def fetch_codename_mapping() -> dict[str, str]:
-    """Fetch the mapping from Ubuntu version (e.g. "22.04") to codename (e.g. "jammy")
+    """Fetch the mapping from Ubuntu codename (e.g. "jammy") to version (e.g. "22.04")
     by scraping the release info from the Ubuntu archive."""
     url = "https://archive.ubuntu.com/ubuntu/dists"
 
