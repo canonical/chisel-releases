@@ -1,4 +1,3 @@
-# hello
 summary: Integration tests for zstd
 
 execute: |

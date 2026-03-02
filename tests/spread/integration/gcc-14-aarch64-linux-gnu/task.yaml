@@ -1,4 +1,3 @@
-# hello
 summary: Integration tests for gcc-14-aarch64-linux-gnu
 
 variants:

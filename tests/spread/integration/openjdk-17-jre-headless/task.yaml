@@ -1,4 +1,3 @@
-# hello
 summary: Integration tests for openjdk-17-jre-headless
 
 environment:

@@ -1,4 +1,3 @@
-# hello
 summary: Integration tests for rustc-1.88
 
 variants:
