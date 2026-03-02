@@ -63,6 +63,7 @@ slices:
       iproute2_routel:
 
   routel:
+    hint: "List routes with pretty formatting"
     essential:
       coreutils_env:
       iproute2_ip-bin:
