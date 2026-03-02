@@ -13,7 +13,7 @@ slices:
       - libsamplerate0_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libjack.so*:
+      /usr/lib/*-linux-*/libjack.so.0*:
 
   copyright:
     contents:

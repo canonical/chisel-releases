@@ -9,7 +9,7 @@ slices:
       - libavutil58_libs
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libpostproc.so*:
+      /usr/lib/*-linux-*/libpostproc.so.57*:
 
   copyright:
     contents:

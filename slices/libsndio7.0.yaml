@@ -10,7 +10,7 @@ slices:
       - libbsd0_libs
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libsndio.so*:
+      /usr/lib/*-linux-*/libsndio.so.7*:
 
   copyright:
     contents:
