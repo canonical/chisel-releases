@@ -357,7 +357,9 @@ def determine_forward_porting_status(
     slices into the future releases. We ignore any missing slices which correspond to packages which are
     not present in the future release."""
 
-    union_slices_per_branch: dict[str, set[str]] = slices_per_branch.copy()
+    union_slices_per_branch: dict[str, set[str]] = {
+        branch: set(slices) for branch, slices in slices_per_branch.items()
+    }
     for pr in prs:
         union_slices_per_branch[pr.branch].update(pr.new_slices)
 
