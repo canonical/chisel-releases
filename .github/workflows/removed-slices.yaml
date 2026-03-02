@@ -24,18 +24,18 @@ jobs:
           sudo apt-get install -y distro-info distro-info-data
 
       - name: "Check if running against devel branch"
-        id: check-skip
+        id: is-devel
         run: |
           DEVEL=$(distro-info --devel --release | cut -d' ' -f1)
-          should_skip=false
+          value=false
           if [[ "${{ github.base_ref }}" == "ubuntu-$DEVEL" ]]; then
              echo "Skipping workflow as PR is against devel branch ubuntu-$DEVEL"
-            should_skip=true
+            value=true
           fi
-          echo "should_skip=$should_skip" >> $GITHUB_OUTPUT
+          echo "value=$value" >> $GITHUB_OUTPUT
 
       - name: "Set reference to main branch"
-        if: steps.check-skip.outputs.should_skip != 'true'
+        if: steps.is-devel.outputs.value != 'true'
         id: set-main-ref
         run: |
           if [[ "${{ github.base_ref }}" == "main" ]]; then
@@ -47,14 +47,14 @@ jobs:
           fi
 
       - name: "Checkout main branch"
-        if: steps.check-skip.outputs.should_skip != 'true'
+        if: steps.is-devel.outputs.value != 'true'
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
 
       - name: "Check for removed slices"
-        if: steps.check-skip.outputs.should_skip != 'true'
+        if: steps.is-devel.outputs.value != 'true'
         run: |
           ln -s "${{ env.files_main }}/.github/scripts/removed-slices/removed-slices" .
           # For pull request events, use github.event.pull_request.base.sha as
