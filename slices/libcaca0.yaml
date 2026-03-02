@@ -14,7 +14,7 @@ slices:
       - libtinfo6_libs
       - zlib1g_libs
     contents:
-      /usr/lib/*-linux-*/libcaca.so*:
+      /usr/lib/*-linux-*/libcaca.so.0*:
 
   copyright:
     contents:
