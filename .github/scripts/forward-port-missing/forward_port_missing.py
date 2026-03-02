@@ -126,7 +126,6 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
         results = [pr for pr in results if pr["base"]["ref"] in supported_branches]
 
     # fetch the diff for each PR in parallel and determine which slices they are modifying (i.e. which files in the /slices directory they are adding/modifying)
-    _diff_texts: list[tuple[int, str]] = []
 
     def _fetch_diff(s: requests.Session, pr: dict) -> tuple[int, Diff]:
         """Fetch a PR's diff and return the PR number and the parsed Diff object."""
