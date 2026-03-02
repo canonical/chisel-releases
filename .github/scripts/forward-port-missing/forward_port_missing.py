@@ -12,7 +12,6 @@ Any slices for any discontinued packages are ignored.
 """
 
 from __future__ import annotations
-from functools import partial
 
 from pathlib import Path
 
@@ -124,10 +123,11 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
 
     # fetch the diff for each PR in parallel and determine which slices they are modifying (i.e. which files in the /slices directory they are adding/modifying)
 
-    def _fetch_diff(s: requests.Session, pr: dict) -> tuple[int, Diff]:
+    def _fetch_diff(pr: dict) -> tuple[int, Diff]:
         """Fetch a PR's diff and return the PR number and the parsed Diff object."""
-        response = s.get(pr["diff_url"])
-        response.raise_for_status()
+        with requests.Session() as s:
+            response = s.get(pr["diff_url"])
+            response.raise_for_status()
         diff_text = response.text
         pr_number = pr["number"]
         if "<h1>Too many requests</h1>" in diff_text:
@@ -138,8 +138,8 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
         return pr_number, Diff(diff_text)
 
     with timing_context() as elapsed:
-        with requests.Session() as s, ThreadPoolExecutor(max_workers=5) as executor:
-            _diffs = list(executor.map(partial(_fetch_diff, s), results))
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            _diffs = list(executor.map(_fetch_diff, results))
     diffs: dict[int, Diff] = dict(_diffs)
 
     info(f"Fetched diffs for {len(results)} PRs in {elapsed():.2f} seconds.")
@@ -179,16 +179,16 @@ def fetch_packages_in_release(
 
     info(f"Fetching packages for {len(codenames)} releases...")
 
-    def _fetch_packages(
-        s: requests.Session, args: tuple[str, str, str]
-    ) -> tuple[str, str, str, set[str]]:
+    def _fetch_packages(args: tuple[str, str, str]) -> tuple[str, str, str, set[str]]:
         """Fetch the list of packages for a given release, component, and repo"""
         short_codename, component, repo = args
         name = f"{short_codename}-{repo}" if repo else short_codename
 
         url = f"https://archive.ubuntu.com/ubuntu/dists/{name}/{component}/binary-amd64/Packages.gz"
-        response = s.get(url)
-        response.raise_for_status()
+
+        with requests.Session() as s:
+            response = s.get(url)
+            response.raise_for_status()
 
         with gzip.GzipFile(fileobj=io.BytesIO(response.content)) as f:
             content = f.read().decode("utf-8")
@@ -204,9 +204,9 @@ def fetch_packages_in_release(
     _repos = ("", "security", "updates", "backports")
     _product = list(product(codenames.values(), _components, _repos))
     with timing_context() as elapsed:
-        with requests.Session() as s, ThreadPoolExecutor(max_workers=5) as executor:
+        with ThreadPoolExecutor(max_workers=5) as executor:
             results: list[tuple[str, str, str, set[str]]] = list(
-                executor.map(partial(_fetch_packages, s), _product)
+                executor.map(_fetch_packages, _product)
             )
 
     info(f"Fetched packages for {len(codenames)} releases in {elapsed():.2f} seconds.")

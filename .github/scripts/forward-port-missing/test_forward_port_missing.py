@@ -112,6 +112,7 @@ class TestFetchPRs:
 
         assert len(prs) == 0, "PRs that don't add new slices should be ignored"
 
+
 class TestFetchPackagesInRelease:
     @patch("forward_port_missing.requests.Session")
     def test_fetch_packages_in_release(self, mock_session_class):
