@@ -47,6 +47,7 @@ slices:
       /usr/sbin/vdpa:
 
   ip-bin:
+    hint: "Show and manipulate routing"
     essential:
       libbpf1_libs:
       libcap2_libs:
