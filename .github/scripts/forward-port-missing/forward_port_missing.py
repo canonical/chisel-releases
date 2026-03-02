@@ -113,7 +113,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
             results.extend(parsed_result)
             if len(parsed_result) < per_page:
                 break
-        params["page"] += 1  # type: ignore[operator]
+            params["page"] += 1  # type: ignore[operator]
 
     # filter down to PRs into branches named "ubuntu-XX.XX"
     results = [pr for pr in results if pr["base"]["ref"].startswith("ubuntu-")]
