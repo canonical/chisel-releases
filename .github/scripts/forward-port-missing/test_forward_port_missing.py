@@ -112,87 +112,9 @@ class TestFetchPRs:
 
         assert len(prs) == 0, "PRs that don't add new slices should be ignored"
 
-
-class TestDistsHTMLParser:
-    def test_parse(self):
-        html = dedent("""
-        <html>
-            <body>
-                <a href="jammy-backports/">jammy-backports</a>
-                <a href="jammy/">jammy</a>
-                <a href="focal/">focal</a>
-                <a href="devel/">devel</a>
-                <a href="not-a-dist/">not-a-dist</a>
-            </body>
-        </html>
-        """).strip()
-
-        parser = forward_port_missing.DistsHTMLParser()
-        parser.feed(html)
-        # NOTE: we reject devel too
-        assert parser.short_codenames() == {"focal", "jammy"}
-
-    def test_parse_large(self):
-        """Test parsing a slightly cropped curl of the actual dists page."""
-        html = dedent("""
-        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
-        <html>
-         <head>
-          <title>Index of /ubuntu/dists</title>
-         </head>
-         <body>
-        <h1>Index of /ubuntu/dists</h1>
-          <table>
-           <tr><th valign="top"><img src="/icons/blank.gif" alt="[ICO]"></th><th><a href="?C=N;O=D">Name</a></th><th><a href="?C=M;O=A">Last modified</a></th><th><a href="?C=S;O=A">Size</a></th></tr>
-           <tr><th colspan="4"><hr></th></tr>
-        <tr><td valign="top"><img src="/icons/back.gif" alt="[PARENTDIR]"></td><td><a href="/ubuntu/">Parent Directory</a></td><td>&nbsp;</td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="devel-backports/">devel-backports/</a></td><td align="right">2026-02-28 15:29  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="devel-proposed/">devel-proposed/</a></td><td align="right">2026-02-28 15:29  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="devel-security/">devel-security/</a></td><td align="right">2026-02-28 15:28  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="devel-updates/">devel-updates/</a></td><td align="right">2026-02-28 15:28  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="devel/">devel/</a></td><td align="right">2026-02-28 15:28  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="focal-backports/">focal-backports/</a></td><td align="right">2026-02-28 15:47  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="focal-proposed/">focal-proposed/</a></td><td align="right">2026-02-28 15:47  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="focal-security/">focal-security/</a></td><td align="right">2026-02-28 15:43  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="focal-updates/">focal-updates/</a></td><td align="right">2026-02-28 15:47  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="focal/">focal/</a></td><td align="right">2020-04-23 17:34  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="jammy-backports/">jammy-backports/</a></td><td align="right">2026-02-28 15:40  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="jammy-proposed/">jammy-proposed/</a></td><td align="right">2026-02-28 15:40  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="jammy-security/">jammy-security/</a></td><td align="right">2026-02-28 15:36  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="jammy-updates/">jammy-updates/</a></td><td align="right">2026-02-28 15:39  </td><td align="right">  - </td></tr>
-        <tr><td valign="top"><img src="/icons/folder.gif" alt="[DIR]"></td><td><a href="jammy/">jammy/</a></td><td align="right">2022-04-21 17:16  </td><td align="right">  - </td></tr>
-        <tr><th colspan="4"><hr></th></tr>
-        </table>
-        <address>Apache/2.4.58 (Ubuntu) Server at archive.ubuntu.com Port 443</address>
-        </body></html>
-        """).strip()
-
-        parser = forward_port_missing.DistsHTMLParser()
-        parser.feed(html)
-        assert parser.short_codenames() == {"focal", "jammy"}
-
-
-class TestFetchCodenameMapping:
-    @patch("forward_port_missing.requests.Session")
-    def test_fetch_codename_mapping(self, mock_session_class):
-        mock_session = MagicMock()
-        mock_session_class.return_value.__enter__.return_value = mock_session
-
-        mock_session.get.side_effect = [
-            MagicMock(text='<a href="jammy/">jammy</a>'),  # dists
-            MagicMock(text="Version: 22.04\n"),  # Release
-        ]
-
-        result = forward_port_missing.fetch_codename_mapping()
-
-        assert result == {"jammy": "22.04"}
-
-
 class TestFetchPackagesInRelease:
-    @patch("forward_port_missing.fetch_codename_mapping")
     @patch("forward_port_missing.requests.Session")
-    def test_fetch_packages_in_release(self, mock_session_class, mock_fetch_codenames):
-        mock_fetch_codenames.return_value = {"jammy": "22.04"}
+    def test_fetch_packages_in_release(self, mock_session_class):
         mock_session = MagicMock()
         mock_session_class.return_value.__enter__.return_value = mock_session
 
@@ -200,7 +122,9 @@ class TestFetchPackagesInRelease:
         mock_response.content = gzip.compress(b"Package: foo\n\nPackage: bar\n")
         mock_session.get.return_value = mock_response
 
-        result = forward_port_missing.fetch_packages_in_release(["ubuntu-22.04"])
+        result = forward_port_missing.fetch_packages_in_release(
+            {"ubuntu-22.04": "jammy"}
+        )
 
         assert "ubuntu-22.04" in result
         assert "foo" in result["ubuntu-22.04"]

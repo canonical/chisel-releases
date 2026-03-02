@@ -28,7 +28,6 @@ from itertools import product
 import subprocess as sub
 import sys
 from dataclasses import dataclass
-from html.parser import HTMLParser
 from contextlib import contextmanager
 import time
 from typing import Iterator, Callable
@@ -39,10 +38,8 @@ import yaml
 
 # For dev you can use requests-cache to cache the
 # GitHub API responses and avoid hitting rate limits:
-
-import requests_cache
-
-requests_cache.install_cache("requests_cache")
+# import requests_cache
+# requests_cache.install_cache("requests_cache")
 
 FORWARD_PORT_MISSING_LABEL = "forward port missing"
 
@@ -168,77 +165,17 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
     return set(PR.from_github_json(result) for result in results)
 
 
-class DistsHTMLParser(HTMLParser):
-    """HTML parser to extract the list of distributions from the Ubuntu archive page."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self.dists: set[str] = set()
-
-    def handle_starttag(self, tag, attrs):
-        if tag == "a":
-            href = dict(attrs).get("href", "")
-            if href.endswith("/"):
-                dist = href.rstrip("/")
-                self.dists.add(dist)
-
-    def short_codenames(self) -> set[str]:
-        """Return the set of short codenames for the Ubuntu releases. Filters
-        out devel, and squashes e.g. 'jammy', 'jammy-security', 'jammy-updates'
-        into just 'jammy'."""
-        dists = self.dists
-        return {
-            d
-            for d in dists
-            if d
-            and not d.startswith("/")
-            and not d.startswith("devel")
-            and "-" not in d
-        }
-
-
-def fetch_codename_mapping() -> dict[str, str]:
-    """Fetch the mapping from Ubuntu codename (e.g. "jammy") to version (e.g. "22.04")
-    by scraping the release info from the Ubuntu archive."""
-    url = "https://archive.ubuntu.com/ubuntu/dists"
-
-    def _parse_version(s: requests.Session, short_codename: str) -> tuple[str, str]:
-        url = f"https://archive.ubuntu.com/ubuntu/dists/{short_codename}/Release"
-        release_info = s.get(url).text
-        for line in release_info.splitlines():
-            if line.startswith("Version:"):
-                version = line.split(":", 1)[1].strip()
-                return short_codename, version
-        raise Exception("Could not find version in release info.")
-
-    with requests.Session() as s:
-        dists = s.get(url).text
-        parser = DistsHTMLParser()
-        parser.feed(dists)
-        short_codenames = parser.short_codenames()
-
-        with ThreadPoolExecutor(max_workers=5) as executor:
-            _codenames: list[tuple[str, str]] = list(
-                executor.map(partial(_parse_version, s), short_codenames)
-            )
-            return dict(_codenames)
-
-
 # precompile regex to extract package names from the package listing
 _PACKAGE_RE = re.compile(r"^Package:\s*(\S+)", re.MULTILINE)
 
 
-def fetch_packages_in_release(releases: list[str]) -> dict[str, set[str]]:
+def fetch_packages_in_release(
+    codenames: dict[str, str],  # ubuntu-XX.XX -> short codename (e.g. jammy)
+) -> dict[str, set[str]]:
     """Fetch the list of packages in each supported Ubuntu release by scraping the
     package lists from the Ubuntu archive. The releases are in the format 'ubuntu-XX.XX',
-    but the archive uses the short codename (e.g. 'jammy') in the URLs, so we first fetch
-    the release info to figure out which short codename corresponds to each release."""
-
-    codenames = {
-        short: codename
-        for short, codename in fetch_codename_mapping().items()
-        if f"ubuntu-{codename}" in releases
-    }
+    but the archive uses the short codename (e.g. 'jammy') so we need the
+    map from short codename to version to construct the correct URLs."""
 
     info(f"Fetching packages for {len(codenames)} releases...")
 
@@ -265,7 +202,7 @@ def fetch_packages_in_release(releases: list[str]) -> dict[str, set[str]]:
 
     _components = ("main", "restricted", "universe", "multiverse")
     _repos = ("", "security", "updates", "backports")
-    _product = list(product(codenames.keys(), _components, _repos))
+    _product = list(product(codenames.values(), _components, _repos))
     with timing_context() as elapsed:
         with requests.Session() as s, ThreadPoolExecutor(max_workers=5) as executor:
             results: list[tuple[str, str, str, set[str]]] = list(
@@ -275,21 +212,26 @@ def fetch_packages_in_release(releases: list[str]) -> dict[str, set[str]]:
     info(f"Fetched packages for {len(codenames)} releases in {elapsed():.2f} seconds.")
 
     # Union all components and repos for each release
-    packages_by_release: dict[str, set[str]] = {release: set() for release in releases}
+    packages_by_release: dict[str, set[str]] = {
+        release: set() for release in codenames.keys()
+    }
+    _codenames = {short: release for release, short in codenames.items()}
     for short_codename, component, repo, packages in results:
-        release = f"ubuntu-{codenames[short_codename]}"
-        packages_by_release[release].update(packages)
+        packages_by_release[_codenames[short_codename]].update(packages)
 
     return packages_by_release
 
 
-def checkout_slices_per_branch(
+def checkout_chisel_releases_info(
     url: str = "https://github.com/canonical/chisel-releases",
-) -> dict[str, set[str]]:
+) -> tuple[dict[str, set[str]], dict[str, str]]:
     """Checkout chisel-releases and get the list of branches named "ubuntu-XX.XX"
-    to determine which Ubuntu releases we should consider"""
+    to determine which Ubuntu releases we should consider. For each release branch,
+    parse the chisel.yaml to determine the short codename (e.g. "jammy"), and get
+    the list of slices currently present in that release."""
 
     slices_per_branch: dict[str, set[str]] = {}
+    codenames: dict[str, str] = {}
     with tempfile.TemporaryDirectory(prefix="chisel-releases-clone-") as _tmpdir:
         tmpdir = Path(_tmpdir)
         sub.run(
@@ -320,11 +262,7 @@ def checkout_slices_per_branch(
                 capture_output=True,
                 text=True,
             )
-            chisel_yaml_path = tmpdir / "chisel.yaml"
-            if not chisel_yaml_path.exists():
-                warn(f"no chisel.yaml in '{branch}'")
-                continue
-            chisel_yaml = yaml.safe_load(chisel_yaml_path.read_text())
+            chisel_yaml: dict = yaml.safe_load((tmpdir / "chisel.yaml").read_text())
             end_of_life: datetime.date = chisel_yaml.get("maintenance", {}).get(
                 "end-of-life"
             )
@@ -333,16 +271,32 @@ def checkout_slices_per_branch(
             if end_of_life < datetime.date.today():
                 continue
 
+            # Parse the short codename from the "archives" field in chisel.yaml.
+            # This is needed to quarry the archive
+            archives: list[str] = (
+                chisel_yaml.get("archives", {}).get("ubuntu", {}).get("suites", [])
+            )
+            _codenames: set[str] = set(a.split("-")[0] for a in archives)
+            if len(_codenames) != 1:
+                warn(
+                    f"could not parser short codename from chisel.yaml in '{branch}': {archives}"
+                )
+                continue
+
             slices_per_branch[branch] = set(
                 sdf.stem for sdf in (tmpdir / "slices").glob("*.yaml")
             )
+            codenames[branch] = _codenames.pop()
 
     _branches = sorted(
         map(lambda b: b.removeprefix("ubuntu-"), slices_per_branch.keys())
     )
     info(f"Found {len(slices_per_branch)} branches: {', '.join(_branches)}")
 
-    return dict(sorted(slices_per_branch.items(), key=lambda x: x[0]))
+    return (
+        dict(sorted(slices_per_branch.items(), key=lambda x: x[0])),
+        dict(sorted(codenames.items(), key=lambda x: x[0])),
+    )
 
 
 def determine_forward_porting_status(
@@ -395,9 +349,9 @@ def determine_forward_porting_status(
 
 
 def main() -> None:
-    slices_per_branch = checkout_slices_per_branch()
+    slices_per_branch, codenames = checkout_chisel_releases_info()
     prs = fetch_prs(set(slices_per_branch.keys()))
-    packages_by_release = fetch_packages_in_release(list(slices_per_branch.keys()))
+    packages_by_release = fetch_packages_in_release(codenames)
 
     to_add_label, to_remove_label = determine_forward_porting_status(
         prs=prs,
