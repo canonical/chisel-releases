@@ -9,7 +9,7 @@ set -eu
 main() {
     if [ "$#" -ne 1 ]; then echo "Usage: $0 <results.txt>"; exit 1; fi
     # support both GITHUB_TOKEN and GH_TOKEN for flexibility. `gh` expects GH_TOKEN
-    GH_TOKEN="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
+    export GH_TOKEN="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
     command -v gh >/dev/null 2>&1 || { echo >&2 "gh is required but it's not installed. Aborting."; exit 1; }
 
     # read the add line from the input file
