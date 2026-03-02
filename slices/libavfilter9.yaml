@@ -20,7 +20,6 @@ slices:
       - liblilv-0-0_libs
       - libmysofa1_libs
       - libplacebo338_libs
-      - libpocketsphinx3_libs
       - libpostproc57_libs
       - librubberband2_libs
       - libstdc++6_libs
