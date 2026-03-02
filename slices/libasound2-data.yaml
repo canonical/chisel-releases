@@ -9,7 +9,7 @@ slices:
       /usr/share/alsa/alsa.conf:
       /usr/share/alsa/cards/**:
       /usr/share/alsa/ctl/**:
-      /usr/share/alsa/pcm/**:     
+      /usr/share/alsa/pcm/**:
 
   copyright:
     contents:
