@@ -33,4 +33,4 @@ main() {
     done
 }
 
-main "$1"
+main "$@"
