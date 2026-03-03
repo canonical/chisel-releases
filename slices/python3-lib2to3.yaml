@@ -1,4 +1,5 @@
 package: python3-lib2to3
+# hello world;2i
 
 essential:
   - python3-lib2to3_copyright

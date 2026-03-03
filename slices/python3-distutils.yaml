@@ -1,4 +1,5 @@
 package: python3-distutils
+# hello world;2i
 
 essential:
   - python3-distutils_copyright

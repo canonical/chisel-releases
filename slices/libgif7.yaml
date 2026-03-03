@@ -1,4 +1,5 @@
 package: libgif7
+# hello world;2i
 
 essential:
   - libgif7_copyright

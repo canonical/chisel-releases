@@ -1,4 +1,5 @@
 package: libmpdec3
+# hello world;2i
 
 essential:
   - libmpdec3_copyright

@@ -1,4 +1,5 @@
 package: python3.11-minimal
+# hello world;2i
 
 essential:
   - python3.11-minimal_copyright

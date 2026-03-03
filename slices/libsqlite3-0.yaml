@@ -1,4 +1,5 @@
 package: libsqlite3-0
+# hello world;2i
 
 essential:
   - libsqlite3-0_copyright

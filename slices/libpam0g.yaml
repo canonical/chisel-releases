@@ -1,4 +1,5 @@
 package: libpam0g
+# hello world;2i
 
 essential:
   - libpam0g_copyright

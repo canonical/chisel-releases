@@ -1,4 +1,5 @@
 package: gcc-12-base
+# hello world;2i
 
 essential:
   - gcc-12-base_copyright

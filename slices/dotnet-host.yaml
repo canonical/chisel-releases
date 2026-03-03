@@ -1,4 +1,5 @@
 package: dotnet-host
+# hello world;2i
 
 essential:
   - dotnet-host_copyright
