@@ -1,4 +1,5 @@
 package: libbrotli1
+# hello world;2i
 
 essential:
   - libbrotli1_copyright

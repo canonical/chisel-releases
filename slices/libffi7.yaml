@@ -1,4 +1,5 @@
 package: libffi7
+# hello world;2i
 
 essential:
   - libffi7_copyright
