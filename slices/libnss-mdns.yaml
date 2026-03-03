@@ -1,4 +1,5 @@
 package: libnss-mdns
+# hello world;2i
 
 essential:
   - libnss-mdns_copyright

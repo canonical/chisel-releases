@@ -1,4 +1,5 @@
 package: rfkill
+# hello world;2i
 
 essential:
   - rfkill_copyright

@@ -1,4 +1,5 @@
 package: libruby
+# hello world;2i
 
 essential:
   - libruby_copyright

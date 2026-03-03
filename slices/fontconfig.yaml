@@ -1,4 +1,5 @@
 package: fontconfig
+# hello world;2i
 
 essential:
   - fontconfig_copyright

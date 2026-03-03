@@ -1,4 +1,5 @@
 package: bc
+# hello world;2i
 
 essential:
   - bc_copyright

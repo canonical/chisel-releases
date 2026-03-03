@@ -1,4 +1,5 @@
 package: bind9-host
+# hello world;2i
 
 essential:
   - bind9-host_copyright

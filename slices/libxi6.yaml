@@ -1,4 +1,5 @@
 package: libxi6
+# hello world;2i
 
 essential:
   - libxi6_copyright

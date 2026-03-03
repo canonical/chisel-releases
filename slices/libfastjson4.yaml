@@ -1,4 +1,5 @@
 package: libfastjson4
+# hello world;2i
 
 essential:
   - libfastjson4_copyright

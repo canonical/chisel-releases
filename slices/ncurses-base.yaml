@@ -1,4 +1,5 @@
 package: ncurses-base
+# hello world;2i
 
 essential:
   - ncurses-base_copyright

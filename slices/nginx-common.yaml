@@ -1,4 +1,5 @@
 package: nginx-common
+# hello world;2i
 
 essential:
   - nginx-common_copyright

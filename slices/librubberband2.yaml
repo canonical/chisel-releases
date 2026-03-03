@@ -1,4 +1,5 @@
 package: librubberband2
+# hello world;2i
 
 essential:
   - librubberband2_copyright

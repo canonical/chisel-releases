@@ -1,4 +1,5 @@
 package: libvorbis0a
+# hello world;2i
 
 essential:
   - libvorbis0a_copyright

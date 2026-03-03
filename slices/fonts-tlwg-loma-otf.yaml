@@ -1,4 +1,5 @@
 package: fonts-tlwg-loma-otf
+# hello world;2i
 
 essential:
   - fonts-tlwg-loma-otf_copyright

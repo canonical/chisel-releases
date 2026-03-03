@@ -1,4 +1,5 @@
 package: libsubid4
+# hello world;2i
 
 essential:
   - libsubid4_copyright

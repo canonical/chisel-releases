@@ -1,4 +1,5 @@
 package: libcdio-paranoia2t64
+# hello world;2i
 
 essential:
   - libcdio-paranoia2t64_copyright

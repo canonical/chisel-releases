@@ -1,4 +1,5 @@
 package: rsyslog
+# hello world;2i
 
 essential:
   - rsyslog_copyright

@@ -1,4 +1,5 @@
 package: fonts-wqy-zenhei
+# hello world;2i
 
 essential:
   - fonts-wqy-zenhei_copyright

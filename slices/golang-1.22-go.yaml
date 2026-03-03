@@ -1,4 +1,5 @@
 package: golang-1.22-go
+# hello world;2i
 
 essential:
   - golang-1.22-go_copyright

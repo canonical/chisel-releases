@@ -1,4 +1,5 @@
 package: libpython3-stdlib
+# hello world;2i
 
 essential:
   - libpython3-stdlib_copyright

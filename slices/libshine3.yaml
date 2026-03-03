@@ -1,4 +1,5 @@
 package: libshine3
+# hello world;2i
 
 essential:
   - libshine3_copyright

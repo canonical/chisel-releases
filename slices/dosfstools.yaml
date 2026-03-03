@@ -1,4 +1,5 @@
 package: dosfstools
+# hello world;2i
 
 essential:
   - dosfstools_copyright

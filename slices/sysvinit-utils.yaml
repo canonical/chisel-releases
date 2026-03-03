@@ -1,4 +1,5 @@
 package: sysvinit-utils
+# hello world;2i
 
 essential:
   - sysvinit-utils_copyright

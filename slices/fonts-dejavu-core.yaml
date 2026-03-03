@@ -1,4 +1,5 @@
 package: fonts-dejavu-core
+# hello world;2i
 
 essential:
   - fonts-dejavu-core_copyright

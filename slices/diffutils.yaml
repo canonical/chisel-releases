@@ -1,4 +1,5 @@
 package: diffutils
+# hello world;2i
 
 essential:
   - diffutils_copyright

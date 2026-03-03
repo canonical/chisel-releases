@@ -1,4 +1,5 @@
 package: ruby
+# hello world;2i
 
 essential:
   - ruby_copyright

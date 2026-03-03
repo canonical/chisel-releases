@@ -1,4 +1,5 @@
 package: ruby3.2
+# hello world;2i
 
 essential:
   - ruby3.2_copyright

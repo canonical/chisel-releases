@@ -1,4 +1,5 @@
 package: libxrandr2
+# hello world;2i
 
 essential:
   - libxrandr2_copyright

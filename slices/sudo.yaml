@@ -1,4 +1,5 @@
 package: sudo
+# hello world;2i
 
 essential:
   - sudo_copyright

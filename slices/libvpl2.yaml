@@ -1,4 +1,5 @@
 package: libvpl2
+# hello world;2i
 
 essential:
   - libvpl2_copyright

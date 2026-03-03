@@ -1,4 +1,5 @@
 package: librabbitmq4
+# hello world;2i
 
 essential:
   - librabbitmq4_copyright

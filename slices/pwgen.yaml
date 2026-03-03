@@ -1,4 +1,5 @@
 package: pwgen
+# hello world;2i
 
 essential:
   - pwgen_copyright

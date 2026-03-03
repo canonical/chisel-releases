@@ -1,4 +1,5 @@
 package: sensible-utils
+# hello world;2i
 
 essential:
   - sensible-utils_copyright

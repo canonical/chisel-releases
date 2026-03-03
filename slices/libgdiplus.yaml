@@ -1,4 +1,5 @@
 package: libgdiplus
+# hello world;2i
 
 essential:
   - libgdiplus_copyright
