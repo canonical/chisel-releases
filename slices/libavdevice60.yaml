@@ -20,7 +20,7 @@ slices:
       - libdrm2_libs
       - libgl1_libs
       - libiec61883-0_libs
-      - libjack-jackd2-0_libs
+      - libjack-jackd2-0_jack
       - libopenal1_libs
       - libpulse0_libs
       - libraw1394-11_libs
