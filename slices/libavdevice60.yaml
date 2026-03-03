@@ -13,7 +13,7 @@ slices:
       - libavformat60_libs
       - libavutil58_libs
       - libc6_libs
-      - libcaca0_libs
+      - libcaca0_caca
       - libcdio-cdda2t64_libs
       - libcdio-paranoia2t64_libs
       - libdc1394-25_libs

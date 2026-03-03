@@ -6,15 +6,38 @@ essential:
 slices:
   libs:
     essential:
+      - libcaca0_caca
+      - libcaca0_caca-pp
+      - libcaca0_plugins
+
+  caca:
+    essential:
       - libc6_libs
-      - libgcc-s1_libs
       - libncursesw6_libs
       - libslang2_libs
-      - libstdc++6_libs
       - libtinfo6_libs
       - zlib1g_libs
     contents:
       /usr/lib/*-linux-*/libcaca.so.0*:
+
+  caca-pp:
+    essential:
+      - libc6_libs
+      - libcaca0_caca
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libcaca++.so.0*:
+
+  plugins:
+    essential:
+      - libcaca0_caca
+      - libgl1_libs
+      - libx11-6_libs
+    contents:
+      /usr/lib/*-linux-*/caca/libgl_plugin.so:
+      /usr/lib/*-linux-*/caca/libgl_plugin.so.0*:
+      /usr/lib/*-linux-*/caca/libx11_plugin.so:
+      /usr/lib/*-linux-*/caca/libx11_plugin.so.0*:
 
   copyright:
     contents:
