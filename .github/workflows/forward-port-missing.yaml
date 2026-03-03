@@ -20,6 +20,7 @@ jobs:
     # we need write permissions to be able to add labels
     permissions:
       pull-requests: write
+      contents: read
 
     steps:
       - uses: actions/checkout@v6
