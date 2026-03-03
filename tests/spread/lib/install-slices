@@ -55,6 +55,7 @@ function chisel_cut() {
         #shellcheck disable=SC2086
         chisel cut \
             --ignore=unstable \
+	    --ignore=unmaintained \
             --release "$PROJECT_PATH" \
             --root "$rootfs" \
             $slices \
