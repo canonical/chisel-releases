@@ -1,5 +1,4 @@
 # Fast lossless compression algorithm
-# hello world;2i
 package: libzstd1
 
 essential:

@@ -1,5 +1,4 @@
 package: libonig5
-# hello world;2i
 
 essential:
   - libonig5_copyright

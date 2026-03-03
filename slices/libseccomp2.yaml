@@ -1,5 +1,4 @@
 package: libseccomp2
-# hello world;2i
 
 essential:
   - libseccomp2_copyright

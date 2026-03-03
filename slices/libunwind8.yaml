@@ -1,5 +1,4 @@
 package: libunwind8
-# hello world;2i
 
 essential:
   - libunwind8_copyright

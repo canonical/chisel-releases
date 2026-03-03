@@ -1,5 +1,4 @@
 package: libkrb5-3
-# hello world;2i
 
 essential:
   - libkrb5-3_copyright

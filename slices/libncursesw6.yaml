@@ -1,5 +1,4 @@
 package: libncursesw6
-# hello world;2i
 
 essential:
   - libncursesw6_copyright

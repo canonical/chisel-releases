@@ -1,5 +1,4 @@
 package: libmpdec2
-# hello world;2i
 
 essential:
   - libmpdec2_copyright

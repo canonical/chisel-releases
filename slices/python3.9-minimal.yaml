@@ -1,5 +1,4 @@
 package: python3.9-minimal
-# hello world;2i
 
 essential:
   - python3.9-minimal_copyright

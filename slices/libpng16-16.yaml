@@ -1,5 +1,4 @@
 package: libpng16-16
-# hello world;2i
 
 essential:
   - libpng16-16_copyright

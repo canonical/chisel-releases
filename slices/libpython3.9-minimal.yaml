@@ -1,5 +1,4 @@
 package: libpython3.9-minimal
-# hello world;2i
 
 # Most of the Python3.9 standard libraries are split into
 # two major packages:

@@ -1,5 +1,4 @@
 package: libc6
-# hello world;2i
 
 essential:
   - libc6_copyright

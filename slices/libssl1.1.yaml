@@ -1,5 +1,4 @@
 package: libssl1.1
-# hello world;2i
 
 essential:
   - libssl1.1_copyright

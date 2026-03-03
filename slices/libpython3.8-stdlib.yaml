@@ -1,5 +1,4 @@
 package: libpython3.8-stdlib
-# hello world;2i
 
 # The slices in this package have been grouped with inspiration from the Python
 # 3.8 Standard Library (https://docs.python.org/3.8/library/index.html).

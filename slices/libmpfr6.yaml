@@ -1,5 +1,4 @@
 package: libmpfr6
-# hello world;2i
 
 essential:
   - libmpfr6_copyright
