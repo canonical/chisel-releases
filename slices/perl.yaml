@@ -1,4 +1,5 @@
 package: perl
+# hello world;2i
 
 essential:
   - perl_copyright

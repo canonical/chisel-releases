@@ -1,4 +1,5 @@
 package: libtinfo6
+# hello world;2i
 
 essential:
   - libtinfo6_copyright

@@ -1,4 +1,5 @@
 package: erlang-public-key
+# hello world;2i
 
 essential:
   - erlang-public-key_copyright

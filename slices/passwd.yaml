@@ -1,4 +1,5 @@
 package: passwd
+# hello world;2i
 
 essential:
   - passwd_copyright

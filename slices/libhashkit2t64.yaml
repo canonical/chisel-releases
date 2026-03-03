@@ -1,4 +1,5 @@
 package: libhashkit2t64
+# hello world;2i
 
 essential:
   - libhashkit2t64_copyright

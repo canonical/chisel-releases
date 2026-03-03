@@ -1,4 +1,5 @@
 package: libnpth0t64
+# hello world;2i
 
 essential:
   - libnpth0t64_copyright

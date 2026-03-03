@@ -1,4 +1,5 @@
 package: fonts-noto-core
+# hello world;2i
 
 essential:
   - fonts-noto-core_copyright

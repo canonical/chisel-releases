@@ -1,4 +1,5 @@
 package: jq
+# hello world;2i
 
 essential:
   - jq_copyright

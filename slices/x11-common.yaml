@@ -1,4 +1,5 @@
 package: x11-common
+# hello world;2i
 
 essential:
   - x11-common_copyright

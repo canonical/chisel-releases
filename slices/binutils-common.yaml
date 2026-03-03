@@ -1,4 +1,5 @@
 package: binutils-common
+# hello world;2i
 
 essential:
   - binutils-common_copyright

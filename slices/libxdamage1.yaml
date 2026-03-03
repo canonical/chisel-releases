@@ -1,4 +1,5 @@
 package: libxdamage1
+# hello world;2i
 
 essential:
   - libxdamage1_copyright

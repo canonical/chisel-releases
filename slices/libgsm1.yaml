@@ -1,4 +1,5 @@
 package: libgsm1
+# hello world;2i
 
 essential:
   - libgsm1_copyright

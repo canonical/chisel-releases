@@ -1,4 +1,5 @@
 package: libxcb1
+# hello world;2i
 
 essential:
   - libxcb1_copyright

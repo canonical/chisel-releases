@@ -1,4 +1,5 @@
 package: geoip-bin
+# hello world;2i
 
 essential:
   - geoip-bin_copyright

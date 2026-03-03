@@ -1,4 +1,5 @@
 package: sqlite3
+# hello world;2i
 
 essential:
   - sqlite3_copyright

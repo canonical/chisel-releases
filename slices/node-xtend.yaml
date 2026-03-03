@@ -1,4 +1,5 @@
 package: node-xtend
+# hello world;2i
 
 essential:
   - node-xtend_copyright

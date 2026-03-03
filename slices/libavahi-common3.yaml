@@ -1,4 +1,5 @@
 package: libavahi-common3
+# hello world;2i
 
 essential:
   - libavahi-common3_copyright

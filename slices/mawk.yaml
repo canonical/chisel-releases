@@ -1,4 +1,5 @@
 package: mawk
+# hello world;2i
 
 essential:
   - mawk_copyright

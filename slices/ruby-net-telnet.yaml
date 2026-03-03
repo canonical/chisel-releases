@@ -1,4 +1,5 @@
 package: ruby-net-telnet
+# hello world;2i
 
 essential:
   - ruby-net-telnet_copyright

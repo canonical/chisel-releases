@@ -1,4 +1,5 @@
 package: liblzo2-2
+# hello world;2i
 
 essential:
   - liblzo2-2_copyright

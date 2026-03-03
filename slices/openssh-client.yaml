@@ -1,4 +1,5 @@
 package: openssh-client
+# hello world;2i
 
 essential:
   - openssh-client_copyright
