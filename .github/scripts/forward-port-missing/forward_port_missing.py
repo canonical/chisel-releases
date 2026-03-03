@@ -126,7 +126,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
     def _fetch_diff(pr: dict) -> tuple[int, Diff | None]:
         """Fetch a PR's diff and return the PR number and the parsed Diff object."""
         with requests.Session() as s:
-            response = s.get(pr["diff_url"])
+            response = s.get(pr["diff_url"], headers=headers)
             response.raise_for_status()
         diff_text = response.text
         pr_number = pr["number"]
