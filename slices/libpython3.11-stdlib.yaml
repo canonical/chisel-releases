@@ -1,5 +1,4 @@
 package: libpython3.11-stdlib
-# hello world;2i
 
 # The slices in this package have been grouped with inspiration from the
 # Python 3.11 Standard Library

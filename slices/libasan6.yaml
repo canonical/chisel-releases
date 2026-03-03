@@ -1,5 +1,4 @@
 package: libasan6
-# hello world;2i
 
 slices:
   libs:

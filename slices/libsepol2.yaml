@@ -1,5 +1,4 @@
 package: libsepol2
-# hello world;2i
 
 essential:
   - libsepol2_copyright

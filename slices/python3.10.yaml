@@ -1,5 +1,4 @@
 package: python3.10
-# hello world;2i
 
 essential:
   - python3.10_copyright

@@ -1,5 +1,4 @@
 package: erlang-ftp
-# hello world;2i
 
 essential:
   - erlang-ftp_copyright

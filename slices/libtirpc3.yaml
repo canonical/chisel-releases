@@ -1,5 +1,4 @@
 package: libtirpc3
-# hello world;2i
 
 essential:
   - libtirpc3_copyright

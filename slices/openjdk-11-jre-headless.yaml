@@ -1,5 +1,4 @@
 package: openjdk-11-jre-headless
-# hello world;2i
 
 essential:
   - openjdk-11-jre-headless_copyright

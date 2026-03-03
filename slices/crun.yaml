@@ -1,5 +1,4 @@
 package: crun
-# hello world;2i
 
 essential:
   - crun_copyright

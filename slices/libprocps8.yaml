@@ -1,5 +1,4 @@
 package: libprocps8
-# hello world;2i
 
 essential:
   - libprocps8_copyright

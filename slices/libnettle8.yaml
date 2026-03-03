@@ -1,5 +1,4 @@
 package: libnettle8
-# hello world;2i
 
 essential:
   - libnettle8_copyright

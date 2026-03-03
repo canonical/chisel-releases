@@ -1,5 +1,4 @@
 package: libhogweed6
-# hello world;2i
 
 essential:
   - libhogweed6_copyright

@@ -1,5 +1,4 @@
 package: httping
-# hello world;2i
 
 essential:
   - httping_copyright

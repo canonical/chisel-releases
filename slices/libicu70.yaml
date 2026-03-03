@@ -1,5 +1,4 @@
 package: libicu70
-# hello world;2i
 
 essential:
   - libicu70_copyright

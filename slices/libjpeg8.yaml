@@ -1,5 +1,4 @@
 package: libjpeg8
-# hello world;2i
 
 essential:
   - libjpeg8_copyright

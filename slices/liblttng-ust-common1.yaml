@@ -1,5 +1,4 @@
 package: liblttng-ust-common1
-# hello world;2i
 
 essential:
   - liblttng-ust-common1_copyright

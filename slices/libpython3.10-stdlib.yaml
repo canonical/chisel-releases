@@ -1,5 +1,4 @@
 package: libpython3.10-stdlib
-# hello world;2i
 
 # The slices in this package have been grouped with inspiration from the
 # Python 3.10 Standard Library

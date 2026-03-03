@@ -1,5 +1,4 @@
 package: erlang-inets
-# hello world;2i
 
 essential:
   - erlang-inets_copyright

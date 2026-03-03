@@ -1,5 +1,4 @@
 # Library implementing HTTP/2 protocol
-# hello world;2i
 package: libnghttp2-14
 
 essential:

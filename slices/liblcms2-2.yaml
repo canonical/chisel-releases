@@ -1,5 +1,4 @@
 package: liblcms2-2
-# hello world;2i
 
 essential:
   - liblcms2-2_copyright

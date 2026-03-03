@@ -1,5 +1,4 @@
 package: libtiff5
-# hello world;2i
 
 essential:
   - libtiff5_copyright

@@ -1,5 +1,4 @@
 package: libfontconfig1
-# hello world;2i
 
 essential:
   - libfontconfig1_copyright

@@ -1,5 +1,4 @@
 package: libwebp7
-# hello world;2i
 
 essential:
   - libwebp7_copyright

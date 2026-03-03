@@ -1,5 +1,4 @@
 package: libreadline8
-# hello world;2i
 
 essential:
   - libreadline8_copyright

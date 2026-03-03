@@ -1,5 +1,4 @@
 package: libharfbuzz0b
-# hello world;2i
 
 essential:
   - libharfbuzz0b_copyright

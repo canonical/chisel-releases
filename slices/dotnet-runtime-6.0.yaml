@@ -1,5 +1,4 @@
 package: dotnet-runtime-6.0
-# hello world;2i
 
 essential:
   - dotnet-runtime-6.0_copyright

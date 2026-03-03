@@ -1,5 +1,4 @@
 package: libpcsclite1
-# hello world;2i
 
 essential:
   - libpcsclite1_copyright

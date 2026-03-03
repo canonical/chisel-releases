@@ -1,5 +1,4 @@
 package: libacl1
-# hello world;2i
 
 essential:
   - libacl1_copyright

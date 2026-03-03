@@ -1,5 +1,4 @@
 package: libglib2.0-0
-# hello world;2i
 
 essential:
   - libglib2.0-0_copyright

@@ -1,5 +1,4 @@
 package: erlang-crypto
-# hello world;2i
 
 essential:
   - erlang-crypto_copyright

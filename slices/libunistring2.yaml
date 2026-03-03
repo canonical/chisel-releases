@@ -1,5 +1,4 @@
 package: libunistring2
-# hello world;2i
 
 essential:
   - libunistring2_copyright

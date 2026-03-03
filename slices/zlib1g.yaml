@@ -1,5 +1,4 @@
 package: zlib1g
-# hello world;2i
 
 essential:
   - zlib1g_copyright
