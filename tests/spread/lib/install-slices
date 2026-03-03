@@ -73,7 +73,7 @@ function chisel_cut() {
             echo "Warning: Error while installing $slices (attempt $attempt/$n_retries). Retrying..." >&2
             continue
         else
-            echo "Failed to cut slices: $(cat "$output")" >&2
+            echo "Failed to cut slices. See above for details." >&2
             exit 1
         fi
     done
