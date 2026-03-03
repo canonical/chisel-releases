@@ -76,7 +76,7 @@ class PR:
     def from_github_json(cls, data: dict) -> PR:
         return PR(
             number=data["number"],
-            labels=frozenset(label.get("name") for label in data["labels"]),
+            labels=frozenset(label["name"] for label in data.get("labels", [])),
             new_slices=frozenset(data.get("new_slices", [])),
             branch=data["base"]["ref"],
         )
