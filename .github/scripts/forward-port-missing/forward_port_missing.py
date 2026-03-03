@@ -123,7 +123,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
 
     # fetch the diff for each PR in parallel and determine which slices they are modifying (i.e. which files in the /slices directory they are adding/modifying)
 
-    def _fetch_diff(pr: dict) -> tuple[int, Diff]:
+    def _fetch_diff(pr: dict) -> tuple[int, Diff | None]:
         """Fetch a PR's diff and return the PR number and the parsed Diff object."""
         with requests.Session() as s:
             response = s.get(pr["diff_url"])
@@ -134,13 +134,13 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
             warn(
                 f"Rate limit exceeded when fetching diff for PR #{pr_number}. Skipping."
             )
-            sys.exit(1)
+            return pr_number, None
         return pr_number, Diff(diff_text)
 
     with timing_context() as elapsed:
         with ThreadPoolExecutor(max_workers=5) as executor:
             _diffs = list(executor.map(_fetch_diff, results))
-    diffs: dict[int, Diff] = dict(_diffs)
+    diffs: dict[int, Diff | None] = dict(_diffs)
 
     info(f"Fetched diffs for {len(results)} PRs in {elapsed():.2f} seconds.")
 
