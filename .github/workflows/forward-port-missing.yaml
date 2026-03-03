@@ -13,6 +13,7 @@ on:
 jobs:
   check-forward-port:
     name: "Check for forward port"
+    if: github.repository_owner == 'canonical'
     runs-on: ubuntu-latest
     env:
       script: ".github/scripts/forward-port-missing"
