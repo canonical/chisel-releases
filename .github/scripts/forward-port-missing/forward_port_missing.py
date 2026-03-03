@@ -162,10 +162,8 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
                     new_slices.add(new_filepath.stem)
         result["new_slices"] = sorted(new_slices)
 
-    # Only keep PRs that introduce at least one new slice YAML
-    results_with_new_slices = [r for r in results if r.get("new_slices")]
+    return set(PR.from_github_json(r) for r in results if r.get("new_slices"))
 
-    return set(PR.from_github_json(result) for result in results_with_new_slices)
 # precompile regex to extract package names from the package listing
 _PACKAGE_RE = re.compile(r"^Package:\s*(\S+)", re.MULTILINE)
 
