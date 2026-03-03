@@ -27,7 +27,7 @@ prepare: |
   # needed by the SDK to determine system information
   mkdir -p "${rootfs}"/proc
   mount --bind /proc "${rootfs}"/proc
- 
+
   # needed by various utilities of the SDK
   mkdir -p "${rootfs}/tmp"
   
@@ -40,7 +40,7 @@ prepare: |
   mkdir -p "${rootfs}${HOME}"
 
   # Set the user config to not use nuget.org, because sometimes dotnet restore is
-  # flaky and hangs indefinitely. Also, we do not need depenencies from the internet.
+  # flaky and hangs indefinitely. Also, we do not need dependencies from the internet.
   mkdir -p "${rootfs}${HOME}/.nuget/NuGet"
   cp NuGet.Config "${rootfs}${HOME}/.nuget/NuGet/NuGet.Config"
   
