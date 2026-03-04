@@ -12,7 +12,7 @@ slices:
       libgcc-s1_libs:
       libssl3t64_libs:
       libstdc++6_libs:
-      libunwind8_libs:
+      libunwind8_libs: {arch: [amd64]}
       zlib1g_libs:
     contents:
       /usr/lib/dotnet/packs/runtime.*.Microsoft.DotNet.ILCompiler/10.0.*/**:

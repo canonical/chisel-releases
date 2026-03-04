@@ -16,10 +16,10 @@ slices:
       libbrotli1_libs:
       libc6_libs:
       libgcc-s1_libs:
-      liblttng-ust1t64_libs:
+      liblttng-ust1t64_libs: {arch: [amd64, arm64]}
       libssl3t64_libs:
       libstdc++6_libs:
-      libunwind8_libs:
+      libunwind8_libs: {arch: [amd64]}
       zlib1g_libs:
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/**:
