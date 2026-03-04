@@ -16,6 +16,7 @@ slices:
       debianutils_which:
 
   which:
+    hint: Identify the location of executables
     essential:
       base-files_bin:
       dash_bins:
@@ -25,18 +26,21 @@ slices:
       /usr/bin/which.debianutils:
 
   ischroot:
+    hint: Detect if running in a chroot environment
     essential:
       libc6_libs:
     contents:
       /usr/bin/ischroot:
 
   run-parts:
+    hint: Run scripts or programs in a directory
     essential:
       libc6_libs:
     contents:
       /usr/bin/run-parts:
 
   tempfile:
+    hint: Create a temporary file in a safe manner
     essential:
       base-files_tmp:
       libc6_libs:
