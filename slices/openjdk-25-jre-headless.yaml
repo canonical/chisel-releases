@@ -1,5 +1,4 @@
 package: openjdk-25-jre-headless
-# hello world;2i
 
 essential:
   - openjdk-25-jre-headless_copyright

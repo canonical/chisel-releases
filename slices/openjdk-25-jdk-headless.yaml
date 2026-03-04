@@ -1,5 +1,4 @@
 package: openjdk-25-jdk-headless
-# hello world;2i
 
 essential:
   - openjdk-25-jdk-headless_copyright
