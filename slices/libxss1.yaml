@@ -11,7 +11,7 @@ slices:
       libxext6_libs:
       x11-common_services:
     contents:
-      /usr/lib/*-linux-*/libXss.so*:
+      /usr/lib/*-linux-*/libXss.so.1*:
 
   copyright:
     contents:

@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libwayland-client0_libs:
     contents:
-      /usr/lib/*-linux-*/libdecor-0.so*:
+      /usr/lib/*-linux-*/libdecor-0.so.0*:
 
   copyright:
     contents:

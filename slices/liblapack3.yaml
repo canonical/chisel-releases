@@ -11,7 +11,6 @@ slices:
       libgcc-s1_libs:
       libgfortran5_libs:
       libpulse0_libs:
-
     contents:
       /usr/lib/*-linux-*/lapack/liblapack.so.3*:
 

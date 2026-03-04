@@ -12,7 +12,7 @@ slices:
       libstdc++6_libs:
       libvulkan1_libs:
     contents:
-      /usr/lib/*-linux-*/libplacebo.so*:
+      /usr/lib/*-linux-*/libplacebo.so.360:
 
   copyright:
     contents:

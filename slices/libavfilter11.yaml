@@ -30,6 +30,9 @@ slices:
       libzmq5_libs:
       ocl-icd-libopencl1_libs:
       zlib1g_libs:
+      libvpl2_libs: {arch: [amd64]}
+      libpocketsphinx3_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
+      libsphinxbase3t64_sphinxbase: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
     contents:
       /usr/lib/*-linux-*/libavfilter.so*:
 

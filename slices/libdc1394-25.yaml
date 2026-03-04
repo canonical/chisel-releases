@@ -10,7 +10,7 @@ slices:
       libraw1394-11_libs:
       libusb-1.0-0_libs:
     contents:
-      /usr/lib/*-linux-*/libdc1394.so*:
+      /usr/lib/*-linux-*/libdc1394.so.25*:
 
   copyright:
     contents:
