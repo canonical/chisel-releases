@@ -8,6 +8,11 @@ slices:
     essential:
       debianutils_ischroot:
       debianutils_run-parts:
+      debianutils_tempfile:
+
+  scripts:
+    essential:
+      debianutils_savelog:
       debianutils_which:
 
   which:
@@ -30,6 +35,33 @@ slices:
       libc6_libs:
     contents:
       /usr/bin/run-parts:
+
+  tempfile:
+    essential:
+      base-files_tmp:
+      libc6_libs:
+    contents:
+      /usr/bin/tempfile:
+
+  savelog:
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_chgrp:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_date:
+      coreutils_dirname:
+      coreutils_ln-utility:
+      coreutils_ls-utility:
+      coreutils_mkdir:
+      coreutils_mv-utility:
+      coreutils_rm-utility:
+      coreutils_touch:
+      dash_bins:
+      sed_bins:
+    contents:
+      /usr/sbin/savelog:
 
   copyright:
     contents:
