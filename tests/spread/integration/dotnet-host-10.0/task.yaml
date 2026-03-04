@@ -47,7 +47,7 @@ prepare: |
 
 execute: |
   rootfs="$(cat ROOTFS)"
-  # smoking test the .NET host
+  # smoke test the .NET host
   chroot "${rootfs}" /usr/bin/dotnet --info
 
   if [[ -v WITH_DNX ]]; then
