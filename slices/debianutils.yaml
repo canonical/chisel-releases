@@ -55,7 +55,7 @@ slices:
   # is not a hard dependency since it can also not do that if you pass -l flag.
   # To enable gzip compression you will also need to install gzip_bins.
   savelog:
-    hint: Saves old copies of log files
+    hint: Save old copies of log files
     essential:
       base-files_bin:
       coreutils_basename:
