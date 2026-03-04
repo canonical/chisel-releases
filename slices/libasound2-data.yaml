@@ -6,7 +6,10 @@ essential:
 slices:
   data:
     contents:
-      /usr/share/alsa/**:
+      /usr/share/alsa/alsa.conf:
+      /usr/share/alsa/cards/**:
+      /usr/share/alsa/ctl/**:
+      /usr/share/alsa/pcm/**:
 
   copyright:
     contents:

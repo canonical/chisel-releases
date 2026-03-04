@@ -9,7 +9,34 @@ slices:
       - libasound2t64_libs
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libflite*.so*:
+      # NOTE: all the so.1 libraries are just symlinks to their
+      #       so.2* equivalents
+      /usr/lib/*-linux-*/libflite.so.1:
+      /usr/lib/*-linux-*/libflite.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_grapheme_lang.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_grapheme_lang.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_grapheme_lex.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_grapheme_lex.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_indic_lang.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_indic_lang.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_indic_lex.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_indic_lex.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_time_awb.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_time_awb.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_us_awb.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_us_awb.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_us_kal.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_us_kal.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_us_kal16.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_us_kal16.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_us_rms.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_us_rms.so.2*:
+      /usr/lib/*-linux-*/libflite_cmu_us_slt.so.1:
+      /usr/lib/*-linux-*/libflite_cmu_us_slt.so.2*:
+      /usr/lib/*-linux-*/libflite_cmulex.so.1:
+      /usr/lib/*-linux-*/libflite_cmulex.so.2*:
+      /usr/lib/*-linux-*/libflite_usenglish.so.1:
+      /usr/lib/*-linux-*/libflite_usenglish.so.2*:
 
   copyright:
     contents:

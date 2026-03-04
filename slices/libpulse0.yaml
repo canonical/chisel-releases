@@ -17,7 +17,7 @@ slices:
       - libxcb1_libs
     contents:
       /usr/lib/*-linux-*/libpulse*.so*:
-      /usr/lib/*-linux-*/pulseaudio/libpulsecommon*.so*:
+      /usr/lib/*-linux-*/pulseaudio/libpulsecommon*.so:
 
   copyright:
     contents:
