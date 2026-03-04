@@ -89,6 +89,7 @@ slices:
       coreutils_rm-utility:
       coreutils_stat:
       dash_bins:
+      debianutils_config:
       grep_bins:
     contents:
       /usr/sbin/add-shell:
@@ -122,6 +123,7 @@ slices:
       coreutils_rm-utility:
       coreutils_stat:
       dash_bins:
+      debianutils_config:
       grep_bins:
     contents:
       /usr/sbin/remove-shell:
@@ -140,9 +142,24 @@ slices:
       coreutils_stat:
       coreutils_sync:
       dash_bins:
+      debianutils_config:
       dpkg_realpath:
     contents:
       /usr/sbin/update-shells:
+
+  config:
+    essential:
+      base-files_bin:
+      dash_bins:
+    contents:
+      /usr/share/debianutils/shells:
+        until: mutate
+      /etc/shells:
+        text: FIXME
+        mutable: true
+    mutate: |
+      shells = content.read("/usr/share/debianutils/shells")
+      content.write("/etc/shells", shells)
 
   copyright:
     contents:

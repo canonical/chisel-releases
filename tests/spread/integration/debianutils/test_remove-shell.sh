@@ -3,8 +3,17 @@
 
 rootfs="$(install-slices debianutils_remove-shell)"
 
-chroot "$rootfs" remove-shell --help 2>&1
-chroot "$rootfs" remove-shell --version 2>&1
+grep -q "/bin/sh" "$rootfs/etc/shells" # default shell
 
-exit 99
+# manually add a shell
+echo "/foo/bar" >> "$rootfs/etc/shells"
+grep -q "/foo/bar" "$rootfs/etc/shells"
 
+# remove /foo/bar
+chroot "$rootfs" remove-shell /foo/bar
+grep -q "/bin/sh" "$rootfs/etc/shells"
+! grep -q "/foo/bar" "$rootfs/etc/shells"
+
+# remove the default shell
+chroot "$rootfs" remove-shell /bin/sh
+! grep -q "/bin/sh" "$rootfs/etc/shells"

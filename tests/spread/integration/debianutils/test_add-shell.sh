@@ -3,8 +3,11 @@
 
 rootfs="$(install-slices debianutils_add-shell)"
 
-chroot "$rootfs" add-shell --help 2>&1
-chroot "$rootfs" add-shell --version 2>&1
+grep -q "/bin/sh" "$rootfs/etc/shells" # default shell
 
-exit 99
+chroot "$rootfs" add-shell /foo/bar
 
+# we still have /bin/sh in the list of shells,
+# as well as the new shell we just added
+grep -q "/bin/sh" "$rootfs/etc/shells"
+grep -q "/foo/bar" "$rootfs/etc/shells"
