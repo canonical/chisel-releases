@@ -171,12 +171,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      coreutils-from-gnu_chgrp:
       coreutils-from-gnu_chmod:
       coreutils-from-gnu_chown:
       coreutils-from-gnu_touch:
       gnu-coreutils_changing-file-attributes:
-    contents:
-      /usr/bin/chgrp:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -545,6 +544,12 @@ slices:
       gnu-coreutils_wc-utility:
     contents:
       /usr/bin/wc:
+
+  chgrp:
+    essential:
+      gnu-coreutils_chgrp:
+    contents:
+      /usr/bin/chgrp:
 
   copyright:
     contents:

@@ -257,6 +257,10 @@ slices:
     essential:
       coreutils-from-gnu_wc-utility:
 
+  chgrp:
+    essential:
+      coreutils-from-gnu_chgrp:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
