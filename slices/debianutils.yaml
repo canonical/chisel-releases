@@ -82,7 +82,7 @@ slices:
       dash_bins:
     contents:
       /usr/sbin/add-shell:
-  
+
   installkernel:
     hint: Install a new kernel image
     essential:
@@ -90,7 +90,7 @@ slices:
       dash_bins:
     contents:
       /usr/sbin/installkernel:
-  
+
   remove-shell:
     hint: Remove shell from login shells
     essential:
@@ -98,7 +98,7 @@ slices:
       dash_bins:
     contents:
       /usr/sbin/remove-shell:
-  
+
   update-shells:
     hint: Update the list of login shells
     essential:
