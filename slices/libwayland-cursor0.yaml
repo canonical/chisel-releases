@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libwayland-client0_libs:
     contents:
-      /usr/lib/*-linux-*/libwayland-cursor.so*:
+      /usr/lib/*-linux-*/libwayland-cursor.so.0*:
 
   copyright:
     contents:

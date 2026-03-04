@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libudev1_libs:
     contents:
-      /usr/lib/*-linux-*/libusb-1.0.so*:
+      /usr/lib/*-linux-*/libusb-1.0.so.0*:
 
   copyright:
     contents:

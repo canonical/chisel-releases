@@ -6,14 +6,38 @@ essential:
 slices:
   libs:
     essential:
+      libjack-jackd2-0_jack:
+      libjack-jackd2-0_jacknet:
+      libjack-jackd2-0_jackserver:
+
+  jack:
+    essential:
       libc6_libs:
       libdb5.3t64_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+    contents:
+      /usr/lib/*-linux-*/libjack.so.0*:
+
+  jacknet:
+    essential:
+      libc6_libs:
       libgcc-s1_libs:
       libopus0_libs:
       libsamplerate0_libs:
       libstdc++6_libs:
     contents:
-      /usr/lib/*-linux-*/libjack.so*:
+      /usr/lib/*-linux-*/libjacknet.so.0*:
+
+  jackserver:
+    essential:
+      libc6_libs:
+      libdb5.3t64_libs:
+      libgcc-s1_libs:
+      libopus0_libs:
+      libstdc++6_libs:
+    contents:
+      /usr/lib/*-linux-*/libjackserver.so.0*:
 
   copyright:
     contents:

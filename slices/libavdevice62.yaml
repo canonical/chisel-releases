@@ -18,7 +18,7 @@ slices:
       libdc1394-25_libs:
       libdrm2_libs:
       libiec61883-0_libs:
-      libjack-jackd2-0_libs:
+      libjack-jackd2-0_jack:
       libopenal1_libs:
       libpulse0_libs:
       libraw1394-11_libs:
@@ -30,7 +30,7 @@ slices:
       libxext6_libs:
       libxv1_libs:
     contents:
-      /usr/lib/*-linux-*/libavdevice.so*:
+      /usr/lib/*-linux-*/libavdevice.so.62*:
 
   copyright:
     contents:

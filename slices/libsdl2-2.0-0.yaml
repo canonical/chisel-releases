@@ -26,7 +26,7 @@ slices:
       libxrandr2_libs:
       libxss1_libs:
     contents:
-      /usr/lib/*-linux-*/libSDL2-2.0.so*:
+      /usr/lib/*-linux-*/libSDL2-2.0.so.0*:
 
   copyright:
     contents:
