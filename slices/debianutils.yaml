@@ -152,11 +152,11 @@ slices:
       base-files_bin:
       dash_bins:
     contents:
-      /usr/share/debianutils/shells:
-        until: mutate
       /etc/shells:
         text: FIXME
         mutable: true
+      /usr/share/debianutils/shells:
+      /usr/share/debianutils/shells.d/:
     mutate: |
       shells = content.read("/usr/share/debianutils/shells")
       content.write("/etc/shells", shells)
