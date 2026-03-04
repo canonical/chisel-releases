@@ -41,7 +41,7 @@ slices:
 
   services:
     essential:
-      init-system-helpers_bins:
+      init-system-helpers_scripts:
     contents:
       /usr/lib/systemd/system/rescue-ssh.target:
       /usr/lib/systemd/system/ssh.service:
