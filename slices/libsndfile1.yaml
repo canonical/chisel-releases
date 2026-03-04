@@ -15,7 +15,7 @@ slices:
       - libvorbis0a_libs
       - libvorbisenc2_libs
     contents:
-      /usr/lib/*-linux-*/libsndfile.so*:
+      /usr/lib/*-linux-*/libsndfile.so.1*:
 
   copyright:
     contents:

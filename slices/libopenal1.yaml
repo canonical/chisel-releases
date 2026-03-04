@@ -11,7 +11,7 @@ slices:
       - libsndio7.0_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/*-linux-*/libopenal.so*:
+      /usr/lib/*-linux-*/libopenal.so.1*:
 
   copyright:
     contents:

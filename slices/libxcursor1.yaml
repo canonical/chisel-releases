@@ -11,7 +11,7 @@ slices:
       - libxfixes3_libs
       - libxrender1_libs
     contents:
-      /usr/lib/*-linux-*/libXcursor.so*:
+      /usr/lib/*-linux-*/libXcursor.so.1*:
 
   copyright:
     contents:
