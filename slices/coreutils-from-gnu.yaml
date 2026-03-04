@@ -184,11 +184,11 @@ slices:
   file-space-usage:
     essential:
       coreutils-from-gnu_stat:
+      coreutils-from-gnu_sync:
       gnu-coreutils_file-space-usage:
     contents:
       /usr/bin/df:
       /usr/bin/du:
-      /usr/bin/sync:
       /usr/bin/truncate:
 
   # Printing text -- This slice contains commands that display text strings.
@@ -230,10 +230,10 @@ slices:
       coreutils-from-gnu_basename:
       coreutils-from-gnu_dirname:
       coreutils-from-gnu_mktemp:
+      coreutils-from-gnu_realpath:
       gnu-coreutils_file-name-manipulation:
     contents:
       /usr/bin/pathchk:
-      /usr/bin/realpath:
 
   # Working context -- This slice contains commands that display or alter the
   # context in which you are working: the current directory, the terminal
@@ -550,6 +550,18 @@ slices:
       gnu-coreutils_chgrp:
     contents:
       /usr/bin/chgrp:
+
+  realpath:
+    essential:
+      gnu-coreutils_realpath:
+    contents:
+      /usr/bin/realpath:
+  
+  sync:
+    essential:
+      gnu-coreutils_sync:
+    contents:
+      /usr/bin/sync:
 
   copyright:
     contents:

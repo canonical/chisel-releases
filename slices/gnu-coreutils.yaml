@@ -593,6 +593,22 @@ slices:
       libselinux1_libs:
     contents:
       /usr/bin/gnuchgrp:
+  
+  realpath:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/gnurealpath:
+
+  sync:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/gnusync:
 
   copyright:
     contents:
