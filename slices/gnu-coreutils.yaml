@@ -593,7 +593,7 @@ slices:
       libselinux1_libs:
     contents:
       /usr/bin/gnuchgrp:
-  
+
   realpath:
     essential:
       libc6_libs:

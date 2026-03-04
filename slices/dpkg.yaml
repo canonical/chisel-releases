@@ -34,7 +34,7 @@ slices:
       /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
       /usr/sbin/start-stop-daemon:
-  
+
   realpath:
     hint: Resolve path with DPKG_ROOT support
     essential:

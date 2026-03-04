@@ -556,7 +556,7 @@ slices:
       gnu-coreutils_realpath:
     contents:
       /usr/bin/realpath:
-  
+
   sync:
     essential:
       gnu-coreutils_sync:

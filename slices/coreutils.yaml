@@ -260,7 +260,7 @@ slices:
   chgrp:
     essential:
       coreutils-from-gnu_chgrp:
-  
+
   realpath:
     essential:
       coreutils-from-gnu_realpath:
