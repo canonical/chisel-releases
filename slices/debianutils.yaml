@@ -12,7 +12,11 @@ slices:
 
   scripts:
     essential:
+      debianutils_add-shell:
+      debianutils_installkernel:
+      debianutils_remove-shell:
       debianutils_savelog:
+      debianutils_update-shells:
       debianutils_which:
 
   which:
@@ -70,6 +74,38 @@ slices:
       sed_bins:
     contents:
       /usr/bin/savelog:
+
+  add-shell:
+    hint: Add shell to login shells
+    essential:
+      base-files_bin:
+      dash_bins:
+    contents:
+      /usr/sbin/add-shell:
+  
+  installkernel:
+    hint: Install a new kernel image
+    essential:
+      base-files_bin:
+      dash_bins:
+    contents:
+      /usr/sbin/installkernel:
+  
+  remove-shell:
+    hint: Remove shell from login shells
+    essential:
+      base-files_bin:
+      dash_bins:
+    contents:
+      /usr/sbin/remove-shell:
+  
+  update-shells:
+    hint: Update the list of login shells
+    essential:
+      base-files_bin:
+      dash_bins:
+    contents:
+      /usr/sbin/update-shells:
 
   copyright:
     contents:
