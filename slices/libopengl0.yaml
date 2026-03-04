@@ -1,0 +1,16 @@
+package: libopengl0
+
+essential:
+  - libopengl0_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libopengl0/copyright:
+
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libOpenGL.so*:
+    essential:
+      - libc6_libs
+      - libglvnd0_libs
