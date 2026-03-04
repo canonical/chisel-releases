@@ -43,7 +43,11 @@ slices:
     contents:
       /usr/bin/tempfile:
 
+  # Note: By default savleog compresses the old log files with gzip, but this
+  # is not a hard dependency since it can also not do that if you pass -l flag.
+  # To enable gzip compression you will also need to install gzip_bins.
   savelog:
+    hint: Saves old copies of log files
     essential:
       base-files_bin:
       coreutils_basename:
@@ -61,7 +65,7 @@ slices:
       dash_bins:
       sed_bins:
     contents:
-      /usr/sbin/savelog:
+      /usr/bin/savelog:
 
   copyright:
     contents:

@@ -1,10 +1,11 @@
 summary: Integration tests for debianutils
-# spellchecker: ignore rootfs debianutils ischroot
+# spellchecker: ignore rootfs debianutils ischroot savelog
 
 variants:
     - which
     - ischroot
     - run-parts
     - tempfile
+    - savelog
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
