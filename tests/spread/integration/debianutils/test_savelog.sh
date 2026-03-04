@@ -12,7 +12,7 @@ chroot "$rootfs" savelog /var/log/test.log 2>&1 | \
 
 # savelog without compression. this should succeed and create the log file
 chroot "$rootfs" savelog -l -t /var/log/test.log
-test -f "$rootfs/var/log/test.log.1"
+test -f "$rootfs/var/log/test.log.0"
 test -f "$rootfs/var/log/test.log" # savelog should have touch the original file
 
 # try again but this time install gzip too

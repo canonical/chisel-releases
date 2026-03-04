@@ -1,5 +1,5 @@
 summary: Integration tests for debianutils
-# spellchecker: ignore rootfs debianutils ischroot savelog
+# spellchecker: ignore rootfs debianutils ischroot savelog installkernel
 
 variants:
     - which
@@ -7,5 +7,9 @@ variants:
     - run-parts
     - tempfile
     - savelog
+    - add-shell
+    - installkernel
+    - remove-shell
+    - update-shells
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh

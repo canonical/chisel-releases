@@ -79,7 +79,17 @@ slices:
     hint: Add shell to login shells
     essential:
       base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_dirname:
+      coreutils_mv-utility:
+      coreutils_realpath:
+      coreutils_rm-utility:
+      coreutils_stat:
       dash_bins:
+      grep_bins:
     contents:
       /usr/sbin/add-shell:
 
@@ -87,7 +97,14 @@ slices:
     hint: Install a new kernel image
     essential:
       base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_dirname:
+      coreutils_ln-utility:
+      coreutils_mv-utility:
+      coreutils_readlink:
       dash_bins:
+      debianutils_run-parts:
     contents:
       /usr/sbin/installkernel:
 
@@ -95,7 +112,17 @@ slices:
     hint: Remove shell from login shells
     essential:
       base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_dirname:
+      coreutils_mv-utility:
+      coreutils_realpath:
+      coreutils_rm-utility:
+      coreutils_stat:
       dash_bins:
+      grep_bins:
     contents:
       /usr/sbin/remove-shell:
 
@@ -103,7 +130,17 @@ slices:
     hint: Update the list of login shells
     essential:
       base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_dirname:
+      coreutils_mv-utility:
+      coreutils_rm-utility:
+      coreutils_stat:
+      coreutils_sync:
       dash_bins:
+      dpkg_realpath:
     contents:
       /usr/sbin/update-shells:
 
