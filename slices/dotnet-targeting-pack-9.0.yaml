@@ -1,5 +1,4 @@
 package: dotnet-targeting-pack-9.0
-# hello world;2i
 
 essential:
   - dotnet-targeting-pack-9.0_copyright

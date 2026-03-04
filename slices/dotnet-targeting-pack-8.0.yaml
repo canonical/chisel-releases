@@ -1,5 +1,4 @@
 package: dotnet-targeting-pack-8.0
-# hello world;2i
 
 essential:
   - dotnet-targeting-pack-8.0_copyright
