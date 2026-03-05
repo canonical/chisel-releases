@@ -12,6 +12,8 @@ slices:
   # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
     essential:
+      # NOTE: The notice slices is included here due to the ongoing issue #271 in chisel.
+      aspnetcore-runtime-10.0_notice:
       dotnet-runtime-10.0_core:
     contents:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/**:
@@ -21,7 +23,10 @@ slices:
       aspnetcore-runtime-10.0_core:
       libicu78_libs:
 
-  copyright:
+  notice:
     contents:
       /usr/share/doc/aspnetcore-runtime-10.0/NOTICE.txt.gz:
+
+  copyright:
+    contents:
       /usr/share/doc/aspnetcore-runtime-10.0/copyright:

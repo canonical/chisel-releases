@@ -7,6 +7,9 @@ slices:
   # Note: dotnet depends on dotnet-runtime-10.0 to function properly.
   bins:
     essential:
+      # NOTE: The license and notice slices are included here due to the issue #217 in chisel.
+      dotnet-host-10.0_license:
+      dotnet-host-10.0_notice:
       libc6_libs:
       libgcc-s1_libs:
       libstdc++6_libs:
@@ -25,8 +28,14 @@ slices:
       /usr/bin/dnx:  # Symlink to ../lib/dotnet/dnx
       /usr/lib/dotnet/dnx:
 
-  copyright:
+  license:
     contents:
       /usr/lib/dotnet/LICENSE.txt:
+
+  notice:
+    contents:
       /usr/lib/dotnet/ThirdPartyNotices.txt:
+
+  copyright:
+    contents:
       /usr/share/doc/dotnet-host-10.0/copyright:
