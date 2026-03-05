@@ -8,10 +8,6 @@ on:
     branches:
       - "ubuntu-*"
 
-concurrency:
-  group: pkg-coverage-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   pkg-deps:
     name: Package dependencies
