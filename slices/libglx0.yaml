@@ -1,5 +1,4 @@
 package: libglx0
-# hello world;2i
 
 essential:
   - libglx0_copyright

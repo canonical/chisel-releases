@@ -1,5 +1,4 @@
 package: librocksdb8.9
-# hello world;2i
 
 essential:
   - librocksdb8.9_copyright

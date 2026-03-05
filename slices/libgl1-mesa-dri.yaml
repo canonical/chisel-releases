@@ -1,5 +1,4 @@
 package: libgl1-mesa-dri
-# hello world;2i
 
 essential:
   - libgl1-mesa-dri_copyright

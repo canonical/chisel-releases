@@ -1,5 +1,4 @@
 package: libasound2t64
-# hello world;2i
 
 essential:
   - libasound2t64_copyright

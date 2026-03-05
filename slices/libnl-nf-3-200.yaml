@@ -1,5 +1,4 @@
 package: libnl-nf-3-200
-# hello world;2i
 
 essential:
   - libnl-nf-3-200_copyright

@@ -1,5 +1,4 @@
 package: readline-common
-# hello world;2i
 
 essential:
   - readline-common_copyright

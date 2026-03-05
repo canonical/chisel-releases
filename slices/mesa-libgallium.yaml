@@ -1,5 +1,4 @@
 package: mesa-libgallium
-# hello world;2i
 
 essential:
   - mesa-libgallium_copyright

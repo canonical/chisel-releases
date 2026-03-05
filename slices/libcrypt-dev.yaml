@@ -1,5 +1,4 @@
 package: libcrypt-dev
-# hello world;2i
 
 essential:
   - libcrypt-dev_copyright

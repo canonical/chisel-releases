@@ -1,5 +1,4 @@
 package: php8.3-cli
-# hello world;2i
 
 essential:
   - php8.3-cli_copyright

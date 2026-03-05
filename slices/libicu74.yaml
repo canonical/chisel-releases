@@ -1,5 +1,4 @@
 package: libicu74
-# hello world;2i
 
 essential:
   - libicu74_copyright

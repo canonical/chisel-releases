@@ -1,5 +1,4 @@
 package: libestr0
-# hello world;2i
 
 essential:
   - libestr0_copyright

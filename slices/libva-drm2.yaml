@@ -1,5 +1,4 @@
 package: libva-drm2
-# hello world;2i
 
 essential:
   - libva-drm2_copyright

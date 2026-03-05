@@ -1,5 +1,4 @@
 package: libxcomposite1
-# hello world;2i
 
 essential:
   - libxcomposite1_copyright

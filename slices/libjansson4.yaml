@@ -1,5 +1,4 @@
 package: libjansson4
-# hello world;2i
 
 essential:
   - libjansson4_copyright

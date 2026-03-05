@@ -1,5 +1,4 @@
 package: lsb-base
-# hello world;2i
 
 essential:
   - lsb-base_copyright

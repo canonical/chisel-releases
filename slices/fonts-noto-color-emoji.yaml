@@ -1,5 +1,4 @@
 package: fonts-noto-color-emoji
-# hello world;2i
 
 essential:
   - fonts-noto-color-emoji_copyright

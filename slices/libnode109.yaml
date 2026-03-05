@@ -1,5 +1,4 @@
 package: libnode109
-# hello world;2i
 
 essential:
   - libnode109_copyright

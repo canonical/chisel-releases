@@ -1,5 +1,4 @@
 package: libnetfilter-conntrack3
-# hello world;2i
 
 essential:
   - libnetfilter-conntrack3_copyright

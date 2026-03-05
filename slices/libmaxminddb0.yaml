@@ -1,5 +1,4 @@
 package: libmaxminddb0
-# hello world;2i
 
 essential:
   - libmaxminddb0_copyright

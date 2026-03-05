@@ -1,5 +1,4 @@
 package: libmysqlclient21
-# hello world;2i
 
 essential:
   - libmysqlclient21_copyright

@@ -1,5 +1,4 @@
 package: liblz4-1
-# hello world;2i
 
 essential:
   - liblz4-1_copyright

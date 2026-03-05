@@ -1,5 +1,4 @@
 package: libnftnl11
-# hello world;2i
 
 essential:
   - libnftnl11_copyright

@@ -1,5 +1,4 @@
 package: libllvm19
-# hello world;2i
 
 essential:
   - libllvm19_copyright

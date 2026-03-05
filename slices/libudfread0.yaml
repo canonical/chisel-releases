@@ -1,5 +1,4 @@
 package: libudfread0
-# hello world;2i
 
 essential:
   - libudfread0_copyright

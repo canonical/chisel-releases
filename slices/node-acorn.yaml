@@ -1,5 +1,4 @@
 package: node-acorn
-# hello world;2i
 
 essential:
   - node-acorn_copyright

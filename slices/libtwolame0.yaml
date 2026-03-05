@@ -1,5 +1,4 @@
 package: libtwolame0
-# hello world;2i
 
 essential:
   - libtwolame0_copyright

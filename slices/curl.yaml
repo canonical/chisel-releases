@@ -1,5 +1,4 @@
 package: curl
-# hello world;2i
 
 essential:
   - curl_copyright

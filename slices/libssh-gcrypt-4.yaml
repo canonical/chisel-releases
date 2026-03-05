@@ -1,5 +1,4 @@
 package: libssh-gcrypt-4
-# hello world;2i
 
 essential:
   - libssh-gcrypt-4_copyright

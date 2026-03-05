@@ -1,5 +1,4 @@
 package: apparmor
-# hello world;2i
 
 essential:
   - apparmor_copyright

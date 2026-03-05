@@ -1,5 +1,4 @@
 package: fonts-ipafont-gothic
-# hello world;2i
 
 essential:
   - fonts-ipafont-gothic_copyright

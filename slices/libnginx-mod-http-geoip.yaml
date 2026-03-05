@@ -1,5 +1,4 @@
 package: libnginx-mod-http-geoip
-# hello world;2i
 
 essential:
   - libnginx-mod-http-geoip_copyright

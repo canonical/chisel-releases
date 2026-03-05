@@ -1,5 +1,4 @@
 package: perl-modules-5.38
-# hello world;2i
 
 essential:
   - perl-modules-5.38_copyright

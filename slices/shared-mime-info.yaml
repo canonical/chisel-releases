@@ -1,5 +1,4 @@
 package: shared-mime-info
-# hello world;2i
 
 essential:
   - shared-mime-info_copyright

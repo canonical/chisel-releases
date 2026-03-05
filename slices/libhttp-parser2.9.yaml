@@ -1,5 +1,4 @@
 package: libhttp-parser2.9
-# hello world;2i
 
 essential:
   - libhttp-parser2.9_copyright

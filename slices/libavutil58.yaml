@@ -1,5 +1,4 @@
 package: libavutil58
-# hello world;2i
 
 essential:
   - libavutil58_copyright

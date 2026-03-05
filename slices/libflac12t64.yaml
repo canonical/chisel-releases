@@ -1,5 +1,4 @@
 package: libflac12t64
-# hello world;2i
 
 essential:
   - libflac12t64_copyright

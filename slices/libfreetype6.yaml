@@ -1,5 +1,4 @@
 package: libfreetype6
-# hello world;2i
 
 essential:
   - libfreetype6_copyright

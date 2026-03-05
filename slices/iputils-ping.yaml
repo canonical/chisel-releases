@@ -1,5 +1,4 @@
 package: iputils-ping
-# hello world;2i
 
 essential:
   - iputils-ping_copyright

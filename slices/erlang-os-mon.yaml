@@ -1,5 +1,4 @@
 package: erlang-os-mon
-# hello world;2i
 
 essential:
   - erlang-os-mon_copyright

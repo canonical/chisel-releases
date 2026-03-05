@@ -1,5 +1,4 @@
 package: grep
-# hello world;2i
 
 essential:
   - grep_copyright

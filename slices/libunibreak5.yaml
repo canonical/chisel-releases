@@ -1,5 +1,4 @@
 package: libunibreak5
-# hello world;2i
 
 essential:
   - libunibreak5_copyright

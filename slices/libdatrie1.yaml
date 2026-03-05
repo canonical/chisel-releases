@@ -1,5 +1,4 @@
 package: libdatrie1
-# hello world;2i
 
 essential:
   - libdatrie1_copyright

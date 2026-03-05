@@ -1,5 +1,4 @@
 package: node-busboy
-# hello world;2i
 
 essential:
   - node-busboy_copyright

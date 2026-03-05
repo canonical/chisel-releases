@@ -1,5 +1,4 @@
 package: vim-common
-# hello world;2i
 
 essential:
   - vim-common_copyright

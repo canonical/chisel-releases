@@ -1,5 +1,4 @@
 ﻿package: libsasl2-2
-# hello world;2i
 
 essential:
   - libsasl2-2_copyright

@@ -1,5 +1,4 @@
 package: openssh-server
-# hello world;2i
 
 slices:
   bins:

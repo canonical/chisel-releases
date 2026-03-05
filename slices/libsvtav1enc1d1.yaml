@@ -1,5 +1,4 @@
 package: libsvtav1enc1d1
-# hello world;2i
 
 essential:
   - libsvtav1enc1d1_copyright

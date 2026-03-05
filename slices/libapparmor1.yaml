@@ -1,5 +1,4 @@
 package: libapparmor1
-# hello world;2i
 
 essential:
   - libapparmor1_copyright

@@ -1,5 +1,4 @@
 package: xdg-user-dirs
-# hello world;2i
 
 essential:
   - xdg-user-dirs_copyright

@@ -1,5 +1,4 @@
 package: libnl-route-3-200
-# hello world;2i
 
 essential:
   - libnl-route-3-200_copyright

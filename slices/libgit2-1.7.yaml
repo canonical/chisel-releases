@@ -1,5 +1,4 @@
 package: libgit2-1.7
-# hello world;2i
 
 essential:
   - libgit2-1.7_copyright

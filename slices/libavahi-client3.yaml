@@ -1,5 +1,4 @@
 package: libavahi-client3
-# hello world;2i
 
 essential:
   - libavahi-client3_copyright

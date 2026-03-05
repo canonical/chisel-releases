@@ -1,5 +1,4 @@
 package: cargo
-# hello world;2i
 
 essential:
   - cargo_copyright

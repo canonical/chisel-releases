@@ -1,5 +1,4 @@
 package: libudev1
-# hello world;2i
 
 essential:
   - libudev1_copyright

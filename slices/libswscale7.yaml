@@ -1,5 +1,4 @@
 package: libswscale7
-# hello world;2i
 
 essential:
   - libswscale7_copyright

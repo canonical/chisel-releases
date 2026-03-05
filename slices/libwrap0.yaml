@@ -1,5 +1,4 @@
 package: libwrap0
-# hello world;2i
 
 essential:
   - libwrap0_copyright

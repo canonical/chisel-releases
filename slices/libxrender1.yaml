@@ -1,5 +1,4 @@
 package: libxrender1
-# hello world;2i
 
 essential:
   - libxrender1_copyright

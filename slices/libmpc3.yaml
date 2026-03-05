@@ -1,5 +1,4 @@
 package: libmpc3
-# hello world;2i
 
 essential:
   - libmpc3_copyright

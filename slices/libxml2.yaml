@@ -1,5 +1,4 @@
 package: libxml2
-# hello world;2i
 
 essential:
   - libxml2_copyright

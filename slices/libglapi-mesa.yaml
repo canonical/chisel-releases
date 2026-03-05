@@ -1,5 +1,4 @@
 package: libglapi-mesa
-# hello world;2i
 
 essential:
   - libglapi-mesa_copyright

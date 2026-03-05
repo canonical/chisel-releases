@@ -1,5 +1,4 @@
 package: libswresample4
-# hello world;2i
 
 essential:
   - libswresample4_copyright

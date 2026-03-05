@@ -1,5 +1,4 @@
 package: gawk
-# hello world;2i
 
 essential:
   - gawk_copyright

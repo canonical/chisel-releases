@@ -1,5 +1,4 @@
 package: media-types
-# hello world;2i
 
 essential:
   - media-types_copyright
