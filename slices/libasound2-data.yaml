@@ -1,0 +1,16 @@
+package: libasound2-data
+
+essential:
+  libasound2-data_copyright:
+
+slices:
+  data:
+    contents:
+      /usr/share/alsa/alsa.conf:
+      /usr/share/alsa/cards/**:
+      /usr/share/alsa/ctl/**:
+      /usr/share/alsa/pcm/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/libasound2-data/copyright:
