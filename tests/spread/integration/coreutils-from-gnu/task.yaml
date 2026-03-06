@@ -251,10 +251,26 @@ execute: |
   test "$(chroot "$rootfs_ls" gnuls test_dir | sort)" = "$(printf "file1\nfile2")"
   test "$(chroot "$rootfs_ls" gnuls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
 
+  # test uname binary
+  rootfs_uname="$(install-slices coreutils-from-gnu_uname)"
+  chroot "$rootfs_uname" uname --version
+  test "$(chroot "$rootfs_uname" uname -s)" = "Linux"
+  
+  # test sleep binary
+  rootfs_sleep="$(install-slices coreutils-from-gnu_sleep)"
+  chroot "$rootfs_sleep" sleep --version
+
+  # test cp binary
+  rootfs_cp="$(install-slices coreutils-from-gnu_cp-utility)"
+  chroot "$rootfs_cp" cp --version
+  echo "Hello, World!" > "$rootfs_cp/test_file"
+  chroot "$rootfs_cp" cp test_file test_file_copy
+  test "$(cat "$rootfs_cp/test_file_copy")" = "Hello, World!"
+
   # test wc binary
   rootfs_wc="$(install-slices coreutils-from-gnu_wc-utility)"
-  chroot "$rootfs_wc" gnuwc --version
+  chroot "$rootfs_wc" wc --version
   echo -e "line1\nline2\nline3" > "$rootfs_wc/test_file"
-  test "$(chroot "$rootfs_wc" gnuwc -l test_file | awk '{print $1}')" = "3"
-  test "$(chroot "$rootfs_wc" gnuwc -w test_file | awk '{print $1}')" = "3"
-  test "$(chroot "$rootfs_wc" gnuwc -c test_file | awk '{print $1}')" = "18"
+  test "$(chroot "$rootfs_wc" wc -l test_file | awk '{print $1}')" = "3"
+  test "$(chroot "$rootfs_wc" wc -w test_file | awk '{print $1}')" = "3"
+  test "$(chroot "$rootfs_wc" wc -c test_file | awk '{print $1}')" = "18"
