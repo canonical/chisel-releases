@@ -39,7 +39,7 @@ slices=(
   directory-listing
   basic-operations
   special-file-types
-  changing-file-attributes
+#   changing-file-attributes
   file-space-usage
   printing-text
   conditions

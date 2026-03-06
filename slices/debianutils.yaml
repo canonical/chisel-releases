@@ -4,9 +4,25 @@ essential:
   debianutils_copyright:
 
 slices:
-  which:
+  bins:
     essential:
-      base-files_bin:  # The Shebang in which.debianutils references /bin/sh
+      debianutils_ischroot:
+      debianutils_run-parts:
+      debianutils_tempfile:
+
+  scripts:
+    essential:
+      debianutils_add-shell:
+      debianutils_installkernel:
+      debianutils_remove-shell:
+      debianutils_savelog:
+      debianutils_update-shells:
+      debianutils_which:
+
+  which:
+    hint: Identify the location of executables
+    essential:
+      base-files_bin:
       dash_bins:
     contents:
       # Note: This symlink should have a prefer: gnu-which if both are present
@@ -14,16 +30,136 @@ slices:
       /usr/bin/which.debianutils:
 
   ischroot:
+    hint: Detect if running in a chroot
     essential:
       libc6_libs:
     contents:
       /usr/bin/ischroot:
 
   run-parts:
+    hint: Run scripts or programs in a directory
     essential:
       libc6_libs:
     contents:
       /usr/bin/run-parts:
+
+  tempfile:
+    hint: Create a temporary file in a safe manner
+    essential:
+      base-files_tmp:
+      libc6_libs:
+    contents:
+      /usr/bin/tempfile:
+
+  # Note: By default savleog compresses the old log files with gzip, but this
+  # is not a hard dependency since it can also not do that if you pass -l flag.
+  # To enable gzip compression you will also need to install gzip_bins.
+  savelog:
+    hint: Save old copies of log files
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_chgrp:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_date:
+      coreutils_dirname:
+      coreutils_ln-utility:
+      coreutils_ls-utility:
+      coreutils_mkdir:
+      coreutils_mv-utility:
+      coreutils_rm-utility:
+      coreutils_touch:
+      dash_bins:
+      sed_bins:
+    contents:
+      /usr/bin/savelog:
+
+  add-shell:
+    hint: Add shell to login shells
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_dirname:
+      coreutils_mv-utility:
+      coreutils_realpath:
+      coreutils_rm-utility:
+      coreutils_stat:
+      dash_bins:
+      debianutils_config:
+      grep_bins:
+    contents:
+      /usr/sbin/add-shell:
+
+  installkernel:
+    hint: Install a new kernel image
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_dirname:
+      coreutils_ln-utility:
+      coreutils_mv-utility:
+      coreutils_readlink:
+      dash_bins:
+      debianutils_run-parts:
+    contents:
+      /usr/sbin/installkernel:
+
+  remove-shell:
+    hint: Remove shell from login shells
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_dirname:
+      coreutils_mv-utility:
+      coreutils_realpath:
+      coreutils_rm-utility:
+      coreutils_stat:
+      dash_bins:
+      debianutils_config:
+      grep_bins:
+    contents:
+      /usr/sbin/remove-shell:
+
+  update-shells:
+    hint: Update the list of login shells
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_dirname:
+      coreutils_mv-utility:
+      coreutils_rm-utility:
+      coreutils_stat:
+      coreutils_sync:
+      dash_bins:
+      debianutils_config:
+      dpkg_realpath:
+    contents:
+      /usr/sbin/update-shells:
+
+  config:
+    essential:
+      base-files_bin:
+      dash_bins:
+    contents:
+      /etc/shells:
+        text: FIXME
+        mutable: true
+      /usr/share/debianutils/shells:
+      /usr/share/debianutils/shells.d/:
+    mutate: |
+      shells = content.read("/usr/share/debianutils/shells")
+      content.write("/etc/shells", shells)
 
   copyright:
     contents:
