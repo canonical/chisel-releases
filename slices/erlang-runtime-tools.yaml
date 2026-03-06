@@ -1,5 +1,4 @@
 package: erlang-runtime-tools
-# hello world;2i
 
 essential:
   - erlang-runtime-tools_copyright

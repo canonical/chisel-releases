@@ -1,5 +1,4 @@
 package: python3-pkg-resources
-# hello world;2i
 
 essential:
   - python3-pkg-resources_copyright

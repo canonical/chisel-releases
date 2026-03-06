@@ -1,5 +1,4 @@
 package: libpciaccess0
-# hello world;2i
 
 essential:
   - libpciaccess0_copyright

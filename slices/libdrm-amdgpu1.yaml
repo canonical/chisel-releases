@@ -1,5 +1,4 @@
 package: libdrm-amdgpu1
-# hello world;2i
 
 essential:
   - libdrm-amdgpu1_copyright

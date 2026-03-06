@@ -1,5 +1,4 @@
 package: gcc-14-aarch64-linux-gnu
-# hello world;2i
 
 essential:
   - gcc-14-aarch64-linux-gnu_copyright

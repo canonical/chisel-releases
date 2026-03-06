@@ -1,5 +1,4 @@
 package: iptables
-# hello world;2i
 
 essential:
   - iptables_copyright

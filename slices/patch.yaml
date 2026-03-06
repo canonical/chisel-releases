@@ -1,5 +1,4 @@
 package: patch
-# hello world;2i
 
 essential:
   - patch_copyright

@@ -1,5 +1,4 @@
 package: libxext6
-# hello world;2i
 
 essential:
   - libxext6_copyright

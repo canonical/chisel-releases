@@ -1,5 +1,4 @@
 package: libllvm17t64
-# hello world;2i
 
 essential:
   - libllvm17t64_copyright

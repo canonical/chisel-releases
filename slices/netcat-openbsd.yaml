@@ -1,5 +1,4 @@
 package: netcat-openbsd
-# hello world;2i
 
 essential:
   - netcat-openbsd_copyright

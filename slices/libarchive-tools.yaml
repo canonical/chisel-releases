@@ -1,5 +1,4 @@
 package: libarchive-tools
-# hello world;2i
 
 essential:
   - libarchive-tools_copyright

@@ -1,5 +1,4 @@
 package: xz-utils
-# hello world;2i
 
 essential:
   - xz-utils_copyright

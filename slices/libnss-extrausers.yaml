@@ -1,5 +1,4 @@
 package: libnss-extrausers
-# hello world;2i
 
 essential:
   - libnss-extrausers_copyright

@@ -1,5 +1,4 @@
 package: libsensors-config
-# hello world;2i
 
 essential:
   - libsensors-config_copyright

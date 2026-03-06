@@ -1,5 +1,4 @@
 package: libslang2
-# hello world;2i
 
 essential:
   - libslang2_copyright

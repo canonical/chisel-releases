@@ -1,5 +1,4 @@
 package: tzdata
-# hello world;2i
 
 essential:
   - tzdata_copyright

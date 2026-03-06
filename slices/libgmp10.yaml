@@ -1,5 +1,4 @@
 package: libgmp10
-# hello world;2i
 
 essential:
   - libgmp10_copyright

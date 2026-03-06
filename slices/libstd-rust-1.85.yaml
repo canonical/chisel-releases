@@ -1,5 +1,4 @@
 package: libstd-rust-1.85
-# hello world;2i
 
 essential:
   - libstd-rust-1.85_copyright

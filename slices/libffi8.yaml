@@ -1,5 +1,4 @@
 package: libffi8
-# hello world;2i
 
 essential:
   - libffi8_copyright

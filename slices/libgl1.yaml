@@ -1,5 +1,4 @@
 package: libgl1
-# hello world;2i
 
 essential:
   - libgl1_copyright

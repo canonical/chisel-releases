@@ -1,5 +1,4 @@
 package: ruby-xmlrpc
-# hello world;2i
 
 essential:
   - ruby-xmlrpc_copyright

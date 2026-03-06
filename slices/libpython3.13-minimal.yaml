@@ -1,5 +1,4 @@
 package: libpython3.13-minimal
-# hello world;2i
 
 # Most of the python3.13 standard libraries are split into
 # two major packages:

@@ -1,5 +1,4 @@
 package: libxkbcommon0
-# hello world;2i
 
 essential:
   - libxkbcommon0_copyright

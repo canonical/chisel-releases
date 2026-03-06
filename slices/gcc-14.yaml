@@ -1,5 +1,4 @@
 package: gcc-14
-# hello world;2i
 
 essential:
   - gcc-14_copyright

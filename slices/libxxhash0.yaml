@@ -1,5 +1,4 @@
 package: libxxhash0
-# hello world;2i
 
 essential:
   - libxxhash0_copyright

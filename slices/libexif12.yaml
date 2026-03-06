@@ -1,5 +1,4 @@
 package: libexif12
-# hello world;2i
 
 essential:
   - libexif12_copyright

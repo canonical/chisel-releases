@@ -1,5 +1,4 @@
 package: libcups2t64
-# hello world;2i
 
 essential:
   - libcups2t64_copyright

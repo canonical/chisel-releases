@@ -1,5 +1,4 @@
 package: apt
-# hello world;2i
 
 essential:
   - apt_copyright

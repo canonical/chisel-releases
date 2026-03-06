@@ -1,5 +1,4 @@
 package: libvdpau1
-# hello world;2i
 
 essential:
   - libvdpau1_copyright

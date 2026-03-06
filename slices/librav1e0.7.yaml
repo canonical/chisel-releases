@@ -1,5 +1,4 @@
 package: librav1e0.7
-# hello world;2i
 
 essential:
   - librav1e0.7_copyright

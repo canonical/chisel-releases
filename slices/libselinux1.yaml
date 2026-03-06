@@ -1,5 +1,4 @@
 package: libselinux1
-# hello world;2i
 
 essential:
   - libselinux1_copyright

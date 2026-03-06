@@ -1,5 +1,4 @@
 package: secureboot-db
-# hello world;2i
 
 essential:
   - secureboot-db_copyright

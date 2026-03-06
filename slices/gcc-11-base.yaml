@@ -1,5 +1,4 @@
 package: gcc-11-base
-# hello world;2i
 
 essential:
   - gcc-11-base_copyright

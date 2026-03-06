@@ -1,5 +1,4 @@
 package: gearman-job-server
-# hello world;2i
 
 essential:
   - gearman-job-server_copyright

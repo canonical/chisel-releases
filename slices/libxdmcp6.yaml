@@ -1,5 +1,4 @@
 package: libxdmcp6
-# hello world;2i
 
 essential:
   - libxdmcp6_copyright

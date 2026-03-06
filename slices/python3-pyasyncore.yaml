@@ -1,5 +1,4 @@
 package: python3-pyasyncore
-# hello world;2i
 
 essential:
   - python3-pyasyncore_copyright

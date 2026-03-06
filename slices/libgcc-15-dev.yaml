@@ -1,5 +1,4 @@
 package: libgcc-15-dev
-# hello world;2i
 
 essential:
   - libgcc-15-dev_copyright

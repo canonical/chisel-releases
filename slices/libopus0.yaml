@@ -1,5 +1,4 @@
 package: libopus0
-# hello world;2i
 
 essential:
   - libopus0_copyright

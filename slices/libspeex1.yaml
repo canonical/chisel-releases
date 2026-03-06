@@ -1,5 +1,4 @@
 package: libspeex1
-# hello world;2i
 
 essential:
   - libspeex1_copyright

@@ -1,5 +1,4 @@
 package: libavformat61
-# hello world;2i
 
 essential:
   - libavformat61_copyright

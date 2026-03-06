@@ -1,5 +1,4 @@
 package: libgflags2.2
-# hello world;2i
 
 essential:
   - libgflags2.2_copyright

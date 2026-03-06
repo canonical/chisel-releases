@@ -1,5 +1,4 @@
 package: libzvbi0t64
-# hello world;2i
 
 essential:
   - libzvbi0t64_copyright

@@ -1,5 +1,4 @@
 package: libdvdnav4
-# hello world;2i
 
 essential:
   - libdvdnav4_copyright

@@ -1,5 +1,4 @@
 package: libtheora0
-# hello world;2i
 
 essential:
   - libtheora0_copyright

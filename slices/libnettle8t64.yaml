@@ -1,5 +1,4 @@
 ﻿package: libnettle8t64
-# hello world;2i
 
 essential:
   - libnettle8t64_copyright

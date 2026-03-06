@@ -1,5 +1,4 @@
 package: nginx
-# hello world;2i
 
 essential:
   - nginx_copyright

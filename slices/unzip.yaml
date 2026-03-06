@@ -1,5 +1,4 @@
 package: unzip
-# hello world;2i
 
 essential:
   - unzip_copyright

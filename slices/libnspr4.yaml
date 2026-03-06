@@ -1,5 +1,4 @@
 package: libnspr4
-# hello world;2i
 
 essential:
   - libnspr4_copyright

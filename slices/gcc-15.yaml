@@ -1,5 +1,4 @@
 package: gcc-15
-# hello world;2i
 
 essential:
   - gcc-15_copyright

@@ -1,5 +1,4 @@
 package: libdrm2
-# hello world;2i
 
 essential:
   - libdrm2_copyright

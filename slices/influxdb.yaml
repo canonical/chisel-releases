@@ -1,5 +1,4 @@
 package: influxdb
-# hello world;2i
 
 essential:
   - influxdb_copyright

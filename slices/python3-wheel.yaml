@@ -1,5 +1,4 @@
 package: python3-wheel
-# hello world;2i
 
 essential:
   - python3-wheel_copyright

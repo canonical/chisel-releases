@@ -1,5 +1,4 @@
 package: ruby3.3
-# hello world;2i
 
 essential:
   - ruby3.3_copyright

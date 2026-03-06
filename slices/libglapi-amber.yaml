@@ -1,5 +1,4 @@
 package: libglapi-amber
-# hello world;2i
 
 essential:
   - libglapi-amber_copyright

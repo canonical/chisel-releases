@@ -1,5 +1,4 @@
 package: libssh2-1t64
-# hello world;2i
 
 essential:
   - libssh2-1t64_copyright

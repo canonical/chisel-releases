@@ -1,5 +1,4 @@
 package: libdeflate0
-# hello world;2i
 
 essential:
   - libdeflate0_copyright

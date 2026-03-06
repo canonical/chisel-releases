@@ -1,5 +1,4 @@
 package: libgme0
-# hello world;2i
 
 essential:
   - libgme0_copyright

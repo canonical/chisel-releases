@@ -1,5 +1,4 @@
 package: python3-setuptools
-# hello world;2i
 
 essential:
   - python3-setuptools_copyright

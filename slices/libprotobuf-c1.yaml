@@ -1,5 +1,4 @@
 package: libprotobuf-c1
-# hello world;2i
 
 essential:
   - libprotobuf-c1_copyright

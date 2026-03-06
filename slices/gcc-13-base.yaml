@@ -1,5 +1,4 @@
 package: gcc-13-base
-# hello world;2i
 
 essential:
   - gcc-13-base_copyright

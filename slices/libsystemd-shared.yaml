@@ -1,5 +1,4 @@
 package: libsystemd-shared
-# hello world;2i
 
 essential:
   - libsystemd-shared_copyright

@@ -1,5 +1,4 @@
 package: libbinutils
-# hello world;2i
 
 essential:
   - libbinutils_copyright

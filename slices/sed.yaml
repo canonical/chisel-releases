@@ -1,5 +1,4 @@
 package: sed
-# hello world;2i
 
 essential:
   - sed_copyright

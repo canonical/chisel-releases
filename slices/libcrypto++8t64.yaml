@@ -1,5 +1,4 @@
 package: libcrypto++8t64
-# hello world;2i
 
 essential:
   - libcrypto++8t64_copyright

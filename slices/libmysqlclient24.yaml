@@ -1,5 +1,4 @@
 package: libmysqlclient24
-# hello world;2i
 
 essential:
   - libmysqlclient24_copyright

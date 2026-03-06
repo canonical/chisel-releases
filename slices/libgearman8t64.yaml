@@ -1,5 +1,4 @@
 package: libgearman8t64
-# hello world;2i
 
 essential:
   - libgearman8t64_copyright

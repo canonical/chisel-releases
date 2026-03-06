@@ -1,5 +1,4 @@
 package: libblas3
-# hello world;2i
 
 essential:
   - libblas3_copyright

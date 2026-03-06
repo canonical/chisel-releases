@@ -1,5 +1,4 @@
 package: dpkg
-# hello world;2i
 
 essential:
   - dpkg_copyright

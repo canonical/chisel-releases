@@ -1,5 +1,4 @@
 package: libgbm1
-# hello world;2i
 
 essential:
   - libgbm1_copyright

@@ -1,5 +1,4 @@
 package: liblttng-ust-ctl5t64
-# hello world;2i
 
 essential:
   - liblttng-ust-ctl5t64_copyright

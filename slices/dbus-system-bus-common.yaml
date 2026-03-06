@@ -1,5 +1,4 @@
 package: dbus-system-bus-common
-# hello world;2i
 
 essential:
   - dbus-system-bus-common_copyright

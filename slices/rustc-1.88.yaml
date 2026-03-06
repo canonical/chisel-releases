@@ -1,5 +1,4 @@
 package: rustc-1.88
-# hello world;2i
 
 essential:
   - rustc-1.88_copyright
