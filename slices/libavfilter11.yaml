@@ -20,19 +20,19 @@ slices:
       liblilv-0-0_libs:
       libmysofa1_libs:
       libplacebo360_libs:
+      libpocketsphinx3_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
       librubberband3_libs:
+      libsphinxbase3t64_sphinxbase: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
       libstdc++6_libs:
       libswresample6_libs:
       libswscale9_libs:
       libva2_libs:
       libvidstab1.1_libs:
+      libvpl2_libs: {arch: [amd64]}
       libzimg2_libs:
       libzmq5_libs:
       ocl-icd-libopencl1_libs:
       zlib1g_libs:
-      libvpl2_libs: {arch: [amd64]}
-      libpocketsphinx3_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
-      libsphinxbase3t64_sphinxbase: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
     contents:
       /usr/lib/*-linux-*/libavfilter.so*:
 

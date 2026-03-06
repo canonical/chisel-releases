@@ -7,8 +7,8 @@ slices:
   libs:
     essential:
       # NOTE: libasound2t64 deb also depends on libasound2-data
-      libc6_libs:
       libasound2-data_data:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libasound.so.2*:
 

@@ -13,10 +13,10 @@ slices:
 
   copyright:
     essential:
-      gcc-16-base_copyright:
-        arch: [amd64, arm64, armhf, i386, ppc64el, s390x]
       gcc-15-base_copyright:
         arch: [riscv64]
+      gcc-16-base_copyright:
+        arch: [amd64, arm64, armhf, i386, ppc64el, s390x]
     contents:
       # Symlink to gcc-15-base or gcc-16-base, depending on arch
       /usr/share/doc/libgfortran5:
