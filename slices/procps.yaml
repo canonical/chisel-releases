@@ -11,6 +11,7 @@ slices:
       libproc2-0_libs:
       libsystemd0_libs:
       libtinfo6_libs:
+      procps_ps-bin:
     contents:
       /usr/bin/free:
       /usr/bin/kill:
@@ -18,7 +19,6 @@ slices:
       /usr/bin/pidwait:
       /usr/bin/pkill:
       /usr/bin/pmap:
-      /usr/bin/ps:
       /usr/bin/pwdx:
       /usr/bin/skill:
       /usr/bin/slabtop:
@@ -30,6 +30,13 @@ slices:
       /usr/bin/w:
       /usr/bin/watch:
       /usr/sbin/sysctl:
+
+  ps-bin:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/ps:
 
   config:
     contents:
