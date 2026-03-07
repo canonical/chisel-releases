@@ -8,6 +8,7 @@ slices:
     essential:
       # NOTE: libxkbcommon0 deb also depends on xkb-data
       - libc6_libs
+      - xkb-data_data
     contents:
       /usr/lib/*-linux-*/libxkbcommon.so.0*:
 
