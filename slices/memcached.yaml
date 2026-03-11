@@ -13,8 +13,8 @@ slices:
       libssl3t64_libs:
       memcached_config:
     contents:
-     /usr/bin/memcached:
-     
+      /usr/bin/memcached:
+
   config:
     contents:
       /etc/default/memcached:
