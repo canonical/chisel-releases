@@ -1,0 +1,25 @@
+package: memcached
+
+essential:
+  memcached_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libevent-2.1-7t64_libs:
+      liblua5.4-0_libs:
+      libsasl2-2_libs:
+      libssl3t64_libs:
+      memcached_config:
+    contents:
+     /usr/bin/memcached:
+     
+  config:
+    contents:
+      /etc/default/memcached:
+      /usr/lib/tmpfiles.d/memcached.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/memcached/copyright:
