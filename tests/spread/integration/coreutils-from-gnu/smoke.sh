@@ -39,7 +39,7 @@ slices=(
   directory-listing
   basic-operations
   special-file-types
-#   changing-file-attributes
+# changing-file-attributes  # this slice has no contents. its just an alias
   file-space-usage
   printing-text
   conditions
