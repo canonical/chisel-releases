@@ -1,0 +1,28 @@
+summary: Integration tests for .NET 10 Host 
+
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+
+environment:
+  # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
+  # disable noisy help text for users who run .NET for the first time
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+prepare: |
+  required_slices=(dotnet-runtime-10.0_core)
+  if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(libicu76_libs)
+  fi
+  
+  # install slices
+  rootfs="$(install-slices ${required_slices[@]})"
+  echo "$rootfs" > ROOTFS
+
+execute: |
+  rootfs="$(cat ROOTFS)"
+  
+  # smoking test the .NET host
+  chroot "${rootfs}" /usr/bin/dotnet --info
