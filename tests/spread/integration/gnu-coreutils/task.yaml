@@ -97,3 +97,27 @@ execute: |
   test "$(chroot "$rootfs_wc" gnuwc -l test_file | awk '{print $1}')" = "3"
   test "$(chroot "$rootfs_wc" gnuwc -w test_file | awk '{print $1}')" = "3"
   test "$(chroot "$rootfs_wc" gnuwc -c test_file | awk '{print $1}')" = "18"
+
+  # test chgrp binary
+  rootfs_chgrp="$(install-slices gnu-coreutils_chgrp)"
+  chroot "$rootfs_chgrp" gnuchgrp --version
+  touch "$rootfs_chgrp/test_file"
+  # NOTE: we don't have group management in the test environment, so we just test
+  # with a non-existent group
+  chroot "$rootfs_chgrp" gnuchgrp non-existent-group test_file 2>&1 | grep "invalid group"
+
+  # test realpath binary
+  rootfs_realpath="$(install-slices gnu-coreutils_realpath)"
+  chroot "$rootfs_realpath" gnurealpath --version
+  mkdir -p "$rootfs_realpath/foo/bar"
+  touch "$rootfs_realpath/foo/bar/baz.txt"
+  test "$(chroot "$rootfs_realpath" gnurealpath /foo/bar/baz.txt)" = "/foo/bar/baz.txt"
+  ln -s /foo/bar/baz.txt "$rootfs_realpath/foo/bar/baz_link.txt"
+  test "$(chroot "$rootfs_realpath" gnurealpath /foo/bar/baz_link.txt)" = "/foo/bar/baz.txt"
+
+  # test sync binary
+  rootfs_sync="$(install-slices gnu-coreutils_sync)"
+  chroot "$rootfs_sync" gnusync --version
+  # NOTE: we can't easily test the actual syncing functionality,
+  # but we can at least test that the command runs without error
+  chroot "$rootfs_sync" gnusync

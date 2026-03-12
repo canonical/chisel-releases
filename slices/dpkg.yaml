@@ -9,6 +9,7 @@ slices:
       coreutils_rm-utility:
       diffutils_bins:  # used by dpkg -i
       dpkg_config:
+      dpkg_realpath:
       dpkg_scripts:
       dpkg_tables:
       dpkg_var:
@@ -27,13 +28,19 @@ slices:
       /usr/bin/dpkg-divert:
       /usr/bin/dpkg-maintscript-helper:
       /usr/bin/dpkg-query:
-      /usr/bin/dpkg-realpath:
       /usr/bin/dpkg-split:
       /usr/bin/dpkg-statoverride:
       /usr/bin/dpkg-trigger:
       /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
       /usr/sbin/start-stop-daemon:
+
+  realpath:
+    hint: Resolve path with dpkg root support
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/dpkg-realpath:
 
   config:
     contents:
