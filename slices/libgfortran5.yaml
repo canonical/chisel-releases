@@ -1,0 +1,22 @@
+package: libgfortran5
+
+essential:
+  libgfortran5_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+    contents:
+      /usr/lib/*-linux-*/libgfortran.so.5*:
+
+  copyright:
+    essential:
+      gcc-15-base_copyright:
+        arch: [riscv64]
+      gcc-16-base_copyright:
+        arch: [amd64, arm64, armhf, i386, ppc64el, s390x]
+    contents:
+      # Symlink to gcc-15-base or gcc-16-base, depending on arch
+      /usr/share/doc/libgfortran5:
