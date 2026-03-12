@@ -1,12 +1,12 @@
 package: libpam0g-dev
 
 essential:
-  - libpam0g-dev_copyright
+  libpam0g-dev_copyright:
 
 slices:
   libs:
     essential:
-      - libpam0g_libs
+      libpam0g_libs:
     contents:
       /usr/lib/*-linux-*/libpam.a:
       /usr/lib/*-linux-*/libpam.so:  # Symlink to libpam.so.0
