@@ -6,6 +6,7 @@ variants:
 
 environment:
   # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/Minimal: "true"
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
   # disable noisy help text for users who run .NET for the first time
   DOTNET_NOLOGO: "true"
@@ -14,7 +15,11 @@ environment:
 prepare: |
   required_slices=()
   if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(aspnetcore-runtime-10.0_core)
+    if [[ "$SPREAD_VARIANT" == "Minimal" ]]; then
+      required_slices+=(aspnetcore-runtime-10.0_minimal)
+    else
+      required_slices+=(aspnetcore-runtime-10.0_core)
+    fi
   else
     required_slices+=(aspnetcore-runtime-10.0_standard)
   fi

@@ -3,9 +3,11 @@ summary: Integration tests for .NET 10 SDK
 variants:
     - +WithoutLibicu
     - +WithLibicu
+    - +Minimal
 
 environment:
   # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/Minimal: "true"
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
   # disable noisy help text for users who run .NET for the first time
   DOTNET_NOLOGO: "true"
@@ -15,7 +17,11 @@ environment:
 prepare: |
   required_slices=(base-passwd_data)
   if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(dotnet-sdk-10.0_core)
+    if [[ "$SPREAD_VARIANT" == "Minimal" ]]; then
+      required_slices+=(dotnet-sdk-10.0_minimal)
+    else
+      required_slices+=(dotnet-sdk-10.0_core)
+    fi
   else
     required_slices+=(dotnet-sdk-10.0_standard)
   fi
@@ -52,8 +58,10 @@ execute: |
   # smoke test the .NET host:
   chroot "${rootfs}" /usr/bin/dotnet --info
 
-  # smoke test the F# interpreter:
-  chroot "${rootfs}" /usr/bin/dotnet fsi /helloworld.fsx | grep -q "Hello from F#"
+  if [[ "$SPREAD_VARIANT" != "Minimal" ]]; then
+    # smoke test the F# interpreter:
+    chroot "${rootfs}" /usr/bin/dotnet fsi /helloworld.fsx | grep -q "Hello from F#"
+  fi
 
   # Create a C# Hello World .NET app from templates
   # Using --no-restore flag, because dotnet new hangs indefinitely at restoring (related to: https://github.com/dotnet/core/issues/8057)

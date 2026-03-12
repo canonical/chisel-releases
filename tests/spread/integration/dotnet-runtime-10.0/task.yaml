@@ -3,8 +3,10 @@ summary: Integration tests for .NET 10 Runtime
 variants:
     - +WithoutLibicu
     - +WithLibicu
+    - +Minimal
 
 environment:
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/Minimal: "true"
   # needed, because libicu is not installed
   DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
   # disable noisy help text for users who run .NET for the first time
@@ -14,7 +16,11 @@ environment:
 prepare: |
   required_slices=()
   if [[ -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
-    required_slices+=(dotnet-runtime-10.0_core)
+    if [[ "$SPREAD_VARIANT" == "Minimal" ]]; then
+      required_slices+=(dotnet-runtime-10.0_minimal)
+    else
+      required_slices+=(dotnet-runtime-10.0_core)
+    fi
   else
     required_slices+=(dotnet-runtime-10.0_standard)
   fi
