@@ -1,12 +1,12 @@
 package: libunibreak6
 
 essential:
-  - libunibreak6_copyright
+  libunibreak6_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libunibreak.so.6*:
 

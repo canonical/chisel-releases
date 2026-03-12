@@ -2,13 +2,13 @@
 package: libpng16-16t64
 
 essential:
-  - libpng16-16t64_copyright
+  libpng16-16t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - zlib1g_libs
+      libc6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libpng16.so.16*:
 

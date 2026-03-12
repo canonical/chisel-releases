@@ -1,17 +1,17 @@
 package: libkrb5-3
 
 essential:
-  - libkrb5-3_copyright
+  libkrb5-3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libcom-err2_libs
-      - libk5crypto3_libs
-      - libkeyutils1_libs
-      - libkrb5support0_libs
-      - libssl3t64_libs
+      libc6_libs:
+      libcom-err2_libs:
+      libk5crypto3_libs:
+      libkeyutils1_libs:
+      libkrb5support0_libs:
+      libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/krb5/plugins/libkrb5/:
       /usr/lib/*-linux-*/krb5/plugins/preauth/spake.so:

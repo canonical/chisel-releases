@@ -1,15 +1,15 @@
 package: libkmod2
 
 essential:
-  - libkmod2_copyright
+  libkmod2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - liblzma5_libs
-      - libssl3t64_libs
-      - libzstd1_libs
+      libc6_libs:
+      liblzma5_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
     contents:
       /usr/lib/*-linux-*/libkmod.so.2*:
 

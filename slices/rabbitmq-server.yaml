@@ -1,7 +1,7 @@
 package: rabbitmq-server
 
 essential:
-  - rabbitmq-server_copyright
+  rabbitmq-server_copyright:
 
 # NOTE: erlang* packages do not exist for i386.
 # The following commented slices should be manually included when cutting the
@@ -13,33 +13,30 @@ slices:
 
   bins:
     essential:
-      - base-files_bin
-      - base-files_etc
-      - base-files_home
-      - base-files_var
-      - base-passwd_data
-      - bash_bins
-      - coreutils_bins
-      # TODO: The slices bellow are necessary to run RabbitMQ server for amd64 and arm64,
-      #       but are not included by default to avoid dependency issues with other
-      #       architectures such as i386.
-      # - erlang-base_bins
-      # - erlang-inets_scripts
-      # - erlang-inets_modules
-      # - erlang-os-mon_bins
-      - grep_bins
-      - libc-bin_locale
-      - libc-bin_nsswitch
-      - libtinfo6_libs
-      - login_bins
-      - netbase_default-hosts
-      - netbase_default-networks
-      - passwd_bins
-      - python3.13_standard
-      - rabbitmq-server_config
-      - rabbitmq-server_modules
-      - sed_bins
-      - util-linux_su-support
+      base-files_bin:
+      base-files_etc:
+      base-files_home:
+      base-files_var:
+      base-passwd_data:
+      coreutils_bins:
+      dash_bins:
+      erlang-base_bins: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-inets_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-inets_scripts: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-os-mon_bins: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      grep_bins:
+      libc-bin_locale:
+      libc-bin_nsswitch:
+      libtinfo6_libs:
+      login_bins:
+      netbase_default-hosts:
+      netbase_default-networks:
+      passwd_bins:
+      python3.13_standard:
+      rabbitmq-server_config:
+      rabbitmq-server_modules:
+      sed_bins:
+      util-linux_su-support:
     contents:
       /usr/bin/rabbitmqadmin:
       /usr/lib/ocf/resource.d/rabbitmq/rabbitmq-server:
@@ -73,25 +70,22 @@ slices:
 
   config:
     contents:
-      /etc/default/rabbitmq-server:
       /etc/rabbitmq/rabbitmq-env.conf:
         copy: /usr/share/rabbitmq/rabbitmq-env.conf
         mode: 0644
 
   modules:
-    # TODO: Uncomment the following lines when chisel support arch-specific
-    # slices/dependencies
-    # essential:
-    #   - erlang-crypto_modules
-    #   - erlang-eldap_modules
-    #   - erlang-mnesia_modules
-    #   - erlang-parsetools_modules
-    #   - erlang-public-key_modules
-    #   - erlang-runtime-tools_modules
-    #   - erlang-ssl_modules
-    #   - erlang-syntax-tools_modules
-    #   - erlang-tools_modules
-    #   - erlang-xmerl_modules
+    essential:
+      erlang-crypto_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-eldap_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-mnesia_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-parsetools_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-public-key_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-runtime-tools_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-ssl_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-syntax-tools_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-tools_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      erlang-xmerl_modules: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
     contents:
       /usr/lib/rabbitmq/lib/rabbitmq_server-*/plugins/**:
 

@@ -1,17 +1,17 @@
 package: libpangoft2-1.0-0
 
 essential:
-  - libpangoft2-1.0-0_copyright
+  libpangoft2-1.0-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libglib2.0-0t64_libs
-      - libharfbuzz0b_libs
-      - libpango-1.0-0_libs
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libglib2.0-0t64_libs:
+      libharfbuzz0b_libs:
+      libpango-1.0-0_libs:
     contents:
       /usr/lib/*-linux-*/libpangoft2-1.0.so.0*:
 

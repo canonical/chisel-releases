@@ -1,7 +1,7 @@
 package: fonts-dejavu-mono
 
 essential:
-  - fonts-dejavu-mono_copyright
+  fonts-dejavu-mono_copyright:
 
 slices:
   fonts:
@@ -13,7 +13,7 @@ slices:
 
   config:
     essential:
-      - fonts-dejavu-mono_fonts
+      fonts-dejavu-mono_fonts:
     contents:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-lgc-sans-mono.conf:
       /etc/fonts/conf.avail/20-unhint-small-dejavu-sans-mono.conf:

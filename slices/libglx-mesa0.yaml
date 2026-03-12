@@ -1,26 +1,26 @@
 package: libglx-mesa0
 
 essential:
-  - libglx-mesa0_copyright
+  libglx-mesa0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libexpat1_libs
-      - libgl1-mesa-dri_libs
-      - libx11-6_libs
-      - libx11-xcb1_libs
-      - libxcb-dri3-0_libs
-      - libxcb-glx0_libs
-      - libxcb-present0_libs
-      - libxcb-shm0_libs
-      - libxcb-xfixes0_libs
-      - libxcb1_libs
-      - libxext6_libs
-      - libxxf86vm1_libs
-      - mesa-libgallium_libs
+      libc6_libs:
+      libdrm2_libs:
+      libexpat1_libs:
+      libgl1-mesa-dri_libs:
+      libx11-6_libs:
+      libx11-xcb1_libs:
+      libxcb-dri3-0_libs:
+      libxcb-glx0_libs:
+      libxcb-present0_libs:
+      libxcb-shm0_libs:
+      libxcb-xfixes0_libs:
+      libxcb1_libs:
+      libxext6_libs:
+      libxxf86vm1_libs:
+      mesa-libgallium_libs:
     contents:
       /usr/lib/*-linux-*/libGLX_indirect.so.0*:
       /usr/lib/*-linux-*/libGLX_mesa.so.0*:

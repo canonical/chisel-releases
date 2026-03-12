@@ -1,7 +1,7 @@
 package: vim-common
 
 essential:
-  - vim-common_copyright
+  vim-common_copyright:
 
 slices:
   addons:
@@ -10,7 +10,7 @@ slices:
 
   config:
     essential:
-      - vim-common_runtime
+      vim-common_runtime:
     contents:
       /etc/vim/vimrc:
 

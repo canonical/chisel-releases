@@ -1,13 +1,13 @@
 package: libxcb-dri3-0
 
 essential:
-  - libxcb-dri3-0_copyright
+  libxcb-dri3-0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-dri3.so.0*:
 

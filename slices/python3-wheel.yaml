@@ -1,12 +1,12 @@
 package: python3-wheel
 
 essential:
-  - python3-wheel_copyright
+  python3-wheel_copyright:
 
 slices:
   libs:
     essential:
-      - python3_standard
+      python3_standard:
     contents:
       /usr/lib/python3/dist-packages/wheel-*.dist-info/**:
       /usr/lib/python3/dist-packages/wheel/**:

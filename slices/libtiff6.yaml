@@ -1,21 +1,21 @@
 package: libtiff6
 
 essential:
-  - libtiff6_copyright
+  libtiff6_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdeflate0_libs
-      - libjbig0_libs
-      - libjpeg8_libs
+      libc6_libs:
+      libdeflate0_libs:
+      libjbig0_libs:
+      libjpeg8_libs:
       # liblerc4_libs is a depndency of libtiff6_libs that's required on all
       # architectures, but s390. Please install it separately to make it work.
-      - liblzma5_libs
-      - libwebp7_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      liblzma5_libs:
+      libwebp7_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libtiff.so.6*:
 

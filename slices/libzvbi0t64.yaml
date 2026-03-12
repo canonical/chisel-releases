@@ -1,13 +1,13 @@
 package: libzvbi0t64
 
 essential:
-  - libzvbi0t64_copyright
+  libzvbi0t64_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libpng16-16t64_libs
+      libc6_libs:
+      libpng16-16t64_libs:
       # The dependency on libzvbi-common is omitted as that package only contains
       # translation strings in machine object files under /usr/share/locale
     contents:

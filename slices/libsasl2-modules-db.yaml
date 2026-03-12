@@ -1,13 +1,13 @@
 package: libsasl2-modules-db
 
 essential:
-  - libsasl2-modules-db_copyright
+  libsasl2-modules-db_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdb5.3t64_libs
+      libc6_libs:
+      libdb5.3t64_libs:
     contents:
       /usr/lib/*-linux-*/sasl2/libsasldb.so*:
 

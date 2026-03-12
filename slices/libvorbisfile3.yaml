@@ -1,14 +1,14 @@
 package: libvorbisfile3
 
 essential:
-  - libvorbisfile3_copyright
+  libvorbisfile3_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libogg0_libs
-      - libvorbis0a_libs
+      libc6_libs:
+      libogg0_libs:
+      libvorbis0a_libs:
     contents:
       /usr/lib/*-linux-*/libvorbisfile.so.3*:
 

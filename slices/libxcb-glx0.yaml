@@ -1,13 +1,13 @@
 package: libxcb-glx0
 
 essential:
-  - libxcb-glx0_copyright
+  libxcb-glx0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-glx.so.0*:
 

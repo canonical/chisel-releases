@@ -1,12 +1,12 @@
 package: libslang2
 
 essential:
-  - libslang2_copyright
+  libslang2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libslang.so.2*:
 

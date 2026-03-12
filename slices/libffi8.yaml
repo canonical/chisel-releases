@@ -1,12 +1,12 @@
 package: libffi8
 
 essential:
-  - libffi8_copyright
+  libffi8_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libffi.so.8*:
 

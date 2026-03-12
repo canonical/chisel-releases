@@ -1,12 +1,12 @@
 package: libcjson1
 
 essential:
-  - libcjson1_copyright
+  libcjson1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libcjson.so.1*:
       /usr/lib/*-linux-*/libcjson_utils.so.1*:

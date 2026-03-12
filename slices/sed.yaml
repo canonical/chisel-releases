@@ -1,14 +1,14 @@
 package: sed
 
 essential:
-  - sed_copyright
+  sed_copyright:
 
 slices:
   bins:
     essential:
-      - libacl1_libs
-      - libc6_libs
-      - libselinux1_libs
+      libacl1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/bin/sed:
 

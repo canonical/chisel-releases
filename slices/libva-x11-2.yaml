@@ -1,20 +1,20 @@
 package: libva-x11-2
 
 essential:
-  - libva-x11-2_copyright
+  libva-x11-2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libva2_libs
-      - libx11-6_libs
-      - libx11-xcb1_libs
-      - libxcb-dri3-0_libs
-      - libxcb1_libs
-      - libxext6_libs
-      - libxfixes3_libs
+      libc6_libs:
+      libdrm2_libs:
+      libva2_libs:
+      libx11-6_libs:
+      libx11-xcb1_libs:
+      libxcb-dri3-0_libs:
+      libxcb1_libs:
+      libxext6_libs:
+      libxfixes3_libs:
     contents:
       /usr/lib/*-linux-*/libva-x11.so.2*:
 

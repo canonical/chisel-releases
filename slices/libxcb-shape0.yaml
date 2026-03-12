@@ -1,13 +1,13 @@
 package: libxcb-shape0
 
 essential:
-  - libxcb-shape0_copyright
+  libxcb-shape0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-shape.so.0*:
 

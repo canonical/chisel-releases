@@ -1,7 +1,7 @@
 package: fonts-noto-mono
 
 essential:
-  - fonts-noto-mono_copyright
+  fonts-noto-mono_copyright:
 
 slices:
   fonts:

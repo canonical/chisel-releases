@@ -1,13 +1,13 @@
 package: erlang-tftp
 
 essential:
-  - erlang-tftp_copyright
+  erlang-tftp_copyright:
 
 slices:
   modules:
     essential:
-      - erlang-base_bins
-      - erlang-base_modules
+      erlang-base_bins:
+      erlang-base_modules:
     contents:
       /usr/lib/erlang/lib/tftp-*/ebin/**:
 

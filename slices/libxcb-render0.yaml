@@ -1,13 +1,13 @@
 package: libxcb-render0
 
 essential:
-  - libxcb-render0_copyright
+  libxcb-render0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libxcb1_libs
+      libc6_libs:
+      libxcb1_libs:
     contents:
       /usr/lib/*-linux-*/libxcb-render.so.0*:
 

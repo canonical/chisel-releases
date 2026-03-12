@@ -225,3 +225,48 @@ execute: |
   echo -e "1,orange\n2,grape" > "$rootfs_join/file2"
   test "$(chroot "$rootfs_join" join -t, file1 file2)" = \
            $'1,apple,orange\n2,banana,grape'
+  
+  # test cat binary
+  rootfs_cat="$(install-slices coreutils_cat)"
+  echo "Hello, World!" > "$rootfs_cat/test_file"
+  test "$(chroot "$rootfs_cat" cat test_file)" = "Hello, World!"
+
+  # test ls binary
+  rootfs_ls="$(install-slices coreutils_ls-utility)"
+  mkdir -p "$rootfs_ls/test_dir"
+  touch "$rootfs_ls/test_dir/file1"
+  touch "$rootfs_ls/test_dir/file2"
+  test "$(chroot "$rootfs_ls" ls test_dir | sort)" = "$(printf "file1\nfile2")"
+  test "$(chroot "$rootfs_ls" ls -a test_dir | sort)" = "$(printf ".\n..\nfile1\nfile2")"
+
+  # test wc binary
+  rootfs_wc="$(install-slices coreutils_wc-utility)"
+  chroot "$rootfs_wc" wc --version
+  echo -e "line1\nline2\nline3" > "$rootfs_wc/test_file"
+  test "$(chroot "$rootfs_wc" wc -l test_file | awk '{print $1}')" = "3"
+  test "$(chroot "$rootfs_wc" wc -w test_file | awk '{print $1}')" = "3"
+  test "$(chroot "$rootfs_wc" wc -c test_file | awk '{print $1}')" = "18"
+
+  # test chgrp binary
+  rootfs_chgrp="$(install-slices coreutils_chgrp)"
+  chroot "$rootfs_chgrp" chgrp --version
+  touch "$rootfs_chgrp/test_file"
+  # NOTE: we don't have group management in the test environment, so we just test
+  # with a non-existent group
+  chroot "$rootfs_chgrp" chgrp non-existent-group test_file 2>&1 | grep "invalid group"
+
+  # test realpath binary
+  rootfs_realpath="$(install-slices coreutils_realpath)"
+  chroot "$rootfs_realpath" realpath --version
+  mkdir -p "$rootfs_realpath/foo/bar"
+  touch "$rootfs_realpath/foo/bar/baz.txt"
+  test "$(chroot "$rootfs_realpath" realpath /foo/bar/baz.txt)" = "/foo/bar/baz.txt"
+  ln -s /foo/bar/baz.txt "$rootfs_realpath/foo/bar/baz_link.txt"
+  test "$(chroot "$rootfs_realpath" realpath /foo/bar/baz_link.txt)" = "/foo/bar/baz.txt"
+
+  # test sync binary
+  rootfs_sync="$(install-slices coreutils_sync)"
+  chroot "$rootfs_sync" sync --version
+  # NOTE: we can't easily test the actual syncing functionality,
+  # but we can at least test that the command runs without error
+  chroot "$rootfs_sync" sync 

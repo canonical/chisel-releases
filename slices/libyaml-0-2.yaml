@@ -1,12 +1,12 @@
 package: libyaml-0-2
 
 essential:
-  - libyaml-0-2_copyright
+  libyaml-0-2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libyaml-0.so.2*:
   copyright:

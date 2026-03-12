@@ -1,34 +1,34 @@
 package: mesa-libgallium
 
 essential:
-  - mesa-libgallium_copyright
+  mesa-libgallium_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm-amdgpu1_libs
+      libc6_libs:
+      libdrm-amdgpu1_libs:
       # The libdrm-intel1_libs dependency is currently ommited, it can be
       # added again once chisel supports per-arch package dependencies,
       # see https://github.com/canonical/chisel/issues/93
       # needed for: amd64 and i386
-      - libdrm2_libs
-      - libelf1t64_libs
-      - libexpat1_libs
-      - libgcc-s1_libs
-      - libllvm19_libs
-      - libsensors5_libs
-      - libstdc++6_libs
-      - libx11-xcb1_libs
-      - libxcb-dri3-0_libs
-      - libxcb-present0_libs
-      - libxcb-randr0_libs
-      - libxcb-sync1_libs
-      - libxcb-xfixes0_libs
-      - libxcb1_libs
-      - libxshmfence1_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libdrm2_libs:
+      libelf1t64_libs:
+      libexpat1_libs:
+      libgcc-s1_libs:
+      libllvm19_libs:
+      libsensors5_libs:
+      libstdc++6_libs:
+      libx11-xcb1_libs:
+      libxcb-dri3-0_libs:
+      libxcb-present0_libs:
+      libxcb-randr0_libs:
+      libxcb-sync1_libs:
+      libxcb-xfixes0_libs:
+      libxcb1_libs:
+      libxshmfence1_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libgallium-*.so:
 

@@ -1,7 +1,7 @@
 package: gcc-13-aarch64-linux-gnu
 
 essential:
-  - gcc-13-aarch64-linux-gnu_copyright
+  gcc-13-aarch64-linux-gnu_copyright:
 
 slices:
   # NOTE: The gcc-13 slice below contains only the architecture-specific gcc-13 itself.
@@ -19,8 +19,8 @@ slices:
   #       ln -s aarch64-linux-gnu-gcc-13 "$rootfs/usr/bin/gcc"
   gcc-13:
     essential:
-      - libc6_libs
-      - libgcc-13-dev_headers
+      libc6_libs:
+      libgcc-13-dev_headers:
     contents:
       /usr/bin/aarch64-linux-gnu-gcc-13:
       /usr/libexec/gcc-cross/aarch64-linux-gnu/13/collect2:
@@ -34,6 +34,6 @@ slices:
 
   copyright:
     essential:
-      - gcc-13-base_copyright
+      gcc-13-base_copyright:
     contents:
       /usr/share/doc/gcc-13-aarch64-linux-gnu:

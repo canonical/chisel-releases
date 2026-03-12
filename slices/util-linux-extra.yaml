@@ -1,19 +1,19 @@
 package: util-linux-extra
 
 essential:
-  - util-linux-extra_copyright
+  util-linux-extra_copyright:
 
 slices:
   bins:
     essential:
-      - libaudit1_libs
-      - libc6_libs
-      - libcrypt1_libs
-      - liblastlog2-2_libs
-      - libselinux1_libs
-      - libsmartcols1_libs
-      - libsystemd0_libs
-      - zlib1g_libs
+      libaudit1_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      liblastlog2-2_libs:
+      libselinux1_libs:
+      libsmartcols1_libs:
+      libsystemd0_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/addpart:
       /usr/bin/bits:
@@ -33,12 +33,12 @@ slices:
       /usr/bin/lsirq:
       /usr/bin/lslogins:
       /usr/bin/lsmem:
-      /usr/bin/newgrp: { prefer: login }
+      /usr/bin/newgrp:
       /usr/bin/pipesz:
       /usr/bin/pivot_root:
       /usr/bin/rename.ul:
       /usr/bin/resizepart:
-      /usr/bin/sg: { prefer: login }  # Symlink to newgrp
+      /usr/bin/sg:
       /usr/bin/switch_root:
       /usr/bin/waitpid:
       /usr/bin/wdctl:

@@ -1,7 +1,7 @@
 package: libpam-runtime
 
 essential:
-  - libpam-runtime_copyright
+  libpam-runtime_copyright:
 
 slices:
   # perl scripts that rely on debconf to properly work and discover
@@ -24,7 +24,7 @@ slices:
   # since this mutation script wont be able to access them as of writing.
   config:
     essential:
-      - libpam-runtime_var
+      libpam-runtime_var:
     contents:
       /etc/pam.conf:
       /etc/pam.d/common-account: { text: "", mutable: true }

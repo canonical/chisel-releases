@@ -1,24 +1,24 @@
 package: libcurl3t64-gnutls
 
 essential:
-  - libcurl3t64-gnutls_copyright
+  libcurl3t64-gnutls_copyright:
 
 slices:
   libs:
     essential:
-      - libbrotli1_libs
-      - libc6_libs
-      - libgnutls30t64_libs
-      - libgssapi-krb5-2_libs
-      - libidn2-0_libs
-      - libldap2_libs
-      - libnettle8t64_libs
-      - libnghttp2-14_libs
-      - libpsl5t64_libs
-      - librtmp1_libs
-      - libssh2-1t64_libs
-      - libzstd1_libs
-      - zlib1g_libs
+      libbrotli1_libs:
+      libc6_libs:
+      libgnutls30t64_libs:
+      libgssapi-krb5-2_libs:
+      libidn2-0_libs:
+      libldap2_libs:
+      libnettle8t64_libs:
+      libnghttp2-14_libs:
+      libpsl5t64_libs:
+      librtmp1_libs:
+      libssh2-1t64_libs:
+      libzstd1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libcurl-gnutls.so.*:
 

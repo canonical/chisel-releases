@@ -1,13 +1,13 @@
 package: libarchive-tools
 
 essential:
-  - libarchive-tools_copyright
+  libarchive-tools_copyright:
 
 slices:
   bins:
     essential:
-      - libarchive13t64_libs
-      - libc6_libs
+      libarchive13t64_libs:
+      libc6_libs:
     contents:
       /usr/bin/bsdcat:
       /usr/bin/bsdcpio:

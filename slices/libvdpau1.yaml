@@ -1,16 +1,16 @@
 package: libvdpau1
 
 essential:
-  - libvdpau1_copyright
+  libvdpau1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs  # needed for armhf only
-      - libvdpau1_config
-      - libx11-6_libs
-      - libxext6_libs
+      libc6_libs:
+      libgcc-s1_libs: {arch: [armhf]}
+      libvdpau1_config:
+      libx11-6_libs:
+      libxext6_libs:
     contents:
       /usr/lib/*-linux-*/libvdpau.so.1*:
       /usr/lib/*-linux-*/vdpau/libvdpau_trace.so.1*:

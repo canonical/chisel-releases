@@ -1,14 +1,14 @@
 package: perl-base
 
 essential:
-  - perl-base_copyright
+  perl-base_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
+      libc6_libs:
       # perl binary requires libcrypt.so.1 upon loading
-      - libcrypt1_libs
+      libcrypt1_libs:
     contents:
       # hard link
       /usr/bin/perl:
@@ -16,8 +16,8 @@ slices:
 
   modules:
     essential:
-      - libc6_libs
-      - libcrypt1_libs
+      libc6_libs:
+      libcrypt1_libs:
     contents:
       /usr/lib/*-linux-*/perl-base/AutoLoader.pm:
       /usr/lib/*-linux-*/perl-base/Carp.pm:

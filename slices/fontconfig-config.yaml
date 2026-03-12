@@ -1,12 +1,12 @@
 package: fontconfig-config
 
 essential:
-  - fontconfig-config_copyright
+  fontconfig-config_copyright:
 
 slices:
   config:
     essential:
-      - fonts-dejavu-core_config
+      fonts-dejavu-core_config:
     contents:
       /etc/fonts/conf.d/10-hinting-slight.conf:
       /etc/fonts/conf.d/10-scale-bitmap-fonts.conf:

@@ -1,7 +1,7 @@
 package: ruby
 
 essential:
-  - ruby_copyright
+  ruby_copyright:
 
 slices:
   # Leaving ruby-rubygems out of the core installation.
@@ -13,16 +13,16 @@ slices:
   #   `syntax_suggest' was not loaded.
   core:
     essential:
-      - ruby_ruby
+      ruby_ruby:
 
   ruby:
     essential:
-      - ruby3.3_core
+      ruby3.3_core:
     contents:
       /usr/bin/ruby:
 
   copyright:
     essential:
-      - libruby_copyright
+      libruby_copyright:
     contents:
       /usr/share/doc/ruby/copyright:

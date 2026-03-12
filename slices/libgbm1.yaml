@@ -1,18 +1,18 @@
 package: libgbm1
 
 essential:
-  - libgbm1_copyright
+  libgbm1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libexpat1_libs
-      - libgcc-s1_libs
-      - libwayland-server0_libs
-      - libxcb-randr0_libs
-      - mesa-libgallium_libs
+      libc6_libs:
+      libdrm2_libs:
+      libexpat1_libs:
+      libgcc-s1_libs:
+      libwayland-server0_libs:
+      libxcb-randr0_libs:
+      mesa-libgallium_libs:
     contents:
       /usr/lib/*-linux-*/libgbm.so.1*:
 

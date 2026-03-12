@@ -1,14 +1,14 @@
 package: libva-drm2
 
 essential:
-  - libva-drm2_copyright
+  libva-drm2_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libdrm2_libs
-      - libva2_libs
+      libc6_libs:
+      libdrm2_libs:
+      libva2_libs:
     contents:
       /usr/lib/*-linux-*/libva-drm.so.2*:
 

@@ -1,16 +1,16 @@
 package: libtbb12
 
 essential:
-  - libtbb12_copyright
+  libtbb12_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libstdc++6_libs
-      - libtbbbind-2-5_libs
-      - libtbbmalloc2_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      libtbbbind-2-5_libs:
+      libtbbmalloc2_libs:
     contents:
       /usr/lib/*-linux-*/libtbb.so.12*:
 

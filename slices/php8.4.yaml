@@ -1,16 +1,16 @@
 package: php8.4
 
 essential:
-  - php8.4_copyright
+  php8.4_copyright:
 
 slices:
   core:
     essential:
-      - php8.4-cli_core
+      php8.4-cli_core:
 
   standard:
     essential:
-      - php8.4-cli_standard
+      php8.4-cli_standard:
 
   copyright:
     contents:

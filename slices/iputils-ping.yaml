@@ -1,15 +1,15 @@
 package: iputils-ping
 
 essential:
-  - iputils-ping_copyright
+  iputils-ping_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libcap2-bin_bins
-      - libcap2_libs
-      - libidn2-0_libs
+      libc6_libs:
+      libcap2-bin_bins:
+      libcap2_libs:
+      libidn2-0_libs:
     contents:
       /usr/bin/ping:
 
