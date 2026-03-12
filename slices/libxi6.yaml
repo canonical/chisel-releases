@@ -1,0 +1,17 @@
+package: libxi6
+
+essential:
+  - libxi6_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libx11-6_libs
+      - libxext6_libs
+    contents:
+      /usr/lib/*-linux-*/libXi.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxi6/copyright:
