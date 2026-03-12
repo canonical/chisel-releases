@@ -4,9 +4,6 @@ essential:
   - cargo-1.85_copyright
 
 slices:
-  # NOTE: Cargo will call rust through `rustc`, so you will need to create a
-  #       symlink pointing to the correct version of rust:
-  #       ln -s rustc-1.85 /usr/bin/rustc
   cargo:
     essential:
       - binutils_linker
