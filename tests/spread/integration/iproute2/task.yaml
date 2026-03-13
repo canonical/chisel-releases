@@ -3,5 +3,6 @@ summary: Integration tests for iproute2
 variants:
     - routel
     - ip
+    - bpf_elf
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
