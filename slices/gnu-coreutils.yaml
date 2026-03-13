@@ -189,12 +189,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      gnu-coreutils_chgrp:
       gnu-coreutils_chmod:
       gnu-coreutils_chown:
       gnu-coreutils_touch:
       libc6_libs:
-    contents:
-      /usr/bin/gnuchgrp:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -586,6 +585,30 @@ slices:
       libselinux1_libs:
     contents:
       /usr/bin/gnuwc:
+
+  chgrp:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/gnuchgrp:
+
+  realpath:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/gnurealpath:
+
+  sync:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/gnusync:
 
   copyright:
     contents:
