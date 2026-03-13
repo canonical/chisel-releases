@@ -29,6 +29,8 @@ slices:
       /etc/default/named:
 
   data:
+    essentials:
+      dns-root-data_data:
     contents:
       /var/cache/bind/: {make: true, mode: 02775}
       /var/lib/bind/: {make: true, mode: 02775}
