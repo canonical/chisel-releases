@@ -9,7 +9,7 @@ slices:
       bind9_config:
       bind9_libs:
     contents:
-      /usr/bin/arpname:
+      /usr/bin/arpaname:
       /usr/bin/dnssec-importkey:
       /usr/bin/named-journalprint:
       /usr/bin/named-nzd2nzf:
