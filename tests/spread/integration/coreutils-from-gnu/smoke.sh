@@ -50,7 +50,7 @@ slices=(
   system-context
   selinux-context
   modified-command-invocation
-  delaying
+#   delaying   # NOTE: delaying has no content. its an alias for sleep
   numeric-operations
 )
 
