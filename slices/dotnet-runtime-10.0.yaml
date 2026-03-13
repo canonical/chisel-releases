@@ -48,6 +48,7 @@ slices:
     essential:
       dotnet-runtime-10.0_core:
       libicu78_libs:
+      tzdata_zoneinfo:
 
   copyright:
     contents:

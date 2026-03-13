@@ -49,6 +49,7 @@ slices:
 
   standard:
     essential:
+      aspnetcore-runtime-10.0_standard:
       dotnet-sdk-10.0_core:
       dotnet-sdk-aot-10.0_libs: {arch: [amd64, arm64]}
       # see comment of dotnet-sdk-10.0_core slice above:
