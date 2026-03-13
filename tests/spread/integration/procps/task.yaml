@@ -1,6 +1,7 @@
 summary: Integration tests for procps
 
 variants:
+    - bins
     - sysctl
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
