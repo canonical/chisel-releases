@@ -4,11 +4,6 @@ essential:
   systemd_copyright:
 
 slices:
-  # now a placeholder, just redirects to systemd_standard
-  bins:
-    essential:
-      systemd_standard:
-
   # Core systemd daemon
   core:
     essential:
