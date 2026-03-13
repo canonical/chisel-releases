@@ -16,23 +16,28 @@ slices:
     essential:
       iproute2_config:
       iproute2_dist:
+      libbpf1_libs:
+      libc6_libs:
       libcap2-bin_bins:
+      libcap2_libs:
+      libdb5.3t64_libs:
+      libelf1t64_libs:
+      libmnl0_libs:
+      libselinux1_libs:
+      libtirpc3t64_libs:
+      libxtables12_libs:
     contents:
-      /usr/bin/ctstat:
-      /usr/bin/ip:
+      /usr/bin/ctstat:  # Symlink to lnstat
       /usr/bin/lnstat:
       /usr/bin/nstat:
       /usr/bin/rdma:
-      /usr/bin/routel:
-      /usr/bin/rtstat:
+      /usr/bin/rtstat:  # Symlink to lnstat
       /usr/bin/ss:
-      /usr/include/iproute2/bpf_elf.h:
       /usr/sbin/arpd:
       /usr/sbin/bridge:
       /usr/sbin/dcb:
       /usr/sbin/devlink:
       /usr/sbin/genl:
-      /usr/sbin/ip:
       /usr/sbin/rtacct:
       /usr/sbin/rtmon:
       # "tc" is an obvious candidate for getting its own "traffic-control"
@@ -40,6 +45,35 @@ slices:
       /usr/sbin/tc:
       /usr/sbin/tipc:
       /usr/sbin/vdpa:
+
+  ip-bin:
+    hint: "Show and manipulate routing"
+    essential:
+      libbpf1_libs:
+      libcap2_libs:
+      libelf1t64_libs:
+      libmnl0_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/ip:
+      /usr/sbin/ip:  # Symlink to ../bin/ip
+
+  scripts:
+    essential:
+      iproute2_routel:
+
+  routel:
+    hint: "List routes with pretty formatting"
+    essential:
+      coreutils_env:
+      iproute2_ip-bin:
+      python3-minimal_python3:
+    contents:
+      /usr/bin/routel:
+
+  headers:
+    contents:
+      /usr/include/iproute2/bpf_elf.h:
 
   config:
     # Corresponds to the pkg's conffiles
