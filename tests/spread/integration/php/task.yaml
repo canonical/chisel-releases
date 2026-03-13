@@ -50,7 +50,7 @@ execute: |
     # Start server in its own process group
     setsid chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
     php_pid=$!
-    
+
     # Ensure the server is killed when the script exits
     cleanup() {
         echo "Stopping PHP server..."
