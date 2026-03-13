@@ -1,0 +1,17 @@
+package: php8.5
+
+essential:
+  php8.5_copyright:
+
+slices:
+  core:
+    essential:
+      php8.5-cli_core:
+
+  standard:
+    essential:
+      php8.5-cli_standard:
+
+  copyright:
+    contents:
+      /usr/share/doc/php8.5/copyright:
