@@ -50,14 +50,7 @@ execute: |
     # Start server
     chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
     php_pid=$!
-
-    # Ensure the server is killed when the script exits
-    cleanup() {
-        echo "Stopping PHP server..."
-        kill "$php_pid" 2>/dev/null || true
-        wait "$php_pid" 2>/dev/null || true
-    }
-    trap cleanup EXIT
+    trap "kill $php_pid 2>/dev/null || true" EXIT
 
     # Give the server time to start
     sleep 1
