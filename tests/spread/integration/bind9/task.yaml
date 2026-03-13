@@ -1,21 +1,8 @@
 summary: Integration tests for bind9
 
-execute: |
-  rootfs="$(install-slices bind9_bins)"
+variants:
+  - named
+  - arpaname
+  - security_features
 
-  # Copy the config files to the rootfs
-  cp db.test.local "${rootfs}/etc/bind/db.test.local"
-
-  # Add the zone to bind9 config
-  echo 'zone "test.local" {' >> "${rootfs}/etc/bind/named.conf.local"
-  echo '    type master;' >> "${rootfs}/etc/bind/named.conf.local"
-  echo '    file "/etc/bind/db.test.local";' >> "${rootfs}/etc/bind/named.conf.local"
-  echo '};' >> "${rootfs}/etc/bind/named.conf.local"
-
-  # Start the bind9 server
-  chroot "${rootfs}/" named -g -c /etc/bind/named.conf &
-  sleep 5
-
-  # Test DNS resolution
-  chroot "${rootfs}/" dig @127.0.0.1 www.test.local | grep ';; ANSWER SECTION:'
-  chroot "${rootfs}/" dig @127.0.0.1 mail.test.local | grep ';; ANSWER SECTION:'
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
