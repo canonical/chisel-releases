@@ -9,6 +9,8 @@ slices:
       libargon2-1_libs:
       libc6_libs:
       libedit2_libs:
+      libgcc-s1_libs:
+        arch: [amd64]
       libpcre2-8-0_libs:
       libsodium23_libs:
       libssl3t64_libs:
