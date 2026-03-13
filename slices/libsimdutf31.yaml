@@ -1,7 +1,7 @@
-package: libsimdutf29
+package: libsimdutf31
 
 essential:
-  libsimdutf29_copyright:
+  libsimdutf31_copyright:
 
 slices:
   libs:
@@ -10,8 +10,8 @@ slices:
       libgcc-s1_libs:
       libstdc++6_libs:
     contents:
-      /usr/lib/*-linux-*/libsimdutf.so.29*:
+      /usr/lib/*-linux-*/libsimdutf.so.31*:
 
   copyright:
     contents:
-      /usr/share/doc/libsimdutf29/copyright:
+      /usr/share/doc/libsimdutf31/copyright:
