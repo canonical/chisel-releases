@@ -50,7 +50,7 @@ execute: |
     # Start server
     chroot "$rootfs" php -S 0.0.0.0:8080 -t /var/www/html &
     php_pid=$!
-    trap "kill $php_pid 2>/dev/null || true" EXIT
+    trap "kill -9 $php_pid 2>/dev/null || true" EXIT
 
     # Give the server time to start
     sleep 1
