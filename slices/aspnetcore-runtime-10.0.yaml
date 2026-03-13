@@ -64,7 +64,6 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Validation.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Net.Http.Headers.dll:
 
-
   # libicu is not needed if the environment is set to invariant by using
   # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
   # If globalization is needed, libicu must be included as well.
