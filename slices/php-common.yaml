@@ -34,23 +34,23 @@ slices:
     # created in the registry location. These files are used by
     # phpquery to track the modules currently enabled.
     contents:
-      /var/lib/php/modules/8.4/registry/calendar: { text: "" }
-      /var/lib/php/modules/8.4/registry/ctype: { text: "" }
-      /var/lib/php/modules/8.4/registry/exif: { text: "" }
-      /var/lib/php/modules/8.4/registry/ffi: { text: "" }
-      /var/lib/php/modules/8.4/registry/fileinfo: { text: "" }
-      /var/lib/php/modules/8.4/registry/ftp: { text: "" }
-      /var/lib/php/modules/8.4/registry/gettext: { text: "" }
-      /var/lib/php/modules/8.4/registry/iconv: { text: "" }
-      /var/lib/php/modules/8.4/registry/pdo: { text: "" }
-      /var/lib/php/modules/8.4/registry/phar: { text: "" }
-      /var/lib/php/modules/8.4/registry/posix: { text: "" }
-      /var/lib/php/modules/8.4/registry/shmop: { text: "" }
-      /var/lib/php/modules/8.4/registry/sockets: { text: "" }
-      /var/lib/php/modules/8.4/registry/sysvmsg: { text: "" }
-      /var/lib/php/modules/8.4/registry/sysvsem: { text: "" }
-      /var/lib/php/modules/8.4/registry/sysvshm: { text: "" }
-      /var/lib/php/modules/8.4/registry/tokenizer: { text: "" }
+      /var/lib/php/modules/8.5/registry/calendar: { text: "" }
+      /var/lib/php/modules/8.5/registry/ctype: { text: "" }
+      /var/lib/php/modules/8.5/registry/exif: { text: "" }
+      /var/lib/php/modules/8.5/registry/ffi: { text: "" }
+      /var/lib/php/modules/8.5/registry/fileinfo: { text: "" }
+      /var/lib/php/modules/8.5/registry/ftp: { text: "" }
+      /var/lib/php/modules/8.5/registry/gettext: { text: "" }
+      /var/lib/php/modules/8.5/registry/iconv: { text: "" }
+      /var/lib/php/modules/8.5/registry/pdo: { text: "" }
+      /var/lib/php/modules/8.5/registry/phar: { text: "" }
+      /var/lib/php/modules/8.5/registry/posix: { text: "" }
+      /var/lib/php/modules/8.5/registry/shmop: { text: "" }
+      /var/lib/php/modules/8.5/registry/sockets: { text: "" }
+      /var/lib/php/modules/8.5/registry/sysvmsg: { text: "" }
+      /var/lib/php/modules/8.5/registry/sysvsem: { text: "" }
+      /var/lib/php/modules/8.5/registry/sysvshm: { text: "" }
+      /var/lib/php/modules/8.5/registry/tokenizer: { text: "" }
 
   session:
     contents:
