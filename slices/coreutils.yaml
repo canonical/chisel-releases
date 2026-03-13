@@ -269,6 +269,18 @@ slices:
     essential:
       coreutils-from-gnu_wc-utility:
 
+  chgrp:
+    essential:
+      coreutils-from-gnu_chgrp:
+
+  realpath:
+    essential:
+      coreutils-from-gnu_realpath:
+
+  sync:
+    essential:
+      coreutils-from-gnu_sync:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
