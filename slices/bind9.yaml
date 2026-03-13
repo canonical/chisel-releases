@@ -7,6 +7,7 @@ slices:
   bins:
     essential:
       bind9_config:
+      bind9_data:
       bind9_libs:
     contents:
       /usr/bin/arpaname:
@@ -26,6 +27,11 @@ slices:
       /etc/bind/named.conf.options:
       /etc/bind/named.conf.root-hints:
       /etc/default/named:
+
+  data:
+    contents:
+      /var/cache/bind: {make: true, mode: 02775}
+      /var/lib/bind: {make: true, mode: 02775}
 
   libs:
     essential:
