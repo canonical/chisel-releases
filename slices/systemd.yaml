@@ -27,10 +27,13 @@ slices:
       systemd_config:
       systemd_system-generators:
     contents:
+      /usr/bin/kernel-install:
       /usr/bin/systemctl:
       /usr/bin/systemd-analyze:
       /usr/bin/systemd-escape:
+      /usr/bin/systemd-mute-console:
       /usr/bin/systemd-notify:
+      /usr/bin/systemd-pty-forward:
       /usr/bin/systemd-run:
       /usr/bin/systemd-sysusers:
       /usr/bin/systemd-tmpfiles:
@@ -285,15 +288,15 @@ slices:
       systemd_pcrlock:
     contents:
       /usr/lib/systemd/systemd-measure:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/systemd/systemd-pcrextend:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/systemd-pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/systemd-tpm2-setup:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/systemd/systemd-tpm2-clear:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/systemd-tpm2-setup:
+        arch: [amd64, arm64, armhf, riscv64]
 
   catalog:
     contents:
@@ -333,7 +336,7 @@ slices:
       /etc/xdg/systemd/user:
       /usr/lib/environment.d/99-environment.conf:
       /usr/lib/nvpcr/hardware.nvpcr:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/sysctl.d/10-coredump-debian.conf:
       /usr/lib/systemd/initrd-preset/90-systemd.preset:
       /usr/lib/systemd/initrd-preset/99-default.preset:
@@ -353,6 +356,7 @@ slices:
       /usr/lib/systemd/system-generators/systemd-factory-reset-generator:
       /usr/lib/systemd/system-generators/systemd-fstab-generator:
       /usr/lib/systemd/system-generators/systemd-getty-generator:
+      /usr/lib/systemd/system-generators/systemd-gpt-auto-generator:
       /usr/lib/systemd/system-generators/systemd-hibernate-resume-generator:
       /usr/lib/systemd/system-generators/systemd-rc-local-generator:
       /usr/lib/systemd/system-generators/systemd-run-generator:
@@ -360,7 +364,7 @@ slices:
       /usr/lib/systemd/system-generators/systemd-system-update-generator:
       /usr/lib/systemd/system-generators/systemd-sysv-generator:
       /usr/lib/systemd/system-generators/systemd-tpm2-generator:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
 
   system-services:
     essential:
@@ -389,7 +393,7 @@ slices:
       /usr/lib/systemd/system/factory-reset-now.target:
       /usr/lib/systemd/system/factory-reset.target.wants/systemd-factory-reset-request.service:
       /usr/lib/systemd/system/factory-reset.target.wants/systemd-pcrphase-factory-reset.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/factory-reset.target:
       /usr/lib/systemd/system/final.target:
       /usr/lib/systemd/system/first-boot-complete.target:
@@ -484,6 +488,7 @@ slices:
       /usr/lib/systemd/system/sys-kernel-tracing.mount:
       /usr/lib/systemd/system/sysinit.target.wants/dev-hugepages.mount:
       /usr/lib/systemd/system/sysinit.target.wants/dev-mqueue.mount:
+      /usr/lib/systemd/system/sysinit.target.wants/imports.target:
       /usr/lib/systemd/system/sysinit.target.wants/kmod-static-nodes.service:
       /usr/lib/systemd/system/sysinit.target.wants/ldconfig.service:
       /usr/lib/systemd/system/sysinit.target.wants/proc-sys-fs-binfmt_misc.automount:
@@ -507,13 +512,13 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup-early.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
       /usr/lib/systemd/system/sysinit.target:
       /usr/lib/systemd/system/syslog.socket:
-      /usr/lib/systemd/system/system-systemdx2dmutex2dconsole.slice:
+      /usr/lib/systemd/system/system-systemd\x2dmute\x2dconsole.slice:
       /usr/lib/systemd/system/system-update-cleanup.service:
       /usr/lib/systemd/system/system-update-pre.target:
       /usr/lib/systemd/system/system-update.target:
@@ -586,11 +591,11 @@ slices:
       /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/systemd-tpm2-clear.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-tpm2-setup-early.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-tpm2-setup.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-update-done.service:
       /usr/lib/systemd/system/systemd-user-sessions.service:
       /usr/lib/systemd/system/systemd-validatefs@.service:
@@ -656,6 +661,13 @@ slices:
       /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
 
+  breakpoint:
+    contents:
+      /usr/lib/systemd/system/breakpoint-pre-basic.service:
+      /usr/lib/systemd/system/breakpoint-pre-mount.service:
+      /usr/lib/systemd/system/breakpoint-pre-switch-root.service:
+      /usr/lib/systemd/system/breakpoint-pre-udev.service:
+
   extras:
     contents:
       /etc/modules-load.d/modules.conf:
@@ -696,86 +708,101 @@ slices:
   pcrlock:
     contents:
       /etc/pcrlock.d/:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
         make: true
       /usr/lib/pcrlock.d/350-action-efi-application.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/300-0x00000000.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/400-secureboot-separator.pcrlock.d/600-0xffffffff.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/500-separator.pcrlock.d/300-0x00000000.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/500-separator.pcrlock.d/600-0xffffffff.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/300-present.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/700-action-efi-exit-boot-services.pcrlock.d/600-absent.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/750-enter-initrd.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/800-leave-initrd.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/850-sysinit.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/900-ready.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/950-shutdown.pcrlock:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/990-final.pcrlock:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrextend.socket:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrextend@.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrfs-root.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrfs@.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-file-system.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-firmware-code.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-firmware-config.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-machine-id.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-make-policy.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-secureboot-authority.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock-secureboot-policy.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock.socket:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrlock@.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrlock.socket:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrmachine.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrphase-initrd.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/systemd/system/initrd.target.wants/systemd-pcrphase-initrd.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrphase-sysinit.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrextend.socket:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/sockets.target.wants/systemd-pcrlock.socket:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/storage-target-mode.target.wants/systemd-pcrphase-storage-target-mode.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrnvdone.service:
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase-sysinit.service:
-        arch: [amd64, arm64, riscv64]
-      /usr/lib/systemd/system/systemd-pcrphase.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrproduct.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrextend.socket:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrextend@.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrfs-root.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrfs@.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-file-system.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-firmware-code.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-firmware-config.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-machine-id.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-make-policy.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-secureboot-authority.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock-secureboot-policy.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock.socket:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrlock@.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrmachine.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrnvdone.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase-factory-reset.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase-initrd.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase-storage-target-mode.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase-sysinit.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrphase.service:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/system/systemd-pcrproduct.service:
+        arch: [amd64, arm64, armhf, riscv64]
       /var/lib/pcrlock.d/:
-        arch: [amd64, arm64, riscv64]
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
         make: true
 
   polkit:
     contents:
+      /usr/share/polkit-1/actions/io.systemd.ask-password.policy:
       /usr/share/polkit-1/actions/io.systemd.credentials.policy:
       /usr/share/polkit-1/actions/org.freedesktop.hostname1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.locale1.policy:
