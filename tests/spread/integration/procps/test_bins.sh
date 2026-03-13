@@ -6,9 +6,6 @@
 
 rootfs="$(install-slices procps_bins)"
 
-# chroot "$rootfs" sysctl --help 2>&1 | grep -iq 'usage:'
-# chroot "$rootfs" sysctl --version 2>&1 | grep -q 'sysctl from procps-ng'
-
 bins=(
     free
     kill
