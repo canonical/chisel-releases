@@ -30,8 +30,8 @@ slices:
 
   data:
     contents:
-      /var/cache/bind: {make: true, mode: 02775}
-      /var/lib/bind: {make: true, mode: 02775}
+      /var/cache/bind/: {make: true, mode: 02775}
+      /var/lib/bind/: {make: true, mode: 02775}
 
   libs:
     essential:
