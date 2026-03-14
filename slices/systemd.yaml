@@ -95,8 +95,8 @@ slices:
     contents:
       /usr/bin/loginctl:
       /usr/lib/systemd/system/dbus-org.freedesktop.login1.service:
-      /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
       /usr/lib/systemd/system/systemd-logind.service:
+      /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
       /usr/lib/systemd/system/systemd-user-sessions.service:
       /usr/lib/systemd/system/user-runtime-dir@.service:
       /usr/lib/systemd/system/user@.service:
