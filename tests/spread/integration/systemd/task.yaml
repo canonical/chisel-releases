@@ -1,20 +1,7 @@
 summary: Integration tests for systemd
 
-execute: |
-  # Chisel a minimum number of slices to give us a runnable system that we can
-  # test in.
-  rootfs="$(install-slices bash_bins coreutils_bins passwd_config base-files_base systemd_standard)"
-  
-  # systemd needs proc mounted
-  mkdir "${rootfs}"/proc
-  mount --bind /proc "${rootfs}"/proc
+variants:
+    - detect-virt
+    - core
 
-  cp test.sh "${rootfs}/"
-  chroot "${rootfs}/" /test.sh
-
-  umount "${rootfs}"/proc
-
-  # Test just the detect-virt slice
-  rootfs="$(install-slices systemd_detect-virt)"
-  chroot "${rootfs}/" systemd-detect-virt --help
-  chroot "${rootfs}/" systemd-detect-virt --list
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
