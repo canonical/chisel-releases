@@ -56,6 +56,26 @@ slices:
       systemd_user-services:
       systemd_utils:
 
+  # Run0 (sudo alternative)
+  run0:
+    hint: Elevate privileges interactively
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_polkit:
+    contents:
+      /usr/bin/run0:  # Symlink to systemd-run
+      /usr/bin/systemd-run:
+
+  # Detect virtualization
+  detect-virt:
+    hint: Identify virtualization environment
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+    contents:
+      /usr/bin/systemd-detect-virt:
+
   # Journal management
   journal:
     essential:
@@ -201,7 +221,7 @@ slices:
       /usr/bin/systemd-cat:
       /usr/bin/systemd-cgls:
       /usr/bin/systemd-cgtop:
-      /usr/bin/systemd-confext:
+      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
       /usr/bin/systemd-creds:
       /usr/bin/systemd-delta:
       /usr/bin/systemd-firstboot:
@@ -214,29 +234,9 @@ slices:
       /usr/bin/systemd-stdio-bridge:
       /usr/bin/systemd-sysext:
       /usr/bin/systemd-tty-ask-password-agent:
-      /usr/bin/systemd-umount:
+      /usr/bin/systemd-umount:  # Symlink to systemd-mount
       /usr/bin/systemd-vpick:
       /usr/bin/varlinkctl:
-
-  # Run0 (sudo alternative)
-  run0:
-    hint: Elevate privileges interactively
-    essential:
-      libc6_libs:
-      libsystemd-shared_libs:
-      systemd_polkit:
-    contents:
-      /usr/bin/run0:  # Symlink to systemd-run
-      /usr/bin/systemd-run:
-
-  # Detect virtualization
-  detect-virt:
-    hint: Identify virtualization environment
-    essential:
-      libc6_libs:
-      libsystemd-shared_libs:
-    contents:
-      /usr/bin/systemd-detect-virt:
 
   # System services and daemons
   services:
