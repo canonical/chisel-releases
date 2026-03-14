@@ -3,5 +3,6 @@ summary: Integration tests for systemd
 variants:
     - detect-virt
     - core
+    - run0
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh

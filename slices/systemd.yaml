@@ -20,6 +20,7 @@ slices:
       mount_bins:
       systemd_catalog:
       systemd_config:
+      systemd_run0:
       systemd_system-generators:
     contents:
       /usr/bin/kernel-install:
@@ -29,7 +30,6 @@ slices:
       /usr/bin/systemd-mute-console:
       /usr/bin/systemd-notify:
       /usr/bin/systemd-pty-forward:
-      /usr/bin/systemd-run:
       /usr/bin/systemd-sysusers:
       /usr/bin/systemd-tmpfiles:
       /usr/lib/systemd/systemd:
@@ -50,7 +50,6 @@ slices:
       systemd_locale:
       systemd_login:
       systemd_network:
-      systemd_run0:
       systemd_services:
       systemd_timedate:
       systemd_tpm2:
@@ -221,15 +220,18 @@ slices:
 
   # Run0 (sudo alternative)
   run0:
+    hint: Elevate privileges interactively
     essential:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_polkit:
     contents:
-      /usr/bin/run0:
+      /usr/bin/run0:  # Symlink to systemd-run
+      /usr/bin/systemd-run:
 
   # Detect virtualization
   detect-virt:
+    hint: Identify virtualization environment
     essential:
       libc6_libs:
       libsystemd-shared_libs:
