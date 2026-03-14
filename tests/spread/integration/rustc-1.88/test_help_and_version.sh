@@ -9,7 +9,6 @@ case "${arch}" in
 esac
 
 rootfs="$(install-slices --arch "$chisel_arch" rustc-1.88_rustc)"
-# ln -s gcc "$rootfs/usr/bin/cc"  # not needed for help/version
 
 chroot "${rootfs}/" rustc-1.88 --help | grep -q "Usage: rustc"
 chroot "${rootfs}/" rustc-1.88 --version | grep -q 'rustc 1.88'
