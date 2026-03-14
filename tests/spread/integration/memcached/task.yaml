@@ -1,0 +1,40 @@
+summary: Integration tests for memcached
+
+prepare: |
+    # Ensure the host has the networking tools required for the test
+    apt-get update && apt-get install -y iproute2 netcat-openbsd
+
+execute: |
+    rootfs="$(install-slices memcached_bins)"
+
+    chroot "${rootfs}/" memcached -V
+
+    # Mock the 'root' user so the binary can verify its -u flag inside the chroot
+    mkdir -p "${rootfs}/etc"
+    echo "root:x:0:0:root:/root:/bin/sh" > "${rootfs}/etc/passwd"
+
+    # Verify it can start and listen on the default port (11211)
+    chroot "${rootfs}/" memcached -u root -d
+    
+    # Wait for the socket to settle
+    sleep 2
+    
+    # Check if the port is open using the host's networking tools
+    # pointing at the chroot's process
+    ss -tulpn | grep :11211
+    
+    # Set and Get a key
+    # Protocol: set <key> <flags> <exptime> <bytes>\r\n<value>\r\n
+    echo "Writing to memcached..."
+    printf "set mykey 0 60 5\r\nhello\r\n" > /dev/tcp/127.0.0.1/11211
+
+    # Protocol: get <key>\r\n
+    echo "Reading from memcached..."
+    
+    RESPONSE=$(printf "get mykey\r\n" | nc -q 1 127.0.0.1 11211)
+
+    echo "Response: $RESPONSE"
+    echo "$RESPONSE" | grep -q "hello"
+
+    # Cleanup
+    pkill memcached || true
