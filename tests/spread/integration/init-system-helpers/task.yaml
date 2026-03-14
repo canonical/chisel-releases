@@ -1,0 +1,10 @@
+summary: Integration tests for init-system-helpers
+
+variants:
+    - deb-systemd-helper
+    - deb-systemd-invoke
+    - invoke-rc-d
+    - service
+    - update-rc-d
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
