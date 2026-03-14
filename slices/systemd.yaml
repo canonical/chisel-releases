@@ -32,9 +32,9 @@ slices:
       /usr/bin/systemd-run:
       /usr/bin/systemd-sysusers:
       /usr/bin/systemd-tmpfiles:
+      /usr/lib/systemd/systemd:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-shutdown:
-      /usr/lib/systemd/systemd:
 
   # Standard installation - includes core system components
   standard:
@@ -73,8 +73,8 @@ slices:
       /usr/lib/systemd/system/systemd-journald-dev-log.socket:
       /usr/lib/systemd/system/systemd-journald-sync@.service:
       /usr/lib/systemd/system/systemd-journald-varlink@.socket:
-      /usr/lib/systemd/system/systemd-journald.service.d/nice.conf:
       /usr/lib/systemd/system/systemd-journald.service:
+      /usr/lib/systemd/system/systemd-journald.service.d/nice.conf:
       /usr/lib/systemd/system/systemd-journald.socket:
       /usr/lib/systemd/system/systemd-journald@.service:
       /usr/lib/systemd/system/systemd-journald@.socket:
@@ -99,9 +99,9 @@ slices:
       /usr/lib/systemd/system/systemd-logind.service:
       /usr/lib/systemd/system/systemd-user-sessions.service:
       /usr/lib/systemd/system/user-runtime-dir@.service:
+      /usr/lib/systemd/system/user@.service:
       /usr/lib/systemd/system/user@.service.d/10-login-barrier.conf:
       /usr/lib/systemd/system/user@.service.d/timeout.conf:
-      /usr/lib/systemd/system/user@.service:
       /usr/lib/systemd/system/user@0.service.d/10-login-barrier.conf:
       /usr/lib/systemd/systemd-logind:
       /usr/lib/systemd/systemd-user-runtime-dir:
@@ -131,8 +131,8 @@ slices:
     contents:
       /usr/bin/localectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.locale1.service:
-      /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/system/systemd-localed.service:
+      /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/systemd-localed:
 
   # Time and date management
@@ -170,8 +170,8 @@ slices:
       /usr/lib/systemd/system/systemd-networkd.service:
       /usr/lib/systemd/system/systemd-networkd.socket:
       /usr/lib/systemd/systemd-network-generator:
-      /usr/lib/systemd/systemd-networkd-wait-online:
       /usr/lib/systemd/systemd-networkd:
+      /usr/lib/systemd/systemd-networkd-wait-online:
 
   network-config:
     contents:
@@ -386,16 +386,16 @@ slices:
       /usr/lib/systemd/system/emergency.target:
       /usr/lib/systemd/system/exit.target:
       /usr/lib/systemd/system/factory-reset-now.target:
+      /usr/lib/systemd/system/factory-reset.target:
       /usr/lib/systemd/system/factory-reset.target.wants/systemd-factory-reset-request.service:
       /usr/lib/systemd/system/factory-reset.target.wants/systemd-pcrphase-factory-reset.service:
         arch: [amd64, arm64, armhf, riscv64]
-      /usr/lib/systemd/system/factory-reset.target:
       /usr/lib/systemd/system/final.target:
       /usr/lib/systemd/system/first-boot-complete.target:
       /usr/lib/systemd/system/getty-pre.target:
       /usr/lib/systemd/system/getty-static.service:
-      /usr/lib/systemd/system/getty.target.wants/getty-static.service:
       /usr/lib/systemd/system/getty.target:
+      /usr/lib/systemd/system/getty.target.wants/getty-static.service:
       /usr/lib/systemd/system/getty@.service:
       /usr/lib/systemd/system/graphical.target:
       /usr/lib/systemd/system/halt.target:
@@ -413,26 +413,26 @@ slices:
       /usr/lib/systemd/system/initrd-switch-root.target:
       /usr/lib/systemd/system/initrd-udevadm-cleanup-db.service:
       /usr/lib/systemd/system/initrd-usr-fs.target:
+      /usr/lib/systemd/system/initrd.target:
       /usr/lib/systemd/system/initrd.target.wants/systemd-battery-check.service:
       /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service:
         arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/system/initrd.target.wants/systemd-confext-initrd.service:
       /usr/lib/systemd/system/initrd.target.wants/systemd-sysext-initrd.service:
-      /usr/lib/systemd/system/initrd.target:
       /usr/lib/systemd/system/kexec.target:
       /usr/lib/systemd/system/kmod-static-nodes.service:
       /usr/lib/systemd/system/kmod.service:
       /usr/lib/systemd/system/ldconfig.service:
       /usr/lib/systemd/system/local-fs-pre.target:
-      /usr/lib/systemd/system/local-fs.target.wants/tmp.mount:
       /usr/lib/systemd/system/local-fs.target:
+      /usr/lib/systemd/system/local-fs.target.wants/tmp.mount:
       /usr/lib/systemd/system/machine.slice:
       /usr/lib/systemd/system/modprobe@.service:
+      /usr/lib/systemd/system/multi-user.target:
       /usr/lib/systemd/system/multi-user.target.wants/getty.target:
       /usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path:
       /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service:
       /usr/lib/systemd/system/multi-user.target.wants/systemd-user-sessions.service:
-      /usr/lib/systemd/system/multi-user.target:
       /usr/lib/systemd/system/network-online.target:
       /usr/lib/systemd/system/network-pre.target:
       /usr/lib/systemd/system/network.target:
@@ -446,8 +446,8 @@ slices:
       /usr/lib/systemd/system/procps.service:
       /usr/lib/systemd/system/quotaon-root.service:
       /usr/lib/systemd/system/quotaon@.service:
-      /usr/lib/systemd/system/rc-local.service.d/debian.conf:
       /usr/lib/systemd/system/rc-local.service:
+      /usr/lib/systemd/system/rc-local.service.d/debian.conf:
       /usr/lib/systemd/system/reboot.target:
       /usr/lib/systemd/system/remote-fs-pre.target:
       /usr/lib/systemd/system/remote-fs.target:
@@ -460,6 +460,7 @@ slices:
       /usr/lib/systemd/system/sleep.target:
       /usr/lib/systemd/system/slices.target:
       /usr/lib/systemd/system/smartcard.target:
+      /usr/lib/systemd/system/sockets.target:
       /usr/lib/systemd/system/sockets.target.wants/systemd-ask-password.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-creds.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-factory-reset.socket:
@@ -469,7 +470,6 @@ slices:
       /usr/lib/systemd/system/sockets.target.wants/systemd-logind-varlink.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-mute-console.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-sysext.socket:
-      /usr/lib/systemd/system/sockets.target:
       /usr/lib/systemd/system/soft-reboot.target:
       /usr/lib/systemd/system/sound.target:
       /usr/lib/systemd/system/ssh-access.target:
@@ -481,6 +481,7 @@ slices:
       /usr/lib/systemd/system/sys-kernel-config.mount:
       /usr/lib/systemd/system/sys-kernel-debug.mount:
       /usr/lib/systemd/system/sys-kernel-tracing.mount:
+      /usr/lib/systemd/system/sysinit.target:
       /usr/lib/systemd/system/sysinit.target.wants/dev-hugepages.mount:
       /usr/lib/systemd/system/sysinit.target.wants/dev-mqueue.mount:
       /usr/lib/systemd/system/sysinit.target.wants/imports.target:
@@ -511,7 +512,6 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tpm2-setup.service:
         arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
-      /usr/lib/systemd/system/sysinit.target:
       /usr/lib/systemd/system/syslog.socket:
       /usr/lib/systemd/system/system-systemd\x2dmute\x2dconsole.slice:
       /usr/lib/systemd/system/system-update-cleanup.service:
@@ -540,8 +540,8 @@ slices:
       /usr/lib/systemd/system/systemd-factory-reset.socket:
       /usr/lib/systemd/system/systemd-factory-reset@.service:
       /usr/lib/systemd/system/systemd-firstboot.service:
-      /usr/lib/systemd/system/systemd-fsck-root.service.d/10-skip-fsck-initramfs.conf:
       /usr/lib/systemd/system/systemd-fsck-root.service:
+      /usr/lib/systemd/system/systemd-fsck-root.service.d/10-skip-fsck-initramfs.conf:
       /usr/lib/systemd/system/systemd-fsck@.service:
       /usr/lib/systemd/system/systemd-growfs-root.service:
       /usr/lib/systemd/system/systemd-growfs@.service:
@@ -551,11 +551,11 @@ slices:
       /usr/lib/systemd/system/systemd-hibernate.service:
       /usr/lib/systemd/system/systemd-hybrid-sleep.service:
       /usr/lib/systemd/system/systemd-kexec.service:
-      /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/system/systemd-localed.service:
+      /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/system/systemd-logind-varlink.socket:
-      /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
       /usr/lib/systemd/system/systemd-logind.service:
+      /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
       /usr/lib/systemd/system/systemd-loop@.service:
       /usr/lib/systemd/system/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/systemd-modules-load.service:
@@ -597,8 +597,8 @@ slices:
       /usr/lib/systemd/system/systemd-volatile-root.service:
       /usr/lib/systemd/system/time-set.target:
       /usr/lib/systemd/system/time-sync.target:
-      /usr/lib/systemd/system/timers.target.wants/systemd-tmpfiles-clean.timer:
       /usr/lib/systemd/system/timers.target:
+      /usr/lib/systemd/system/timers.target.wants/systemd-tmpfiles-clean.timer:
       /usr/lib/systemd/system/tmp.mount:
       /usr/lib/systemd/system/tpm2.target:
       /usr/lib/systemd/system/umount.target:
