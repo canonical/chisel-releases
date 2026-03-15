@@ -12,15 +12,15 @@ mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
 chmod +x "$rootfs/dev/null"
 mkdir -p "$rootfs/proc"
-sudo mount --bind /proc "$rootfs/proc"
-trap 'sudo umount "$rootfs/proc"' EXIT
+mount --bind /proc "$rootfs/proc"
+trap 'umount "$rootfs/proc"' EXIT
 
 #------------------------------------------------------------------------------
 # BIND 9 SETUP
 #-------------------------------------------------------------------------------
 
 # Create the rndc key (maintainer scripts)
-rndc-confgen -a -t $rootfs
+rndc-confgen -a -c $rootfs/etc/bind/rndc.key
 
 # Copy the config files to the rootfs
 cp db.test.local "${rootfs}/etc/bind/db.test.local"
@@ -36,22 +36,23 @@ EOF
 # Use named-rrchecker to validate the A records from the zone file
 grep ' IN A ' "${rootfs}/etc/bind/db.test.local" |
     awk '{print $2, $3, $4}' |
-    xargs -I{} sh -c 'echo "{}" | chroot "${rootfs}/" named-rrchecker'
+    xargs -I{} sh -c 'echo "$1" | chroot "$2/" named-rrchecker' _ {} "$rootfs"
 
 #--------------------------------------------------------------------------------
 # RUN DNS SERVER
 #--------------------------------------------------------------------------------
 
 # Start the bind9 server
-chroot "${rootfs}/" named -g -c /etc/bind/named.conf &
-pid=$!
-trap 'kill $pid' EXIT
+chroot "${rootfs}/" named -c /etc/bind/named.conf
+trap 'rndc -k "$rootfs/etc/bind/rndc.key" stop' EXIT
 
 # Wait for bind to start
-sleep 5
+until rndc -k "$rootfs/etc/bind/rndc.key" status >/dev/null 2>&1; do
+    sleep 0.2
+done
 
 # Dynamically add a zone to bind9 config with rndc (generates .nzd file)
-rndc addzone test.local '{ type master; file "/etc/bind/db.test.local"; allow-update { any; }; };'
+rndc -k "$rootfs/etc/bind/rndc.key" addzone test.local '{ type master; file "/etc/bind/db.test.local"; allow-update { any; }; };'
 
 #--------------------------------------------------------------------------------
 # TEST ASSERTIONS
@@ -62,7 +63,7 @@ dig @127.0.0.1 www.test.local | grep ';; ANSWER SECTION:'
 dig @127.0.0.1 mail.test.local | grep ';; ANSWER SECTION:'
 
 # Read the generated nzd file
-chroot rootfs/ named-nzd2nzf /var/cache/bind/_default.nzd | grep 'zone "test.local"'
+chroot "${rootfs}/" named-nzd2nzf /var/cache/bind/_default.nzd | grep 'zone "test.local"'
 
 # Use nsupdate to add a new record (generates journal file)
 nsupdate <<EOF
