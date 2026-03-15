@@ -19,17 +19,13 @@ main() {
     remove_numbers=$(echo "$remove_line" | cut -d: -f2 | tr -d ' ')
 
     for number in ${add_numbers//,/ }; do
-        if [ -n "$number" ]; then
-            echo "Adding label to PR #$number"
-            gh pr edit "$number" --add-label "forward port missing"
-        fi
+        echo "Adding label to PR #$number"
+        gh pr edit "$number" --add-label "forward port missing"
     done
 
     for number in ${remove_numbers//,/ }; do
-        if [ -n "$number" ]; then
-            echo "Removing label from PR #$number"
-            gh pr edit "$number" --remove-label "forward port missing"
-        fi
+        echo "Removing label from PR #$number"
+        gh pr edit "$number" --remove-label "forward port missing"
     done
 }
 
