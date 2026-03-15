@@ -44,6 +44,7 @@ jobs:
         env:
           # we need the token to edit labels
           GITHUB_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           ln -s "${{ env.script }}/apply_pr_labels.sh" .
           ./apply_pr_labels.sh results.txt
