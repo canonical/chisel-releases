@@ -25,7 +25,6 @@ import re
 from concurrent.futures import ThreadPoolExecutor
 from itertools import product
 import subprocess as sub
-import sys
 from dataclasses import dataclass
 from contextlib import contextmanager
 import time
@@ -163,6 +162,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
         result["new_slices"] = sorted(new_slices)
 
     return set(PR.from_github_json(r) for r in results if r.get("new_slices"))
+
 
 # precompile regex to extract package names from the package listing
 _PACKAGE_RE = re.compile(r"^Package:\s*(\S+)", re.MULTILINE)
