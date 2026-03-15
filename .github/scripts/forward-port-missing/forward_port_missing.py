@@ -222,7 +222,7 @@ def fetch_packages_in_release(
         release: set() for release in codenames.keys()
     }
     _codenames = {short: release for release, short in codenames.items()}
-    for short_codename, component, repo, packages in results:
+    for short_codename, _component, _repo, packages in results:
         packages_by_release[_codenames[short_codename]].update(packages)
 
     return packages_by_release
