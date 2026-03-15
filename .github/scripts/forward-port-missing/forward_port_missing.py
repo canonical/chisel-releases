@@ -111,14 +111,19 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
             params["page"] += 1  # type: ignore[operator]
 
     # filter down to PRs into branches named "ubuntu-XX.XX"
-    results = [pr for pr in results if pr["base"]["ref"].startswith("ubuntu-")]
+    _results: Iterator[dict] = (
+        pr for pr in results if pr["base"]["ref"].startswith("ubuntu-")
+    )
 
     # filter out draft PRs
-    results = [pr for pr in results if not pr.get("draft", False)]
+    _results = (pr for pr in _results if not pr.get("draft", False))
 
     # filter down to PRs into supported branches if specified
     if supported_branches is not None:
-        results = [pr for pr in results if pr["base"]["ref"] in supported_branches]
+        _results = (pr for pr in _results if pr["base"]["ref"] in supported_branches)
+
+    # run the generator
+    results = list(_results)
 
     # fetch the diff for each PR in parallel and determine which slices they are modifying (i.e. which files in the /slices directory they are adding/modifying)
 
