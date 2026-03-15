@@ -204,8 +204,10 @@ def fetch_packages_in_release(
             set(m.group(1) for m in _PACKAGE_RE.finditer(content)),
         )
 
+    # TODO: get these from chisel.yaml instead of hardcoding
     _components = ("main", "restricted", "universe", "multiverse")
     _repos = ("", "security", "updates", "backports")
+
     _product = list(product(codenames.values(), _components, _repos))
     with timing_context() as elapsed:
         with ThreadPoolExecutor(max_workers=5) as executor:
