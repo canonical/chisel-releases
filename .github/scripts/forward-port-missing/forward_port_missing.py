@@ -250,8 +250,6 @@ def checkout_chisel_releases_info(
         if not branches:
             raise Exception("No ubuntu branches in chisel-releases")
 
-        _branches = sorted(map(lambda b: b.removeprefix("ubuntu-"), branches))
-
         # get slice names for each supported release branch
         for branch in branches:
             _ = sub.run(
