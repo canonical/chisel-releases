@@ -183,7 +183,7 @@ def fetch_packages_in_release(
 
     info(f"Fetching packages for {len(codenames)} releases...")
 
-    def _fetch_packages(args: tuple[str, str, str]) -> tuple[str, str, str, set[str]]:
+    def _fetch_packages(args: tuple[str, str, str]) -> tuple[str, set[str]]:
         """Fetch the list of packages for a given release, component, and repo"""
         short_codename, component, repo = args
         name = f"{short_codename}-{repo}" if repo else short_codename
@@ -199,8 +199,6 @@ def fetch_packages_in_release(
 
         return (
             short_codename,
-            component,
-            repo,
             set(m.group(1) for m in _PACKAGE_RE.finditer(content)),
         )
 
@@ -211,7 +209,7 @@ def fetch_packages_in_release(
     _product = list(product(codenames.values(), _components, _repos))
     with timing_context() as elapsed:
         with ThreadPoolExecutor(max_workers=5) as executor:
-            results: list[tuple[str, str, str, set[str]]] = list(
+            results: list[tuple[str, set[str]]] = list(
                 executor.map(_fetch_packages, _product)
             )
 
@@ -222,7 +220,7 @@ def fetch_packages_in_release(
         release: set() for release in codenames.keys()
     }
     _codenames = {short: release for release, short in codenames.items()}
-    for short_codename, _component, _repo, packages in results:
+    for short_codename, packages in results:
         packages_by_release[_codenames[short_codename]].update(packages)
 
     return packages_by_release
