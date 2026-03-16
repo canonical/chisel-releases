@@ -17,9 +17,9 @@ def hello_world():
 
 def check_python_version():
     print("Checking Python version...")
-    assert sys.version.startswith(
-        "3.14"
-    ), f"Wrong Python version installed: {sys.version}. Expected 3.13."
+    assert sys.version.startswith("3.14"), (
+        f"Wrong Python version installed: {sys.version}. Expected 3.14."
+    )
 
 
 def check_file_operations():
