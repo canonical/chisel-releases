@@ -1,5 +1,13 @@
 package: libpython3.14-minimal
 
+# Most of the python3.14 standard libraries are split into
+# two major packages:
+# - libpython3.14-minimal (this one)
+# - libpython3.14-stdlib
+# While the libpython3.14-stdlib package has been chiselled logically
+# into granular slices, the same hasn't been done for this package.
+# The reason is simple, the libraries in this package are tightly
+# dependent upon each other.
 essential:
   - libpython3.14-minimal_copyright
 
