@@ -5,7 +5,7 @@ rootfs="$(install-slices bind9_bins)"
 
 # install dnsutils and bind9-dnsutils for testing
 apt update
-apt install -y dnsutils bind9-dnsutils bind9-utils
+apt install -y bind9-dnsutils bind9-utils
 
 # Make fake /dev/null and mount /proc
 mkdir -p "$rootfs/dev"
