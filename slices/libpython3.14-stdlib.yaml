@@ -1,7 +1,7 @@
 package: libpython3.14-stdlib
 
 essential:
-  - libpython3.14-stdlib_copyright
+  libpython3.14-stdlib_copyright:
 
 # The slices in this package have been grouped with inspiration from the
 # Python 3.14 Standard Library
@@ -16,19 +16,19 @@ slices:
   # The "core" slice provides a very minimal libpython3.14-stdlib
   core:
     essential:
-      - libbz2-1.0_libs
-      - libc6_libs
+      libbz2-1.0_libs:
+      libc6_libs:
       # Adding libgcc-s1 here because it is required for the arm arch.
       # In practice, libc6 should bring it anyway, BUT, there is a circular
       # dependency in the archives, where libc6 depends on libgcc-s1 and
       # vice versa. We don't allow that circular dependency to exist in Chisel
       # and libgcc-s1 already depends on libc6, so we'll have to include this
       # line here, explicitly.
-      - libgcc-s1_libs
-      - liblzma5_libs
-      - libpython3.14-minimal_libs
-      - media-types_data
-      - netbase_config
+      libgcc-s1_libs:
+      liblzma5_libs:
+      libpython3.14-minimal_libs:
+      media-types_data:
+      netbase_config:
     contents:
       /usr/lib/python3.14/_pydatetime.py:
       /usr/lib/python3.14/_pylong.py:
@@ -55,7 +55,7 @@ slices:
   # Shared AIX (IBM) support functions
   aix-support:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_aix_support.py:
 
@@ -63,11 +63,11 @@ slices:
   # https://docs.python.org/3.14/library/allos.html
   all-os:
     essential:
-      - libffi8_libs
-      - libncursesw6_libs
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_unix
-      - libtinfo6_libs
+      libffi8_libs:
+      libncursesw6_libs:
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_unix:
+      libtinfo6_libs:
     contents:
       /usr/lib/python3.14/_pyio.py:
       /usr/lib/python3.14/ctypes/**:
@@ -80,9 +80,9 @@ slices:
   # https://docs.python.org/3.14/library/concurrency.html
   concurrency:
     essential:
-      - libpython3.14-stdlib_all-os
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_crypto
+      libpython3.14-stdlib_all-os:
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_crypto:
     contents:
       /usr/lib/python3.14/concurrent/**:
       /usr/lib/python3.14/lib-dynload/_interpchannels.cpython-314-*-linux-*.so:
@@ -97,7 +97,7 @@ slices:
   # https://docs.python.org/3.14/library/crypto.html
   crypto:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/hmac.py:
       /usr/lib/python3.14/lib-dynload/_hmac.cpython-314-*-linux-*.so:
@@ -107,8 +107,8 @@ slices:
   # https://docs.python.org/3.14/library/custominterp.html
   custom-interpreters:
     essential:
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_text
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_text:
     contents:
       /usr/lib/python3.14/code.py:
       /usr/lib/python3.14/codeop.py:
@@ -117,9 +117,9 @@ slices:
   # https://docs.python.org/3.14/library/persistence.html
   data-persistence:
     essential:
-      - libdb5.3t64_libs
-      - libpython3.14-stdlib_core
-      - libsqlite3-0_libs
+      libdb5.3t64_libs:
+      libpython3.14-stdlib_core:
+      libsqlite3-0_libs:
     contents:
       /usr/lib/python3.14/dbm/**:
       /usr/lib/python3.14/lib-dynload/_dbm.cpython-314-*-linux-*.so:
@@ -131,8 +131,8 @@ slices:
   # https://docs.python.org/3.14/library/datatypes.html
   data-types:
     essential:
-      - libpython3.14-stdlib_core
-      - tzdata_zoneinfo
+      libpython3.14-stdlib_core:
+      tzdata_zoneinfo:
     contents:
       /usr/lib/python3.14/graphlib.py:
       /usr/lib/python3.14/lib-dynload/_zoneinfo.cpython-314-*-linux-*.so:
@@ -143,11 +143,11 @@ slices:
   # https://docs.python.org/3.14/library/debug.html
   debug:
     essential:
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_custom-interpreters
-      - libpython3.14-stdlib_data-types
-      - libpython3.14-stdlib_frameworks
-      - libpython3.14-stdlib_text
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_custom-interpreters:
+      libpython3.14-stdlib_data-types:
+      libpython3.14-stdlib_frameworks:
+      libpython3.14-stdlib_text:
     contents:
       /usr/lib/python3.14/bdb.py:
       /usr/lib/python3.14/cProfile.py:
@@ -163,19 +163,19 @@ slices:
   # https://docs.python.org/3.14/library/development.html
   development-tools:
     essential:
-      - libpython3.14-stdlib_all-os
-      - libpython3.14-stdlib_concurrency
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_data-types
-      - libpython3.14-stdlib_debug
-      - libpython3.14-stdlib_distribution
-      - libpython3.14-stdlib_internet
-      - libpython3.14-stdlib_ipc
-      - libpython3.14-stdlib_markup-tools
-      - libpython3.14-stdlib_net-data
-      - libpython3.14-stdlib_numeric
-      - libpython3.14-stdlib_text
-      - libpython3.14-stdlib_unix
+      libpython3.14-stdlib_all-os:
+      libpython3.14-stdlib_concurrency:
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_data-types:
+      libpython3.14-stdlib_debug:
+      libpython3.14-stdlib_distribution:
+      libpython3.14-stdlib_internet:
+      libpython3.14-stdlib_ipc:
+      libpython3.14-stdlib_markup-tools:
+      libpython3.14-stdlib_net-data:
+      libpython3.14-stdlib_numeric:
+      libpython3.14-stdlib_text:
+      libpython3.14-stdlib_unix:
     contents:
       /usr/lib/python3.14/__phello__/**:
       /usr/lib/python3.14/doctest.py:
@@ -197,8 +197,8 @@ slices:
   # https://docs.python.org/3.14/library/distribution.html
   distribution:
     essential:
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_osx-support
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_osx-support:
     contents:
       /usr/lib/python3.14/_distutils_system_mod.py:
       /usr/lib/python3.14/venv/**:
@@ -208,9 +208,9 @@ slices:
   # https://docs.python.org/3.14/library/fileformats.html
   file-formats:
     essential:
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_frameworks
-      - libpython3.14-stdlib_markup-tools
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_frameworks:
+      libpython3.14-stdlib_markup-tools:
     contents:
       /usr/lib/python3.14/netrc.py:
       /usr/lib/python3.14/plistlib.py:
@@ -220,7 +220,7 @@ slices:
   # https://docs.python.org/3.14/library/filesys.html
   filesys:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/fileinput.py:
 
@@ -228,8 +228,8 @@ slices:
   # https://docs.python.org/3.14/library/frameworks.html
   frameworks:
     essential:
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_text
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_text:
     contents:
       /usr/lib/python3.14/cmd.py:
       /usr/lib/python3.14/shlex.py:
@@ -239,7 +239,7 @@ slices:
   # https://docs.python.org/3.14/library/modules.html
   importing:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/modulefinder.py:
 
@@ -247,15 +247,15 @@ slices:
   # https://docs.python.org/3.14/library/internet.html
   internet:
     essential:
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_crypto
-      - libpython3.14-stdlib_file-formats
-      - libpython3.14-stdlib_frameworks
-      - libpython3.14-stdlib_ipc
-      - libpython3.14-stdlib_markup-tools
-      - libpython3.14-stdlib_numeric
-      - libpython3.14-stdlib_pydoc
-      - libuuid1_libs
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_crypto:
+      libpython3.14-stdlib_file-formats:
+      libpython3.14-stdlib_frameworks:
+      libpython3.14-stdlib_ipc:
+      libpython3.14-stdlib_markup-tools:
+      libpython3.14-stdlib_numeric:
+      libpython3.14-stdlib_pydoc:
+      libuuid1_libs:
     contents:
       /usr/lib/python3.14/ftplib.py:
       /usr/lib/python3.14/http/cookiejar.py:
@@ -275,8 +275,8 @@ slices:
   # https://docs.python.org/3.14/library/ipc.html
   ipc:
     essential:
-      - libpython3.14-stdlib_concurrency
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_concurrency:
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/asyncio/**:
       /usr/lib/python3.14/lib-dynload/_asyncio.cpython-314-*-linux-*.so:
@@ -285,7 +285,7 @@ slices:
   # https://docs.python.org/3.14/library/language.html
   language:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/pickletools.py:
       /usr/lib/python3.14/pyclbr.py:
@@ -296,7 +296,7 @@ slices:
   # https://docs.python.org/3.14/library/markup.html
   markup-tools:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_markupbase.py:
       /usr/lib/python3.14/html/**:
@@ -306,7 +306,7 @@ slices:
   # https://docs.python.org/3.14/library/mm.html
   multimedia:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/colorsys.py:
       /usr/lib/python3.14/wave.py:
@@ -315,7 +315,7 @@ slices:
   # https://docs.python.org/3.14/library/netdata.html
   net-data:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/mailbox.py:
 
@@ -323,7 +323,7 @@ slices:
   # https://docs.python.org/3.14/library/numeric.html
   numeric:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_pydecimal.py:
       /usr/lib/python3.14/decimal.py:
@@ -335,28 +335,28 @@ slices:
   # Shared OS X support functions
   osx-support:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_osx_support.py:
 
   # Shared Apple support functions
   apple-support:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_apple_support.py:
 
   # Shared IOS support functions
   ios-support:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_ios_support.py:
 
   # Shared Android support functions
   android-support:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/_android_support.py:
 
@@ -364,16 +364,16 @@ slices:
   # https://docs.python.org/3.14/library/pydoc.html
   pydoc:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/pydoc.py:
       /usr/lib/python3.14/pydoc_data/**:
 
   pyrepl:
     essential:
-      - base-files_home  # To suppress pyrepl warning of failing to save history.
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_custom-interpreters
+      base-files_home:  # To suppress pyrepl warning of failing to save history.
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_custom-interpreters:
     contents:
       /usr/lib/python3.14/_pyrepl/**:
 
@@ -381,9 +381,9 @@ slices:
   # https://docs.python.org/3.14/library/text.html
   text:
     essential:
-      - libpython3.14-stdlib_core
-      - libreadline8t64_libs
-      - libtinfo6_libs
+      libpython3.14-stdlib_core:
+      libreadline8t64_libs:
+      libtinfo6_libs:
     contents:
       /usr/lib/python3.14/difflib.py:
       /usr/lib/python3.14/lib-dynload/readline.cpython-314-*-linux-*.so:
@@ -393,9 +393,9 @@ slices:
   # https://docs.python.org/3.14/library/unix.html
   unix:
     essential:
-      - libcrypt1_libs
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_frameworks
+      libcrypt1_libs:
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_frameworks:
     contents:
       /usr/lib/python3.14/lib-dynload/resource.cpython-314-*-linux-*.so:
       /usr/lib/python3.14/lib-dynload/termios.cpython-314-*-linux-*.so:
@@ -404,7 +404,7 @@ slices:
 
   zstd:
     essential:
-      - libpython3.14-stdlib_core
+      libpython3.14-stdlib_core:
     contents:
       /usr/lib/python3.14/lib-dynload/_zstd.cpython-314-*-linux-*.so:
 
@@ -412,10 +412,10 @@ slices:
   # The "extra" slice consists of easter-eggs and deprecated modules
   extras:
     essential:
-      - libnsl2_libs
-      - libpython3.14-stdlib_core
-      - libpython3.14-stdlib_internet
-      - libtirpc3t64_libs
+      libnsl2_libs:
+      libpython3.14-stdlib_core:
+      libpython3.14-stdlib_internet:
+      libtirpc3t64_libs:
     contents:
       /usr/lib/python3.14/__hello__.py:
       /usr/lib/python3.14/_sysconfig_vars__linux_*-linux-*.json:
@@ -429,6 +429,6 @@ slices:
 
   copyright:
     essential:
-      - libpython3.14-minimal_copyright
+      libpython3.14-minimal_copyright:
     contents:
       /usr/share/doc/libpython3.14-stdlib:

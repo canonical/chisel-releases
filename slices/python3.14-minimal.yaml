@@ -1,15 +1,15 @@
 package: python3.14-minimal
 
 essential:
-  - python3.14-minimal_copyright
+  python3.14-minimal_copyright:
 
 slices:
   bins:
     essential:
-      - libc6_libs
-      - libexpat1_libs
-      - libpython3.14-minimal_libs
-      - zlib1g_libs
+      libc6_libs:
+      libexpat1_libs:
+      libpython3.14-minimal_libs:
+      zlib1g_libs:
     contents:
       /usr/bin/python3.14:
       # The next two directories are created to mimic the behaviour in

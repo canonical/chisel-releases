@@ -1,14 +1,14 @@
 package: python3.14-venv
 
 essential:
-  - python3.14-venv_copyright
+  python3.14-venv_copyright:
 
 slices:
   ensurepip:
     essential:
-      - python3-pip-whl_wheels
-      - python3-setuptools-whl_wheels
-      - python3.14_standard
+      python3-pip-whl_wheels:
+      python3-setuptools-whl_wheels:
+      python3.14_standard:
     contents:
       /usr/lib/python3.14/ensurepip/*.py:
 
