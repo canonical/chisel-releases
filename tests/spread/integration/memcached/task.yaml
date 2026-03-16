@@ -7,7 +7,7 @@ prepare: |
 execute: |
     rootfs="$(install-slices memcached_bins)"
 
-    chroot "${rootfs}/" memcached -V
+    chroot "$rootfs" memcached -V
 
     # Mock the 'root' user so the binary can verify its -u flag inside the chroot
     mkdir -p "${rootfs}/etc"
