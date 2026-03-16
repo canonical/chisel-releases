@@ -1,0 +1,15 @@
+package: rustc
+
+essential:
+  - rustc_copyright
+
+slices:
+  rustc:
+    essential:
+      - rustc-1.85_rustc
+    contents:
+      /usr/bin/rustc:  # symlink to ../lib/rustc-1.85/bin/rustc
+
+  copyright:
+    contents:
+      /usr/share/doc/rustc/copyright:

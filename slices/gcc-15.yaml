@@ -1,0 +1,24 @@
+package: gcc-15
+
+essential:
+  - gcc-15_copyright
+
+slices:
+  gcc-15:
+    # Note: `v3-essential` only works for chisel>=1.3.0
+    v3-essential:
+      binutils_assembler:
+      binutils_linker:
+      cpp-15-aarch64-linux-gnu_cc1: {arch: [arm64]}
+      cpp-15-x86-64-linux-gnu_cc1: {arch: [amd64]}
+      gcc-15-aarch64-linux-gnu_gcc-15: {arch: [arm64]}
+      gcc-15-x86-64-linux-gnu_gcc-15: {arch: [amd64]}
+      libgcc-15-dev_core:
+    contents:
+      /usr/bin/gcc-15:  # Symlink to ${ARCH_TRIPLET}-gcc-15
+
+  copyright:
+    essential:
+      - gcc-15-base_copyright
+    contents:
+      /usr/share/doc/gcc-15:  # Symlink to gcc-15-base
