@@ -11,7 +11,7 @@ execute: |
 
     # Mock the 'root' user so the binary can verify its -u flag inside the chroot
     mkdir -p "$rootfs/etc"
-    echo "root:x:0:0:root:/root:/bin/sh" > "${rootfs}/etc/passwd"
+    echo "root:x:0:0:root:/root:/bin/sh" > "$rootfs/etc/passwd"
 
     # Verify it can start and listen on the default port (11211)
     chroot "$rootfs" memcached -u root -d
