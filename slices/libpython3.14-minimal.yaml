@@ -92,6 +92,7 @@ slices:
       /usr/lib/python3.14/reprlib.py:
       /usr/lib/python3.14/runpy.py:
       /usr/lib/python3.14/selectors.py:
+      /usr/lib/python3.14/shutil.py:
       /usr/lib/python3.14/signal.py:
       /usr/lib/python3.14/site.py:
       /usr/lib/python3.14/sitecustomize.py:

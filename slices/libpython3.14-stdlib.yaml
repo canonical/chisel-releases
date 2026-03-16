@@ -48,7 +48,6 @@ slices:
       /usr/lib/python3.14/mimetypes.py:
       /usr/lib/python3.14/ntpath.py:
       /usr/lib/python3.14/queue.py:
-      /usr/lib/python3.14/shutil.py:
       /usr/lib/python3.14/socketserver.py:
       /usr/lib/python3.14/tarfile.py:
 
