@@ -7,6 +7,10 @@ on:
     branches:
       - "ubuntu-*"
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cla-check:
     if: github.event_name == 'pull_request'
