@@ -18,7 +18,6 @@ slices:
   config:
     contents:
       /etc/default/memcached:
-      /usr/lib/tmpfiles.d/memcached.conf:
 
   copyright:
     contents:
