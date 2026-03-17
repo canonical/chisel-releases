@@ -1,0 +1,8 @@
+summary: Integration tests for bind9-utils
+
+variants:
+  - named_utils
+  - dnssec_utils
+  - rdnc
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

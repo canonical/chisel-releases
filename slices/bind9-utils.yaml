@@ -1,0 +1,32 @@
+package: bind9-utils
+
+essential:
+  bind9-utils_copyright:
+
+slices:
+  bins:
+    essential:
+      bind9-libs_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+      libssl3t64_libs:
+      liburcu8t64_libs:
+    contents:
+      /usr/bin/dnssec-cds:
+      /usr/bin/dnssec-dsfromkey:
+      /usr/bin/dnssec-keyfromlabel:
+      /usr/bin/dnssec-keygen:
+      /usr/bin/dnssec-ksr:
+      /usr/bin/dnssec-revoke:
+      /usr/bin/dnssec-settime:
+      /usr/bin/dnssec-signzone:
+      /usr/bin/dnssec-verify:
+      /usr/bin/named-checkconf:
+      /usr/bin/named-checkzone:
+      /usr/bin/named-compilezone:
+      /usr/sbin/rndc:
+      /usr/sbin/rndc-confgen:
+
+  copyright:
+    contents:
+      /usr/share/doc/bind9-utils/copyright:
