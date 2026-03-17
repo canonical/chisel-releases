@@ -34,7 +34,7 @@ chroot "${rootfs}/" rndc-confgen -a
 #--------------------------------------------------------------------------------
 
 chroot "${rootfs}/" named -c /etc/bind/named.conf
-trap 'chroot "${rootfs}/" rndc stop' EXIT
+trap 'chroot "${rootfs}/" rndc stop || true' EXIT
 
 #--------------------------------------------------------------------------------
 # TEST RNDC COMMANDS
