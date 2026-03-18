@@ -8,7 +8,9 @@ rootfs="$(install-slices memcached_bins base-passwd_data)"
 chroot "$rootfs" memcached -V
 
 # Verify it can start and listen on the default port (11211)
-chroot "$rootfs" memcached -u root -d
+chroot "$rootfs" memcached -u root -d -P /memcached.pid
+
+trap "kill $(cat $rootfs/memcached.pid) || true" EXIT
 
 # Wait for the port to be available with retry logic
 attempts=0
