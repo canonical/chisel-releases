@@ -1,0 +1,22 @@
+package: libsasl2-modules
+
+essential:
+  libsasl2-modules_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/lib/*-linux-*/sasl2/libanonymous.so*:
+      /usr/lib/*-linux-*/sasl2/libcrammd5.so*:
+      /usr/lib/*-linux-*/sasl2/libdigestmd5.so*:
+      /usr/lib/*-linux-*/sasl2/liblogin.so*:
+      /usr/lib/*-linux-*/sasl2/libntlm.so*:
+      /usr/lib/*-linux-*/sasl2/libplain.so*:
+      /usr/lib/*-linux-*/sasl2/libscram.so*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsasl2-modules/copyright:
