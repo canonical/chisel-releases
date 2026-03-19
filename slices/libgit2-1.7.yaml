@@ -1,0 +1,21 @@
+package: libgit2-1.7
+
+essential:
+  - libgit2-1.7_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgssapi-krb5-2_libs
+      - libhttp-parser2.9_libs
+      - libpcre2-8-0_libs
+      - libssh2-1t64_libs
+      - libssl3t64_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libgit2.so.1.7*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgit2-1.7/copyright:

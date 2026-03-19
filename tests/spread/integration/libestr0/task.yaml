@@ -1,0 +1,6 @@
+summary: Integration tests for libestr0
+
+execute: |
+  rootfs="$(install-slices libestr0_libs)"
+  arch=$(uname -m)-linux-gnu 
+  test -f ${rootfs}/usr/lib/${arch}/libestr.so.0

@@ -1,0 +1,7 @@
+summary: Integration tests for libprotobuf-c1
+
+execute: |
+  rootfs="$(install-slices libprotobuf-c1_libs)"
+  arch=$(uname -m)-linux-gnu
+
+  test -f ${rootfs}/usr/lib/${arch}/libprotobuf-c.so.1

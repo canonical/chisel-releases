@@ -1,0 +1,28 @@
+package: ruby
+
+essential:
+  - ruby_copyright
+
+slices:
+  # Leaving ruby-rubygems out of the core installation.
+  # Given that this slice is meant to be used as a core Ruby runtime, you'll
+  # see the following Ruby message:
+  #   `RubyGems' were not loaded.
+  #   `error_highlight' was not loaded.
+  #   `did_you_mean' was not loaded.
+  #   `syntax_suggest' was not loaded.
+  core:
+    essential:
+      - ruby_ruby
+
+  ruby:
+    essential:
+      - ruby3.2_core
+    contents:
+      /usr/bin/ruby:
+
+  copyright:
+    essential:
+      - libruby_copyright
+    contents:
+      /usr/share/doc/ruby/copyright:

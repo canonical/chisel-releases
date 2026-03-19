@@ -1,0 +1,61 @@
+package: php-common
+
+essential:
+  - php-common_copyright
+
+slices:
+  scripts:
+    essential:
+      - coreutils_dirname
+      - coreutils_echo
+      - coreutils_expr
+      - coreutils_ln-utility
+      - coreutils_mkdir
+      - coreutils_printf
+      - coreutils_readlink
+      - coreutils_rm-utility
+      - coreutils_sort
+      - coreutils_touch
+      - dash_bins
+      - findutils_bins
+      - php-common_registry
+      - sed_bins
+    contents:
+      /usr/lib/php/php-fpm-socket-helper:
+      /usr/lib/php/php-helper:
+      /usr/lib/php/sessionclean:
+      /usr/sbin/phpdismod:
+      /usr/sbin/phpenmod:
+      /usr/sbin/phpquery:
+
+  registry:
+    # This slice is only required for phpquery. When phpenmod or
+    # phpdismod are run with the -r flag. A new empty file is
+    # created in the registry location. These files are used by
+    # phpquery to track the modules currently enabled.
+    contents:
+      /var/lib/php/modules/8.3/registry/calendar: { text: "" }
+      /var/lib/php/modules/8.3/registry/ctype: { text: "" }
+      /var/lib/php/modules/8.3/registry/exif: { text: "" }
+      /var/lib/php/modules/8.3/registry/ffi: { text: "" }
+      /var/lib/php/modules/8.3/registry/fileinfo: { text: "" }
+      /var/lib/php/modules/8.3/registry/ftp: { text: "" }
+      /var/lib/php/modules/8.3/registry/gettext: { text: "" }
+      /var/lib/php/modules/8.3/registry/iconv: { text: "" }
+      /var/lib/php/modules/8.3/registry/pdo: { text: "" }
+      /var/lib/php/modules/8.3/registry/phar: { text: "" }
+      /var/lib/php/modules/8.3/registry/posix: { text: "" }
+      /var/lib/php/modules/8.3/registry/shmop: { text: "" }
+      /var/lib/php/modules/8.3/registry/sockets: { text: "" }
+      /var/lib/php/modules/8.3/registry/sysvmsg: { text: "" }
+      /var/lib/php/modules/8.3/registry/sysvsem: { text: "" }
+      /var/lib/php/modules/8.3/registry/sysvshm: { text: "" }
+      /var/lib/php/modules/8.3/registry/tokenizer: { text: "" }
+
+  session:
+    contents:
+      /var/lib/php/sessions/:
+
+  copyright:
+    contents:
+      /usr/share/doc/php-common/copyright:

@@ -1,0 +1,7 @@
+summary: Integration tests for libnl-3-200
+
+execute: |
+  rootfs="$(install-slices libnl-3-200_libs)"
+  arch=$(uname -m)-linux-gnu
+
+  test -f ${rootfs}/usr/lib/${arch}/libnl-3.so.200

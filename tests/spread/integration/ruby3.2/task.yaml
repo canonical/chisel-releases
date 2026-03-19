@@ -1,0 +1,11 @@
+summary: Integration tests for Ruby3.2
+
+environment:
+  SLICE/core: "core"
+  SLICE/ruby: "ruby"
+
+execute: |
+  rootfs="$(install-slices ruby3.2_${SLICE})"
+
+  cp ruby_smoke_test.rb "${rootfs}/"
+  chroot "$rootfs" ruby3.2 /ruby_smoke_test.rb

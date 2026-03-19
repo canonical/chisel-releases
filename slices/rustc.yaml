@@ -1,0 +1,20 @@
+package: rustc
+
+essential:
+  - rustc_copyright
+
+slices:
+  rustc:
+    essential:
+      - base-files_tmp
+      - gcc_gcc
+      - libc6-dev_core
+      - libc6-dev_libm
+      - libc6_libs
+      - libstd-rust-dev_libs
+    contents:
+      /usr/bin/rustc:
+
+  copyright:
+    contents:
+      /usr/share/doc/rustc/copyright:

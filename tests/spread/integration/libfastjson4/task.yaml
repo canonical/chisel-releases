@@ -1,0 +1,6 @@
+summary: Integration tests for libfastjson4
+
+execute: |
+  rootfs="$(install-slices libfastjson4_libs)"
+  arch=$(uname -m)-linux-gnu 
+  test -f ${rootfs}/usr/lib/${arch}/libfastjson.so.4

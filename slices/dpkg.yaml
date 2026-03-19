@@ -6,7 +6,9 @@ essential:
 slices:
   bins:
     essential:
+      - diffutils_bins  # used by dpkg -i
       - dpkg_config
+      - dpkg_tables
       - dpkg_var
       - libbz2-1.0_libs
       - libc-bin_ldconfig
