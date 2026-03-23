@@ -9,7 +9,6 @@ case "${arch}" in
 esac
 
 rootfs="$(install-slices --arch "$chisel_arch" cargo_cargo)"
-ln -s gcc "$rootfs/usr/bin/cc"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev"
