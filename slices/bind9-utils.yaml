@@ -20,7 +20,7 @@ slices:
       /usr/bin/named-checkconf:
       /usr/bin/named-checkzone:
       /usr/bin/named-compilezone:
-  
+
   rndc:
     essential:
       bind9-libs_libs:
@@ -29,7 +29,7 @@ slices:
     contents:
       /usr/sbin/rndc:
       /usr/sbin/rndc-confgen:
-  
+
   dnssec:
     essential:
       bind9-libs_libs:
