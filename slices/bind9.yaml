@@ -6,11 +6,11 @@ essential:
 slices:
   core:
     essential:
+      bind9-utils_named:
+      bind9-utils_rndc:
       bind9_config:
       bind9_data:
       bind9_libs:
-      bind9-utils_named:
-      bind9-utils_rndc:
     contents:
       /usr/bin/named-journalprint:
       /usr/bin/named-nzd2nzf:
@@ -19,16 +19,16 @@ slices:
 
   standard:
     essential:
-      bind9_core:
       bind9-utils_bins:
+      bind9_core:
       iproute2_bins:
       netbase_default-hosts:
     contents:
-      /usr/sbin/tsig-keygen:
-      /usr/bin/nsec3hash:
       /usr/bin/arpaname:
       /usr/bin/dnssec-importkey:
+      /usr/bin/nsec3hash:
       /usr/sbin/ddns-confgen:
+      /usr/sbin/tsig-keygen:
 
   config:
     contents:
