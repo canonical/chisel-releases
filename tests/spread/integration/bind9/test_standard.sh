@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs
 
-rootfs="$(install-slices bind9_bins)"
+rootfs="$(install-slices bind9_standard)"
 
 # Setup environment
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
+
+#-------------------------------------------------------
+# Test arpaname
+#-------------------------------------------------------
+chroot $rootfs arpaname 123.145.167.189 | grep 189.167.145.123.IN-ADDR.ARPA
+chroot $rootfs arpaname 127.0.0.1 | grep 1.0.0.127.IN-ADDR.ARPA
+chroot $rootfs arpaname 8.8.8.8 | grep 8.8.8.8.IN-ADDR.ARPA
 
 #------------------------------------------------------
 # Test nsec3hash
@@ -29,18 +36,14 @@ chroot $rootfs tsig-keygen -a hmac-sha256 testkey |
 # Test dnssec-importkey
 #------------------------------------------------------
 
-# Install bind9-utils to get dnssec-keygen
-apt-get update
-apt-get install -y bind9-utils
-
-# Generate a test DNSSEC key (ZSK) outside the chroot
-dnssec-keygen -a RSASHA256 -b 2048 -n ZONE test.local
+# Generate a test DNSSEC key (ZSK)
+chroot "$rootfs" dnssec-keygen -a RSASHA256 -b 2048 -n ZONE test.local
 
 # Prepare a "zone file" containing that key for dnssec-importkey to read
 cp db.test.local "$rootfs/etc/bind/db.test.local"
-cat Ktest.local.*.key >> "$rootfs/etc/bind/db.test.local"
+cat "$rootfs"/Ktest.local.*.key >> "$rootfs/etc/bind/db.test.local"
 
-# Import the key using dnssec-importkey inside the chroot
+# Import the key using dnssec-importkey to generate a new .private key file
 chroot "$rootfs" dnssec-importkey -f /etc/bind/db.test.local -K /etc/bind test.local
 
 # Verify output

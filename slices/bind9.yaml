@@ -4,21 +4,31 @@ essential:
   bind9_copyright:
 
 slices:
-  bins:
+  core:
     essential:
       bind9_config:
       bind9_data:
       bind9_libs:
+      bind9-utils_named:
+      bind9-utils_rndc:
     contents:
-      /usr/bin/arpaname:
-      /usr/bin/dnssec-importkey:
       /usr/bin/named-journalprint:
       /usr/bin/named-nzd2nzf:
       /usr/bin/named-rrchecker:
-      /usr/bin/nsec3hash:
-      /usr/sbin/ddns-confgen:
       /usr/sbin/named:
+
+  standard:
+    essential:
+      bind9_core:
+      bind9-utils_bins:
+      iproute2_bins:
+      netbase_default-hosts:
+    contents:
       /usr/sbin/tsig-keygen:
+      /usr/bin/nsec3hash:
+      /usr/bin/arpaname:
+      /usr/bin/dnssec-importkey:
+      /usr/sbin/ddns-confgen:
 
   config:
     contents:
@@ -32,7 +42,7 @@ slices:
     essential:
       dns-root-data_data:
     contents:
-      /var/cache/bind/: {make: true, mode: 02775}
+      /var/cache/bind/:
       /var/lib/bind/: {make: true, mode: 02775}
 
   libs:

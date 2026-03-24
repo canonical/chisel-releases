@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs
 
-rootfs="$(install-slices bind9_bins)"
+rootfs="$(install-slices bind9_core)"
 
-# install dnsutils and bind9-dnsutils for testing
+# install bind9-dnsutils for testing (dig, nsupdate)
 apt update
 apt install -y bind9-dnsutils bind9-utils
 
@@ -19,11 +19,11 @@ trap 'umount "$rootfs/proc"' EXIT
 # BIND 9 SETUP
 #-------------------------------------------------------------------------------
 
-# Create the rndc key (maintainer scripts)
-rndc-confgen -a -c $rootfs/etc/bind/rndc.key
-
 # Copy the config files to the rootfs
 cp db.test.local "${rootfs}/etc/bind/db.test.local"
+
+# Create the rndc key (maintainer scripts)
+chroot "${rootfs}/" rndc-confgen -a
 
 # Configure bind9 to allow new zones being added with rndc
 cat <<EOF > "${rootfs}/etc/bind/named.conf.options"
@@ -44,15 +44,15 @@ grep ' IN A ' "${rootfs}/etc/bind/db.test.local" |
 
 # Start the bind9 server
 chroot "${rootfs}/" named -c /etc/bind/named.conf
-trap 'rndc -k "$rootfs/etc/bind/rndc.key" stop' EXIT
+trap 'chroot "${rootfs}/" rndc stop || true' EXIT
 
 # Wait for bind to start
-until rndc -k "$rootfs/etc/bind/rndc.key" status >/dev/null 2>&1; do
+until chroot "${rootfs}/" rndc status >/dev/null 2>&1; do
     sleep 0.2
 done
 
 # Dynamically add a zone to bind9 config with rndc (generates .nzd file)
-rndc -k "$rootfs/etc/bind/rndc.key" addzone test.local '{ type master; file "/etc/bind/db.test.local"; allow-update { any; }; };'
+chroot "${rootfs}/" rndc addzone test.local '{ type master; file "/etc/bind/db.test.local"; allow-update { any; }; };'
 
 #--------------------------------------------------------------------------------
 # TEST ASSERTIONS

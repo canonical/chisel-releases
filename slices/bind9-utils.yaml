@@ -6,6 +6,32 @@ essential:
 slices:
   bins:
     essential:
+      bind9-utils_dnssec:
+      bind9-utils_named:
+      bind9-utils_rndc:
+
+  named:
+    essential:
+      bind9-libs_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+      liburcu8t64_libs:
+    contents:
+      /usr/bin/named-checkconf:
+      /usr/bin/named-checkzone:
+      /usr/bin/named-compilezone:
+  
+  rndc:
+    essential:
+      bind9-libs_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+    contents:
+      /usr/sbin/rndc:
+      /usr/sbin/rndc-confgen:
+  
+  dnssec:
+    essential:
       bind9-libs_libs:
       libc6_libs:
       libjemalloc2_libs:
@@ -21,11 +47,6 @@ slices:
       /usr/bin/dnssec-settime:
       /usr/bin/dnssec-signzone:
       /usr/bin/dnssec-verify:
-      /usr/bin/named-checkconf:
-      /usr/bin/named-checkzone:
-      /usr/bin/named-compilezone:
-      /usr/sbin/rndc:
-      /usr/sbin/rndc-confgen:
 
   copyright:
     contents:

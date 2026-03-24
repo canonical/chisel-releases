@@ -1,8 +1,7 @@
 summary: Integration tests for bind9
 
 variants:
-  - named
-  - arpaname
-  - security_features
+  - core
+  - standard
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh

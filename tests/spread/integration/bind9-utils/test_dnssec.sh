@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs
 
-rootfs="$(install-slices bind9-utils_bins)"
+rootfs="$(install-slices bind9-utils_dnssec)"
 
 # Make fake /dev/null and mount /proc
 mkdir -p "$rootfs/dev"
