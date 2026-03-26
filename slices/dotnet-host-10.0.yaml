@@ -27,6 +27,6 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/dotnet-host-10.0/copyright:
       /usr/lib/dotnet/LICENSE.txt:
       /usr/lib/dotnet/ThirdPartyNotices.txt:
+      /usr/share/doc/dotnet-host-10.0/copyright:
