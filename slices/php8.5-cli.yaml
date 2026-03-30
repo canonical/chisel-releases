@@ -80,7 +80,7 @@ slices:
         { symlink: /etc/php/8.5/mods-available/tokenizer.ini }
       /etc/php/8.5/cli/php.ini: { mutable: true, text: "" }
     mutate: |
-      src = "/usr/lib/php/8.5/php.ini-production"
+      src = "/usr/lib/php/8.5/php.ini-production.cli"
       dst = "/etc/php/8.5/cli/php.ini"
       data = content.read(src)
       content.write(dst, data)
