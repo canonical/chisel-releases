@@ -115,6 +115,7 @@ slices:
     essential:
       libc6-dev_core:
     contents:
+      /usr/lib/*-linux-*/libBrokenLocale.a:
       /usr/lib/*-linux-*/libBrokenLocale.so:
 
   symlink-libc6-libs:
