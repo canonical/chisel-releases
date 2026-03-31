@@ -11,7 +11,7 @@ slices:
       libc6-dev_core:
       libc6-dev_libm:
       libc6_libs:
-      libllvm20_libs:
+      libllvm21_libs:
       libstd-rust-1.93-dev_libs:
     contents:
       /usr/bin/rustc-1.93:  # symlink to ../rust-1.93/bin/rustc
