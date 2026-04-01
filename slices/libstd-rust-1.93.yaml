@@ -11,7 +11,8 @@ slices:
       libllvm20_libs:
       libstdc++6_libs:
     contents:
-      # NOTE: we need the full rustc_driver filename since it would conflict across different versions of libstd-rust
+      # NOTE: we need the full rustc_driver filename since it
+      # would conflict across different versions of libstd-rust
       /usr/lib/*-linux-*/librustc_driver-b3d43ccba5314718.so:
         arch: [ppc64el]
       /usr/lib/*-linux-*/librustc_driver-3280e10a029448e7.so:
