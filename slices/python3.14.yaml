@@ -1,133 +1,64 @@
-package: libpython3-stdlib
+package: python3.14
 
 essential:
-  libpython3-stdlib_copyright:
+  python3.14_copyright:
 
 slices:
+  # The "core" slice provides a very minimal, yet functioning python3.14.
+  # It includes very few modules from the libpython3.14-stdlib package.
   core:
     essential:
       libpython3.14-stdlib_core:
+      media-types_data:
+      python3.14-minimal_bins:
 
-  aix-support:
+  # The "standard" slice extends "core" with all the Python
+  # modules from the libpython3.14-stdlib package.
+  standard:
     essential:
       libpython3.14-stdlib_aix-support:
-
-  all-os:
-    essential:
       libpython3.14-stdlib_all-os:
-
-  android-support:
-    essential:
-      libpython3.14-stdlib_android-support:
-
-  apple-support:
-    essential:
-      libpython3.14-stdlib_apple-support:
-
-  concurrency:
-    essential:
       libpython3.14-stdlib_concurrency:
-
-  crypto:
-    essential:
+      libpython3.14-stdlib_core:
       libpython3.14-stdlib_crypto:
-
-  custom-interpreters:
-    essential:
       libpython3.14-stdlib_custom-interpreters:
-
-  data-persistence:
-    essential:
       libpython3.14-stdlib_data-persistence:
-
-  data-types:
-    essential:
       libpython3.14-stdlib_data-types:
+      libpython3.14-stdlib_debug:
+      libpython3.14-stdlib_development-tools:
+      libpython3.14-stdlib_distribution:
+      libpython3.14-stdlib_extras:
+      libpython3.14-stdlib_file-formats:
+      libpython3.14-stdlib_filesys:
+      libpython3.14-stdlib_frameworks:
+      libpython3.14-stdlib_importing:
+      libpython3.14-stdlib_internet:
+      libpython3.14-stdlib_ipc:
+      libpython3.14-stdlib_language:
+      libpython3.14-stdlib_markup-tools:
+      libpython3.14-stdlib_multimedia:
+      libpython3.14-stdlib_net-data:
+      libpython3.14-stdlib_numeric:
+      libpython3.14-stdlib_osx-support:
+      libpython3.14-stdlib_pydoc:
+      libpython3.14-stdlib_pyrepl:
+      libpython3.14-stdlib_text:
+      libpython3.14-stdlib_unix:
+      libpython3.14-stdlib_zstd:
+      python3.14_core:
+      tzdata_zoneinfo:
 
-  debug:
+  # The "utlis" slice extends "core" with various tools.
+  utils:
     essential:
       libpython3.14-stdlib_debug:
-
-  development-tools:
-    essential:
-      libpython3.14-stdlib_development-tools:
-
-  distribution:
-    essential:
-      libpython3.14-stdlib_distribution:
-
-  file-formats:
-    essential:
-      libpython3.14-stdlib_file-formats:
-
-  filesys:
-    essential:
-      libpython3.14-stdlib_filesys:
-
-  frameworks:
-    essential:
-      libpython3.14-stdlib_frameworks:
-
-  importing:
-    essential:
-      libpython3.14-stdlib_importing:
-
-  internet:
-    essential:
-      libpython3.14-stdlib_internet:
-
-  ios-support:
-    essential:
-      libpython3.14-stdlib_ios-support:
-
-  ipc:
-    essential:
-      libpython3.14-stdlib_ipc:
-
-  language:
-    essential:
-      libpython3.14-stdlib_language:
-
-  markup-tools:
-    essential:
-      libpython3.14-stdlib_markup-tools:
-
-  multimedia:
-    essential:
-      libpython3.14-stdlib_multimedia:
-
-  net-data:
-    essential:
-      libpython3.14-stdlib_net-data:
-
-  numeric:
-    essential:
-      libpython3.14-stdlib_numeric:
-
-  osx-support:
-    essential:
-      libpython3.14-stdlib_osx-support:
-
-  pydoc:
-    essential:
       libpython3.14-stdlib_pydoc:
-
-  pyrepl:
-    essential:
-      libpython3.14-stdlib_pyrepl:
-
-  text:
-    essential:
-      libpython3.14-stdlib_text:
-
-  unix:
-    essential:
-      libpython3.14-stdlib_unix:
-
-  extras:
-    essential:
-      libpython3.14-stdlib_extras:
+      python3.14_core:
+    contents:
+      /usr/bin/pdb3.14:
+      /usr/bin/pydoc3.14:
+      /usr/bin/pygettext3.14:
 
   copyright:
     contents:
-      /usr/share/doc/libpython3-stdlib/copyright:
+      /usr/share/doc/python3.14/copyright:
