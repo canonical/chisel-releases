@@ -8,7 +8,7 @@ slices:
     essential:
       libc6_libs:
       libgcc-s1_libs:
-      libllvm20_libs:
+      libllvm21_libs:
       libstdc++6_libs:
     contents:
       # NOTE: we need the full rustc_driver filename since it
