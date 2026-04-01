@@ -42,7 +42,6 @@ slices:
       /usr/lib/rust-1.93/lib/librustc_driver-eeba4a0f4def722a.so:
         arch: [amd64]
 
-
   copyright:
     contents:
       /usr/share/doc/libstd-rust-1.93/copyright:
