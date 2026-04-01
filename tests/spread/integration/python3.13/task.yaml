@@ -1,4 +1,4 @@
-summary: Integration tests for python3.13
+summary: Integration tests for python3.14
 
 environment:
   SLICE/core: "core"
@@ -8,10 +8,10 @@ execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
 
-  rootfs="$(install-slices python3.13_${SLICE})"
+  rootfs="$(install-slices python3.14_${SLICE})"
 
   cp test_${SLICE}.py "${rootfs}/"
-  chroot "$rootfs" python3.13 /test_${SLICE}.py
+  chroot "$rootfs" python3.14 /test_${SLICE}.py
 
   if [ "$SLICE" == "standard" ]; then
     # Test that _pyrepl module is available in the standard slice
@@ -19,5 +19,5 @@ execute: |
     # non-interactive mode by default. Hence we just test for the import
     # failure directly.
     # https://github.com/canonical/python-rock/issues/36
-    chroot "$rootfs" python3.13 -c "import _pyrepl;"
+    chroot "$rootfs" python3.14 -c "import _pyrepl;"
   fi
