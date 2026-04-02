@@ -9,14 +9,13 @@ case "${arch}" in
 esac
 
 slices=(
-    cargo_cargo
+    cargo-1.93_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
-    zlib1g-dev_libs  # eza dependency
-    zlib1g-dev_headers  # eza dependency
 )
 
 rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
+ln -s rustc-1.93 "$rootfs/usr/bin/rustc"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev" && touch "$rootfs/dev/null" && chmod +x "$rootfs/dev/null"
@@ -37,7 +36,7 @@ apt update && apt install -y dpkg-dev
 )
 
 # Build
-chroot "$rootfs" cargo -Z unstable-options -C /rust-eza build
+chroot "$rootfs" cargo-1.93 -Z unstable-options -C /rust-eza build
 
 # Verify the built binary works
 chroot "$rootfs" /rust-eza/target/debug/eza --help | grep -q "eza \[options\] \[files...\]"

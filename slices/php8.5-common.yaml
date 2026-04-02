@@ -69,7 +69,7 @@ slices:
         { copy: /usr/share/php8.5-common/common/sysvshm.ini }
       /etc/php/8.5/mods-available/tokenizer.ini:
         { copy: /usr/share/php8.5-common/common/tokenizer.ini }
-      /usr/lib/php/8.5/php.ini-production:
+      /usr/lib/php/8.5/php.ini-production.cli:
 
   copyright:
     contents:
