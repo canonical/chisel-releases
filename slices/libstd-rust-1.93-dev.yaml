@@ -1,0 +1,17 @@
+package: libstd-rust-1.93-dev
+
+essential:
+  libstd-rust-1.93-dev_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libstd-rust-1.93_libs:
+    contents:
+      /usr/lib/rust-1.93/lib/rustlib/*-linux-*/lib/*.rlib:
+      /usr/lib/rust-1.93/lib/rustlib/*-linux-*/lib/*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.93-dev/copyright:

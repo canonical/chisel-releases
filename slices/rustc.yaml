@@ -6,9 +6,9 @@ essential:
 slices:
   rustc:
     essential:
-      rustc-1.88_rustc:
+      rustc-1.93_rustc:
     contents:
-      /usr/bin/rustc:  # symlink to ../lib/rustc-1.88/bin/rustc
+      /usr/bin/rustc:  # symlink to ../lib/rustc-1.93/bin/rustc
 
   copyright:
     contents:
