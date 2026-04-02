@@ -1,0 +1,57 @@
+summary: Integration tests for .NET 10 Host 
+
+variants:
+    - +WithoutLibicu
+    - +WithLibicu
+    - +WithDNX
+
+environment:
+  # needed, because libicu is not installed
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithoutLibicu: "true"
+  # install sdk to enable dnx run
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT/WithDNX: "true"
+  # disable noisy help text for users who run .NET for the first time
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+prepare: |
+  required_slices=(dotnet-runtime-10.0_core dotnet-host-10.0_bins)
+  if [[ ! -v DOTNET_SYSTEM_GLOBALIZATION_INVARIANT ]]; then
+    required_slices+=(libicu78_libs)
+  fi
+
+  if [[ "$SPREAD_VARIANT" == "WithDNX" ]]; then
+    required_slices=(dotnet-host-10.0_dnx base-passwd_data)
+  fi
+
+  # install slices
+  rootfs="$(install-slices ${required_slices[@]})"
+  echo "$rootfs" > ROOTFS
+
+  if [[ "$SPREAD_VARIANT" == "WithDNX" ]]; then
+    # needed by the SDK to determine system information
+    mkdir -p "${rootfs}"/proc
+    mount --bind /proc "${rootfs}"/proc
+
+    # The .NET SDK creates config files in the users home directory.
+    mkdir -p "${rootfs}${HOME}"
+
+    # needed by various utilities of the SDK
+    mkdir -p "${rootfs}/tmp"
+
+    # needed by crypto libraries e.g. to generate a GUID's
+    mkdir -p "${rootfs}"/dev
+    head -c 10000 /dev/urandom > "${rootfs}"/dev/random
+    head -c 10000 /dev/urandom > "${rootfs}"/dev/urandom
+  fi
+
+execute: |
+  rootfs="$(cat ROOTFS)"
+  # smoke test the .NET host
+  chroot "${rootfs}" /usr/bin/dotnet --info
+
+  if [[ "$SPREAD_VARIANT" == "WithDNX" ]]; then
+    cp /etc/resolv.conf "${rootfs}"/etc/resolv.conf
+    output=$(echo "Hello, World!" | chroot "${rootfs}" /usr/bin/dnx dotnetsay --yes)
+    grep -q "Hello, World!" <<< "${output}"
+  fi
