@@ -10,25 +10,45 @@ slices:
       libfontenc1_libs:
       libfreetype6_libs:
       xfonts-encodings_encodings:
-      xfonts-utils_utils:
+      xfonts-utils_mkfontscale:
+      xfonts-utils_maps:
       zlib1g_libs:
     contents:
       /usr/bin/bdftopcf:
       /usr/bin/bdftruncate:
       /usr/bin/fonttosfnt:
-      /usr/bin/mkfontdir:
-      /usr/bin/mkfontscale:
       /usr/bin/ucs2any:
 
-  utils:
+  mkfontscale:
+    hint: Create index of scalable fonts for X
+    essential:
+      libc6_libs:
+      libfontenc1_libs:
+      libfreetype6_libs:
+      zlib1g_libs:
+    contents:
+      /usr/bin/mkfontscale:
+
+  maps:
     contents:
       /usr/share/fonts/X11/util/*:
 
   scripts:
+    essential:
+      xfonts-utils_mkfontdir:
     contents:
       /usr/sbin/update-fonts-alias:
       /usr/sbin/update-fonts-dir:
       /usr/sbin/update-fonts-scale:
+
+  mkfontdir:
+    hint: Create index of X fonts in directory
+    essential:
+      base-files_bin:
+      dash_bins:
+      xfonts-utils_mkfontscale:
+    contents:
+      /usr/bin/mkfontdir:
 
   copyright:
     contents:
