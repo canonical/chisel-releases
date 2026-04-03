@@ -28,8 +28,8 @@ slices:
       base-files_bin:
       coreutils_mkdir:
       dash_bins:
-      sed_bins:
       libpam-modules_config:
+      sed_bins:
     contents:
       /usr/sbin/pam_namespace_helper:
 
