@@ -47,7 +47,7 @@ slices:
       /usr/sbin/xtables-legacy-multi:
       /usr/sbin/xtables-monitor:  # Symlink to xtables-legacy-multi
       /usr/sbin/xtables-nft-multi:
-  
+
   scripts:
     essential:
       base-files_bin:
@@ -60,7 +60,7 @@ slices:
   # iptables can understand, and vice-versa.
   converters:
     contents:
-      /usr/bin/iptables-xml: # Symlink to ../sbin/xtables-legacy-multi
+      /usr/bin/iptables-xml:  # Symlink to ../sbin/xtables-legacy-multi
       /usr/share/iptables/iptables.xslt:
 
   libs:
