@@ -44,10 +44,16 @@ slices:
     essential:
       libc6_libs:
       libselinux1_libs:
+      util-linux_getopt:
     contents:
-      /usr/bin/getopt:
       /usr/bin/namei:
       /usr/bin/whereis:
+
+  getopt:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/getopt:
 
   cpu:
     essential:

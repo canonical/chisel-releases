@@ -52,6 +52,12 @@ slices:
     essential:
       base-files_bin:
       bash_bins:
+      coreutils_cat:
+      coreutils_mktemp:
+      coreutils_sleep:
+      grep_bins:
+      iptables_bins:
+      util-linux_getopt:
     contents:
       /usr/sbin/ip6tables-apply:  # Symlink to iptables-apply
       /usr/sbin/iptables-apply:

@@ -2,5 +2,6 @@ summary: Integration tests for iptables
 
 variants:
     - bins
+    - iptables-apply
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
