@@ -23,11 +23,13 @@ slices:
       /usr/sbin/unix_update:
 
   scripts:
+    hint: Create home directories
     essential:
       base-files_bin:
-      coreutils_mkdior:
+      coreutils_mkdir:
       dash_bins:
       sed_bins:
+      libpam-modules_config:
     contents:
       /usr/sbin/pam_namespace_helper:
 
