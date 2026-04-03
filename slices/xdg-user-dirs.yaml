@@ -19,7 +19,7 @@ slices:
       xdg-user-dirs_config:
     contents:
       /usr/bin/xdg-user-dir:
-  
+
   bins:
     essential:
       libc6_libs:
