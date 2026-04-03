@@ -17,11 +17,19 @@ slices:
       /usr/sbin/mkhomedir_helper:
       /usr/sbin/pam_extrausers_chkpwd:
       /usr/sbin/pam_extrausers_update:
-      /usr/sbin/pam_namespace_helper:
       /usr/sbin/pam_timestamp_check:
       /usr/sbin/pwhistory_helper:
       /usr/sbin/unix_chkpwd:
       /usr/sbin/unix_update:
+
+  scripts:
+    essential:
+      base-files_bin:
+      coreutils_mkdior:
+      dash_bins:
+      sed_bins:
+    contents:
+      /usr/sbin/pam_namespace_helper:
 
   services:
     contents:
