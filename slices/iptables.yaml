@@ -27,7 +27,6 @@ slices:
       /usr/sbin/ebtables-nft-restore:  # Symlink to xtables-nft-multi
       /usr/sbin/ebtables-nft-save:  # Symlink to xtables-nft-multi
       /usr/sbin/ebtables-translate:  # Symlink to xtables-nft-multi
-      /usr/sbin/ip6tables-apply:  # Symlink to iptables-apply
       /usr/sbin/ip6tables-legacy:  # Symlink to xtables-legacy-multi
       /usr/sbin/ip6tables-legacy-restore:  # Symlink to xtables-legacy-multi
       /usr/sbin/ip6tables-legacy-save:  # Symlink to xtables-legacy-multi
@@ -36,7 +35,6 @@ slices:
       /usr/sbin/ip6tables-nft-save:  # Symlink to xtables-legacy-multi
       /usr/sbin/ip6tables-restore-translate:  # Symlink to xtables-legacy-multi
       /usr/sbin/ip6tables-translate:  # Symlink to xtables-legacy-multi
-      /usr/sbin/iptables-apply:
       /usr/sbin/iptables-legacy:  # Symlink to xtables-legacy-multi
       /usr/sbin/iptables-legacy-restore:  # Symlink to xtables-legacy-multi
       /usr/sbin/iptables-legacy-save:  # Symlink to xtables-legacy-multi
@@ -49,12 +47,20 @@ slices:
       /usr/sbin/xtables-legacy-multi:
       /usr/sbin/xtables-monitor:  # Symlink to xtables-legacy-multi
       /usr/sbin/xtables-nft-multi:
+  
+  scripts:
+    essential:
+      base-files_bin:
+      bash_bins:
+    contents:
+      /usr/sbin/ip6tables-apply:  # Symlink to iptables-apply
+      /usr/sbin/iptables-apply:
 
   # The xlst is used to convert XML configuration into something
   # iptables can understand, and vice-versa.
   converters:
     contents:
-      /usr/bin/iptables-xml:
+      /usr/bin/iptables-xml: # Symlink to ../sbin/xtables-legacy-multi
       /usr/share/iptables/iptables.xslt:
 
   libs:
