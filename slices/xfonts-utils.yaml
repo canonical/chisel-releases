@@ -10,8 +10,8 @@ slices:
       libfontenc1_libs:
       libfreetype6_libs:
       xfonts-encodings_encodings:
-      xfonts-utils_mkfontscale:
       xfonts-utils_maps:
+      xfonts-utils_mkfontscale:
       zlib1g_libs:
     contents:
       /usr/bin/bdftopcf:
