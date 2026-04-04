@@ -254,6 +254,7 @@ slices:
   user-information:
     essential:
       coreutils-from-gnu_id-utility:
+      coreutils-from-gnu_whoami:
       gnu-coreutils_user-information:
     contents:
       /usr/bin/groups:
@@ -261,7 +262,6 @@ slices:
       /usr/bin/pinky:
       /usr/bin/users:
       /usr/bin/who:
-      /usr/bin/whoami:
 
   # System context -- This slice contains commands that print or change
   # system-wide information.
@@ -580,6 +580,12 @@ slices:
       gnu-coreutils_sync:
     contents:
       /usr/bin/sync:
+
+  whoami:
+    essential:
+      gnu-coreutils_whoami:
+    contents:
+      /usr/bin/whoami:
 
   copyright:
     contents:

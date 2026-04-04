@@ -29,8 +29,8 @@ slices:
       libblkid1_libs:
       libc6_libs:
       libmount1_libs:
-      libselinux1_libs:
       libsmartcols1_libs:
+      libtinfo6_libs:
       libudev1_libs:
     contents:
       /usr/bin/lsblk:

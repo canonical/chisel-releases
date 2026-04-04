@@ -298,3 +298,8 @@ execute: |
   # NOTE: we can't easily test the actual syncing functionality,
   # but we can at least test that the command runs without error
   chroot "$rootfs_sync" sync 
+
+  # test whoami binary
+  rootfs_whoami="$(install-slices coreutils-from-gnu_whoami)"
+  chroot "$rootfs_whoami" whoami --version
+  test "$(chroot "$rootfs_whoami" whoami)" = "root"
