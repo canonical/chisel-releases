@@ -9,7 +9,7 @@ slices:
       dosfstools_fatlabel:
       dosfstools_fschk:
       dosfstools_mkfs:
-  
+
   fatlabel:
     hint: Change FAT filesystem label
     essential:
