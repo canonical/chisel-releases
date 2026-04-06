@@ -50,9 +50,9 @@ slices:
       dash_bins:
       gawk_bins:
       grep_bins:
-      util-linux_cli-helpers:
       sed_bins:
       sensible-utils_sensible-pager:
+      util-linux_cli-helpers:
     contents:
       /usr/bin/ucf:
       /usr/share/ucf/ucf_library.sh:
