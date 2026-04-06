@@ -12,10 +12,6 @@ slices:
       /usr/bin/sensible-pager:
       /usr/bin/sensible-terminal:
 
-  mime:
-    contents:
-      /usr/lib/mime/packages/sensible-utils:
-
   copyright:
     contents:
       /usr/share/doc/sensible-utils/copyright:
