@@ -302,4 +302,5 @@ execute: |
   # test whoami binary
   rootfs_whoami="$(install-slices coreutils-from-gnu_whoami)"
   chroot "$rootfs_whoami" whoami --version
-  test "$(chroot "$rootfs_whoami" whoami)" = "root"
+  # we either expect 'root' or 'cannot find name for user ID 0' depending on the test environment's user management
+  chroot "$rootfs_whoami" whoami 2>&1 | grep -E "root|cannot find name for user ID 0"
