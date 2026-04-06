@@ -20,9 +20,9 @@ slices:
       dash_bins:
       dpkg_start-stop-daemon:
     contents:
-      /usr/lib/lsb/init-functions:
       /usr/lib/init/init-d-script:
       /usr/lib/init/vars.sh:
+      /usr/lib/lsb/init-functions:
 
   config:
     contents:
