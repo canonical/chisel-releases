@@ -103,12 +103,12 @@ slices:
     hint: Turn of shadow passwords
     essential:
       base-files_bin:
-      dash_bins:
       coreutils_chmod:
       coreutils_chown:
       coreutils_cp-utility:
       coreutils_date:
       coreutils_touch:
+      dash_bins:
       diffutils_cmp:
       passwd_grpck:
       passwd_grpconv:
