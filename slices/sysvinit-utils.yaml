@@ -8,12 +8,21 @@ slices:
     essential:
       libc6_libs:
     contents:
-      /usr/bin/pidof:
-      /usr/lib/init/init-d-script:
-      /usr/lib/init/vars.sh:
-      /usr/lib/lsb/init-functions:
+      /usr/bin/pidof:  # Symlink to ../sbin/killall5
       /usr/sbin/fstab-decode:
       /usr/sbin/killall5:
+
+  scripts:
+    essential:
+      base-files_bin:
+      coreutils_rm-utility:
+      coreutils_touch:
+      dash_bins:
+      dpkg_start-stop-daemon:
+    contents:
+      /usr/lib/lsb/init-functions:
+      /usr/lib/init/init-d-script:
+      /usr/lib/init/vars.sh:
 
   config:
     contents:

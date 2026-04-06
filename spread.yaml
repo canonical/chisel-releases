@@ -6,112 +6,99 @@ environment:
   PROJECT_PATH: /chisel-releases
   SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
   PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
-  MANIFESTS_EXPORT_DIR: $(HOST:echo "${MANIFESTS_EXPORT_DIR:-/usr/share/manifests}")
+  CHISEL_HACKS: "1"
 
 exclude:
   - .github
+  - .git
+  - .vscode
+  - work
+  - rootfs
 
 backends:
-  # We can switch back to using the official Spread LXD backend after
-  # https://github.com/snapcore/spread/pulls?q=is%3Apr+is%3Aopen+LXD+updated%3A%3C%3D2024-02-23+
-  lxd:
-    type: adhoc
-    allocate: |
-      set -x
-      release=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $4}')
-      # If the requested release is a development release, use the latest stable instead
-      if [[ "$(distro-info --devel)" == *"$release"* ]]; then
-        release="$(distro-info --stable)"
-      fi
-
-      # Ideally, we would add the ubuntu-minimal remote
-      # e.g. https://cloud-images.ubuntu.com/minimal/releases/jammy/
-      # but that would effectively change the host's LXC configurations.
-
-      echo "Allocating $SPREAD_SYSTEM..."
-      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
-      while true; do
-        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
-        [ "$status" = "running" ] && break
-        sleep 5
-      done
-      lxc exec $SPREAD_SYSTEM -- apt-get update
-      lxc exec $SPREAD_SYSTEM -- systemctl enable --now ssh
-      lxc exec $SPREAD_SYSTEM -- sed -i 's/^\s*#\?\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/\1 yes/' /etc/ssh/sshd_config
-      lxc exec $SPREAD_SYSTEM -- bash -c "sed -i 's/^\s*\(PermitRootLogin\|PasswordAuthentication\)\>.*/# COMMENTED OUT BY SPREAD: \0/' /etc/ssh/sshd_config.d/* || true"
-      lxc exec $SPREAD_SYSTEM -- bash -c "test -d /etc/ssh/sshd_config.d && echo -e 'PermitRootLogin=yes\nPasswordAuthentication=yes' > /etc/ssh/sshd_config.d/00-spread.conf"
-      lxc exec $SPREAD_SYSTEM -- bash -c "echo root:${SPREAD_SYSTEM_PASSWORD} | chpasswd"
-      lxc exec $SPREAD_SYSTEM -- killall -HUP sshd
-      ADDRESS `lxc list --format=json $SPREAD_SYSTEM | jq -r '.[0].state.network.eth0.addresses[] | select(.family=="inet") | .address'`
-        
-    # When discarding the instance, pull the manifests if MANIFESTS_EXPORT_DIR is set in the HOST environment
-    # This allows us to collect the generated manifests after the test run. If the variable is not set,
-    # the pull step is skipped and the instance is stopped.
-    discard: |
-      [ -n "${MANIFESTS_EXPORT_DIR-}" ] && lxc file pull -pr $SPREAD_SYSTEM/$MANIFESTS_EXPORT_DIR $MANIFESTS_EXPORT_DIR
-      lxc stop $SPREAD_SYSTEM || true
-    systems:
-      - spread-chisel-releases-resolute:
-          password: ubuntu
-
   docker:
     type: adhoc
     allocate: |
-      echo "Allocating $SPREAD_SYSTEM..."
-      docker_image=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $1":"$2}')
-      docker_arch=$(echo $SPREAD_SYSTEM | awk -F '-' '{print $NF}')
-      docker run --rm -e DEBIAN_FRONTEND=noninteractice \
-        -e usr=$SPREAD_SYSTEM_USERNAME -e pass=$SPREAD_SYSTEM_PASSWORD \
-        --name $SPREAD_SYSTEM -d $docker_arch/$docker_image sh -c '
-        set -x
-        apt update
-        apt install -y openssh-server sudo
-        mkdir /run/sshd
-        echo "root:$pass" | chpasswd
-        echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-        /usr/sbin/sshd -D
-      '
-      # The container will be up really fast, but the CMD might take time to
-      # run, and Spread will timeout the SSH op after 5 min. So we wait for the
-      # container during the allocation script.
-      until docker exec $SPREAD_SYSTEM pgrep sshd
-      do
-        sleep 5
-      done
-      ADDRESS `docker inspect $SPREAD_SYSTEM --format '{{.NetworkSettings.Networks.bridge.IPAddress}}'`
-    discard: docker rm -f $SPREAD_SYSTEM
+      function main() {
+          flavour=$(echo $SPREAD_SYSTEM | cut -d- -f1,2)
+          arch=$(echo $SPREAD_SYSTEM | cut -d- -f3)
+          # precompiled docker images for amd64 and arm64
+          image="sshd-$flavour-$arch"
+          echo "Using image: $image"
+      
+          # Add random suffix to container name for uniqueness
+          random_suffix=$(head /dev/urandom | tr -dc a-f0-9 | head -c8)
+          container_name="${SPREAD_SYSTEM}-${random_suffix}"
+      
+          # remove any existing container with the same name
+          docker rm -f $container_name 2>/dev/null || true
+      
+          docker run \
+              --rm \
+              --platform "linux/$arch" \
+              --privileged \
+              -v /var/run/docker.sock:/var/run/docker.sock \
+              -e DEBIAN_FRONTEND=noninteractice \
+              -e "usr=$SPREAD_SYSTEM_USERNAME" \
+              -e "pass=$SPREAD_SYSTEM_PASSWORD" \
+              --name "$container_name" \
+              -d "$image"
+      
+          until docker exec "$container_name" pgrep sshd; do sleep 1; done
+      
+          # Copy precompiled chisel into the container to speed up tests
+          if [ "$arch" = "arm64" ]; then
+              chisel_path="$HOME/canonical/chisel-cache/chisel-v1.4.0-arm64"
+          elif [ "$arch" = "amd64" ]; then
+              chisel_path="$HOME/canonical/chisel-cache/chisel-v1.4.0-amd64"
+          else
+              echo "Unsupported architecture: $arch"
+              exit 1
+          fi
+          if [ ! -f "$chisel_path" ]; then
+              echo "Chisel binary not found at $chisel_path"
+              exit 1
+          fi
+          docker cp "$chisel_path" "$container_name:/usr/local/bin/chisel"
+      
+          ADDRESS "$(docker inspect "$container_name" --format '{{.NetworkSettings.Networks.bridge.IPAddress}}')"
+      }
+      
+      main
+    discard: |
+      set -e
+      
+      function main() {
+          # we cannot filter by IP address directly, so we need to find the container by inspecting all containers
+          local container_name=""
+          for cid in $(docker ps -a --filter "network=bridge" --format '{{.ID}}'); do
+              cname=$(docker inspect "$cid" --format '{{.Name}}' | sed 's/^\/\(.*\)/\1/')
+              cip=$(docker inspect "$cid" --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' || echo "")
+              if [ "$cip" == "$SPREAD_SYSTEM_ADDRESS" ]; then
+                  container_name="$cname"
+                  break
+              fi
+          done
+      
+          # If we found a matching container, remove it
+          if [ -n "$container_name" ]; then
+              echo "Removing container: $container_name"
+              docker rm -f "$container_name" 2>/dev/null || true
+          else
+              echo "No container found with IP address: $SPREAD_SYSTEM_ADDRESS"
+              exit 1
+          fi
+      }
+      
+      main
     systems:
       - ubuntu-26.04-amd64:
           password: ubuntu
-      - ubuntu-26.04-arm64v8:
+          workers: 4
+      - ubuntu-26.04-arm64:
           password: ubuntu
-      - ubuntu-26.04-arm32v7:
-          password: ubuntu
-      - ubuntu-26.04-ppc64le:
-          password: ubuntu
-      - ubuntu-26.04-s390x:
-          password: ubuntu
-      - ubuntu-26.04-riscv64:
-          password: ubuntu
-
-prepare: |
-  # Deb arch to GOARCH
-  arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
-
-  apt install -y curl wget
-  curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
-    | awk "/browser_download_url/ && /chisel_v/ && /_$arch\./" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | xargs wget
-
-  sha384sum -c chisel_v*sha384
-  tar -xf chisel_v*tar.gz -C /usr/local/bin
-
-prepare-each: chisel version
+          workers: 4
 
 suites:
   tests/spread/integration/:
     summary: Tests common scenarios
-
-kill-timeout: 1.5h

@@ -33,6 +33,12 @@ slices:
       /usr/bin/dpkg-trigger:
       /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
+
+  start-stop-daemon:
+    hint: Start and stop system demon programs
+    essential:
+      libc6_libs:
+    contents:
       /usr/sbin/start-stop-daemon:
 
   realpath:
