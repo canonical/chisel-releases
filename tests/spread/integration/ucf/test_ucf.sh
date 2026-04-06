@@ -3,4 +3,4 @@
 
 rootfs="$(install-slices ucf_ucf)"
 
-chroot "$rootfs" ucf --help | grep -iq "usage: ucf"
+chroot "$rootfs" ucf --help 2>&1 | grep -iq "usage: ucf"
