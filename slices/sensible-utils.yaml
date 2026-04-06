@@ -17,7 +17,7 @@ slices:
       base-files_bin:
       dash_bins:
       coreutils_cut:
-      # gettext_bins:  # TODO: add gettext once slices
+      gettext-base_bins:
       coreutils_sort:
       coreutils_wc-utility:
       dpkg_update-alternatives:
@@ -28,7 +28,7 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
-      # gettext_bins:  # TODO: add gettext once slices
+      gettext-base_bins:
     contents:
       /usr/bin/sensible-browser:
 
@@ -44,7 +44,7 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
-      # gettext_bins:  # TODO: add gettext once slices
+      gettext-base_bins:
     contents:
       /usr/bin/sensible-pager:
 
@@ -52,7 +52,7 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
-      # gettext_bins:  # TODO: add gettext once slices
+      gettext-base_bins:
       coreutils_tr-utility:
     contents:
       /usr/bin/sensible-terminal:
