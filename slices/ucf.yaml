@@ -8,11 +8,80 @@ essential:
 slices:
   scripts:
     essential:
-      sensible-utils_scripts:
+      ucf_ucf:
+      ucf_ucfq:
+      ucf_ucfr:
+
+  # NOTE: ...
+  # debconf_confmodule:
+  # debconf_debconf-escape:
+  # diffutils_diff:
+  # diffutils_diff3:
+  # dpkg_dpkg-divert:
+  # dpkg_dpkg-query:
+  # diffutils_sdiff:
+  # debianutils_which:
+  # libc-bin_iconv:
+  # procps_ps:
+
+  # /usr/share/debconf/confmodule
+  # x-terminal-emulator
+
+  ucf:
+    essential:
+      base-files_bin:
+      bash_bins:  # we need bash as well as dash
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_cp-utility:
+      coreutils_date:
+      coreutils_dirname:
+      coreutils_id-utility:
+      coreutils_mv-utility:
+      # coreutils_md5sum:
+      coreutils_readlink:
+      coreutils_rm-utility:
+      # coreutils_seq:
+      coreutils_sleep:
+      coreutils_stat:
+      coreutils_tr-utility:
+      coreutils_wc-utility:
+      dash_bins:
+      gawk_bins:
+      grep_bins:
+      util-linux_cli-helpers:
+      sed_bins:
+      sensible-utils_sensible-pager:
     contents:
       /usr/bin/ucf:
+      /usr/share/ucf/ucf_library.sh:
+
+  ucfq:
+    essential:
+      perl-base_bins:
+      perl-base_modules:
+    contents:
       /usr/bin/ucfq:
+
+  ucfr:
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_cp-utility:
+      coreutils_dirname:
+      coreutils_id-utility:
+      coreutils_mv-utility:
+      coreutils_readlink:
+      # coreutils_seq:
+      dash_bins:
+      # dpkg_dpkg-divert:
+      gawk_bins:
+      grep_bins:
+      util-linux_cli-helpers:
+    contents:
       /usr/bin/ucfr:
+      /usr/share/ucf/ucf_library.sh:
 
   config:
     contents:
