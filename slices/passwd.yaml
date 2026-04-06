@@ -99,17 +99,17 @@ slices:
     contents:
       /usr/sbin/grpconv:
 
-  scripts:
+  shadowconfig:
     hint: Turn of shadow passwords
     essential:
       base-files_bin:
       dash_bins:
       coreutils_chmod:
       coreutils_chown:
-      coreutils_cmp:
       coreutils_cp-utility:
       coreutils_date:
       coreutils_touch:
+      diffutils_cmp:
       passwd_pwck:
       passwd_pwconv:
       passwd_grpck:
@@ -117,6 +117,10 @@ slices:
       sed_bins:
     contents:
       /usr/sbin/shadowconfig:
+
+  scripts:
+    essential:
+      passwd_shadowconfig:
 
   # Essential configurations used by useradd(8) and friends.
   config:
