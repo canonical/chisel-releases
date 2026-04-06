@@ -48,7 +48,7 @@ slices:
       /usr/sbin/useradd:
       /usr/sbin/userdel:
       /usr/sbin/usermod:
-      /usr/sbin/vigr:
+      /usr/sbin/vigr:  # Symlink to vipw
       /usr/sbin/vipw:
 
   # Essential configurations used by useradd(8) and friends.
