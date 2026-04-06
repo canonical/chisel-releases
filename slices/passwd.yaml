@@ -23,6 +23,8 @@ slices:
       passwd_pwconv:
       passwd_grpck:
       passwd_grpconv:
+      passwd_useradd:
+      passwd_userdel:
     contents:
       /usr/bin/chage:
       /usr/bin/chfn:
@@ -38,33 +40,62 @@ slices:
       /usr/sbin/grpunconv:
       /usr/sbin/newusers:
       /usr/sbin/pwunconv:
-      /usr/sbin/useradd:
-      /usr/sbin/userdel:
       /usr/sbin/usermod:
       /usr/sbin/vigr:  # Symlink to vipw
       /usr/sbin/vipw:
 
-  pwck:
+  useradd:
+    hint: Create or update user accounts
     essential:
-      ...
+      libacl1_libs:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+      libsemanage2_libs:
+    contents:
+      /usr/sbin/useradd:
+
+  userdel:
+    hint: Delete user accounts
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+      libsemanage2_libs:
+    contents:
+      /usr/sbin/userdel:
+
+  pwck:
+    hint: Verify integrity of password files
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/sbin/pwck:
 
   pwconv:
+    hint: Convert password files to shadow format
     essential:
-      ...
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/sbin/pwconv:
 
   grpck:
     essential:
-      ...
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/sbin/grpck:
 
   grpconv:
     essential:
-      ...
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
     contents:
       /usr/sbin/grpconv:
 
