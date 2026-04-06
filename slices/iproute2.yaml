@@ -26,6 +26,7 @@ slices:
       libselinux1_libs:
       libtirpc3t64_libs:
       libxtables12_libs:
+      iproute2_ip-bin:
     contents:
       /usr/bin/ctstat:  # Symlink to lnstat
       /usr/bin/lnstat:
