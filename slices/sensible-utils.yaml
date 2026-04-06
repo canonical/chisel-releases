@@ -28,6 +28,7 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
+      # gettext_bins:  # TODO: add gettext once slices
     contents:
       /usr/bin/sensible-browser:
 
@@ -35,6 +36,7 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
+      sensible-utils_select-editor:
     contents:
       /usr/bin/sensible-editor:
 
@@ -42,6 +44,7 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
+      # gettext_bins:  # TODO: add gettext once slices
     contents:
       /usr/bin/sensible-pager:
 
@@ -49,6 +52,8 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
+      # gettext_bins:  # TODO: add gettext once slices
+      coreutils_tr-utility:
     contents:
       /usr/bin/sensible-terminal:
 
