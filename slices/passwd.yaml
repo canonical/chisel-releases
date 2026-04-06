@@ -19,6 +19,10 @@ slices:
       libselinux1_libs:
       libsemanage2_libs:
       passwd_config:
+      passwd_pwck:
+      passwd_pwconv:
+      passwd_grpck:
+      passwd_grpconv:
     contents:
       /usr/bin/chage:
       /usr/bin/chfn:
@@ -30,26 +34,58 @@ slices:
       /usr/sbin/chpasswd:
       /usr/sbin/groupadd:
       /usr/sbin/groupdel:
-      # groupmems is no longer present in the latest deb. Unsure whether this
-      # is intentional. The passwd package installed in ubuntu:24.10 docker
-      # image does contain the file. However, the installed package is of a
-      # lower version.
-      # TODO uncomment if and once the file is included in the latest version.
-      # /usr/sbin/groupmems:
       /usr/sbin/groupmod:
-      /usr/sbin/grpck:
-      /usr/sbin/grpconv:
       /usr/sbin/grpunconv:
       /usr/sbin/newusers:
-      /usr/sbin/pwck:
-      /usr/sbin/pwconv:
       /usr/sbin/pwunconv:
-      /usr/sbin/shadowconfig:
       /usr/sbin/useradd:
       /usr/sbin/userdel:
       /usr/sbin/usermod:
       /usr/sbin/vigr:  # Symlink to vipw
       /usr/sbin/vipw:
+
+  pwck:
+    essential:
+      ...
+    contents:
+      /usr/sbin/pwck:
+
+  pwconv:
+    essential:
+      ...
+    contents:
+      /usr/sbin/pwconv:
+
+  grpck:
+    essential:
+      ...
+    contents:
+      /usr/sbin/grpck:
+
+  grpconv:
+    essential:
+      ...
+    contents:
+      /usr/sbin/grpconv:
+
+  scripts:
+    hint: Turn of shadow passwords
+    essential:
+      base-files_bin:
+      dash_bins:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_cmp:
+      coreutils_cp-utility:
+      coreutils_date:
+      coreutils_touch:
+      passwd_pwck:
+      passwd_pwconv:
+      passwd_grpck:
+      passwd_grpconv:
+      sed_bins:
+    contents:
+      /usr/sbin/shadowconfig:
 
   # Essential configurations used by useradd(8) and friends.
   config:
