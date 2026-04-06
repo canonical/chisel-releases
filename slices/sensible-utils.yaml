@@ -15,12 +15,12 @@ slices:
   select-editor:
     essential:
       base-files_bin:
-      dash_bins:
       coreutils_cut:
-      gettext-base_bins:
       coreutils_sort:
       coreutils_wc-utility:
+      dash_bins:
       dpkg_update-alternatives:
+      gettext-base_bins:
     contents:
       /usr/bin/select-editor:
 
@@ -51,9 +51,9 @@ slices:
   sensible-terminal:
     essential:
       base-files_bin:
+      coreutils_tr-utility:
       dash_bins:
       gettext-base_bins:
-      coreutils_tr-utility:
     contents:
       /usr/bin/sensible-terminal:
 
