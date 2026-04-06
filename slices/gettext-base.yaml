@@ -1,0 +1,29 @@
+package: gettext-base
+
+essential:
+  gettext-base_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/envsubst:
+      /usr/bin/gettext:
+      /usr/bin/ngettext:
+
+  scripts:
+    essential:
+      gettext.sh:
+
+  gettext.sh:
+    essential:
+      base-files_bin:
+      dash_bins:
+      gettext-base_bins:
+    contents:
+      /usr/bin/gettext.sh:
+
+  copyright:
+    contents:
+      /usr/share/doc/gettext-base/copyright:
