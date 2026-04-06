@@ -19,10 +19,10 @@ slices:
       libselinux1_libs:
       libsemanage2_libs:
       passwd_config:
-      passwd_pwck:
-      passwd_pwconv:
       passwd_grpck:
       passwd_grpconv:
+      passwd_pwck:
+      passwd_pwconv:
       passwd_useradd:
       passwd_userdel:
     contents:
@@ -110,10 +110,10 @@ slices:
       coreutils_date:
       coreutils_touch:
       diffutils_cmp:
-      passwd_pwck:
-      passwd_pwconv:
       passwd_grpck:
       passwd_grpconv:
+      passwd_pwck:
+      passwd_pwconv:
       sed_bins:
     contents:
       /usr/sbin/shadowconfig:
