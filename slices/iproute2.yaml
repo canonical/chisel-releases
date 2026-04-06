@@ -16,6 +16,7 @@ slices:
     essential:
       iproute2_config:
       iproute2_dist:
+      iproute2_ip-bin:
       libbpf1_libs:
       libc6_libs:
       libcap2-bin_bins:
@@ -26,7 +27,6 @@ slices:
       libselinux1_libs:
       libtirpc3t64_libs:
       libxtables12_libs:
-      iproute2_ip-bin:
     contents:
       /usr/bin/ctstat:  # Symlink to lnstat
       /usr/bin/lnstat:
