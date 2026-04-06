@@ -12,6 +12,7 @@ slices:
       dpkg_realpath:
       dpkg_scripts:
       dpkg_tables:
+      dpkg_update-alternatives:
       dpkg_var:
       libbz2-1.0_libs:
       libc-bin_ldconfig:
@@ -31,9 +32,14 @@ slices:
       /usr/bin/dpkg-split:
       /usr/bin/dpkg-statoverride:
       /usr/bin/dpkg-trigger:
-      /usr/bin/update-alternatives:
       /usr/libexec/dpkg/*:
       /usr/sbin/start-stop-daemon:
+
+  update-alternatives:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/update-alternatives:
 
   realpath:
     hint: Resolve path with dpkg root support
