@@ -14,10 +14,6 @@ slices:
 
   scripts:
     essential:
-      gettext.sh:
-
-  gettext.sh:
-    essential:
       base-files_bin:
       dash_bins:
       gettext-base_bins:
