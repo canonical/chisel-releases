@@ -28,6 +28,7 @@ slices:
   # x-terminal-emulator
 
   ucf:
+    hint: Preserve user changes in config files
     essential:
       base-files_bin:
       bash_bins:  # we need bash as well as dash
@@ -57,6 +58,7 @@ slices:
       /usr/share/ucf/ucf_library.sh:
 
   ucfq:
+    hint: Query config file registry
     essential:
       perl-base_bins:
       perl-base_modules:
@@ -64,6 +66,7 @@ slices:
       /usr/bin/ucfq:
 
   ucfr:
+    hint: Update config file registry
     essential:
       base-files_bin:
       coreutils_basename:
