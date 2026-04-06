@@ -36,7 +36,7 @@ slices:
       /usr/sbin/start-stop-daemon:
 
   update-alternatives:
-    hint: Maintains symbolic links for commands
+    hint: Maintain symbolic links for commands
     essential:
       libc6_libs:
     contents:
