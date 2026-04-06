@@ -4,17 +4,13 @@ essential:
   sensible-utils_copyright:
 
 slices:
-  bins:
+  scripts:
     contents:
       /usr/bin/select-editor:
       /usr/bin/sensible-browser:
       /usr/bin/sensible-editor:
       /usr/bin/sensible-pager:
       /usr/bin/sensible-terminal:
-
-  mime:
-    contents:
-      /usr/lib/mime/packages/sensible-utils:
 
   copyright:
     contents:
