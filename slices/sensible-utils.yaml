@@ -14,35 +14,40 @@ slices:
 
   select-editor:
     essential:
-      base-files-bin:
+      base-files_bin:
       dash_bins:
+      coreutils_cut:
+      # gettext_bins:  # TODO: add gettext once slices
+      coreutils_sort:
+      coreutils_wc-utility:
+      dpkg_update-alternatives:
     contents:
       /usr/bin/select-editor:
 
   sensible-browser:
     essential:
-      base-files-bin:
+      base-files_bin:
       dash_bins:
     contents:
       /usr/bin/sensible-browser:
 
   sensible-editor:
     essential:
-      base-files-bin:
+      base-files_bin:
       dash_bins:
     contents:
       /usr/bin/sensible-editor:
 
   sensible-pager:
     essential:
-      base-files-bin:
+      base-files_bin:
       dash_bins:
     contents:
       /usr/bin/sensible-pager:
 
   sensible-terminal:
     essential:
-      base-files-bin:
+      base-files_bin:
       dash_bins:
     contents:
       /usr/bin/sensible-terminal:
