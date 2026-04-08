@@ -35,7 +35,6 @@ slices:
       systemd_timedate:
       systemd_tpm2:
       systemd_user-services:
-      systemd_utils:
     contents:
       /usr/bin/kernel-install:
       /usr/bin/systemctl:
@@ -49,6 +48,35 @@ slices:
       /usr/lib/systemd/systemd:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-shutdown:
+
+  dev:
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_standard:
+    contents:
+      /usr/bin/busctl:
+      /usr/bin/systemd-ac-power:
+      /usr/bin/systemd-ask-password:
+      /usr/bin/systemd-cat:
+      /usr/bin/systemd-cgls:
+      /usr/bin/systemd-cgtop:
+      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
+      /usr/bin/systemd-creds:
+      /usr/bin/systemd-delta:
+      /usr/bin/systemd-firstboot:
+      /usr/bin/systemd-id128:
+      /usr/bin/systemd-inhibit:
+      /usr/bin/systemd-machine-id-setup:
+      /usr/bin/systemd-mount:
+      /usr/bin/systemd-path:
+      /usr/bin/systemd-socket-activate:
+      /usr/bin/systemd-stdio-bridge:
+      /usr/bin/systemd-sysext:
+      /usr/bin/systemd-tty-ask-password-agent:
+      /usr/bin/systemd-umount:  # Symlink to systemd-mount
+      /usr/bin/systemd-vpick:
+      /usr/bin/varlinkctl:
 
   run0:
     hint: Elevate privileges interactively
@@ -199,35 +227,6 @@ slices:
       /usr/lib/systemd/network/80-vm-vt.link:
       /usr/lib/systemd/network/80-vm-vt.network:
       /usr/lib/systemd/network/80-wifi-adhoc.network:
-
-  utils:
-    essential:
-      libc6_libs:
-      libsystemd-shared_libs:
-      systemd_standard:
-    contents:
-      /usr/bin/busctl:
-      /usr/bin/systemd-ac-power:
-      /usr/bin/systemd-ask-password:
-      /usr/bin/systemd-cat:
-      /usr/bin/systemd-cgls:
-      /usr/bin/systemd-cgtop:
-      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
-      /usr/bin/systemd-creds:
-      /usr/bin/systemd-delta:
-      /usr/bin/systemd-firstboot:
-      /usr/bin/systemd-id128:
-      /usr/bin/systemd-inhibit:
-      /usr/bin/systemd-machine-id-setup:
-      /usr/bin/systemd-mount:
-      /usr/bin/systemd-path:
-      /usr/bin/systemd-socket-activate:
-      /usr/bin/systemd-stdio-bridge:
-      /usr/bin/systemd-sysext:
-      /usr/bin/systemd-tty-ask-password-agent:
-      /usr/bin/systemd-umount:  # Symlink to systemd-mount
-      /usr/bin/systemd-vpick:
-      /usr/bin/varlinkctl:
 
   # System services and daemons
   services:
