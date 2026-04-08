@@ -19,5 +19,4 @@ slices:
 
   copyright:
     contents:
-      /usr/lib/python3.14/LICENSE.txt:
       /usr/share/doc/python3.14-minimal/copyright:
