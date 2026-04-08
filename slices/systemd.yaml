@@ -50,7 +50,6 @@ slices:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-shutdown:
 
-  # Run0 (sudo alternative)
   run0:
     hint: Elevate privileges interactively
     essential:
@@ -61,7 +60,6 @@ slices:
       /usr/bin/run0:  # Symlink to systemd-run
       /usr/bin/systemd-run:
 
-  # Detect virtualization
   detect-virt:
     hint: Identify virtualization environment
     essential:
@@ -70,8 +68,8 @@ slices:
     contents:
       /usr/bin/systemd-detect-virt:
 
-  # Journal management
   journal:
+    hint: View and manage system logs
     essential:
       libc6_libs:
       libsystemd-shared_libs:
@@ -93,8 +91,8 @@ slices:
       /usr/lib/systemd/system/systemd-journald@.socket:
       /usr/lib/systemd/systemd-journald:
 
-  # Login and session management
   login:
+    hint: Manage user logins and sessions
     essential:
       libc6_libs:
       libpam0g_libs:
@@ -120,8 +118,8 @@ slices:
       /usr/lib/systemd/systemd-user-runtime-dir:
       /usr/lib/systemd/systemd-user-sessions:
 
-  # Hostname management
   hostname:
+    hint: Control system hostname
     essential:
       libc6_libs:
       libsystemd-shared_libs:
@@ -134,8 +132,8 @@ slices:
       /usr/lib/systemd/system/systemd-hostnamed.socket:
       /usr/lib/systemd/systemd-hostnamed:
 
-  # Locale management
   locale:
+    hint: Control system locale settings
     essential:
       libc6_libs:
       libsystemd-shared_libs:
@@ -148,8 +146,8 @@ slices:
       /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/systemd-localed:
 
-  # Time and date management
   timedate:
+    hint: Control system time and date settings
     essential:
       libc6_libs:
       libsystemd-shared_libs:
@@ -161,8 +159,8 @@ slices:
       /usr/lib/systemd/system/systemd-timedated.service:
       /usr/lib/systemd/systemd-timedated:
 
-  # Network management
   network:
+    hint: Manage network configuration
     essential:
       libc6_libs:
       libssl3t64_libs:
@@ -202,7 +200,6 @@ slices:
       /usr/lib/systemd/network/80-vm-vt.network:
       /usr/lib/systemd/network/80-wifi-adhoc.network:
 
-  # Advanced utilities
   utils:
     essential:
       libc6_libs:
