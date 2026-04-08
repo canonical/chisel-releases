@@ -7,6 +7,7 @@ slices:
   libs:
     # NOTE: libavahi-common3 deb also depends on libavahi-common-data
     essential:
+      - libavahi-common-data_data
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libavahi-common.so.3*:

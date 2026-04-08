@@ -1,0 +1,17 @@
+package: libice6
+
+essential:
+  - libice6_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libICE.so.6*:
+    essential:
+      - libbsd0_libs
+      - libc6_libs
+      - x11-common_resources
+
+  copyright:
+    contents:
+      /usr/share/doc/libice6/copyright:

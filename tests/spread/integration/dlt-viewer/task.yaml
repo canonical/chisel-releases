@@ -1,0 +1,20 @@
+summary: Integration tests for dlt-viewer and dlt-commander
+
+execute: |
+  apt install --update -y libdlt-dev gcc libc6-dev
+  gcc testdlt.c -ldlt -o testfile.dlt
+
+  rootfs_viewer="$(install-slices dlt-viewer_bins)"
+  cp testfile.dlt "${rootfs_viewer}/"
+
+  export QT_DEBUG_PLUGINS=1
+  export QT_QPA_PLATFORM=offscreen
+
+  chroot "${rootfs_viewer}" dlt-viewer -csv -s -t -c output.csv testfile.dlt
+  test -f "${rootfs_viewer}/output.csv"
+
+  rootfs_commander="$(install-slices dlt-viewer_commander)"
+  cp testfile.dlt "${rootfs_commander}/"
+
+  chroot "${rootfs_commander}" dlt-commander -csv -c output.csv testfile.dlt
+  test -f "${rootfs_commander}/output.csv"

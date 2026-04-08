@@ -1,0 +1,18 @@
+package: libxkbcommon-x11-0
+
+essential:
+  - libxkbcommon-x11-0_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libxkbcommon-x11.so.0*:
+    essential:
+      - libc6_libs
+      - libxcb-xkb1_libs
+      - libxcb1_libs
+      - libxkbcommon0_libs
+
+  copyright:
+    contents:
+      /usr/share/doc/libxkbcommon-x11-0/copyright:

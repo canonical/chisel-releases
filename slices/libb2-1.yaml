@@ -1,0 +1,15 @@
+package: libb2-1
+
+essential:
+  - libb2-1_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/libb2-1/copyright:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libb2.so*:
+    essential:
+      - libc6_libs
+      - libgomp1_libs
