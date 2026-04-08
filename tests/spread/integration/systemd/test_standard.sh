@@ -1,7 +1,7 @@
 #!/bin/bash
 #spellchecker: ignore rootfs virt
 
-rootfs="$(install-slices systemd_core)"
+rootfs="$(install-slices systemd_standard)"
 
 # copy over a couple of services for testing
 rootfs_services="$(install-slices systemd_system-services)"
@@ -16,8 +16,8 @@ for f in "${to_copy[@]}"; do
   cp "$rootfs_services$f" "$rootfs$f"
 done
   
-mkdir "${rootfs}"/proc
-mount --bind /proc "${rootfs}"/proc
+mkdir "$rootfs/proc"
+mount --bind /proc "$rootfs/proc"
 trap "umount $rootfs/proc" EXIT
 
 chroot "$rootfs" systemctl disable getty@tty1.service
