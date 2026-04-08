@@ -43,6 +43,8 @@ slices:
       /etc/apparmor.d/Xorg:
       /etc/apparmor.d/abi/3.0:
       /etc/apparmor.d/abi/4.0:
+      /etc/apparmor.d/abi/4.0-ip:
+      /etc/apparmor.d/abi/5.0:
       /etc/apparmor.d/abi/kernel-5.4-outoftree-network:
       /etc/apparmor.d/abi/kernel-5.4-vanilla:
       /etc/apparmor.d/abstractions/X:
@@ -54,6 +56,7 @@ slices:
       /etc/apparmor.d/abstractions/apparmor_api/is_enabled:
       /etc/apparmor.d/abstractions/aspell:
       /etc/apparmor.d/abstractions/audio:
+      /etc/apparmor.d/abstractions/authd:
       /etc/apparmor.d/abstractions/authentication:
       /etc/apparmor.d/abstractions/base:
       /etc/apparmor.d/abstractions/bash:
@@ -84,6 +87,7 @@ slices:
       /etc/apparmor.d/abstractions/gio-open:
       /etc/apparmor.d/abstractions/gnome:
       /etc/apparmor.d/abstractions/gnupg:
+      /etc/apparmor.d/abstractions/golang:
       /etc/apparmor.d/abstractions/groff:
       /etc/apparmor.d/abstractions/gtk:
       /etc/apparmor.d/abstractions/gvfs-open:
@@ -115,6 +119,7 @@ slices:
       /etc/apparmor.d/abstractions/opencl-mesa:
       /etc/apparmor.d/abstractions/opencl-nvidia:
       /etc/apparmor.d/abstractions/opencl-pocl:
+      /etc/apparmor.d/abstractions/opengl:
       /etc/apparmor.d/abstractions/openssl:
       /etc/apparmor.d/abstractions/orbit2:
       /etc/apparmor.d/abstractions/p11-kit:
