@@ -32,7 +32,7 @@ slices:
       netbase_default-hosts:
       netbase_default-networks:
       passwd_bins:
-      python3.13_standard:
+      python3.14_standard:
       rabbitmq-server_config:
       rabbitmq-server_modules:
       sed_bins:

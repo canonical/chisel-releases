@@ -1,0 +1,55 @@
+package: dotnet-runtime-10.0
+
+essential:
+  dotnet-runtime-10.0_copyright:
+
+slices:
+  minimal:
+    essential:
+      dotnet-hostfxr-10.0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      libunwind8_libs: {arch: [amd64]}
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.NETCore.App.deps.json:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.NETCore.App.runtimeconfig.json:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.Win32.Primitives.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Console.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Private.CoreLib.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Runtime.InteropServices.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Runtime.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Threading.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libSystem.Native.so:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libclrjit.so:
+        arch: [amd64, arm64]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclr.so:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclrtraceptprovider.so:
+        arch: [amd64, arm64]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libhostpolicy.so:
+
+  # libicu is not needed if the environment is set to invariant by using
+  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+  # If globalization is needed, libicu must be included as well.
+  # For more information, see:
+  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  core:
+    essential:
+      dotnet-runtime-10.0_minimal:
+      libbrotli1_libs:
+      liblttng-ust1t64_libs: {arch: [amd64, arm64]}
+      libssl3t64_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/**:
+
+  standard:
+    essential:
+      dotnet-runtime-10.0_core:
+      libicu78_libs:
+      tzdata_zoneinfo:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-runtime-10.0/copyright:
