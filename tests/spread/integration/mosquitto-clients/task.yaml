@@ -1,0 +1,50 @@
+summary: Integration tests for mosquitto-clients
+
+execute: |
+  # Install mosquitto broker and clients for pub/sub testing
+  rootfs="$(install-slices mosquitto_bins mosquitto-clients_bins)"
+
+  # Start mosquitto broker in background, needs /dev
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  trap "umount ${rootfs}/dev || true" EXIT
+  # Force using the the root user
+  echo "user root" >> "${rootfs}/etc/mosquitto/mosquitto.conf"
+  echo "Starting mosquitto broker in background"
+  chroot "${rootfs}/" mosquitto -d -c /etc/mosquitto/mosquitto.conf 
+  
+  sleep 2
+
+  echo "Test pub/sub: subscribe in background, wait for one message, with timeout"
+  setsid timeout 10 chroot "${rootfs}/" mosquitto_sub -h 127.0.0.1 -t test/topic -C 1 > "${rootfs}/received" &
+  SUB_PID=$!
+  sleep 1
+
+  # Publish a test message
+  chroot "$rootfs" mosquitto_pub -h 127.0.0.1 -t test/topic -m "hello, i am a test"
+
+  # Wait for subscriber
+  wait $SUB_PID
+  trap "kill -- -$SUB_PID 2>/dev/null || true" EXIT
+
+  # Verify message was received
+  grep -q "hello, i am a test" "${rootfs}/received"
+
+  echo "Test mosquitto_rr (request-response)"
+  # Start a responder: subscribe to request topic, publish response
+  setsid sh -c "
+    chroot \"${rootfs}/\" mosquitto_sub -h 127.0.0.1 -t request/topic -C 1 > /dev/null
+    chroot \"${rootfs}/\" mosquitto_pub -h 127.0.0.1 -t response/topic -m \"pong\"
+  " &
+  RESPONDER_PID=$!
+  sleep 1
+
+  # Send request and wait for response
+  RESPONSE=$(timeout 10 chroot "${rootfs}/" mosquitto_rr -h 127.0.0.1 -t request/topic -e response/topic -m "ping")
+  test "$RESPONSE" = "pong"
+
+  trap "kill -- -$RESPONDER_PID 2>/dev/null || true" EXIT
+
+restore: |
+  # Kill mosquitto broker
+  pkill -f "mosquitto" || true
