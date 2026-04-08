@@ -1,0 +1,19 @@
+package: mosquitto-clients
+
+essential:
+  mosquitto-clients_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libcjson1_libs:
+      libmosquitto1_libs:
+    contents:
+      /usr/bin/mosquitto_pub:
+      /usr/bin/mosquitto_rr:
+      /usr/bin/mosquitto_sub:
+
+  copyright:
+    contents:
+      /usr/share/doc/mosquitto-clients/copyright:
