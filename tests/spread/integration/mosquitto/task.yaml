@@ -1,0 +1,41 @@
+summary: Integration tests for mosquitto
+
+execute: |
+  apt install -y jq
+
+  # Chisel slices including mosquitto-clients for pub/sub testing
+  rootfs="$(install-slices mosquitto_bins)"
+
+  echo "Ensure the dynamic security plugin is available"
+  chroot "$rootfs" mosquitto_ctrl --help | MATCH "dynsec"
+  chroot "${rootfs}/" mosquitto_ctrl dynsec help
+
+  echo "Ensure the dynsec plugin is functional"
+  test ! -f "${rootfs}/tmp/dynsecconfig"
+  chroot "${rootfs}/" mosquitto_ctrl dynsec init /tmp/dynsecconfig adminuser adminpass
+  cat "${rootfs}/tmp/dynsecconfig" | jq -r '.clients[0].username' | MATCH "adminuser"
+
+  echo "Ensure mosquitto_passwd is available and can create a password file"
+  test ! -f "${rootfs}/tmp/passwd"
+  chroot "${rootfs}/" mosquitto_passwd -c -b /tmp/passwd testuser testpassword
+  test -f "${rootfs}/tmp/passwd"
+  [[ "$(cat "$rootfs/tmp/passwd")" = "USER:"* ]]
+
+  # Start mosquitto broker in background, needs /dev
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  trap "umount $rootfs/dev || true" EXIT
+
+  # Force using the the root user
+  echo "user root" >> "${rootfs}/etc/mosquitto/mosquitto.conf"
+  echo "Starting mosquitto broker in background"
+  chroot "${rootfs}/" mosquitto -d -c /etc/mosquitto/mosquitto.conf 
+
+  # Give it a moment to start
+  sleep 2
+
+  pgrep mosquitto -a
+
+restore: |
+  # Kill mosquitto broker
+  pkill -f mosquitto || true
