@@ -30,6 +30,7 @@ slices:
       /usr/bin/mkfontscale:
 
   maps:
+    hint: Unicode font mappings
     contents:
       /usr/share/fonts/X11/util/*:
 
