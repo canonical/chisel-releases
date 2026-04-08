@@ -1,0 +1,17 @@
+package: libmosquitto1
+
+essential:
+  libmosquitto1_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/lib/*-linux-*/libmosquitto.so.1:
+      /usr/lib/*-linux-*/libmosquitto.so.2.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmosquitto1/copyright:
