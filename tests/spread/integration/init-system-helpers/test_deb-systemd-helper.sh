@@ -48,6 +48,9 @@ test -f "$state_file"
 test ! -e "$override_file"
 grep -qx "/etc/systemd/system/multi-user.target.wants/test.service" "$state_file"
 
+# was-enabled returns *enabled* if the state file exists, even if the symlink is missing, so should report enabled at this point
+chroot "$rootfs" deb-systemd-helper was-enabled test.service 2>&1 | grep -qx "enabled"
+
 chroot "$rootfs" deb-systemd-helper debian-installed test.service
 
 # disable the service
@@ -57,6 +60,9 @@ chroot "$rootfs" deb-systemd-helper is-enabled test.service 2>&1 | grep -qx "dis
 # check symlink and the state file 
 test ! -e "$service_symlink"
 test -f "$state_file"
+
+# was-enabled should now report disabled (state file exists but symlinks are gone)
+chroot "$rootfs" deb-systemd-helper was-enabled test.service 2>&1 | grep -qx "disabled"
 
 # purge the state file
 _DEB_SYSTEMD_HELPER_PURGE=1 chroot "$rootfs" deb-systemd-helper disable test.service
