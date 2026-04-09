@@ -32,8 +32,6 @@ chmod +x "$rootfs/etc/init.d/test"
 chroot "$rootfs" /usr/sbin/update-rc.d test defaults
 
 # find all files under /etc which are in rc*.d and are symlinks to /etc/init.d/test
-# find "$rootfs/etc" -type l -path "*/rc*.d/*" -exec readlink -f {} \; | \
-#     sed "s|$rootfs||" | sort -u | grep -qx "/etc/init.d/test"
 for rl in 0 1 2 3 4 5 6; do
     link=$(find "$rootfs/etc/rc$rl.d" -type l | sed "s|$rootfs||");
     readlink -f "$rootfs$link" | grep -q "/etc/init.d/test"
