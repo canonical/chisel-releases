@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import argparse
 import tempfile
 import datetime
 import gzip
@@ -350,7 +351,40 @@ def determine_forward_porting_status(
     return to_add_label, to_remove_label
 
 
+def apply_labels(to_add: set[int], to_remove: set[int]) -> None:
+    """Apply or remove the 'forward port missing' label on PRs using the gh CLI."""
+    env = os.environ.copy()
+    gh_token = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN", "")
+    if gh_token:
+        env["GH_TOKEN"] = gh_token
+
+    label = FORWARD_PORT_MISSING_LABEL
+    for number in sorted(to_add):
+        info(f"Adding label to PR #{number}")
+        sub.run(
+            ["gh", "pr", "edit", str(number), "--add-label", label],
+            check=True,
+            env=env,
+        )
+
+    for number in sorted(to_remove):
+        info(f"Removing label from PR #{number}")
+        sub.run(
+            ["gh", "pr", "edit", str(number), "--remove-label", label],
+            check=True,
+            env=env,
+        )
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Apply label changes to PRs using the gh CLI. Without this flag, only prints the results.",
+    )
+    args = parser.parse_args()
+
     slices_per_branch, codenames = checkout_chisel_releases_info()
     prs = fetch_prs(set(slices_per_branch.keys()))
     packages_by_release = fetch_packages_in_release(codenames)
@@ -363,6 +397,9 @@ def main() -> None:
 
     print("add:", ",".join(map(str, sorted(to_add_label))))
     print("remove:", ",".join(map(str, sorted(to_remove_label))))
+
+    if args.apply:
+        apply_labels(to_add_label, to_remove_label)
 
 
 if __name__ == "__main__":
