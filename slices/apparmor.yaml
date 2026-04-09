@@ -2,6 +2,10 @@ package: apparmor
 
 essential:
   - apparmor_copyright
+  # Make sure base-files is extracted before any other slices of apparmor to
+  # to avoid creating /lib and /sbin directories instead of symlinks.
+  - base-files_lib
+  - base-files_bin
 
 slices:
   # Also relies on debconf, however it is solely used by install hook
