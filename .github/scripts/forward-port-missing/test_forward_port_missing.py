@@ -18,6 +18,11 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import forward_port_missing
 
 
+def _mock_session_get(mock_session_class: MagicMock) -> MagicMock:
+    """Extract the `get` mock from a patched requests.Session class."""
+    return mock_session_class.return_value.__enter__.return_value.get
+
+
 class TestFetchPRs:
     json_response = [
         {
@@ -54,8 +59,7 @@ class TestFetchPRs:
             self.json_response, self.diff_text
         )
 
-        get = mock_session.return_value.__enter__.return_value.get
-
+        get = _mock_session_get(mock_session)
         get.side_effect = side_effects
         prs = forward_port_missing.fetch_prs()
 
@@ -84,7 +88,7 @@ class TestFetchPRs:
             json_response, self.diff_text
         )
 
-        get = mock_session.return_value.__enter__.return_value.get
+        get = _mock_session_get(mock_session)
         get.side_effect = side_effects
         prs = forward_port_missing.fetch_prs()
 
@@ -106,7 +110,7 @@ class TestFetchPRs:
             self.json_response, diff_text
         )
 
-        get = mock_session.return_value.__enter__.return_value.get
+        get = _mock_session_get(mock_session)
         get.side_effect = side_effects
         prs = forward_port_missing.fetch_prs()
 
@@ -116,12 +120,11 @@ class TestFetchPRs:
 class TestFetchPackagesInRelease:
     @patch("forward_port_missing.requests.Session")
     def test_fetch_packages_in_release(self, mock_session_class):
-        mock_session = MagicMock()
-        mock_session_class.return_value.__enter__.return_value = mock_session
+        get = _mock_session_get(mock_session_class)
 
         mock_response = MagicMock()
         mock_response.content = gzip.compress(b"Package: foo\n\nPackage: bar\n")
-        mock_session.get.return_value = mock_response
+        get.return_value = mock_response
 
         result = forward_port_missing.fetch_packages_in_release(
             {"ubuntu-22.04": "jammy"}
