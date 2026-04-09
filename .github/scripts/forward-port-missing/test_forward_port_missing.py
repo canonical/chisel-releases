@@ -201,6 +201,21 @@ class TestDetermineForwardPortingStatus:
         assert to_remove == set()
 
     @with_and_without_labels
+    def test_slices_partially_exists_gap(self, labels: frozenset[str]) -> None:
+        """Slices for that package exist in a later branch but are missing in an intermediate one"""
+        prs = {replace(self.pr, labels=labels)}
+        slices_per_branch = deepcopy(self.slices_per_branch)
+        slices_per_branch["ubuntu-24.04"].add("foo")
+
+        to_add, to_remove = forward_port_missing.determine_forward_porting_status(
+            prs=prs,
+            slices_per_branch=slices_per_branch,
+        )
+
+        assert to_add == (set() if labels else {1})
+        assert to_remove == set()
+
+    @with_and_without_labels
     def test_slices_missing_but_other_prs_exist(self, labels: frozenset[str]) -> None:
         """Slices for that package do not exist, but there are other PRs which add slices to the future branches"""
         prs = {
