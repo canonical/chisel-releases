@@ -1,0 +1,118 @@
+package: squid
+
+essential:
+  squid_copyright:
+
+slices:
+  core:
+    essential:
+      libc6_libs:
+      libcap2_libs:
+      libcom-err2_libs:
+      libecap3_libs:
+      libgcc-s1_libs:
+      libgnutls30t64_libs:
+      libgssapi-krb5-2_libs:
+      libkrb5-3_libs:
+      libltdl7_libs:
+      libnetfilter-conntrack3_libs:
+      libnettle8t64_libs:
+      libstdc++6_libs:
+      libsystemd0_libs:
+      squid-common_config:
+      squid-common_icons:
+      squid_runtime:
+      squid_logging:
+    contents:
+      /etc/squid/squid.conf:
+      /etc/squid/conf.d/debian.conf:
+      /usr/sbin/squid-gnutls:
+      /var/log/squid/:
+      /var/spool/squid/:
+
+  # These are part of core and should be private slices
+  runtime:
+    essential:
+      perl_bins:
+    contents:
+      /usr/lib/squid/diskd:
+      /usr/lib/squid/helper-mux:
+      /usr/lib/squid/pinger:
+      /usr/lib/squid/unlinkd:
+    
+  logging:
+    essential:
+      perl_bins:
+    contents:
+      /usr/lib/squid/log_db_daemon:
+      /usr/lib/squid/log_file_daemon:
+
+  standard:
+    essential:
+      squid_acl:
+      squid_auth:
+      squid_caching:
+      squid_core:
+      squid_cert:
+
+  auth:
+    essential:
+      libcrypt1_libs:
+      libldap2_libs:
+      libpam0g_libs:
+      libsasl2-2_libs:
+      perl_bins:
+      squid_core:
+    contents:
+      /usr/lib/squid/basic_db_auth:
+      /usr/lib/squid/basic_getpwnam_auth:
+      /usr/lib/squid/basic_ldap_auth:
+      /usr/lib/squid/basic_ncsa_auth:
+      /usr/lib/squid/basic_pam_auth:
+      /usr/lib/squid/basic_pop3_auth:
+      /usr/lib/squid/basic_radius_auth:
+      /usr/lib/squid/basic_sasl_auth:
+      /usr/lib/squid/basic_smb_auth:
+      /usr/lib/squid/digest_file_auth:
+      /usr/lib/squid/digest_ldap_auth:
+      /usr/lib/squid/negotiate_kerberos_auth:
+      /usr/lib/squid/negotiate_wrapper_auth:
+  
+  acl:
+    essential:
+      perl_bins:
+      squid_core:
+    contents:
+      /usr/lib/squid/ext_file_userip_acl:
+      /usr/lib/squid/ext_kerberos_ldap_group_acl:
+      /usr/lib/squid/ext_ldap_group_acl:
+      /usr/lib/squid/ext_session_acl:
+      /usr/lib/squid/ext_sql_session_acl:
+      /usr/lib/squid/ext_time_quota_acl:
+      /usr/lib/squid/ext_unix_group_acl:
+      /usr/lib/squid/ext_wbinfo_acl:
+  
+  caching:
+    essential:
+      perl_bins:
+      # squid_core: Needed? Unsure
+    contents:
+      /usr/lib/squid/storeid_file_rewrite:
+  
+  cert:
+    essential:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_ls-utility:
+      coreutils_rm-utility:
+      dash_bins:
+      gawk_bins:
+      grep_bins:
+      libnss3-tools_certutil:
+      openssl_bins:
+    contents:
+      /usr/lib/squid/cert_tool:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid/copyright:
