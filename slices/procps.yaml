@@ -46,6 +46,8 @@ slices:
 
   config:
     contents:
+      /usr/lib/sysctl.d/10-arch-specific.conf:
+        arch: [s390x]
       /usr/lib/sysctl.d/55-bufferbloat.conf:
       /usr/lib/sysctl.d/55-console-messages.conf:
       /usr/lib/sysctl.d/55-ipv6-privacy.conf:
