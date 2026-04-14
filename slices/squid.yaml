@@ -47,17 +47,10 @@ slices:
       /usr/lib/squid/log_db_daemon:
       /usr/lib/squid/log_file_daemon:
 
-  standard:
-    essential:
-      squid_acl:
-      squid_auth:
-      squid_caching:
-      squid_core:
-      squid_cert:
-
   auth:
     essential:
       libcrypt1_libs:
+      libdbi-perl_libs:
       libldap2_libs:
       libpam0g_libs:
       libsasl2-2_libs:
