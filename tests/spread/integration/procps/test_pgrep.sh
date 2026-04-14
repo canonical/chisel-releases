@@ -10,14 +10,14 @@ trap "umount '$rootfs'/proc" EXIT
 chroot "$rootfs" pgrep --help 2>&1 | grep -Fiq 'usage:'
 chroot "$rootfs" pgrep --version 2>&1 | grep -Fq 'pgrep from procps-ng'
 
-# Search for processes and verify output
+# search for processes and verify output
 chroot "$rootfs" pgrep -c . | grep -q '^[0-9]'
 
-# Verify the pkill symlink works
+# verify the pkill symlink works
 chroot "$rootfs" pkill --help 2>&1 | grep -Fiq 'usage:'
 chroot "$rootfs" pkill --version 2>&1 | grep -Fq 'pkill from procps-ng'
 
-# Find a named process with pgrep and kill it with pkill
+# find a named process with pgrep and kill it with pkill
 rootfs_2="$(install-slices procps_pgrep bash_bins)"
 
 mkdir -p "$rootfs_2"/proc
