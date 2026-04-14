@@ -90,7 +90,7 @@ slices:
       /usr/bin/slabtop:
 
   tload:
-    hint: Show system load average graphically
+    hint: Graph the system load average
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -98,7 +98,7 @@ slices:
       /usr/bin/tload:
 
   top:
-    hint: Display Linux processes
+    hint: Linux process viewer
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -108,7 +108,7 @@ slices:
       /usr/bin/top:
 
   uptime:
-    hint: Show system uptime
+    hint: Show system running time
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -124,7 +124,7 @@ slices:
       /usr/bin/vmstat:
 
   w-bin:
-    hint: Show who is logged on
+    hint: Show logged-on users
     essential:
       libc6_libs:
       libproc2-0_libs:
