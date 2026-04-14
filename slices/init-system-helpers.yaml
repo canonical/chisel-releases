@@ -4,12 +4,71 @@ essential:
   init-system-helpers_copyright:
 
 slices:
-  bins:
+  scripts:
+    essential:
+      init-system-helpers_deb-systemd-helper:
+      init-system-helpers_deb-systemd-invoke:
+      init-system-helpers_invoke-rc-d:
+      init-system-helpers_service:
+      init-system-helpers_update-rc-d:
+
+  deb-systemd-helper:
+    essential:
+      perl-base_bins:
+      perl-base_modules:
     contents:
       /usr/bin/deb-systemd-helper:
+
+  deb-systemd-invoke:
+    essential:
+      base-files_bin:
+      dash_bins:
+      perl-base_bins:
+      perl-base_modules:
+      systemd_bins:
+    contents:
       /usr/bin/deb-systemd-invoke:
+
+  # NOTE: depending on the init system, invoke-rc.d may call systemctl (systemd)
+  # or rc-scripts (sysvinit), but it can also operate without either of those.
+  invoke-rc-d:
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_ls-utility:
+      dash_bins:
+      findutils_xargs:
+      grep_bins:
+      procps_ps-bin:
+      sed_bins:
+    contents:
       /usr/sbin/invoke-rc.d:
+
+  service:
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_env:
+      coreutils_ln-utility:
+      coreutils_rm-utility:
+      dash_bins:
+      grep_bins:
+      sed_bins:
+      systemd_bins:
+    contents:
       /usr/sbin/service:
+
+  update-rc-d:
+    essential:
+      base-files_bin:
+      dash_bins:
+      init-system-helpers_config:
+      perl-base_bins:
+      perl-base_modules:
+      systemd_bins:
+    contents:
       /usr/sbin/update-rc.d:
 
   config:
