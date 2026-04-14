@@ -124,7 +124,7 @@ slices:
       /usr/bin/vmstat:
 
   w-bin:
-    hint: Show logged-on users
+    hint: Show logged on users
     essential:
       libc6_libs:
       libproc2-0_libs:
