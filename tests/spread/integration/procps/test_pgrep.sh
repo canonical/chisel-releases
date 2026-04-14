@@ -9,3 +9,4 @@ trap "umount '$rootfs'/proc" EXIT
 
 chroot "$rootfs" pgrep --help 2>&1 | grep -Fiq 'usage:'
 chroot "$rootfs" pgrep --version 2>&1 | grep -Fq 'pgrep from procps-ng'
+chroot "$rootfs" pkill --version 2>&1 | grep -Fq 'pkill from procps-ng'

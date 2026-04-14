@@ -10,13 +10,11 @@ slices:
       procps_kill:
       procps_pgrep:
       procps_pidwait:
-      procps_pkill:
       procps_pmap:
       procps_ps-bin:
       procps_pwdx:
       procps_skill:
       procps_slabtop:
-      procps_snice:
       procps_sysctl:
       procps_tload:
       procps_top:
@@ -44,6 +42,7 @@ slices:
       libproc2-0_libs:
     contents:
       /usr/bin/pgrep:
+      /usr/bin/pkill:  # Symlink to pgrep
 
   pidwait:
     essential:
@@ -51,13 +50,6 @@ slices:
       libproc2-0_libs:
     contents:
       /usr/bin/pidwait:
-
-  pkill:
-    essential:
-      libc6_libs:
-      libproc2-0_libs:
-    contents:
-      /usr/bin/pkill:
 
   pmap:
     essential:
@@ -78,6 +70,7 @@ slices:
       libproc2-0_libs:
     contents:
       /usr/bin/skill:
+      /usr/bin/snice:  # Symlink to skill
 
   slabtop:
     essential:
@@ -87,13 +80,6 @@ slices:
       libtinfo6_libs:
     contents:
       /usr/bin/slabtop:
-
-  snice:
-    essential:
-      libc6_libs:
-      libproc2-0_libs:
-    contents:
-      /usr/bin/snice:
 
   tload:
     essential:

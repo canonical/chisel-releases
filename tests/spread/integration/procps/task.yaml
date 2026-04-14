@@ -5,13 +5,13 @@ variants:
     - kill
     - pgrep
     - pidwait
-    - pkill
+
     - pmap
     - ps-bin
     - pwdx
     - skill
     - slabtop
-    - snice
+
     - sysctl
     - tload
     - top
