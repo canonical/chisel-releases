@@ -9,6 +9,7 @@ slices:
   bins:
     essential:
       apparmor_config:
+      apparmor_parser:
       apparmor_profiles:
       libc6_libs:
     contents:
@@ -16,23 +17,50 @@ slices:
       /usr/bin/aa-exec:
       /usr/bin/aa-features-abi:
       /usr/sbin/aa-load:
-      /usr/sbin/aa-remove-unknown:
       /usr/sbin/aa-status:
-      /usr/sbin/aa-teardown:
-      /usr/sbin/apparmor_parser:
       /usr/sbin/apparmor_status:
 
-  config:
+  parser:
+    essential:
+      libapparmor1_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      libzstd1_libs:
     contents:
-      /etc/apparmor/parser.conf:
-      /usr/lib/sysctl.d/10-apparmor.conf:
+      /usr/sbin/apparmor_parser:
 
-  extras:
+  scripts:
+    essential:
+      apparmor_parser:
+      apparmor_systemd:
+      base-files_bin:
+      coreutils_sort:
+      dash_bins:
+      gawk_bins:
+    contents:
+      /usr/sbin/aa-remove-unknown:
+      /usr/sbin/aa-teardown:
+
+  systemd:
+    essential:
+      coreutils_cat:
+      coreutils_ls-utility:
+      coreutils_sort:
+      grep_bins:
+      procps_sysctl:
+      sed_bins:
+      systemd_detect-virt:
     contents:
       /usr/lib/apparmor/apparmor.systemd:
       /usr/lib/apparmor/profile-load:
       /usr/lib/apparmor/rc.apparmor.functions:
       /usr/lib/systemd/system/apparmor.service:
+
+  config:
+    contents:
+      /etc/apparmor/parser.conf:
+      /usr/lib/sysctl.d/10-apparmor.conf:
 
   profiles:
     contents:
@@ -43,6 +71,8 @@ slices:
       /etc/apparmor.d/Xorg:
       /etc/apparmor.d/abi/3.0:
       /etc/apparmor.d/abi/4.0:
+      /etc/apparmor.d/abi/4.0-ip:
+      /etc/apparmor.d/abi/5.0:
       /etc/apparmor.d/abi/kernel-5.4-outoftree-network:
       /etc/apparmor.d/abi/kernel-5.4-vanilla:
       /etc/apparmor.d/abstractions/X:
@@ -54,6 +84,7 @@ slices:
       /etc/apparmor.d/abstractions/apparmor_api/is_enabled:
       /etc/apparmor.d/abstractions/aspell:
       /etc/apparmor.d/abstractions/audio:
+      /etc/apparmor.d/abstractions/authd:
       /etc/apparmor.d/abstractions/authentication:
       /etc/apparmor.d/abstractions/base:
       /etc/apparmor.d/abstractions/bash:
@@ -84,6 +115,7 @@ slices:
       /etc/apparmor.d/abstractions/gio-open:
       /etc/apparmor.d/abstractions/gnome:
       /etc/apparmor.d/abstractions/gnupg:
+      /etc/apparmor.d/abstractions/golang:
       /etc/apparmor.d/abstractions/groff:
       /etc/apparmor.d/abstractions/gtk:
       /etc/apparmor.d/abstractions/gvfs-open:
@@ -115,6 +147,7 @@ slices:
       /etc/apparmor.d/abstractions/opencl-mesa:
       /etc/apparmor.d/abstractions/opencl-nvidia:
       /etc/apparmor.d/abstractions/opencl-pocl:
+      /etc/apparmor.d/abstractions/opengl:
       /etc/apparmor.d/abstractions/openssl:
       /etc/apparmor.d/abstractions/orbit2:
       /etc/apparmor.d/abstractions/p11-kit:
@@ -332,7 +365,32 @@ slices:
       /etc/apparmor.d/tunables/sys:
       /etc/apparmor.d/tunables/system:
       /etc/apparmor.d/tunables/xdg-user-dirs:
-      /etc/apparmor.d/tunables/xdg-user-dirs.d/site.local:
+      /etc/apparmor.d/tup:
+      /etc/apparmor.d/tuxedo-control-center:
+      /etc/apparmor.d/unix-chkpwd:
+      /etc/apparmor.d/unprivileged_userns:
+      /etc/apparmor.d/userbindmount:
+      /etc/apparmor.d/uwsgi-core:
+      /etc/apparmor.d/vdens:
+      /etc/apparmor.d/virtiofsd:
+      /etc/apparmor.d/vivaldi-bin:
+      /etc/apparmor.d/vpnns:
+      /etc/apparmor.d/vrrpd:
+      /etc/apparmor.d/wg:
+      /etc/apparmor.d/wg-quick:
+      /etc/apparmor.d/who:
+      /etc/apparmor.d/wike:
+      /etc/apparmor.d/wpcom:
+        text: |
+          # This file is auto-generated. It is recommended you update it using:
+          # $ sudo dpkg-reconfigure apparmor
+          #
+          # The following is a space-separated list of where additional user home
+          # directories are stored, each must have a trailing '/'. Directories added
+          # here are appended to @{HOMEDIRS}.  See tunables/home for details.
+          #@{HOMEDIRS}+=
+        until: mutate
+      /etc/apparmor.d/znc:
         text: |
           # ------------------------------------------------------------------
           #
@@ -353,32 +411,6 @@ slices:
           #@{XDG_MUSIC_DIR}+=""
           #@{XDG_PICTURES_DIR}+=""
           #@{XDG_VIDEOS_DIR}+=""
-        until: mutate
-      /etc/apparmor.d/tup:
-      /etc/apparmor.d/tuxedo-control-center:
-      /etc/apparmor.d/unix-chkpwd:
-      /etc/apparmor.d/unprivileged_userns:
-      /etc/apparmor.d/userbindmount:
-      /etc/apparmor.d/uwsgi-core:
-      /etc/apparmor.d/vdens:
-      /etc/apparmor.d/virtiofsd:
-      /etc/apparmor.d/vivaldi-bin:
-      /etc/apparmor.d/vpnns:
-      /etc/apparmor.d/vrrpd:
-      /etc/apparmor.d/wg:
-      /etc/apparmor.d/wg-quick:
-      /etc/apparmor.d/who:
-      /etc/apparmor.d/wike:
-      /etc/apparmor.d/wpcom:
-      /etc/apparmor.d/znc:
-        text: |
-          # This file is auto-generated. It is recommended you update it using:
-          # $ sudo dpkg-reconfigure apparmor
-          #
-          # The following is a space-separated list of where additional user home
-          # directories are stored, each must have a trailing '/'. Directories added
-          # here are appended to @{HOMEDIRS}.  See tunables/home for details.
-          #@{HOMEDIRS}+=
         until: mutate
       /var/cache/apparmor/:
 
