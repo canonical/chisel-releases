@@ -4,6 +4,6 @@ summary: Integration tests for dpkg
 variants:
     - basic
     - maintscript-support
-    - update-alternatives
+    - start-stop-daemon
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
