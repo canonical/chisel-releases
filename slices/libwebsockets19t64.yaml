@@ -1,0 +1,18 @@
+package: libwebsockets19t64
+
+essential:
+  libwebsockets19t64_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libcap2_libs:
+      libssl3t64_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libwebsockets.so.19*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libwebsockets19t64/copyright:
