@@ -6,29 +6,138 @@ essential:
 slices:
   bins:
     essential:
+      procps_free:
+      procps_kill:
+      procps_pgrep:
+      procps_pidwait:
+      procps_pkill:
+      procps_pmap:
+      procps_ps-bin:
+      procps_pwdx:
+      procps_skill:
+      procps_slabtop:
+      procps_snice:
+      procps_sysctl:
+      procps_tload:
+      procps_top:
+      procps_uptime:
+      procps_vmstat:
+      procps_w-bin:
+      procps_watch:
+
+  free:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/free:
+
+  kill:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/kill:
+
+  pgrep:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pgrep:
+
+  pidwait:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pidwait:
+
+  pkill:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pkill:
+
+  pmap:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pmap:
+
+  pwdx:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/pwdx:
+
+  skill:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/skill:
+
+  slabtop:
+    essential:
       libc6_libs:
       libncursesw6_libs:
       libproc2-0_libs:
-      libsystemd0_libs:
       libtinfo6_libs:
-      procps_ps-bin:
-      procps_sysctl:
     contents:
-      /usr/bin/free:
-      /usr/bin/kill:
-      /usr/bin/pgrep:
-      /usr/bin/pidwait:
-      /usr/bin/pkill:
-      /usr/bin/pmap:
-      /usr/bin/pwdx:
-      /usr/bin/skill:
       /usr/bin/slabtop:
+
+  snice:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/snice:
+
+  tload:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/tload:
+
+  top:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+      libtinfo6_libs:
+    contents:
       /usr/bin/top:
+
+  uptime:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/uptime:
+
+  vmstat:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/vmstat:
+
+  w-bin:
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+      libsystemd0_libs:
+    contents:
       /usr/bin/w:
+
+  watch:
+    essential:
+      libc6_libs:
+      libncursesw6_libs:
+      libtinfo6_libs:
+    contents:
       /usr/bin/watch:
 
   sysctl:
