@@ -24,6 +24,7 @@ slices:
       procps_watch:
 
   free:
+    hint: Display free and used memory
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -31,12 +32,14 @@ slices:
       /usr/bin/free:
 
   kill:
+    hint: Send a signal to a process
     essential:
       libc6_libs:
     contents:
       /usr/bin/kill:
 
   pgrep:
+    hint: Look up or signal processes by name
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -45,6 +48,7 @@ slices:
       /usr/bin/pkill:  # Symlink to pgrep
 
   pidwait:
+    hint: Wait for a process to exit
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -52,6 +56,7 @@ slices:
       /usr/bin/pidwait:
 
   pmap:
+    hint: Report memory map of a process
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -59,12 +64,14 @@ slices:
       /usr/bin/pmap:
 
   pwdx:
+    hint: Report current directory of a process
     essential:
       libc6_libs:
     contents:
       /usr/bin/pwdx:
 
   skill:
+    hint: Send a signal or report process status
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -73,6 +80,7 @@ slices:
       /usr/bin/snice:  # Symlink to skill
 
   slabtop:
+    hint: Display kernel slab cache info
     essential:
       libc6_libs:
       libncursesw6_libs:
@@ -82,6 +90,7 @@ slices:
       /usr/bin/slabtop:
 
   tload:
+    hint: Show system load average graphically
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -89,6 +98,7 @@ slices:
       /usr/bin/tload:
 
   top:
+    hint: Display Linux processes
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -98,6 +108,7 @@ slices:
       /usr/bin/top:
 
   uptime:
+    hint: Show system uptime
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -105,6 +116,7 @@ slices:
       /usr/bin/uptime:
 
   vmstat:
+    hint: Report virtual memory statistics
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -112,6 +124,7 @@ slices:
       /usr/bin/vmstat:
 
   w-bin:
+    hint: Show who is logged on
     essential:
       libc6_libs:
       libproc2-0_libs:
@@ -120,6 +133,7 @@ slices:
       /usr/bin/w:
 
   watch:
+    hint: Execute a program periodically
     essential:
       libc6_libs:
       libncursesw6_libs:
@@ -128,12 +142,14 @@ slices:
       /usr/bin/watch:
 
   sysctl:
+    hint: Read or write system parameters
     essential:
       libc6_libs:
     contents:
       /usr/sbin/sysctl:
 
   ps-bin:
+    hint: Report current process snapshot
     essential:
       libc6_libs:
       libproc2-0_libs:
