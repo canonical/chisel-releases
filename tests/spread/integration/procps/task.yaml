@@ -1,8 +1,23 @@
 summary: Integration tests for procps
 
 variants:
-    - bins
-    - sysctl
+    - free
+    - kill
+    - pgrep
+    - pidwait
+    - pkill
+    - pmap
     - ps-bin
+    - pwdx
+    - skill
+    - slabtop
+    - snice
+    - sysctl
+    - tload
+    - top
+    - uptime
+    - vmstat
+    - w-bin
+    - watch
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
