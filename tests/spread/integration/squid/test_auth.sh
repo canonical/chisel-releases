@@ -2,15 +2,19 @@
 # spellchecker: ignore rootfs
 source "$(dirname "$0")/helpers.sh"
 
+# sqlite3_bins is only required for the DB auth test
+# libpam-modules_libs is only required for the PAM auth test
+# libpam-runtime_config is only required for the PAM auth test
+# passwd_bins is required for the GETPWNAM and PAM auth test (user creation and chpasswd)
 rootfs="$(install-slices \
     squid_auth \
     base-files_base \
     base-passwd_data \
     libc-bin_nsswitch \
-    sqlite3_bins \              # Only required for the DB auth test
-    libpam-modules_libs \       # Only required for the PAM auth test
-    libpam-runtime_config \     # Only required for the PAM auth test
-    passwd_bins)"               # Required for the GETPWNAM and PAM auth test
+    sqlite3_bins \
+    libpam-modules_libs \
+    libpam-runtime_config \
+    passwd_bins)"
 
 setup_squid
 
