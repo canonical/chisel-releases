@@ -3,7 +3,7 @@ summary: Integration tests for squid
 variants:
   - core
   - auth
-  #- acl
+  - acl
   #- cert
   #- caching
 

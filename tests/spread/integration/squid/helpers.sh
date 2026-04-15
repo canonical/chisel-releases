@@ -12,6 +12,9 @@ setup_squid() {
     # Set permissions for squid directories
     chown -R "$proxy_uid_gid" "${rootfs}/" 2>/dev/null || true
 
+    # Debug login (not a requirement, help debug tests)
+    echo "debug_options ALL,1 82,9" >> "${rootfs}/etc/squid/squid.conf"
+
     # Configure cache directories for squid and create swap directories
     echo "cache_dir ufs /var/spool/squid 100 16 256" >> "${rootfs}/etc/squid/squid.conf"
     chroot "${rootfs}/" /usr/sbin/squid-gnutls -Nz

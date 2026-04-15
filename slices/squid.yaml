@@ -74,7 +74,7 @@ slices:
   acl:
     essential:
       perl_bins:
-      squid_core:
+      squid_auth: # Required for group ACLs
     contents:
       /usr/lib/squid/ext_file_userip_acl:
       /usr/lib/squid/ext_kerberos_ldap_group_acl:
@@ -83,7 +83,7 @@ slices:
       /usr/lib/squid/ext_sql_session_acl:
       /usr/lib/squid/ext_time_quota_acl:
       /usr/lib/squid/ext_unix_group_acl:
-      /usr/lib/squid/ext_wbinfo_acl:
+      /usr/lib/squid/ext_wbinfo_group_acl:
   
   caching:
     essential:
