@@ -2,7 +2,7 @@ summary: Integration tests for cpio
 
 environment:
   SLICE/cpio: "cpio"
-  SLICE/mt: "mt-gnu"
+  SLICE/mt: "mt-bin"
 
 execute: |
   rootfs="$(install-slices cpio_${SLICE})"
@@ -20,7 +20,7 @@ execute: |
       fi
       test "$(cat ${rootfs}/testfile)" = "$(cat ${rootfs}/foo/testfile)"
     ;;
-    mt-gnu)
-      chroot "${rootfs}/" mt-gnu --help
+    mt-bin)
+      chroot "${rootfs}/" mt-bin --help
     ;;
   esac
