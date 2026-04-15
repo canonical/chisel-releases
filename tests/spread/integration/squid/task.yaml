@@ -1,0 +1,10 @@
+summary: Integration tests for squid
+
+variants:
+  - core
+  - auth
+  #- acl
+  #- cert
+  #- caching
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
