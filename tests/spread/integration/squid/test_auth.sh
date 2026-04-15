@@ -3,8 +3,8 @@
 source "$(dirname "$0")/helpers.sh"
 
 # sqlite3_bins is only required for the DB auth test
-# libpam-modules_libs is only required for the PAM auth test
-# libpam-runtime_config is only required for the PAM auth test
+# libpam-modules_libs is only required for the PAM auth test (provide pam_unix.so)
+# libpam-runtime_config is only required for the PAM auth test (for chpasswd to work)
 # passwd_bins is required for the GETPWNAM and PAM auth test (user creation and chpasswd)
 rootfs="$(install-slices \
     squid_auth \
@@ -136,8 +136,8 @@ test_proxy "basic_pam_auth" --proxy-user testuser:testpass
 # ------------------------------------------------
 reset_squid_conf
 
-# Manually add saslpasswd2 binary to create the sasldb
-apt download sasl2-bin && dpkg -x sasl2-bin_*.deb "${rootfs}/" && rm sasl2-bin_*.deb
+# Manually add saslpasswd2 binary to create the sasldb (only for tests)
+apt install -y --no-install-recommends sasl2-bin
 
 # Configure Squid to use basic_sasl_auth
 echo "auth_param basic program /usr/lib/squid/basic_sasl_auth" >> "${rootfs}/etc/squid/squid.conf"
@@ -154,8 +154,9 @@ auxprop_plugin: sasldb
 mech_list: PLAIN LOGIN
 EOF
 
-# Create sasl user (username: testuser, password: testpass)
-echo "testpass" | chroot "${rootfs}" saslpasswd2 -p -c -u testrealm testuser
+# Create sasl user using saslpasswd2 and move the generated sasldb into the chroot
+echo "testpass" | saslpasswd2 -p -c -u testrealm testuser
+mv /etc/sasldb2 "${rootfs}/etc/sasldb2"
 chown proxy:proxy "${rootfs}/etc/sasldb2"
 chmod 640 "${rootfs}/etc/sasldb2"
 
