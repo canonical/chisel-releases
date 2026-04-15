@@ -36,7 +36,7 @@ mkdir -p "${rootfs}/etc/squid/auth"
 printf "testuser:$(openssl passwd -apr1 testpass)\n" > "${rootfs}/etc/squid/auth/passwd"
 
 restart_squid
-test_proxy "basic_ncsa_auth"
+test_proxy "basic_ncsa_auth" --proxy-user testuser:testpass
 
 
 # GETPWNAM AUTH
@@ -52,7 +52,7 @@ chroot "${rootfs}/" useradd -m testuser
 echo "testuser:testpass" | chroot "${rootfs}/" chpasswd
 
 restart_squid
-test_proxy "basic_getpwnam_auth"
+test_proxy "basic_getpwnam_auth" --proxy-user testuser:testpass
 
 
 # DIGEST FILE AUTH
@@ -73,7 +73,7 @@ echo testuser:testrealm:ebff225e1ceb73e026fcc645af3e84f6 > "${rootfs}/etc/squid/
 
 restart_squid
 
-test_proxy "digest_file_auth"
+test_proxy "digest_file_auth" --proxy-digest --proxy-user testuser:testpass
 
 
 # DB AUTH (basic_db_auth)
@@ -105,7 +105,7 @@ chroot "${rootfs}/" sqlite3 "/etc/squid/auth/users.db" <<'EOF'
 EOF
 
 restart_squid
-test_proxy "basic_db_auth"
+test_proxy "basic_db_auth" --proxy-user testuser:testpass
 
 
 # BASIC PAM AUTH (basic_pam_auth)
@@ -113,7 +113,6 @@ test_proxy "basic_db_auth"
 reset_squid_conf
 
 echo "auth_param basic program /usr/lib/squid/basic_pam_auth -n squid" >> "${rootfs}/etc/squid/squid.conf"
-echo "auth_param basic realm testrealm" >> "${rootfs}/etc/squid/squid.conf"
 echo "acl auth_users proxy_auth REQUIRED" >> "${rootfs}/etc/squid/squid.conf"
 echo "http_access allow auth_users" >> "${rootfs}/etc/squid/squid.conf"
 echo "http_access deny all" >> "${rootfs}/etc/squid/squid.conf"
@@ -130,4 +129,35 @@ EOF
 # echo "testuser:testpass" | chroot "${rootfs}/" chpasswd
 
 restart_squid
-test_proxy "basic_pam_auth"
+test_proxy "basic_pam_auth" --proxy-user testuser:testpass
+
+
+# BASIC SASL AUTH (basic_sasl_auth)
+# ------------------------------------------------
+reset_squid_conf
+
+# Manually add saslpasswd2 binary to create the sasldb
+apt download sasl2-bin && dpkg -x sasl2-bin_*.deb "${rootfs}/" && rm sasl2-bin_*.deb
+
+# Configure Squid to use basic_sasl_auth
+echo "auth_param basic program /usr/lib/squid/basic_sasl_auth" >> "${rootfs}/etc/squid/squid.conf"
+echo "auth_param basic realm testrealm" >> "${rootfs}/etc/squid/squid.conf"
+echo "acl auth_users proxy_auth REQUIRED" >> "${rootfs}/etc/squid/squid.conf"
+echo "http_access allow auth_users" >> "${rootfs}/etc/squid/squid.conf"
+echo "http_access deny all" >> "${rootfs}/etc/squid/squid.conf"
+
+# SASL config
+mkdir -p "${rootfs}/etc/sasl2"
+cat > "${rootfs}/etc/sasl2/basic_sasl_auth.conf" <<EOF
+pwcheck_method: auxprop
+auxprop_plugin: sasldb
+mech_list: PLAIN LOGIN
+EOF
+
+# Create sasl user (username: testuser, password: testpass)
+echo "testpass" | chroot "${rootfs}" saslpasswd2 -p -c -u testrealm testuser
+chown proxy:proxy "${rootfs}/etc/sasldb2"
+chmod 640 "${rootfs}/etc/sasldb2"
+
+restart_squid
+test_proxy "basic_sasl_auth" --proxy-user testuser@testrealm:testpass

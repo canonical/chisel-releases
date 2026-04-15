@@ -56,23 +56,20 @@ restart_squid() {
 }
 
 test_proxy() {
-    local auth="$1"
-    local curl_opts=""
+    local test_case="$1"
+    shift
+    local curl_opts="$@"
 
-    if [[ "$auth" == digest* ]]; then
-        curl_opts="--proxy-digest"
-    fi
-
-    echo "Testing: $auth"
+    echo "Testing: $test_case"
     retries=0
-    until curl -s $curl_opts --proxy-user testuser:testpass --proxy http://localhost:3128 https://ubuntu.com/ >/dev/null; do
+    until curl -s $curl_opts --proxy http://localhost:3128 https://ubuntu.com/ >/dev/null; do
         if [ $retries -ge 5 ]; then
-            echo "FAILED: $auth"
+            echo "FAILED: $test_case"
             return 1
         fi
         retries=$((retries + 1))
         sleep 1
     done
 
-    echo "OK: $auth"
+    echo "OK: $test_case"
 }
