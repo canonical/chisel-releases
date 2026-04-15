@@ -10,11 +10,11 @@ slices:
     contents:
       /usr/bin/cpio:
 
-  mt-gnu:
+  mt-bin:
     essential:
       libc6_libs:
     contents:
-      /usr/bin/mt-gnu:
+      /usr/bin/mt-bin:
 
   copyright:
     contents:
