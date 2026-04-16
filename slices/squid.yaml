@@ -39,7 +39,7 @@ slices:
       /usr/lib/squid/helper-mux:
       /usr/lib/squid/pinger:
       /usr/lib/squid/unlinkd:
-    
+
   logging:
     essential:
       perl_bins:
@@ -70,11 +70,11 @@ slices:
       /usr/lib/squid/digest_ldap_auth:
       /usr/lib/squid/negotiate_kerberos_auth:
       /usr/lib/squid/negotiate_wrapper_auth:
-  
+
   acl:
     essential:
       perl_bins:
-      squid_auth: # Required for group ACLs
+      squid_auth:   # Required for group ACLs
     contents:
       /usr/lib/squid/ext_file_userip_acl:
       /usr/lib/squid/ext_kerberos_ldap_group_acl:
@@ -84,14 +84,14 @@ slices:
       /usr/lib/squid/ext_time_quota_acl:
       /usr/lib/squid/ext_unix_group_acl:
       /usr/lib/squid/ext_wbinfo_group_acl:
-  
+
   caching:
     essential:
       perl_bins:
       squid_core:
     contents:
       /usr/lib/squid/storeid_file_rewrite:
-  
+
   cert:
     essential:
       coreutils_basename:

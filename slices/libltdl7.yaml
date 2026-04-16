@@ -9,7 +9,7 @@ slices:
       libc6_libs:
     contents:
       /usr/lib/*-linux-*/libltdl.so.7*:
-  
+
   copyright:
     contents:
       /usr/share/doc/libltdl7/copyright:

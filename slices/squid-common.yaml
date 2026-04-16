@@ -4,12 +4,11 @@ essential:
   squid-common_copyright:
 
 slices:
-  
   data:
     essential:
       squid-langpack_data:
     contents:
-      /usr/share/squid/errors: # Symlink to /usr/share/squid-langpack
+      /usr/share/squid/errors:  # Symlink to /usr/share/squid-langpack
       /usr/share/squid/mib.txt:
 
   config:
