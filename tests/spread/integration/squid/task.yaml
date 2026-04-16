@@ -4,7 +4,7 @@ variants:
   - core
   - auth
   - acl
+  - caching
   #- cert
-  #- caching
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
