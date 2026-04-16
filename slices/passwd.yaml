@@ -84,6 +84,7 @@ slices:
       /usr/sbin/pwconv:
 
   grpck:
+    hint: Verify integrity of group files
     essential:
       libaudit1_libs:
       libc6_libs:
@@ -92,6 +93,7 @@ slices:
       /usr/sbin/grpck:
 
   grpconv:
+    hint: Convert group files to shadow format
     essential:
       libaudit1_libs:
       libc6_libs:
