@@ -230,7 +230,7 @@ slices:
 
   # System services and daemons
   service-handlers:
-    hint: Early boot system service handlers
+    hint: System service handlers
     essential:
       libc6_libs:
       libsystemd-shared_libs:
