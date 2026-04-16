@@ -35,4 +35,4 @@ ls "$rootfs/etc/systemd/system/"
 test -f "$rootfs/etc/systemd/system/ctrl-alt-del.target"
 
 # Run some auxiliary commands to ensure they don't fail
-chroot "$rootfs" /usr/lib/systemd/systemd --help 2>&1 | grep -iq "systemd"
+chroot "$rootfs" /usr/lib/systemd/systemd --help 2>&1 | grep -Fiq "systemd"
