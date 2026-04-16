@@ -100,7 +100,7 @@ slices:
       /usr/sbin/grpconv:
 
   shadowconfig:
-    hint: Turn of shadow passwords
+    hint: Turn on shadow passwords
     essential:
       base-files_bin:
       coreutils_chmod:
