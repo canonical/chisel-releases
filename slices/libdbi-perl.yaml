@@ -21,10 +21,10 @@ slices:
     essential:
       libc6_libs:
     contents:
-      /usr/lib/*-linux-*/perl5/5.40/*.pm:
       /usr/lib/*-linux-*/perl5/5.40/**/*.pm:
       /usr/lib/*-linux-*/perl5/5.40/**/*.so:
       /usr/lib/*-linux-*/perl5/5.40/**/*.xst:
+      /usr/lib/*-linux-*/perl5/5.40/*.pm:
 
   copyright:
     contents:

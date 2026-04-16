@@ -21,11 +21,11 @@ slices:
       libsystemd0_libs:
       squid-common_config:
       squid-common_icons:
-      squid_runtime:
       squid_logging:
+      squid_runtime:
     contents:
-      /etc/squid/squid.conf:
       /etc/squid/conf.d/debian.conf:
+      /etc/squid/squid.conf:
       /usr/sbin/squid-gnutls:
       /var/log/squid/:
       /var/spool/squid/:
