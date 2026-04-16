@@ -3,6 +3,7 @@
 rootfs="$(install-slices squid_cert base-files_base)"
 
 # Setup
+mkdir -p "${rootfs}/dev"
 mount --rbind /dev "${rootfs}/dev"
 mknod -m 666 "$rootfs/dev/random" c 1 8
 mknod -m 666 "$rootfs/dev/urandom" c 1 9
