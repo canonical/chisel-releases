@@ -30,7 +30,7 @@ slices:
       systemd_login:
       systemd_network:
       systemd_run0:
-      systemd_services:
+      systemd_service-handlers:
       systemd_system-generators:
       systemd_timedate:
       systemd_tpm2:
@@ -229,8 +229,8 @@ slices:
       /usr/lib/systemd/network/80-wifi-adhoc.network:
 
   # System services and daemons
-  services:
-    hint: Early boot system services
+  service-handlers:
+    hint: Early boot system service handlers
     essential:
       libc6_libs:
       libsystemd-shared_libs:
