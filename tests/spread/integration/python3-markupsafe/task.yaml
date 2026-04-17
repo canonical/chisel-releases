@@ -1,0 +1,6 @@
+summary: Integration tests for python3-markupsafe
+
+execute: |
+  rootfs="$(install-slices python3-markupsafe_libs)"
+
+  chroot "${rootfs}" python3 -c "import markupsafe" >/dev/null

@@ -1,0 +1,6 @@
+summary: Integration tests for python3-certifi
+
+execute: |
+  rootfs="$(install-slices python3-certifi_libs)"
+
+  chroot "${rootfs}" python3 -c "import certifi" >/dev/null

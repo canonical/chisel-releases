@@ -1,0 +1,6 @@
+summary: Integration tests for python3-jsonpatch
+
+execute: |
+  rootfs="$(install-slices python3-jsonpatch_libs)"
+
+  chroot "${rootfs}" python3 -c "import jsonpatch" >/dev/null

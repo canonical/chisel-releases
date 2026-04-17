@@ -1,0 +1,6 @@
+summary: Integration tests for python3-requests
+
+execute: |
+  rootfs="$(install-slices python3-requests_libs)"
+
+  chroot "${rootfs}" python3 -c "import requests" >/dev/null

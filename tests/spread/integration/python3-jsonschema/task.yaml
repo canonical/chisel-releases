@@ -1,0 +1,6 @@
+summary: Integration tests for python3-jsonschema
+
+execute: |
+  rootfs="$(install-slices python3-jsonschema_libs)"
+
+  chroot "${rootfs}" python3 -c "import jsonschema" >/dev/null
