@@ -11,4 +11,4 @@ esac
 rootfs="$(install-slices --arch "$chisel_arch" rustc_rustc)"
 
 chroot "${rootfs}/" rustc --help | grep -q "Usage: rustc"
-chroot "${rootfs}/" rustc --version | grep -q 'rustc 1.88'
+chroot "${rootfs}/" rustc --version | grep -q 'rustc 1.93'
