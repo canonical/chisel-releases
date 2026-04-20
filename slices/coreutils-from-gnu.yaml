@@ -141,13 +141,13 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
+      coreutils-from-gnu_cp-utility:
       coreutils-from-gnu_dd-utility:
       coreutils-from-gnu_install:
       coreutils-from-gnu_mv-utility:
       coreutils-from-gnu_rm-utility:
       gnu-coreutils_basic-operations:
     contents:
-      /usr/bin/cp:
       /usr/bin/shred:
 
   # Special file types -- This slice contains commands which create special
@@ -171,12 +171,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
   changing-file-attributes:
     essential:
+      coreutils-from-gnu_chgrp:
       coreutils-from-gnu_chmod:
       coreutils-from-gnu_chown:
       coreutils-from-gnu_touch:
       gnu-coreutils_changing-file-attributes:
-    contents:
-      /usr/bin/chgrp:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -185,11 +184,11 @@ slices:
   file-space-usage:
     essential:
       coreutils-from-gnu_stat:
+      coreutils-from-gnu_sync:
       gnu-coreutils_file-space-usage:
     contents:
       /usr/bin/df:
       /usr/bin/du:
-      /usr/bin/sync:
       /usr/bin/truncate:
 
   # Printing text -- This slice contains commands that display text strings.
@@ -231,10 +230,10 @@ slices:
       coreutils-from-gnu_basename:
       coreutils-from-gnu_dirname:
       coreutils-from-gnu_mktemp:
+      coreutils-from-gnu_realpath:
       gnu-coreutils_file-name-manipulation:
     contents:
       /usr/bin/pathchk:
-      /usr/bin/realpath:
 
   # Working context -- This slice contains commands that display or alter the
   # context in which you are working: the current directory, the terminal
@@ -270,12 +269,12 @@ slices:
   system-context:
     essential:
       coreutils-from-gnu_date:
+      coreutils-from-gnu_uname:
       gnu-coreutils_system-context:
     contents:
       /usr/bin/arch:
       /usr/bin/hostid:
       /usr/bin/nproc:
-      /usr/bin/uname:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -307,9 +306,8 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
+      coreutils-from-gnu_sleep:
       gnu-coreutils_delaying:
-    contents:
-      /usr/bin/sleep:
 
   # Numeric operations -- These programs do numerically-related operations.
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
@@ -528,6 +526,7 @@ slices:
       gnu-coreutils_unlink:
     contents:
       /usr/bin/unlink:
+
   cat:
     essential:
       gnu-coreutils_cat:
@@ -540,11 +539,47 @@ slices:
     contents:
       /usr/bin/ls:
 
+  uname:
+    essential:
+      gnu-coreutils_uname:
+    contents:
+      /usr/bin/uname:
+
+  sleep:
+    essential:
+      gnu-coreutils_sleep:
+    contents:
+      /usr/bin/sleep:
+
+  cp-utility:
+    essential:
+      gnu-coreutils_cp-utility:
+    contents:
+      /usr/bin/cp:
+
   wc-utility:
     essential:
       gnu-coreutils_wc-utility:
     contents:
       /usr/bin/wc:
+
+  chgrp:
+    essential:
+      gnu-coreutils_chgrp:
+    contents:
+      /usr/bin/chgrp:
+
+  realpath:
+    essential:
+      gnu-coreutils_realpath:
+    contents:
+      /usr/bin/realpath:
+
+  sync:
+    essential:
+      gnu-coreutils_sync:
+    contents:
+      /usr/bin/sync:
 
   copyright:
     contents:
