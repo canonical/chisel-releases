@@ -1,0 +1,6 @@
+summary: Integration tests for memcached
+
+variants:
+    - memcached
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
