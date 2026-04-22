@@ -11,6 +11,7 @@ slices:
       dpkg_config:
       dpkg_realpath:
       dpkg_scripts:
+      dpkg_start-stop-daemon:
       dpkg_tables:
       dpkg_update-alternatives:
       dpkg_var:
@@ -33,6 +34,12 @@ slices:
       /usr/bin/dpkg-statoverride:
       /usr/bin/dpkg-trigger:
       /usr/libexec/dpkg/*:
+
+  start-stop-daemon:
+    hint: Start and stop system demon programs
+    essential:
+      libc6_libs:
+    contents:
       /usr/sbin/start-stop-daemon:
 
   update-alternatives:
