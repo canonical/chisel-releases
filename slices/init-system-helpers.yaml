@@ -25,7 +25,7 @@ slices:
       dash_bins:
       perl-base_bins:
       perl-base_modules:
-      systemd_bins:
+      systemd_standard:
     contents:
       /usr/bin/deb-systemd-invoke:
 
@@ -56,7 +56,7 @@ slices:
       dash_bins:
       grep_bins:
       sed_bins:
-      systemd_bins:
+      systemd_standard:
     contents:
       /usr/sbin/service:
 
@@ -67,7 +67,7 @@ slices:
       init-system-helpers_config:
       perl-base_bins:
       perl-base_modules:
-      systemd_bins:
+      systemd_standard:
     contents:
       /usr/sbin/update-rc.d:
 
