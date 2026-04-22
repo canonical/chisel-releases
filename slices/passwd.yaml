@@ -19,6 +19,12 @@ slices:
       libselinux1_libs:
       libsemanage2_libs:
       passwd_config:
+      passwd_grpck:
+      passwd_grpconv:
+      passwd_pwck:
+      passwd_pwconv:
+      passwd_useradd:
+      passwd_userdel:
     contents:
       /usr/bin/chage:
       /usr/bin/chfn:
@@ -30,26 +36,93 @@ slices:
       /usr/sbin/chpasswd:
       /usr/sbin/groupadd:
       /usr/sbin/groupdel:
-      # groupmems is no longer present in the latest deb. Unsure whether this
-      # is intentional. The passwd package installed in ubuntu:24.10 docker
-      # image does contain the file. However, the installed package is of a
-      # lower version.
-      # TODO uncomment if and once the file is included in the latest version.
-      # /usr/sbin/groupmems:
       /usr/sbin/groupmod:
-      /usr/sbin/grpck:
-      /usr/sbin/grpconv:
       /usr/sbin/grpunconv:
       /usr/sbin/newusers:
-      /usr/sbin/pwck:
-      /usr/sbin/pwconv:
       /usr/sbin/pwunconv:
-      /usr/sbin/shadowconfig:
-      /usr/sbin/useradd:
-      /usr/sbin/userdel:
       /usr/sbin/usermod:
-      /usr/sbin/vigr:
+      /usr/sbin/vigr:  # Symlink to vipw
       /usr/sbin/vipw:
+
+  useradd:
+    hint: Create or update user accounts
+    essential:
+      libacl1_libs:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+      libsemanage2_libs:
+    contents:
+      /usr/sbin/useradd:
+
+  userdel:
+    hint: Delete user accounts
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+      libsemanage2_libs:
+    contents:
+      /usr/sbin/userdel:
+
+  pwck:
+    hint: Verify integrity of password files
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+    contents:
+      /usr/sbin/pwck:
+
+  pwconv:
+    hint: Convert password files to shadow format
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+    contents:
+      /usr/sbin/pwconv:
+
+  grpck:
+    hint: Verify integrity of group files
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+    contents:
+      /usr/sbin/grpck:
+
+  grpconv:
+    hint: Convert group files to shadow format
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libselinux1_libs:
+    contents:
+      /usr/sbin/grpconv:
+
+  shadowconfig:
+    hint: Turn on shadow passwords
+    essential:
+      base-files_bin:
+      coreutils_chmod:
+      coreutils_chown:
+      coreutils_cp-utility:
+      coreutils_date:
+      coreutils_touch:
+      dash_bins:
+      diffutils_cmp:
+      passwd_grpck:
+      passwd_grpconv:
+      passwd_pwck:
+      passwd_pwconv:
+      sed_bins:
+    contents:
+      /usr/sbin/shadowconfig:
+
+  scripts:
+    essential:
+      passwd_shadowconfig:
 
   # Essential configurations used by useradd(8) and friends.
   config:
