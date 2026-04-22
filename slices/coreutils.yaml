@@ -125,13 +125,13 @@ slices:
     essential:
       coreutils-from-gnu_echo:
 
-  ln-utility:
+  ln-bin:
     essential:
-      coreutils-from-gnu_ln-utility:
+      coreutils-from-gnu_ln-bin:
 
-  rm-utility:
+  rm-bin:
     essential:
-      coreutils-from-gnu_rm-utility:
+      coreutils-from-gnu_rm-bin:
 
   readlink:
     essential:
@@ -173,9 +173,9 @@ slices:
     essential:
       coreutils-from-gnu_date:
 
-  dd-utility:
+  dd-bin:
     essential:
-      coreutils-from-gnu_dd-utility:
+      coreutils-from-gnu_dd-bin:
 
   dir:
     essential:
@@ -189,9 +189,9 @@ slices:
     essential:
       coreutils-from-gnu_install:
 
-  id-utility:
+  id-bin:
     essential:
-      coreutils-from-gnu_id-utility:
+      coreutils-from-gnu_id-bin:
 
   join:
     essential:
@@ -205,13 +205,13 @@ slices:
     essential:
       coreutils-from-gnu_mktemp:
 
-  mv-utility:
+  mv-bin:
     essential:
-      coreutils-from-gnu_mv-utility:
+      coreutils-from-gnu_mv-bin:
 
-  od-utility:
+  od-bin:
     essential:
-      coreutils-from-gnu_od-utility:
+      coreutils-from-gnu_od-bin:
 
   rmdir:
     essential:
@@ -237,9 +237,9 @@ slices:
     essential:
       coreutils-from-gnu_timeout:
 
-  tr-utility:
+  tr-bin:
     essential:
-      coreutils-from-gnu_tr-utility:
+      coreutils-from-gnu_tr-bin:
 
   unlink:
     essential:
@@ -249,9 +249,9 @@ slices:
     essential:
       coreutils-from-gnu_cat:
 
-  ls-utility:
+  ls-bin:
     essential:
-      coreutils-from-gnu_ls-utility:
+      coreutils-from-gnu_ls-bin:
 
   uname:
     essential:
@@ -261,13 +261,13 @@ slices:
     essential:
       coreutils-from-gnu_sleep:
 
-  cp-utility:
+  cp-bin:
     essential:
-      coreutils-from-gnu_cp-utility:
+      coreutils-from-gnu_cp-bin:
 
-  wc-utility:
+  wc-bin:
     essential:
-      coreutils-from-gnu_wc-utility:
+      coreutils-from-gnu_wc-bin:
 
   chgrp:
     essential:

@@ -52,7 +52,7 @@ slices:
   output-of-entire-files:
     essential:
       gnu-coreutils_cat:
-      gnu-coreutils_od-utility:
+      gnu-coreutils_od-bin:
       libc6_libs:
     contents:
       /usr/bin/gnubase32:
@@ -130,7 +130,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
   operating-on-characters:
     essential:
-      gnu-coreutils_tr-utility:
+      gnu-coreutils_tr-bin:
       libc6_libs:
     contents:
       /usr/bin/gnuexpand:
@@ -142,7 +142,7 @@ slices:
   directory-listing:
     essential:
       gnu-coreutils_dir:
-      gnu-coreutils_ls-utility:
+      gnu-coreutils_ls-bin:
       libc6_libs:
       libcap2_libs:
       libselinux1_libs:
@@ -155,11 +155,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
-      gnu-coreutils_cp-utility:
-      gnu-coreutils_dd-utility:
+      gnu-coreutils_cp-bin:
+      gnu-coreutils_dd-bin:
       gnu-coreutils_install:
-      gnu-coreutils_mv-utility:
-      gnu-coreutils_rm-utility:
+      gnu-coreutils_mv-bin:
+      gnu-coreutils_rm-bin:
       libacl1_libs:
       libattr1_libs:
       libc6_libs:
@@ -174,7 +174,7 @@ slices:
   special-file-types:
     essential:
       gnu-coreutils_link:
-      gnu-coreutils_ln-utility:
+      gnu-coreutils_ln-bin:
       gnu-coreutils_mkdir:
       gnu-coreutils_readlink:
       gnu-coreutils_rmdir:
@@ -273,7 +273,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
   user-information:
     essential:
-      gnu-coreutils_id-utility:
+      gnu-coreutils_id-bin:
       gnu-coreutils_whoami:
       libc6_libs:
       libselinux1_libs:
@@ -371,13 +371,13 @@ slices:
       /usr/bin/gnuecho:
 
   # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
-  ln-utility:
+  ln-bin:
     essential:
       libc6_libs:
     contents:
       /usr/bin/gnuln:
 
-  rm-utility:
+  rm-bin:
     essential:
       libc6_libs:
     contents:
@@ -443,7 +443,7 @@ slices:
     contents:
       /usr/bin/gnudate:
 
-  dd-utility:
+  dd-bin:
     essential:
       libc6_libs:
     contents:
@@ -463,7 +463,7 @@ slices:
     contents:
       /usr/bin/gnucat:
 
-  ls-utility:
+  ls-bin:
     essential:
       libc6_libs:
       libcap2_libs:
@@ -486,7 +486,7 @@ slices:
     contents:
       /usr/bin/gnuinstall:
 
-  id-utility:
+  id-bin:
     essential:
       libc6_libs:
       libselinux1_libs:
@@ -511,7 +511,7 @@ slices:
     contents:
       /usr/bin/gnumktemp:
 
-  mv-utility:
+  mv-bin:
     essential:
       libacl1_libs:
       libattr1_libs:
@@ -520,7 +520,7 @@ slices:
     contents:
       /usr/bin/gnumv:
 
-  od-utility:
+  od-bin:
     essential:
       libc6_libs:
     contents:
@@ -564,7 +564,7 @@ slices:
     contents:
       /usr/bin/gnutimeout:
 
-  tr-utility:
+  tr-bin:
     essential:
       libc6_libs:
     contents:
@@ -588,7 +588,7 @@ slices:
     contents:
       /usr/bin/gnusleep:
 
-  cp-utility:
+  cp-bin:
     essential:
       libacl1_libs:
       libattr1_libs:
@@ -597,7 +597,7 @@ slices:
     contents:
       /usr/bin/gnucp:
 
-  wc-utility:
+  wc-bin:
     essential:
       libc6_libs:
       libgcc-s1_libs:
