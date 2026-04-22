@@ -287,7 +287,6 @@ slices:
       /etc/apparmor.d/nvidia_modprobe:
       /etc/apparmor.d/obsidian:
       /etc/apparmor.d/opam:
-      /etc/apparmor.d/openvpn:
       /etc/apparmor.d/opera:
       /etc/apparmor.d/os-prober:
       /etc/apparmor.d/ospf6d:
@@ -312,7 +311,6 @@ slices:
       /etc/apparmor.d/rpm:
       /etc/apparmor.d/rssguard:
       /etc/apparmor.d/runc:
-      /etc/apparmor.d/rygel:
       /etc/apparmor.d/sbuild:
       /etc/apparmor.d/sbuild-abort:
       /etc/apparmor.d/sbuild-adduser:
