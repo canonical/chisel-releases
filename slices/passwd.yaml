@@ -107,7 +107,7 @@ slices:
       base-files_bin:
       coreutils_chmod:
       coreutils_chown:
-      coreutils_cp-utility:
+      coreutils_cp-bin:
       coreutils_date:
       coreutils_touch:
       dash_bins:
