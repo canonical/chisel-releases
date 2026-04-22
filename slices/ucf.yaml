@@ -63,9 +63,9 @@ slices:
       coreutils_id-utility:
       coreutils_mv-utility:
       coreutils_readlink:
-      # coreutils_seq:
+      # coreutils_seq:  # TODO: add when coreutils subsliced
       dash_bins:
-      # dpkg_dpkg-divert:
+      # dpkg_dpkg-divert:  # TODO: add when dpkg subsliced
       gawk_bins:
       grep_bins:
       util-linux_cli-helpers:
