@@ -12,21 +12,8 @@ slices:
       ucf_ucfq:
       ucf_ucfr:
 
-  # NOTE: ...
-  # debconf_confmodule:
-  # debconf_debconf-escape:
-  # diffutils_diff:
-  # diffutils_diff3:
-  # dpkg_dpkg-divert:
-  # dpkg_dpkg-query:
-  # diffutils_sdiff:
-  # debianutils_which:
-  # libc-bin_iconv:
-  # procps_ps:
-
-  # /usr/share/debconf/confmodule
-  # x-terminal-emulator
-
+  # TODO: This slice does not have all of its dependencies in
+  # essentials and it's functionality might be limited.
   ucf:
     hint: Preserve user changes in config files
     essential:
@@ -39,10 +26,10 @@ slices:
       coreutils_dirname:
       coreutils_id-utility:
       coreutils_mv-utility:
-      # coreutils_md5sum:
+      # coreutils_md5sum:  # TODO: add when coreutils subsliced
       coreutils_readlink:
       coreutils_rm-utility:
-      # coreutils_seq:
+      # coreutils_seq:  # TODO: add when coreutils subsliced
       coreutils_sleep:
       coreutils_stat:
       coreutils_tr-utility:
