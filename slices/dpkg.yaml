@@ -6,7 +6,7 @@ essential:
 slices:
   bins:
     essential:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       diffutils_bins:  # used by dpkg -i
       dpkg_config:
       dpkg_realpath:

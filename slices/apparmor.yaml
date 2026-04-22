@@ -45,7 +45,7 @@ slices:
   systemd:
     essential:
       coreutils_cat:
-      coreutils_ls-utility:
+      coreutils_ls-bin:
       coreutils_sort:
       grep_bins:
       procps_sysctl:

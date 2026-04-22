@@ -42,7 +42,7 @@ slices:
   output-of-entire-files:
     essential:
       coreutils-from-gnu_cat:
-      coreutils-from-gnu_od-utility:
+      coreutils-from-gnu_od-bin:
       gnu-coreutils_output-of-entire-files:
     contents:
       /usr/bin/base32:
@@ -77,7 +77,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Summarizing-files.html
   summarizing-files:
     essential:
-      coreutils-from-gnu_wc-utility:
+      coreutils-from-gnu_wc-bin:
       gnu-coreutils_summarizing-files:
     contents:
       /usr/bin/b2sum:
@@ -118,7 +118,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
   operating-on-characters:
     essential:
-      coreutils-from-gnu_tr-utility:
+      coreutils-from-gnu_tr-bin:
       gnu-coreutils_operating-on-characters:
     contents:
       /usr/bin/expand:
@@ -130,7 +130,7 @@ slices:
   directory-listing:
     essential:
       coreutils-from-gnu_dir:
-      coreutils-from-gnu_ls-utility:
+      coreutils-from-gnu_ls-bin:
       gnu-coreutils_directory-listing:
     contents:
       /usr/bin/dircolors:
@@ -141,11 +141,11 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/Basic-operations.html
   basic-operations:
     essential:
-      coreutils-from-gnu_cp-utility:
-      coreutils-from-gnu_dd-utility:
+      coreutils-from-gnu_cp-bin:
+      coreutils-from-gnu_dd-bin:
       coreutils-from-gnu_install:
-      coreutils-from-gnu_mv-utility:
-      coreutils-from-gnu_rm-utility:
+      coreutils-from-gnu_mv-bin:
+      coreutils-from-gnu_rm-bin:
       gnu-coreutils_basic-operations:
     contents:
       /usr/bin/shred:
@@ -157,7 +157,7 @@ slices:
   special-file-types:
     essential:
       coreutils-from-gnu_link:
-      coreutils-from-gnu_ln-utility:
+      coreutils-from-gnu_ln-bin:
       coreutils-from-gnu_mkdir:
       coreutils-from-gnu_readlink:
       coreutils-from-gnu_rmdir:
@@ -253,7 +253,7 @@ slices:
   # https://www.gnu.org/software/coreutils/manual/html_node/User-information.html
   user-information:
     essential:
-      coreutils-from-gnu_id-utility:
+      coreutils-from-gnu_id-bin:
       coreutils-from-gnu_whoami:
       gnu-coreutils_user-information:
     contents:
@@ -346,15 +346,15 @@ slices:
       /usr/bin/echo:
 
   # NOTE: slice names must have at least 3 characters, so we can't just call this `ln`
-  ln-utility:
+  ln-bin:
     essential:
-      gnu-coreutils_ln-utility:
+      gnu-coreutils_ln-bin:
     contents:
       /usr/bin/ln:
 
-  rm-utility:
+  rm-bin:
     essential:
-      gnu-coreutils_rm-utility:
+      gnu-coreutils_rm-bin:
     contents:
       /usr/bin/rm:
 
@@ -418,9 +418,9 @@ slices:
     contents:
       /usr/bin/date:
 
-  dd-utility:
+  dd-bin:
     essential:
-      gnu-coreutils_dd-utility:
+      gnu-coreutils_dd-bin:
     contents:
       /usr/bin/dd:
 
@@ -442,9 +442,9 @@ slices:
     contents:
       /usr/bin/install:
 
-  id-utility:
+  id-bin:
     essential:
-      gnu-coreutils_id-utility:
+      gnu-coreutils_id-bin:
     contents:
       /usr/bin/id:
 
@@ -466,15 +466,15 @@ slices:
     contents:
       /usr/bin/mktemp:
 
-  mv-utility:
+  mv-bin:
     essential:
-      gnu-coreutils_mv-utility:
+      gnu-coreutils_mv-bin:
     contents:
       /usr/bin/mv:
 
-  od-utility:
+  od-bin:
     essential:
-      gnu-coreutils_od-utility:
+      gnu-coreutils_od-bin:
     contents:
       /usr/bin/od:
 
@@ -515,9 +515,9 @@ slices:
     contents:
       /usr/bin/timeout:
 
-  tr-utility:
+  tr-bin:
     essential:
-      gnu-coreutils_tr-utility:
+      gnu-coreutils_tr-bin:
     contents:
       /usr/bin/tr:
 
@@ -533,9 +533,9 @@ slices:
     contents:
       /usr/bin/cat:
 
-  ls-utility:
+  ls-bin:
     essential:
-      gnu-coreutils_ls-utility:
+      gnu-coreutils_ls-bin:
     contents:
       /usr/bin/ls:
 
@@ -551,15 +551,15 @@ slices:
     contents:
       /usr/bin/sleep:
 
-  cp-utility:
+  cp-bin:
     essential:
-      gnu-coreutils_cp-utility:
+      gnu-coreutils_cp-bin:
     contents:
       /usr/bin/cp:
 
-  wc-utility:
+  wc-bin:
     essential:
-      gnu-coreutils_wc-utility:
+      gnu-coreutils_wc-bin:
     contents:
       /usr/bin/wc:
 

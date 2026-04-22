@@ -15,7 +15,7 @@ slices:
   scripts:
     essential:
       base-files_bin:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_touch:
       dash_bins:
       dpkg_start-stop-daemon:
