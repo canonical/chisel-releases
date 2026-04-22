@@ -281,6 +281,10 @@ slices:
     essential:
       coreutils-from-gnu_sync:
 
+  whoami:
+    essential:
+      coreutils-from-gnu_whoami:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:

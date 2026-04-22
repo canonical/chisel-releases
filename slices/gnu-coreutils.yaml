@@ -274,6 +274,7 @@ slices:
   user-information:
     essential:
       gnu-coreutils_id-utility:
+      gnu-coreutils_whoami:
       libc6_libs:
       libselinux1_libs:
       libsystemd0_libs:
@@ -283,7 +284,6 @@ slices:
       /usr/bin/gnupinky:
       /usr/bin/gnuusers:
       /usr/bin/gnuwho:
-      /usr/bin/gnuwhoami:
 
   # System context -- This slice contains commands that print or change
   # system-wide information.
@@ -628,6 +628,14 @@ slices:
       libselinux1_libs:
     contents:
       /usr/bin/gnusync:
+
+  whoami:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/gnuwhoami:
 
   copyright:
     contents:
