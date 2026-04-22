@@ -29,8 +29,8 @@ slices:
       libblkid1_libs:
       libc6_libs:
       libmount1_libs:
-      libselinux1_libs:
       libsmartcols1_libs:
+      libtinfo6_libs:
       libudev1_libs:
     contents:
       /usr/bin/lsblk:
@@ -44,10 +44,16 @@ slices:
     essential:
       libc6_libs:
       libselinux1_libs:
+      util-linux_getopt:
     contents:
-      /usr/bin/getopt:
       /usr/bin/namei:
       /usr/bin/whereis:
+
+  getopt:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/getopt:
 
   cpu:
     essential:

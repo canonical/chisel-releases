@@ -137,3 +137,9 @@ execute: |
   # NOTE: we can't easily test the actual syncing functionality,
   # but we can at least test that the command runs without error
   chroot "$rootfs_sync" gnusync
+
+  # test whoami binary
+  rootfs_whoami="$(install-slices gnu-coreutils_whoami)"
+  chroot "$rootfs_whoami" gnuwhoami --version
+  # we either expect 'root' or 'cannot find name for user ID 0' depending on the test environment's user management
+  chroot "$rootfs_whoami" gnuwhoami 2>&1 | grep -E "root|cannot find name for user ID 0"
