@@ -42,16 +42,14 @@ backends:
       fi
 
       if [ -n "${launch_rc-}" ]; then
-        echo "Failed to launch LXD instance for release $release"
-        exit 1
+        FATAL "Failed to launch LXD instance for release $release"
       fi
 
       while true; do
         status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
         [ "$status" = "running" ] && break
         if [ "$status" = "degraded" ]; then
-          echo "System is degraded, aborting"
-          exit 1
+          FATAL "System is degraded, aborting"
         fi
         sleep 5
       done
