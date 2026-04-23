@@ -16,7 +16,7 @@ slices:
       coreutils_echo:
       coreutils_expr:
       coreutils_output-of-entire-files:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_special-file-types:
       coreutils_system-context:
       coreutils_touch:

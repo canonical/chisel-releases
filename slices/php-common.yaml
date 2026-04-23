@@ -9,11 +9,11 @@ slices:
       coreutils_dirname:
       coreutils_echo:
       coreutils_expr:
-      coreutils_ln-utility:
+      coreutils_ln-bin:
       coreutils_mkdir:
       coreutils_printf:
       coreutils_readlink:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_sort:
       coreutils_touch:
       dash_bins:
