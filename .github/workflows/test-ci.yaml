@@ -7,13 +7,14 @@ on:
     paths:
       - ".github/workflows/*.yaml"
       - ".github/scripts/validate-hints/**"
+      - ".github/scripts/forward-port-missing/**"
 
 jobs:
   test-validate-hints:
     name: Test validate hints workflow
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -23,5 +24,20 @@ jobs:
       - name: Run "validate-hints" unit tests
         run: |
           pytest .github/scripts/validate-hints/
+
+  test-forward-port-missing:
+    name: Test forward port missing workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          pip-install: -r .github/scripts/forward-port-missing/requirements.txt
+      - run: pip install pytest
+      - name: Run "forward-port-missing" unit tests
+        run: |
+          pytest .github/scripts/forward-port-missing/
 
   # TODO: add tests for remaining CI scripts
