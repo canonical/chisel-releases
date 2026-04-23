@@ -143,12 +143,12 @@ slices:
       coreutils_chmod:
       coreutils_chown:
       coreutils_env:
-      coreutils_id-utility:
+      coreutils_id-bin:
       coreutils_mkdir:
       coreutils_mktemp:
-      coreutils_mv-utility:
+      coreutils_mv-bin:
       coreutils_readlink:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_rmdir:
       coreutils_stat:
       coreutils_touch:
