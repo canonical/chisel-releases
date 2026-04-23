@@ -358,19 +358,29 @@ def apply_labels(to_add: set[int], to_remove: set[int]) -> None:
     label = FORWARD_PORT_MISSING_LABEL
     for number in sorted(to_add):
         info(f"Adding label to PR #{number}")
-        sub.run(
+        result = sub.run(
             ["gh", "pr", "edit", str(number), "--add-label", label],
-            check=True,
             env=env,
+            capture_output=True,
+            text=True,
         )
+        if result.returncode != 0:
+            logging.error(
+                "Failed to add label to PR #%d: %s", number, result.stderr.strip()
+            )
 
     for number in sorted(to_remove):
         info(f"Removing label from PR #{number}")
-        sub.run(
+        result = sub.run(
             ["gh", "pr", "edit", str(number), "--remove-label", label],
-            check=True,
             env=env,
+            capture_output=True,
+            text=True,
         )
+        if result.returncode != 0:
+            logging.error(
+                "Failed to remove label from PR #%d: %s", number, result.stderr.strip()
+            )
 
 
 def main() -> None:
