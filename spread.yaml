@@ -38,6 +38,7 @@ backends:
         # 1) try to fall back to the latest stable release, unless that's the same as the requested release (aka a new stable release), in which case
         # 2) try to fall back to the daily channel, which should have the new release.
         stable=$(distro-info --stable)
+        launch_rc=""
         if [[ "$release" != "$stable" ]]; then
           echo "Release $release failed to launch. Trying the latest stable release $stable..."
           lxc launch --ephemeral ubuntu:$stable $SPREAD_SYSTEM || launch_rc=$?
