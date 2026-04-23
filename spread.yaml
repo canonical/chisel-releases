@@ -49,6 +49,10 @@ backends:
       while true; do
         status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
         [ "$status" = "running" ] && break
+        if [ "$status" = "degraded" ]; then
+          echo "System is degraded, aborting"
+          exit 1
+        fi
         sleep 5
       done
       lxc exec $SPREAD_SYSTEM -- apt-get update
