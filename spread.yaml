@@ -32,8 +32,7 @@ backends:
       lxc delete --force $SPREAD_SYSTEM 2>/dev/null || true
       lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM || launch_rc=$?
 
-      latest=$(distro-info --latest)
-      if [ -n "${launch_rc-}" ] && [[ "$release" == "$latest" ]]; then
+      if [ -n "${launch_rc-}" ] && [[ "$(distro-info --latest)" == *"$release"* ]]; then
         # if we failed to launch the latest release, it's possible that the image has
         # *just* been released and isn't available in the 'ubuntu' channel yet.
         # fall back to the daily channel, which should have the new release.
