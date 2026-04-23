@@ -3,6 +3,8 @@ package: bash
 essential:
   bash_copyright:
 
+# hello
+
 slices:
   config:
     contents:
