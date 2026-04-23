@@ -29,7 +29,29 @@ backends:
       # but that would effectively change the host's LXC configurations.
 
       echo "Allocating $SPREAD_SYSTEM..."
-      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
+      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM || launch_rc=$?
+
+      latest=$(distro-info --latest)
+      if [ -n "${launch_rc-}" ] && [[ "$release" == "$latest" ]]; then
+        # if we failed to launch the latest release, it's possible that the image has
+        # *just* been released and isn't available in the 'ubuntu' channel yet.
+        # 1) try to fall back to the latest stable release, unless that's the same as the requested release (aka a new stable release), in which case
+        # 2) try to fall back to the daily channel, which should have the new release.
+        stable=$(distro-info --stable)
+        if [[ "$release" != "$stable" ]]; then
+          echo "Release $release failed to launch. Trying the latest stable release $stable..."
+          lxc launch --ephemeral ubuntu:$stable $SPREAD_SYSTEM || launch_rc=$?
+        else
+          echo "Release $release is the latest stable release, but failed to launch. Trying the daily channel..."
+          lxc launch --ephemeral ubuntu-daily:$release $SPREAD_SYSTEM || launch_rc=$?
+        fi
+      fi
+
+      if [ -n "${launch_rc-}" ]; then
+        echo "Failed to launch LXD instance for release $release"
+        exit 1
+      fi
+
       while true; do
         status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
         [ "$status" = "running" ] && break
