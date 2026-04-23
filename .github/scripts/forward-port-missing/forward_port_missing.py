@@ -354,9 +354,6 @@ def determine_forward_porting_status(
 def apply_labels(to_add: set[int], to_remove: set[int]) -> None:
     """Apply or remove the 'forward port missing' label on PRs using the gh CLI."""
     env = os.environ.copy()
-    gh_token = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN", "")
-    if gh_token:
-        env["GH_TOKEN"] = gh_token
 
     label = FORWARD_PORT_MISSING_LABEL
     for number in sorted(to_add):
