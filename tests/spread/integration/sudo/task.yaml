@@ -1,3 +1,4 @@
+# hello
 summary: Integration tests for sudo
 execute: |
   rootfs="$(install-slices passwd_config libpam-runtime_config netbase_default-hosts coreutils_bins sudo_bins)"
