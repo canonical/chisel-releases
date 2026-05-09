@@ -2,6 +2,8 @@
 # spellchecker: ignore rootfs
 
 setup_squid() {
+    mode="${1:-standard}"
+
     # Mount dev into the chroot
     mkdir -p "$rootfs/dev" "$rootfs/proc" "$rootfs/sys"
     mount --rbind /dev "$rootfs/dev"
@@ -12,23 +14,31 @@ setup_squid() {
     # Set permissions for squid directories
     chown -R "$proxy_uid_gid" "$rootfs/" 2>/dev/null || true
 
-    # Debug login (not a requirement, help debug tests)
-    echo "debug_options ALL,1 82,9" >> "$rootfs/etc/squid/squid.conf"
+    if [ "$mode" != "minimal" ]; then
 
-    # Configure cache directories for squid and create swap directories
-    echo "cache_dir ufs /var/spool/squid 100 16 256" >> "$rootfs/etc/squid/squid.conf"
-    chroot "$rootfs/" /usr/sbin/squid-gnutls -Nz
+        # Debug login (not a requirement, help debug tests)
+        echo "debug_options ALL,1 82,9" >> "$rootfs/etc/squid/squid.conf"
 
-    # Configure pinger (maintainer scripts)
-    if command -v setcap > /dev/null; then
-        setcap cap_net_raw+ep "$rootfs/usr/lib/squid/pinger"
-    else
-        chmod u+s "$rootfs/usr/lib/squid/pinger"
+        # Configure cache directories for squid and create swap directories
+        if [ "$mode" == "core" ]; then
+            echo "cache_dir ufs /var/spool/squid 10 16 256" >> "$rootfs/etc/squid/squid.conf"
+        else
+            echo "cache_dir diskd /var/spool/squid 100 16 256" >> "$rootfs/etc/squid/squid.conf"
+        fi
+
+        chroot "$rootfs/" /usr/sbin/squid-gnutls -Nz
+
+        # Configure pinger (maintainer scripts)
+        if command -v setcap > /dev/null; then
+            setcap cap_net_raw+ep "$rootfs/usr/lib/squid/pinger"
+        else
+            chmod u+s "$rootfs/usr/lib/squid/pinger"
+        fi
     fi
 
     # DNS resolution
-    cp /etc/hosts "$rootfs/etc/hosts"
     cp /etc/resolv.conf "$rootfs/etc/resolv.conf"
+    cp /etc/hosts "$rootfs/etc/hosts"
 }
 
 reset_squid_conf() {
@@ -43,6 +53,7 @@ cleanup() {
         pkill -f "chroot $rootfs/ /usr/sbin/squid-gnutls -N" || true
         pkill -f "/usr/sbin/squid-gnutls -N" || true
     done
+    umount -l "$rootfs/dev" || true
 }
 
 restart_squid() {
