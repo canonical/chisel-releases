@@ -30,8 +30,9 @@ slices:
       /var/log/squid/:
       /var/spool/squid/:
 
-  # These are part of core and should be private slices
   runtime:
+    # This slice is internal to squid_core and is not meant
+    # to be installed on its own.
     essential:
       perl_bins:
     contents:
@@ -41,6 +42,8 @@ slices:
       /usr/lib/squid/unlinkd:
 
   logging:
+    # This slice is internal to squid_core and is not meant
+    # to be installed on its own.
     essential:
       perl_bins:
     contents:
@@ -50,7 +53,7 @@ slices:
   auth:
     essential:
       libcrypt1_libs:
-      libdbi-perl_libs:
+      libdbi-perl_modules:
       libldap2_libs:
       libpam0g_libs:
       libsasl2-2_libs:

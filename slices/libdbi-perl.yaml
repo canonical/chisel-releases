@@ -5,26 +5,24 @@ essential:
 
 slices:
 
-  # If these bins are ever needed, uncomment the following lines
-  # and add tests for them.
-  # bins:
-  #   essential:
-  #     libdbi-perl_libs:
-  #     perl_bins:
-  #   contents:
-  #     /usr/bin/dbilogstrip:
-  #     /usr/bin/dbiprof:
-  #     /usr/bin/dbiproxy:
-  #     /usr/bin/dh_perl_dbi:
+  modules:
+    essential:
+      libdbi-perl_libs:
+      libdbi-perl_driver:
+    contents:
+      /usr/lib/*-linux-*/perl5/5.40/**/*.pm:
+      /usr/lib/*-linux-*/perl5/5.40/*.pm:
 
   libs:
     essential:
       libc6_libs:
     contents:
-      /usr/lib/*-linux-*/perl5/5.40/**/*.pm:
       /usr/lib/*-linux-*/perl5/5.40/**/*.so:
-      /usr/lib/*-linux-*/perl5/5.40/**/*.xst:
-      /usr/lib/*-linux-*/perl5/5.40/*.pm:
+  
+  driver:
+    hint: XS template file to build DBI drivers
+    contents:
+      /usr/lib/*-linux-*/perl5/5.40/auto/DBI/Driver.xst*:
 
   copyright:
     contents:
