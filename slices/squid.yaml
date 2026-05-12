@@ -6,7 +6,7 @@ essential:
 slices:
 
   minimal:
-    # The minimal slice introduces an opinionated configuration that 
+    # The minimal slice introduces an opinionated configuration that
     # helps trim squid down to its very essentials, replacing
     # the defaults in the standard and core slices. To do so, the squid.conf
     # file is created empty and then populated with a minimal configuration
@@ -88,15 +88,15 @@ slices:
 
   standard:
     essential:
-      squid_core:
-      squid_auth:
       squid_acl:
+      squid_auth:
       squid_caching:
       squid_cert:
       squid-common_icons:
       squid-common_data:
+      squid_core:
       perl_bins:
-    contents: 
+    contents:
       /usr/lib/squid/diskd:
       /usr/lib/squid/helper-mux:
       /usr/lib/squid/log_db_daemon:

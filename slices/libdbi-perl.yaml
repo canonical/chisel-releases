@@ -18,7 +18,7 @@ slices:
       libc6_libs:
     contents:
       /usr/lib/*-linux-*/perl5/5.40/**/*.so:
-  
+
   driver:
     hint: XS template file to build DBI drivers
     contents:
