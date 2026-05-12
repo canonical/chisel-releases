@@ -31,10 +31,6 @@ slices:
       libsystemd0_libs:
       squid-common_config:
     contents:
-      /usr/sbin/squid-gnutls:
-      /etc/squid/squid.conf:
-        mutable: true
-        text: ""
       /etc/squid/minimal.conf:
         until: mutate
         text: |
@@ -55,6 +51,10 @@ slices:
 
           # Disable pid file
           pid_filename /dev/null
+      /usr/sbin/squid-gnutls:
+      /etc/squid/squid.conf:
+        mutable: true
+        text: ""
     mutate: |
       files = content.list("/etc/squid")
       if "default.conf" not in files:
@@ -78,8 +78,8 @@ slices:
       /etc/squid/default.conf:
         until: mutate
         copy: /etc/squid/squid.conf
-      /usr/lib/squid/unlinkd:
       /usr/lib/squid/log_file_daemon:
+      /usr/lib/squid/unlinkd:
       # Icons are not strictly needed, but the
       # directory is required to exist.
       /usr/share/squid/icons/: { make: true }
@@ -88,12 +88,12 @@ slices:
 
   standard:
     essential:
+      squid-common_data:
+      squid-common_icons:
       squid_acl:
       squid_auth:
       squid_caching:
       squid_cert:
-      squid-common_icons:
-      squid-common_data:
       squid_core:
       perl_bins:
     contents:

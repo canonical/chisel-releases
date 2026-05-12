@@ -7,8 +7,8 @@ slices:
 
   modules:
     essential:
-      libdbi-perl_libs:
       libdbi-perl_driver:
+      libdbi-perl_libs:
     contents:
       /usr/lib/*-linux-*/perl5/5.40/**/*.pm:
       /usr/lib/*-linux-*/perl5/5.40/*.pm:
