@@ -88,14 +88,14 @@ slices:
 
   standard:
     essential:
+      perl_bins:
+      squid-common_data:
+      squid-common_icons:
       squid_acl:
       squid_auth:
       squid_caching:
       squid_cert:
       squid_core:
-      squid-common_data:
-      squid-common_icons:
-      perl_bins:
     contents:
       /usr/lib/squid/diskd:
       /usr/lib/squid/helper-mux:
