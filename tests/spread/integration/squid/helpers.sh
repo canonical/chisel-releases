@@ -29,10 +29,12 @@ setup_squid() {
         chroot "$rootfs/" /usr/sbin/squid-gnutls -Nz
 
         # Configure pinger (maintainer scripts)
-        if command -v setcap > /dev/null; then
-            setcap cap_net_raw+ep "$rootfs/usr/lib/squid/pinger"
-        else
-            chmod u+s "$rootfs/usr/lib/squid/pinger"
+        if [ "$mode" == "standard" ]; then
+            if command -v setcap > /dev/null; then
+                setcap cap_net_raw+ep "$rootfs/usr/lib/squid/pinger"
+            else
+                chmod u+s "$rootfs/usr/lib/squid/pinger"
+            fi
         fi
     fi
 

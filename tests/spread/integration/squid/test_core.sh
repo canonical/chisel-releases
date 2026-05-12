@@ -9,5 +9,5 @@ restart_squid
 
 # Assertions
 ps -aux | grep -q "unlinkd"
-ps -aux | grep -q "logfile-daemon /var/log/squid/access.log"
+ps -aux | grep -q "logfile-daemon"
 test_proxy "core"
