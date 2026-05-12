@@ -1,7 +1,9 @@
 summary: Integration tests for squid
 
 variants:
+  - minimal
   - core
+  - standard
   - auth
   - acl
   - caching

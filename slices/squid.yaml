@@ -89,10 +89,10 @@ slices:
   standard:
     essential:
       squid_core:
-      #squid_auth:
-      #squid_acl:
-      #squid_caching:
-      #squid_cert:
+      squid_auth:
+      squid_acl:
+      squid_caching:
+      squid_cert:
       squid-common_icons:
       squid-common_data:
       perl_bins:

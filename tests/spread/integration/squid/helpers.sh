@@ -53,11 +53,14 @@ cleanup() {
         pkill -f "chroot $rootfs/ /usr/sbin/squid-gnutls -N" || true
         pkill -f "/usr/sbin/squid-gnutls -N" || true
     done
-    umount -l "$rootfs/dev" || true
+
+    if [ "$1" != "restart" ]; then
+        umount -l "$rootfs/dev" || true
+    fi
 }
 
 restart_squid() {
-    cleanup
+    cleanup "restart"
 
     # Start squid in the background
     chroot "$rootfs/" /usr/sbin/squid-gnutls -N &
