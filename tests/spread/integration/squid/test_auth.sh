@@ -2,28 +2,15 @@
 # spellchecker: ignore rootfs
 source "$(dirname "$0")/helpers.sh"
 
-# sqlite3_bins is only required for the DB auth test
-# libpam-modules_libs is only required for the PAM auth test (provide pam_unix.so)
-# libpam-runtime_config is only required for the PAM auth test (for chpasswd to work)
-# passwd_bins is required for the GETPWNAM and PAM auth test (user creation and chpasswd)
-rootfs="$(install-slices \
-    squid_auth \
-    base-files_base \
-    base-passwd_data \
-    libc-bin_nsswitch \
-    sqlite3_bins \
-    libpam-modules_libs \
-    libpam-runtime_config \
-    passwd_bins)"
 
-setup_squid "minimal"
+# NCSA AUTH
+# ------------------------------------------------
+rootfs="$(install-slices squid_auth)"
 
 # Remove pre-existing http_access rules
 sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
 
-
-# NCSA AUTH
-# ------------------------------------------------
+setup_squid "minimal"
 reset_squid_conf
 
 # Configure authentication
@@ -37,12 +24,24 @@ printf "testuser:$(openssl passwd -apr1 testpass)\n" > "$rootfs/etc/squid/auth/p
 
 restart_squid
 test_proxy "basic_ncsa_auth" --proxy-user testuser:testpass
+cleanup
 
 
 # GETPWNAM AUTH
 # ------------------------------------------------
+rootfs="$(install-slices \
+    squid_auth \
+    base-passwd_data \
+    passwd_bins \
+    libpam-runtime_config)"
+
+# Remove pre-existing http_access rules
+sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
+
+setup_squid "minimal"
 reset_squid_conf
 
+# Configure authentication
 echo "auth_param basic program /usr/lib/squid/basic_getpwnam_auth" >> "$rootfs/etc/squid/squid.conf"
 echo "acl auth_users proxy_auth REQUIRED" >> "$rootfs/etc/squid/squid.conf"
 echo "http_access allow auth_users" >> "$rootfs/etc/squid/squid.conf"
@@ -53,10 +52,17 @@ echo "testuser:testpass" | chroot "$rootfs/" chpasswd
 
 restart_squid
 test_proxy "basic_getpwnam_auth" --proxy-user testuser:testpass
+cleanup
 
 
 # DIGEST FILE AUTH
 # ------------------------------------------------
+rootfs="$(install-slices squid_auth)"
+
+# Remove pre-existing http_access rules
+sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
+
+setup_squid "minimal"
 reset_squid_conf
 
 # Digest auth config
@@ -73,16 +79,22 @@ digest_ha1=$(printf '%s' "testuser:testrealm:testpass" | md5sum | cut -d' ' -f1)
 echo "testuser:testrealm:${digest_ha1}" > "$rootfs/etc/squid/auth/digest"
 
 restart_squid
-
 test_proxy "digest_file_auth" --proxy-digest --proxy-user testuser:testpass
+cleanup
 
 
 # DB AUTH (basic_db_auth)
 # ------------------------------------------------
-reset_squid_conf
+rootfs="$(install-slices squid_auth sqlite3_bins)"
 
 # Manually add the sqlite perl module (Only for tests)
 apt download libdbd-sqlite3-perl && dpkg -x libdbd-sqlite3-perl_*.deb "$rootfs/" && rm libdbd-sqlite3-perl_*.deb
+
+# Remove pre-existing http_access rules
+sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
+
+setup_squid "minimal"
+reset_squid_conf
 
 # Requires squid built with DB auth helper + sqlite DB
 echo 'auth_param basic program /usr/lib/squid/basic_db_auth \
@@ -107,12 +119,24 @@ EOF
 
 restart_squid
 test_proxy "basic_db_auth" --proxy-user testuser:testpass
-
+cleanup
 
 # BASIC PAM AUTH (basic_pam_auth)
 # ------------------------------------------------
+rootfs="$(install-slices \
+    squid_auth \
+    base-passwd_data \
+    libpam-modules_libs \
+    libpam-runtime_config \
+    passwd_bins)"
+
+# Remove pre-existing http_access rules
+sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
+
+setup_squid "minimal"
 reset_squid_conf
 
+# Configure authentication
 echo "auth_param basic program /usr/lib/squid/basic_pam_auth -n squid" >> "$rootfs/etc/squid/squid.conf"
 echo "acl auth_users proxy_auth REQUIRED" >> "$rootfs/etc/squid/squid.conf"
 echo "http_access allow auth_users" >> "$rootfs/etc/squid/squid.conf"
@@ -126,19 +150,25 @@ account required pam_unix.so debug
 EOF
 
 # User and passwd created above in GETPWNAM test
-# chroot "$rootfs/" useradd -m testuser
-# echo "testuser:testpass" | chroot "$rootfs/" chpasswd
+chroot "$rootfs/" useradd -m testuser
+echo "testuser:testpass" | chroot "$rootfs/" chpasswd
 
 restart_squid
 test_proxy "basic_pam_auth" --proxy-user testuser:testpass
-
+cleanup
 
 # BASIC SASL AUTH (basic_sasl_auth)
 # ------------------------------------------------
-reset_squid_conf
+rootfs="$(install-slices squid_auth)"
 
 # Manually add saslpasswd2 binary to create the sasldb (only for tests)
 apt install -y --no-install-recommends sasl2-bin
+
+# Remove pre-existing http_access rules
+sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
+
+setup_squid "minimal"
+reset_squid_conf
 
 # Configure Squid to use basic_sasl_auth
 echo "auth_param basic program /usr/lib/squid/basic_sasl_auth" >> "$rootfs/etc/squid/squid.conf"
@@ -163,3 +193,4 @@ chmod 640 "$rootfs/etc/sasldb2"
 
 restart_squid
 test_proxy "basic_sasl_auth" --proxy-user testuser@testrealm:testpass
+cleanup
