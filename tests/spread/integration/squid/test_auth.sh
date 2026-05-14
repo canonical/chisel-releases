@@ -69,7 +69,8 @@ echo "http_access deny all" >> "$rootfs/etc/squid/squid.conf"
 
 # Create digest password file manually
 mkdir -p "$rootfs/etc/squid/auth"
-echo testuser:testrealm:ebff225e1ceb73e026fcc645af3e84f6 > "$rootfs/etc/squid/auth/digest"
+digest_ha1=$(printf '%s' "testuser:testrealm:testpass" | md5sum | cut -d' ' -f1)
+echo "testuser:testrealm:${digest_ha1}" > "$rootfs/etc/squid/auth/digest"
 
 restart_squid
 
