@@ -51,13 +51,25 @@ reset_squid_conf() {
 
 cleanup() {
     # Kill existing squid process
+    local retries=0
     while ps -aux | grep -q "[s]quid-gnutls"; do
+        [ $retries -ge 5 ] && return 1
         pkill -f "chroot $rootfs/ /usr/sbin/squid-gnutls -N" || true
         pkill -f "/usr/sbin/squid-gnutls -N" || true
+        retries=$((retries + 1))
+        sleep 0.5
     done
 
+    # Ensure the port is free
+    for i in $(seq 1 11); do
+        ss -ltn | grep -q ':3128 ' || break
+        [ $i -ge 10 ] && echo "port 3128 still in use after cleanup" >&2 && return 1
+        sleep 1
+    done
+    
     if [ "$1" != "restart" ]; then
         umount -l "$rootfs/dev" || true
+        timeout 10 bash -c "while mountpoint -q '$rootfs/dev'; do sleep 0.5; done"
     fi
 }
 
@@ -69,8 +81,11 @@ restart_squid() {
     trap cleanup EXIT
 
     # Wait for squid to be ready
+    local retries=0
     until ss -ltn | grep -q ':3128'; do
-        sleep 0.1
+        [ $retries -ge 10 ] && echo "Squid failed to start" >&2 && return 1
+        retries=$((retries + 1))
+        sleep 1
     done
 }
 
