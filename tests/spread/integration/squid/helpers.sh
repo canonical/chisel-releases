@@ -11,7 +11,9 @@ setup_squid() {
     # Get the uid:gid for the proxy user
     proxy_uid_gid=$(grep '^proxy:' "$rootfs/etc/passwd" | cut -d':' -f3,4)
 
-    # Set permissions for squid directories
+    # Set permissions for squid directories - typically just /var/spool/squid 
+    # and /var/log/squid. However when inside the testing env, the entire rootfs
+    # is required to be owned by the proxy user to prevent squid from failing.
     chown -R "$proxy_uid_gid" "$rootfs/" 2>/dev/null || true
 
     if [ "$mode" != "minimal" ]; then
