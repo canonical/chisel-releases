@@ -6,7 +6,7 @@ source "$(dirname "$0")/helpers.sh"
 # passwd_bins is required to create users for the ACL tests
 # libpam-runtime_config is required for the chpasswd to work
 rootfs="$(install-slices \
-    squid_acl \
+    squid_ext-acls \
     base-files_base \
     base-passwd_data \
     libc-bin_nsswitch \

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs
-rootfs="$(install-slices squid_cert base-files_base)"
+rootfs="$(install-slices squid_cert-tool base-files_base)"
 
 # Setup
 mkdir -p "$rootfs/dev"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignorerootfssource "$(dirname "$0")/helpers.sh"
 rootfs"$(install-slices \
-    squid_caching \
+    squid_cache \
     base-files_base \
     base-passwd_data \
     libc-bin_nsswitch)"

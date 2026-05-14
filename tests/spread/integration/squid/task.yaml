@@ -5,8 +5,8 @@ variants:
   - core
   - standard
   - auth
-  - acl
-  - caching
-  - cert
+  - ext-acls
+  - cache
+  - cert-tool
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh

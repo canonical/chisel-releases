@@ -91,11 +91,11 @@ slices:
       perl_bins:
       squid-common_data:
       squid-common_icons:
-      squid_acl:
       squid_auth:
-      squid_caching:
-      squid_cert:
+      squid_cache:
+      squid_cert-tool:
       squid_core:
+      squid_ext-acls:
     contents:
       /usr/lib/squid/diskd:
       /usr/lib/squid/helper-mux:
@@ -126,7 +126,7 @@ slices:
       /usr/lib/squid/negotiate_kerberos_auth:
       /usr/lib/squid/negotiate_wrapper_auth:
 
-  acl:
+  ext-acls:
     essential:
       perl_bins:
       squid_auth:   # Required for group ACLs
@@ -140,14 +140,14 @@ slices:
       /usr/lib/squid/ext_unix_group_acl:
       /usr/lib/squid/ext_wbinfo_group_acl:
 
-  caching:
+  cache:
     essential:
       perl_bins:
       squid_minimal:
     contents:
       /usr/lib/squid/storeid_file_rewrite:
 
-  cert:
+  cert-tool:
     essential:
       coreutils_basename:
       coreutils_cat:
