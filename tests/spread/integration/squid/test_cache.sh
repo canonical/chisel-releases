@@ -6,7 +6,7 @@ rootfs"$(install-slices \
     base-passwd_data \
     libc-bin_nsswitch)"
 
-setup_squid
+setup_squid "minimal"
 
 # storeid_file_rewrite TEST
 # ------------------------------------------------

@@ -4,7 +4,7 @@ source "$(dirname "$0")/helpers.sh"
 
 rootfs="$(install-slices squid_core)"
 
-setup_squid
+setup_squid "minimal"
 restart_squid
 
 # Assertions

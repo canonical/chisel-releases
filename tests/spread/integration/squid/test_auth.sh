@@ -16,7 +16,7 @@ rootfs="$(install-slices \
     libpam-runtime_config \
     passwd_bins)"
 
-setup_squid
+setup_squid "minimal"
 
 # Remove pre-existing http_access rules
 sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
