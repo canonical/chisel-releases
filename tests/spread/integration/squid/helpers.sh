@@ -80,7 +80,7 @@ test_proxy() {
     local curl_opts=("$@")
 
     echo "Testing: $test_case"
-    retries=0
+    local retries=0
     until curl -s "${curl_opts[@]}" --proxy http://localhost:3128 https://ubuntu.com/ >/dev/null; do
         if [ $retries -ge 5 ]; then
             echo "FAILED: $test_case"
