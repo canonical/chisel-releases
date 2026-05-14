@@ -77,11 +77,11 @@ restart_squid() {
 test_proxy() {
     local test_case="$1"
     shift
-    local curl_opts="$@"
+    local curl_opts=("$@")
 
     echo "Testing: $test_case"
     retries=0
-    until curl -s $curl_opts --proxy http://localhost:3128 https://ubuntu.com/ >/dev/null; do
+    until curl -s "${curl_opts[@]}" --proxy http://localhost:3128 https://ubuntu.com/ >/dev/null; do
         if [ $retries -ge 5 ]; then
             echo "FAILED: $test_case"
             return 1
