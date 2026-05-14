@@ -109,3 +109,16 @@ test_proxy() {
 
     echo "OK: $test_case"
 }
+
+test_proxy_deny() {
+    local test_case="$1"
+    shift
+    local curl_opts=("$@")
+
+    echo "Testing deny: $test_case"
+    if curl -fsS --max-time 5 "${curl_opts[@]}" --proxy http://localhost:3128 https://ubuntu.com/ >/dev/null 2>&1; then
+        echo "FAILED (request succeeded, expected deny): $test_case"
+        return 1
+    fi
+    echo "OK (denied): $test_case"
+}

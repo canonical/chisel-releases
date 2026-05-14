@@ -24,6 +24,8 @@ printf "testuser:$(openssl passwd -apr1 testpass)\n" > "$rootfs/etc/squid/auth/p
 
 restart_squid
 test_proxy "basic_ncsa_auth" --proxy-user testuser:testpass
+test_proxy_deny "basic_ncsa_auth (no creds)"
+test_proxy_deny "basic_ncsa_auth (wrong pass)" --proxy-user testuser:wrongpass
 cleanup
 
 
@@ -52,6 +54,8 @@ echo "testuser:testpass" | chroot "$rootfs/" chpasswd
 
 restart_squid
 test_proxy "basic_getpwnam_auth" --proxy-user testuser:testpass
+test_proxy_deny "basic_getpwnam_auth (no creds)"
+test_proxy_deny "basic_getpwnam_auth (wrong pass)" --proxy-user testuser:wrongpass
 cleanup
 
 
@@ -80,6 +84,8 @@ echo "testuser:testrealm:${digest_ha1}" > "$rootfs/etc/squid/auth/digest"
 
 restart_squid
 test_proxy "digest_file_auth" --proxy-digest --proxy-user testuser:testpass
+test_proxy_deny "digest_file_auth (no creds)"
+test_proxy_deny "digest_file_auth (wrong pass)" --proxy-user testuser:wrongpass
 cleanup
 
 
@@ -119,6 +125,8 @@ EOF
 
 restart_squid
 test_proxy "basic_db_auth" --proxy-user testuser:testpass
+test_proxy_deny "basic_db_auth (no creds)"
+test_proxy_deny "basic_db_auth (wrong pass)" --proxy-user testuser:wrongpass
 cleanup
 
 # BASIC PAM AUTH (basic_pam_auth)
@@ -155,6 +163,8 @@ echo "testuser:testpass" | chroot "$rootfs/" chpasswd
 
 restart_squid
 test_proxy "basic_pam_auth" --proxy-user testuser:testpass
+test_proxy_deny "basic_pam_auth (no creds)"
+test_proxy_deny "basic_pam_auth (wrong pass)" --proxy-user testuser:wrongpass
 cleanup
 
 # BASIC SASL AUTH (basic_sasl_auth)
@@ -193,4 +203,6 @@ chmod 640 "$rootfs/etc/sasldb2"
 
 restart_squid
 test_proxy "basic_sasl_auth" --proxy-user testuser@testrealm:testpass
+test_proxy_deny "basic_sasl_auth (no creds)"
+test_proxy_deny "basic_sasl_auth (wrong pass)" --proxy-user testuser@testrealm:wrongpass
 cleanup
