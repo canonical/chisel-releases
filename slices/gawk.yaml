@@ -8,8 +8,15 @@ slices:
     essential:
       - gawk_libs
     contents:
-      # user should manually link /usr/bin/gawk to /usr/bin/awk
+      # NOTE: there are 3 packages which provide /usr/bin/awk alternative implementations:
+      # gawk (priority 10), mawk (priority 5), and original-awk (priority 0).
+      # The gawk package is set as the default alternative and therefore provides
+      # /usr/bin/awk (and /usr/bin/nawk). mawk and original-awk should also provide
+      # these symlinks but use the 'prefer' keyword to setup a preference chain:
+      # original-awk --(prefer)--> mawk --(prefer)--> gawk
+      /usr/bin/awk: { symlink: /usr/bin/gawk }  # symlink created in postinst
       /usr/bin/gawk:
+      /usr/bin/nawk: { symlink: /usr/bin/gawk }  # symlink created in postinst
       /usr/lib/*-linux-*/awk/grcat:
       /usr/lib/*-linux-*/awk/pwcat:
   config:
