@@ -1,0 +1,20 @@
+package: dotnet-host-10.0
+
+essential:
+  - dotnet-host-10.0_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/bin/dnx:
+      /usr/bin/dotnet:
+      /usr/lib/dotnet/dnx:
+      /usr/lib/dotnet/dotnet:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-host-10.0/copyright:
