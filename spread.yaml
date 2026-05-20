@@ -45,6 +45,13 @@ backends:
         FATAL "Failed to launch LXD instance for release $release"
       fi
 
+      # Workaround for systemd 258+ regression where console-getty.service
+      # fails on container boot, leaving the system in 'degraded' state.
+      # See https://github.com/canonical/lxd/issues/16860
+      if [ "$release" = "26.04" ]; then
+        lxc exec $SPREAD_SYSTEM -- systemctl mask --now console-getty.service || true
+      fi
+
       while true; do
         status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
         [ "$status" = "running" ] && break
