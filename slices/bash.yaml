@@ -1,7 +1,5 @@
 package: bash
 
-# foobar
-
 essential:
   - bash_copyright
 

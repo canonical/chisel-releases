@@ -1,5 +1,7 @@
 package: mawk
 
+# foobar 2
+
 essential:
   - mawk_copyright
 
