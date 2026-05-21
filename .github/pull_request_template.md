@@ -28,5 +28,7 @@ https://github.com/canonical/chisel-releases/blob/main/CONTRIBUTING.md)
 * [ ] I have already submitted the [CLA form](
 https://ubuntu.com/legal/contributors/agreement)
 
+<!-- Note that this chisel, as well as chisel-releases are licensed under AGPLv3. Licence can be found at https://github.com/canonical/chisel-releases/blob/main/LICENSE -->
+
 ## Additional Context
 <!-- If relevant -->
