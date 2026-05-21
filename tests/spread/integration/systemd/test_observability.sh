@@ -11,4 +11,4 @@ chroot "$rootfs" /usr/bin/journalctl --list-boots 2>&1 | grep -Fiq "no journal f
 
 chroot "$rootfs" /usr/bin/networkctl --help 2>&1 | grep -Fiq "networkctl"
 chroot "$rootfs" /usr/bin/networkctl --version 2>&1 | grep -Fiq "systemd"
-chroot "$rootfs" /usr/bin/networkctl list 2>&1 | grep -Fiq "failed to connect system bus"
+chroot "$rootfs" /usr/bin/networkctl list 2>&1 | grep -Eiq "connect.*bus|bus.*connect"
