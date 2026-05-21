@@ -25,9 +25,18 @@ backends:
       # but that would effectively change the host's LXC configurations.
 
       echo "Allocating $SPREAD_SYSTEM..."
-      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
-      until lxc exec $SPREAD_SYSTEM -- pgrep sshd &>/dev/null
-      do
+      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM || launch_rc=$?
+
+      if [ -n "${launch_rc-}" ]; then
+        FATAL "Failed to launch LXD instance for release $release"
+      fi
+
+      while true; do
+        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
+        [ "$status" = "running" ] && break
+        if [ "$status" = "degraded" ]; then
+          FATAL "System is degraded, aborting"
+        fi
         sleep 5
       done
       lxc exec $SPREAD_SYSTEM -- apt-get update
