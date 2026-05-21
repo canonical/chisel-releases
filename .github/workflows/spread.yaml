@@ -120,8 +120,6 @@ jobs:
     if: ${{ needs.spread-tests.outputs.tests-conclusion == 'success' }}
     env:
       main-branch-path: files-from-main
-    permissions:
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
