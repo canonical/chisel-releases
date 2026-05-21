@@ -2,7 +2,6 @@ name: CI
 run-name: CI for ${{ github.ref }}
 
 on:
-  create:
   pull_request:
     branches:
       - "ubuntu-*"
@@ -23,7 +22,7 @@ jobs:
 
   integration-tests:
     name: Integration tests
-    uses: ./.github/workflows/spread.yaml
+    uses: canonical/chisel-releases/.github/workflows/spread.yaml@main
 
   removed-slices:
     name: Removed slices
