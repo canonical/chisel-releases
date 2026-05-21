@@ -23,7 +23,7 @@ jobs:
 
   integration-tests:
     name: Integration tests
-    uses: canonical/chisel-releases/.github/workflows/spread.yaml@main
+    uses: ./.github/workflows/spread.yaml
 
   removed-slices:
     name: Removed slices
