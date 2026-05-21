@@ -6,22 +6,76 @@ essential:
 slices:
   bins:
     essential:
+      i2c-tools_i2cdetect:
+      i2c-tools_i2cdump:
+      i2c-tools_i2cget:
+      i2c-tools_i2cset:
+      i2c-tools_i2ctransfer:
+
+  i2cdetect:
+    essential:
       libc6_libs:
       libi2c0_libs:
     contents:
-      /usr/sbin/i2c-stub-from-dump:
       /usr/sbin/i2cdetect:
+
+  i2cdump:
+    essential:
+      libc6_libs:
+      libi2c0_libs:
+    contents:
       /usr/sbin/i2cdump:
+
+  i2cget:
+    essential:
+      libc6_libs:
+      libi2c0_libs:
+    contents:
       /usr/sbin/i2cget:
+
+  i2cset:
+    essential:
+      libc6_libs:
+      libi2c0_libs:
+    contents:
       /usr/sbin/i2cset:
+
+  i2ctransfer:
+    essential:
+      libc6_libs:
+      libi2c0_libs:
+    contents:
       /usr/sbin/i2ctransfer:
 
+  i2c-stub-from-dump:
+    essential:
+      perl_bins:
+    contents:
+      /usr/sbin/i2c-stub-from-dump:
+
   scripts:
+    essential:
+      i2c-tools_i2c-stub-from-dump:
+      i2c-tools_decode-dimms:
+      i2c-tools_decode-edid:
+      i2c-tools_decode-vaio:
+
+  decode-dimms:
     essential:
       perl_bins:
     contents:
       /usr/bin/decode-dimms:
+
+  decode-edid:
+    essential:
+      perl_bins:
+    contents:
       /usr/bin/decode-edid:
+
+  decode-vaio:
+    essential:
+      perl_bins:
+    contents:
       /usr/bin/decode-vaio:
 
   config:
