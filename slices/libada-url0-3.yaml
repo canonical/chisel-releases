@@ -1,0 +1,15 @@
+package: libada-url0-3
+
+essential:
+  libada-url0-3_copyright:
+
+slices:
+  libs:
+    essential:
+      libada-url0-3_libs:
+    contents:
+      /usr/lib/*-linux-*/libada-url0.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libada-url0-3/copyright:
