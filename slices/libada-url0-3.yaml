@@ -6,7 +6,10 @@ essential:
 slices:
   libs:
     essential:
-      libada-url0-3_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libsimduft31_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libada-url0.so.3*:
 
