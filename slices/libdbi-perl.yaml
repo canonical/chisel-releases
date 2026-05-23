@@ -10,19 +10,18 @@ slices:
       libdbi-perl_driver:
       libdbi-perl_libs:
     contents:
-      /usr/lib/*-linux-*/perl5/5.40/**/*.pm:
-      /usr/lib/*-linux-*/perl5/5.40/*.pm:
+      /usr/lib/*-linux-*/perl5/**/*.pm:
 
   libs:
     essential:
       libc6_libs:
     contents:
-      /usr/lib/*-linux-*/perl5/5.40/**/*.so:
+      /usr/lib/*-linux-*/perl5/**/*.so:
 
   driver:
     hint: XS template file to build DBI drivers
     contents:
-      /usr/lib/*-linux-*/perl5/5.40/auto/DBI/Driver.xst*:
+      /usr/lib/*-linux-*/perl5/**/auto/DBI/Driver.xst*:
 
   copyright:
     contents:
