@@ -22,13 +22,15 @@ echo "auth_param basic concurrency 10" >> "$rootfs/etc/squid/squid.conf"
 # Setup mysql for testing
 apt install -y mysql-server
 apt download libdbd-mysql-perl && dpkg -x libdbd-mysql-perl_*.deb "$rootfs/" && rm libdbd-mysql-perl_*.deb
+trap "pkill mysqld; wait; cleanup" EXIT
 
-mysqld --initialize-insecure --user=mysql
-mysqld_safe --user=mysql --mysql-native-password=ON &
-trap "pkill mysqld; wait" EXIT
+# Enable mysql_native_password plugin
+echo "[mysqld]" > /etc/mysql/mysql.conf.d/mysql.cnf
+echo "mysql_native_password=ON" >> /etc/mysql/mysql.conf.d/mysql.cnf
+service mysql restart
 
 mysql -e "CREATE DATABASE IF NOT EXISTS squid_log;"
-mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'your_password';"
+mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'test_password';"
 mysql -e "GRANT ALL PRIVILEGES ON squid_log.* TO 'squid'@'127.0.0.1';"
 mysql -e "FLUSH PRIVILEGES;"
 mysql squid_log <<EOF
@@ -51,7 +53,7 @@ EOF
 
 # Configure log_db_daemon
 echo "logformat squid_db %ts.%03tu %tr %>a %Ss/%03>Hs %<st %rm %ru %[un %Sh/%<a %mt" >> "$rootfs/etc/squid/squid.conf"
-echo "access_log daemon:/127.0.0.1/squid_log/access_log/squid/your_password squid_db" >> "$rootfs/etc/squid/squid.conf"
+echo "access_log daemon:/127.0.0.1/squid_log/access_log/squid/test_password squid_db" >> "$rootfs/etc/squid/squid.conf"
 echo "logfile_daemon /usr/lib/squid/log_db_daemon" >> "$rootfs/etc/squid/squid.conf"
 
 # Startup squid
