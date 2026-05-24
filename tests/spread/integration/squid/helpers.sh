@@ -4,10 +4,6 @@
 setup_squid() {
     mode="${1:-standard}"
 
-    # Mount dev into the chroot
-    mkdir -p "$rootfs/dev" "$rootfs/proc" "$rootfs/sys"
-    mount --rbind /dev "$rootfs/dev"
-
     # Get the uid:gid for the proxy user
     proxy_uid_gid=$(grep '^proxy:' "$rootfs/etc/passwd" | cut -d':' -f3,4)
 
@@ -15,6 +11,11 @@ setup_squid() {
     # and /var/log/squid. However when inside the testing env, the entire rootfs
     # is required to be owned by the proxy user to prevent squid from failing.
     chown -R "$proxy_uid_gid" "$rootfs/" 2>/dev/null || true
+    
+    # Mount dev into the chroot
+    mkdir -p "$rootfs/dev"
+    mount --rbind /dev "$rootfs/dev"
+    mount --make-rslave "$rootfs/dev"
 
     if [ "$mode" != "minimal" ]; then
 
