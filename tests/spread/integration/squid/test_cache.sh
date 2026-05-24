@@ -15,7 +15,7 @@ setup_squid "minimal"
 # ------------------------------------------------
 reset_squid_conf
 
-# Configure authentication
+# Configure cache
 echo "store_id_program /usr/lib/squid/storeid_file_rewrite /etc/squid/storeid.map" >> "$rootfs/etc/squid/squid.conf"
 echo "store_id_access allow all" >> "$rootfs/etc/squid/squid.conf"
 
@@ -25,10 +25,10 @@ printf "^http://example.com/test/.*$\thttp://example.com/storeid/test/\n" > "$ro
 
 # Add logging to grep for it later
 echo "logformat storeid_test %ru -> %note" >> "$rootfs/etc/squid/squid.conf"
-echo "access_log stdio:/var/log/squid/storeid.log storeid_test" >> "$rootfs/etc/squid/squid.conf"
+echo "access_log stdio:/storeid.log storeid_test" >> "$rootfs/etc/squid/squid.conf"
 
 restart_squid
 curl -x "http://localhost:3128" "http://example.com/test/12345"
-cat "$rootfs/var/log/squid/storeid.log" | grep "http://example.com/storeid/test"
+cat "$rootfs/storeid.log" | grep "http://example.com/storeid/test"
 
 cleanup
