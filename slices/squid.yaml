@@ -41,16 +41,16 @@ slices:
           # Disable unlinkd
           unlinkd_program /dev/null
 
-          # Redirect logs to stderr
-          access_log stdio:/dev/stderr
-          cache_log stdio:/dev/stderr
+          # Disable logging
+          access_log stdio:/dev/null
+          cache_log /dev/null
 
           # Disable error pages and icons
           error_directory /dev/null
           icon_directory /dev/null
 
           # Disable pid file
-          pid_filename /dev/null
+          pid_filename none
       /etc/squid/squid.conf:
         mutable: true
         text: ""
