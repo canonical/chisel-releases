@@ -69,3 +69,5 @@ test_proxy "standard"
 
 # Verify the request is logged in the database
 mysql squid_log -e "SELECT http_status_code FROM access_log WHERE http_url = 'ubuntu.com:443';" | grep -qF "200"
+
+cleanup

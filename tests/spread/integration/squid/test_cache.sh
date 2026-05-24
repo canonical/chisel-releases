@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# spellchecker: ignorerootfssource "$(dirname "$0")/helpers.sh"
-rootfs"$(install-slices \
+# spellchecker: ignore rootfs
+
+source "$(dirname "$0")/helpers.sh"
+
+rootfs="$(install-slices \
     squid_cache \
     base-files_base \
     base-passwd_data \
@@ -27,3 +30,5 @@ echo "access_log stdio:/var/log/squid/storeid.log storeid_test" >> "$rootfs/etc/
 restart_squid
 curl -x "http://localhost:3128" "http://example.com/test/12345"
 cat "$rootfs/var/log/squid/storeid.log" | grep "http://example.com/storeid/test"
+
+cleanup

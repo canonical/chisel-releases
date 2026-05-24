@@ -7,3 +7,5 @@ rootfs="$(install-slices squid_minimal)"
 setup_squid "minimal"
 restart_squid
 test_proxy "minimal"
+
+cleanup

@@ -205,4 +205,5 @@ restart_squid
 test_proxy "basic_sasl_auth" --proxy-user testuser@testrealm:testpass
 test_proxy_deny "basic_sasl_auth (no creds)"
 test_proxy_deny "basic_sasl_auth (wrong pass)" --proxy-user testuser@testrealm:wrongpass
+
 cleanup

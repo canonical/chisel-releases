@@ -4,10 +4,12 @@ source "$(dirname "$0")/helpers.sh"
 
 rootfs="$(install-slices squid_core)"
 
-setup_squid "minimal"
+setup_squid "core"
 restart_squid
 
 # Assertions
 ps -aux | grep -q "unlinkd"
 ps -aux | grep -q "logfile-daemon"
 test_proxy "core"
+
+cleanup

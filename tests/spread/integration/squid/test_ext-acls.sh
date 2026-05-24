@@ -97,3 +97,5 @@ EOF
 
 restart_squid
 test_proxy "ext_sql_session_acl" --proxy-user testuser:testpass
+
+cleanup
