@@ -48,7 +48,7 @@ backends:
       # fails on container boot, leaving the system in 'degraded' state.
       # See https://github.com/canonical/lxd/issues/16860
       if [ "$release" = "resolute" ]; then
-        lxc exec $SPREAD_SYSTEM -q- systemctl mask --now console-getty.service || true
+        lxc exec $SPREAD_SYSTEM -q -- systemctl mask --now console-getty.service || true
       fi
 
       while true; do
