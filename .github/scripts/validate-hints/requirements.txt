@@ -1,3 +1,6 @@
 spacy>=3.0.0
+# spacy pulls typer (typer<1.0.0,>=0.3.0); typer>=0.26 dropped click,
+# but spacy 3.7.5 still imports click via cli/_util.py -- pin below 0.26
+typer<0.26
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 pyyaml>=5.0.0
