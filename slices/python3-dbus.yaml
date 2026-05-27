@@ -1,0 +1,24 @@
+package: python3-dbus
+
+essential:
+  - python3-dbus_copyright
+
+slices:
+  data:
+    essential:
+      - libc6_libs
+      - libdbus-1-3_libs
+      - libglib2.0-0t64_libs
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/_dbus_bindings.cpython-*-linux-*.so:
+      /usr/lib/python3/dist-packages/_dbus_glib_bindings.cpython-*-linux-*.so:
+      /usr/lib/python3/dist-packages/dbus/**:
+      /usr/lib/python3/dist-packages/dbus_python-1.3.2.egg-info/PKG-INFO:
+      /usr/lib/python3/dist-packages/dbus_python-1.3.2.egg-info/dependency_links.txt:
+      /usr/lib/python3/dist-packages/dbus_python-1.3.2.egg-info/not-zip-safe:
+      /usr/lib/python3/dist-packages/dbus_python-1.3.2.egg-info/top_level.txt:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-dbus/copyright:
