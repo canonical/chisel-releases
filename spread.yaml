@@ -44,18 +44,23 @@ backends:
         FATAL "Failed to launch LXD instance for release $release"
       fi
 
-      # Workaround for systemd 258+ regression where console-getty.service
-      # fails on container boot, leaving the system in 'degraded' state.
-      # See https://github.com/canonical/lxd/issues/16860
-      if [ "$release" = "resolute" ]; then
-        lxc exec $SPREAD_SYSTEM -q -- systemctl mask --now console-getty.service || true
-      fi
-
       while true; do
-        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
+        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running 2>/dev/null || true)
         [ "$status" = "running" ] && break
         if [ "$status" = "degraded" ]; then
-          FATAL "System is degraded, aborting"
+          # Workaround for systemd 258+ regression where console-getty.service
+          # fails on container boot, leaving the system in 'degraded' state.
+          # See https://github.com/canonical/lxd/issues/16860
+          # Mask here (not right after launch) so the system bus is up and the
+          # mask actually takes effect, then clear the failed unit so the
+          # degraded state resolves. Anything else degraded is still fatal.
+          if [ "$release" = "resolute" ]; then
+            lxc exec $SPREAD_SYSTEM -q -- systemctl mask --now console-getty.service
+            lxc exec $SPREAD_SYSTEM -q -- systemctl reset-failed console-getty.service
+            status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running 2>/dev/null || true)
+            [ "$status" = "running" ] && break
+          fi
+          FATAL "System is '$status', aborting"
         fi
         sleep 5
       done
