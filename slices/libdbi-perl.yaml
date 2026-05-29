@@ -1,0 +1,28 @@
+package: libdbi-perl
+
+essential:
+  libdbi-perl_copyright:
+
+slices:
+
+  modules:
+    essential:
+      libdbi-perl_driver:
+      libdbi-perl_libs:
+    contents:
+      /usr/lib/*-linux-*/perl5/**/*.pm:
+
+  libs:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/perl5/**/*.so:
+
+  driver:
+    hint: XS template file to build DBI drivers
+    contents:
+      /usr/lib/*-linux-*/perl5/**/auto/DBI/Driver.xst*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdbi-perl/copyright:
