@@ -1,0 +1,15 @@
+package: libi2c0
+
+essential:
+  libi2c0_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libi2c.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libi2c0/copyright:
