@@ -19,10 +19,6 @@ slices:
       - libmp3lame0_libs
       - libopenjp2-7_libs
       - libopus0_libs
-      # The librav1e0_libs dependency is currently ommited, it can be added again
-      # once chisel supports per-arch package dependencies,
-      # see https://github.com/canonical/chisel/issues/93
-      # needed for: not i386
       - librsvg2-2_libs
       - libshine3_libs
       - libsnappy1v5_libs
@@ -34,10 +30,6 @@ slices:
       - libva2_libs
       - libvorbis0a_libs
       - libvorbisenc2_libs
-      # The libvpl2_libs dependency is currently ommited, it can be added again
-      # once chisel supports per-arch package dependencies,
-      # see https://github.com/canonical/chisel/issues/93
-      # needed for: amd64
       - libvpx9_libs
       - libwebp7_libs
       - libwebpmux3_libs
@@ -46,6 +38,9 @@ slices:
       - libxvidcore4_libs
       - libzvbi0t64_libs
       - zlib1g_libs
+    v3-essential:
+      librav1e0_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      libvpl2_libs: {arch: [amd64]}
     contents:
       /usr/lib/*-linux-*/libavcodec.so.60*:
 
