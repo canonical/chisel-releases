@@ -5,11 +5,56 @@ essential:
 
 slices:
   scripts:
+    essential:
+      sensible-utils_select-editor:
+      sensible-utils_sensible-browser:
+      sensible-utils_sensible-editor:
+      sensible-utils_sensible-pager:
+      sensible-utils_sensible-terminal:
+
+  select-editor:
+    essential:
+      base-files_bin:
+      coreutils_cut:
+      coreutils_sort:
+      coreutils_wc-utility:
+      dash_bins:
+      dpkg_update-alternatives:
+      gettext-base_bins:
     contents:
       /usr/bin/select-editor:
+
+  sensible-browser:
+    essential:
+      base-files_bin:
+      dash_bins:
+      gettext-base_bins:
+    contents:
       /usr/bin/sensible-browser:
+
+  sensible-editor:
+    essential:
+      base-files_bin:
+      dash_bins:
+      sensible-utils_select-editor:
+    contents:
       /usr/bin/sensible-editor:
+
+  sensible-pager:
+    essential:
+      base-files_bin:
+      dash_bins:
+      gettext-base_bins:
+    contents:
       /usr/bin/sensible-pager:
+
+  sensible-terminal:
+    essential:
+      base-files_bin:
+      coreutils_tr-utility:
+      dash_bins:
+      gettext-base_bins:
+    contents:
       /usr/bin/sensible-terminal:
 
   mime:
