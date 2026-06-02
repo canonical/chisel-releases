@@ -187,8 +187,8 @@ slices:
       /usr/share/go-1.26/src/runtime/**.s:
       /usr/share/go-1.26/src/runtime/*.go:
       /usr/share/go-1.26/src/runtime/*.py:
-      /usr/share/go-1.26/src/runtime/_mkmalloc/**:
       /usr/share/go-1.26/src/runtime/Makefile:
+      /usr/share/go-1.26/src/runtime/_mkmalloc/**:
       /usr/share/go-1.26/src/runtime/a*/**:
       /usr/share/go-1.26/src/runtime/c*/**:
       /usr/share/go-1.26/src/runtime/d*/**:
@@ -215,7 +215,6 @@ slices:
     essential:
       bash_bins:
       binutils_linker:
-      # TODO: Include binutils-${ARCH_TRIPLET}_loader as well.
       coreutils_bins:
       grep_bins:
     contents:
