@@ -57,7 +57,7 @@ slices:
       /usr/sbin/squid-gnutls:
     mutate: |
       files = content.list("/etc/squid")
-      if "default.conf" not in files:
+      if "default.conf" not in files:  # If squid_core not installed
         data = content.read("/etc/squid/minimal.conf")
         content.write("/etc/squid/squid.conf", data)
       else:
