@@ -13,8 +13,8 @@ slices:
       /usr/lib/*-linux-*/perl5/*/Bundle/DBI.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/DBM.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/File.pm:
-      /usr/lib/*-linux-*/perl5/*/DBD/Gofer/**/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Gofer.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Gofer/**/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Mem.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/NullP.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Proxy.pm:
