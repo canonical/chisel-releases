@@ -128,8 +128,12 @@ slices:
 
   ext-acls:
     essential:
+      libdbi-perl_modules:
+      libldap2_libs:
+      libsasl2-2_libs:
+      libtdb1_libs:
       perl_bins:
-      squid_auth:   # Required for group ACLs
+      squid_minimal:
     contents:
       /usr/lib/squid/ext_file_userip_acl:
       /usr/lib/squid/ext_kerberos_ldap_group_acl:
