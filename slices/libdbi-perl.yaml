@@ -13,8 +13,8 @@ slices:
       /usr/lib/*-linux-*/perl5/*/Bundle/DBI.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/DBM.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/File.pm:
-      /usr/lib/*-linux-*/perl5/*/DBD/Gofer/**/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Gofer.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Gofer/**/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Mem.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/NullP.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Proxy.pm:
@@ -23,9 +23,9 @@ slices:
       /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfo/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfoReturn.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfoType.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/DBD.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/DBD/Metadata.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/DBD/SqlEngine.pm:
-      /usr/lib/*-linux-*/perl5/*/DBI/DBD.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Execute.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Request.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Response.pm:
