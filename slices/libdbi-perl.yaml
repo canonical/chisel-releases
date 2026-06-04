@@ -13,8 +13,8 @@ slices:
       /usr/lib/*-linux-*/perl5/*/Bundle/DBI.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/DBM.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/File.pm:
-      /usr/lib/*-linux-*/perl5/*/DBD/Gofer.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Gofer/**/*.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Gofer.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Mem.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/NullP.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Proxy.pm:
@@ -33,8 +33,8 @@ slices:
       /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Transport/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Profile.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/ProfileData.pm:
-      /usr/lib/*-linux-*/perl5/*/DBI/ProfileDumper/Apache.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/ProfileDumper.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/ProfileDumper/Apache.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/ProfileSubs.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/ProxyServer.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/PurePerl.pm:
