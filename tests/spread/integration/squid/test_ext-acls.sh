@@ -132,6 +132,7 @@ test_proxy "ext_sql_session_acl"
 
 # SESSION ACL
 # ------------------------------------------------
+# Session ACL does not currently work due to https://github.com/diladele/squid-ubuntu/issues/18
 # New session from 127.0.0.1 -- helper allows by default and records it.
 # reset_squid_conf
 # echo "external_acl_type session_check ttl=5 %SRC /usr/lib/squid/ext_session_acl" >> "$rootfs/etc/squid/squid.conf"
@@ -145,14 +146,15 @@ test_proxy "ext_sql_session_acl"
 # TIME QUOTA ACL
 # ------------------------------------------------
 # New client from 127.0.0.1 with no prior usage -- within quota.
-# reset_squid_conf
-# mkdir -p "$rootfs/etc/squid/quota"
-# echo "external_acl_type time_quota_check ttl=5 %SRC /usr/lib/squid/ext_time_quota_acl -d /etc/squid/quota/quota.db" >> "$rootfs/etc/squid/squid.conf"
-# echo "acl time_quota_ok external time_quota_check" >> "$rootfs/etc/squid/squid.conf"
-# echo "http_access allow time_quota_ok" >> "$rootfs/etc/squid/squid.conf"
-# echo "http_access deny all" >> "$rootfs/etc/squid/squid.conf"
-# restart_squid
-# test_proxy "ext_time_quota_acl"
+reset_squid_conf
+mkdir -p "$rootfs/etc/squid/quota"
+echo "testuser 8h / 1d" > "$rootfs/etc/squid/quota/config"
+echo "external_acl_type time_quota_check ttl=5 %LOGIN /usr/lib/squid/ext_time_quota_acl /etc/squid/quota/config" >> "$rootfs/etc/squid/squid.conf"
+echo "acl time_quota_ok external time_quota_check" >> "$rootfs/etc/squid/squid.conf"
+echo "http_access allow time_quota_ok" >> "$rootfs/etc/squid/squid.conf"
+echo "http_access deny all" >> "$rootfs/etc/squid/squid.conf"
+restart_squid
+test_proxy "ext_time_quota_acl" --proxy-user testuser:testpass
 
 
 # WBINFO GROUP ACL
