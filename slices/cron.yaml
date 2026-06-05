@@ -11,9 +11,9 @@ slices:
       # user must manually link /bin/sh, which is what cron looks for by default to run jobs
       # Or, have the cron job indicate bash explicitly as the shell to use
       - bash_bins
-      - libpam0g_libs
       - libpam-modules_libs
       - libpam-runtime_config
+      - libpam0g_libs
       - libselinux1_libs
     contents:
       /usr/sbin/cron:
