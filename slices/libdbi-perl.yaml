@@ -19,6 +19,7 @@ slices:
       /usr/lib/*-linux-*/perl5/*/DBD/NullP.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Proxy.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/Sponge.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Changes.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfo/*.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfoReturn.pm:
@@ -40,7 +41,6 @@ slices:
       /usr/lib/*-linux-*/perl5/*/DBI/PurePerl.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/SQL/Nano.pm:
       /usr/lib/*-linux-*/perl5/*/DBI/Util/*.pm:
-      /usr/lib/*-linux-*/perl5/*/DBI.pm:
 
   libs:
     essential:
