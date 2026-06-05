@@ -1,0 +1,36 @@
+package: cron
+
+essential:
+  - cron_copyright
+
+slices:
+
+  daemon:
+    essential:
+      - base-passwd_data
+      # user must manually link /bin/sh, which is what cron looks for by default to run jobs
+      # Or, have the cron job indicate bash explicitly as the shell to use
+      - bash_bins
+      - libpam0g_libs
+      - libpam-modules_libs
+      - libpam-runtime_config
+      - libselinux1_libs
+    contents:
+      /usr/sbin/cron:
+
+  crontab:
+    essential:
+      - cron_daemon
+    contents:
+      /etc/supercat/spcrc-crontab:
+      /etc/supercat/spcrc-crontab-light:
+      /usr/bin/crontab:
+
+  config:
+    contents:
+      /etc/default/cron:
+      /etc/pam.d/cron:
+
+  copyright:
+    contents:
+      /usr/share/doc/cron/copyright:

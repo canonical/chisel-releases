@@ -1,0 +1,36 @@
+summary: Integration tests for cron
+
+environment:
+  SLICE/daemon: "daemon"
+  SLICE/crontab: "crontab"
+
+execute: |
+  echo "SLICE=${SLICE}"
+
+  case "${SLICE}" in
+    daemon)
+      rootfs="$(install-slices cron_daemon)"
+      test -x "${rootfs}/usr/sbin/cron"
+
+      # cron should stay running in foreground; timeout kills it after 2s.
+      timeout_rc=0
+      timeout 2 chroot "${rootfs}" /usr/sbin/cron -f || timeout_rc="$?"
+      test "${timeout_rc}" -eq 124
+      ;;
+
+    crontab)
+      rootfs="$(install-slices cron_crontab)"
+      test -x "${rootfs}/usr/bin/crontab"
+      test -f "${rootfs}/etc/supercat/spcrc-crontab"
+      test -f "${rootfs}/etc/supercat/spcrc-crontab-light"
+
+      echo "* * * * * /bin/true" > "${rootfs}/tmp/root.cron"
+      chroot "${rootfs}" /usr/bin/crontab /tmp/root.cron
+      test "$(chroot "${rootfs}" /usr/bin/crontab -l)" = "* * * * * /bin/true"
+      ;;
+
+    *)
+      echo "Unknown slice: ${SLICE}" >&2
+      exit 1
+      ;;
+  esac
