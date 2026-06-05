@@ -5,11 +5,12 @@ essential:
 
 slices:
 
+  # Note: user must manually link /bin/sh (e.g. to /usr/bin/bash), which is what
+  # cron looks for by default to run jobs, or have the cron job specify the shell
+  # explicitly with a SHELL= directive.
   daemon:
     essential:
       - base-passwd_data
-      # user must manually link /bin/sh, which is what cron looks for by default to run jobs
-      # Or, have the cron job indicate bash explicitly as the shell to use
       - bash_bins
       - libpam-modules_libs
       - libpam-runtime_config
