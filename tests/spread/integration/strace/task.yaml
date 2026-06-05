@@ -1,0 +1,22 @@
+summary: Integration tests for strace
+
+execute: |
+  rootfs="$(install-slices strace_bins coreutils_bins)"
+
+  # Test strace version
+  chroot "${rootfs}/" strace -V
+
+  # Test strace help
+  chroot "${rootfs}/" strace -h
+
+  # Test strace basic tracing - trace a simple echo command
+  output=$(chroot "${rootfs}/" strace -e trace=write echo "Hello from strace" 2>&1)
+  
+  # Verify that strace output contains expected syscalls
+  echo "$output" | grep -q "write"
+  echo "$output" | grep -q "Hello from strace"
+
+  # Test strace with execve tracing
+  chroot "${rootfs}/" strace -e trace=execve,exit_group echo "test" 2>&1 | grep -q "execve"
+
+
