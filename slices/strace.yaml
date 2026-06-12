@@ -6,6 +6,7 @@ essential:
 slices:
   bins:
     essential:
+      libtinfo6_libs:
       libunwind8_libs:
     contents:
       /usr/bin/strace:
