@@ -4,7 +4,6 @@ essential:
   - strace_copyright
 
 slices:
-
   bins:
     essential:
       - libunwind8_libs
