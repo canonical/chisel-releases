@@ -1,12 +1,12 @@
 package: strace
 
 essential:
-  - strace_copyright
+  strace_copyright:
 
 slices:
   bins:
     essential:
-      - libunwind8_libs
+      libunwind8_libs:
     contents:
       /usr/bin/strace:
 
