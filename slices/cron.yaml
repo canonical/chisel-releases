@@ -6,8 +6,8 @@ essential:
 slices:
   daemon:
     essential:
-      - base-passwd_data
       - base-files_bin
+      - base-passwd_data
       - dash_bins
       - libpam-modules_libs
       - libpam-runtime_config
@@ -19,8 +19,8 @@ slices:
   crontab:
     # crontab needs /var/spool/cron/crontabs to store user crontabs, so user must create this dir
     essential:
-      - cron_daemon
       - base-files_tmp
+      - cron_daemon
     contents:
       /etc/supercat/spcrc-crontab:
       /etc/supercat/spcrc-crontab-light:
