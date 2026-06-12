@@ -4,14 +4,11 @@ essential:
   - cron_copyright
 
 slices:
-
-  # Note: user must manually link /bin/sh (e.g. to /usr/bin/bash), which is what
-  # cron looks for by default to run jobs, or have the cron job specify the shell
-  # explicitly with a SHELL= directive.
   daemon:
     essential:
       - base-passwd_data
-      - bash_bins
+      - base-files_bin
+      - dash_bins
       - libpam-modules_libs
       - libpam-runtime_config
       - libpam0g_libs
@@ -20,8 +17,10 @@ slices:
       /usr/sbin/cron:
 
   crontab:
+    # crontab needs /var/spool/cron/crontabs to store user crontabs, so user must create this dir
     essential:
       - cron_daemon
+      - base-files_tmp
     contents:
       /etc/supercat/spcrc-crontab:
       /etc/supercat/spcrc-crontab-light:
