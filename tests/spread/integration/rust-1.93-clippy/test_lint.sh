@@ -12,6 +12,7 @@ x86_64) chisel_arch="amd64" ;;
 esac
 
 rootfs="$(install-slices --arch "$chisel_arch" rust-1.93-clippy_clippy cargo-1.93_cargo)"
+ln -s ../lib/rust-1.93/bin/cargo-clippy "$rootfs/usr/bin/cargo-clippy"
 
 # Create minimal /dev/null
 mkdir -p "$rootfs/dev"
