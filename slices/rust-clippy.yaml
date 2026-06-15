@@ -6,7 +6,6 @@ essential:
 slices:
   clippy:
     essential:
-      cargo_cargo:
       rust-1.93-clippy_clippy:
       rust-clippy_clippy-driver:
     contents:

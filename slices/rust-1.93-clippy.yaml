@@ -6,10 +6,6 @@ essential:
 slices:
   clippy:
     essential:
-      libc6_libs:
-      libgcc-s1_libs:
-      libstd-rust-1.93-dev_libs:
-      cargo-1.93_cargo:
       rust-1.93-clippy_clippy-driver:
     contents:
       /usr/lib/rust-1.93/bin/cargo-clippy:
@@ -18,7 +14,7 @@ slices:
     essential:
       libc6_libs:
       libgcc-s1_libs:
-      libstd-rust-1.93-dev_libs:
+      libstd-rust-1.93_libs:
     contents:
       /usr/lib/rust-1.93/bin/clippy-driver:
 
