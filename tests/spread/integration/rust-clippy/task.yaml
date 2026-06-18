@@ -1,4 +1,4 @@
-summary: Integration tests for rust-1.93-clippy
+summary: Integration tests for rust-clippy
 
 variants:
     - help_and_version

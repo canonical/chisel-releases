@@ -14,7 +14,7 @@ slices:
     essential:
       libc6_libs:
       libgcc-s1_libs:
-      libstd-rust-1.93_libs:
+      libstd-rust-1.93-dev_libs:
     contents:
       /usr/lib/rust-1.93/bin/clippy-driver:
 
