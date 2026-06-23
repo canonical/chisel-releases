@@ -1,0 +1,15 @@
+package: rust-1.93-src
+
+essential:
+  rust-1.93-src_copyright:
+
+slices:
+  src:
+    contents:
+      /usr/lib/rust-1.93/lib/rustlib/src/rust:
+      /usr/lib/rust-1.93/rustlib/src/rust:
+      /usr/src/rustc-1.93.1/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/rust-1.93-src/copyright:
