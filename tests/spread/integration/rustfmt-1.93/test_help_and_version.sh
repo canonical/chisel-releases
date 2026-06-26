@@ -12,11 +12,11 @@ chroot "$rootfs" /usr/lib/rust-1.93/bin/rustfmt --help | grep -Fq 'Format Rust c
 rootfs="$(install-slices rustfmt-1.93_cargo-fmt)"
 # installing cargo-fmt also makes rustfmt available
 chroot "$rootfs" /usr/lib/rust-1.93/bin/rustfmt --version | grep -Fiq 'rustfmt 1.8.0'
-chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-fmt --help | grep -q 'This utility formats all bin and lib files of the current crate using rustfmt'
+chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-fmt --help | grep -Fq 'This utility formats all bin and lib files of the current crate using rustfmt'
 
 # test with `cargo fmt`
 rootfs="$(install-slices rustfmt-1.93_cargo-fmt cargo-1.93_cargo)"
 ln -s cargo-1.93 "$rootfs/usr/bin/cargo"
 ln -s /usr/lib/rust-1.93/bin/cargo-fmt "$rootfs/usr/bin/cargo-fmt"
 ln -s /usr/lib/rust-1.93/bin/rustfmt "$rootfs/usr/bin/rustfmt"
-chroot "$rootfs" cargo fmt --help | grep -q 'This utility formats all bin and lib files of the current crate using rustfmt'
+chroot "$rootfs" cargo fmt --help | grep -Fq 'This utility formats all bin and lib files of the current crate using rustfmt'
