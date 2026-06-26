@@ -6,6 +6,11 @@ essential:
 slices:
   cargo-fmt:
     essential:
+      # NOTE: although libc6_libs and libgcc-s1_libs
+      # are transitively included by depending on
+      # rustfmt-1.93_rustfmt, we also declare them
+      # here since are also direct dependencies for
+      # cargo-fmt
       libc6_libs:
       libgcc-s1_libs:
       rustfmt-1.93_rustfmt:  # needs rustfmt bin
