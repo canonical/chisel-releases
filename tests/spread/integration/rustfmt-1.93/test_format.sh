@@ -1,18 +1,8 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs rustfmt
 
-arch=$(uname -m)
-case "${arch}" in
-aarch64) chisel_arch="arm64" ;;
-x86_64) chisel_arch="amd64" ;;
-*)
-  echo "Unsupported architecture: ${arch}"
-  exit 1
-  ;;
-esac
-
 # Test rustfmt reformats a badly formatted file
-rootfs="$(install-slices --arch "$chisel_arch" rustfmt-1.93_rustfmt)"
+rootfs="$(install-slices rustfmt-1.93_rustfmt)"
 
 cp testfiles/messy.rs "$rootfs/messy.rs"
 
@@ -25,7 +15,7 @@ chroot "$rootfs" /usr/lib/rust-1.93/bin/rustfmt /messy.rs
 grep -q 'fn main() {' "$rootfs/messy.rs"
 
 # Test cargo fmt reformats a project
-rootfs="$(install-slices --arch "$chisel_arch" rustfmt-1.93_cargo-fmt cargo-1.93_cargo)"
+rootfs="$(install-slices rustfmt-1.93_cargo-fmt cargo-1.93_cargo)"
 ln -s /usr/lib/rust-1.93/bin/cargo-fmt "$rootfs/usr/bin/cargo-fmt"
 ln -s /usr/lib/rust-1.93/bin/rustfmt "$rootfs/usr/bin/rustfmt"
 
