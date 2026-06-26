@@ -6,7 +6,9 @@ essential:
 slices:
   cargo-fmt:
     essential:
-      rustfmt-1.93_rustfmt:
+      libc6_libs:
+      libgcc-s1_libs:
+      rustfmt-1.93_rustfmt:  # needs rustfmt bin
     contents:
       /usr/lib/rust-1.93/bin/cargo-fmt:
 
