@@ -15,7 +15,7 @@ chroot "$rootfs" /usr/lib/rust-1.93/bin/rustfmt --version | grep -q 'rustfmt 1.8
 chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-fmt --help | grep -q 'This utility formats all bin and lib files of the current crate using rustfmt'
 
 # test with `cargo fmt`
-rootfs="$(install-slices --arch "$chisel_arch" rustfmt-1.93_cargo-fmt cargo-1.93_cargo)"
+rootfs="$(install-slices rustfmt-1.93_cargo-fmt cargo-1.93_cargo)"
 ln -s cargo-1.93 "$rootfs/usr/bin/cargo"
 ln -s /usr/lib/rust-1.93/bin/cargo-fmt "$rootfs/usr/bin/cargo-fmt"
 ln -s /usr/lib/rust-1.93/bin/rustfmt "$rootfs/usr/bin/rustfmt"
