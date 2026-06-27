@@ -29,7 +29,7 @@ slices:
       libnettle8t64_libs:
       libstdc++6_libs:
       libsystemd0_libs:
-      squid-common_config:
+      squid-common_mime-config:
     contents:
       /etc/squid/minimal.conf:
         until: mutate

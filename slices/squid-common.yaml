@@ -11,7 +11,7 @@ slices:
       /usr/share/squid/errors:  # Symlink to /usr/share/squid-langpack
       /usr/share/squid/mib.txt:
 
-  config:
+  mime-config:
     contents:
       /usr/share/squid/mime.conf:
 
