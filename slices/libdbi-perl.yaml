@@ -9,6 +9,7 @@ slices:
     essential:
       libdbi-perl_driver:
       libdbi-perl_libs:
+      perl_bins:
     contents:
       /usr/lib/*-linux-*/perl5/*/Bundle/DBI.pm:
       /usr/lib/*-linux-*/perl5/*/DBD/DBM.pm:

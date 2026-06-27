@@ -88,7 +88,6 @@ slices:
 
   standard:
     essential:
-      perl_bins:
       squid-common_data:
       squid-common_icons:
       squid_auth:
@@ -109,7 +108,6 @@ slices:
       libldap2_libs:
       libpam0g_libs:
       libsasl2-2_libs:
-      perl_bins:
       squid_minimal:
     contents:
       /usr/lib/squid/basic_db_auth:
@@ -132,7 +130,6 @@ slices:
       libldap2_libs:
       libsasl2-2_libs:
       libtdb1_libs:
-      perl_bins:
       squid_minimal:
     contents:
       /usr/lib/squid/ext_file_userip_acl:
