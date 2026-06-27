@@ -8,7 +8,7 @@ slices:
     essential:
       libc6_libs:
     contents:
-      /usr/lib/*-linux-*/libtdb.so*:
+      /usr/lib/*-linux-*/libtdb.so.1*:
 
   copyright:
     contents:

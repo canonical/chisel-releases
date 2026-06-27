@@ -10,7 +10,7 @@ slices:
       libgcc-s1_libs:
       libstdc++6_libs:
     contents:
-      /usr/lib/*-linux-*/libecap.so*:
+      /usr/lib/*-linux-*/libecap.so.3*:
 
   copyright:
     contents:
