@@ -17,7 +17,7 @@ slices:
 
   icons:
     contents:
-      /usr/share/squid/**/*.png:
+      /usr/share/squid/icons/**.png:
 
   copyright:
     contents:
