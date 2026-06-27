@@ -73,7 +73,7 @@ cleanup() {
     if [ "$1" != "restart" ]; then
         umount -l "$rootfs/dev" || true
         timeout 10 bash -c "while mountpoint -q '$rootfs/dev'; do sleep 0.5; done"
-        rm -rf "$rootfs"
+        rm -rf "$rootfs" || true
     fi
 }
 
