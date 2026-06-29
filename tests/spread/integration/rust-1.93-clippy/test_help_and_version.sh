@@ -1,30 +1,20 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs clippy
 
-arch=$(uname -m)
-case "${arch}" in
-aarch64) chisel_arch="arm64" ;;
-x86_64) chisel_arch="amd64" ;;
-*)
-  echo "Unsupported architecture: ${arch}"
-  exit 1
-  ;;
-esac
-
 # test clippy-driver slice
-rootfs="$(install-slices --arch "$chisel_arch" rust-1.93-clippy_clippy-driver)"
+rootfs="$(install-slices rust-1.93-clippy_clippy-driver)"
 chroot "$rootfs" /usr/lib/rust-1.93/bin/clippy-driver --version | grep -q 'clippy 0.1.93'
 chroot "$rootfs" /usr/lib/rust-1.93/bin/clippy-driver --help | grep -q 'Checks a file to catch common mistakes and improve your Rust code.'
 
 # test clippy slice
-rootfs="$(install-slices --arch "$chisel_arch" rust-1.93-clippy_clippy)"
+rootfs="$(install-slices rust-1.93-clippy_clippy)"
 # test that installing clippy also makes clippy-driver available
 chroot "$rootfs" /usr/lib/rust-1.93/bin/clippy-driver --version | grep -q 'clippy 0.1.93'
 # also test clippy directly
 chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-clippy --version | grep -q 'clippy 0.1.93'
 chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-clippy --help | grep -q 'Checks a package to catch common mistakes and improve your Rust code.'
 # finally, test with `cargo clippy`
-rootfs="$(install-slices --arch "$chisel_arch" rust-1.93-clippy_clippy cargo-1.93_cargo)"
+rootfs="$(install-slices rust-1.93-clippy_clippy cargo-1.93_cargo)"
 ln -s cargo-1.93 "$rootfs/usr/bin/cargo"
 ln -s /usr/lib/rust-1.93/bin/cargo-clippy "$rootfs/usr/bin/cargo-clippy"
 ln -s /usr/lib/rust-1.93/bin/clippy-driver "$rootfs/usr/bin/clippy-driver"
