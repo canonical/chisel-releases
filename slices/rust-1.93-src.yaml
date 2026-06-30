@@ -8,7 +8,7 @@ slices:
     contents:
       /usr/lib/rust-1.93/lib/rustlib/src/rust:
       /usr/lib/rust-1.93/rustlib/src/rust:
-      /usr/src/rustc-1.93.1/**:
+      /usr/src/rustc-1.93.*/**:
 
   copyright:
     contents:
