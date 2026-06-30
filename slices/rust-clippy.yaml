@@ -18,7 +18,5 @@ slices:
       /usr/bin/clippy-driver:  # symlink to ../lib/rust-1.93/bin/clippy-driver
 
   copyright:
-    essential:
-      rust-1.93-clippy_copyright:
     contents:
       /usr/share/doc/rust-clippy/copyright:
