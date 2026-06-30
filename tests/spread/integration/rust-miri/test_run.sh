@@ -17,5 +17,5 @@ trap "umount '$rootfs/proc'" EXIT
 
 # Create a simple project and run it under Miri
 chroot "$rootfs" cargo new /hello_miri --bin --vcs none
-chroot "$rootfs" /bin/sh -c 'cd /hello_miri && cargo-unstable-miri run' 2>&1 |
+chroot "$rootfs" /bin/sh -c 'cd /hello_miri && cargo-unstable-miri run' |
   grep -Fq "Hello, world!"

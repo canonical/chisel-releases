@@ -3,10 +3,6 @@
 
 rootfs="$(install-slices rust-1.93-miri_cargo-miri cargo-1.93_cargo ca-certificates_data)"
 
-# Create symlinks so cargo can find the subcommand
-ln -s cargo-1.93 "$rootfs/usr/bin/cargo"
-ln -s cargo-1.93-unstable-miri "$rootfs/usr/bin/cargo-unstable-miri"
-
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
 chmod +x "$rootfs/dev/null"
