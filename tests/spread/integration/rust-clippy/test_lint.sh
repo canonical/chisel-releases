@@ -10,7 +10,7 @@ cp -r testfiles/hello_clippy "$rootfs"
 chroot "$rootfs" clippy-driver \
   --emit=metadata --out-dir /tmp \
   /hello_clippy/src/main.rs 2>&1 |
-  grep -q "clippy::len_zero"
+  grep -Fq "clippy::len_zero"
 
 # Test clippy slice: verify that cargo-clippy triggers the same lint warning
 rootfs="$(install-slices rust-clippy_clippy cargo_cargo)"
@@ -23,4 +23,4 @@ touch "$rootfs/dev/null"
 chmod +x "$rootfs/dev/null"
 cp -r testfiles/hello_clippy "$rootfs"
 chroot "$rootfs" cargo -Z unstable-options -C /hello_clippy clippy 2>&1 |
-  grep -q "clippy::len_zero"
+  grep -Fq "clippy::len_zero"
