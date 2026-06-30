@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs rustlib
 
-arch=$(uname -m)
-case "${arch}" in
-aarch64) chisel_arch="arm64" ;;
-x86_64) chisel_arch="amd64" ;;
-*)
-  echo "Unsupported architecture: ${arch}"
-  exit 1
-  ;;
-esac
-
-rootfs="$(install-slices --arch "$chisel_arch" rust-src_src)"
+rootfs="$(install-slices rust-src_src)"
 
 # The unversioned symlink chain should resolve to the source tree
 # /usr/lib/rustlib/src/rust -> ../../rust-1.93/lib/rustlib/src/rust -> /usr/src/rustc-1.93.1
