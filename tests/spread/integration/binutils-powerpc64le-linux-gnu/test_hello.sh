@@ -43,7 +43,7 @@ else
     ln -s "powerpc64le-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
 fi
 
-cp "hello-powerpc64le-linux-gnu.S" "$rootfs_as/hello.S"
+cp "hello-ppc64le-linux-gnu.S" "$rootfs_as/hello.S"
 chroot "$rootfs_as" as hello.S -o hello.o
 mv "$rootfs_as/hello.o" "$rootfs_ld/hello.o"
 
