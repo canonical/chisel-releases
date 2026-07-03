@@ -1,20 +1,4 @@
-arch=$(uname -m)
-arch="${arch//_/-}"
-
-if [ "${arch}" = "aarch64" ]; then
-chisel_arch="arm64"
-elif [ "${arch}" = "x86-64" ]; then
-chisel_arch="amd64"
-elif [ "${arch}" = "ppc64le" ]; then
-chisel_arch="ppc64el"
-elif [ "${arch}" = "s390x" ]; then
-chisel_arch="s390x"
-else
-echo "Unsupported architecture: ${arch}"
-exit 1
-fi
-
-rootfs="$(install-slices --arch "${chisel_arch}" \
+rootfs="$(install-slices \
   golang_cgo-support \
   ca-certificates_data \  # for `go get` to work properly
 )"
