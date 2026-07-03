@@ -3,9 +3,9 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "aarch64" || "$arch" == "s390x" || "$arch" == "ppc64le" ]]; then
+if [[ "$arch" == "x86_64" || "$arch" == "amd64" || "$arch" == "s390x" ]]; then
     cross=true
-elif [[ "$arch" == "x86_64" ]]; then
+elif [[ "$arch" == "ppc64le" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -17,17 +17,17 @@ if $cross; then
     :
 else
     slices=(
-        gcc-15-x86-64-linux-gnu_gcc-15
-        cpp-15-x86-64-linux-gnu_cc1
-        binutils-x86-64-linux-gnu_assembler
-        binutils-x86-64-linux-gnu_linker
+        gcc-powerpc64le-linux-gnu_gcc
+        cpp-15-powerpc64le-linux-gnu_cc1
+        binutils-powerpc64le-linux-gnu_assembler
+        binutils-powerpc64le-linux-gnu_linker
         libgcc-15-dev_core
         libc6-dev_core
     )
     rootfs="$(install-slices "${slices[@]}")"
-    ln -s x86_64-linux-gnu-as "$rootfs/usr/bin/as"
-    ln -s x86_64-linux-gnu-ld "$rootfs/usr/bin/ld"
-    ln -s x86_64-linux-gnu-gcc-15 "$rootfs/usr/bin/gcc"
+    ln -s powerpc64le-linux-gnu-gcc "${rootfs}/usr/bin/gcc"
+    ln -s powerpc64le-linux-gnu-as "${rootfs}/usr/bin/as"
+    ln -s powerpc64le-linux-gnu-ld "${rootfs}/usr/bin/ld"
 
     cp testfiles/test_std.c "${rootfs}/test_std.c"
     cp testfiles/test_std.h "${rootfs}/test_std.h"
