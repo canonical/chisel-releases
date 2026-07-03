@@ -12,7 +12,7 @@ esac
 
 rootfs="$(install-slices --arch "${chisel_arch}" gcc_gcc libc6-dev_libs)"
 
-cp ../gcc-13-${arch_triplet}/testfiles/hello.c "${rootfs}/hello.c"
+cp ../gcc-15-${arch_triplet}/testfiles/hello.c "${rootfs}/hello.c"
 
 chroot "${rootfs}" gcc -o hello hello.c
 chroot "${rootfs}" ./hello | grep "Hello from C!"
