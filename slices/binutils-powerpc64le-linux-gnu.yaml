@@ -1,0 +1,50 @@
+package: binutils-powerpc64le-linux-gnu
+
+essential:
+  binutils-powerpc64le-linux-gnu_copyright:
+
+slices:
+  # NOTE: You might want to create a symlink from /usr/bin/as to
+  #       /usr/bin/powerpc64le-linux-gnu-as in your rootfs to use these slices.
+  #       ln -s powerpc64le-linux-gnu-as "$rootfs/usr/bin/as"
+  assembler:
+    essential:
+      libbinutils_libs:
+      libc6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/bin/powerpc64le-linux-gnu-as:
+
+  linker:
+    essential:
+      libbinutils_libs:
+      libc6_libs:
+      libctf0_libs:
+      libjansson4_libs:
+    contents:
+      /usr/bin/powerpc64le-linux-gnu-ld:  # Symlink to powerpc64le-linux-gnu-ld.bfd
+      /usr/bin/powerpc64le-linux-gnu-ld.bfd:
+
+  archiver:
+    essential:
+      libbinutils_libs:
+      libc6_libs:
+    contents:
+      /usr/bin/powerpc64le-linux-gnu-ar:
+
+  ldscripts:
+    contents:
+      /usr/lib/powerpc64le-linux-gnu/ldscripts/*:
+
+  bfd-plugins:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/powerpc64le-linux-gnu/bfd-plugins/libdep.so:
+
+  copyright:
+    essential:
+      libbinutils_copyright:
+    contents:
+      /usr/share/doc/binutils-powerpc64le-linux-gnu:  # Symlink to libbinutils

@@ -1,0 +1,50 @@
+package: binutils-s390x-linux-gnu
+
+essential:
+  binutils-s390x-linux-gnu_copyright:
+
+slices:
+  # NOTE: You might want to create a symlink from /usr/bin/as to
+  #       /usr/bin/s390x-linux-gnu-as in your rootfs to use these slices.
+  #       ln -s s390x-linux-gnu-as "$rootfs/usr/bin/as"
+  assembler:
+    essential:
+      libbinutils_libs:
+      libc6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/bin/s390x-linux-gnu-as:
+
+  linker:
+    essential:
+      libbinutils_libs:
+      libc6_libs:
+      libctf0_libs:
+      libjansson4_libs:
+    contents:
+      /usr/bin/s390x-linux-gnu-ld:  # Symlink to s390x-linux-gnu-ld.bfd
+      /usr/bin/s390x-linux-gnu-ld.bfd:
+
+  archiver:
+    essential:
+      libbinutils_libs:
+      libc6_libs:
+    contents:
+      /usr/bin/s390x-linux-gnu-ar:
+
+  ldscripts:
+    contents:
+      /usr/lib/s390x-linux-gnu/ldscripts/*:
+
+  bfd-plugins:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/s390x-linux-gnu/bfd-plugins/libdep.so:
+
+  copyright:
+    essential:
+      libbinutils_copyright:
+    contents:
+      /usr/share/doc/binutils-s390x-linux-gnu:  # Symlink to libbinutils
