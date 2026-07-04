@@ -15,25 +15,25 @@ fi
 # prepare separate rootfs with cc1, as and ld
 rootfs_cc="$(install-slices \
     base-files_bin \
-    cpp-15-ppc64le-linux-gnu_cc1 \
+    cpp-15-powerpc64le-linux-gnu_cc1 \
     libc6-dev_headers \
 )"
 rootfs_as="$(install-slices \
-    binutils-ppc64le-linux-gnu_assembler \
+    binutils-powerpc64le-linux-gnu_assembler \
 )"
 rootfs_ld="$(install-slices \
-    binutils-ppc64le-linux-gnu_linker \
+    binutils-powerpc64le-linux-gnu_linker \
     libc6-dev_core \
 )"
 
 if $cross; then
-    ln -s "/usr/libexec/gcc-cross/ppc64le-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
-    ln -s "ppc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
-    ln -s "ppc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
+    ln -s "/usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "powerpc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
+    ln -s "powerpc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 else
-    ln -s "/usr/libexec/gcc/ppc64le-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
-    ln -s "ppc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
-    ln -s "ppc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
+    ln -s "/usr/libexec/gcc/powerpc64le-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "powerpc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
+    ln -s "powerpc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 fi
 
 cp hello.c "${rootfs_cc}/hello.c"

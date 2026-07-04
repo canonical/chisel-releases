@@ -16,6 +16,7 @@ if $cross; then
     slices=(
         binutils-s390x-linux-gnu_assembler
         binutils-s390x-linux-gnu_cross-libbfd
+        binutils-s390x-linux-gnu_cross-libopcodes
     )
 
     rootfs_as="$(install-slices "${slices[@]}")"

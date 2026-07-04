@@ -14,13 +14,13 @@ fi
 
 rootfs="$(install-slices \
     base-files_bin \
-    cpp-15-ppc64le-linux-gnu_cc1 \
+    cpp-15-powerpc64le-linux-gnu_cc1 \
 )"
 
 if $cross; then
-    ln -s "/usr/libexec/gcc-cross/ppc64le-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
 else
-    ln -s "/usr/libexec/gcc/ppc64le-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc/powerpc64le-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
 fi
 
 if $cross; then
