@@ -1,3 +1,5 @@
+# TODO: remove the --arch and the ${arch} logic once
+# canonical/chisel #256 is merged.
 arch=$(uname -m)
 arch="${arch//_/-}"
 
@@ -10,12 +12,9 @@ echo "Unsupported architecture: ${arch}"
 exit 1
 fi
 
-rootfs="$(install-slices --arch "${chisel_arch}" \
-  golang_cgo-support \
-  ca-certificates_data \  # for `go get` to work properly
-)"
+rootfs="$(install-slices --arch "${chisel_arch}" golang-1.26-go_${SLICE} golang-1.26-go_minimal)"
 
-find ${rootfs} -depth \( \
+find "${rootfs}" -depth \( \
     -name '*_test.go' -o \
     \( -type d -name 'testdata' \) -o \
     \( -type d -path '*/go-1.26/test' \) -o \
@@ -41,36 +40,13 @@ find ${rootfs} -depth \( \
     \( -type d -path '*/src/vendor/golang.org/x/net/nettest' \) \
     \) -exec rm -rf {} +
 
+# we need dev/sys mounted for some of them
+mkdir "${rootfs}"/dev
 mkdir "${rootfs}/proc"
-mount --bind /proc "${rootfs}/proc"
 
-mkdir "${rootfs}/dev"
-mount --bind /dev "${rootfs}/dev"
+mount --bind /dev "${rootfs}"/dev
+mount --bind /proc "${rootfs}/proc"
 
 mkdir -p "${rootfs}/tmp"
 
-mkdir "${rootfs}/app"
-cp -r hello "${rootfs}/"
-
-chroot "${rootfs}/" go version
-chroot "${rootfs}/" go run /hello/cmd/hello/main.go | grep "Hello, World!"
-
-chroot "${rootfs}/" gofmt /hello/cmd/hello/main.go > /dev/null
-
-chroot "${rootfs}/" go -C /hello test
-
-git clone https://github.com/canonical/chisel.git "${rootfs}/chisel"
-git -C "$rootfs/chisel" checkout v1.2.0
-cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
-
-chroot "${rootfs}/" go -C chisel build ./cmd/chisel
-chroot "${rootfs}/" ./chisel/chisel 2>&1 > /dev/null
-
-
-export CGO_ENABLED=1
-chroot "${rootfs}/" go run /hello/cmd/hello_cgo/main_cgo.go | grep "Hello from C!"
-
-umount "${rootfs}/proc"
-umount "${rootfs}/dev"
-rm -rf "${rootfs}/proc"
-rm -rf "${rootfs}/dev"
+echo -n "${rootfs}"

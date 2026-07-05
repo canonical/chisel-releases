@@ -1,0 +1,24 @@
+package: squid-common
+
+essential:
+  squid-common_copyright:
+
+slices:
+  data:
+    essential:
+      squid-langpack_data:
+    contents:
+      /usr/share/squid/errors:  # Symlink to /usr/share/squid-langpack
+      /usr/share/squid/mib.txt:
+
+  mime-config:
+    contents:
+      /usr/share/squid/mime.conf:
+
+  icons:
+    contents:
+      /usr/share/squid/icons/**.png:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid-common/copyright:
