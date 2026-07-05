@@ -20,10 +20,9 @@ slices:
     # crontab needs /var/spool/cron/crontabs to store user crontabs, so user must create this dir
     essential:
       base-files_tmp:
-      cron_daemon:
+      base-passwd_data:
+      libc6_libs:
     contents:
-      /etc/supercat/spcrc-crontab:
-      /etc/supercat/spcrc-crontab-light:
       /usr/bin/crontab:
 
   config:
