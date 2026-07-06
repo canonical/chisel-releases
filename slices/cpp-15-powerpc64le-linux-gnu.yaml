@@ -1,0 +1,27 @@
+package: cpp-15-powerpc64le-linux-gnu
+
+essential:
+  cpp-15-powerpc64le-linux-gnu_copyright:
+
+slices:
+  cc1:
+    essential:
+      libc6-dev_headers:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/cc1:
+        arch: [amd64, arm64, i386, s390x]
+      /usr/libexec/gcc/powerpc64le-linux-gnu/15/cc1:
+        arch: [ppc64el]
+
+  copyright:
+    essential:
+      gcc-15-base_copyright:
+    contents:
+      /usr/share/doc/cpp-15-powerpc64le-linux-gnu:

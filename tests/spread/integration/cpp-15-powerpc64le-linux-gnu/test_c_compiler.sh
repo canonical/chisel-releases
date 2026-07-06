@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# spellchecker: ignore rootfs libc libexec binutils unistd crti crtn
+
+arch=$(uname -m)
+cross=false
+if [[ "$arch" == "aarch64" || "$arch" == "s390x" || "$arch" == "x86_64" ]]; then
+    cross=true
+elif [[ "$arch" == "ppc64le" ]]; then
+    cross=false
+else
+    echo "Unsupported architecture: $arch"
+    exit 1
+fi
+
+# prepare separate rootfs with cc1, as and ld
+rootfs_cc="$(install-slices \
+    base-files_bin \
+    cpp-15-powerpc64le-linux-gnu_cc1 \
+    libc6-dev_headers \
+)"
+rootfs_as="$(install-slices \
+    binutils-powerpc64le-linux-gnu_assembler \
+)"
+rootfs_ld="$(install-slices \
+    binutils-powerpc64le-linux-gnu_linker \
+    libc6-dev_core \
+)"
+
+if $cross; then
+    ln -s "/usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "powerpc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
+    ln -s "powerpc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
+else
+    ln -s "/usr/libexec/gcc/powerpc64le-linux-gnu/15/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "powerpc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
+    ln -s "powerpc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
+fi
+
+cp hello.c "${rootfs_cc}/hello.c"
+
+if $cross; then
+    # TODO: We do not have libc6-dev for cross compilation yet
+    :
+else
+    # compile
+    chroot "${rootfs_cc}" cc1 hello.c \
+        -o hello.s \
+        -Wno-implicit-function-declaration \
+        -I "/usr/include/$arch-linux-gnu" \
+        -I "/usr/include/linux"
+
+    # assemble
+    cp "${rootfs_cc}/hello.s" "${rootfs_as}/hello.s"
+    chroot "${rootfs_as}" as -o hello.o hello.s
+
+    # link
+    cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
+    chroot "${rootfs_ld}" ld -o hello hello.o \
+        -lc \
+        /usr/lib/"$arch"-linux-gnu/crt1.o \
+        /usr/lib/"$arch"-linux-gnu/crti.o \
+        /usr/lib/"$arch"-linux-gnu/crtn.o
+
+    # run
+    chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
+fi
