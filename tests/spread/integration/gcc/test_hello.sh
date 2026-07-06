@@ -1,21 +1,18 @@
 # TODO: remove the --arch and the ${arch} logic once
 # canonical/chisel #256 is merged.
 arch=$(uname -m)
-arch="${arch//_/-}"
-arch_triplet="${arch}-linux-gnu"
 
-if [ "${arch}" = "aarch64" ]; then
-chisel_arch="arm64"
-elif [ "${arch}" = "x86-64" ]; then
-chisel_arch="amd64"
-else
-echo "Unsupported architecture: ${arch}"
-exit 1
-fi
+case "${arch}" in
+  aarch64)   chisel_arch="arm64";    arch_triplet="aarch64-linux-gnu" ;;
+  x86_64)    chisel_arch="amd64";    arch_triplet="x86_64-linux-gnu" ;;
+  ppc64le)   chisel_arch="ppc64el";  arch_triplet="powerpc64le-linux-gnu" ;;
+  s390x)     chisel_arch="s390x";    arch_triplet="s390x-linux-gnu" ;;
+  *)         echo "Unsupported architecture: ${arch}"; exit 1 ;;
+esac
 
 rootfs="$(install-slices --arch "${chisel_arch}" gcc_gcc libc6-dev_libs)"
 
-cp ../gcc-13-${arch_triplet}/testfiles/hello.c "${rootfs}/hello.c"
+cp ../gcc-15-${arch_triplet}/testfiles/hello.c "${rootfs}/hello.c"
 
 chroot "${rootfs}" gcc -o hello hello.c
 chroot "${rootfs}" ./hello | grep "Hello from C!"
