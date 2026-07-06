@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libgcc-s1_libs:
       libstd-rust-1.93-dev_libs:
-      rust-1.93-clippy_clippy-driver:  # needs clippy-driver din
+      rust-1.93-clippy_clippy-driver:  # needs clippy-driver bin
     contents:
       /usr/lib/rust-1.93/bin/cargo-clippy:
 
