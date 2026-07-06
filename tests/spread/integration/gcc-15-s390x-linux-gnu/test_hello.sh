@@ -3,9 +3,9 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "x86_64" || "$arch" == "s390x" || "$arch" == "ppc64le" ]]; then
+if [[ "$arch" == "x86_64" || "$arch" == "aarch64" || "$arch" == "ppc64le" ]]; then
     cross=true
-elif [[ "$arch" == "aarch64" ]]; then
+elif [[ "$arch" == "s390x" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -17,17 +17,17 @@ if $cross; then
     :
 else
     slices=(
-        gcc-aarch64-linux-gnu_gcc
-        cpp-15-aarch64-linux-gnu_cc1
-        binutils-aarch64-linux-gnu_assembler
-        binutils-aarch64-linux-gnu_linker
+        gcc-15-s390x-linux-gnu_gcc-15
+        cpp-15-s390x-linux-gnu_cc1
+        binutils-s390x-linux-gnu_assembler
+        binutils-s390x-linux-gnu_linker
         libgcc-15-dev_core
         libc6-dev_core
     )
     rootfs="$(install-slices "${slices[@]}")"
-    ln -s aarch64-linux-gnu-gcc "${rootfs}/usr/bin/gcc"
-    ln -s aarch64-linux-gnu-as "${rootfs}/usr/bin/as"
-    ln -s aarch64-linux-gnu-ld "${rootfs}/usr/bin/ld"
+    ln -s s390x-linux-gnu-gcc-15 "${rootfs}/usr/bin/gcc"
+    ln -s s390x-linux-gnu-as "${rootfs}/usr/bin/as"
+    ln -s s390x-linux-gnu-ld "${rootfs}/usr/bin/ld"
 
     cp testfiles/hello.c "${rootfs}/hello.c"
 
