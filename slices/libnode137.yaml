@@ -1,7 +1,7 @@
-package: libnode127
+package: libnode137
 
 essential:
-  libnode127_copyright:
+  libnode137_copyright:
 
 slices:
   libs:
@@ -27,8 +27,8 @@ slices:
       node-undici_libs:
       zlib1g_libs:
     contents:
-      /usr/lib/*-linux-*/libnode.so.127:
+      /usr/lib/*-linux-*/libnode.so.137:
 
   copyright:
     contents:
-      /usr/share/doc/libnode127/copyright:
+      /usr/share/doc/libnode137/copyright:
