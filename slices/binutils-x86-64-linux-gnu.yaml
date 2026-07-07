@@ -25,7 +25,7 @@ slices:
       libctf0_libs:
       libjansson4_libs:
     contents:
-      /usr/bin/x86_64-linux-gnu-ld:
+      /usr/bin/x86_64-linux-gnu-ld: # Symlink to x86_64-linux-gnu-ld.bfd
       /usr/bin/x86_64-linux-gnu-ld.bfd:
       /usr/x86_64-linux-gnu/bin/ld:
         arch: [arm64, i386, ppc64el, s390x]
