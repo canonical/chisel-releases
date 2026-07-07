@@ -98,7 +98,7 @@ slices:
     essential:
       libbinutils_copyright:
     contents:
-      /usr/share/doc/binutils-powerpc64le-linux-gnu:
+      /usr/share/doc/binutils-powerpc64le-linux-gnu:  # Symlink to libbinutils
         arch: [ppc64el]
       /usr/share/doc/binutils-powerpc64le-linux-gnu/copyright:
         arch: [arm64, i386, amd64, s390x]

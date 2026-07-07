@@ -98,7 +98,7 @@ slices:
     essential:
       libbinutils_copyright:
     contents:
-      /usr/share/doc/binutils-s390x-linux-gnu:
+      /usr/share/doc/binutils-s390x-linux-gnu:  # Symlink to libbinutils
         arch: [s390x]
       /usr/share/doc/binutils-s390x-linux-gnu/copyright:
         arch: [arm64, i386, ppc64el, amd64]
