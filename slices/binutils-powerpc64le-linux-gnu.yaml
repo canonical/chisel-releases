@@ -15,6 +15,8 @@ slices:
       zlib1g_libs:
     contents:
       /usr/bin/powerpc64le-linux-gnu-as:
+      /usr/powerpc64le-linux-gnu/bin/as:
+        arch: [arm64, i386, s390x, amd64]
 
   linker:
     essential:
@@ -25,6 +27,10 @@ slices:
     contents:
       /usr/bin/powerpc64le-linux-gnu-ld:  # Symlink to powerpc64le-linux-gnu-ld.bfd
       /usr/bin/powerpc64le-linux-gnu-ld.bfd:
+      /usr/powerpc64le-linux-gnu/bin/ld:
+        arch: [arm64, i386, s390x, amd64]
+      /usr/powerpc64le-linux-gnu/bin/ld.bfd:
+        arch: [arm64, i386, s390x, amd64]
 
   archiver:
     essential:
@@ -32,14 +38,16 @@ slices:
       libc6_libs:
     contents:
       /usr/bin/powerpc64le-linux-gnu-ar:
+      /usr/powerpc64le-linux-gnu/bin/ar:
+        arch: [arm64, i386, s390x, amd64]
 
   # Libraries for cross compiling
   cross-libs:
     essential:
-      binutils-x86-64-linux-gnu_cross-libbfd:
-      binutils-x86-64-linux-gnu_cross-libctf:
-      binutils-x86-64-linux-gnu_cross-libctf-nobfd:
-      binutils-x86-64-linux-gnu_cross-libopcodes:
+      binutils-powerpc64le-linux-gnu_cross-libbfd:
+      binutils-powerpc64le-linux-gnu_cross-libctf:
+      binutils-powerpc64le-linux-gnu_cross-libctf-nobfd:
+      binutils-powerpc64le-linux-gnu_cross-libopcodes:
 
   cross-libbfd:
     essential:
@@ -53,7 +61,7 @@ slices:
 
   cross-libctf:
     essential:
-      binutils-x86-64-linux-gnu_cross-libbfd:
+      binutils-powerpc64le-linux-gnu_cross-libbfd:
       libc6_libs:
       zlib1g_libs:
     contents:
@@ -70,7 +78,7 @@ slices:
 
   cross-libopcodes:
     essential:
-      binutils-x86-64-linux-gnu_cross-libbfd:
+      binutils-powerpc64le-linux-gnu_cross-libbfd:
       libc6_libs:
     contents:
       /usr/lib/*-linux-*/libopcodes-*-ppc64el.so:
