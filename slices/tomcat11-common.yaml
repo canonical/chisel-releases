@@ -1,0 +1,108 @@
+package: tomcat11-common
+
+essential:
+  tomcat11-common_copyright:
+
+# NOTE: all the jar files in are symlinks
+# to their corresponding jars from libtomcat11-java except
+# /usr/share/tomcat11/bin/bootstrap.jar
+
+slices:
+  scripts:
+    essential:
+      coreutils_delaying:
+      coreutils_directory-listing:
+      coreutils_dirname:
+      coreutils_echo:
+      coreutils_expr:
+      coreutils_output-of-entire-files:
+      coreutils_rm-bin:
+      coreutils_special-file-types:
+      coreutils_system-context:
+      coreutils_touch:
+      coreutils_working-context:
+      dash_bins:
+      debianutils_which:
+      grep_bins:
+      procps_bins:
+      tomcat11-common_jars:
+    contents:
+      /usr/share/tomcat11/bin/catalina.sh:
+      /usr/share/tomcat11/bin/setclasspath.sh:
+
+  jars:
+    essential:
+      libtomcat11-java_jars:
+      openjdk-21-jre-headless_jfr:
+      openjdk-21-jre-headless_management:
+      openjdk-21-jre-headless_security:
+    contents:
+      /usr/share/tomcat11/bin/bootstrap.jar:
+      /usr/share/tomcat11/bin/tomcat-juli.jar:
+      /usr/share/tomcat11/lib/annotations-api.jar:
+      /usr/share/tomcat11/lib/catalina-ha.jar:
+      /usr/share/tomcat11/lib/catalina-storeconfig.jar:
+      /usr/share/tomcat11/lib/catalina-tribes.jar:
+      /usr/share/tomcat11/lib/catalina.jar:
+      /usr/share/tomcat11/lib/el-api.jar:
+      /usr/share/tomcat11/lib/jasper-el.jar:
+      /usr/share/tomcat11/lib/jasper.jar:
+      /usr/share/tomcat11/lib/jaspic-api.jar:
+      /usr/share/tomcat11/lib/jsp-api.jar:
+      /usr/share/tomcat11/lib/servlet-api.jar:
+      /usr/share/tomcat11/lib/tomcat-api.jar:
+      /usr/share/tomcat11/lib/tomcat-coyote.jar:
+      /usr/share/tomcat11/lib/tomcat-dbcp.jar:
+      /usr/share/tomcat11/lib/tomcat-jdbc.jar:
+      /usr/share/tomcat11/lib/tomcat-jni.jar:
+      /usr/share/tomcat11/lib/tomcat-util-scan.jar:
+      /usr/share/tomcat11/lib/tomcat-util.jar:
+      /usr/share/tomcat11/lib/tomcat-websocket.jar:
+      /usr/share/tomcat11/lib/websocket-api.jar:
+      /usr/share/tomcat11/lib/websocket-client-api.jar:
+
+  i18n:
+    essential:
+      libtomcat11-java_i18n:
+      tomcat11-common_jars:
+    contents:
+      /usr/share/tomcat11/lib/tomcat-i18n-es.jar:
+      /usr/share/tomcat11/lib/tomcat-i18n-fr.jar:
+      /usr/share/tomcat11/lib/tomcat-i18n-ja.jar:
+      /usr/share/tomcat11/lib/tomcat-i18n-ru.jar:
+
+  # additional shell scripts
+  extra-scripts:
+    essential:
+      tomcat11-common_scripts:
+    contents:
+      /usr/share/tomcat11/bin/ciphers.sh:
+      /usr/share/tomcat11/bin/configtest.sh:
+      # needs jsvc - also contains bug hardcodes
+      # /usr/share/tomcat11/bin/jsvc: not found
+      # /usr/share/tomcat11/bin/daemon.sh:
+      /usr/share/tomcat11/bin/digest.sh:
+      /usr/share/tomcat11/bin/makebase.sh:
+      # java.lang.ClassNotFoundException:
+      # org.apache.tomcat.jakartaee.MigrationCLI
+      # packaging error, do not install
+      # /usr/share/tomcat11/bin/migrate.sh:
+      /usr/share/tomcat11/bin/shutdown.sh:
+      /usr/share/tomcat11/bin/startup.sh:
+      # used by other tools such as digest.sh, makebase.sh
+      /usr/share/tomcat11/bin/tool-wrapper.sh:
+      /usr/share/tomcat11/bin/version.sh:
+
+  copyright:
+    contents:
+      /usr/share/doc/tomcat11-common/copyright:
+
+#  Will be needed if tomcat11-admin is sliced
+#  ant:
+#    essential:
+#      - tomcat11-common_jars
+#      tomcat11-common_jars:
+#      libtomcat11-java_ant:
+#    contents:
+#      /usr/share/tomcat11/bin/catalina-tasks.xml:
+#      /usr/share/tomcat11/lib/catalina-ant.jar:
