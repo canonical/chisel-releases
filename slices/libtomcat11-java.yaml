@@ -4,7 +4,7 @@ essential:
   libtomcat11-java_copyright:
 
 slices:
-  i18n-common:
+  i18n:
     contents:
       /usr/share/java/tomcat11-i18n-cs-10*.jar:
       /usr/share/java/tomcat11-i18n-cs.jar:
