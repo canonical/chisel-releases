@@ -128,14 +128,26 @@ prepare: |
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
 
   apt install -y curl wget
-  curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
-    | awk "/browser_download_url/ && /chisel_v/ && /_$arch\./" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | xargs wget
 
-  sha384sum -c chisel_v*sha384
-  tar -xf chisel_v*tar.gz -C /usr/local/bin
+  # Resolve the latest chisel release without calling api.github.com, whose
+  # unauthenticated REST quota (60 req/hr, shared per source IP) the CI runners
+  # routinely exhaust. An exhausted quota returns no asset URL, and the old
+  # `curl ... | xargs wget` pipeline then died with a cryptic `wget: missing URL`.
+  # The github.com web endpoint 302-redirects to the tagged release and is not
+  # subject to that quota, so we read the tag from the redirect target. See #752.
+  tag="$(curl -fsS -o /dev/null -w '%{redirect_url}' \
+    https://github.com/canonical/chisel/releases/latest | sed 's#.*/tag/##')"
+  if [ -z "$tag" ]; then
+    echo "FATAL: could not resolve latest chisel release tag (github.com unreachable?)" >&2
+    exit 1
+  fi
+
+  base="https://github.com/canonical/chisel/releases/download/$tag"
+  tarball="chisel_${tag}_linux_${arch}.tar.gz"
+  wget "$base/$tarball" "$base/$tarball.sha384"
+
+  sha384sum -c "$tarball.sha384"
+  tar -xf "$tarball" -C /usr/local/bin
 
 prepare-each: chisel version
 
