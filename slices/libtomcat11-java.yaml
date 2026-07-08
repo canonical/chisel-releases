@@ -25,7 +25,7 @@ slices:
       /usr/share/java/tomcat11-i18n-zh-CN-10*.jar:
       /usr/share/java/tomcat11-i18n-zh-CN.jar:
 
-  libs:
+  jars:
     essential:
       libeclipse-jdt-core-java_jars:
     contents:
