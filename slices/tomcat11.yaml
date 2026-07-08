@@ -17,11 +17,6 @@ slices:
         copy: /usr/share/tomcat11/etc/jaspic-providers.xml
       /etc/tomcat11/logging.properties:
         copy: /usr/share/tomcat11/etc/logging.properties
-      /etc/tomcat11/policy.d/01system.policy:
-      /etc/tomcat11/policy.d/02debian.policy:
-      /etc/tomcat11/policy.d/03catalina.policy:
-      /etc/tomcat11/policy.d/04webapps.policy:
-      /etc/tomcat11/policy.d/50local.policy:
       /etc/tomcat11/server.xml:
         copy: /usr/share/tomcat11/etc/server.xml
       /etc/tomcat11/tomcat-users.xml:
