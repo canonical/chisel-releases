@@ -24,17 +24,17 @@ execute: |
 
   case ${SLICE} in
     extra-scripts)
-      chroot "$rootfs" /usr/share/tomcat10/bin/ciphers.sh \
+      chroot "$rootfs" /usr/share/tomcat11/bin/ciphers.sh \
         | grep -q TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-      chroot "$rootfs" /usr/share/tomcat10/bin/digest.sh foo \
+      chroot "$rootfs" /usr/share/tomcat11/bin/digest.sh foo \
         | grep -q "foo"
-      chroot "$rootfs" /usr/share/tomcat10/bin/makebase.sh foo \
+      chroot "$rootfs" /usr/share/tomcat11/bin/makebase.sh foo \
         | grep -q "Created CATALINA_BASE directory at foo"
-      chroot "$rootfs" /usr/share/tomcat10/bin/version.sh \
+      chroot "$rootfs" /usr/share/tomcat11/bin/version.sh \
         | grep -q "Apache Tomcat"
     ;;
     scripts)
-      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
+      chroot "$rootfs" /usr/share/tomcat11/bin/catalina.sh version \
         | grep -q "Apache Tomcat/11"
     ;;
   esac
