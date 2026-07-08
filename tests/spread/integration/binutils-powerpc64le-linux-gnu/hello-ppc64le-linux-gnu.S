@@ -1,4 +1,5 @@
         .file   "hello.c"
+        .abiversion 2
         .section        .rodata
 .LC0:
         .string "Hello world!"
@@ -10,6 +11,10 @@
 main:
 .LFB0:
         .cfi_startproc
+.LCF0:
+0:      addis   2,12,.TOC.-0b@ha
+        addi    2,2,.TOC.-0b@l
+        .localentry main,.-main
         mflr    0
         std     0,16(1)
         stdu    1,-32(1)
@@ -19,6 +24,7 @@ main:
         addis   3,2,.LC0@toc@ha
         addi    3,3,.LC0@toc@l
         bl      puts
+        nop
 
         li      3,0
 
