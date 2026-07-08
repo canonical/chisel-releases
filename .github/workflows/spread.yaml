@@ -7,16 +7,8 @@ on:
 jobs:
   spread-tests:
     strategy:
-      # One arch failing must not cancel the others.
-      fail-fast: false
+      fail-fast: false  # one arch failing does not cancel others
       matrix:
-        # Self-hosted runners are addressed by a single composite label, which
-        # pins one pool exactly. The older granular form (["noble", "X64",
-        # "large"]) matches any runner carrying those labels, including the
-        # FIPS and private-endpoint pools. See canonical/oci-factory#842.
-        #
-        # Forks fall back to GitHub-hosted runners, which only exist for x64
-        # and arm64, so s390x and ppc64el drop out of the matrix entirely.
         runner: >-
           ${{ github.repository_owner == 'canonical'
           && fromJSON('[
