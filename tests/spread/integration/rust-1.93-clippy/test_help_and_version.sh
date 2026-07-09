@@ -10,9 +10,11 @@ chroot "$rootfs" /usr/lib/rust-1.93/bin/clippy-driver --help | grep -Fq 'Checks 
 rootfs="$(install-slices rust-1.93-clippy_clippy)"
 # test that installing clippy also makes clippy-driver available
 chroot "$rootfs" /usr/lib/rust-1.93/bin/clippy-driver --version | grep -Fiq 'clippy 0.1.93'
+
 # also test clippy directly
 chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-clippy --version | grep -Fiq 'clippy 0.1.93'
 chroot "$rootfs" /usr/lib/rust-1.93/bin/cargo-clippy --help | grep -Fq 'Checks a package to catch common mistakes and improve your Rust code.'
+
 # finally, test with `cargo clippy`
 rootfs="$(install-slices rust-1.93-clippy_clippy cargo-1.93_cargo)"
 ln -s cargo-1.93 "$rootfs/usr/bin/cargo"
