@@ -9,13 +9,13 @@ slices:
       rust-1.93-clippy_clippy:
       rust-clippy_clippy-driver:
     contents:
-      /usr/bin/cargo-clippy:  # symlink to ../lib/rust-1.93/bin/cargo-clippy
+      /usr/bin/cargo-clippy:  # Symlink to ../lib/rust-1.93/bin/cargo-clippy
 
   clippy-driver:
     essential:
       rust-1.93-clippy_clippy-driver:
     contents:
-      /usr/bin/clippy-driver:  # symlink to ../lib/rust-1.93/bin/clippy-driver
+      /usr/bin/clippy-driver:  # Symlink to ../lib/rust-1.93/bin/clippy-driver
 
   copyright:
     contents:
