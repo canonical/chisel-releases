@@ -8,7 +8,7 @@ slices:
     essential:
       rust-1.93-src_src:
     contents:
-      /usr/lib/rustlib/src/rust:  # symlink to ../../rust-1.93/lib/rustlib/src/rust
+      /usr/lib/rustlib/src/rust:  # Symlink to ../../rust-1.93/lib/rustlib/src/rust
 
   copyright:
     contents:
