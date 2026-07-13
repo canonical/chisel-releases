@@ -57,7 +57,10 @@ else
 
     # link
     cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
+    linker_lib="$(ls "${rootfs_ld}"/usr/lib*/ld*.so*)"
+    linker_lib=${linker_lib#"$rootfs_ld"}
     chroot "${rootfs_ld}" ld -o hello hello.o \
+        -dynamic-linker "${linker_lib}" \
         -lc \
         /usr/lib/powerpc64le-linux-gnu/crt1.o \
         /usr/lib/powerpc64le-linux-gnu/crti.o \
