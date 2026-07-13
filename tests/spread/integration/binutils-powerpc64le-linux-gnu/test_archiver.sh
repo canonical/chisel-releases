@@ -3,9 +3,9 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "x86_64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "x86_64" || "$arch" == "s390x" ]]; then
     cross=true
-elif [[ "$arch" == "aarch64" ]]; then
+elif [[ "$arch" == "ppc64le" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -14,15 +14,15 @@ fi
 
 if $cross; then
     rootfs="$(install-slices \
-        binutils-aarch64-linux-gnu_archiver \
-        binutils-aarch64-linux-gnu_cross-libbfd \
+        binutils-powerpc64le-linux-gnu_archiver \
+        binutils-powerpc64le-linux-gnu_cross-libbfd \
     )"
-    ln -s "aarch64-linux-gnu-ar" "$rootfs/usr/bin/ar"
+    ln -s "powerpc64le-linux-gnu-ar" "$rootfs/usr/bin/ar"
 else
     rootfs="$(install-slices \
-        binutils-aarch64-linux-gnu_archiver \
+        binutils-powerpc64le-linux-gnu_archiver \
     )"
-    ln -s "aarch64-linux-gnu-ar" "$rootfs/usr/bin/ar"
+    ln -s "powerpc64le-linux-gnu-ar" "$rootfs/usr/bin/ar"
 fi
 
 touch "$rootfs/file1" "$rootfs/file2"
