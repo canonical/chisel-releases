@@ -43,10 +43,12 @@ if $cross; then
     :
 else
     # compile
+    # NOTE: uname -m reports ppc64le, but the multiarch triplet is
+    #       powerpc64le-linux-gnu, so the include/lib paths cannot use $arch.
     chroot "${rootfs_cc}" cc1 hello.c \
         -o hello.s \
         -Wno-implicit-function-declaration \
-        -I "/usr/include/$arch-linux-gnu" \
+        -I "/usr/include/powerpc64le-linux-gnu" \
         -I "/usr/include/linux"
 
     # assemble
@@ -57,9 +59,9 @@ else
     cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
     chroot "${rootfs_ld}" ld -o hello hello.o \
         -lc \
-        /usr/lib/"$arch"-linux-gnu/crt1.o \
-        /usr/lib/"$arch"-linux-gnu/crti.o \
-        /usr/lib/"$arch"-linux-gnu/crtn.o
+        /usr/lib/powerpc64le-linux-gnu/crt1.o \
+        /usr/lib/powerpc64le-linux-gnu/crti.o \
+        /usr/lib/powerpc64le-linux-gnu/crtn.o
 
     # run
     chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
