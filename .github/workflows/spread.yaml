@@ -7,12 +7,23 @@ on:
 jobs:
   spread-tests:
     strategy:
+      # `fail-fast` is a trade off between waste of resources vs a more
+      # comprehensive view of all errors for within the same run. Since we use
+      # or own runners, we choose to concerve the resource.
+      fail-fast: true
       matrix:
-        runner:
-          - name: X64
-            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "X64", "large"]') || 'ubuntu-24.04' }}
-          - name: ARM64
-            runs-on: ${{ github.repository_owner == 'canonical' && fromJSON('["noble", "ARM64", "large"]') || 'ubuntu-24.04-arm' }}
+        runner: >-
+          ${{ github.repository_owner == 'canonical'
+          && fromJSON('[
+          {"name": "X64", "runs-on": "self-hosted-linux-amd64-noble-large"},
+          {"name": "ARM64", "runs-on": "self-hosted-linux-arm64-noble-medium"},
+          {"name": "S390X", "runs-on": "self-hosted-linux-s390x-noble-medium"},
+          {"name": "PPC64EL", "runs-on": "self-hosted-linux-ppc64el-noble-edge"}
+          ]')
+          || fromJSON('[
+          {"name": "X64", "runs-on": "ubuntu-24.04"},
+          {"name": "ARM64", "runs-on": "ubuntu-24.04-arm"}
+          ]') }}
     name: Run Spread tests | ${{ matrix.runner.name }}
     runs-on: ${{ matrix.runner.runs-on }}
     outputs:
@@ -46,9 +57,11 @@ jobs:
           repository: snapcore/spread
           path: _spread
 
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
           go-version: '>=1.17.0'
+          architecture: ${{ matrix.runner.name == 'PPC64EL' && 'ppc64le' || '' }}
+          cache: false
 
       - name: Install LXD
         uses: canonical/setup-lxd@v0.1.1
