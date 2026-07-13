@@ -7,7 +7,10 @@ on:
 jobs:
   spread-tests:
     strategy:
-      fail-fast: false  # one arch failing does not cancel others
+      # `fail-fast` is a trade off between waste of resources vs a more
+      # comprehensive view of all errors for within the same run. Since we use
+      # or own runners, we choose to concerve the resource.
+      fail-fast: true
       matrix:
         runner: >-
           ${{ github.repository_owner == 'canonical'
