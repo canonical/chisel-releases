@@ -24,4 +24,4 @@ slices:
     essential:
       gcc-15-base_copyright:
     contents:
-      /usr/share/doc/cpp-15-s390x-linux-gnu:
+      /usr/share/doc/cpp-15-s390x-linux-gnu:  # Symlink to gcc-15-base
