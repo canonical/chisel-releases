@@ -43,10 +43,12 @@ if $cross; then
     :
 else
     # compile
+    # NOTE: hardcode the triplet rather than deriving from $arch; uname -m
+    #       happens to match here (s390x) but not on all arches (e.g. ppc64le).
     chroot "${rootfs_cc}" cc1 hello.c \
         -o hello.s \
         -Wno-implicit-function-declaration \
-        -I "/usr/include/$arch-linux-gnu" \
+        -I "/usr/include/s390x-linux-gnu" \
         -I "/usr/include/linux"
 
     # assemble
@@ -57,9 +59,9 @@ else
     cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
     chroot "${rootfs_ld}" ld -o hello hello.o \
         -lc \
-        /usr/lib/"$arch"-linux-gnu/crt1.o \
-        /usr/lib/"$arch"-linux-gnu/crti.o \
-        /usr/lib/"$arch"-linux-gnu/crtn.o
+        /usr/lib/s390x-linux-gnu/crt1.o \
+        /usr/lib/s390x-linux-gnu/crti.o \
+        /usr/lib/s390x-linux-gnu/crtn.o
 
     # run
     chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
