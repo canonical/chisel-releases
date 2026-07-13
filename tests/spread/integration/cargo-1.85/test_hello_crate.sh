@@ -8,7 +8,8 @@ case "${arch}" in
     *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
 esac
 
-rootfs="$(install-slices --arch "$chisel_arch" cargo_cargo)"
+rootfs="$(install-slices --arch "$chisel_arch" cargo-1.85_cargo)"
+ln -s rustc-1.85 "$rootfs/usr/bin/rustc"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev"
@@ -17,5 +18,5 @@ chmod +x "$rootfs/dev/null"
 
 cp -r testfiles/hello_crate "$rootfs"
 
-chroot "$rootfs" cargo -Z unstable-options -C /hello_crate build --workspace
+chroot "$rootfs" cargo-1.85 -Z unstable-options -C /hello_crate build --workspace
 chroot "$rootfs" ./hello_crate/target/debug/hello | grep -q "Hello, world!"
