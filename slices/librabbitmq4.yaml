@@ -11,7 +11,8 @@ slices:
     contents:
       # NOTE: deb contains librabbitmq.so.0.15.0 and a symlink
       # librabbitmq.so.4 -> librabbitmq.so.0.15.0
-      /usr/lib/*-linux-*/librabbitmq.so.*:
+      /usr/lib/*-linux-*/librabbitmq.so.0*:
+      /usr/lib/*-linux-*/librabbitmq.so.4*:
 
   copyright:
     contents:
