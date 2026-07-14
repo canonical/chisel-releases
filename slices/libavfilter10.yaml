@@ -35,7 +35,7 @@ slices:
       ocl-icd-libopencl1_libs:
       zlib1g_libs:
     contents:
-      /usr/lib/*-linux-*/libavfilter.so*:
+      /usr/lib/*-linux-*/libavfilter.so.10*:
 
   copyright:
     contents:
