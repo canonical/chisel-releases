@@ -1,7 +1,7 @@
-package: libavutil59
+package: libavutil60
 
 essential:
-  libavutil59_copyright:
+  libavutil60_copyright:
 
 slices:
   libs:
@@ -16,8 +16,8 @@ slices:
       libx11-6_libs:
       ocl-icd-libopencl1_libs:
     contents:
-      /usr/lib/*-linux-*/libavutil.so.59*:
+      /usr/lib/*-linux-*/libavutil.so.60*:
 
   copyright:
     contents:
-      /usr/share/doc/libavutil59/copyright:
+      /usr/share/doc/libavutil60/copyright:

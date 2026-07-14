@@ -1,15 +1,15 @@
-package: libavfilter10
+package: libavfilter11
 
 essential:
-  libavfilter10_copyright:
+  libavfilter11_copyright:
 
 slices:
   libs:
     essential:
       libass9_libs:
-      libavcodec61_libs:
-      libavformat61_libs:
-      libavutil59_libs:
+      libavcodec62_libs:
+      libavformat62_libs:
+      libavutil60_libs:
       libbs2b0_libs:
       libc6_libs:
       libflite1_libs:
@@ -19,14 +19,11 @@ slices:
       libharfbuzz0b_libs:
       liblilv-0-0_libs:
       libmysofa1_libs:
-      libplacebo349_libs:
-      libpocketsphinx3_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
-      libpostproc58_libs:
-      librubberband2_libs:
-      libsphinxbase3t64_sphinxbase: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
+      libplacebo360_libs:
+      librubberband3_libs:
       libstdc++6_libs:
-      libswresample5_libs:
-      libswscale8_libs:
+      libswresample6_libs:
+      libswscale9_libs:
       libva2_libs:
       libvidstab1.1_libs:
       libvpl2_libs: {arch: [amd64]}
@@ -35,8 +32,8 @@ slices:
       ocl-icd-libopencl1_libs:
       zlib1g_libs:
     contents:
-      /usr/lib/*-linux-*/libavfilter.so.10*:
+      /usr/lib/*-linux-*/libavfilter.so.11*:
 
   copyright:
     contents:
-      /usr/share/doc/libavfilter10/copyright:
+      /usr/share/doc/libavfilter11/copyright:

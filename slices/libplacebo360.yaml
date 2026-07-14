@@ -1,7 +1,7 @@
-package: libplacebo349
+package: libplacebo360
 
 essential:
-  libplacebo349_copyright:
+  libplacebo360_copyright:
 
 slices:
   libs:
@@ -12,8 +12,8 @@ slices:
       libstdc++6_libs:
       libvulkan1_libs:
     contents:
-      /usr/lib/*-linux-*/libplacebo.so.349*:
+      /usr/lib/*-linux-*/libplacebo.so.360*:
 
   copyright:
     contents:
-      /usr/share/doc/libplacebo349/copyright:
+      /usr/share/doc/libplacebo360/copyright:

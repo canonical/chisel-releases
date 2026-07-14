@@ -1,13 +1,13 @@
-package: libavcodec61
+package: libavcodec62
 
 essential:
-  libavcodec61_copyright:
+  libavcodec62_copyright:
 
 slices:
   libs:
     essential:
       libaom3_libs:
-      libavutil59_libs:
+      libavutil60_libs:
       libc6_libs:
       libcairo2_libs:
       libcodec2-1.2_libs:
@@ -19,31 +19,32 @@ slices:
       libmp3lame0_libs:
       libopenjp2-7_libs:
       libopus0_libs:
-      librav1e0.7_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
+      librav1e0.8_libs:
       librsvg2-2_libs:
       libshine3_libs:
       libsnappy1v5_libs:
       libspeex1_libs:
+      libstdc++6_libs:
       libsvtav1enc2_libs:
-      libswresample5_libs:
-      libtheoradec1_libs:
-      libtheoraenc1_libs:
+      libswresample6_libs:
+      libtheoradec2_libs:
+      libtheoraenc2_libs:
       libtwolame0_libs:
       libva2_libs:
       libvorbis0a_libs:
       libvorbisenc2_libs:
       libvpl2_libs: {arch: [amd64]}
-      libvpx9_libs:
+      libvpx12_libs:
       libwebp7_libs:
       libwebpmux3_libs:
-      libx264-164_libs:
+      libx264-165_libs:
       libx265-215_libs:
       libxvidcore4_libs:
       libzvbi0t64_libs:
       zlib1g_libs:
     contents:
-      /usr/lib/*-linux-*/libavcodec.so.61*:
+      /usr/lib/*-linux-*/libavcodec.so.62*:
 
   copyright:
     contents:
-      /usr/share/doc/libavcodec61/copyright:
+      /usr/share/doc/libavcodec62/copyright:
