@@ -9,7 +9,7 @@ slices:
       libasound2-data_data:
       libc6_libs:
     contents:
-      /usr/lib/*-linux-*/libasound.so*:
+      /usr/lib/*-linux-*/libasound.so.2*:
 
   copyright:
     contents:
