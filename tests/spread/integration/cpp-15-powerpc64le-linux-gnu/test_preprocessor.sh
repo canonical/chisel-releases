@@ -3,9 +3,9 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "aarch64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "s390x" || "$arch" == "x86_64" ]]; then
     cross=true
-elif [[ "$arch" == "x86_64" ]]; then
+elif [[ "$arch" == "ppc64le" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -14,13 +14,13 @@ fi
 
 rootfs="$(install-slices \
     base-files_bin \
-    cpp-15-x86-64-linux-gnu_cc1 \
+    cpp-15-powerpc64le-linux-gnu_cc1 \
 )"
 
 if $cross; then
-    ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
 else
-    ln -s "/usr/libexec/gcc/x86_64-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
+    ln -s "/usr/libexec/gcc/powerpc64le-linux-gnu/15/cc1" "${rootfs}/usr/bin/cc1"
 fi
 
 cp question.c "${rootfs}/question.c"
