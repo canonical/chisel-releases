@@ -33,7 +33,7 @@ the moment, the officially supported Chisel releases are:
 - [ubuntu-25.04](https://github.com/canonical/chisel-releases/tree/ubuntu-25.04)
 \- Plucky (EOL)
 - [ubuntu-25.10](https://github.com/canonical/chisel-releases/tree/ubuntu-25.10)
-\- Questing
+\- Questing (EOL)
 - [ubuntu-26.04](https://github.com/canonical/chisel-releases/tree/ubuntu-26.04)
 \- Resolute
 - [ubuntu-26.10](https://github.com/canonical/chisel-releases/tree/ubuntu-26.10)
