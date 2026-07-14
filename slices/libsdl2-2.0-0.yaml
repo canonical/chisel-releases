@@ -1,0 +1,17 @@
+package: libsdl2-2.0-0
+
+essential:
+  libsdl2-2.0-0_copyright:
+
+slices:
+  libs:
+    essential:
+      # real lib lives in libsdl2-classic (sdl2-classic/); this pkg is the
+      # top-level libSDL2-2.0.so.0 -> sdl2-classic/... redirect symlinks
+      libsdl2-classic_libs:
+    contents:
+      /usr/lib/*-linux-*/libSDL2-2.0.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsdl2-2.0-0/copyright:

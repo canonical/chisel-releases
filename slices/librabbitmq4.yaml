@@ -9,6 +9,9 @@ slices:
       libc6_libs:
       libssl3t64_libs:
     contents:
+      # NOTE: deb contains librabbitmq.so.0.15.0 and a symlink
+      # librabbitmq.so.4 -> librabbitmq.so.0.15.0
+      /usr/lib/*-linux-*/librabbitmq.so.0*:
       /usr/lib/*-linux-*/librabbitmq.so.4*:
 
   copyright:
