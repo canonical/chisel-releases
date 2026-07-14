@@ -29,10 +29,39 @@ backends:
       # but that would effectively change the host's LXC configurations.
 
       echo "Allocating $SPREAD_SYSTEM..."
-      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM
+      lxc launch --ephemeral ubuntu:$release $SPREAD_SYSTEM || launch_rc=$?
+
+      if [ -n "${launch_rc-}" ] && [[ "$(distro-info --latest)" == *"$release"* ]]; then
+        # if we failed to launch the latest release, it's possible that the image has
+        # *just* been released and isn't available in the 'ubuntu' channel yet.
+        # fall back to the daily channel, which should have the new release.
+        echo "Release $release failed to launch. Trying the daily channel..."
+        launch_rc=""
+        lxc launch --ephemeral ubuntu-daily:$release $SPREAD_SYSTEM || launch_rc=$?
+      fi
+
+      if [ -n "${launch_rc-}" ]; then
+        FATAL "Failed to launch LXD instance for release $release"
+      fi
+
       while true; do
-        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
+        status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running 2>/dev/null || true)
         [ "$status" = "running" ] && break
+        if [ "$status" = "degraded" ]; then
+          # Workaround for systemd 258+ regression where console-getty.service
+          # fails on container boot, leaving the system in 'degraded' state.
+          # See https://github.com/canonical/lxd/issues/16860
+          # Mask here (not right after launch) so the system bus is up and the
+          # mask actually takes effect, then clear the failed unit so the
+          # degraded state resolves. Anything else degraded is still fatal.
+          if [ "$release" = "resolute" ]; then
+            lxc exec $SPREAD_SYSTEM -q -- systemctl mask --now console-getty.service
+            lxc exec $SPREAD_SYSTEM -q -- systemctl reset-failed console-getty.service
+            status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running 2>/dev/null || true)
+            [ "$status" = "running" ] && break
+          fi
+          FATAL "System is '$status', aborting"
+        fi
         sleep 5
       done
       lxc exec $SPREAD_SYSTEM -- apt-get update
@@ -99,14 +128,26 @@ prepare: |
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
 
   apt install -y curl wget
-  curl -s https://api.github.com/repos/canonical/chisel/releases/latest \
-    | awk "/browser_download_url/ && /chisel_v/ && /_$arch\./" \
-    | cut -d : -f 2,3 \
-    | tr -d \" \
-    | xargs wget
 
-  sha384sum -c chisel_v*sha384
-  tar -xf chisel_v*tar.gz -C /usr/local/bin
+  # Resolve the latest chisel release without calling api.github.com, whose
+  # unauthenticated REST quota (60 req/hr, shared per source IP) the CI runners
+  # routinely exhaust. An exhausted quota returns no asset URL, and the old
+  # `curl ... | xargs wget` pipeline then died with a cryptic `wget: missing URL`.
+  # The github.com web endpoint 302-redirects to the tagged release and is not
+  # subject to that quota, so we read the tag from the redirect target. See #752.
+  tag="$(curl -fsS -o /dev/null -w '%{redirect_url}' \
+    https://github.com/canonical/chisel/releases/latest | sed 's#.*/tag/##')"
+  if [ -z "$tag" ]; then
+    echo "FATAL: could not resolve latest chisel release tag (github.com unreachable?)" >&2
+    exit 1
+  fi
+
+  base="https://github.com/canonical/chisel/releases/download/$tag"
+  tarball="chisel_${tag}_linux_${arch}.tar.gz"
+  wget "$base/$tarball" "$base/$tarball.sha384"
+
+  sha384sum -c "$tarball.sha384"
+  tar -xf "$tarball" -C /usr/local/bin
 
 prepare-each: chisel version
 

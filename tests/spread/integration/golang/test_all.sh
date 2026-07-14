@@ -15,15 +15,31 @@ rootfs="$(install-slices --arch "${chisel_arch}" \
   ca-certificates_data \  # for `go get` to work properly
 )"
 
-find ${rootfs}/usr/share/go-1.25 -depth \( \
-        \( -path '*test*' \
-          ! -path '*src/testing*' \
-          ! -path '*src/internal/test*' \
-          ! -path '*src/internal/synctest' \
-          ! -path '*synctest.go' \
-          ! -path '*synctest_o*' \) -o \
-  \( -path '*/testing/*' -name '*_test.go' \) \
-  \) -exec rm -rf {} +
+find ${rootfs} -depth \( \
+    -name '*_test.go' -o \
+    \( -type d -name 'testdata' \) -o \
+    \( -type d -path '*/go-1.26/test' \) -o \
+    \( -type d -path '*/src/internal/testenv' \) -o \
+    \( -type d -path '*/src/internal/testpty' \) -o \
+    \( -type d -path '*/src/internal/testhash' \) -o \
+    \( -type d -path '*/src/internal/cgrouptest' \) -o \
+    \( -type d -path '*/src/internal/obscuretestdata' \) -o \
+    \( -type d -path '*/src/internal/coverage/test' \) -o \
+    \( -type d -path '*/src/internal/runtime/startlinetest' \) -o \
+    \( -type d -path '*/src/internal/runtime/wasitest' \) -o \
+    \( -type d -path '*/src/internal/trace/internal/testgen' \) -o \
+    \( -type d -path '*/src/internal/trace/testtrace' \) -o \
+    \( -type d -path '*/src/net/internal/cgotest' \) -o \
+    \( -type d -path '*/src/net/internal/socktest' \) -o \
+    \( -type d -path '*/src/os/exec/internal/fdtest' \) -o \
+    \( -type d -path '*/src/net/http/internal/testcert' \) -o \
+    \( -type d -path '*/src/crypto/internal/cryptotest' \) -o \
+    \( -type d -path '*/src/crypto/internal/fips140/check/checktest' \) -o \
+    \( -type d -path '*/src/crypto/internal/fips140test' \) -o \
+    \( -type d -path '*/src/crypto/mlkem/mlkemtest' \) -o \
+    \( -type d -path '*/src/embed/internal/embedtest' \) -o \
+    \( -type d -path '*/src/vendor/golang.org/x/net/nettest' \) \
+    \) -exec rm -rf {} +
 
 mkdir "${rootfs}/proc"
 mount --bind /proc "${rootfs}/proc"
