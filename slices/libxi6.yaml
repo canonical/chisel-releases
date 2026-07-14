@@ -10,7 +10,7 @@ slices:
       libx11-6_libs:
       libxext6_libs:
     contents:
-      /usr/lib/*-linux-*/libXi.so*:
+      /usr/lib/*-linux-*/libXi.so.6*:
 
   copyright:
     contents:
