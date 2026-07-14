@@ -1,15 +1,15 @@
 package: libopenal1
 
 essential:
-  - libopenal1_copyright
+  libopenal1_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - libsndio7.0_libs
-      - libstdc++6_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      libsndio7.0_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libopenal.so.1*:
 

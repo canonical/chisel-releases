@@ -1,16 +1,16 @@
 package: libplacebo349
 
 essential:
-  - libplacebo349_copyright
+  libplacebo349_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libgcc-s1_libs
-      - liblcms2-2_libs
-      - libstdc++6_libs
-      - libvulkan1_libs
+      libc6_libs:
+      libgcc-s1_libs:
+      liblcms2-2_libs:
+      libstdc++6_libs:
+      libvulkan1_libs:
     contents:
       /usr/lib/*-linux-*/libplacebo.so.349:
 

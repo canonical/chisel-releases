@@ -1,7 +1,7 @@
 package: libasound2-data
 
 essential:
-  - libasound2-data_copyright
+  libasound2-data_copyright:
 
 slices:
   data:

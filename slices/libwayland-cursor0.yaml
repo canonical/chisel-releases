@@ -1,13 +1,13 @@
 package: libwayland-cursor0
 
 essential:
-  - libwayland-cursor0_copyright
+  libwayland-cursor0_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libwayland-client0_libs
+      libc6_libs:
+      libwayland-client0_libs:
     contents:
       /usr/lib/*-linux-*/libwayland-cursor.so.0*:
 

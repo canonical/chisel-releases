@@ -1,13 +1,13 @@
 package: libflite1
 
 essential:
-  - libflite1_copyright
+  libflite1_copyright:
 
 slices:
   libs:
     essential:
-      - libasound2t64_libs
-      - libc6_libs
+      libasound2t64_libs:
+      libc6_libs:
     contents:
       # NOTE: all the so.1 libraries are just symlinks to their
       #       so.2* equivalents

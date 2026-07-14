@@ -1,14 +1,14 @@
 package: libsndio7.0
 
 essential:
-  - libsndio7.0_copyright
+  libsndio7.0_copyright:
 
 slices:
   libs:
     essential:
-      - libasound2t64_libs
-      - libbsd0_libs
-      - libc6_libs
+      libasound2t64_libs:
+      libbsd0_libs:
+      libc6_libs:
     contents:
       /usr/lib/*-linux-*/libsndio.so.7*:
 

@@ -1,21 +1,21 @@
 package: ffmpeg
 
 essential:
-  - ffmpeg_copyright
+  ffmpeg_copyright:
 
 slices:
   bins:
     essential:
-      - libavcodec61_libs
-      - libavdevice61_libs
-      - libavfilter10_libs
-      - libavformat61_libs
-      - libavutil59_libs
-      - libc6_libs
-      - libpostproc58_libs
-      - libsdl2-2.0-0_libs
-      - libswresample5_libs
-      - libswscale8_libs
+      libavcodec61_libs:
+      libavdevice61_libs:
+      libavfilter10_libs:
+      libavformat61_libs:
+      libavutil59_libs:
+      libc6_libs:
+      libpostproc58_libs:
+      libsdl2-2.0-0_libs:
+      libswresample5_libs:
+      libswscale8_libs:
     contents:
       /usr/bin/ffmpeg:
       /usr/bin/ffplay:

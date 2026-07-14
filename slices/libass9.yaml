@@ -1,17 +1,17 @@
 package: libass9
 
 essential:
-  - libass9_copyright
+  libass9_copyright:
 
 slices:
   libs:
     essential:
-      - libc6_libs
-      - libfontconfig1_libs
-      - libfreetype6_libs
-      - libfribidi0_libs
-      - libharfbuzz0b_libs
-      - libunibreak6_libs
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libfribidi0_libs:
+      libharfbuzz0b_libs:
+      libunibreak6_libs:
     contents:
       /usr/lib/*-linux-*/libass.so*:
 
