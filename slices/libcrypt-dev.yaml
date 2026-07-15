@@ -17,5 +17,8 @@ slices:
       /usr/include/crypt.h:
 
   copyright:
+    essential:
+      - libcrypt1_copyright
     contents:
-      /usr/share/doc/libcrypt-dev/copyright:
+      # Symlink to libcrypt1
+      /usr/share/doc/libcrypt-dev:
