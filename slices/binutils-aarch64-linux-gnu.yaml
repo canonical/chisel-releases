@@ -95,5 +95,3 @@ slices:
   copyright:
     essential:
       - libbinutils_copyright
-    contents:
-      /usr/share/doc/binutils-aarch64-linux-gnu/copyright:
