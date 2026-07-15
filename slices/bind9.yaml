@@ -1,0 +1,69 @@
+package: bind9
+
+essential:
+  bind9_copyright:
+
+slices:
+  core:
+    essential:
+      bind9-utils_named:
+      bind9-utils_rndc:
+      bind9_config:
+      bind9_data:
+      bind9_libs:
+    contents:
+      /usr/bin/named-journalprint:
+      /usr/bin/named-nzd2nzf:
+      /usr/bin/named-rrchecker:
+      /usr/sbin/named:
+
+  standard:
+    essential:
+      bind9-utils_bins:
+      bind9_core:
+      iproute2_bins:
+      netbase_default-hosts:
+    contents:
+      /usr/bin/arpaname:
+      /usr/bin/dnssec-importkey:
+      /usr/bin/nsec3hash:
+      /usr/sbin/ddns-confgen:
+      /usr/sbin/tsig-keygen:
+
+  config:
+    contents:
+      /etc/bind/named.conf:
+      /etc/bind/named.conf.local:
+      /etc/bind/named.conf.options:
+      /etc/bind/named.conf.root-hints:
+      /etc/default/named:
+
+  data:
+    essential:
+      dns-root-data_data:
+    contents:
+      /var/cache/bind/:
+      /var/lib/bind/: {make: true, mode: 02775}
+
+  libs:
+    essential:
+      bind9-libs_libs:
+      libc6_libs:
+      libcap2_libs:
+      libjemalloc2_libs:
+      libjson-c5_libs:
+      liblmdb0_libs:
+      libmaxminddb0_libs:
+      libnghttp2-14_libs:
+      libssl3t64_libs:
+      liburcu8t64_libs:
+      libuv1t64_libs:
+      libxml2-16_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/bind/filter-a.so:
+      /usr/lib/*-linux-*/bind/filter-aaaa.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/bind9/copyright:

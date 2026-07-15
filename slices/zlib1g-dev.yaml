@@ -1,0 +1,21 @@
+package: zlib1g-dev
+
+essential:
+  zlib1g-dev_copyright:
+
+slices:
+  libs:
+    essential:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libz.a:
+      /usr/lib/*-linux-*/libz.so:  # Symlink to libz.so.1.* from zlib1g
+
+  headers:
+    contents:
+      /usr/include/zconf.h:
+      /usr/include/zlib.h:
+
+  copyright:
+    contents:
+      /usr/share/doc/zlib1g-dev/copyright:

@@ -1,0 +1,13 @@
+summary: Integration tests for squid
+
+variants:
+  - minimal
+  - core
+  - standard
+  - auth
+  - ext-acls
+  - cache
+  - cert-tool
+  - regression
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

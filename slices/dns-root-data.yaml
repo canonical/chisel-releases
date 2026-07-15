@@ -1,0 +1,15 @@
+package: dns-root-data
+
+essential:
+  dns-root-data_copyright:
+
+slices:
+  data:
+    contents:
+      /usr/share/dns/root.ds:
+      /usr/share/dns/root.hints:
+      /usr/share/dns/root.key:
+
+  copyright:
+    contents:
+      /usr/share/doc/dns-root-data/copyright:
