@@ -22,12 +22,13 @@ on:
 env:
   # Package architectures and chisel-releases branches to test on.
   ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
-  RELEASES: |
+  RELEASES_COMPATIBILITY: |
     [
-      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.0.0","main"]},
-      {"ref": "ubuntu-22.04", "chisel-versions": ["v1.0.0","main"]},
-      {"ref": "ubuntu-24.04", "chisel-versions": ["v1.0.0","main"]},
-      {"ref": "ubuntu-25.04", "chisel-versions": ["v1.0.0","main"]}
+      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0"]},
+      {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
+      {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
+      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.4.2","main"]},
+      {"ref": "ubuntu-26.10", "chisel-versions": ["v1.4.2","main"]}
     ]
 
 jobs:
@@ -59,6 +60,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.set-main-ref.outputs.checkout_main_ref }}
+          fetch-depth: 0
 
       - name: Set output
         id: set-output
@@ -75,18 +77,47 @@ jobs:
             # chisel to avoid expensive CI jobs. We are testing that slices can
             # be installed together so using a single version of chisel is
             # enough.
-            export RELEASES=$(echo "$RELEASES" | jq 'map(.["chisel-versions"] |= ["main"])')
-            MATRIX=$(./version-matrix)
-            echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
+            all_branches="$(git branch --all | grep -E "remotes.*ubuntu-[0-9]{2}\.[0-9]{2}$" | cut -d '/' -f 3)"
+
+            RELEASES="[]"
+            for branch in $all_branches; do
+              # Only add to RELEASES when ref is equal to $branch from RELEASES_COMPATIBILITY
+              # and the entry in RELEASES_COMPATIBILITY contains "main" in "chisel-versions"
+              jq_program='[.[] | select(.ref == $ref) | select(.["chisel-versions"] | index("main")) | ."chisel-versions" = ["main"]]'
+              ref="$(echo "$RELEASES_COMPATIBILITY" | jq --arg ref "$branch" "$jq_program")"
+              RELEASES="$(echo "$RELEASES" | jq --argjson ref "$ref" '. + $ref')"
+            done
 
             echo "install_all=true" >> $GITHUB_OUTPUT
           else
-            # Filter the releases to only the affected branch, then swap the ref
-            # such that the correct branch is tested.
-            export RELEASES=$(echo "$RELEASES" | jq '[.[] | select(.ref == "${{ github.base_ref }}") | .ref = ""]')
-            MATRIX=$(./version-matrix)
-            echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
+            if [[
+              "${{ github.event_name }}" == "create" &&
+              "${{ github.ref_name }}" != "main"
+            ]]; then
+              # This happens when a new branch/tag is created, so we'll want to
+              # install all the slices for that release only
+              targetref="${{ github.ref_name }}"
+              RELEASES="$(echo $RELEASES_COMPATIBILITY | jq --arg ref "$ref" '[.[] | select(.ref == $ref)]')"
+            else
+              # Filter the releases to only the affected branch, then swap the ref
+              # such that the correct branch is tested.
+              targetref=""
+              RELEASES="$(echo $RELEASES_COMPATIBILITY | jq --arg ref "${{ github.base_ref }}" \
+                --arg targetref "$targetref" '[.[] | select(.ref == $ref) | .ref = $targetref]')"
+            fi
+
+            # If the {{ github.ref_name }} is not in RELEASES_COMPATIBILITY,
+            # then we default to using the main branch of chisel.
+            if [[ $(echo $RELEASES | jq 'length') -eq 0 ]]
+            then
+              RELEASES="[{\"ref\": \"${targetref}\", \"chisel-versions\": [\"main\"]}]"
+            fi
           fi
+
+          export RELEASES
+     
+          MATRIX=$(./version-matrix)
+          echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
 
   # The "install" job tests the slices by installing them.
   # It installs **all** slices if:
@@ -153,6 +184,8 @@ jobs:
           set -ex
 
           # Install chisel
+          # NOTE: This does not run the pre-installation scrip for chisel,
+          # so `chisel version` always returns "unknown".
           go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
 
           # Install dependencies of the install_slices script
@@ -185,6 +218,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --chisel-version "${{ matrix.chisel-version }}" \
               --workers "${WORKERS}" \
               slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
@@ -192,6 +226,7 @@ jobs:
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
+              --chisel-version "${{ matrix.chisel-version }}" \
               --workers "${WORKERS}" \
               ${{ steps.changed-paths.outputs.slices_files }}
           fi

@@ -40,7 +40,7 @@ for f in $@; do
   sort | uniq > "$fupstream"
 
   flocal="$(mktemp)"
-  yq '.slices.[].essential[]' "$f" | \
+  yq '.slices.[].essential | ( (select(tag == "!!seq") | .[]), (select(tag == "!!map") | keys | .[]) )' "$f" | \
   sed "s/_.*//; /^$pkg$/d" | sort | uniq > "$flocal"
 
   fdiff="$(mktemp)"

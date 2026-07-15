@@ -18,7 +18,26 @@ jobs:
           # We do need to fetch all history for all branches.
           fetch-depth: 0
 
+        # NOTE: the github runner might have an older version of distro-info-data
+        #  which does not know about the latest Ubuntu release, so we update it.
+      - name: "Install distro-info and update data"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y distro-info distro-info-data
+
+      - name: "Check if running against devel branch"
+        id: is-devel
+        run: |
+          DEVEL=$(distro-info --devel --release | cut -d' ' -f1)
+          value=false
+          if [[ "${{ github.base_ref }}" == "ubuntu-$DEVEL" ]]; then
+             echo "Skipping workflow as PR is against devel branch ubuntu-$DEVEL"
+            value=true
+          fi
+          echo "value=$value" >> $GITHUB_OUTPUT
+
       - name: "Set reference to main branch"
+        if: steps.is-devel.outputs.value != 'true'
         id: set-main-ref
         run: |
           if [[ "${{ github.base_ref }}" == "main" ]]; then
@@ -30,12 +49,14 @@ jobs:
           fi
 
       - name: "Checkout main branch"
+        if: steps.is-devel.outputs.value != 'true'
         uses: actions/checkout@v4
         with:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
 
       - name: "Check for removed slices"
+        if: steps.is-devel.outputs.value != 'true'
         run: |
           ln -s "${{ env.files_main }}/.github/scripts/removed-slices/removed-slices" .
           # For pull request events, use github.event.pull_request.base.sha as

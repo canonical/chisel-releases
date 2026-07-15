@@ -1,0 +1,82 @@
+# This workflow listens for completion of other workflows and posts PR comments
+# when those workflows upload artifacts with names matching the pattern:
+# pr-comment_<pr-number>_<message-id>
+#
+# To use this from another workflow:
+# 1. Write your comment message to a file named using the pattern mentioned above
+# 2. Use the canonical/chisel-releases/.github/actions/add-pr-comment@main
+#    action to create and upload the PR comment artifact
+# 3. Add your workflow name to the "workflows" list below. This will trigger
+#    this workflow to run, pick up the artifacts, and post the comments.
+
+name: Post PR comments
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  find-comments:
+    name: Find PR comment artifacts
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion != 'skipped'
+    outputs:
+      matrix: ${{ steps.find-artifacts.outputs.matrix }}
+    steps:
+      - name: Find PR comment artifacts
+        id: find-artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+
+            let matrix = []
+
+            // Add all artifacts matching the pattern pr-comment_<pr-number>_<message-id>
+            allArtifacts.data.artifacts.forEach((artifact) => {
+              let match = artifact.name.match(/^pr-comment_(\d+)_([a-zA-Z0-9_-]+)$/);
+              if (match) {
+                matrix.push({
+                  'artifact-name': artifact.name,
+                  'pr-number': match[1],
+                  'message-id': match[2],
+                });
+              }
+            });
+           
+            console.log(`Matrix: ${JSON.stringify(matrix)}`);
+            core.setOutput('matrix', JSON.stringify(matrix));
+
+  post-comments:
+    name: Post PR comments
+    runs-on: ubuntu-latest
+    needs: [find-comments]
+    permissions:
+      pull-requests: write
+      contents: read
+      actions: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.find-comments.outputs.matrix) }}
+    steps:
+      - name: Download PR comment artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: ${{ matrix.artifact-name }}.txt
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Post message to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-path: ${{ matrix.artifact-name }}.txt
+          issue: ${{ matrix.pr-number }}
+          message-id: ${{ matrix.message-id }}

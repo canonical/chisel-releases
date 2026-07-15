@@ -6,6 +6,7 @@
 - [The Basics](#the-basics)
 - [Using a Specific Chisel Release](#using-a-specific-chisel-release)
 - [Adding New Slice Definitions](#adding-new-slice-definitions)
+- [Chisel Releases Navigator](#chisel-releases-navigator)
 
 ## The Basics
 
@@ -30,7 +31,13 @@ the moment, the officially supported Chisel releases are:
 - [ubuntu-24.10](https://github.com/canonical/chisel-releases/tree/ubuntu-24.10)
 \- Oracular (EOL)
 - [ubuntu-25.04](https://github.com/canonical/chisel-releases/tree/ubuntu-25.04)
-\- Plucky
+\- Plucky (EOL)
+- [ubuntu-25.10](https://github.com/canonical/chisel-releases/tree/ubuntu-25.10)
+\- Questing (EOL)
+- [ubuntu-26.04](https://github.com/canonical/chisel-releases/tree/ubuntu-26.04)
+\- Resolute
+- [ubuntu-26.10](https://github.com/canonical/chisel-releases/tree/ubuntu-26.10)
+\- Stonking
 
 In each release branch, you'll find a `chisel.yaml` file that defines the Chisel
 release, plus a `slices` folder with all the Slice Definitions Files (SDFs) for
@@ -64,3 +71,7 @@ Chisel will use the corresponding Git branch from this repository if it exists.
 We welcome and encourage community contributions! To better understand how to
 write and propose new package slice definitions, please read the
 [contributing guidelines](./CONTRIBUTING.md).
+
+## Chisel Releases Navigator
+
+To easily navigate through the different Chisel releases, and what slice definitions are available in each, please refer to the [Chisel Releases Navigator](https://canonical.github.io/chisel-releases-navigator/).

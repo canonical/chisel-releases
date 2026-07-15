@@ -1,0 +1,118 @@
+#!/bin/bash
+#
+# coverage-report - Generate a coverage report for changed slices
+#
+# Usage:
+#   coverage-report <installed-slices-manifest> <committed-slices-yaml>
+#
+# Arguments:
+#   installed-slices-manifest    json wall manifest of installed slices
+#   committed-slices-yaml        combined yaml of committed SDFs
+#
+# Exit codes:
+#   0   Success
+#   1   General error
+#
+# Examples:
+#   coverage-report installed_slices.wall committed_slices.yaml > coverage_report.json
+#
+# spellchecker: ignore zstdcat argjson
+
+set -euo pipefail
+
+# log - Log a message if DEBUG is enabled
+#
+# Arguments:
+#   $1  Message to log
+#
+function log {
+    if [ "${DEBUG:-0}" -eq 1 ]; then
+        echo "[$(date --iso-8601=seconds)] $*" >&2
+    fi
+}
+
+# difference - Compute difference of two space-separated lists
+#
+# Arguments:
+#   $1  First space-separated list
+#   $2  Second space-separated list
+#
+function difference {
+    comm -23 <(echo "$1" | tr ' ' '\n' | sort -u) <(echo "$2" | tr ' ' '\n' | sort -u)
+}
+
+# count - Count unique items in a space-separated list
+#
+# Arguments:
+#   $1  Space-separated list
+#
+function count {
+    local normalized=$(echo "$1" | tr -s '[:space:]' ' ' | xargs)
+    if [ -z "$normalized" ]; then
+        echo 0
+    else
+        echo "$normalized" | tr ' ' '\n' | sort -u | wc -l
+    fi
+}
+
+# Main function
+#
+function main {
+  
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: $0 <installed-slices-manifest> <committed-slices-yaml>" >&2
+        exit 1
+    fi
+
+    local installed_slices=$(zstdcat $1 | jq -r 'select(.kind=="slice") | .name' | sort -u)
+    local committed_slices=$(yq ea -r '.package as $pkg | .slices | keys | .[] | "\($pkg)_\(.)"' $2 | sort -u)
+
+    local committed_packages="$(awk -F_ '{print $1}' <<< "$committed_slices" | sort -u)"
+    log "Packages to check: $committed_packages"
+
+    local pkg_coverage_json="{}"
+    local total_committed_slices=0
+    local total_installed_slices=0
+
+    for pkg in $committed_packages; do
+        local committed_pkg_slices=$(grep "^${pkg}_" <<< "$committed_slices")
+        local installed_pkg_slices=$(grep "^${pkg}_" <<< "$installed_slices")
+
+        local n_committed_pkg_slices=$(count "$committed_pkg_slices")
+        log "Committed slices for package $pkg: $n_committed_pkg_slices"
+
+        local n_installed_pkg_slices=$(count "$installed_pkg_slices")
+        log "Installed slices for package $pkg: $n_installed_pkg_slices"
+
+        # Calculate pkg coverage
+        local pkg_coverage="0.00"
+        [ $n_committed_pkg_slices -gt 0 ] && pkg_coverage=$(awk "BEGIN {printf \"%.2f\", ($n_installed_pkg_slices / $n_committed_pkg_slices) * 100}")
+
+        # Add counters for total coverage calculation
+        total_committed_slices=$((total_committed_slices + n_committed_pkg_slices))
+        total_installed_slices=$((total_installed_slices + n_installed_pkg_slices))
+
+        # Get slices missing tests
+        local missing_slices=$(difference "$committed_pkg_slices" "$installed_pkg_slices")
+        log "Untested slices for package $pkg: $missing_slices"
+
+        # Build the json body
+        local missing_slices_json="[]"
+        [ -n "$missing_slices" ] && missing_slices_json=$(echo "$missing_slices" | jq -R . | jq -s .)
+
+        pkg_coverage_json=$(jq --arg pkg "$pkg" --argjson coverage "$pkg_coverage" --argjson missing "$missing_slices_json" '. + {($pkg): {coverage: $coverage, missing: $missing}}' <<<$pkg_coverage_json)
+    done
+
+    # Calculate total coverage
+    total_coverage="0.00"
+    [ $total_committed_slices -gt 0 ] && total_coverage=$(awk "BEGIN {printf \"%.2f\", ($total_installed_slices / $total_committed_slices) * 100}")
+
+    # Output final json
+    jq --monochrome-output -n \
+        --arg arch "$(uname -m)" \
+        --argjson packages "$pkg_coverage_json" \
+        --argjson total_coverage "$total_coverage" \
+        '{total_coverage: $total_coverage, arch: $arch, packages: $packages}'
+}
+
+main "$@"
