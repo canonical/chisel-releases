@@ -33,10 +33,10 @@ slices:
       /usr/lib/*-linux-*/gcrt1.o:
       # Just like gcrt1.o but for profiling position-independent executables.
       /usr/lib/*-linux-*/grcrt1.o:
-        arch: [amd64, arm64, i386, s390x]
+        arch: [amd64, arm64, i386]
       # For statically linked PIEs (with -static)
       /usr/lib/*-linux-*/rcrt1.o:
-        arch: [amd64, arm64, i386, s390x]
+        arch: [amd64, arm64, i386]
 
   core:
     essential:
@@ -45,8 +45,6 @@ slices:
     contents:
       # dummy file to allow linking with -lanl. this functionality in integrated into libc
       /usr/lib/*-linux-*/libanl.a:
-      # symlink to libanl.so from libc6
-      /usr/lib/*-linux-*/libanl.so:
       # Static libc version
       /usr/lib/*-linux-*/libc.a:
       # linker script to look up symbols in libc_nonshared.a and libc.so.6 from libc6
@@ -70,17 +68,16 @@ slices:
       - libc6_libs
     contents:
       /usr/lib/*-linux-*/libm-2.*.a:
-        arch: [amd64, arm64]
-      # on amd64/arm64 this is a linker script which redirects to libm-2.35.a and libmvec.so
-      # on non-amd64/arm64 archs libm.a is not a linker script, but a real static library
+        arch: [amd64]
+      # on amd64 this is a linker script which redirects to libm-2.35.a and libmvec.so
+      # on non-amd64 archs libm.a is not a linker script, but a real static library
       /usr/lib/*-linux-*/libm.a:
-      # on amd64/arm64 this is a linker script which redirects to libm.so and libmvec.so from libc6
-      # on non-amd64/arm64 this is a symlink to libm.so.6 from libc6
+      # on amd64 this is a linker script which redirects to libm.so and libmvec.so from libc6
+      # on non-amd64 archs libm.so is in libc6 (/lib/), not in libc6-dev
       /usr/lib/*-linux-*/libm.so:
+        arch: [amd64]
       /usr/lib/*-linux-*/libmvec.a:
-        arch: [amd64, arm64]
-      /usr/lib/*-linux-*/libmvec.so:
-        arch: [amd64, arm64]
+        arch: [amd64]
 
   # only needed if linking with -lmcheck
   libmcheck:
@@ -96,8 +93,6 @@ slices:
     contents:
       # static libresolv version
       /usr/lib/*-linux-*/libresolv.a:
-      # symlink to libresolv.so from libc6
-      /usr/lib/*-linux-*/libresolv.so:
 
   # legacy locale support library, usually not needed
   libbrokenlocale:
@@ -105,7 +100,6 @@ slices:
       - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/libBrokenLocale.a:
-      /usr/lib/*-linux-*/libBrokenLocale.so:
 
   # All the standard C library headers
   headers:
@@ -117,12 +111,14 @@ slices:
       /usr/include/*-linux-*/a.out.h:
       /usr/include/*-linux-*/bits/a.out.h:
       /usr/include/*-linux-*/bits/argp-ldbl.h:
+      /usr/include/*-linux-*/bits/atomic_wide_counter.h:
       /usr/include/*-linux-*/bits/byteswap.h:
       /usr/include/*-linux-*/bits/cmathcalls.h:
       /usr/include/*-linux-*/bits/confname.h:
       /usr/include/*-linux-*/bits/cpu-set.h:
       /usr/include/*-linux-*/bits/dirent.h:
       /usr/include/*-linux-*/bits/dirent_ext.h:
+      /usr/include/*-linux-*/bits/dl_find_object.h:
       /usr/include/*-linux-*/bits/dlfcn.h:
       /usr/include/*-linux-*/bits/elfclass.h:
       /usr/include/*-linux-*/bits/endian.h:
@@ -148,6 +144,7 @@ slices:
       /usr/include/*-linux-*/bits/getopt_posix.h:
       /usr/include/*-linux-*/bits/hwcap.h:
       /usr/include/*-linux-*/bits/in.h:
+      /usr/include/*-linux-*/bits/indirect-return.h:
       /usr/include/*-linux-*/bits/initspin.h:
       /usr/include/*-linux-*/bits/inotify.h:
       /usr/include/*-linux-*/bits/ioctl-types.h:
@@ -159,6 +156,7 @@ slices:
       /usr/include/*-linux-*/bits/libc-header-start.h:
       /usr/include/*-linux-*/bits/libm-simd-decl-stubs.h:
       /usr/include/*-linux-*/bits/link.h:
+      /usr/include/*-linux-*/bits/link_lavcurrent.h:
       /usr/include/*-linux-*/bits/local_lim.h:
       /usr/include/*-linux-*/bits/locale.h:
       /usr/include/*-linux-*/bits/long-double.h:
@@ -177,11 +175,10 @@ slices:
       /usr/include/*-linux-*/bits/msq.h:
       /usr/include/*-linux-*/bits/netdb.h:
       /usr/include/*-linux-*/bits/param.h:
-      /usr/include/*-linux-*/bits/platform/features.h:
-        arch: [amd64, i386]
       /usr/include/*-linux-*/bits/platform/x86.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/bits/poll.h:
+      /usr/include/*-linux-*/bits/ppc.h:
+        arch: [ppc64el]
       /usr/include/*-linux-*/bits/poll2.h:
       /usr/include/*-linux-*/bits/posix1_lim.h:
       /usr/include/*-linux-*/bits/posix2_lim.h:
@@ -194,13 +191,13 @@ slices:
       /usr/include/*-linux-*/bits/procfs-prregset.h:
       /usr/include/*-linux-*/bits/procfs.h:
       /usr/include/*-linux-*/bits/pthread_stack_min.h:
+      /usr/include/*-linux-*/bits/pthread_stack_min-dynamic.h:
       /usr/include/*-linux-*/bits/pthreadtypes-arch.h:
       /usr/include/*-linux-*/bits/pthreadtypes.h:
       /usr/include/*-linux-*/bits/ptrace-shared.h:
       /usr/include/*-linux-*/bits/resource.h:
       /usr/include/*-linux-*/bits/rseq.h:
       /usr/include/*-linux-*/bits/sched.h:
-      /usr/include/*-linux-*/bits/select-decl.h:
       /usr/include/*-linux-*/bits/select.h:
       /usr/include/*-linux-*/bits/select2.h:
       /usr/include/*-linux-*/bits/sem.h:
@@ -227,7 +224,6 @@ slices:
       /usr/include/*-linux-*/bits/socket.h:
       /usr/include/*-linux-*/bits/socket2.h:
       /usr/include/*-linux-*/bits/socket_type.h:
-      /usr/include/*-linux-*/bits/spawn_ext.h:
       /usr/include/*-linux-*/bits/ss_flags.h:
       /usr/include/*-linux-*/bits/stab.def:  # debug symbol definitions
       /usr/include/*-linux-*/bits/stat.h:
@@ -236,7 +232,6 @@ slices:
       /usr/include/*-linux-*/bits/statx-generic.h:
       /usr/include/*-linux-*/bits/statx.h:
       /usr/include/*-linux-*/bits/stdint-intn.h:
-      /usr/include/*-linux-*/bits/stdint-least.h:
       /usr/include/*-linux-*/bits/stdint-uintn.h:
       /usr/include/*-linux-*/bits/stdio-ldbl.h:
       /usr/include/*-linux-*/bits/stdio.h:
@@ -251,8 +246,8 @@ slices:
       /usr/include/*-linux-*/bits/struct_mutex.h:
       /usr/include/*-linux-*/bits/struct_rwlock.h:
       /usr/include/*-linux-*/bits/struct_stat.h:
+      /usr/include/*-linux-*/bits/struct_stat_time64_helper.h:
       /usr/include/*-linux-*/bits/syscall.h:
-      /usr/include/*-linux-*/bits/syslog-decl.h:
       /usr/include/*-linux-*/bits/syslog-ldbl.h:
       /usr/include/*-linux-*/bits/syslog-path.h:
       /usr/include/*-linux-*/bits/syslog.h:
@@ -286,7 +281,6 @@ slices:
       /usr/include/*-linux-*/bits/types/clockid_t.h:
       /usr/include/*-linux-*/bits/types/cookie_io_functions_t.h:
       /usr/include/*-linux-*/bits/types/error_t.h:
-      /usr/include/*-linux-*/bits/types/idtype_t.h:
       /usr/include/*-linux-*/bits/types/locale_t.h:
       /usr/include/*-linux-*/bits/types/mbstate_t.h:
       /usr/include/*-linux-*/bits/types/res_state.h:
@@ -327,6 +321,7 @@ slices:
       /usr/include/*-linux-*/bits/uio-ext.h:
       /usr/include/*-linux-*/bits/uio_lim.h:
       /usr/include/*-linux-*/bits/unistd.h:
+      /usr/include/*-linux-*/bits/unistd_ext.h:
       /usr/include/*-linux-*/bits/utmp.h:
       /usr/include/*-linux-*/bits/utmpx.h:
       /usr/include/*-linux-*/bits/utsname.h:
@@ -417,6 +412,7 @@ slices:
       /usr/include/*-linux-*/sys/shm.h:
       /usr/include/*-linux-*/sys/signal.h:
       /usr/include/*-linux-*/sys/signalfd.h:
+      /usr/include/*-linux-*/sys/single_threaded.h:
       /usr/include/*-linux-*/sys/socket.h:
       /usr/include/*-linux-*/sys/socketvar.h:
       /usr/include/*-linux-*/sys/soundcard.h:
@@ -480,7 +476,7 @@ slices:
       /usr/include/features-time64.h:
       /usr/include/features.h:
       /usr/include/fenv.h:
-      /usr/include/finclude/*-linux-*/math-vector-fortran.h:
+      /usr/include/finclude/math-vector-fortran.h:
       /usr/include/fmtmsg.h:
       /usr/include/fnmatch.h:
       /usr/include/fstab.h:
