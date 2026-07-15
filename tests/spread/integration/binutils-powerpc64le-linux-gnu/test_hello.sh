@@ -53,7 +53,7 @@ if $cross; then
     #       For now a cut-down version which is expected to fail due to no libc linking
     (chroot "$rootfs_ld" ld hello.o -o hello 2>&1 || true) | grep -q "cannot find entry symbol _start"
 else
-    linker_lib="$(ls "$rootfs_ld"/usr/lib*/ld*.so*)"
+    linker_lib="$(ls "$rootfs_ld"/lib*/ld*.so*)"
     linker_lib=${linker_lib#"$rootfs_ld"}
 
     chroot "$rootfs_ld" ld hello.o -o hello \

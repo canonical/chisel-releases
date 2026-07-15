@@ -188,8 +188,8 @@ slices:
       /usr/include/*-linux-*/bits/procfs-id.h:
       /usr/include/*-linux-*/bits/procfs-prregset.h:
       /usr/include/*-linux-*/bits/procfs.h:
-      /usr/include/*-linux-*/bits/pthread_stack_min.h:
       /usr/include/*-linux-*/bits/pthread_stack_min-dynamic.h:
+      /usr/include/*-linux-*/bits/pthread_stack_min.h:
       /usr/include/*-linux-*/bits/pthreadtypes-arch.h:
       /usr/include/*-linux-*/bits/pthreadtypes.h:
       /usr/include/*-linux-*/bits/ptrace-shared.h:

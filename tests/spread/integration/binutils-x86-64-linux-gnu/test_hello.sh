@@ -47,7 +47,7 @@ cp "hello-x86_64-linux-gnu.S" "$rootfs_as/hello.S"
 chroot "$rootfs_as" as hello.S -o hello.o
 mv "$rootfs_as/hello.o" "$rootfs_ld/hello.o"
 
-linker_lib="$(ls "$rootfs_ld"/usr/lib*/ld-*.so*)"
+linker_lib="$(ls "$rootfs_ld"/lib*/ld-*.so*)"
 linker_lib=${linker_lib#"$rootfs_ld"}
 
 if $cross; then
