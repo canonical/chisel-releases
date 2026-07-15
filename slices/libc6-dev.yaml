@@ -177,8 +177,6 @@ slices:
       /usr/include/*-linux-*/bits/param.h:
       /usr/include/*-linux-*/bits/platform/x86.h:
         arch: [amd64, i386]
-      /usr/include/*-linux-*/bits/ppc.h:
-        arch: [ppc64el]
       /usr/include/*-linux-*/bits/poll2.h:
       /usr/include/*-linux-*/bits/posix1_lim.h:
       /usr/include/*-linux-*/bits/posix2_lim.h:
