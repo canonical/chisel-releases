@@ -8,7 +8,7 @@ slices:
   #       the assembler and cc1 c compiler. The default ones are from
   #       `cpp-15-powerpc64le-linux-gnu` and `binutils-powerpc64le-linux-gnu` slices.
   #       Alternatively, use the architecture-independent `gcc-15_gcc-15` slice,
-  #       which provides these dependencies and `/usr/bin/gcc-15`. 
+  #       which provides these dependencies and `/usr/bin/gcc-15`.
   #       Include `libc6-dev_core` slice to link against the standard C libraries.
   gcc-15:
     essential:
