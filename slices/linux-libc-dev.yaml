@@ -1,0 +1,20 @@
+package: linux-libc-dev
+
+essential:
+  - linux-libc-dev_copyright
+
+slices:
+  asm-headers:
+    contents:
+      /usr/include/*-linux-*/asm/**.h:
+      /usr/include/asm-generic/**.h:
+
+  linux-headers:
+    essential:
+      - linux-libc-dev_asm-headers
+    contents:
+      /usr/include/linux/**.h:
+
+  copyright:
+    contents:
+      /usr/share/doc/linux-libc-dev/copyright:
