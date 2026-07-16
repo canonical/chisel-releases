@@ -1,0 +1,9 @@
+package: cpp-powerpc64le-linux-gnu
+
+essential:
+  cpp-powerpc64le-linux-gnu_copyright:
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/cpp-powerpc64le-linux-gnu/copyright:
