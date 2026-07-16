@@ -16,6 +16,7 @@ if $cross; then
     slices=(
         binutils-x86-64-linux-gnu_assembler
         binutils-x86-64-linux-gnu_cross-libbfd
+        binutils-x86-64-linux-gnu_cross-libopcodes
     )
 
     rootfs_as="$(install-slices "${slices[@]}")"
@@ -25,6 +26,7 @@ if $cross; then
         binutils-x86-64-linux-gnu_linker
         binutils-x86-64-linux-gnu_cross-libbfd
         binutils-x86-64-linux-gnu_cross-libctf
+        binutils-x86-64-linux-gnu_cross-libopcodes
     )
 
     rootfs_ld="$(install-slices "${slices[@]}")"
