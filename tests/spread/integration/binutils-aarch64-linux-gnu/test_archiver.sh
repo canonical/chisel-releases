@@ -3,8 +3,12 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "x86_64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
+if [[ "$arch" == "x86_64" || "$arch" == "ppc64le" ]]; then
     cross=true
+elif [[ "$arch" == "s390x" ]]; then
+    # binutils-aarch64-linux-gnu is not available on s390x
+    echo "Skipping: binutils-aarch64-linux-gnu is not available on s390x"
+    exit 0
 elif [[ "$arch" == "aarch64" ]]; then
     cross=false
 else
