@@ -1,7 +1,7 @@
-package: libboost-coroutine1.83.0
+package: libboost-coroutine1.90.0
 
 essential:
-  libboost-coroutine1.83.0_copyright:
+  libboost-coroutine1.90.0_copyright:
 
 slices:
   libs:
@@ -9,11 +9,11 @@ slices:
       # The chisel tool does not support per-architecture packages
       # libgcc-s1 is required on armhf
       # libgcc-s1_libs:
-      libboost-context1.83.0_libs:
+      libboost-context1.90.0_libs:
       libc6_libs:
       libstdc++6_libs:
     contents:
-      /usr/lib/*-linux-*/libboost_coroutine.so.1.83.0:
+      /usr/lib/*-linux-*/libboost_coroutine.so.1.90.0:
   copyright:
     contents:
-      /usr/share/doc/libboost-coroutine1.83.0/copyright:
+      /usr/share/doc/libboost-coroutine1.90.0/copyright:
