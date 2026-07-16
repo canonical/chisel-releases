@@ -1,0 +1,21 @@
+package: dotnet-apphost-pack-8.0
+
+essential:
+  - dotnet-apphost-pack-8.0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libssl3_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      # This package is not meant for general use. Therefore we are not
+      # splitting it further into _bins and _headers slices.
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/8.0.*/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-apphost-pack-8.0/copyright:
