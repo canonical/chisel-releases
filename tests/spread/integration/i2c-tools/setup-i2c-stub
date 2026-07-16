@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+# Loads the i2c-stub kernel module with a single caller-supplied chip address
+# and prints the resulting bus number on stdout.
+#
+# Each variant claims its own address, so any previously loaded instance is
+# unloaded first to guarantee a clean load with the requested address. This is
+# safe in spread's default sequential (workers=1) execution; concurrent worker
+# runs that share the host kernel may race, but the local docker setup that
+# would expose that race already skips here (no /lib/modules -> modprobe fails).
+#
+# Exits 0 with no stdout when the setup can't be completed (modprobe missing,
+# i2c-stub not available, prior instance refuses to unload). Callers should
+# treat empty stdout as a skip signal.
+#
+# Usage: setup-i2c-stub <chip-addr>     e.g. setup-i2c-stub 0x50
+
+addr=$1
+[ -n "$addr" ] || { echo "setup-i2c-stub: chip address required" >&2; exit 1; }
+
+command -v modprobe >/dev/null || exit 0
+rmmod i2c-stub 2>/dev/null || true
+modprobe i2c-stub chip_addr="$addr" 2>/dev/null || exit 0
+
+grep -lF "SMBus stub driver" /sys/class/i2c-dev/i2c-*/name \
+    | sed -E 's|.*/i2c-([0-9]+)/.*|\1|' \
+    | head -1
