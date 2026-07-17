@@ -10,6 +10,7 @@ slices:
     essential:
       - libc6-dev_core
       - libc6-dev_libm
+      - libc6-dev_symlink-libc6-libs
 
   # C runtime libraries, needed to start a C program
   # - https://stackoverflow.com/a/16436294/2531987
@@ -45,6 +46,8 @@ slices:
     contents:
       # dummy file to allow linking with -lanl. this functionality in integrated into libc
       /usr/lib/*-linux-*/libanl.a:
+      # symlink to libanl.so from libc6
+      /usr/lib/*-linux-*/libanl.so:
       # Static libc version
       /usr/lib/*-linux-*/libc.a:
       # linker script to look up symbols in libc_nonshared.a and libc.so.6 from libc6
@@ -73,10 +76,12 @@ slices:
       # on non-amd64 archs libm.a is not a linker script, but a real static library
       /usr/lib/*-linux-*/libm.a:
       # on amd64 this is a linker script which redirects to libm.so and libmvec.so from libc6
-      # on non-amd64 archs libm.so is in libc6 (/lib/), not in libc6-dev
+      # on non-amd64 archs this is a symlink to libm.so.6 from libc6
       /usr/lib/*-linux-*/libm.so:
-        arch: [amd64]
       /usr/lib/*-linux-*/libmvec.a:
+        arch: [amd64]
+      # symlink to libmvec.so from libc6
+      /usr/lib/*-linux-*/libmvec.so:
         arch: [amd64]
 
   # only needed if linking with -lmcheck
@@ -93,6 +98,8 @@ slices:
     contents:
       # static libresolv version
       /usr/lib/*-linux-*/libresolv.a:
+      # symlink to libresolv.so from libc6
+      /usr/lib/*-linux-*/libresolv.so:
 
   # legacy locale support library, usually not needed
   libbrokenlocale:
@@ -100,6 +107,18 @@ slices:
       - libc6-dev_core
     contents:
       /usr/lib/*-linux-*/libBrokenLocale.a:
+      /usr/lib/*-linux-*/libBrokenLocale.so:
+
+  # dev symlinks for shared libraries that live in libc6, with no static
+  # counterpart in libc6-dev (unlike libanl/libresolv/libBrokenLocale)
+  symlink-libc6-libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libc_malloc_debug.so:
+      /usr/lib/*-linux-*/libnss_compat.so:
+      /usr/lib/*-linux-*/libnss_hesiod.so:
+      /usr/lib/*-linux-*/libthread_db.so:
 
   # All the standard C library headers
   headers:
@@ -177,6 +196,7 @@ slices:
       /usr/include/*-linux-*/bits/param.h:
       /usr/include/*-linux-*/bits/platform/x86.h:
         arch: [amd64, i386]
+      /usr/include/*-linux-*/bits/poll.h:
       /usr/include/*-linux-*/bits/poll2.h:
       /usr/include/*-linux-*/bits/posix1_lim.h:
       /usr/include/*-linux-*/bits/posix2_lim.h:
@@ -338,8 +358,12 @@ slices:
         arch: [ppc64el]
       /usr/include/*-linux-*/gnu/lib-names-64.h:
         arch: [amd64, s390x]
+      /usr/include/*-linux-*/gnu/lib-names-hard.h:
+        arch: [armhf]
       /usr/include/*-linux-*/gnu/lib-names-lp64.h:
         arch: [arm64]
+      /usr/include/*-linux-*/gnu/lib-names-lp64d.h:
+        arch: [riscv64]
       /usr/include/*-linux-*/gnu/lib-names.h:
       /usr/include/*-linux-*/gnu/libc-version.h:
       /usr/include/*-linux-*/gnu/stubs-32.h:
@@ -348,13 +372,21 @@ slices:
         arch: [ppc64el]
       /usr/include/*-linux-*/gnu/stubs-64.h:
         arch: [amd64, s390x]
+      /usr/include/*-linux-*/gnu/stubs-hard.h:
+        arch: [armhf]
       /usr/include/*-linux-*/gnu/stubs-lp64.h:
         arch: [arm64]
+      /usr/include/*-linux-*/gnu/stubs-lp64d.h:
+        arch: [riscv64]
       /usr/include/*-linux-*/gnu/stubs.h:
       /usr/include/*-linux-*/ieee754.h:
       /usr/include/*-linux-*/sys/acct.h:
+      /usr/include/*-linux-*/sys/asm.h:
+        arch: [riscv64]
       /usr/include/*-linux-*/sys/auxv.h:
       /usr/include/*-linux-*/sys/bitypes.h:
+      /usr/include/*-linux-*/sys/cachectl.h:
+        arch: [riscv64]
       /usr/include/*-linux-*/sys/cdefs.h:
       /usr/include/*-linux-*/sys/debugreg.h:
         arch: [amd64, i386]
@@ -370,6 +402,8 @@ slices:
       /usr/include/*-linux-*/sys/fsuid.h:
       /usr/include/*-linux-*/sys/gmon.h:
       /usr/include/*-linux-*/sys/gmon_out.h:
+      /usr/include/*-linux-*/sys/ifunc.h:
+        arch: [arm64]
       /usr/include/*-linux-*/sys/inotify.h:
       /usr/include/*-linux-*/sys/io.h:
         arch: [amd64, i386]
