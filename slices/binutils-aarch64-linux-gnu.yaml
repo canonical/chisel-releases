@@ -96,4 +96,9 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
+      # On the native arm64 host the doc dir is a symlink to libbinutils;
+      # on cross hosts it is a real directory with its own copyright file.
       /usr/share/doc/binutils-aarch64-linux-gnu:  # Symlink to libbinutils
+        arch: [arm64]
+      /usr/share/doc/binutils-aarch64-linux-gnu/copyright:
+        arch: [amd64, i386, ppc64el]

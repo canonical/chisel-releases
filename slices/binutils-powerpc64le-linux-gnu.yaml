@@ -96,4 +96,9 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
+      # On the native ppc64el host the doc dir is a symlink to libbinutils;
+      # on cross hosts it is a real directory with its own copyright file.
       /usr/share/doc/binutils-powerpc64le-linux-gnu:  # Symlink to libbinutils
+        arch: [ppc64el]
+      /usr/share/doc/binutils-powerpc64le-linux-gnu/copyright:
+        arch: [amd64, arm64, i386]
