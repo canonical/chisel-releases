@@ -16,4 +16,4 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
-      /usr/share/doc/libctf0:
+      /usr/share/doc/libctf0:  # Symlink to libbinutils
