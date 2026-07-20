@@ -96,5 +96,4 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
-      # Symlink to libbinutils
-      /usr/share/doc/binutils-powerpc64le-linux-gnu
+      /usr/share/doc/binutils-powerpc64le-linux-gnu:  # Symlink to libbinutils

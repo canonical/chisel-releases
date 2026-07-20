@@ -96,5 +96,4 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
-      # Symlink to libbinutils
-      /usr/share/doc/binutils-aarch64-linux-gnu
+      /usr/share/doc/binutils-aarch64-linux-gnu:  # Symlink to libbinutils

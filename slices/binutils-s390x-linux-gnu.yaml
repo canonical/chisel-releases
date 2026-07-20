@@ -95,5 +95,4 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
-      # Symlink to libbinutils
-      /usr/share/doc/binutils-s390x-linux-gnu:
+      /usr/share/doc/binutils-s390x-linux-gnu:   # Symlink to libbinutils
