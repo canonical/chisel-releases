@@ -139,3 +139,9 @@ public-keys:
       JYK4SVVc4ZO20PE1+RZc5oSbt4hRbFTCSb31Pydc
       =KWLs
       -----END PGP PUBLIC KEY BLOCK-----
+
+stores:
+  bin:
+    kind: bin
+    version: 26.04
+    default-prefix: bin-
