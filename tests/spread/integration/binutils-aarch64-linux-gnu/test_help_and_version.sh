@@ -17,8 +17,6 @@ if $cross; then
         binutils-aarch64-linux-gnu_assembler
         binutils-aarch64-linux-gnu_cross-libbfd
     )
-    # when compiling from x86_64 to aarch64 we also need libopcodes
-    slices+=(binutils-aarch64-linux-gnu_cross-libopcodes)
     rootfs_as="$(install-slices "${slices[@]}")"
     ln -s "aarch64-linux-gnu-as" "$rootfs_as/usr/bin/as"
 
@@ -27,8 +25,6 @@ if $cross; then
         binutils-aarch64-linux-gnu_cross-libbfd
         binutils-aarch64-linux-gnu_cross-libctf
     )
-    # when compiling from x86_64 to aarch64 we also need libopcodes
-    slices+=(binutils-aarch64-linux-gnu_cross-libopcodes)
     rootfs_ld="$(install-slices "${slices[@]}")"
     ln -s "aarch64-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
 
