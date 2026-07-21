@@ -1,4 +1,4 @@
-set -euo pipefail
+set -eu
 
 rootfs="$(install-slices binutils_archiver)"
 

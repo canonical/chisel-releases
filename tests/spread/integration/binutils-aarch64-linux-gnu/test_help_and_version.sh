@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver libbfd libctf libopcodes
-set -euo pipefail
+set -eu
 
 arch=$(uname -m)
 cross=false
