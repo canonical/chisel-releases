@@ -1,0 +1,13 @@
+summary: Integration tests for libnl-cli-3-200
+
+execute: |
+  rootfs="$(install-slices libnl-cli-3-200_cls)"
+  arch=$(uname -m)-linux-gnu
+
+  test -f ${rootfs}/usr/lib/${arch}/libnl-cli-3.so.200
+  ls ${rootfs}/usr/lib/${arch}/libnl/cli/cls/*.so
+
+  rootfs="$(install-slices libnl-cli-3-200_qdisc)"
+
+  test -f ${rootfs}/usr/lib/${arch}/libnl-cli-3.so.200
+  ls ${rootfs}/usr/lib/${arch}/libnl/cli/qdisc/*.so
