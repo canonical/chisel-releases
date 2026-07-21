@@ -1,0 +1,23 @@
+summary: Integration tests for rsyslog
+
+execute: |
+
+  # rsyslog_bins
+  rootfs="$(install-slices rsyslog_bins)"
+  chroot "$rootfs" rsyslogd --version 2>&1 | grep -Fiq "rsyslogd"
+
+  # rsyslog_libs
+  rootfs_libs="$(install-slices rsyslog_libs)"
+
+  for f in "${rootfs_libs}"/usr/lib/*/rsyslog/imuxsock.so "${rootfs_libs}"/usr/lib/*/rsyslog/imtcp.so; do
+    test -f "$f"
+    head -c4 "$f" | grep -Fiq "ELF"
+  done
+
+  # rsyslog_config
+  rootfs_config="$(install-slices rsyslog_config)"
+
+  test -f "${rootfs_config}/etc/rsyslog.conf"
+  test -f "${rootfs_config}/etc/rsyslog.d/50-default.conf"
+  test -f "${rootfs_config}/etc/logrotate.d/rsyslog"
+  test -L "${rootfs_config}/etc/systemd/system/multi-user.target.wants/rsyslog.service"
