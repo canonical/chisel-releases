@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver libbfd
+set -euo pipefail
 
 arch=$(uname -m)
 cross=false

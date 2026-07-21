@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils libc crti crtn libbfd libctf libopcodes
+set -euo pipefail
 
 arch=$(uname -m)
 cross=false
@@ -16,9 +17,8 @@ if $cross; then
     slices=(
         binutils-aarch64-linux-gnu_assembler
         binutils-aarch64-linux-gnu_cross-libbfd
+        binutils-aarch64-linux-gnu_cross-libopcodes
     )
-    # when compiling from x86_64 to aarch64 we also need libopcodes
-    slices+=(binutils-aarch64-linux-gnu_cross-libopcodes)
 
     rootfs_as="$(install-slices "${slices[@]}")"
     ln -s "aarch64-linux-gnu-as" "$rootfs_as/usr/bin/as"

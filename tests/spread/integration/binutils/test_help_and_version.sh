@@ -1,3 +1,5 @@
+set -euo pipefail
+
 rootfs="$(install-slices binutils_assembler binutils_linker binutils_archiver)"
 
 chroot "${rootfs}/" as --version | grep "GNU assembler"
