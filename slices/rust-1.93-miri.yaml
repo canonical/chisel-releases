@@ -1,0 +1,31 @@
+package: rust-1.93-miri
+
+essential:
+  rust-1.93-miri_copyright:
+
+slices:
+  cargo-miri:
+    essential:
+      base-files_bin:
+      cargo-1.93_cargo:
+      dash_bins:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstd-rust-1.93-dev_libs:
+      rust-1.93-miri_miri:
+      rust-1.93-src_src:
+    contents:
+      /usr/bin/cargo-1.93-unstable-miri:
+      /usr/lib/rust-1.93/bin/cargo-miri:
+
+  miri:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstd-rust-1.93-dev_libs:
+    contents:
+      /usr/lib/rust-1.93/bin/miri:
+
+  copyright:
+    contents:
+      /usr/share/doc/rust-1.93-miri/copyright:
