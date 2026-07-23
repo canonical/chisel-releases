@@ -1,0 +1,23 @@
+# Run unit tests.
+test:
+    uv run pytest
+
+# Run integration tests (requires omp + LLM credentials).
+test-integration:
+    uv run pytest -m slow
+
+# Format code.
+fmt:
+    uv run --with ruff ruff format
+
+# Lint code.
+lint:
+    uv run --with ruff ruff check
+
+# Lint SDFs with the tool-owned yamllint config.
+lint-sdf:
+    uv run yamllint -c yamllint.yaml slices
+
+# Run the builder.
+run *args:
+    uv run slice-builder {{args}}
