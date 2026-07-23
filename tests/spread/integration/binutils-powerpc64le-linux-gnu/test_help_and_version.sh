@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver libbfd libctf libopcodes
+set -eu
 
 arch=$(uname -m)
 cross=false
@@ -20,6 +21,7 @@ if $cross; then
     slices=(
         binutils-powerpc64le-linux-gnu_assembler
         binutils-powerpc64le-linux-gnu_cross-libbfd
+        binutils-powerpc64le-linux-gnu_cross-libopcodes
     )
     rootfs_as="$(install-slices "${slices[@]}")"
     ln -s "powerpc64le-linux-gnu-as" "$rootfs_as/usr/bin/as"
