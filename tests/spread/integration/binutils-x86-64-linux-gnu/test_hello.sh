@@ -49,9 +49,6 @@ cp "hello-x86_64-linux-gnu.S" "$rootfs_as/hello.S"
 chroot "$rootfs_as" as hello.S -o hello.o
 mv "$rootfs_as/hello.o" "$rootfs_ld/hello.o"
 
-linker_lib="$(ls "$rootfs_ld"/usr/lib*/ld-*.so*)"
-linker_lib=${linker_lib#"$rootfs_ld"}
-
 if $cross; then
     # TODO: This should compile but we don't have libc6-dev for cross compilation yet
     #       For now a cut-down version which is expected to fail due to no libc linking
@@ -61,14 +58,17 @@ if $cross; then
     #     /usr/lib/"$other"/crt1.o \
     #     /usr/lib/"$other"/crti.o \
     #     /usr/lib/"$other"/crtn.o
-    (chroot "$rootfs_ld" ld hello.o -o hello \
-        -dynamic-linker "$linker_lib" 2>&1 || true) | grep -q "cannot find entry symbol _start"
+    (chroot "$rootfs_ld" ld hello.o -o hello 2>&1 || true) | grep -q "cannot find entry symbol _start"
 else
+    linker_lib="$(ls "$rootfs_ld"/usr/lib*/ld*.so*)"
+    linker_lib=${linker_lib#"$rootfs_ld"}
+
     chroot "$rootfs_ld" ld hello.o -o hello \
         -dynamic-linker "${linker_lib}" \
         -lc \
         /usr/lib/x86_64-linux-gnu/crt1.o \
         /usr/lib/x86_64-linux-gnu/crti.o \
         /usr/lib/x86_64-linux-gnu/crtn.o
+
     chroot "$rootfs_ld" ./hello | grep "Hello world!" || exit 1
 fi
