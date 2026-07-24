@@ -4,9 +4,9 @@ set -eu
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "aarch64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "x86_64" || "$arch" == "ppc64le" ]]; then
     cross=true
-elif [[ "$arch" == "x86_64" ]]; then
+elif [[ "$arch" == "s390x" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -15,40 +15,40 @@ fi
 
 if $cross; then
     slices=(
-        binutils-x86-64-linux-gnu_assembler
-        binutils-x86-64-linux-gnu_cross-libbfd
-        binutils-x86-64-linux-gnu_cross-libopcodes
+        binutils-s390x-linux-gnu_assembler
+        binutils-s390x-linux-gnu_cross-libbfd
+        binutils-s390x-linux-gnu_cross-libopcodes
     )
     rootfs_as="$(install-slices "${slices[@]}")"
-    ln -s "x86_64-linux-gnu-as" "$rootfs_as/usr/bin/as"
+    ln -s "s390x-linux-gnu-as" "$rootfs_as/usr/bin/as"
 
     slices=(
-        binutils-x86-64-linux-gnu_linker
-        binutils-x86-64-linux-gnu_cross-libbfd
-        binutils-x86-64-linux-gnu_cross-libctf
+        binutils-s390x-linux-gnu_linker
+        binutils-s390x-linux-gnu_cross-libbfd
+        binutils-s390x-linux-gnu_cross-libctf
     )
     rootfs_ld="$(install-slices "${slices[@]}")"
-    ln -s "x86_64-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
+    ln -s "s390x-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
 
     slices=(
-        binutils-x86-64-linux-gnu_archiver
-        binutils-x86-64-linux-gnu_cross-libbfd
+        binutils-s390x-linux-gnu_archiver
+        binutils-s390x-linux-gnu_cross-libbfd
     )
     rootfs_ar="$(install-slices "${slices[@]}")"
-    ln -s "x86_64-linux-gnu-ar" "$rootfs_ar/usr/bin/ar"
+    ln -s "s390x-linux-gnu-ar" "$rootfs_ar/usr/bin/ar"
 else
     rootfs_as=$(install-slices \
-        binutils-x86-64-linux-gnu_assembler \
+        binutils-s390x-linux-gnu_assembler \
     )
-    ln -s "x86_64-linux-gnu-as" "$rootfs_as/usr/bin/as"
+    ln -s "s390x-linux-gnu-as" "$rootfs_as/usr/bin/as"
     rootfs_ld=$(install-slices \
-        binutils-x86-64-linux-gnu_linker \
+        binutils-s390x-linux-gnu_linker \
     )
-    ln -s "x86_64-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
+    ln -s "s390x-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
     rootfs_ar=$(install-slices \
-        binutils-x86-64-linux-gnu_archiver \
+        binutils-s390x-linux-gnu_archiver \
     )
-    ln -s "x86_64-linux-gnu-ar" "$rootfs_ar/usr/bin/ar"
+    ln -s "s390x-linux-gnu-ar" "$rootfs_ar/usr/bin/ar"
 fi
 
 
