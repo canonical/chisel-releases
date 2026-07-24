@@ -1,0 +1,47 @@
+package: tomcat11
+
+essential:
+  tomcat11_copyright:
+
+slices:
+  core:
+    essential:
+      tomcat11-common_scripts:
+    contents:
+      /etc/tomcat11/Catalina/:
+      /etc/tomcat11/catalina.properties:
+        copy: /usr/share/tomcat11/etc/catalina.properties
+      /etc/tomcat11/context.xml:
+        copy: /usr/share/tomcat11/etc/context.xml
+      /etc/tomcat11/jaspic-providers.xml:
+        copy: /usr/share/tomcat11/etc/jaspic-providers.xml
+      /etc/tomcat11/logging.properties:
+        copy: /usr/share/tomcat11/etc/logging.properties
+      /etc/tomcat11/server.xml:
+        copy: /usr/share/tomcat11/etc/server.xml
+      /etc/tomcat11/tomcat-users.xml:
+        copy: /usr/share/tomcat11/etc/tomcat-users.xml
+      /etc/tomcat11/web.xml:
+        copy: /usr/share/tomcat11/etc/web.xml
+      /var/cache/tomcat11/:
+        make: true
+      /var/lib/tomcat11/conf:
+      /var/lib/tomcat11/lib/:
+      /var/lib/tomcat11/logs:
+      /var/lib/tomcat11/webapps/:
+      /var/lib/tomcat11/work:
+      /var/log/tomcat11/:
+
+  standard:
+    essential:
+      tomcat11-common_i18n:
+      tomcat11_core:
+
+  dev:
+    essential:
+      tomcat11-common_extra-scripts:
+      tomcat11_standard:
+
+  copyright:
+    content:
+      /usr/share/doc/tomcat11/copyright:
