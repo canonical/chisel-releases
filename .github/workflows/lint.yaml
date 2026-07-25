@@ -21,7 +21,7 @@ jobs:
   prepare-lint:
     runs-on: ubuntu-latest
     name: "Prepare to lint"
-    # Don't run unattended in forks; see install-slices.yaml.
+    # Don't run unattended in forks
     if: >-
       github.repository_owner == 'canonical'
       || github.event_name == 'pull_request'

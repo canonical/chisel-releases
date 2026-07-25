@@ -10,7 +10,7 @@ jobs:
   infer-releases:
     runs-on: ubuntu-latest
     name: "Infer releases to check"
-    # Don't run unattended in forks; see install-slices.yaml.
+    # By default don't run unattended in forks
     if: >-
       github.repository_owner == 'canonical'
       || github.event_name == 'pull_request'
