@@ -35,6 +35,16 @@ jobs:
   prepare-install:
     runs-on: ubuntu-latest
     name: "Prepare to install"
+    # Forks inherit these triggers and run them unattended on the fork owner's
+    # Actions budget -- and every automatic one installs *all* slices (note a
+    # fork sync is a push to main). So outside canonical, only run when a human
+    # asked for it. Gating on the event and not just the owner matters here:
+    # `github.*` is the *caller's* context, so an owner-only check would
+    # disable PR CI for every fork. Dependent jobs skip via `needs`.
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
+      || github.event_name == 'workflow_dispatch'
     outputs:
       install-all: ${{ steps.set-output.outputs.install_all }}
       matrix: ${{ steps.set-output.outputs.matrix }}

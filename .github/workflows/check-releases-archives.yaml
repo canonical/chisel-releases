@@ -10,6 +10,11 @@ jobs:
   infer-releases:
     runs-on: ubuntu-latest
     name: "Infer releases to check"
+    # Don't run unattended in forks; see install-slices.yaml.
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
+      || github.event_name == 'workflow_dispatch'
     outputs:
       matrix: ${{ steps.set-matrix.outputs.maintained-releases }}
     steps:
