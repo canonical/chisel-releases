@@ -6,6 +6,7 @@ essential:
 slices:
   cc1:
     essential:
+      - libc6-dev_headers
       - libc6_libs
       - libgmp10_libs
       - libisl23_libs
