@@ -27,4 +27,4 @@ slices:
     essential:
       - gcc-11-base_copyright
     contents:
-      /usr/share/doc/cpp-11: # Symlink to gcc-11-base
+      /usr/share/doc/cpp-11:  # Symlink to gcc-11-base
