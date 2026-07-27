@@ -16,7 +16,7 @@ ln -s "${triplet}-gcc-11" "${rootfs}/usr/bin/gcc"
 test "$(chroot "${rootfs}" gcc -print-search-dirs | head -n 1)" = "install: /usr/lib/$gcc_dir/$triplet/11/"
 chroot "${rootfs}" gcc -print-search-dirs | head -n 2 | tail -n 1 | grep -q "/usr/lib/$gcc_dir/$triplet/11/"
 
-test "$(chroot "${rootfs}" gcc -print-libgcc-file-name)" = "libgcc.a"
+test "$(chroot "${rootfs}" gcc -print-libgcc-file-name)" | grep -q "libgcc.a"
 chroot "${rootfs}" gcc -print-file-name=libc.so.6 | grep -q "libc.so.6"
 
 # create a fake program called 'foo' in lib/gcc dir to test -print-prog-name

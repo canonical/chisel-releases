@@ -20,8 +20,6 @@ slices=(
 )
 rootfs="$(install-slices "${slices[@]}")"
 ln -s "${triplet}-gcc-11" "${rootfs}/usr/bin/gcc"
-ln -s "${triplet}-as" "${rootfs}/usr/bin/as"
-ln -s "${triplet}-ld" "${rootfs}/usr/bin/ld"
 
 cp testfiles/hello.c "${rootfs}/hello.c"
 
