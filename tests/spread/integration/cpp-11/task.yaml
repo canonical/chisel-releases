@@ -1,6 +1,7 @@
 summary: Integration tests for cpp-11
 
 variants:
+    - c_compiler
     - help
     - preprocessor
 
