@@ -28,10 +28,8 @@ rootfs_ld="$(install-slices \
 )"
 
 ln -s "/usr/lib/gcc/${triplet}/11/cc1" "${rootfs_cc}/usr/bin/cc1"
-ln -s "${triplet}-as" "${rootfs_as}/usr/bin/as"
-ln -s "${triplet}-ld" "${rootfs_ld}/usr/bin/ld"
 
-dynamic_linker="$(find "${rootfs_ld}" -type f -name "ld-*.so.*" -printf "%P\n" -quit)"
+dynamic_linker="$(find "${rootfs_ld}" -type f -name "ld*.so.*" -printf "%P\n" -quit)"
 
 cp hello.c "${rootfs_cc}/hello.c"
 
