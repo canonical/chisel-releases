@@ -21,7 +21,6 @@ options:
 """
 
 import argparse
-import itertools
 import logging
 import math
 import os
@@ -269,15 +268,10 @@ def query_package_existence(
     logging.info("Querying packages in %s", archive)
     n_batches = math.ceil(len(packages) / batch_size)
     found, missing = set(), set()
-    for i, batch in enumerate(itertools.batched(packages, batch_size), start=1):
-        logging.info(
-            "Querying packages batch %d/%d (%s ... %s)...",
-            i,
-            n_batches,
-            batch[0],
-            batch[-1],
-        )
-        f, m = _query_package_existence(list(batch), archive, arch)
+    for i in range(n_batches):
+        batch = packages[i * batch_size : (i + 1) * batch_size]
+        logging.info("Querying packages batch %d/%d (%s ... %s)...", i + 1, n_batches, batch[0], batch[-1])
+        f, m = _query_package_existence(batch, archive, arch)
         found.update(f)
         missing.update(m)
     return sorted(found), sorted(missing)
@@ -505,16 +499,14 @@ def main() -> None:
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
     chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int, str]] = [
         (
-            list(chunk),
+            all_slices[i : i + chunk_size],
             cli_args.dry_run,
             cli_args.arch,
             cli_args.release,
-            worker,
+            i // chunk_size + 1,  # worker number
             cli_args.chisel_version,
         )
-        for worker, chunk in enumerate(
-            itertools.batched(all_slices, chunk_size), start=1
-        )
+        for i in range(0, len(all_slices), chunk_size)
     ]
 
     with ProcessPoolExecutor() as executor:
