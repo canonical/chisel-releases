@@ -24,4 +24,4 @@ slices:
     essential:
       - gcc-13-base_copyright
     contents:
-      /usr/share/doc/cpp-13-powerpc64le-linux-gnu:
+      /usr/share/doc/cpp-13-powerpc64le-linux-gnu:  # Symlink to gcc-13-base

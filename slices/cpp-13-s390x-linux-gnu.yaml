@@ -24,4 +24,4 @@ slices:
     essential:
       - gcc-13-base_copyright
     contents:
-      /usr/share/doc/cpp-13-s390x-linux-gnu:
+      /usr/share/doc/cpp-13-s390x-linux-gnu:  # Symlink to gcc-13-base
