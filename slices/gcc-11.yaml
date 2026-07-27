@@ -11,6 +11,7 @@ slices:
       binutils_linker:
       cpp-11_cc1:
       libgcc-11-dev_core:
+      libgcc-11-dev_headers:
     contents:
       /usr/bin/aarch64-linux-gnu-gcc-11:
         arch: [arm64]
