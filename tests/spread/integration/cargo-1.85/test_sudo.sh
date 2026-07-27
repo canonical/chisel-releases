@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver resolv libpam0g
 
-arch=$(uname -m)
-case "${arch}" in
-    aarch64) chisel_arch="arm64" ;;
-    x86_64) chisel_arch="amd64" ;;
-    *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
-esac
-
 slices=(
     cargo-1.85_cargo
     binutils_archiver # the zlib dependency requires ar
@@ -15,7 +8,7 @@ slices=(
     libpam0g-dev_libs  # sudo-rs dependency
 )
 
-rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
+rootfs="$(install-slices "${slices[@]}")"
 ln -s rustc-1.85 "$rootfs/usr/bin/rustc"
 
 # Create minimal /dev/null 
