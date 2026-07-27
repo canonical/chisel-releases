@@ -3,8 +3,11 @@
 Unit tests for install_slices.py
 """
 
+import contextlib
 import os
+import subprocess
 import sys
+from textwrap import dedent
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -50,6 +53,13 @@ slices:
 DEFAULT_PACKAGE = install_slices.Package(package="hello", slices=["bins"])
 
 
+def completed(
+    returncode: int = 0, stdout: str = "", stderr: str = ""
+) -> subprocess.CompletedProcess:
+    """A subprocess.run result. The real type, so attribute typos raise."""
+    return subprocess.CompletedProcess([], returncode, stdout, stderr)
+
+
 def rmadison_output(*packages: str) -> str:
     """Build output in the format rmadison prints for found packages."""
     return "".join(f" {p} | 1.0-1 | jammy | source, amd64, arm64\n" for p in packages)
@@ -57,11 +67,7 @@ def rmadison_output(*packages: str) -> str:
 
 def mock_rmadison(*found: str, returncode: int = 0) -> MagicMock:
     """A subprocess.run replacement that reports `found` as present."""
-    return MagicMock(
-        return_value=MagicMock(
-            returncode=returncode, stdout=rmadison_output(*found), stderr=""
-        )
-    )
+    return MagicMock(return_value=completed(returncode, rmadison_output(*found)))
 
 
 def write_release(tmp_path, chisel_yaml: str = DEFAULT_CHISEL_YAML) -> str:
@@ -116,14 +122,25 @@ class TestParsePackage:
     def test_slices_are_sorted(self, tmp_path):
         path = tmp_path / "hello.yaml"
         path.write_text(
-            "package: hello\nslices:\n    zed:\n    bins:\n    mid:\n",
+            dedent("""
+                package: hello
+                slices:
+                    zed:
+                    bins:
+                    mid:
+            """),
             encoding="utf-8",
         )
         assert install_slices.parse_package(str(path)).slices == ["bins", "mid", "zed"]
 
-    def test_missing_key(self, tmp_path):
+    @pytest.mark.parametrize(
+        "sdf",
+        ["package: hello\n", "slices: [\n"],
+        ids=["no-slices-key", "malformed-yaml"],
+    )
+    def test_unusable_file_exits(self, tmp_path, sdf):
         path = tmp_path / "hello.yaml"
-        path.write_text("package: hello\n", encoding="utf-8")
+        path.write_text(sdf, encoding="utf-8")
         with pytest.raises(SystemExit) as exc:
             install_slices.parse_package(str(path))
         assert exc.value.code == 1
@@ -160,9 +177,7 @@ class TestQueryPackageExistence:
 
         def echo(args, **kwargs):
             batches.append(args[-1].split())
-            return MagicMock(
-                returncode=0, stdout=rmadison_output(*batches[-1]), stderr=""
-            )
+            return completed(stdout=rmadison_output(*batches[-1]))
 
         with patch("subprocess.run", side_effect=echo):
             found, missing = install_slices.query_package_existence(
@@ -239,11 +254,11 @@ class TestChiselCut:
             return install_slices.chisel_cut(**kwargs), run
 
     def test_cache_dir_is_passed_through_the_environment(self):
-        _, run = self._cut([MagicMock(returncode=0, stderr="")], cache_dir="/tmp/xyz")
+        _, run = self._cut([completed()], cache_dir="/tmp/xyz")
         assert run.call_args.kwargs["env"]["XDG_CACHE_HOME"] == "/tmp/xyz"
 
     def test_command_line(self):
-        _, run = self._cut([MagicMock(returncode=0, stderr="")])
+        _, run = self._cut([completed()])
         args = run.call_args.args[0]
         assert args[:2] == ["chisel", "cut"]
         assert args[args.index("--arch") + 1] == "amd64"
@@ -261,29 +276,26 @@ class TestChiselCut:
         ],
     )
     def test_ignore_unstable_version_gate(self, version, expected):
-        _, run = self._cut([MagicMock(returncode=0, stderr="")], chisel_version=version)
+        _, run = self._cut([completed()], chisel_version=version)
         assert ("--ignore=unstable" in run.call_args.args[0]) is expected
 
-    def test_non_retryable_error_returns_immediately(self):
-        err, run = self._cut([MagicMock(returncode=1, stderr="error: no such slice")])
-        assert err == "error: no such slice"
-        assert run.call_count == 1
-
-    def test_retryable_error_is_retried_then_gives_up(self):
-        failure = MagicMock(returncode=1, stderr="cannot talk to archive")
-        err, run = self._cut([failure, failure, failure])
-        assert err == "cannot talk to archive"
-        assert run.call_count == 3
-
-    def test_retryable_error_then_success(self):
-        err, run = self._cut(
-            [
-                MagicMock(returncode=1, stderr="cannot fetch from archive"),
-                MagicMock(returncode=0, stderr=""),
-            ]
-        )
-        assert err is None
-        assert run.call_count == 2
+    @pytest.mark.parametrize(
+        "results,expected_err,expected_calls",
+        [
+            ([completed(1, stderr="error: no such slice")], "error: no such slice", 1),
+            (
+                [completed(1, stderr="cannot talk to archive")] * 3,
+                "cannot talk to archive",
+                3,
+            ),
+            ([completed(1, stderr="cannot fetch from archive"), completed()], None, 2),
+        ],
+        ids=["not-retryable", "retryable-gives-up", "retryable-then-success"],
+    )
+    def test_retries(self, results, expected_err, expected_calls):
+        err, run = self._cut(results)
+        assert err == expected_err
+        assert run.call_count == expected_calls
 
 
 class TestInstallSlices:
@@ -380,19 +392,15 @@ class TestMain:
         argv += [*extra_argv, str(sdf)]
 
         executor = MagicMock()
-        # configure_logging() writes error.log into the working directory.
-        cwd = os.getcwd()
-        os.chdir(tmp_path)
-        try:
-            with (
-                patch("sys.argv", argv),
-                patch("install_slices.ProcessPoolExecutor") as pool,
-                patch("install_slices.as_completed", lambda fs: fs),
-            ):
-                pool.return_value.__enter__.return_value = executor
-                install_slices.main()
-        finally:
-            os.chdir(cwd)
+        with (
+            # configure_logging() writes error.log into the working directory.
+            contextlib.chdir(tmp_path),
+            patch("sys.argv", argv),
+            patch("install_slices.ProcessPoolExecutor") as pool,
+            patch("install_slices.as_completed", lambda fs: fs),
+        ):
+            pool.return_value.__enter__.return_value = executor
+            install_slices.main()
         return [c.args for c in executor.submit.call_args_list]
 
     def test_chunks_are_submitted(self, tmp_path):
