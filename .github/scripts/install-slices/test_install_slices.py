@@ -33,15 +33,6 @@ archives:
         version: 22.04
         components: [main, universe]
         suites: [jammy, jammy-security, jammy-updates]
-        public-keys: [ubuntu-archive-key-2018]
-
-public-keys:
-    ubuntu-archive-key-2018:
-        id: "871920D1991BC93C"
-        armor: |
-            -----BEGIN PGP PUBLIC KEY BLOCK-----
-            not a real key
-            -----END PGP PUBLIC KEY BLOCK-----
 """
 DEFAULT_ARCHIVE = install_slices.Archive(
     version="22.04",
@@ -153,7 +144,7 @@ class TestQueryPackageExistence:
         run = mock_rmadison("libc6")
         with patch("subprocess.run", run):
             install_slices.query_package_existence(
-                packages=["libc6"], archive=DEFAULT_ARCHIVE, arch=["i386"]
+                packages=["libc6", "hello"], archive=DEFAULT_ARCHIVE, arch=["i386"]
             )
         args = run.call_args.args[0]
         assert args[0] == "rmadison"
@@ -161,16 +152,23 @@ class TestQueryPackageExistence:
         assert args[args.index("--component") + 1] == "main,universe"
         assert args[args.index("--suite") + 1] == "jammy,jammy-security,jammy-updates"
         # rmadison takes the package names as a single space-delimited argument.
-        assert args[-1] == "libc6"
+        assert args[-1] == "libc6 hello"
 
     def test_batching(self):
         packages = [f"pkg{i}" for i in range(120)]
-        run = mock_rmadison(*packages)
-        with patch("subprocess.run", run):
+        batches = []
+
+        def echo(args, **kwargs):
+            batches.append(args[-1].split())
+            return MagicMock(
+                returncode=0, stdout=rmadison_output(*batches[-1]), stderr=""
+            )
+
+        with patch("subprocess.run", side_effect=echo):
             found, missing = install_slices.query_package_existence(
                 packages=packages, archive=DEFAULT_ARCHIVE, batch_size=50
             )
-        assert run.call_count == 3
+        assert [len(b) for b in batches] == [50, 50, 20]
         assert found == sorted(packages)
         assert missing == []
 
