@@ -12,16 +12,10 @@ esac
 
 slices=(
     gcc-11_gcc-11
-    cpp-11_cc1
-    binutils_assembler
-    binutils_linker
-    libgcc-11-dev_core
     libc6-dev_core
 )
 rootfs="$(install-slices "${slices[@]}")"
 ln -s "${triplet}-gcc-11" "${rootfs}/usr/bin/gcc"
-ln -s "${triplet}-as" "${rootfs}/usr/bin/as"
-ln -s "${triplet}-ld" "${rootfs}/usr/bin/ld"
 
 cp testfiles/test_std.c "${rootfs}/test_std.c"
 cp testfiles/test_std.h "${rootfs}/test_std.h"
