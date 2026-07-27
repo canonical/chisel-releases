@@ -21,7 +21,8 @@ slices:
         arch: [arm64]
 
   copyright:
-    essential:
-      - gcc-13-base_copyright
+    v3-essential:
+      gcc-13-aarch64-linux-gnu-base_copyright: {arch: [amd64, i386, ppc64el, s390x]}
+      gcc-13-base_copyright: {arch: [arm64]}
     contents:
-      /usr/share/doc/cpp-13-aarch64-linux-gnu:  # Symlink to gcc-13-base
+      /usr/share/doc/cpp-13-aarch64-linux-gnu:

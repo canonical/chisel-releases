@@ -21,7 +21,8 @@ slices:
         arch: [s390x]
 
   copyright:
-    essential:
-      - gcc-13-base_copyright
+    v3-essential:
+      gcc-13-base_copyright: {arch: [s390x]}
+      gcc-13-s390x-linux-gnu-base_copyright: {arch: [amd64, arm64, i386, ppc64el]}
     contents:
-      /usr/share/doc/cpp-13-s390x-linux-gnu:  # Symlink to gcc-13-base
+      /usr/share/doc/cpp-13-s390x-linux-gnu:
