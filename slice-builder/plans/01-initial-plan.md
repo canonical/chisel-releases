@@ -2,7 +2,7 @@
 
 ## Problem
 
-Superdistro bin packages (.tar.xz packed by `bincraft pack`) are not Ubuntu debs, so the existing deb-slicing workflow (apt download → dpkg -c → design slices) does not apply. Yet these bins must be consumable by `chisel cut` alongside Ubuntu archive slices, so each bin needs an SDF in the new store: bin namespace. Authoring these by hand does not scale (sd-tools produces bins in bulk), so an automated SDF generator is needed.
+Bin packages (.tar.xz packed by `bincraft pack`) are not Ubuntu debs, so the existing deb-slicing workflow (apt download → dpkg -c → design slices) does not apply. Yet these bins must be consumable by `chisel cut` alongside Ubuntu archive slices, so each bin needs an SDF in the new store: bin namespace. Authoring these by hand does not scale (sd-tools produces bins in bulk), so an automated SDF generator is needed.
 
 ## Scope
 

@@ -20,7 +20,7 @@ from slice_builder.agent import (
     read_agent_output,
     run_omp,
 )
-from slice_builder.archive import extract_paths
+from slice_builder.archive import extract_archive, extract_paths
 from slice_builder.checkout import shallow_clone
 from slice_builder.config import BuildConfig
 from slice_builder.deps import resolve_deps
@@ -29,7 +29,7 @@ from slice_builder.prefer import apply_prefer, scan_prefer
 from slice_builder.release import parse_chisel_yaml
 from slice_builder.render import render
 from slice_builder.sdf import parse_sdf
-from slice_builder.validate import format_errors, validate
+from slice_builder.validate import format_errors, validate, validate_semantic
 
 # Exit codes.
 EXIT_OK = 0
@@ -68,9 +68,18 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _parse_config(args: argparse.Namespace) -> BuildConfig:
-    """Build a BuildConfig from parsed args, validating simple invariants."""
+def _parse_config(args: argparse.Namespace) -> BuildConfig | int:
+    """Build a BuildConfig from parsed args, validating simple invariants.
 
+    Returns a :class:`BuildConfig` on success, or an exit code (int) on a config error.
+    """
+
+    if args.retries < 1:
+        print(
+            f"slice-builder: error: --retries must be >= 1, got: {args.retries}",
+            file=sys.stderr,
+        )
+        return EXIT_CONFIG_ERROR
     deps = (
         [d.strip() for d in args.dependencies.split(",") if d.strip()] if args.dependencies else []
     )
@@ -109,7 +118,7 @@ def generate_sdf(config: BuildConfig) -> int:
             EXIT_CONFIG_ERROR,
         )
 
-    # --- extract archive paths ---
+    # --- extract archive paths (for early validation + the prompt path list) ---
     try:
         paths = extract_paths(config.bin_archive)
     except ValueError as exc:
@@ -144,8 +153,16 @@ def generate_sdf(config: BuildConfig) -> int:
         own_identifier = f"{release.bin_prefix}{config.package}"
         ap = agent_paths(checkout)
 
+        # --- extract the archive to a directory the agent can inspect ---
+        # The agent needs file types and contents (not just names) to classify paths correctly.
+        extracted_dir = checkout / ".bin-archive-extracted"
+        try:
+            extract_archive(config.bin_archive, extracted_dir)
+        except ValueError as exc:
+            return _fail(str(exc), EXIT_CONFIG_ERROR)
+
         # --- build prompt ---
-        prompt = build_prompt(config, paths, deps, ap, own_identifier)
+        prompt = build_prompt(config, paths, extracted_dir, deps, ap, own_identifier)
 
         # --- agent loop with retries ---
         sdf_text = ""
@@ -165,8 +182,10 @@ def generate_sdf(config: BuildConfig) -> int:
                 last_errors = [str(exc)]
                 continue
 
-            # --- validate ---
-            result = validate(sdf_text)
+            # --- validate (semantic only: parse + required + absolute paths) ---
+            # yamllint and byte-sort are skipped here because render() re-imposes them
+            # deterministically; retrying the agent for a style issue wastes a round-trip.
+            result = validate_semantic(sdf_text)
             if result.ok:
                 break
             last_errors = result.errors
@@ -206,6 +225,8 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     config = _parse_config(args)
+    if isinstance(config, int):
+        return config
     if args.command == "generate-sdf":
         return generate_sdf(config)
     return _fail(f"unknown command: {args.command}", EXIT_CONFIG_ERROR)

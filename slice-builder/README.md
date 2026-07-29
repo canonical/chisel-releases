@@ -1,7 +1,7 @@
 # slice-builder
 
 `slice-builder` generates [Chisel](https://canonical-chisel--72.com.readthedocs.build/72/)
-slice definition files (SDFs) for **superdistro bin** packages (`.tar.xz` archives produced by
+slice definition files (SDFs) for **bin** packages (`.tar.xz` archives produced by
 `bincraft pack`). Bin packages are not Debian debs, so the standard deb-slicing workflow does
 not apply; this tool wraps an `omp` (oh-my-pi) agent — guided by the `sdf-generation` skill — to
 classify archive paths into slices, resolve `essential` dependencies, and emit a validated SDF.

@@ -14,10 +14,6 @@ fmt:
 lint:
     uv run --with ruff ruff check
 
-# Lint SDFs with the tool-owned yamllint config.
-lint-sdf:
-    uv run yamllint -c yamllint.yaml slices
-
 # Run the builder.
 run *args:
     uv run slice-builder {{args}}

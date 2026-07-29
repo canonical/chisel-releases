@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "slice-builder"
 version = "0.1.0"
-description = "Generate Chisel slice definition files (SDFs) for superdistro bin packages."
+description = "Generate Chisel slice definition files (SDFs) for bin packages."
 requires-python = ">=3.12"
 dependencies = [
   "pyyaml>=6.0",

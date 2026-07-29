@@ -1,4 +1,34 @@
+# yamllint configurations.
+# Ref: https://yamllint.readthedocs.io/en/stable/configuration.html
+
 extends: default
+
+# Ref: https://yamllint.readthedocs.io/en/stable/rules.html
 rules:
-  document-start: disable
-  line-length: {max: 100}
+  braces:
+    forbid: false
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 0
+  brackets:
+    forbid: false
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+    min-spaces-inside-empty: 0
+    max-spaces-inside-empty: 0
+  comments:
+    level: error
+  comments-indentation:
+    level: error
+  document-end:
+    present: false
+  document-start:
+    present: false
+    level: error
+  empty-lines:
+    max: 1
+  indentation:
+    spaces: 2
+  line-length:
+    max: 100

@@ -1,7 +1,7 @@
 # SDF Generation Skill
 
 This skill guides an agent in generating a Chisel **Slice Definition File (SDF)** for a
-superdistro `bin` package, given a list of archive paths, dependency SDFs, and a release
+`bin` package, given a list of archive paths, dependency SDFs, and a release
 prefix.
 
 The agent focuses on **path classification** and **essential dependency resolution**. The
@@ -117,19 +117,36 @@ does, for the agent's awareness:
 
 ## Validation rules
 
-The builder enforces these; the agent should produce compliant output:
+The builder validates the SDF in two passes. The agent is only retried for **semantic** failures
+(pass 1); style and ordering are fixed deterministically by the builder (pass 2), so the agent
+need not optimise for them.
 
-- `contents` paths and `essential` entries MUST be sorted in byte order (`LC_COLLATE=C`,
-  lexicographic by UTF-8 bytes).
-- The SDF must pass yamllint (2-space indentation, 100-char line limit, no document-start `---`
-  marker, block style only, no flow style, no anchors/`!!` tags).
+**Pass 1 — semantic (agent is retried on failure):**
+
+- The SDF must be valid YAML that parses into the expected structure.
 - Required fields: `package`, `store`, `default-track`, `slices`.
-- All content paths must be absolute.
-- `default-track` must be quoted.
+- `store` must be `bin` for bin packages.
+- All content paths must be absolute (start with `/`).
+- Slice names: lowercase `a-z`, digits `0-9`, minus `-`; at least 3 chars; start with a letter.
+
+**Pass 2 — style (builder fixes via `render()`, agent is NOT retried):**
+
+- `contents` paths and `essential` entries are byte-sorted (`LC_COLLATE=C`, lexicographic by
+  UTF-8 bytes) by the builder.
+- The SDF is re-dumped to pass yamllint (2-space indentation, 100-char line limit, no
+  document-start `---` marker, block style only, no flow style, no anchors/`!!` tags).
+- `default-track` is re-quoted by the builder's dumper.
+
+The agent should still aim for compliant output, but it should focus its effort on correct
+path classification and essential resolution, not on YAML formatting.
 
 ## Non-deb slicing methodology
 
 Bin packages are not Debian debs, so there is no `dpkg -c` / apt download step. The archive
-(`.tar.xz`) is extracted directly and its member paths are classified into slices using the table
-above. Essential dependencies are resolved from previously-generated bin SDFs and Ubuntu archive
-(deb) SDFs in the checkout.
+(`.tar.xz`) is extracted to a directory by the builder and its member paths are classified into
+slices using the table above. The agent has access to the extracted directory (its path is given
+in the task) and should inspect file types and contents with its `read`/`bash` tools (e.g.
+`file`, `cat`) when the path name alone is ambiguous — for example, a `/usr/lib/` entry could be
+a shared library, a static archive, or data, and the correct slice depends on the file type.
+Essential dependencies are resolved from previously-generated bin SDFs and Ubuntu archive (deb)
+SDFs in the checkout.

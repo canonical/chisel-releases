@@ -92,3 +92,66 @@ def test_render_sorts_then_dumps():
     sdf.slices["bins"].contents = {"/usr/bin/z": None, "/usr/bin/a": None}
     text = render(sdf)
     assert text.index("/usr/bin/a:") < text.index("/usr/bin/z:")
+
+
+def test_render_matches_canonical_curl_sdf():
+    """Rendered output must be byte-for-byte identical to slices/bins/curl.yaml."""
+
+    # Build an SDF matching the canonical curl.yaml exactly (no slice-level essential).
+    sdf = SDF(
+        package="curl",
+        store="bin",
+        default_track="0.1",
+        essential={"bin-curl_copyright": {}},
+        slices={
+            "bins": Slice(name="bins", contents={"/usr/bin/curl-bin": None}),
+            "copyright": Slice(
+                name="copyright",
+                contents={"/usr/share/doc/curl-bin/copyright": None},
+            ),
+        },
+    )
+    text = render(sdf)
+    expected = (
+        "package: curl\n"
+        "\n"
+        'default-track: "0.1"\n'
+        "\n"
+        "store: bin\n"
+        "\n"
+        "essential:\n"
+        "  bin-curl_copyright:\n"
+        "\n"
+        "slices:\n"
+        "  bins:\n"
+        "    contents:\n"
+        "      /usr/bin/curl-bin:\n"
+        "\n"
+        "  copyright:\n"
+        "    contents:\n"
+        "      /usr/share/doc/curl-bin/copyright:\n"
+    )
+    assert text == expected
+
+
+def test_render_inserts_blank_line_between_slices():
+    """A blank line must separate each slice block under ``slices:``."""
+
+    text = render(_make_sdf())
+    # No blank line right after the ``slices:`` header (first slice follows immediately)...
+    assert "slices:\n  bins:\n" in text
+    # ...but a blank line separates the first and second slice blocks.
+    assert "      /usr/bin/curl-bin:\n\n  copyright:\n" in text
+
+
+def test_render_no_blank_after_slices_header():
+    """The first slice must follow ``slices:`` with no intervening blank line."""
+
+    text = render(_make_sdf())
+    assert "slices:\n\n  bins:" not in text
+
+
+def test_render_ends_with_single_newline_no_trailing_blank():
+    text = render(_make_sdf())
+    assert text.endswith("copyright:\n")
+    assert not text.endswith("\n\n")

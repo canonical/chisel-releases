@@ -141,10 +141,10 @@ SDFDumper.add_representer(_QuotedStr, _represent_quoted_str)
 
 def _sdf_to_dict(sdf: SDF) -> dict:
     out: dict = {"package": sdf.package}
-    if sdf.store is not None:
-        out["store"] = sdf.store
     if sdf.default_track is not None:
         out["default-track"] = _QuotedStr(sdf.default_track)
+    if sdf.store is not None:
+        out["store"] = sdf.store
     if sdf.essential:
         out["essential"] = {k: (v if v else None) for k, v in sdf.essential.items()}
     slices_out: dict = {}

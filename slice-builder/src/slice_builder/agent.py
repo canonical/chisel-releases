@@ -73,11 +73,17 @@ def _summarise_dep(dep: DepRef) -> str:
 def build_prompt(
     config: BuildConfig,
     paths: list[str],
+    extracted_dir: Path,
     deps: list[DepRef],
     ap: AgentPaths,
     own_identifier: str,
 ) -> str:
-    """Assemble the full agent prompt (system prompt + task)."""
+    """Assemble the full agent prompt (system prompt + task).
+
+    ``extracted_dir`` is the directory the archive was extracted into; the agent can inspect file
+    types and contents there with its ``read``/``bash`` tools (e.g. ``file``, ``cat``) to make
+    better classification decisions than path names alone allow.
+    """
 
     sys_prompt = ap.system_prompt.read_text(encoding="utf-8") if ap.system_prompt.is_file() else ""
     skill_text = ap.skill.read_text(encoding="utf-8") if ap.skill.is_file() else ""
@@ -95,6 +101,13 @@ def build_prompt(
         "- store: bin",
         f"- default-track: {config.track} (emit double-quoted)",
         f"- unique package identifier: {own_identifier}",
+        "",
+        "## Extracted archive",
+        "",
+        f"The bin archive has been extracted to `{extracted_dir}`. Inspect file types and",
+        "contents there with your `read` and `bash` tools (e.g. `file`, `cat`) as needed to",
+        "classify paths correctly. The Chisel content paths in the SDF must be absolute",
+        "(leading `/`), matching the archive member paths listed below.",
         "",
         "## Archive paths",
         "",

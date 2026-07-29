@@ -20,21 +20,33 @@ def sort_sdf(sdf: SDF) -> None:
 
 
 def render(sdf: SDF) -> str:
-    """Sort and render an SDF to a canonical YAML string.
-
-    A blank line is inserted between top-level sections and between slices to match the
-    existing repo SDF style (e.g. ``slices/bins/curl.yaml``).
-    """
+    """Sort and render an SDF to a canonical YAML string."""
 
     sort_sdf(sdf)
     text = dump_sdf(sdf)
-    # Insert a blank line before each top-level key that starts at column 0 (no leading space),
-    # except the very first line. This mirrors the repo's section spacing.
     lines = text.splitlines()
     out: list[str] = []
+    in_slices = False
+    first_slice_seen = False
     for i, line in enumerate(lines):
-        if i > 0 and line and not line[0].isspace() and not line.startswith("-"):
-            if out and out[-1] != "":
-                out.append("")
+        if line == "slices:":
+            in_slices = True
+            first_slice_seen = False
+        is_top_level = bool(line) and not line[0].isspace()
+        is_slice_name = (
+            in_slices
+            and line.startswith("  ")
+            and not line.startswith("   ")
+            and line.endswith(":")
+        )
+        insert_blank = False
+        if i > 0 and is_top_level:
+            insert_blank = True
+        elif is_slice_name and first_slice_seen:
+            insert_blank = True
+        if is_slice_name:
+            first_slice_seen = True
+        if insert_blank and out and out[-1] != "":
+            out.append("")
         out.append(line)
     return "\n".join(out) + "\n"
