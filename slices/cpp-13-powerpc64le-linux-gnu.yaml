@@ -21,6 +21,7 @@ slices:
         arch: [ppc64el]
 
   copyright:
+    # Note: `v3-essential` only works for chisel>=1.3.0
     v3-essential:
       gcc-13-base_copyright: {arch: [ppc64el]}
       gcc-13-powerpc64le-linux-gnu-base_copyright: {arch: [amd64, arm64, i386, s390x]}
