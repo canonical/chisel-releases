@@ -4,9 +4,9 @@ set -eu
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "x86_64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "x86_64" || "$arch" == "ppc64le" ]]; then
     cross=true
-elif [[ "$arch" == "aarch64" ]]; then
+elif [[ "$arch" == "s390x" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -15,37 +15,37 @@ fi
 
 if $cross; then
     slices=(
-        binutils-aarch64-linux-gnu_assembler
-        binutils-aarch64-linux-gnu_cross-libbfd
-        binutils-aarch64-linux-gnu_cross-libopcodes
+        binutils-s390x-linux-gnu_assembler
+        binutils-s390x-linux-gnu_cross-libbfd
+        binutils-s390x-linux-gnu_cross-libopcodes
     )
 
     rootfs_as="$(install-slices "${slices[@]}")"
-    ln -s "aarch64-linux-gnu-as" "$rootfs_as/usr/bin/as"
+    ln -s "s390x-linux-gnu-as" "$rootfs_as/usr/bin/as"
 
     slices=(
-        binutils-aarch64-linux-gnu_linker
-        binutils-aarch64-linux-gnu_cross-libbfd
-        binutils-aarch64-linux-gnu_cross-libctf
+        binutils-s390x-linux-gnu_linker
+        binutils-s390x-linux-gnu_cross-libbfd
+        binutils-s390x-linux-gnu_cross-libctf
     )
-
+    
     rootfs_ld="$(install-slices "${slices[@]}")"
-    ln -s "aarch64-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
+    ln -s "s390x-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
 else
     rootfs_as="$(install-slices \
-        binutils-aarch64-linux-gnu_assembler \
+        binutils-s390x-linux-gnu_assembler \
     )"
-    ln -s "aarch64-linux-gnu-as" "$rootfs_as/usr/bin/as"
+    ln -s "s390x-linux-gnu-as" "$rootfs_as/usr/bin/as"
 
     # need libc6-dev_core for linking with libc
     rootfs_ld="$(install-slices \
-        binutils-aarch64-linux-gnu_linker \
+        binutils-s390x-linux-gnu_linker \
         libc6-dev_core \
     )"
-    ln -s "aarch64-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
+    ln -s "s390x-linux-gnu-ld" "$rootfs_ld/usr/bin/ld"
 fi
 
-cp "hello-aarch64-linux-gnu.S" "$rootfs_as/hello.S"
+cp "hello-s390x-linux-gnu.S" "$rootfs_as/hello.S"
 chroot "$rootfs_as" as hello.S -o hello.o
 mv "$rootfs_as/hello.o" "$rootfs_ld/hello.o"
 
@@ -66,9 +66,9 @@ else
     chroot "$rootfs_ld" ld hello.o -o hello \
         -dynamic-linker "${linker_lib}" \
         -lc \
-        /usr/lib/aarch64-linux-gnu/crt1.o \
-        /usr/lib/aarch64-linux-gnu/crti.o \
-        /usr/lib/aarch64-linux-gnu/crtn.o
+        /usr/lib/s390x-linux-gnu/crt1.o \
+        /usr/lib/s390x-linux-gnu/crti.o \
+        /usr/lib/s390x-linux-gnu/crtn.o
 
     chroot "$rootfs_ld" ./hello | grep "Hello world!" || exit 1
 fi
