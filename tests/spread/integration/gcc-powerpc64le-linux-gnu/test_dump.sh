@@ -2,7 +2,7 @@
 # spellchecker: ignore rootfs dumpmachine dumpversion dumpspecs
 
 rootfs="$(install-slices gcc-powerpc64le-linux-gnu_gcc)"
-ln -s "powerpc64le-linux-gnu-gcc-13" "${rootfs}/usr/bin/gcc"
+ln -s "powerpc64le-linux-gnu-gcc" "${rootfs}/usr/bin/gcc"
 
 dumpmachine=$(chroot "${rootfs}" gcc -dumpmachine)
 test "$dumpmachine" = "powerpc64le-linux-gnu"

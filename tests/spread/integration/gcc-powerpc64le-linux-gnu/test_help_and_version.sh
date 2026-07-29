@@ -2,7 +2,7 @@
 # spellchecker: ignore rootfs
 
 rootfs="$(install-slices gcc-powerpc64le-linux-gnu_gcc)"
-ln -s "powerpc64le-linux-gnu-gcc-13" "${rootfs}/usr/bin/gcc"
+ln -s "powerpc64le-linux-gnu-gcc" "${rootfs}/usr/bin/gcc"
 
 # something like: Usage: gcc [options] file...
 help=$(chroot "${rootfs}" gcc --help | head -n1)
