@@ -25,7 +25,6 @@ jobs:
     if: >-
       github.repository_owner == 'canonical'
       || github.event_name == 'pull_request'
-      || github.event_name == 'workflow_dispatch'
     outputs:
       matrix: ${{ steps.set-output.outputs.matrix }}
       main-ref: ${{ steps.set-output.outputs.main_ref }}
