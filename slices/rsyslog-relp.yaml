@@ -1,0 +1,18 @@
+package: rsyslog-relp
+
+essential:
+  rsyslog-relp_copyright:
+
+slices:
+  modules:
+    essential:
+      libc6_libs:
+      librelp0_libs:
+      rsyslog_bins:
+    contents:
+      /usr/lib/*-linux-*/rsyslog/imrelp.so:
+      /usr/lib/*-linux-*/rsyslog/omrelp.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/rsyslog-relp/copyright:
