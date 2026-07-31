@@ -1,0 +1,9 @@
+summary: Integration tests for librelp0
+
+execute: |
+  rootfs="$(install-slices librelp0_libs)"
+
+  for f in "${rootfs}"/usr/lib/*/librelp.so.0 "${rootfs}"/usr/lib/*/librelp.so.0.5.1; do
+    test -f "$f"
+    head -c4 "$f" | grep -Fiq "ELF"
+  done

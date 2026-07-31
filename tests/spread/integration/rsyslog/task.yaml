@@ -1,0 +1,40 @@
+summary: Integration tests for rsyslog
+
+execute: |
+
+  # rsyslog_modules: verify modules are valid ELF.
+  rootfs_modules="$(install-slices rsyslog_modules)"
+
+  for f in "${rootfs_modules}"/usr/lib/*/rsyslog/imuxsock.so "${rootfs_modules}"/usr/lib/*/rsyslog/imtcp.so; do
+    test -f "$f"
+    head -c4 "$f" | grep -Fiq "ELF"
+  done
+
+  # rsyslog daemon: start with the default config, send a log message via
+  # /dev/log, and verify it is written to /var/log/syslog.
+  rootfs="$(install-slices rsyslog_bins rsyslog_modules rsyslog_config rsyslog_data base-passwd_data)"
+
+  # Create syslog user/group (normally done by postinst via adduser)
+  echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
+  echo "syslog:x:101:" >> "${rootfs}/etc/group"
+
+  # Set up /var/log permissions (normally done by postinst)
+  chgrp syslog "${rootfs}/var/log"
+  chmod g+w "${rootfs}/var/log"
+
+  # Bind-mount host /dev so rsyslogd has /dev/null and can create /dev/log
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  trap "pkill -x rsyslogd; umount ${rootfs}/dev || true" EXIT
+
+  # Start daemon with the default config
+  chroot "$rootfs" /usr/sbin/rsyslogd -iNONE
+  sleep 1
+
+  # Send a syslog message via the /dev/log Unix socket
+  logger -u "${rootfs}/dev/log" "chisel-test: hello from chisel"
+  sleep 1
+  pkill -x rsyslogd
+
+  # Verify the message was logged
+  grep -Fq "chisel-test: hello from chisel" "${rootfs}/var/log/syslog"
