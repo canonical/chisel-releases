@@ -35,6 +35,10 @@ jobs:
   prepare-install:
     runs-on: ubuntu-latest
     name: "Prepare to install"
+    # Don't run unattended in forks
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
     outputs:
       install-all: ${{ steps.set-output.outputs.install_all }}
       matrix: ${{ steps.set-output.outputs.matrix }}
