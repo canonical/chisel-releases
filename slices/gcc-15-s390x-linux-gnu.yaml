@@ -1,0 +1,32 @@
+package: gcc-15-s390x-linux-gnu
+
+essential:
+  gcc-15-s390x-linux-gnu_copyright:
+
+slices:
+  # NOTE: For this slice to work, you need to also provide the linker,
+  #       the assembler and cc1 c compiler. The default ones are from
+  #       `cpp-15-s390x-linux-gnu` and `binutils-s390x-linux-gnu` slices.
+  #       Alternatively, use the architecture-independent `gcc-15_gcc-15` slice,
+  #       which provides these dependencies and `/usr/bin/gcc-15`.
+  #       Include `libc6-dev_core` slice to link against the standard C libraries.
+  gcc-15:
+    essential:
+      libc6_libs:
+      libgcc-15-dev_headers:
+    contents:
+      /usr/bin/s390x-linux-gnu-gcc-15:
+      /usr/libexec/gcc-cross/s390x-linux-gnu/15/collect2:
+        arch: [amd64, arm64, i386, ppc64el]
+      /usr/libexec/gcc-cross/s390x-linux-gnu/15/liblto_plugin.so:
+        arch: [amd64, arm64, i386, ppc64el]
+      /usr/libexec/gcc/s390x-linux-gnu/15/collect2:
+        arch: [s390x]
+      /usr/libexec/gcc/s390x-linux-gnu/15/liblto_plugin.so:
+        arch: [s390x]
+
+  copyright:
+    essential:
+      gcc-15-base_copyright:
+    contents:
+      /usr/share/doc/gcc-15-s390x-linux-gnu:
