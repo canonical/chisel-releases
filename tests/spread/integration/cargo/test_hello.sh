@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs rustc
-
-arch=$(uname -m)
-case "${arch}" in
-    aarch64) chisel_arch="arm64" ;;
-    x86_64) chisel_arch="amd64" ;;
-    *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
-esac
-
-rootfs="$(install-slices --arch "$chisel_arch" cargo_cargo)"
+rootfs="$(install-slices cargo_cargo)"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev"
