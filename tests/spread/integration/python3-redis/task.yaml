@@ -1,0 +1,68 @@
+summary: Integration tests for python3-redis
+
+execute: |
+  function cleanup() {
+    kill "$redis_pid" 2>/dev/null || true
+  }
+  trap cleanup EXIT
+
+  # python3-redis is a client library, so pair it with a real server and drive
+  # the wire protocol end to end.
+  rootfs="$(install-slices python3-redis_libs redis-server_bins)"
+
+  # LC_ALL=C keeps redis-server from inheriting a locale the rootfs lacks.
+  LC_ALL=C chroot "$rootfs" /usr/bin/redis-server \
+    --port 6399 --save "" --appendonly no &
+  redis_pid=$!
+
+  for _ in $(seq 1 30); do
+    chroot "$rootfs" /usr/bin/redis-cli -p 6399 ping 2>/dev/null | grep -Fq PONG && break
+    sleep 1
+  done
+  chroot "$rootfs" /usr/bin/redis-cli -p 6399 ping | grep -Fq PONG
+
+  # Every command namespace the package ships must at least import.
+  chroot "$rootfs" python3 -c "
+  import redis, redis.asyncio, redis.cluster, redis.sentinel
+  import redis.commands.json, redis.commands.search, redis.commands.timeseries
+  print(redis.__version__)
+  "
+
+  # Strings, lists, hashes, pipelines and pub/sub over the sync client.
+  chroot "$rootfs" python3 -c "
+  import redis
+  r = redis.Redis(host='127.0.0.1', port=6399, decode_responses=True)
+  assert r.ping()
+  r.set('chisel:key', 'value')
+  assert r.get('chisel:key') == 'value'
+  r.delete('chisel:key')
+  assert r.get('chisel:key') is None
+  r.rpush('chisel:list', 'a', 'b', 'c')
+  assert r.lrange('chisel:list', 0, -1) == ['a', 'b', 'c']
+  r.hset('chisel:hash', mapping={'f1': '1', 'f2': '2'})
+  assert r.hgetall('chisel:hash') == {'f1': '1', 'f2': '2'}
+  p = r.pipeline()
+  p.incr('chisel:ctr')
+  p.incr('chisel:ctr')
+  assert p.execute() == [1, 2]
+  ps = r.pubsub()
+  ps.subscribe('chisel:chan')
+  assert ps.get_message(timeout=5)['type'] == 'subscribe'
+  r.publish('chisel:chan', 'hello')
+  assert ps.get_message(timeout=5)['data'] == 'hello'
+  ps.close()
+  "
+
+  # The asyncio client relies on asyncio.timeout from the stdlib rather than on
+  # the python3-async-timeout dependency alternative.
+  chroot "$rootfs" python3 -c "
+  import asyncio
+  import redis.asyncio as aioredis
+  async def main():
+      r = aioredis.Redis(host='127.0.0.1', port=6399, decode_responses=True)
+      assert await r.ping()
+      await r.set('chisel:async', '1')
+      assert await r.get('chisel:async') == '1'
+      await r.aclose()
+  asyncio.run(main())
+  "
