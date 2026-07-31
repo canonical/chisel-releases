@@ -1,0 +1,28 @@
+package: cargo-1.93
+
+essential:
+  cargo-1.93_copyright:
+
+slices:
+  cargo:
+    essential:
+      libc6_libs:
+      libcurl3t64-gnutls_libs:
+      libgcc-s1_libs:
+      libgit2-1.9_libs:
+      libsqlite3-0_libs:
+      libssh2-1t64_libs:
+      libssl3t64_libs:
+      rustc-1.93_rustc:
+      zlib1g_libs:
+    contents:
+      # in the deb this is a bash script that sets RUSTC
+      # and execs the real binary
+      # but here we don't want needless dependency on bash
+      /usr/bin/cargo-1.93:
+        symlink: ../lib/rust-1.93/bin/cargo
+      /usr/lib/rust-1.93/bin/cargo:
+
+  copyright:
+    contents:
+      /usr/share/doc/cargo-1.93/copyright:

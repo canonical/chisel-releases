@@ -1,0 +1,13 @@
+package: squid-langpack
+
+essential:
+  squid-langpack_copyright:
+
+slices:
+  data:
+    contents:
+      /usr/share/squid-langpack/**/*:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid-langpack/copyright:

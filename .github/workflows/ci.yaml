@@ -7,6 +7,10 @@ on:
     branches:
       - "ubuntu-*"
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   cla-check:
     if: github.event_name == 'pull_request'
@@ -28,3 +32,8 @@ jobs:
   removed-slices:
     name: Removed slices
     uses: canonical/chisel-releases/.github/workflows/removed-slices.yaml@main
+
+  pkg-deps:
+    if: github.event_name == 'pull_request'
+    name: Package dependencies
+    uses: canonical/chisel-releases/.github/workflows/pkg-deps.yaml@main

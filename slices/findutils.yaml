@@ -4,12 +4,23 @@ essential:
   findutils_copyright:
 
 slices:
+
   bins:
+    essential:
+      findutils_find:
+      findutils_xargs:
+
+  find:
     essential:
       libc6_libs:
       libselinux1_libs:
     contents:
       /usr/bin/find:
+
+  xargs:
+    essential:
+      libc6_libs:
+    contents:
       /usr/bin/xargs:
 
   copyright:

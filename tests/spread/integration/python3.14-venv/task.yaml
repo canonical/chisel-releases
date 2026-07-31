@@ -1,0 +1,24 @@
+summary: Integration tests for python3.14-venv
+
+execute: |
+  rootfs="$(install-slices python3.14-venv_ensurepip)"
+
+  # copy etc/resolv.conf to the rootfs so that pip can resolve hostnames
+  mkdir -p "$rootfs/etc"
+  cp /etc/resolv.conf "$rootfs/etc/resolv.conf" 
+
+  chroot "$rootfs" python3.14 -m venv /my_env
+  test -d "$rootfs/my_env"
+
+  # test python
+  chroot "$rootfs" /my_env/bin/python3.14 --version | grep -iq "python 3.14"
+  chroot "$rootfs" /my_env/bin/python3.14 -c "import sys; print(sys.prefix)" | grep -iqx "/my_env"
+
+  # test pip
+  chroot "$rootfs" /my_env/bin/pip3.14 --version | grep -iq "pip"
+
+  # install some packages in the venv and check they are installed correctly
+  chroot "$rootfs" /my_env/bin/pip3.14 install requests==2.31.0
+  chroot "$rootfs" /my_env/bin/python3.14 \
+    -c "import requests; print(requests.__version__)" | \
+    grep -iqx "2.31.0"

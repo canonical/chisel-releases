@@ -115,6 +115,7 @@ slices:
     essential:
       libc6-dev_core:
     contents:
+      /usr/lib/*-linux-*/libBrokenLocale.a:
       /usr/lib/*-linux-*/libBrokenLocale.so:
 
   symlink-libc6-libs:
@@ -155,6 +156,7 @@ slices:
       /usr/include/*-linux-*/bits/error-ldbl.h:
       /usr/include/*-linux-*/bits/error.h:
       /usr/include/*-linux-*/bits/eventfd.h:
+      /usr/include/*-linux-*/bits/fcntl-linux-fortify.h:
       /usr/include/*-linux-*/bits/fcntl-linux.h:
       /usr/include/*-linux-*/bits/fcntl.h:
       /usr/include/*-linux-*/bits/fcntl2.h:
@@ -203,6 +205,7 @@ slices:
       /usr/include/*-linux-*/bits/mqueue2.h:
       /usr/include/*-linux-*/bits/msq.h:
       /usr/include/*-linux-*/bits/netdb.h:
+      /usr/include/*-linux-*/bits/openat2.h:
       /usr/include/*-linux-*/bits/param.h:
       /usr/include/*-linux-*/bits/platform/features.h:
         arch: [amd64, i386]
@@ -320,6 +323,7 @@ slices:
       /usr/include/*-linux-*/bits/types/idtype_t.h:
       /usr/include/*-linux-*/bits/types/locale_t.h:
       /usr/include/*-linux-*/bits/types/mbstate_t.h:
+      /usr/include/*-linux-*/bits/types/once_flag.h:
       /usr/include/*-linux-*/bits/types/res_state.h:
       /usr/include/*-linux-*/bits/types/sig_atomic_t.h:
       /usr/include/*-linux-*/bits/types/sigevent_t.h:

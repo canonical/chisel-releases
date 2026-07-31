@@ -1,0 +1,47 @@
+package: libstd-rust-1.93
+
+essential:
+  libstd-rust-1.93_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libllvm21_libs:
+      libstdc++6_libs:
+    contents:
+      # NOTE: we need the full rustc_driver filename since it
+      # would conflict across different versions of libstd-rust
+      /usr/lib/*-linux-*/librustc_driver-05080760223a769e.so:
+        arch: [s390x]
+      /usr/lib/*-linux-*/librustc_driver-3280e10a029448e7.so:
+        arch: [i386]
+      /usr/lib/*-linux-*/librustc_driver-a5b5bf7acad2cef8.so:
+        arch: [riscv64]
+      /usr/lib/*-linux-*/librustc_driver-a7c48d17e52958f7.so:
+        arch: [armhf]
+      /usr/lib/*-linux-*/librustc_driver-b3d43ccba5314718.so:
+        arch: [ppc64el]
+      /usr/lib/*-linux-*/librustc_driver-db6116732bb601d9.so:
+        arch: [arm64]
+      /usr/lib/*-linux-*/librustc_driver-eeba4a0f4def722a.so:
+        arch: [amd64]
+      /usr/lib/rust-1.93/lib/librustc_driver-05080760223a769e.so:
+        arch: [s390x]
+      /usr/lib/rust-1.93/lib/librustc_driver-3280e10a029448e7.so:
+        arch: [i386]
+      /usr/lib/rust-1.93/lib/librustc_driver-a5b5bf7acad2cef8.so:
+        arch: [riscv64]
+      /usr/lib/rust-1.93/lib/librustc_driver-a7c48d17e52958f7.so:
+        arch: [armhf]
+      /usr/lib/rust-1.93/lib/librustc_driver-b3d43ccba5314718.so:
+        arch: [ppc64el]
+      /usr/lib/rust-1.93/lib/librustc_driver-db6116732bb601d9.so:
+        arch: [arm64]
+      /usr/lib/rust-1.93/lib/librustc_driver-eeba4a0f4def722a.so:
+        arch: [amd64]
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.93/copyright:

@@ -1,0 +1,23 @@
+package: libllvm21
+
+essential:
+  libllvm21_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libedit2_libs:
+      libffi8_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      libxml2-16_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libLLVM-21.so:
+      /usr/lib/*-linux-*/libLLVM.so.21.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libllvm21/copyright:

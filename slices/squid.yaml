@@ -1,0 +1,167 @@
+package: squid
+
+essential:
+  squid_copyright:
+
+slices:
+
+  minimal:
+    # The minimal slice introduces an opinionated configuration that
+    # helps trim squid down to its very essentials, replacing
+    # the defaults in the standard and core slices. To do so, the squid.conf
+    # file is created empty and then populated with a minimal configuration
+    # in the mutate script.
+    #
+    # NOTE: squid will require the resolv.conf file for DNS resolution,
+    # or setting the dns_nameservers directive in the config.
+    essential:
+      base-passwd_data:
+      libc6_libs:
+      libcap2_libs:
+      libcom-err2_libs:
+      libecap3_libs:
+      libgcc-s1_libs:
+      libgnutls30t64_libs:
+      libgssapi-krb5-2_libs:
+      libkrb5-3_libs:
+      libltdl7_libs:
+      libnetfilter-conntrack3_libs:
+      libnettle8t64_libs:
+      libstdc++6_libs:
+      libsystemd0_libs:
+      squid-common_mime-config:
+    contents:
+      /etc/squid/minimal.conf:
+        until: mutate
+        text: |
+          http_port 3128
+          http_access allow all
+          visible_hostname squid.minimal
+
+          # Disable unlinkd
+          unlinkd_program /dev/null
+
+          # Disable logging
+          access_log stdio:/dev/null
+          cache_log /dev/null
+
+          # Disable error pages and icons
+          error_directory /dev/null
+          icon_directory /dev/null
+
+          # Disable pid file
+          pid_filename none
+      /etc/squid/squid.conf:
+        mutable: true
+        text: ""
+      /usr/sbin/squid-gnutls:
+    mutate: |
+      files = content.list("/etc/squid")
+      if "default.conf" not in files:  # If squid_core not installed
+        data = content.read("/etc/squid/minimal.conf")
+        content.write("/etc/squid/squid.conf", data)
+      else:
+        data = content.read("/etc/squid/default.conf")
+        content.write("/etc/squid/squid.conf", data)
+
+  core:
+    # This slice uses the default configuration that comes from the
+    # squid deb package. To avoid conflicts with the minimal slice, the
+    # default config is copied as default.conf and then renamed back to
+    # squid.conf in the mutate script in the minimal slice, which is
+    # a dependency of this slice.
+    essential:
+      base-files_var:
+      squid_minimal:
+    contents:
+      /etc/squid/conf.d/debian.conf:
+      /etc/squid/default.conf:
+        until: mutate
+        copy: /etc/squid/squid.conf
+      /usr/lib/squid/log_file_daemon:
+      /usr/lib/squid/unlinkd:
+      # Icons are not strictly needed, but the
+      # directory is required to exist.
+      /usr/share/squid/icons/: { make: true }
+      /var/log/squid/:
+      /var/spool/squid/:
+
+  standard:
+    essential:
+      squid-common_data:
+      squid-common_icons:
+      squid_auth:
+      squid_cache:
+      squid_cert-tool:
+      squid_core:
+      squid_ext-acls:
+    contents:
+      /usr/lib/squid/diskd:
+      /usr/lib/squid/helper-mux:
+      /usr/lib/squid/log_db_daemon:
+      /usr/lib/squid/pinger:
+
+  auth:
+    essential:
+      libcrypt1_libs:
+      libdbi-perl_modules:
+      libldap2_libs:
+      libpam0g_libs:
+      libsasl2-2_libs:
+      squid_minimal:
+    contents:
+      /usr/lib/squid/basic_db_auth:
+      /usr/lib/squid/basic_getpwnam_auth:
+      /usr/lib/squid/basic_ldap_auth:
+      /usr/lib/squid/basic_ncsa_auth:
+      /usr/lib/squid/basic_pam_auth:
+      /usr/lib/squid/basic_pop3_auth:
+      /usr/lib/squid/basic_radius_auth:
+      /usr/lib/squid/basic_sasl_auth:
+      /usr/lib/squid/basic_smb_auth:
+      /usr/lib/squid/digest_file_auth:
+      /usr/lib/squid/digest_ldap_auth:
+      /usr/lib/squid/negotiate_kerberos_auth:
+      /usr/lib/squid/negotiate_wrapper_auth:
+
+  ext-acls:
+    essential:
+      libdbi-perl_modules:
+      libldap2_libs:
+      libsasl2-2_libs:
+      libtdb1_libs:
+      squid_minimal:
+    contents:
+      /usr/lib/squid/ext_file_userip_acl:
+      /usr/lib/squid/ext_kerberos_ldap_group_acl:
+      /usr/lib/squid/ext_ldap_group_acl:
+      /usr/lib/squid/ext_session_acl:
+      /usr/lib/squid/ext_sql_session_acl:
+      /usr/lib/squid/ext_time_quota_acl:
+      /usr/lib/squid/ext_unix_group_acl:
+      /usr/lib/squid/ext_wbinfo_group_acl:
+
+  cache:
+    essential:
+      perl_bins:
+      squid_minimal:
+    contents:
+      /usr/lib/squid/storeid_file_rewrite:
+
+  cert-tool:
+    essential:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_ls-bin:
+      coreutils_rm-bin:
+      dash_bins:
+      gawk_bins:
+      grep_bins:
+      libnss3-tools_certutil:
+      openssl_bins:
+    contents:
+      /usr/lib/squid/cert_tool:
+
+  copyright:
+    contents:
+      /usr/share/doc/squid/copyright:

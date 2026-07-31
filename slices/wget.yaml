@@ -7,10 +7,11 @@ slices:
   bins:
     essential:
       libc6_libs:
+      libgnutls30t64_libs:
       libidn2-0_libs:
+      libnettle8t64_libs:
       libpcre2-8-0_libs:
       libpsl5t64_libs:
-      libssl3t64_libs:
       libuuid1_libs:
       zlib1g_libs:
     contents:

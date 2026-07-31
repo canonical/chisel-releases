@@ -1,0 +1,13 @@
+$TTL 3600
+@   IN  SOA ns1.test.local. admin.test.local. (
+        2026031201 ; Serial
+        3600       ; Refresh
+        1800       ; Retry
+        604800     ; Expire
+        86400 )    ; Minimum
+
+@       IN NS ns1.test.local.
+ns1     IN A 127.0.0.1
+www     IN A 127.0.0.1
+mail    IN A 127.0.0.1
+@       IN MX 10 mail.test.local.

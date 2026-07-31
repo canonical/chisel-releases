@@ -50,13 +50,13 @@ slices:
       coreutils_basename:
       coreutils_cat:
       coreutils_chmod:
-      coreutils_ln-utility:
+      coreutils_ln-bin:
       coreutils_mktemp:
-      coreutils_mv-utility:
+      coreutils_mv-bin:
       coreutils_readlink:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_sort:
-      coreutils_wc-utility:
+      coreutils_wc-bin:
       dash_bins:
       findutils_bins:
       openssl_bins:
