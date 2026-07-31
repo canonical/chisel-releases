@@ -11,12 +11,16 @@ execute: |
   rootfs="$(install-slices python3-redis_libs redis-server_bins)"
 
   # LC_ALL=C keeps redis-server from inheriting a locale the rootfs lacks.
+  # On arm64 redis probes the kernel for the COW bug by forking; that probe
+  # cannot run in the chroot and redis exits, so waive it explicitly.
   LC_ALL=C chroot "$rootfs" /usr/bin/redis-server \
-    --port 6399 --save "" --appendonly no &
+    --port 6399 --save "" --appendonly no \
+    --ignore-warnings ARM64-COW-BUG &
   redis_pid=$!
 
   for _ in $(seq 1 30); do
     chroot "$rootfs" /usr/bin/redis-cli -p 6399 ping 2>/dev/null | grep -Fq PONG && break
+    kill -0 "$redis_pid" 2>/dev/null || break
     sleep 1
   done
   chroot "$rootfs" /usr/bin/redis-cli -p 6399 ping | grep -Fq PONG
