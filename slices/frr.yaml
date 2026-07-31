@@ -83,10 +83,12 @@ slices:
   libs:
     essential:
       base-files_var:
+      frr_modules:
       libc6_libs:
       libcap2_libs:
       libcares2_libs:
       libcrypt1_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libjson-c5_libs:
       liblua5.4-0_libs:
       libunwind8_libs:
@@ -94,7 +96,6 @@ slices:
     contents:
       /usr/lib/*-linux-*/frr/libfrr*.so.0*:
       /usr/lib/*-linux-*/frr/libmgmt_be_nb.so.0*:
-      /usr/lib/*-linux-*/frr/modules/*.so:
       /usr/share/yang/frr-*.yang:
       /usr/share/yang/ietf-bgp-types.yang:
       /usr/share/yang/ietf-interfaces.yang:
@@ -104,6 +105,10 @@ slices:
       /usr/share/yang/ietf-netconf.yang:
       /usr/share/yang/ietf-routing-types.yang:
       /usr/share/yang/ietf-srv6-types.yang:
+
+  modules:
+    contents:
+      /usr/lib/*-linux-*/frr/modules/*.so:
 
   config:
     contents:
