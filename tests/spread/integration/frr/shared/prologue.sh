@@ -26,4 +26,7 @@ chown 999:999 "${rootfs}/var/lib/frr"
 
 mkdir -p "${rootfs}/tmp"
 
+# restore: runs in a fresh shell, so hand it the path out of band
+echo -n "${rootfs}" > /tmp/frr-rootfs
+
 echo -n "${rootfs}"

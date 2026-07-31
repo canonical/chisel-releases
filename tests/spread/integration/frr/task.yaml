@@ -5,8 +5,11 @@ variants:
   - staticd
   - zebra-lo
 
+kill-timeout: 10m
 
 execute: |
   export "rootfs=$(bash -ex ./shared/prologue.sh)"
   bash -ex ./test_${SPREAD_VARIANT}.sh
+
+restore: |
   bash -ex ./shared/epilogue.sh
