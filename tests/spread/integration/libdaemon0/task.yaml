@@ -18,7 +18,8 @@ execute: |
   }
   trap cleanup EXIT
 
-  apt install --update -y gcc libdaemon-dev
+  # gcc alone only recommends libc6-dev, so ask for the headers explicitly.
+  apt install --update -y gcc libc6-dev libdaemon-dev
   libdir="/usr/lib/$(gcc -dumpmachine)"
 
   # Both the soname symlink and the versioned object must land, otherwise the
