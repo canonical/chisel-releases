@@ -20,7 +20,6 @@ slices:
       coreutils_wc-bin:
       dash_bins:
       dpkg_update-alternatives:
-      gettext-base_bins:
     contents:
       /usr/bin/select-editor:
 
@@ -28,7 +27,6 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
-      gettext-base_bins:
     contents:
       /usr/bin/sensible-browser:
 
@@ -44,7 +42,6 @@ slices:
     essential:
       base-files_bin:
       dash_bins:
-      gettext-base_bins:
     contents:
       /usr/bin/sensible-pager:
 
@@ -53,7 +50,6 @@ slices:
       base-files_bin:
       coreutils_tr-bin:
       dash_bins:
-      gettext-base_bins:
     contents:
       /usr/bin/sensible-terminal:
 
