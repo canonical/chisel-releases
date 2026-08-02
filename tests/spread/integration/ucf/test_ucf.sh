@@ -28,22 +28,22 @@ mkdir -p "$rootfs/usr/share/foo"
 echo "v1" > "$rootfs/usr/share/foo/foo.conf"
 
 # first run creates the destination and records its hash
-chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "Creating config file /etc/foo.conf with new version"
+chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf > /tmp/output 2>&1
+grep -q "Creating config file /etc/foo.conf with new version" /tmp/output
 test "$(cat "$rootfs/etc/foo.conf")" = "v1"
 grep -q "/etc/foo.conf" "$rootfs/var/lib/ucf/hashfile"
 
 # re-running against the same shipped version does nothing
-chroot "$rootfs" ucf -v /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "md5sums match, nothing needs be done"
+chroot "$rootfs" ucf -v /usr/share/foo/foo.conf /etc/foo.conf > /tmp/output 2>&1
+grep -q "md5sums match, nothing needs be done" /tmp/output
 
 # a local edit survives as long as the shipped version has not moved
 echo "local edit" > "$rootfs/etc/foo.conf"
 chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf
 test "$(cat "$rootfs/etc/foo.conf")" = "local edit"
 
-chroot "$rootfs" ucf -d1 /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "The new start file is"
+chroot "$rootfs" ucf -d1 /usr/share/foo/foo.conf /etc/foo.conf > /tmp/output 2>&1
+grep -q "The new start file is" /tmp/output
 
 # a local edit plus an upstream change is a genuine conflict, and resolving it
 # needs a debconf frontend, which a chiselled rootfs has no way to provide
@@ -66,18 +66,20 @@ test "$(cat "$rootfs/etc/foo.conf.ucf-dist")" = "v2"
 
 # confnew discards it
 echo "v3" > "$rootfs/usr/share/foo/foo.conf"
-UCF_FORCE_CONFFNEW=1 chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "Replacing config file /etc/foo.conf with new version"
+UCF_FORCE_CONFFNEW=1 chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf \
+    > /tmp/output 2>&1
+grep -q "Replacing config file /etc/foo.conf with new version" /tmp/output
 test "$(cat "$rootfs/etc/foo.conf")" = "v3"
 
 # a destination the user deleted stays deleted unless asked otherwise
 rm "$rootfs/etc/foo.conf"
-chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "Not replacing deleted config file /etc/foo.conf"
+chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf > /tmp/output 2>&1
+grep -q "Not replacing deleted config file /etc/foo.conf" /tmp/output
 ! test -e "$rootfs/etc/foo.conf"
 
-UCF_FORCE_CONFFMISS=1 chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "Recreating deleted config file /etc/foo.conf"
+UCF_FORCE_CONFFMISS=1 chroot "$rootfs" ucf /usr/share/foo/foo.conf /etc/foo.conf \
+    > /tmp/output 2>&1
+grep -q "Recreating deleted config file /etc/foo.conf" /tmp/output
 test "$(cat "$rootfs/etc/foo.conf")" = "v3"
 
 # purging drops the hash and the cached copy but never the file itself
@@ -95,6 +97,6 @@ destsum="$(md5sum "$rootfs/etc/foo.conf" | awk '{print $1}')"
 echo "v4" > "$rootfs/usr/share/foo/foo.conf"
 echo "$destsum  3.0" > "$rootfs/usr/share/foo/foo.conf.md5sum"
 chroot "$rootfs" ucf -v --sum-file /usr/share/foo/foo.conf.md5sum \
-    /usr/share/foo/foo.conf /etc/foo.conf 2>&1 | \
-    grep -q "Replacing config file /etc/foo.conf with new version"
+    /usr/share/foo/foo.conf /etc/foo.conf > /tmp/output 2>&1
+grep -q "Replacing config file /etc/foo.conf with new version" /tmp/output
 test "$(cat "$rootfs/etc/foo.conf")" = "v4"
