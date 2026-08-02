@@ -22,3 +22,17 @@ chmod +x "$rootfs/usr/bin/fake-terminal"
 TERMINAL_EMULATOR=/usr/bin/fake-terminal chroot "$rootfs" sensible-terminal
 test -f "$rootfs/var/log/fake-terminal.log"
 grep -q "fake-terminal called with: " "$rootfs/var/log/fake-terminal.log"
+
+# the desktop name is lowercased to build a per-desktop candidate
+cat <<'EOF' > "$rootfs/usr/bin/sensible-terminal-gnome"
+#!/bin/sh
+printf "gnome terminal called with: %s\n" "$*" > /var/log/xdg-terminal.log
+EOF
+chmod +x "$rootfs/usr/bin/sensible-terminal-gnome"
+
+XDG_CURRENT_DESKTOP=GNOME chroot "$rootfs" sensible-terminal
+grep -q "gnome terminal called with: " "$rootfs/var/log/xdg-terminal.log"
+
+# a candidate pointing back at the script is refused rather than looping
+rc=0; __SENSIBLE_TERMINAL=1 chroot "$rootfs" sensible-terminal || rc=$?
+test "$rc" -eq 126

@@ -22,3 +22,14 @@ chmod +x "$rootfs/usr/bin/fake-editor"
 EDITOR=/usr/bin/fake-editor chroot "$rootfs" sensible-editor
 test -f "$rootfs/var/log/fake-editor.log"
 grep -q "fake-editor called with: " "$rootfs/var/log/fake-editor.log"
+
+# a choice recorded by select-editor is picked up ahead of the fallback list
+mkdir -p "$rootfs/root"
+echo 'SELECTED_EDITOR="/usr/bin/fake-editor"' > "$rootfs/root/.selected_editor"
+rm "$rootfs/var/log/fake-editor.log"
+chroot "$rootfs" sensible-editor
+grep -q "fake-editor called with: " "$rootfs/var/log/fake-editor.log"
+
+# a candidate pointing back at the script is refused rather than looping
+rc=0; __SENSIBLE_EDITOR=1 chroot "$rootfs" sensible-editor || rc=$?
+test "$rc" -eq 126
