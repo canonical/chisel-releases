@@ -1,6 +1,7 @@
 summary: Integration tests for ucf
 
 variants:
+    - roundtrip
     - ucf
     - ucfq
     - ucfr
