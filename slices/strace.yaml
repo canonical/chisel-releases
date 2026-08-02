@@ -1,0 +1,16 @@
+package: strace
+
+essential:
+  strace_copyright:
+
+slices:
+  bins:
+    essential:
+      libtinfo6_libs:
+      libunwind8_libs:
+    contents:
+      /usr/bin/strace:
+
+  copyright:
+    contents:
+      /usr/share/doc/strace/copyright:
