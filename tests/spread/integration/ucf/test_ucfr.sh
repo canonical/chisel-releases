@@ -16,7 +16,8 @@ grep -Eq "^myapp[[:space:]]+/etc/myapp\.conf$" "$reg"
 
 # repeating it is a no-op
 before="$(cat "$reg")"
-chroot "$rootfs" ucfr -v myapp /etc/myapp.conf 2>&1 | grep -q "Association already recorded"
+chroot "$rootfs" ucfr -v myapp /etc/myapp.conf > /tmp/output 2>&1
+grep -q "Association already recorded" /tmp/output
 test "$before" = "$(cat "$reg")"
 
 # a symlinked path is recorded under its resolved target
@@ -63,7 +64,8 @@ grep -q "/etc/shared.conf" "$rootfs/var/lib/ucf/registry.0"
 
 # a dry run reports what it would do and leaves the registry alone
 before="$(cat "$reg")"
-chroot "$rootfs" ucfr -n newpkg /etc/other.conf 2>&1 | grep -qx "replace_in_registry"
+chroot "$rootfs" ucfr -n newpkg /etc/other.conf > /tmp/output 2>&1
+grep -qx "replace_in_registry" /tmp/output
 test "$before" = "$(cat "$reg")"
 
 # duplicate entries for one file are treated as corruption
