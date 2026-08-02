@@ -3,7 +3,7 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "x86_64" ]]; then
+if [[ "$arch" == "x86_64" || "$arch" == "s390x" || "$arch" == "ppc64le" ]]; then
     cross=true
 elif [[ "$arch" == "aarch64" ]]; then
     cross=false

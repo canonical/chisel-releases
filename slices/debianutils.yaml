@@ -64,11 +64,11 @@ slices:
       coreutils_chown:
       coreutils_date:
       coreutils_dirname:
-      coreutils_ln-utility:
-      coreutils_ls-utility:
+      coreutils_ln-bin:
+      coreutils_ls-bin:
       coreutils_mkdir:
-      coreutils_mv-utility:
-      coreutils_rm-utility:
+      coreutils_mv-bin:
+      coreutils_rm-bin:
       coreutils_touch:
       dash_bins:
       sed_bins:
@@ -84,9 +84,9 @@ slices:
       coreutils_chmod:
       coreutils_chown:
       coreutils_dirname:
-      coreutils_mv-utility:
+      coreutils_mv-bin:
       coreutils_realpath:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_stat:
       dash_bins:
       debianutils_config:
@@ -101,8 +101,8 @@ slices:
       coreutils_basename:
       coreutils_cat:
       coreutils_dirname:
-      coreutils_ln-utility:
-      coreutils_mv-utility:
+      coreutils_ln-bin:
+      coreutils_mv-bin:
       coreutils_readlink:
       dash_bins:
       debianutils_run-parts:
@@ -118,9 +118,9 @@ slices:
       coreutils_chmod:
       coreutils_chown:
       coreutils_dirname:
-      coreutils_mv-utility:
+      coreutils_mv-bin:
       coreutils_realpath:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_stat:
       dash_bins:
       debianutils_config:
@@ -137,8 +137,8 @@ slices:
       coreutils_chmod:
       coreutils_chown:
       coreutils_dirname:
-      coreutils_mv-utility:
-      coreutils_rm-utility:
+      coreutils_mv-bin:
+      coreutils_rm-bin:
       coreutils_stat:
       coreutils_sync:
       dash_bins:

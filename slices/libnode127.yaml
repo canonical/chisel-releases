@@ -6,6 +6,7 @@ essential:
 slices:
   libs:
     essential:
+      libada-url0-3_libs:
       libbrotli1_libs:
       libc6_libs:
       libcares2_libs:

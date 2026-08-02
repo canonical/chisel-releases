@@ -36,7 +36,7 @@ slices:
       base-files_tmp:
       coreutils_cat:
       coreutils_chmod:
-      coreutils_cp-utility:
+      coreutils_cp-bin:
       coreutils_mkdir:
       coreutils_sleep:
       coreutils_uname:

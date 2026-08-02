@@ -6,9 +6,9 @@ essential:
 # Uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
 # during install and removal.
 slices:
-  bins:
+  scripts:
     essential:
-      sensible-utils_bins:
+      sensible-utils_scripts:
     contents:
       /usr/bin/ucf:
       /usr/bin/ucfq:
