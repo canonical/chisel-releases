@@ -1,0 +1,20 @@
+package: golang-1.22
+
+essential:
+  - golang-1.22_copyright
+
+slices:
+  core:
+    essential:
+      # Note: Package golang-1.22-go is not available on i386.
+      - golang-1.22-go_core
+      - golang-1.22-src_src-with-tests
+
+  cgo-support:
+    essential:
+      - golang-1.22-go_cgo-tools
+      - golang-1.22_core
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.22/copyright:

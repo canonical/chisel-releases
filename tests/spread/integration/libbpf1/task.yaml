@@ -1,0 +1,6 @@
+summary: Integration tests for libbpf1
+
+execute: |
+  rootfs="$(install-slices libbpf1_libs)"
+  arch=$(uname -m)-linux-gnu 
+  test -f ${rootfs}/usr/lib/${arch}/libbpf.so.1

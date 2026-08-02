@@ -1,0 +1,9 @@
+package: cpp-x86-64-linux-gnu
+
+essential:
+  - cpp-x86-64-linux-gnu_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/cpp-x86-64-linux-gnu/copyright:

@@ -1,0 +1,15 @@
+package: pwgen
+
+essential:
+  - pwgen_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/pwgen:
+
+  copyright:
+    contents:
+      /usr/share/doc/pwgen/copyright:

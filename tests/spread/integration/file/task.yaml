@@ -1,0 +1,13 @@
+summary: Integration tests for file
+
+execute: |
+  rootfs="$(install-slices file_bins)"
+
+  chroot "${rootfs}/" file --help
+  echo "Hello World" > "${rootfs}/testfile" 
+  output=$(chroot "${rootfs}/" \
+    file -b testfile)
+  if [ "$output" != "ASCII text" ]; then 
+    echo "file failed"
+    exit 1
+  fi

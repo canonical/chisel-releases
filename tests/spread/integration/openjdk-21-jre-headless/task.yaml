@@ -11,12 +11,15 @@ environment:
   SLICE/jfr: "jfr"
   SLICE/security: "security"
   SLICE/tools: "tools"
+  SLICE/awt: "awt"
 
 execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
   apt install --update -y openjdk-21-jdk-headless
+  # Need to ensure we're using the right java version
+  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
   javac *.java
   cp *.java ${rootfs}/
   cp *.class ${rootfs}/
@@ -26,6 +29,10 @@ execute: |
     ln -sf /${java} proc/self/exe
     chroot . ${java} --version
     case ${SLICE} in
+      awt)
+        chroot . ${java} /ImageTest.java
+        file -i HelloWorld.png | grep -q "image/png; charset=binary"
+      ;;
       class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
       ;;
@@ -57,3 +64,6 @@ execute: |
       ;;
     esac
   done
+
+restore: |
+  apt remove -y --purge openjdk-21-jdk-headless

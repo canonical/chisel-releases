@@ -1,0 +1,25 @@
+package: libpam0g-dev
+
+essential:
+  - libpam0g-dev_copyright
+
+slices:
+  libs:
+    essential:
+      - libpam0g_libs
+    contents:
+      /usr/lib/*-linux-*/libpam.a:
+      /usr/lib/*-linux-*/libpam.so:  # Symlink to libpamc.so.0
+      /usr/lib/*-linux-*/libpam_misc.a:
+      /usr/lib/*-linux-*/libpam_misc.so:  # Symlink to libpam_misc.so.0
+      /usr/lib/*-linux-*/libpamc.a:
+      /usr/lib/*-linux-*/libpamc.so:  # Symlink to libpamc.so.0
+
+  headers:
+    contents:
+      /usr/include/security/_pam_*.h:
+      /usr/include/security/pam_*.h:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam0g-dev/copyright:

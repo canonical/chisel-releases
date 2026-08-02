@@ -1,0 +1,9 @@
+summary: Integration tests for geoip-bin
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices geoip-bin_bins)"
+
+  chroot "${rootfs}/" geoiplookup -h
+  chroot "${rootfs}/" geoiplookup6 -h

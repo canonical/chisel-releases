@@ -1,0 +1,22 @@
+package: erlang-asn1
+
+essential:
+  - erlang-asn1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/erlang/lib/asn1-*/priv/**:
+
+  modules:
+    essential:
+      - erlang-base_bins
+      - erlang-base_modules
+    contents:
+      /usr/lib/erlang/lib/asn1-*/ebin/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/erlang-asn1/copyright:

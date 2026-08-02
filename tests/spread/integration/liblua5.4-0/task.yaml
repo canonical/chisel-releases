@@ -1,0 +1,9 @@
+summary: Integration tests for liblua5.4-0
+
+execute: |
+  rootfs="$(install-slices liblua5.4-0_libs)"
+
+  apt install -y gcc
+  arch=$(gcc -dumpmachine)
+
+  test -f ${rootfs}/usr/lib/${arch}/liblua5.4.so.0

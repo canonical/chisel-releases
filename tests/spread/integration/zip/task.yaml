@@ -1,0 +1,18 @@
+summary: Integration tests for zip
+
+execute: |
+  rootfs="$(install-slices unzip_bins zip_bins)"
+  
+  chroot "${rootfs}/" zip -h2
+  chroot "${rootfs}/" zipcloak -h
+  chroot "${rootfs}/" zipnote -h
+  chroot "${rootfs}/" zipsplit -h
+
+  echo "Hello, World" > "${rootfs}/testfile.txt"
+  chroot "${rootfs}" zip testfile.zip testfile.txt
+  chroot "${rootfs}" zipnote testfile.zip > foo.tmp
+  echo -e "@ This is a test comment" >> foo.tmp
+  chroot "${rootfs}" zipnote -w testfile.zip < foo.tmp
+  test "$(chroot "${rootfs}" zipnote testfile.zip | tail -n1)" = "\@ This is a test comment"
+  chroot "${rootfs}" zipsplit testfile.zip
+  test "$(chroot "${rootfs}" unzip -p testfil1.zip testfile.txt)" = "Hello, World"

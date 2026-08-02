@@ -1,0 +1,213 @@
+package: golang-1.22-src
+
+essential:
+  - golang-1.22-src_copyright
+
+slices:
+  # Note: This slice contains the source code of Go 1.22 as well as the tests.
+  # Due to Go's project layout convention, we cannot split the source code
+  # easily without Chisel's support for negative wildcards.
+  # To exclude the tests and test data, a command should be run after cutting
+  # this slice:
+  #   find ${rootfs}/usr/share/go-1.22 -depth \( \
+  #      \( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \) -o \
+  #      \( -path '*/testing/*' -name '*_test.go' \) \
+  #      \) -exec rm -rf {} +
+  src-with-tests:
+    essential:
+      - golang-1.22-src_api
+    contents:
+      # Note: Some paths are explicitly listed to avoid conflicts with
+      # the paths defined in golang-1.22-go.
+      # src/cmd/** conflicts with
+      #   src/cmd/cgo/zdefaultcc.go
+      #   src/cmd/go/internal/cfg/zdefaultcc.go
+      #   src/cmd/internal/objabi/zbootstrap.go
+      # src/go/** conflicts with
+      #   src/go/build/zcgo.go
+      # src/internal/** conflicts with
+      #   src/internal/buildcfg/zbootstrap.go
+      # src/runtime/** conflicts with
+      #   src/runtime/internal/sys/zversion.go
+      # src/time/** conflicts with
+      #   src/time/tzdata/zzipdata.go
+      /usr/share/go-1.22/misc/**:
+      /usr/share/go-1.22/src/Make.dist:
+      /usr/share/go-1.22/src/a*/**:
+      /usr/share/go-1.22/src/b*/**:
+      /usr/share/go-1.22/src/cmd/a*/**:
+      /usr/share/go-1.22/src/cmd/b*/**:
+      /usr/share/go-1.22/src/cmd/cgo/a*.go:
+      /usr/share/go-1.22/src/cmd/cgo/doc.go:
+      /usr/share/go-1.22/src/cmd/cgo/g*.go:
+      /usr/share/go-1.22/src/cmd/cgo/internal/**:
+      /usr/share/go-1.22/src/cmd/cgo/main.go:
+      /usr/share/go-1.22/src/cmd/cgo/out.go:
+      /usr/share/go-1.22/src/cmd/cgo/util.go:
+      /usr/share/go-1.22/src/cmd/co*/**:
+      /usr/share/go-1.22/src/cmd/d*/**:
+      /usr/share/go-1.22/src/cmd/f*/**:
+      /usr/share/go-1.22/src/cmd/go.mod:
+      /usr/share/go-1.22/src/cmd/go.sum:
+      /usr/share/go-1.22/src/cmd/go/*.go:
+      /usr/share/go-1.22/src/cmd/go/internal/a*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/b*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/ca*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/cfg/bench_test.go:
+      /usr/share/go-1.22/src/cmd/go/internal/cfg/cfg.go:
+      /usr/share/go-1.22/src/cmd/go/internal/cfg/lookpath.go:
+      /usr/share/go-1.22/src/cmd/go/internal/cl*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/cm*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/d*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/e*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/f*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/g*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/h*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/i*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/l*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/m*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/p*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/r*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/s*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/t*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/v*/**:
+      /usr/share/go-1.22/src/cmd/go/internal/w*/**:
+      /usr/share/go-1.22/src/cmd/go/t*/**:
+      /usr/share/go-1.22/src/cmd/gof*/**:
+      /usr/share/go-1.22/src/cmd/internal/a*/**:
+      /usr/share/go-1.22/src/cmd/internal/b*/**:
+      /usr/share/go-1.22/src/cmd/internal/c*/**:
+      /usr/share/go-1.22/src/cmd/internal/d*/**:
+      /usr/share/go-1.22/src/cmd/internal/e*/**:
+      /usr/share/go-1.22/src/cmd/internal/g*/**:
+      /usr/share/go-1.22/src/cmd/internal/m*/**:
+      /usr/share/go-1.22/src/cmd/internal/n*/**:
+      /usr/share/go-1.22/src/cmd/internal/obj/**:
+      /usr/share/go-1.22/src/cmd/internal/objabi/a*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/f*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/h*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/l*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/p*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/r*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/s*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/t*:
+      /usr/share/go-1.22/src/cmd/internal/objabi/u*:
+      /usr/share/go-1.22/src/cmd/internal/objfile/*.go:
+      /usr/share/go-1.22/src/cmd/internal/os*/**:
+      /usr/share/go-1.22/src/cmd/internal/p*/**:
+      /usr/share/go-1.22/src/cmd/internal/q*/**:
+      /usr/share/go-1.22/src/cmd/internal/s*/**:
+      /usr/share/go-1.22/src/cmd/internal/t*/**:
+      /usr/share/go-1.22/src/cmd/l*/**:
+      /usr/share/go-1.22/src/cmd/n*/**:
+      /usr/share/go-1.22/src/cmd/o*/**:
+      /usr/share/go-1.22/src/cmd/p*/**:
+      /usr/share/go-1.22/src/cmd/t*/**:
+      /usr/share/go-1.22/src/cmd/v*/**:
+      /usr/share/go-1.22/src/cmp/**:
+      /usr/share/go-1.22/src/co*/**:
+      /usr/share/go-1.22/src/crypto/**:
+      /usr/share/go-1.22/src/d*/**:
+      /usr/share/go-1.22/src/e*/**:
+      /usr/share/go-1.22/src/f*/**:
+      /usr/share/go-1.22/src/go.mod:
+      /usr/share/go-1.22/src/go.sum:
+      /usr/share/go-1.22/src/go/a*/**:
+      /usr/share/go-1.22/src/go/build/b*:
+      /usr/share/go-1.22/src/go/build/c*/**:
+      /usr/share/go-1.22/src/go/build/d*:
+      /usr/share/go-1.22/src/go/build/g*:
+      /usr/share/go-1.22/src/go/build/r*:
+      /usr/share/go-1.22/src/go/build/s*:
+      /usr/share/go-1.22/src/go/build/t*/**:
+      /usr/share/go-1.22/src/go/c*/**:
+      /usr/share/go-1.22/src/go/d*/**:
+      /usr/share/go-1.22/src/go/f*/**:
+      /usr/share/go-1.22/src/go/i*/**:
+      /usr/share/go-1.22/src/go/p*/**:
+      /usr/share/go-1.22/src/go/s*/**:
+      /usr/share/go-1.22/src/go/t*/**:
+      /usr/share/go-1.22/src/go/v*/**:
+      /usr/share/go-1.22/src/h*/**:
+      /usr/share/go-1.22/src/im*/**:
+      /usr/share/go-1.22/src/ind*/**:
+      /usr/share/go-1.22/src/internal/a*/**:
+      /usr/share/go-1.22/src/internal/bi*/**:
+      /usr/share/go-1.22/src/internal/buildcfg/c*:
+      /usr/share/go-1.22/src/internal/buildcfg/e*:
+      /usr/share/go-1.22/src/internal/by*/**:
+      /usr/share/go-1.22/src/internal/c*/**:
+      /usr/share/go-1.22/src/internal/d*/**:
+      /usr/share/go-1.22/src/internal/f*/**:
+      /usr/share/go-1.22/src/internal/g*/**:
+      /usr/share/go-1.22/src/internal/i*/**:
+      /usr/share/go-1.22/src/internal/l*/**:
+      /usr/share/go-1.22/src/internal/n*/**:
+      /usr/share/go-1.22/src/internal/o*/**:
+      /usr/share/go-1.22/src/internal/p*/**:
+      /usr/share/go-1.22/src/internal/r*/**:
+      /usr/share/go-1.22/src/internal/s*/**:
+      /usr/share/go-1.22/src/internal/t*/**:
+      /usr/share/go-1.22/src/internal/u*/**:
+      /usr/share/go-1.22/src/internal/x*/**:
+      /usr/share/go-1.22/src/internal/z*/**:
+      /usr/share/go-1.22/src/io*/**:
+      /usr/share/go-1.22/src/it*/**:
+      /usr/share/go-1.22/src/l*/**:
+      /usr/share/go-1.22/src/m*/**:
+      /usr/share/go-1.22/src/n*/**:
+      /usr/share/go-1.22/src/o*/**:
+      /usr/share/go-1.22/src/p*/**:
+      /usr/share/go-1.22/src/re*/**:
+      /usr/share/go-1.22/src/runtime/**.S:
+      /usr/share/go-1.22/src/runtime/**.c:
+      /usr/share/go-1.22/src/runtime/**.h:
+      /usr/share/go-1.22/src/runtime/**.s:
+      /usr/share/go-1.22/src/runtime/*.go:
+      /usr/share/go-1.22/src/runtime/*.py:
+      /usr/share/go-1.22/src/runtime/Makefile:
+      /usr/share/go-1.22/src/runtime/a*/**:
+      /usr/share/go-1.22/src/runtime/c*/**:
+      /usr/share/go-1.22/src/runtime/d*/**:
+      /usr/share/go-1.22/src/runtime/internal/a*/**:
+      /usr/share/go-1.22/src/runtime/internal/m*/**:
+      /usr/share/go-1.22/src/runtime/internal/st*/**:
+      /usr/share/go-1.22/src/runtime/internal/sys/c*.go:
+      /usr/share/go-1.22/src/runtime/internal/sys/i*.go:
+      /usr/share/go-1.22/src/runtime/internal/sys/nih.go:
+      /usr/share/go-1.22/src/runtime/internal/sys/sys.go:
+      /usr/share/go-1.22/src/runtime/internal/sysc*/**:
+      /usr/share/go-1.22/src/runtime/internal/w*/**:
+      /usr/share/go-1.22/src/runtime/m*/**:
+      /usr/share/go-1.22/src/runtime/p*/**:
+      /usr/share/go-1.22/src/runtime/r*/**:
+      /usr/share/go-1.22/src/runtime/t*/**:
+      /usr/share/go-1.22/src/s*/**:
+      /usr/share/go-1.22/src/te*/**:
+      /usr/share/go-1.22/src/time/*.go:
+      /usr/share/go-1.22/src/time/te*/**:
+      /usr/share/go-1.22/src/time/tzdata/tzdata.go:
+      /usr/share/go-1.22/src/u*/**:
+      /usr/share/go-1.22/src/v*/**:
+      /usr/share/go-1.22/test/**:
+
+  api:
+    contents:
+      /usr/share/go-1.22/api/*.txt:
+
+  # Note: The bash-scripts slice provides bash scripts used to build Go from source.
+  #       This is not tested in the integration tests, since it requires an
+  #       existing Go installation (in a different GOROOT) to run the scripts.
+  bash-scripts:
+    essential:
+      - bash_bins
+      - binutils_linker
+      - coreutils_bins
+      - grep_bins
+      - sed_bins
+    contents:
+      /usr/share/go-1.22/src/*.bash:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.22-src/copyright:

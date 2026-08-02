@@ -1,0 +1,17 @@
+summary: Integration tests for patch
+
+execute: |
+  rootfs="$(install-slices patch_bins)"
+
+  chroot "${rootfs}/" patch --help
+  echo "Hello, World" > "${rootfs}/testfile.txt"
+  echo "This is a Patched Input" > "${rootfs}/patchfile.txt"
+  cat <<EOF >tmp.patch
+  --- testfile.txt
+  +++ patchfile.txt	
+  @@ -1 +1 @@
+  -Hello, World
+  +This is a Patched Input
+  EOF
+  chroot "${rootfs}/" patch < tmp.patch
+  test "$(cat "${rootfs}/testfile.txt")" = "This is a Patched Input"

@@ -1,0 +1,7 @@
+summary: Integration tests for binutils
+
+variants:
+    - help_and_version
+    - archiver
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

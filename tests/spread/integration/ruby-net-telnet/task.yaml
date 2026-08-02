@@ -1,0 +1,8 @@
+summary: Integration tests for ruby-net-telnet
+
+execute: |
+  rootfs="$(install-slices ruby-net-telnet_rubygems ruby_core bash_bins)"
+
+  cp net_telnet_test.rb "${rootfs}/"
+  chroot "$rootfs" bash -c \
+      'GEM_PATH="/usr/lib/ruby/gems/3.2.0/gems:/usr/share/rubygems-integration/all" ruby /net_telnet_test.rb'

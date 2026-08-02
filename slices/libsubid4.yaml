@@ -1,6 +1,6 @@
 package: libsubid4
 
-esential:
+essential:
   - libsubid4_copyright
 
 slices:

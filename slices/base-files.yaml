@@ -16,6 +16,7 @@ slices:
   etc:
     contents:
       /etc/:
+      /etc/profile.d/:
 
   bin:
     contents:

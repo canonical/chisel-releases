@@ -1,0 +1,10 @@
+summary: Integration tests for cargo
+
+variants:
+    - eza
+    - hello_crate
+    - hello
+    - help_and_version
+    - sudo
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

@@ -1,0 +1,15 @@
+summary: Integration tests for python3-minimal
+
+execute: |
+  # test python3 binary
+  rootfs_bins="$(install-slices python3-minimal_bins)"
+  chroot "$rootfs_bins" python3 -c "print('Hello World')"
+
+  # test py3versions
+  rootfs_py3versions="$(install-slices python3-minimal_py3versions)"
+  chroot "$rootfs_py3versions" py3versions -d | grep "python3.12"
+
+  # test py3compile
+  rootfs_py3compile="$(install-slices python3-minimal_py3compile)"
+  chroot "$rootfs_py3compile" py3compile -h
+  chroot "$rootfs_py3compile" py3clean -h

@@ -1,0 +1,9 @@
+summary: Integration tests for mawk
+
+execute: |
+  rootfs="$(install-slices mawk_bins)"
+
+  chroot "${rootfs}/" mawk -W version
+  echo "test" | chroot "${rootfs}/" \
+    mawk '{ exit ( $1 == "test" ? \
+      0 : 1 ) }'

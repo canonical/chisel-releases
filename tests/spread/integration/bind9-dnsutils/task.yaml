@@ -1,0 +1,14 @@
+summary: Integration tests for bind9-dnsutils
+
+execute: |
+  rootfs="$(install-slices bind9-dnsutils_bins)"
+
+  chroot "${rootfs}/" delv -v
+  chroot "${rootfs}/" dig -v
+  chroot "${rootfs}/" mdig -v
+  chroot "${rootfs}/" nslookup -version
+  chroot "${rootfs}/" nsupdate -V
+  chroot "${rootfs}/" delv -i @127.0.0.53 | grep -P '[a-m].root-servers.net'
+  chroot "${rootfs}/" dig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
+  chroot "${rootfs}/" mdig @127.0.0.53 example.com | grep ';; ANSWER SECTION:'
+  chroot "${rootfs}/" nslookup example.com 127.0.0.53 | grep 'Name:[[:space:]]example.com'

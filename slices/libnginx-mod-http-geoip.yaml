@@ -1,0 +1,27 @@
+package: libnginx-mod-http-geoip
+
+essential:
+  - libnginx-mod-http-geoip_copyright
+
+slices:
+  modules:
+    essential:
+      # libnginx-mod-http-geoip depends on nginx-abi, which is a virtual
+      # package provided by nginx, hence the dependency on nginx_bins.
+      - libc6_libs
+      - libgeoip1t64_libs
+      - libnginx-mod-http-geoip_config
+      - nginx_bins
+    contents:
+      /usr/lib/nginx/modules/ngx_http_geoip_module.so:
+
+  config:
+    contents:
+      # This symlink is created by the maintainer scipts
+      /etc/nginx/modules-enabled/50-mod-http-geoip.conf:
+        symlink: /usr/share/nginx/modules-available/mod-http-geoip.conf
+      /usr/share/nginx/modules-available/mod-http-geoip.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnginx-mod-http-geoip/copyright:

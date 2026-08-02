@@ -1,0 +1,19 @@
+package: libarchive-tools
+
+essential:
+  - libarchive-tools_copyright
+
+slices:
+  bins:
+    essential:
+      - libarchive13t64_libs
+      - libc6_libs
+    contents:
+      /usr/bin/bsdcat:
+      /usr/bin/bsdcpio:
+      /usr/bin/bsdtar:
+      /usr/bin/bsdunzip:
+
+  copyright:
+    contents:
+      /usr/share/doc/libarchive-tools/copyright:

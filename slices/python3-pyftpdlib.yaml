@@ -1,0 +1,15 @@
+package: python3-pyftpdlib
+
+essential:
+  - python3-pyftpdlib_copyright
+
+slices:
+  libs:
+    essential:
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/pyftpdlib/*.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-pyftpdlib/copyright:

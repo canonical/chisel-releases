@@ -1,0 +1,15 @@
+package: liblzf1
+
+essential:
+  - liblzf1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/liblzf.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/liblzf1/copyright:

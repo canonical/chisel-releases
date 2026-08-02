@@ -1,0 +1,37 @@
+summary: Integration tests for iproute2
+
+execute: |
+  rootfs_bins="$(install-slices iproute2_bins base-files_tmp)"
+
+  mkdir -p ${rootfs_bins}/proc
+  mount --bind /proc ${rootfs_bins}/proc
+
+  chroot "$rootfs_bins" /bin/ip addr show
+  chroot "$rootfs_bins" /sbin/ip route show
+  chroot "$rootfs_bins" ip link show
+  
+  chroot "$rootfs_bins" /bin/ss -tln
+  chroot "$rootfs_bins" ss -uln
+  
+  chroot "$rootfs_bins" bridge link show
+  chroot "$rootfs_bins" bridge fdb show
+  chroot "$rootfs_bins" genl ctrl list
+  chroot "$rootfs_bins" nstat
+  chroot "$rootfs_bins" tc qdisc show dev lo
+  chroot "$rootfs_bins" rtacct
+
+  # The commands below don't run without special hardware or cluster configurations.
+  # So we just do some very basic check.
+  chroot "$rootfs_bins" vdpa -V
+  chroot "$rootfs_bins" rtmon -V
+  chroot "$rootfs_bins" dcb help
+  chroot "$rootfs_bins" devlink help
+  chroot "$rootfs_bins" rdma help
+  chroot "$rootfs_bins" ctstat -h
+  chroot "$rootfs_bins" lnstat -h
+  chroot "$rootfs_bins" rtstat -h
+  test -x "$rootfs_bins/usr/sbin/arpd"
+  test -x "$rootfs_bins/sbin/tipc"
+
+  rootfs_routel="$(install-slices iproute2_routel)"
+  chroot "$rootfs_routel" routel

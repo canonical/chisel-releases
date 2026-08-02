@@ -1,0 +1,14 @@
+package: ruby-net-telnet
+
+essential:
+  - ruby-net-telnet_copyright
+
+slices:
+  rubygems:
+    contents:
+      /usr/share/rubygems-integration/all/gems/net-telnet-*/**:
+      /usr/share/rubygems-integration/all/specifications/net-telnet-*.gemspec:
+
+  copyright:
+    contents:
+      /usr/share/doc/ruby-net-telnet/copyright:

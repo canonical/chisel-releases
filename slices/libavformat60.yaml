@@ -1,0 +1,30 @@
+package: libavformat60
+
+essential:
+  - libavformat60_copyright
+
+slices:
+  libs:
+    essential:
+      - libavcodec60_libs
+      - libavutil58_libs
+      - libbluray2_libs
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libchromaprint1_libs
+      - libgme0_libs
+      - libgnutls30t64_libs
+      - libopenmpt0t64_libs
+      - librabbitmq4_libs
+      - librist4_libs
+      - libsrt1.5-gnutls_libs
+      - libssh-gcrypt-4_libs
+      - libxml2_libs
+      - libzmq5_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libavformat.so.60*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libavformat60/copyright:
