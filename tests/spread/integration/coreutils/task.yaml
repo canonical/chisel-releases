@@ -152,8 +152,10 @@ execute: |
   rootfs_od="$(install-slices coreutils_od-bin)"
   chroot "$rootfs_od" od --version
   echo -e "Hello\nWorld" > "$rootfs_od/test_file"
-  test "$(chroot "$rootfs_od" od test_file)" = \
-      $'0000000 062510 066154 005157 067527 066162 005144\n0000014'
+  # NOTE: bare od prints two-byte octal words, whose order follows the host
+  # endianness. Ask for single bytes so the expected value holds on s390x too.
+  test "$(chroot "$rootfs_od" od -A n -t x1 test_file | tr -d ' \n')" = \
+      "48656c6c6f0a576f726c640a"
 
   # test rmdir binary
   rootfs_rmdir="$(install-slices coreutils_rmdir)"
