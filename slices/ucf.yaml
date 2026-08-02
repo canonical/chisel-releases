@@ -21,19 +21,19 @@ slices:
       bash_bins:  # we need bash as well as dash
       coreutils_basename:
       coreutils_cat:
-      coreutils_cp-utility:
+      coreutils_cp-bin:
       coreutils_date:
       coreutils_dirname:
-      coreutils_id-utility:
-      coreutils_mv-utility:
+      coreutils_id-bin:
+      coreutils_mv-bin:
       # coreutils_md5sum:  # TODO: add when coreutils subsliced
       coreutils_readlink:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       # coreutils_seq:  # TODO: add when coreutils subsliced
       coreutils_sleep:
       coreutils_stat:
-      coreutils_tr-utility:
-      coreutils_wc-utility:
+      coreutils_tr-bin:
+      coreutils_wc-bin:
       dash_bins:
       gawk_bins:
       grep_bins:
@@ -58,10 +58,10 @@ slices:
       base-files_bin:
       coreutils_basename:
       coreutils_cat:
-      coreutils_cp-utility:
+      coreutils_cp-bin:
       coreutils_dirname:
-      coreutils_id-utility:
-      coreutils_mv-utility:
+      coreutils_id-bin:
+      coreutils_mv-bin:
       coreutils_readlink:
       # coreutils_seq:  # TODO: add when coreutils subsliced
       dash_bins:

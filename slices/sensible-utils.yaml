@@ -17,7 +17,7 @@ slices:
       base-files_bin:
       coreutils_cut:
       coreutils_sort:
-      coreutils_wc-utility:
+      coreutils_wc-bin:
       dash_bins:
       dpkg_update-alternatives:
       gettext-base_bins:
@@ -51,7 +51,7 @@ slices:
   sensible-terminal:
     essential:
       base-files_bin:
-      coreutils_tr-utility:
+      coreutils_tr-bin:
       dash_bins:
       gettext-base_bins:
     contents:
