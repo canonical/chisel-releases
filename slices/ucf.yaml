@@ -3,8 +3,7 @@ package: ucf
 essential:
   ucf_copyright:
 
-# Uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
-# during install and removal.
+# ucf and ucfr both source /usr/share/ucf/ucf_library.sh, so each ships it.
 slices:
   scripts:
     essential:
@@ -12,8 +11,10 @@ slices:
       ucf_ucfq:
       ucf_ucfr:
 
-  # TODO: This slice does not have all of its dependencies in
-  # essentials and it's functionality might be limited.
+  # The conffile conflict prompt is driven entirely by debconf, which has no
+  # slice definition yet. Everything it reaches for from there -- bash, diff,
+  # iconv, ps, which -- is pulled in regardless, so the slice stays complete
+  # once debconf lands.
   ucf:
     hint: Preserve user changes in config files
     essential:
@@ -25,21 +26,27 @@ slices:
       coreutils_date:
       coreutils_dirname:
       coreutils_id-bin:
+      coreutils_md5sum:
+      coreutils_mkdir:
       coreutils_mv-bin:
-      # coreutils_md5sum:  # TODO: add when coreutils subsliced
       coreutils_readlink:
       coreutils_rm-bin:
-      # coreutils_seq:  # TODO: add when coreutils subsliced
+      coreutils_seq:
       coreutils_sleep:
       coreutils_stat:
       coreutils_tr-bin:
       coreutils_wc-bin:
       dash_bins:
+      debianutils_which:
+      diffutils_bins:
+      dpkg_divert:
       gawk_bins:
       grep_bins:
+      libc-bin_iconv:
+      procps_ps-bin:
       sed_bins:
       sensible-utils_sensible-pager:
-      util-linux_cli-helpers:
+      util-linux_getopt:
     contents:
       /usr/bin/ucf:
       /usr/share/ucf/ucf_library.sh:
@@ -47,6 +54,7 @@ slices:
   ucfq:
     hint: Query config file registry
     essential:
+      coreutils_md5sum:
       perl-base_bins:
       perl-base_modules:
     contents:
@@ -61,14 +69,17 @@ slices:
       coreutils_cp-bin:
       coreutils_dirname:
       coreutils_id-bin:
+      coreutils_mkdir:
       coreutils_mv-bin:
       coreutils_readlink:
-      # coreutils_seq:  # TODO: add when coreutils subsliced
+      coreutils_seq:
+      coreutils_touch:
       dash_bins:
-      # dpkg_dpkg-divert:  # TODO: add when dpkg subsliced
+      dpkg_divert:
       gawk_bins:
       grep_bins:
-      util-linux_cli-helpers:
+      sed_bins:
+      util-linux_getopt:
     contents:
       /usr/bin/ucfr:
       /usr/share/ucf/ucf_library.sh:
