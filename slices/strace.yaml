@@ -1,0 +1,15 @@
+package: strace
+
+essential:
+  - strace_copyright
+
+slices:
+  bins:
+    essential:
+      - libunwind8_libs
+    contents:
+      /usr/bin/strace:
+
+  copyright:
+    contents:
+      /usr/share/doc/strace/copyright:
