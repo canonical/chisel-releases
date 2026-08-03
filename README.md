@@ -45,14 +45,14 @@ that release.
 
 For more information on the SDFs' YAML schema and how to install slices, please
 refer to the
-[Chisel documentation](https://documentation.ubuntu.com/chisel/en/latest/).
+[Chisel documentation](https://ubuntu.com/chisel/docs).
 
 ## Using a Specific Chisel Release
 
 Chisel releases are meant to be used with the `chisel` CLI. Many of the `chisel`
 commands have a `--release` optional argument (to know which commands support
 this option, please refer to the
-[Chisel documentation](https://documentation.ubuntu.com/chisel/en/latest/).
+[Chisel documentation](https://ubuntu.com/chisel/docs).
 
 When running a `chisel` command where `--release` is supported,
 
