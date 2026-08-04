@@ -1,0 +1,28 @@
+package: cpp-14-s390x-linux-gnu
+
+essential:
+  cpp-14-s390x-linux-gnu_copyright:
+
+slices:
+  cc1:
+    essential:
+      libc6-dev_headers:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/libexec/gcc-cross/s390x-linux-gnu/14/cc1:
+        arch: [amd64, arm64, i386, ppc64el]
+      /usr/libexec/gcc/s390x-linux-gnu/14/cc1:
+        arch: [s390x]
+
+  copyright:
+    essential:
+      gcc-14-base_copyright: {arch: [s390x]}
+      gcc-14-s390x-linux-gnu-base_copyright: {arch: [amd64, arm64, i386, ppc64el]}
+    contents:
+      /usr/share/doc/cpp-14-s390x-linux-gnu:
