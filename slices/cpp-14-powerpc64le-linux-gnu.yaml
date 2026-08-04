@@ -25,4 +25,4 @@ slices:
       gcc-14-base_copyright: {arch: [ppc64el]}
       gcc-14-powerpc64le-linux-gnu-base_copyright: {arch: [amd64, arm64, i386, s390x]}
     contents:
-      /usr/share/doc/cpp-14-powerpc64le-linux-gnu:
+      /usr/share/doc/cpp-14-powerpc64le-linux-gnu:  # Symlink to a gcc-14 base package
