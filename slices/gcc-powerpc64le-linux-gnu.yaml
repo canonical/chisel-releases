@@ -1,0 +1,17 @@
+package: gcc-powerpc64le-linux-gnu
+
+essential:
+  gcc-powerpc64le-linux-gnu_copyright:
+
+slices:
+  gcc:
+    essential:
+      gcc-15-powerpc64le-linux-gnu_gcc-15:
+    contents:
+      /usr/bin/powerpc64le-linux-gnu-gcc:  # Symlink to powerpc64le-linux-gnu-gcc-15
+
+  copyright:
+    essential:
+      cpp-powerpc64le-linux-gnu_copyright:
+    contents:
+      /usr/share/doc/gcc-powerpc64le-linux-gnu:  # Symlink to cpp-powerpc64le-linux-gnu
