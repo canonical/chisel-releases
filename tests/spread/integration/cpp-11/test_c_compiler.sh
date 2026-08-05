@@ -6,7 +6,6 @@ set -eu
 rootfs_cc="$(install-slices \
     base-files_bin \
     cpp-11_cc1 \
-    libc6-dev_headers \
 )"
 rootfs_as="$(install-slices \
     binutils_assembler \
