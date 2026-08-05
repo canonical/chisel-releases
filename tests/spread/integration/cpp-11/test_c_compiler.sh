@@ -19,7 +19,8 @@ triplet="$(cd "${rootfs_cc}/usr/lib/gcc" && echo *)"
 
 ln -s "/usr/lib/gcc/${triplet}/11/cc1" "${rootfs_cc}/usr/bin/cc1"
 
-dynamic_linker="$(find "${rootfs_ld}" -type f -name "ld*.so.*" -printf "%P\n" -quit)"
+dynamic_linker="$(ls "${rootfs_ld}"/lib*/ld*.so*)"
+dynamic_linker=${dynamic_linker#"$rootfs_ld"}
 
 cp hello.c "${rootfs_cc}/hello.c"
 
@@ -37,7 +38,7 @@ chroot "${rootfs_as}" as -o hello.o hello.s
 # link
 cp "${rootfs_as}/hello.o" "${rootfs_ld}/hello.o"
 chroot "${rootfs_ld}" ld -o hello hello.o \
-    -dynamic-linker "/${dynamic_linker}" \
+    -dynamic-linker "${dynamic_linker}" \
     -lc \
     /usr/lib/${triplet}/crt1.o \
     /usr/lib/${triplet}/crti.o \
