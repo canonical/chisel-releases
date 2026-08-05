@@ -2,6 +2,18 @@
 # spellchecker: ignore rootfs libc libexec binutils unistd crti crtn
 set -eu
 
+arch=$(uname -m)
+case "$arch" in
+    x86_64)   triplet="x86_64-linux-gnu" ;;
+    aarch64)  triplet="aarch64-linux-gnu" ;;
+    ppc64le)  triplet="powerpc64le-linux-gnu" ;;
+    s390x)    triplet="s390x-linux-gnu" ;;
+    *)
+        echo "Unsupported architecture: $arch"
+        exit 1
+        ;;
+esac
+
 # prepare separate rootfs with cc1, as and ld
 rootfs_cc="$(install-slices \
     base-files_bin \
@@ -14,8 +26,6 @@ rootfs_ld="$(install-slices \
     binutils_linker \
     libc6-dev_core \
 )"
-
-triplet="$(cd "${rootfs_cc}/usr/lib/gcc" && echo *)"
 
 ln -s "/usr/lib/gcc/${triplet}/11/cc1" "${rootfs_cc}/usr/bin/cc1"
 
