@@ -15,14 +15,7 @@ slices:
       - libzstd1_libs
       - zlib1g_libs
     contents:
-      /usr/lib/gcc/aarch64-linux-gnu/11/cc1:
-        arch: [arm64]
-      /usr/lib/gcc/powerpc64le-linux-gnu/11/cc1:
-        arch: [ppc64el]
-      /usr/lib/gcc/s390x-linux-gnu/11/cc1:
-        arch: [s390x]
-      /usr/lib/gcc/x86_64-linux-gnu/11/cc1:
-        arch: [amd64]
+      /usr/lib/gcc/*-linux-*/11/cc1:
 
   copyright:
     essential:
