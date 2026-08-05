@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs libc libexec binutils unistd crti crtn
+set -eu
 
 arch=$(uname -m)
 case "$arch" in
