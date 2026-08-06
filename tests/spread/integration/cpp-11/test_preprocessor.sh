@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs libexec ifdef ifndef
+set -eu
 
 arch=$(uname -m)
 case "$arch" in
@@ -24,8 +25,8 @@ cp question.c "${rootfs}/question.c"
 
 # no answer, therefore default answer
 chroot "${rootfs}" cc1 -E question.c > "${rootfs}/question.i" 2>/dev/null
-cat "${rootfs}/question.i" | grep -q 'return 1;'
+grep -q 'return 1;' "${rootfs}/question.i"
 
 # specify ANSWER
 chroot "${rootfs}" cc1 -DANSWER=42 -E question.c > "${rootfs}/question.i" 2>/dev/null
-cat "${rootfs}/question.i" | grep -q 'return 42;'
+grep -q 'return 42;' "${rootfs}/question.i"

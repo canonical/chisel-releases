@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs libexec
+set -eu
 
 arch=$(uname -m)
 case "$arch" in
