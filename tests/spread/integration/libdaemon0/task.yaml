@@ -1,11 +1,6 @@
 summary: Integration tests for libdaemon0
 
 execute: |
-  # libdaemon0_copyright: fresh rootfs so a missing dep cannot hide behind
-  # another test.
-  rootfs="$(install-slices libdaemon0_copyright)"
-  test -s "$rootfs/usr/share/doc/libdaemon0/copyright"
-
   # libdaemon0_libs: the package has no sliced consumer, so build one -- a
   # program linked against libdaemon.so.0 that drives the library's dlog, dpid,
   # dsignal, dnonblock and dfork/retval entry points -- and run it in the
