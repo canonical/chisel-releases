@@ -18,6 +18,7 @@ execute: |
     --ignore-warnings ARM64-COW-BUG &
   redis_pid=$!
 
+  # Wait for redis-server to start accepting connections on port 6399
   for _ in $(seq 1 30); do
     chroot "$rootfs" /usr/bin/redis-cli -p 6399 ping 2>/dev/null | grep -Fq PONG && break
     kill -0 "$redis_pid" 2>/dev/null || break
@@ -57,8 +58,8 @@ execute: |
   ps.close()
   "
 
-  # The asyncio client relies on asyncio.timeout from the stdlib rather than on
-  # the python3-async-timeout dependency alternative.
+  # Verify that the asyncio client relies on asyncio.timeout from the stdlib,
+  # rather than python3-async-timeout.
   chroot "$rootfs" python3 -c "
   import asyncio
   import redis.asyncio as aioredis
