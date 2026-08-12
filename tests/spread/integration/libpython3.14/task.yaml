@@ -2,7 +2,9 @@ summary: Integration tests for libpython3.14
 
 execute: |
   rootfs="$(install-slices libpython3.14_libs)"
-  arch=$(uname -m)-linux-gnu
+
+  apt install -y gcc
+  arch=$(gcc -dumpmachine)
 
   # The shared Python runtime library and its soname symlink.
   test -f "${rootfs}/usr/lib/${arch}/libpython3.14.so.1.0"
