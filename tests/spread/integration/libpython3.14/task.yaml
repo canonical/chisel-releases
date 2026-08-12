@@ -1,0 +1,13 @@
+summary: Integration tests for libpython3.14
+
+execute: |
+  rootfs="$(install-slices libpython3.14_libs)"
+  arch=$(uname -m)-linux-gnu
+
+  # The shared Python runtime library and its soname symlink.
+  test -f "${rootfs}/usr/lib/${arch}/libpython3.14.so.1.0"
+  test -L "${rootfs}/usr/lib/${arch}/libpython3.14.so.1"
+  [[ "$(readlink "${rootfs}/usr/lib/${arch}/libpython3.14.so.1")" == "libpython3.14.so.1.0" ]]
+
+  # libpython3.14.so.1.0 must be a loadable ELF shared object.
+  [[ "$(head -c4 "${rootfs}/usr/lib/${arch}/libpython3.14.so.1.0" | od -An -tx1 | tr -d ' \n')" == "7f454c46" ]]
