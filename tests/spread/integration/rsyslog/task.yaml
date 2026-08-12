@@ -12,7 +12,7 @@ execute: |
 
   # rsyslog daemon: start with the default config, send a log message via
   # /dev/log, and verify it is written to /var/log/syslog.
-  rootfs="$(install-slices rsyslog_bins rsyslog_modules rsyslog_config rsyslog_data base-passwd_data)"
+  rootfs="$(install-slices rsyslog_bins rsyslog_data base-passwd_data)"
 
   # Create syslog user/group (normally done by postinst via adduser)
   echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"

@@ -8,7 +8,6 @@ slices:
     essential:
       libc6_libs:
       librelp0_libs:
-      rsyslog_bins:
     contents:
       /usr/lib/*-linux-*/rsyslog/imrelp.so:
       /usr/lib/*-linux-*/rsyslog/omrelp.so:

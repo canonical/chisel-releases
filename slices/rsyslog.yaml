@@ -11,6 +11,8 @@ slices:
       libfastjson4_libs:
       libsystemd0_libs:
       libuuid1_libs:
+      rsyslog_config:
+      rsyslog_modules:
       zlib1g_libs:
     contents:
       /usr/sbin/rsyslogd:
