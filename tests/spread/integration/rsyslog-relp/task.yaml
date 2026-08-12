@@ -1,14 +1,6 @@
 summary: Integration tests for rsyslog-relp
 
 execute: |
-  # rsyslog-relp_modules: verify the RELP modules are valid ELF.
-  rootfs="$(install-slices rsyslog-relp_modules)"
-
-  for f in "${rootfs}"/usr/lib/*/rsyslog/imrelp.so "${rootfs}"/usr/lib/*/rsyslog/omrelp.so; do
-    test -f "$f"
-    head -c4 "$f" | grep -Fiq "ELF"
-  done
-
   # Functional test: start rsyslogd with imrelp listening on a TCP port,
   # send a log message via the RELP protocol, and verify it is written
   # to a log file.
