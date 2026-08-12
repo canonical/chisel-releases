@@ -1,0 +1,84 @@
+package: rsyslog
+
+essential:
+  rsyslog_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libestr0_libs:
+      libfastjson4_libs:
+      libsystemd0_libs:
+      libuuid1_libs:
+      rsyslog_config:
+      rsyslog_modules:
+      zlib1g_libs:
+    contents:
+      /usr/sbin/rsyslogd:
+
+  data:
+    contents:
+      /var/spool/rsyslog/:
+
+  config:
+    essential:
+      rsyslog_modules:
+    contents:
+      /etc/logcheck/ignore.d.server/rsyslog:
+      /etc/logrotate.d/rsyslog:
+      /etc/rsyslog.conf:
+      /etc/rsyslog.d/50-default.conf:
+        copy: /usr/share/rsyslog/50-default.conf
+      /etc/systemd/system/multi-user.target.wants/rsyslog.service:
+        symlink: /usr/lib/systemd/system/rsyslog.service
+
+  modules:
+    essential:
+      libc6_libs:
+      libfastjson4_libs:
+      libsystemd0_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/rsyslog/fmhash.so:
+      /usr/lib/*-linux-*/rsyslog/imfile.so:
+      /usr/lib/*-linux-*/rsyslog/imjournal.so:
+      /usr/lib/*-linux-*/rsyslog/imklog.so:
+      /usr/lib/*-linux-*/rsyslog/imkmsg.so:
+      /usr/lib/*-linux-*/rsyslog/immark.so:
+      /usr/lib/*-linux-*/rsyslog/impstats.so:
+      /usr/lib/*-linux-*/rsyslog/imptcp.so:
+      /usr/lib/*-linux-*/rsyslog/imtcp.so:
+      /usr/lib/*-linux-*/rsyslog/imudp.so:
+      /usr/lib/*-linux-*/rsyslog/imuxsock.so:
+      /usr/lib/*-linux-*/rsyslog/lmnet.so:
+      /usr/lib/*-linux-*/rsyslog/lmnetstrms.so:
+      /usr/lib/*-linux-*/rsyslog/lmnsd_ptcp.so:
+      /usr/lib/*-linux-*/rsyslog/lmregexp.so:
+      /usr/lib/*-linux-*/rsyslog/lmtcpclt.so:
+      /usr/lib/*-linux-*/rsyslog/lmtcpsrv.so:
+      /usr/lib/*-linux-*/rsyslog/lmzlibw.so:
+      /usr/lib/*-linux-*/rsyslog/lmzstdw.so:
+      /usr/lib/*-linux-*/rsyslog/mmanon.so:
+      /usr/lib/*-linux-*/rsyslog/mmexternal.so:
+      /usr/lib/*-linux-*/rsyslog/mmfields.so:
+      /usr/lib/*-linux-*/rsyslog/mmjsonparse.so:
+      /usr/lib/*-linux-*/rsyslog/mmleefparse.so:
+      /usr/lib/*-linux-*/rsyslog/mmpstrucdata.so:
+      /usr/lib/*-linux-*/rsyslog/mmrm1stspace.so:
+      /usr/lib/*-linux-*/rsyslog/mmsequence.so:
+      /usr/lib/*-linux-*/rsyslog/mmutf8fix.so:
+      /usr/lib/*-linux-*/rsyslog/omjournal.so:
+      /usr/lib/*-linux-*/rsyslog/ommail.so:
+      /usr/lib/*-linux-*/rsyslog/omprog.so:
+      /usr/lib/*-linux-*/rsyslog/omuxsock.so:
+      /usr/lib/*-linux-*/rsyslog/pmaixforwardedfrom.so:
+      /usr/lib/*-linux-*/rsyslog/pmciscoios.so:
+      /usr/lib/*-linux-*/rsyslog/pmcisconames.so:
+      /usr/lib/*-linux-*/rsyslog/pmlastmsg.so:
+      /usr/lib/*-linux-*/rsyslog/pmsnare.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/rsyslog/copyright:
