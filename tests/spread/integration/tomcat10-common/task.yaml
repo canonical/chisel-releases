@@ -1,8 +1,8 @@
 summary: Integration tests for tomcat10-common
 
 environment:
+  SLICE/core: "core"
   SLICE/scripts: "scripts"
-  SLICE/extrascripts: "extra-scripts"
 
 restore: |
   killall java || true
@@ -23,7 +23,11 @@ execute: |
   export CATALINA_BASE="/var/lib/tomcat10"
 
   case ${SLICE} in
-    extra-scripts)
+    core)
+      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
+        | grep -q "Apache Tomcat/10"
+    ;;
+    scripts)
       chroot "$rootfs" /usr/share/tomcat10/bin/ciphers.sh \
         | grep -q TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
       chroot "$rootfs" /usr/share/tomcat10/bin/digest.sh foo \
@@ -32,9 +36,5 @@ execute: |
         | grep -q "Created CATALINA_BASE directory at foo"
       chroot "$rootfs" /usr/share/tomcat10/bin/version.sh \
         | grep -q "Apache Tomcat"
-    ;;
-    scripts)
-      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
-        | grep -q "Apache Tomcat/10"
     ;;
   esac

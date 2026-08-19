@@ -8,7 +8,7 @@ essential:
 # /usr/share/tomcat10/bin/bootstrap.jar
 
 slices:
-  scripts:
+  core:
     essential:
       coreutils_delaying:
       coreutils_directory-listing:
@@ -72,9 +72,9 @@ slices:
       /usr/share/tomcat10/lib/tomcat-i18n-ru.jar:
 
   # additional shell scripts
-  extra-scripts:
+  scripts:
     essential:
-      tomcat10-common_scripts:
+      tomcat10-common_core:
     contents:
       /usr/share/tomcat10/bin/ciphers.sh:
       /usr/share/tomcat10/bin/configtest.sh:
