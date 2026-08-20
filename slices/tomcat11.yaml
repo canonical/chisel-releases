@@ -6,7 +6,7 @@ essential:
 slices:
   core:
     essential:
-      tomcat11-common_scripts:
+      tomcat11-common_catalina:
     contents:
       /etc/tomcat11/Catalina/:
       /etc/tomcat11/catalina.properties:
@@ -39,7 +39,7 @@ slices:
 
   dev:
     essential:
-      tomcat11-common_extra-scripts:
+      tomcat11-common_scripts:
       tomcat11_standard:
 
   copyright:
