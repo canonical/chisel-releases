@@ -1,7 +1,8 @@
 summary: Integration tests for tomcat10-common
 
 environment:
-  SLICE/core: "core"
+  SLICE/catalina: "catalina"
+  SLICE/setclasspath: "setclasspath"
   SLICE/scripts: "scripts"
 
 restore: |
@@ -23,9 +24,16 @@ execute: |
   export CATALINA_BASE="/var/lib/tomcat10"
 
   case ${SLICE} in
-    core)
+    catalina)
       chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
         | grep -q "Apache Tomcat/10"
+    ;;
+    setclasspath)
+      # no output here, script succeeds
+      chroot "$rootfs" /usr/share/tomcat10/bin/setclasspath.sh
+      unset JAVA_HOME
+      chroot "$rootfs" /usr/share/tomcat10/bin/setclasspath.sh \
+       | grep -q "Neither the JAVA_HOME nor the JRE_HOME environment variable is defined"
     ;;
     scripts)
       chroot "$rootfs" /usr/share/tomcat10/bin/ciphers.sh \

@@ -6,7 +6,7 @@ essential:
 slices:
   core:
     essential:
-      tomcat10-common_core:
+      tomcat10-common_catalina:
     contents:
       /etc/tomcat10/Catalina/:
       /etc/tomcat10/catalina.properties:

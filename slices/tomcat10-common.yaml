@@ -8,7 +8,7 @@ essential:
 # /usr/share/tomcat10/bin/bootstrap.jar
 
 slices:
-  core:
+  catalina:
     essential:
       coreutils_delaying:
       coreutils_directory-listing:
@@ -26,8 +26,16 @@ slices:
       grep_bins:
       procps_bins:
       tomcat10-common_jars:
+      tomcat10-common_setclasspath:
     contents:
       /usr/share/tomcat10/bin/catalina.sh:
+
+  setclasspath:
+    essential:
+      coreutils_dirname:
+      dash_bins:
+      debianutils_which:
+    contents:
       /usr/share/tomcat10/bin/setclasspath.sh:
 
   jars:
@@ -74,7 +82,8 @@ slices:
   # additional shell scripts
   scripts:
     essential:
-      tomcat10-common_core:
+      tomcat10-common_catalina:
+      tomcat10-common_setclasspath:
     contents:
       /usr/share/tomcat10/bin/ciphers.sh:
       /usr/share/tomcat10/bin/configtest.sh:
