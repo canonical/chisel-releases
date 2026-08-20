@@ -35,6 +35,7 @@ slices:
       coreutils_dirname:
       dash_bins:
       debianutils_which:
+      tomcat10-common_jars:
     contents:
       /usr/share/tomcat10/bin/setclasspath.sh:
 
