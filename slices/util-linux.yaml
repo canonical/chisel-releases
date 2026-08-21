@@ -146,7 +146,6 @@ slices:
     essential:
       libc6_libs:
       libcrypt1_libs:
-      liblastlog2-2_libs:
       libselinux1_libs:
       libsmartcols1_libs:
       libsystemd0_libs:
