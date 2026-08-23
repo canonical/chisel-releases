@@ -5,14 +5,26 @@
 # Usage: install-slices [<slice>...]
 # Returns the path of the chiselled rootfs
 
+# Rootfs'es share one directory so that clean-rootfs can sweep them between tasks.
+_ROOTFS_DIR=/tmp/chisel-rootfs
+
+_OUTPUT="$(mktemp)"
+trap 'rm -f "$_OUTPUT"' EXIT
+
 function main() {
     local slices="$*"
     # add base-files_chisel slice to ensure we generate the manifest
     slices="${slices} base-files_chisel"
 
-    local rootfs="$(mktemp -d)"
+    # chrooted daemons that drop privileges need the path to stay traversable
+    #shellcheck disable=SC2174 # the parent always exists, only the leaf is created
+    mkdir -p -m 755 "$_ROOTFS_DIR"
+
+    local rootfs="$(mktemp -d -p "$_ROOTFS_DIR")"
     chisel_cut "$rootfs" "$slices"
-    [ -n "$MANIFESTS_EXPORT_DIR" ] && export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
+    if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
+        export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
+    fi
 
     echo "${rootfs}"
 }
@@ -50,7 +62,6 @@ function chisel_cut() {
     local n_retries=3
     local attempt
 
-    local output=$(mktemp)
     for ((attempt=1; attempt<=n_retries; attempt++)); do
         #shellcheck disable=SC2086
         chisel cut \
@@ -59,12 +70,12 @@ function chisel_cut() {
             --release "$PROJECT_PATH" \
             --root "$rootfs" \
             $slices \
-            2>&1 | tee "$output" >&2
+            2>&1 | tee "$_OUTPUT" >&2
         [[ "${PIPESTATUS[0]}" -eq 0 ]] && break
 
         local matched=""
         for pattern in "${_PATTERNS_TO_RETRY[@]}"; do
-            if grep -q "$pattern" "$output"; then
+            if grep -q "$pattern" "$_OUTPUT"; then
                 matched="$pattern"
                 break
             fi
