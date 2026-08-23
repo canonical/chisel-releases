@@ -147,8 +147,6 @@ slices:
       libc6_libs:
       libcrypt1_libs:
       libselinux1_libs:
-      libsmartcols1_libs:
-      libsystemd0_libs:
     contents:
       /usr/sbin/sulogin:
 
