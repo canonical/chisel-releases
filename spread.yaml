@@ -125,6 +125,8 @@ prepare: |
   tar -xf "$tarball" -C /usr/local/bin
 
 prepare-each: chisel version
+# One instance serves every task of a run, so rootfs'es have to go as they finish.
+restore-each: clean-rootfs
 
 suites:
   tests/spread/integration/:

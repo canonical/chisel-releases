@@ -1,0 +1,71 @@
+#!/bin/bash -e
+# spellchecker: ignore rootfs
+
+# Removes chiselled rootfs'es created by install-slices, freeing the disk they
+# take up. Called between tasks by the restore-each hook in spread.yaml; tests
+# that cut several large rootfs'es can also call it on ones they are done with.
+# Usage: clean-rootfs [<rootfs>...]
+# With no arguments, every rootfs in the directory install-slices uses is removed.
+
+# Must match install-slices.
+_ROOTFS_DIR=/tmp/chisel-rootfs
+
+function main() {
+    local rootfs
+
+    if [ "$#" -gt 0 ]; then
+        for rootfs in "$@"; do
+            remove_rootfs "$rootfs"
+        done
+        return
+    fi
+
+    [ -d "$_ROOTFS_DIR" ] || return 0
+    while IFS= read -r rootfs; do
+        remove_rootfs "$rootfs"
+    done < <(find "$_ROOTFS_DIR" -mindepth 1 -maxdepth 1)
+}
+
+function remove_rootfs() {
+    # trailing slashes would read as a nested path to the guard below
+    local rootfs="${1%"${1##*[!/]}"}"
+
+    # install-slices only ever creates direct children; anything else is not ours
+    case "${rootfs#"$_ROOTFS_DIR"/}" in
+        "$rootfs" | "" | . | .. | */*)
+            echo "Error: refusing to remove '$1', which is not a rootfs in $_ROOTFS_DIR" >&2
+            exit 1
+            ;;
+    esac
+    [ -e "$rootfs" ] || return 0
+
+    unmount_all "$rootfs"
+    if [ -n "$(mounts_under "$rootfs")" ]; then
+        echo "Warning: $rootfs still has mounts under it, leaving it in place" >&2
+        return 0
+    fi
+
+    # a non-zero exit here would fail the restore hook, and spread gives up on
+    # every remaining task of the run when that happens
+    rm -rf -- "$rootfs" || echo "Warning: could not remove $rootfs" >&2
+}
+
+# Tests bind-mount /proc, /dev and friends into their rootfs and do not all unmount
+# on the way out; `rm -rf` over a live bind mount deletes the host's copy.
+function unmount_all() {
+    local rootfs="$1"
+    local mountpoint
+
+    # deepest first, so a mount is gone before the one holding it
+    while IFS= read -r mountpoint; do
+        umount --lazy "$mountpoint" || true
+    done < <(mounts_under "$rootfs" | sort -r)
+}
+
+function mounts_under() {
+    local rootfs="$1"
+    awk -v root="$rootfs" -v prefix="$rootfs/" \
+        '$2 == root || index($2, prefix) == 1 { print $2 }' /proc/self/mounts
+}
+
+main "$@"
