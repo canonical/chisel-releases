@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for coding agents working in this repository. The authoritative contributor documentation is [CONTRIBUTING.md](./CONTRIBUTING.md).
+The authoritative contributor documentation is [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Repository layout
 
