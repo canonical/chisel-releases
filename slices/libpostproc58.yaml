@@ -1,0 +1,16 @@
+package: libpostproc58
+
+essential:
+  libpostproc58_copyright:
+
+slices:
+  libs:
+    essential:
+      libavutil59_libs:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libpostproc.so.58*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpostproc58/copyright:

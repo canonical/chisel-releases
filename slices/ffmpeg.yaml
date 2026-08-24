@@ -1,0 +1,33 @@
+package: ffmpeg
+
+essential:
+  ffmpeg_copyright:
+
+slices:
+  bins:
+    essential:
+      libavcodec62_libs:
+      libavdevice62_libs:
+      libavfilter11_libs:
+      libavformat62_libs:
+      libavutil60_libs:
+      libc6_libs:
+      libplacebo360_libs:
+      libsdl2-2.0-0_libs:
+      libswresample6_libs:
+      libswscale9_libs:
+      zlib1g_libs:
+    contents:
+      /usr/bin/ffmpeg:
+      /usr/bin/ffplay:
+      /usr/bin/ffprobe:
+      /usr/bin/qt-faststart:
+
+  conf:
+    contents:
+      /usr/share/ffmpeg/*.ffpreset:
+      /usr/share/ffmpeg/ffprobe.xsd:
+
+  copyright:
+    contents:
+      /usr/share/doc/ffmpeg/copyright:
