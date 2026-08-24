@@ -1,7 +1,7 @@
-package: libsimdjson29
+package: libsimdjson33
 
 essential:
-  libsimdjson29_copyright:
+  libsimdjson33_copyright:
 
 slices:
   libs:
@@ -10,8 +10,8 @@ slices:
       libgcc-s1_libs:
       libstdc++6_libs:
     contents:
-      /usr/lib/*-linux-*/libsimdjson.so.29*:
+      /usr/lib/*-linux-*/libsimdjson.so.33*:
 
   copyright:
     contents:
-      /usr/share/doc/libsimdjson29/copyright:
+      /usr/share/doc/libsimdjson33/copyright:
