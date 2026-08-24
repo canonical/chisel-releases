@@ -5,6 +5,8 @@ path: /chisel-releases
 environment:
   PROJECT_PATH: /chisel-releases
   SHARED_LIBRARIES: $PROJECT_PATH/tests/spread/lib
+  # Rootfs'es share one directory so that clean-rootfs can sweep them between tasks.
+  ROOTFS_DIR: /tmp/chisel-rootfs
   PATH: /snap/bin:$PATH:$SHARED_LIBRARIES
   MANIFESTS_EXPORT_DIR: $(HOST:echo "${MANIFESTS_EXPORT_DIR:-/usr/share/manifests}")
 
