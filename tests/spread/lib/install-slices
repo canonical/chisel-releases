@@ -22,7 +22,8 @@ function main() {
     #shellcheck disable=SC2174 # the parent always exists, only the leaf is created
     mkdir -p -m 755 "$ROOTFS_DIR"
 
-    local rootfs="$(mktemp -d -p "$ROOTFS_DIR")"
+    local rootfs
+    rootfs="$(mktemp -d -p "$ROOTFS_DIR")"
     chisel_cut "$rootfs" "$slices"
     if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
         export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
