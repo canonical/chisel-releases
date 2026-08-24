@@ -3,9 +3,9 @@
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "aarch64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "s390x" || "$arch" == "x86_64" ]]; then
     cross=true
-elif [[ "$arch" == "x86_64" ]]; then
+elif [[ "$arch" == "ppc64le" ]]; then
     cross=false
 else
     echo "Unsupported architecture: $arch"
@@ -15,25 +15,25 @@ fi
 # prepare separate rootfs with cc1, as and ld
 rootfs_cc="$(install-slices \
     base-files_bin \
-    cpp-14-x86-64-linux-gnu_cc1 \
+    cpp-14-powerpc64le-linux-gnu_cc1 \
     libc6-dev_headers \
 )"
 rootfs_as="$(install-slices \
-    binutils-x86-64-linux-gnu_assembler \
+    binutils-powerpc64le-linux-gnu_assembler \
 )"
 rootfs_ld="$(install-slices \
-    binutils-x86-64-linux-gnu_linker \
+    binutils-powerpc64le-linux-gnu_linker \
     libc6-dev_core \
 )"
 
 if $cross; then
-    ln -s "/usr/libexec/gcc-cross/x86_64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
-    ln -s "x86_64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
-    ln -s "x86_64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
+    ln -s "/usr/libexec/gcc-cross/powerpc64le-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "powerpc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
+    ln -s "powerpc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 else
-    ln -s "/usr/libexec/gcc/x86_64-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
-    ln -s "x86_64-linux-gnu-as" "${rootfs_as}/usr/bin/as"
-    ln -s "x86_64-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
+    ln -s "/usr/libexec/gcc/powerpc64le-linux-gnu/14/cc1" "${rootfs_cc}/usr/bin/cc1"
+    ln -s "powerpc64le-linux-gnu-as" "${rootfs_as}/usr/bin/as"
+    ln -s "powerpc64le-linux-gnu-ld" "${rootfs_ld}/usr/bin/ld"
 fi
 
 cp hello.c "${rootfs_cc}/hello.c"
@@ -43,10 +43,12 @@ if $cross; then
     :
 else
     # compile
+    # NOTE: uname -m reports ppc64le, but the multiarch triplet is
+    #       powerpc64le-linux-gnu, so the include/lib paths cannot use $arch.
     chroot "${rootfs_cc}" cc1 hello.c \
         -o hello.s \
         -Wno-implicit-function-declaration \
-        -I "/usr/include/$arch-linux-gnu" \
+        -I "/usr/include/powerpc64le-linux-gnu" \
         -I "/usr/include/linux"
 
     # assemble
@@ -60,9 +62,9 @@ else
     chroot "${rootfs_ld}" ld -o hello hello.o \
         -dynamic-linker "${linker_lib}" \
         -lc \
-        /usr/lib/"$arch"-linux-gnu/crt1.o \
-        /usr/lib/"$arch"-linux-gnu/crti.o \
-        /usr/lib/"$arch"-linux-gnu/crtn.o
+        /usr/lib/powerpc64le-linux-gnu/crt1.o \
+        /usr/lib/powerpc64le-linux-gnu/crti.o \
+        /usr/lib/powerpc64le-linux-gnu/crtn.o
 
     # run
     chroot "${rootfs_ld}" /hello | grep -q "Hello, world!"
