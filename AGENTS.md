@@ -2,7 +2,7 @@
 
 Guidance for coding agents working on this Chisel release branch.
 
-Guidance for contributors can be found at [CONTRIBUTING.md](https://github.com/canonical/chisel-releases/blob/main/CONTRIBUTING.md). on `main`.
+Guidance for contributors can be found at [CONTRIBUTING.md](https://github.com/canonical/chisel-releases/blob/main/CONTRIBUTING.md) on `main`.
 
 ## Repository layout
 
