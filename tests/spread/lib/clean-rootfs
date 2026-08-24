@@ -5,7 +5,8 @@
 # take up. Called between tasks by the restore-each hook in spread.yaml; tests
 # that cut several large rootfs'es can also call it on ones they are done with.
 # Usage: clean-rootfs [<rootfs>...]
-# With no arguments, every rootfs in $ROOTFS_DIR is removed.
+# Each argument has to be a path install-slices returned; anything else is
+# ignored. With no arguments, every rootfs in $ROOTFS_DIR is removed.
 
 if [ -z "${ROOTFS_DIR:-}" ]; then
     echo "Error: ROOTFS_DIR is not set" >&2
@@ -13,33 +14,29 @@ if [ -z "${ROOTFS_DIR:-}" ]; then
 fi
 
 function main() {
-    local rootfs
+    local rootfs target
 
-    if [ "$#" -gt 0 ]; then
-        for rootfs in "$@"; do
+    for rootfs in "$ROOTFS_DIR"/*; do
+        # an unmatched glob expands to itself
+        [ -e "$rootfs" ] || continue
+
+        if [ "$#" -eq 0 ]; then
             remove_rootfs "$rootfs"
-        done
-        return
-    fi
+            continue
+        fi
 
-    [ -d "$ROOTFS_DIR" ] || return 0
-    while IFS= read -r rootfs; do
-        remove_rootfs "$rootfs"
-    done < <(find "$ROOTFS_DIR" -mindepth 1 -maxdepth 1)
+        for target in "$@"; do
+            if [ "$target" = "$rootfs" ]; then
+                # rootfs is from /* glob. rm only sees paths under ROOTFS_DIR
+                remove_rootfs "$rootfs"
+                break
+            fi
+        done
+    done
 }
 
 function remove_rootfs() {
-    # trailing slashes would read as a nested path to the guard below
-    local rootfs="${1%"${1##*[!/]}"}"
-
-    # install-slices only ever creates direct children; anything else is not ours
-    case "${rootfs#"$ROOTFS_DIR"/}" in
-        "$rootfs" | "" | . | .. | */*)
-            echo "Error: refusing to remove '$1', which is not a rootfs in $ROOTFS_DIR" >&2
-            exit 1
-            ;;
-    esac
-    [ -e "$rootfs" ] || return 0
+    local rootfs="$1"
 
     unmount_all "$rootfs"
     if [ -n "$(mounts_under "$rootfs")" ]; then
@@ -47,7 +44,7 @@ function remove_rootfs() {
         return 0
     fi
 
-    # a non-zero exit here would fail the restore hook, and spread gives up on
+    # non-zero exit here would fail the restore hook, and spread gives up on
     # every remaining task of the run when that happens
     rm -rf -- "$rootfs" || echo "Warning: could not remove $rootfs" >&2
 }
