@@ -5,8 +5,10 @@
 # Usage: install-slices [<slice>...]
 # Returns the path of the chiselled rootfs
 
-# Rootfs'es share one directory so that clean-rootfs can sweep them between tasks.
-_ROOTFS_DIR=/tmp/chisel-rootfs
+if [ -z "${ROOTFS_DIR:-}" ]; then
+    echo "Error: ROOTFS_DIR is not set" >&2
+    exit 1
+fi
 
 _OUTPUT="$(mktemp)"
 trap 'rm -f "$_OUTPUT"' EXIT
@@ -18,9 +20,9 @@ function main() {
 
     # chrooted daemons that drop privileges need the path to stay traversable
     #shellcheck disable=SC2174 # the parent always exists, only the leaf is created
-    mkdir -p -m 755 "$_ROOTFS_DIR"
+    mkdir -p -m 755 "$ROOTFS_DIR"
 
-    local rootfs="$(mktemp -d -p "$_ROOTFS_DIR")"
+    local rootfs="$(mktemp -d -p "$ROOTFS_DIR")"
     chisel_cut "$rootfs" "$slices"
     if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
         export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
