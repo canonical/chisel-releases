@@ -1,12 +1,6 @@
 summary: Integration tests for RabbitMQ
 
 execute: |
-  # TODO: skipped on ppc64el, where the detached server never finishes booting
-  if [ "$(uname -m)" = "ppc64le" ]; then
-    echo "Skipping: RabbitMQ server does not come up on ppc64el"
-    exit 0
-  fi
-
   # For this test we also need libc-bin_getconf
   slices="rabbitmq-server_bins libc-bin_getconf"
   rootfs="$(install-slices ${slices})"
@@ -23,7 +17,7 @@ execute: |
   # Server test
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status || echo "RabbitMQ not running"
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmq-server -detached
-  sleep 10
+  chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl await_startup --timeout 120
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status && echo "RabbitMQ is running now!"
 
 restore: |
