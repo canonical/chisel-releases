@@ -1,15 +1,11 @@
 summary: Integration tests for RabbitMQ
 
 execute: |
-  # These tests only run for amd64 and arm64
-  arch="$(uname -m)"
-  case "$arch" in
-    x86_64|aarch64) ;;
-    *)
-      echo "Skipping: RabbitMQ server is supported only on amd64 and arm64"
-      exit 0
-      ;;
-  esac
+  # TODO: skipped on ppc64el, where the detached server never finishes booting
+  if [ "$(uname -m)" = "ppc64le" ]; then
+    echo "Skipping: RabbitMQ server does not come up on ppc64el"
+    exit 0
+  fi
 
   # For this test we also need libc-bin_getconf
   slices="rabbitmq-server_bins libc-bin_getconf"
