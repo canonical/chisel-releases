@@ -1,8 +1,6 @@
 # AGENTS.md
 
-Guidance for coding agents working on Chisel releases.
-
-Guidance for contributors can be found at [CONTRIBUTING.md](./CONTRIBUTING.md).
+The authoritative contributor documentation is [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ## Repository layout
 
