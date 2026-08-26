@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs miri resolv
 
-rootfs="$(install-slices rust-1.93-miri_cargo-miri cargo-1.93_cargo ca-certificates_data)"
+rootfs="$(install-slices rust-1.93-miri_cargo-miri ca-certificates_data)"
 
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"

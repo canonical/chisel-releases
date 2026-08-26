@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs miri resolv
 
-rootfs="$(install-slices rust-miri_cargo-miri cargo_cargo ca-certificates_data)"
+rootfs="$(install-slices rust-miri_cargo-miri ca-certificates_data)"
 
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
@@ -16,6 +16,6 @@ mount --bind /proc "$rootfs/proc"
 trap "umount '$rootfs/proc'" EXIT
 
 # Create a simple project and run it under Miri
-chroot "$rootfs" cargo new /hello_miri --bin --vcs none
+chroot "$rootfs" cargo-1.93 new /hello_miri --bin --vcs none
 chroot "$rootfs" /bin/sh -c 'cd /hello_miri && cargo-unstable-miri run' |
   grep -Fq "Hello, world!"
