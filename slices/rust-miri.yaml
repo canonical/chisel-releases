@@ -1,0 +1,15 @@
+package: rust-miri
+
+essential:
+  rust-miri_copyright:
+
+slices:
+  cargo-miri:
+    essential:
+      rust-1.93-miri_cargo-miri:
+    contents:
+      /usr/bin/cargo-unstable-miri:  # symlink to cargo-1.93-unstable-miri
+
+  copyright:
+    contents:
+      /usr/share/doc/rust-miri/copyright:
