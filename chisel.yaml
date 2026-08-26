@@ -1,4 +1,4 @@
-format: v3
+format: v4
 
 maintenance:
   standard: 2026-10-15
@@ -46,3 +46,9 @@ public-keys:
       uOgcXny1UlwtCUzlrSaP
       =9AdM
       -----END PGP PUBLIC KEY BLOCK-----
+
+stores:
+  bin:
+    kind: bin
+    version: 26.10
+    default-prefix: bin-
