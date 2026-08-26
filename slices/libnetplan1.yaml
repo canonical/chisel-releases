@@ -1,0 +1,18 @@
+package: libnetplan1
+
+essential:
+  - libnetplan1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libglib2.0-0t64_libs
+      - libuuid1_libs
+      - libyaml-0-2_libs
+    contents:
+      /usr/lib/*-linux-*/libnetplan.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnetplan1/copyright:
