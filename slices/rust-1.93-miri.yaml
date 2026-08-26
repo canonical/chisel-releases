@@ -6,6 +6,8 @@ essential:
 slices:
   cargo-miri:
     essential:
+      # /usr/bin/cargo-1.93-unstable-miri is a /bin/sh script, so we need
+      # /bin from base-files_bin and sh from dash_bins
       base-files_bin:
       cargo-1.93_cargo:
       dash_bins:
