@@ -3,5 +3,6 @@ summary: Integration tests for rust-miri
 variants:
     - help_and_version
     - run
+    - ub
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
