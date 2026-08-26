@@ -1,0 +1,22 @@
+summary: Integration tests for udev
+
+execute: |
+  rootfs="$(install-slices udev_generator)"
+
+  # we need proc mounted
+  mkdir -p "${rootfs}/proc"
+  mount --bind /proc "${rootfs}/proc"
+
+  # Ensure the generator runs with the minimum needed deps
+  chroot "${rootfs}/" /usr/bin/systemd-hwdb --usr update
+
+  # ensure file was generated
+  stat "${rootfs}/usr/lib/udev/hwdb.bin"
+
+  # test the udevadm binary by having it verify all the rules
+  rootfs="$(install-slices udev_bins)"
+  chroot "${rootfs}/" /usr/bin/udevadm verify | grep "udev rules files have been checked"
+
+  # smoke-test the systemd-udevd binary
+  rootfs="$(install-slices udev_systemd-udevd)"
+  chroot "${rootfs}/" /usr/lib/systemd/systemd-udevd --version
