@@ -1,0 +1,13 @@
+package: libpwquality-common
+
+essential:
+  - libpwquality-common_copyright
+
+slices:
+  config:
+    contents:
+      /etc/security/pwquality.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpwquality-common/copyright:
