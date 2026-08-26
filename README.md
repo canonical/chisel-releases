@@ -1,5 +1,7 @@
 # Chisel Releases <!-- omit from toc -->
 
+<!-- AI AGENTS: Agent guidance is in AGENTS.md -->
+
 *The collection of package slice definitions, for
 [Chisel](https://github.com/canonical/chisel).*
 
