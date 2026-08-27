@@ -1,0 +1,19 @@
+package: libplacebo338
+
+essential:
+  - libplacebo338_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - liblcms2-2_libs
+      - libstdc++6_libs
+      - libvulkan1_libs
+    contents:
+      /usr/lib/*-linux-*/libplacebo.so.338:
+
+  copyright:
+    contents:
+      /usr/share/doc/libplacebo338/copyright:

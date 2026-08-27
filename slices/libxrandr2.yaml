@@ -11,7 +11,7 @@ slices:
       - libxext6_libs
       - libxrender1_libs
     contents:
-      /usr/lib/*-linux-*/libXrandr.so.2*:
+      /usr/lib/*-linux-*/libXrandr.so*:
 
   copyright:
     contents:

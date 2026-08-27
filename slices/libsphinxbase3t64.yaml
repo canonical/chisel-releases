@@ -1,0 +1,29 @@
+package: libsphinxbase3t64
+
+essential:
+  - libsphinxbase3t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libsphinxbase3t64_sphinxad
+      - libsphinxbase3t64_sphinxbase
+
+  sphinxad:
+    essential:
+      - libc6_libs
+      - libpulse0_libs
+    contents:
+      /usr/lib/*-linux-*/libsphinxad.so.3*:
+
+  sphinxbase:
+    essential:
+      - libblas3_libs
+      - libc6_libs
+      - liblapack3_libs
+    contents:
+      /usr/lib/*-linux-*/libsphinxbase.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsphinxbase3t64/copyright:
