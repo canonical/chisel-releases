@@ -1,0 +1,87 @@
+package: libtomcat11-java
+
+essential:
+  libtomcat11-java_copyright:
+
+slices:
+  i18n:
+    contents:
+      /usr/share/java/tomcat11-i18n-cs-11*.jar:
+      /usr/share/java/tomcat11-i18n-cs.jar:
+      /usr/share/java/tomcat11-i18n-de-11*.jar:
+      /usr/share/java/tomcat11-i18n-de.jar:
+      /usr/share/java/tomcat11-i18n-es-11*.jar:
+      /usr/share/java/tomcat11-i18n-es.jar:
+      /usr/share/java/tomcat11-i18n-fr-11*.jar:
+      /usr/share/java/tomcat11-i18n-fr.jar:
+      /usr/share/java/tomcat11-i18n-ja-11*.jar:
+      /usr/share/java/tomcat11-i18n-ja.jar:
+      /usr/share/java/tomcat11-i18n-ko-11*.jar:
+      /usr/share/java/tomcat11-i18n-ko.jar:
+      /usr/share/java/tomcat11-i18n-pt-BR-11*.jar:
+      /usr/share/java/tomcat11-i18n-pt-BR.jar:
+      /usr/share/java/tomcat11-i18n-ru-11*.jar:
+      /usr/share/java/tomcat11-i18n-ru.jar:
+      /usr/share/java/tomcat11-i18n-zh-CN-11*.jar:
+      /usr/share/java/tomcat11-i18n-zh-CN.jar:
+
+  jars:
+    essential:
+      libeclipse-jdt-core-java_jars:
+    contents:
+      /usr/share/java/tomcat11-annotations-api-11*.jar:
+      /usr/share/java/tomcat11-annotations-api.jar:
+      /usr/share/java/tomcat11-api-11*.jar:
+      /usr/share/java/tomcat11-api.jar:
+      /usr/share/java/tomcat11-catalina-11*.jar:
+      /usr/share/java/tomcat11-catalina-ha-11*.jar:
+      /usr/share/java/tomcat11-catalina-ha.jar:
+      /usr/share/java/tomcat11-catalina.jar:
+      /usr/share/java/tomcat11-coyote-11*.jar:
+      /usr/share/java/tomcat11-coyote.jar:
+      /usr/share/java/tomcat11-dbcp-11*.jar:
+      /usr/share/java/tomcat11-dbcp.jar:
+      /usr/share/java/tomcat11-el-api-11*.jar:
+      /usr/share/java/tomcat11-el-api.jar:
+      /usr/share/java/tomcat11-jasper-11*.jar:
+      /usr/share/java/tomcat11-jasper-el-11*.jar:
+      /usr/share/java/tomcat11-jasper-el.jar:
+      /usr/share/java/tomcat11-jasper.jar:
+      /usr/share/java/tomcat11-jaspic-api-11*.jar:
+      /usr/share/java/tomcat11-jaspic-api.jar:
+      /usr/share/java/tomcat11-jdbc-11*.jar:
+      /usr/share/java/tomcat11-jdbc.jar:
+      /usr/share/java/tomcat11-jni-11*.jar:
+      /usr/share/java/tomcat11-jni.jar:
+      /usr/share/java/tomcat11-jsp-api-11*.jar:
+      /usr/share/java/tomcat11-jsp-api.jar:
+      /usr/share/java/tomcat11-juli-11*.jar:
+      /usr/share/java/tomcat11-juli.jar:
+      /usr/share/java/tomcat11-servlet-api-11*.jar:
+      /usr/share/java/tomcat11-servlet-api.jar:
+      /usr/share/java/tomcat11-storeconfig-11*.jar:
+      /usr/share/java/tomcat11-storeconfig.jar:
+      /usr/share/java/tomcat11-tribes-11*.jar:
+      /usr/share/java/tomcat11-tribes.jar:
+      /usr/share/java/tomcat11-util-11*.jar:
+      /usr/share/java/tomcat11-util-scan-11*.jar:
+      /usr/share/java/tomcat11-util-scan.jar:
+      /usr/share/java/tomcat11-util.jar:
+      /usr/share/java/tomcat11-websocket-11*.jar:
+      /usr/share/java/tomcat11-websocket-api-11*.jar:
+      /usr/share/java/tomcat11-websocket-api.jar:
+      /usr/share/java/tomcat11-websocket-client-api-11*.jar:
+      /usr/share/java/tomcat11-websocket-client-api.jar:
+      /usr/share/java/tomcat11-websocket.jar:
+
+  copyright:
+    contents:
+      /usr/share/doc/libtomcat11-java/copyright:
+
+#  Will be needed for tomcat11-admin package slices
+#  ant:
+#    essential:
+#      libtomcat11-java_jars:
+#    contents:
+#      /usr/share/java/tomcat11-catalina-ant-10*.jar:
+#      /usr/share/java/tomcat11-catalina-ant.jar:
