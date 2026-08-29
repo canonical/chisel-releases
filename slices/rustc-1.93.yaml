@@ -16,6 +16,15 @@ slices:
       /usr/bin/rustc-1.93:  # symlink to ../rust-1.93/bin/rustc
       /usr/lib/rust-1.93/bin/rustc:
 
+  rustdoc:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstd-rust-1.93-dev_libs:
+    contents:
+      /usr/bin/rustdoc-1.93:  # symlink to ../lib/rust-1.93/bin/rustdoc
+      /usr/lib/rust-1.93/bin/rustdoc:
+
   copyright:
     contents:
       /usr/share/doc/rustc-1.93/copyright:

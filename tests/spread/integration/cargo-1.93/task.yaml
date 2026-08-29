@@ -1,6 +1,7 @@
 summary: Integration tests for cargo-1.93
 
 variants:
+    - doc
     - eza
     - hello_crate
     - hello
