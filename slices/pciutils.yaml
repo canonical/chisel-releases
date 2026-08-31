@@ -1,0 +1,23 @@
+package: pciutils
+
+essential:
+  pciutils_copyright:
+
+slices:
+  # update-pciids is left out: it refreshes /usr/share/misc/pci.ids from
+  # pci-ids.ucw.cz, so it needs a writable rootfs plus curl, wget or lynx --
+  # it exits with an error otherwise, and none of those are Depends of this deb.
+  bins:
+    hint: PCI bus inspection utilities
+    essential:
+      libc6_libs:
+      libkmod2_libs:
+      libpci3_libs:
+    contents:
+      /usr/bin/lspci:
+      /usr/bin/pcilmr:
+      /usr/bin/setpci:
+
+  copyright:
+    contents:
+      /usr/share/doc/pciutils/copyright:
