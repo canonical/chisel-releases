@@ -1,32 +1,44 @@
 summary: Integration tests for rsyslog
 
 execute: |
+  rootfs="$(install-slices base-files_tmp base-passwd_data rsyslog_bins rsyslog_data)"
 
-  # rsyslog daemon: start with the default config, send a log message via
-  # /dev/log, and verify it is written to /var/log/syslog.
-  rootfs="$(install-slices rsyslog_bins rsyslog_data base-passwd_data)"
+  chroot "${rootfs}" /usr/sbin/rsyslogd -v | grep -q "^rsyslogd"
 
-  # Create syslog user/group (normally done by postinst via adduser)
+  # /etc/rsyslog.conf drops privileges to syslog:syslog and creates its files
+  # as syslog:adm. adduser gives the package that account from postinst, which
+  # a chiselled rootfs never runs.
   echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
   echo "syslog:x:101:" >> "${rootfs}/etc/group"
 
-  # Set up /var/log permissions (normally done by postinst)
-  chgrp syslog "${rootfs}/var/log"
-  chmod g+w "${rootfs}/var/log"
-
-  # Bind-mount host /dev so rsyslogd has /dev/null and can create /dev/log
+  # rsyslogd points its standard streams at /dev/null when it daemonises
   mkdir -p "${rootfs}/dev"
   mount --bind /dev "${rootfs}/dev"
-  trap "pkill -x rsyslogd; umount ${rootfs}/dev || true" EXIT
+  trap 'pkill -x rsyslogd || true; umount "${rootfs}/dev" || true' EXIT
 
-  # Start daemon with the default config
-  chroot "$rootfs" /usr/sbin/rsyslogd -iNONE
-  sleep 1
+  # The shipped configuration, /etc/rsyslog.d/50-default.conf included, has to
+  # be loadable: a validation run dlopen's every module it pulls in and rejects
+  # a $WorkDirectory or a privilege drop target that is not there.
+  chroot "${rootfs}" /usr/sbin/rsyslogd -N1 -f /etc/rsyslog.conf
 
-  # Send a syslog message via the /dev/log Unix socket
-  logger -u "${rootfs}/dev/log" "chisel-test: hello from chisel"
-  sleep 1
-  pkill -x rsyslogd
+  # A message has to survive the trip from a Unix socket to a log file.
+  cp test.conf "${rootfs}/tmp/test.conf"
+  chroot "${rootfs}" /usr/sbin/rsyslogd -iNONE -f /tmp/test.conf
 
-  # Verify the message was logged
-  grep -Fq "chisel-test: hello from chisel" "${rootfs}/var/log/syslog"
+  for _ in $(seq 30); do
+    if [ -S "${rootfs}/tmp/rsyslog-test.sock" ]; then
+      break
+    fi
+    sleep 1
+  done
+
+  logger --socket "${rootfs}/tmp/rsyslog-test.sock" "hello-from-chisel"
+
+  for _ in $(seq 30); do
+    if [ -s "${rootfs}/tmp/rsyslog-test.log" ]; then
+      break
+    fi
+    sleep 1
+  done
+
+  grep -Fq "hello-from-chisel" "${rootfs}/tmp/rsyslog-test.log"

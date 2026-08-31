@@ -1,56 +1,39 @@
 summary: Integration tests for rsyslog-relp
 
 execute: |
-  # Start rsyslogd with imrelp listening on a TCP port, send a log message 
-  # via the RELP protocol, and verify it is written to a log file.
-  rootfs="$(install-slices rsyslog_bins rsyslog_data base-passwd_data rsyslog-relp_modules)"
+  # imrelp.so and omrelp.so are dlopen'ed by rsyslogd, so the only meaningful
+  # check is a message actually travelling over RELP. relp.conf wires a plain
+  # TCP listener to omrelp and imrelp to a file, both in one rsyslogd.
+  rootfs="$(install-slices base-files_tmp rsyslog-relp_modules rsyslog_bins)"
 
-  # Create syslog user/group (normally done by postinst via adduser)
-  echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
-  echo "syslog:x:101:" >> "${rootfs}/etc/group"
+  logfile="${rootfs}/tmp/rsyslog-relp-test.log"
+  cp relp.conf "${rootfs}/tmp/relp.conf"
 
-  # Set up /var/log permissions (normally done by postinst)
-  chgrp syslog "${rootfs}/var/log"
-  chmod g+w "${rootfs}/var/log"
-
-  # Bind-mount host /dev so rsyslogd has /dev/null
+  # rsyslogd points its standard streams at /dev/null when it daemonises
   mkdir -p "${rootfs}/dev"
   mount --bind /dev "${rootfs}/dev"
-  trap "pkill -x rsyslogd; umount ${rootfs}/dev || true" EXIT
+  trap 'pkill -x rsyslogd || true; umount "${rootfs}/dev" || true' EXIT
 
-  # Config: load imrelp, listen on port 10514, write all messages to a file
-  cat >"${rootfs}/tmp/test-relp.conf" <<'CONF'
-module(load="imrelp")
-input(type="imrelp" port="10514")
-$PrivDropToUser root
-$PrivDropToGroup root
-$WorkDirectory /var/spool/rsyslog
-*.* /tmp/rsyslog-relp-test.log
-CONF
+  chroot "${rootfs}" /usr/sbin/rsyslogd -iNONE -f /tmp/relp.conf
 
-  # Start daemon
-  chroot "$rootfs" /usr/sbin/rsyslogd -iNONE -f /tmp/test-relp.conf
-  sleep 1
+  # chroot does not isolate the network, so the listener shows up on the host.
+  # The retried write doubles as the readiness probe: it fails until imptcp
+  # binds the port. A complete RFC 3164 header keeps the parser from having to
+  # guess where the hostname ends and the tag begins.
+  for _ in $(seq 30); do
+    if printf '<34>Jan  1 00:00:00 chisel-host relp-test: hello-over-relp\n' \
+        2>/dev/null >/dev/tcp/127.0.0.1/10515; then
+      break
+    fi
+    sleep 1
+  done
 
-  # Send a log message via the RELP protocol using Python.
-  # RELP frame format: "<txnr> <command> <datalen> <data>\n"
-  python3 -c "
-import socket, time
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.settimeout(3)
-s.connect(('127.0.0.1', 10514))
-# RELP open
-s.sendall(b'1 open 6 relp1\n')
-time.sleep(0.5)
-# RELP syslog
-msg = '<34>chisel-relp: hello from chisel\n'
-frame = '2 syslog ' + str(len(msg)) + ' ' + msg
-s.sendall(frame.encode())
-time.sleep(1)
-s.close()
-"
-  sleep 1
-  pkill -x rsyslogd
+  # omrelp opens the RELP session and delivers off the main thread
+  for _ in $(seq 60); do
+    if [ -s "$logfile" ]; then
+      break
+    fi
+    sleep 1
+  done
 
-  # Verify the message was logged
-  grep -Fq "chisel-relp: hello from chisel" "${rootfs}/tmp/rsyslog-relp-test.log"
+  grep -Fq "hello-over-relp" "$logfile"
