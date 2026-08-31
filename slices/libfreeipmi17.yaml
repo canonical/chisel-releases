@@ -1,0 +1,18 @@
+package: libfreeipmi17
+
+essential:
+  libfreeipmi17_copyright:
+
+slices:
+  libs:
+    hint: IPMI protocol library
+    essential:
+      freeipmi-common_config:
+      libc6_libs:
+      libgcrypt20_libs:
+    contents:
+      /usr/lib/*-linux-*/libfreeipmi.so.17*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libfreeipmi17/copyright:
