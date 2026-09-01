@@ -9,6 +9,12 @@ execute: |
   chroot "$rootfs" captoinfo -V 2>&1 | grep -Fiq "ncurses"
   chroot "$rootfs" infotocap -V 2>&1 | grep -Fiq "ncurses"
 
+  # tic compiles a terminfo source into a database; infocmp -A reads it back.
+  mkdir -p "$rootfs/tmp/terminfo"
+  printf 'chiseltest|chisel test terminal,\n\tcols#80, lines#24,\n' > "$rootfs/tmp/chiseltest.ti"
+  chroot "$rootfs" tic -o /tmp/terminfo /tmp/chiseltest.ti
+  chroot "$rootfs" infocmp -A /tmp/terminfo chiseltest | grep -Fq "cols#80"
+
   # infocmp -V prints version; decompile a real entry as a functional check.
   chroot "$rootfs" infocmp -V 2>&1 | grep -Fiq "ncurses"
   chroot "$rootfs" infocmp xterm | grep -Fiq "xterm"
@@ -23,10 +29,11 @@ execute: |
 
   # toe -V prints version; -a lists all available terminfo entries.
   chroot "$rootfs" toe -V 2>&1 | grep -Fiq "ncurses"
-  chroot "$rootfs" toe -a 2>/dev/null | grep -Fiq "xterm"
+  chroot "$rootfs" toe -a | grep -Fiq "xterm"
 
   # tabs -V prints version.
   chroot "$rootfs" tabs -V 2>&1 | grep -Fiq "ncurses"
 
-  # clear has no -V flag; verify the ELF loads correctly via the dynamic linker.
-  head -c4 "$rootfs/usr/bin/clear" | grep -q $'\x7fELF'
+  # clear -V prints version; -T selects a terminal type without needing $TERM.
+  chroot "$rootfs" clear -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" clear -T xterm | grep -aFq $'\e[2J'
