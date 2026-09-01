@@ -28,6 +28,12 @@ fi
 echo -e "Diff of dependencies:" > "$msg_file"
 for f in $@; do
   echo "Processing $f.." >&2
+  # Bin packages are distributed from the store, not from the Ubuntu
+  # archive, so their dependencies cannot be compared with apt depends.
+  if [ "$(yq -r '.store // ""' "$f")" = "bin" ]; then
+    echo "Skipping $f (bin store package, not from the archive).." >&2
+    continue
+  fi
   pkg=$(yq '.package' "$f")
 
   fupstream="$(mktemp)"

@@ -28,16 +28,13 @@ import pathlib
 import subprocess
 import sys
 import tempfile
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from dataclasses import dataclass
 
 import magic
 import requests
 import yaml
-
 from apt.debfile import DebPackage
-from concurrent.futures import ProcessPoolExecutor, as_completed
-from dataclasses import dataclass
-
-
 
 CHISEL_PKG_CACHE = pathlib.Path.home() / ".cache/chisel/sha256"
 
@@ -181,6 +178,33 @@ class Package:
 
     package: str
     slices: list[str]
+    store: str | None = None
+
+    @property
+    def is_bin(self) -> bool:
+        """
+        Whether the package comes from the "bin" store instead of the
+        Ubuntu archive. Bin packages are distributed from the Chisel store,
+        not from the Ubuntu archive, so they never take part in the
+        archive-based checks of this script (rmadison queries, deb copyright
+        check); they are installed by Chisel versions with bin store
+        support (>= 1.6.0).
+        """
+        return self.store == "bin"
+
+
+def is_bin_sdf(filepath: str | os.PathLike) -> bool:
+    """
+    Whether the given slice definition file describes a package of the "bin"
+    store, i.e. whether it carries a top-level "store: bin" key.
+    """
+    filepath = os.fspath(filepath)
+    try:
+        with open(filepath, "r", encoding="utf-8") as stream:
+            data = yaml.safe_load(stream)
+    except (OSError, yaml.YAMLError):
+        return False
+    return isinstance(data, dict) and data.get("store") == "bin"
 
 
 def full_slice_name(pkg: str, slice: str) -> str:
@@ -188,6 +212,22 @@ def full_slice_name(pkg: str, slice: str) -> str:
     Return the full slice name in "pkg_slice" format.
     """
     return f"{pkg}_{slice}"
+
+
+def chisel_supports_bin_store(chisel_version: str) -> bool:
+    """
+    Whether the given Chisel version supports the "bin" store, i.e. whether
+    it can install slices of packages distributed from the store. Support was
+    introduced in Chisel 1.6.0; "main" (development) also has it.
+    """
+    version = chisel_version.lstrip("v").split("+", 1)[0]
+    if version == "main" or version == "unknown":
+        return True
+    try:
+        return tuple(int(part) for part in version.split(".")) >= (1, 6, 0)
+    except ValueError:
+        # Unrecognized version string: assume support.
+        return True
 
 
 def parse_package(filepath: str) -> Package:
@@ -208,7 +248,7 @@ def parse_package(filepath: str) -> Package:
     except KeyError as e:
         logging.error("%s: key %s not found", filepath, e)
         sys.exit(1)
-    pkg = Package(package, slices)
+    pkg = Package(package, slices, store=data.get("store"))
     return pkg
 
 
@@ -270,11 +310,18 @@ def query_package_existence(
     found, missing = set(), set()
     for i in range(n_batches):
         batch = packages[i * batch_size : (i + 1) * batch_size]
-        logging.info("Querying packages batch %d/%d (%s ... %s)...", i + 1, n_batches, batch[0], batch[-1])
+        logging.info(
+            "Querying packages batch %d/%d (%s ... %s)...",
+            i + 1,
+            n_batches,
+            batch[0],
+            batch[-1],
+        )
         f, m = _query_package_existence(batch, archive, arch)
         found.update(f)
         missing.update(m)
     return sorted(found), sorted(missing)
+
 
 def ensure_package_existence(packages: list[str], archive: Archive) -> None:
     """
@@ -313,6 +360,7 @@ def ignore_missing_packages(
             ignored.append(p)
     return filtered, ignored
 
+
 _patterns_to_retry: list[str] = [
     # https://github.com/canonical/chisel-releases/issues/765
     "cannot fetch from archive",
@@ -321,6 +369,7 @@ _patterns_to_retry: list[str] = [
     # https://github.com/canonical/chisel-releases/issues/768
     "cannot find archive data",
 ]
+
 
 def chisel_cut(
     *,
@@ -363,7 +412,7 @@ def chisel_cut(
             if pattern in err:
                 matched = pattern
                 break
-        
+
         if attempt < n_retries and matched is not None:
             logging.warning(
                 "Error while installing %s (attempt %d/%d): %s. Retrying...",
@@ -377,12 +426,17 @@ def chisel_cut(
 
 
 def install_slices(
-    chunk: list[tuple[str, str]], dry_run: bool, arch: str, release: str, worker: int, chisel_version: str
+    chunk: list[tuple[str, str, bool]],
+    dry_run: bool,
+    arch: str,
+    release: str,
+    worker: int,
+    chisel_version: str,
 ) -> None:
     """
     Install the slice by running "chisel cut".
     """
-    for i, (pkg, slice) in enumerate(chunk):
+    for i, (pkg, slice, is_bin) in enumerate(chunk):
         slice_name = full_slice_name(pkg, slice)
         logging.info(
             "Worker %d (%d/%d): Installing %s on %s...",
@@ -394,7 +448,10 @@ def install_slices(
         )
         if dry_run:
             continue
-        with tempfile.TemporaryDirectory() as tmpfs, tempfile.TemporaryDirectory() as cache_dir:
+        with (
+            tempfile.TemporaryDirectory() as tmpfs,
+            tempfile.TemporaryDirectory() as cache_dir,
+        ):
             err = chisel_cut(
                 arch=arch,
                 release=release,
@@ -407,7 +464,10 @@ def install_slices(
                 logging.error("==============================================\n%s", err)
                 return
 
-            # Check if the copyright file has been installed with this slice
+            # Check if the copyright file has been installed with this slice.
+            # Only meaningful for deb packages: bin packages are not debs.
+            if is_bin:
+                continue
             copyright_file = pathlib.Path(f"{tmpfs}/usr/share/doc/{pkg}/copyright")
             if not copyright_file.is_file() and not copyright_file.is_symlink():
                 # Does the copyright file exist in the deb?
@@ -456,21 +516,53 @@ def main() -> None:
     cli_args = parse_args()
     # Parse slice definition files.
     packages = []
+    bin_packages = []
     for file in cli_args.files:
         pkg = parse_package(file)
-        packages.append(pkg)
+        if pkg.is_bin:
+            bin_packages.append(pkg)
+        else:
+            packages.append(pkg)
+    # Bin packages are distributed from the Chisel store, not from the
+    # Ubuntu archive, so they never take part in the archive-based checks
+    # below (rmadison queries). They can only be installed by Chisel versions
+    # with bin store support (>= 1.6.0); with older versions they are
+    # skipped, as those versions ignore the bin-slices/ directory entirely.
+    if len(bin_packages) > 0:
+        if chisel_supports_bin_store(cli_args.chisel_version):
+            logging.info(
+                "The following %s bin packages will be INSTALLED from the store:",
+                len(bin_packages),
+            )
+            for pkg in bin_packages:
+                logging.info("  - %s", pkg.package)
+            packages.extend(bin_packages)
+        else:
+            logging.info(
+                "The following %s bin packages will be SKIPPED "
+                "(Chisel %s does not support the bin store):",
+                len(bin_packages),
+                cli_args.chisel_version,
+            )
+            for pkg in bin_packages:
+                logging.info("  - %s", pkg.package)
     # Ensure package existence for at least one architecture. This means that
     # each package must be present in the archive for at least one of the
-    # architectures.
+    # architectures. Bin packages are not in the archive, so they are
+    # excluded from this check.
     if cli_args.ensure_existence:
         archive = parse_archive(cli_args.release)
-        ensure_package_existence([p.package for p in packages], archive)
+        ensure_package_existence([p.package for p in packages if not p.is_bin], archive)
     # Ignore packages who do not exist in the archive for this particular
-    # architecture.
+    # architecture. Bin packages are not in the archive, so they are kept
+    # regardless of the rmadison query result.
     if cli_args.ignore_missing:
-        packages, ignored = ignore_missing_packages(
-            packages, cli_args.arch, cli_args.release
+        deb_packages = [p for p in packages if not p.is_bin]
+        bin_packages = [p for p in packages if p.is_bin]
+        deb_packages, ignored = ignore_missing_packages(
+            deb_packages, cli_args.arch, cli_args.release
         )
+        packages = deb_packages + bin_packages
         if len(ignored) > 0:
             logging.info("The following packages will be IGNORED:")
             for pkg in ignored:
@@ -494,10 +586,14 @@ def main() -> None:
     # are going to get installed anyway). The problem here is accounting: I'd like
     # to ensure that all slices are still installed nonetheless, even if indirectly,
     # but that means `install_slices` will have to be aware of the nested essentials.
-    all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
+    all_slices = [
+        (pkg.package, slice, pkg.is_bin) for pkg in packages for slice in pkg.slices
+    ]
 
     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
-    chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int, str]] = [
+    chunks_of_slices: list[
+        tuple[list[tuple[str, str, bool]], bool, str, str, int, str]
+    ] = [
         (
             all_slices[i : i + chunk_size],
             cli_args.dry_run,

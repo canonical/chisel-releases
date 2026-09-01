@@ -27,8 +27,8 @@ env:
       {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0"]},
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.4.2","main"]},
-      {"ref": "ubuntu-26.10", "chisel-versions": ["v1.4.2","main"]}
+      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.4.2","v1.6.0","main"]},
+      {"ref": "ubuntu-26.10", "chisel-versions": ["v1.6.0","main"]}
     ]
 
 jobs:
@@ -159,9 +159,11 @@ jobs:
             install-all:
               - 'chisel.yaml'
               - deleted: 'slices/**/*.yaml'
+              - deleted: 'bin-slices/**/*.yaml'
               - '.github/**'
             slices:
               - added|modified: 'slices/**/*.yaml'
+              - added|modified: 'bin-slices/**/*.yaml'
           # Space delimited list usable as command-line argument list in
           # Linux shell. If needed, it uses single or double quotes to
           # wrap filename with unsafe characters.
@@ -216,15 +218,20 @@ jobs:
             "${{ env.install-all }}" == "true" ||
             "${{ steps.changed-paths.outputs.install-all }}" == "true"
           ]]; then
-            # Install all slices in slices/ dir.
-            # We need to enable globstar to use the ** patterns below.
-            shopt -s globstar
+            # Install all slices in slices/ and bin-slices/ dirs.
+            # With Chisel >= 1.6.0, bin SDFs ("store: bin" files) are
+            # installed from the store; with older versions they are
+            # skipped by install-slices itself.
+            # We need to enable globstar to use the ** patterns below, and
+            # nullglob so that the bin-slices/ pattern (absent in releases
+            # before ubuntu-26.04) expands to nothing.
+            shopt -s globstar nullglob
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
               --chisel-version "${{ matrix.chisel-version }}" \
               --workers "${WORKERS}" \
-              slices/**/*.yaml
+              slices/**/*.yaml bin-slices/**/*.yaml
           elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
             # Install slices from changed files.
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \

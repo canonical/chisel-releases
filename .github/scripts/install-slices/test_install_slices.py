@@ -12,19 +12,19 @@ import unittest.mock
 
 from install_slices import (
     CHISEL_PKG_CACHE,
-    Package,
     Archive,
-    parse_archive,
+    Package,
+    chisel_supports_bin_store,
+    deb_has_copyright_file,
+    ensure_package_existence,
     full_slice_name,
+    ignore_missing_packages,
+    is_bin_sdf,
+    main,
+    parse_archive,
     parse_package,
     query_package_existence,
-    ensure_package_existence,
-    ignore_missing_packages,
-    install_slice,
-    deb_has_copyright_file,
-    main,
 )
-
 
 # Default archive for testing. Copied from the ubuntu-22.04 release.
 DEFAULT_CHISEL_YAML = """
@@ -92,6 +92,21 @@ DEFAULT_PACKAGE = Package(
     slices=["bins"],
 )
 
+# Default bin package for testing ("v4" style, with the store key).
+DEFAULT_BIN_PACKAGE_YAML = """
+package: hello-bin
+store: bin
+slices:
+    bins:
+        contents:
+            /usr/bin/hello:
+"""
+DEFAULT_BIN_PACKAGE = Package(
+    package="hello-bin",
+    slices=["bins"],
+    store="bin",
+)
+
 
 class TestScriptMethods(unittest.TestCase):
     """
@@ -134,6 +149,137 @@ class TestScriptMethods(unittest.TestCase):
                     suites=["mantic", "mantic-security", "mantic-updates"],
                 ),
             )
+
+    def test_parse_bin_package(self):
+        """
+        Test parse_package() on a bin SDF ("v4" style, store key)
+        """
+        with tempfile.TemporaryDirectory() as tmpfs:
+            filepath = os.path.join(tmpfs, "hello-bin.yaml")
+            with open(filepath, "w", encoding="utf-8") as file:
+                file.write(DEFAULT_BIN_PACKAGE_YAML)
+            pkg = parse_package(filepath)
+            self.assertEqual(pkg, DEFAULT_BIN_PACKAGE)
+            self.assertTrue(pkg.is_bin)
+
+    def test_is_bin_sdf(self):
+        """
+        Test is_bin_sdf() on deb and bin SDFs, by content only
+        """
+        with tempfile.TemporaryDirectory() as tmpfs:
+            # deb SDF (no store key, not in bin-slices/)
+            deb_sdf = os.path.join(tmpfs, "hello.yaml")
+            with open(deb_sdf, "w", encoding="utf-8") as file:
+                file.write(DEFAULT_PACKAGE_YAML)
+            self.assertFalse(is_bin_sdf(deb_sdf))
+
+            # bin SDF by content ("v4" style: store key in slices/)
+            bin_sdf = os.path.join(tmpfs, "hello-bin.yaml")
+            with open(bin_sdf, "w", encoding="utf-8") as file:
+                file.write(DEFAULT_BIN_PACKAGE_YAML)
+            self.assertTrue(is_bin_sdf(bin_sdf))
+
+            # bin SDF by content ("v3" style: store key in bin-slices/)
+            bin_dir = os.path.join(tmpfs, "bin-slices")
+            os.mkdir(bin_dir)
+            bin_sdf_v3 = os.path.join(bin_dir, "hello.yaml")
+            with open(bin_sdf_v3, "w", encoding="utf-8") as file:
+                file.write(DEFAULT_BIN_PACKAGE_YAML)
+            self.assertTrue(is_bin_sdf(bin_sdf_v3))
+
+            # deb SDF under bin-slices/ is not a bin SDF (content-based
+            # detection, not location-based)
+            misplaced_deb_sdf = os.path.join(bin_dir, "oops.yaml")
+            with open(misplaced_deb_sdf, "w", encoding="utf-8") as file:
+                file.write(DEFAULT_PACKAGE_YAML)
+            self.assertFalse(is_bin_sdf(misplaced_deb_sdf))
+
+    def test_main_installs_bin_packages_with_store_support(self):
+        """
+        Test that main() installs bin packages when the Chisel version
+        supports the bin store (>= 1.6.0)
+        """
+        with tempfile.TemporaryDirectory() as tmpfs:
+            with open(os.path.join(tmpfs, "chisel.yaml"), "w", encoding="utf-8") as f:
+                f.write(DEFAULT_CHISEL_YAML)
+            slices_dir = os.path.join(tmpfs, "slices")
+            os.mkdir(slices_dir)
+            slice_path = os.path.join(slices_dir, "hello-bin.yaml")
+            with open(slice_path, "w", encoding="utf-8") as f:
+                f.write(DEFAULT_BIN_PACKAGE_YAML)
+            args = [
+                "",
+                "--arch",
+                "amd64",
+                "--release",
+                tmpfs,
+                "--chisel-version",
+                "v1.6.0",
+                slice_path,
+            ]
+            with unittest.mock.patch("sys.argv", args):
+                with (
+                    unittest.mock.patch(
+                        "install_slices.ProcessPoolExecutor"
+                    ) as mock_executor_cls,
+                    unittest.mock.patch("install_slices.as_completed", return_value=[]),
+                ):
+                    try:
+                        main()
+                    except SystemExit as e:
+                        self.assertEqual(e.code, 0)
+                    mock_executor = mock_executor_cls.return_value.__enter__()
+                    submit = mock_executor.submit
+                    submit.assert_called_once()
+                    # The bin package's slices must be in the installed chunk
+                    chunk = submit.call_args[0][1]
+                    self.assertIn(("hello-bin", "bins", True), chunk)
+
+    def test_main_skips_bin_packages_without_store_support(self):
+        """
+        Test that main() skips bin packages when the Chisel version does
+        not support the bin store (< 1.6.0)
+        """
+        with tempfile.TemporaryDirectory() as tmpfs:
+            with open(os.path.join(tmpfs, "chisel.yaml"), "w", encoding="utf-8") as f:
+                f.write(DEFAULT_CHISEL_YAML)
+            slices_dir = os.path.join(tmpfs, "slices")
+            os.mkdir(slices_dir)
+            slice_path = os.path.join(slices_dir, "hello-bin.yaml")
+            with open(slice_path, "w", encoding="utf-8") as f:
+                f.write(DEFAULT_BIN_PACKAGE_YAML)
+            args = [
+                "",
+                "--arch",
+                "amd64",
+                "--release",
+                tmpfs,
+                "--chisel-version",
+                "v1.4.2",
+                slice_path,
+            ]
+            with unittest.mock.patch("sys.argv", args):
+                with unittest.mock.patch(
+                    "install_slices.ProcessPoolExecutor"
+                ) as mock_executor_cls:
+                    try:
+                        main()
+                    except SystemExit as e:
+                        self.assertEqual(e.code, 0)
+                    mock_executor = mock_executor_cls.return_value.__enter__()
+                    mock_executor.submit.assert_not_called()
+
+    def test_chisel_supports_bin_store(self):
+        """
+        Test chisel_supports_bin_store()
+        """
+        self.assertTrue(chisel_supports_bin_store("v1.6.0"))
+        self.assertTrue(chisel_supports_bin_store("v1.6.1"))
+        self.assertTrue(chisel_supports_bin_store("main"))
+        self.assertTrue(chisel_supports_bin_store("unknown"))
+        self.assertFalse(chisel_supports_bin_store("v1.4.2"))
+        self.assertFalse(chisel_supports_bin_store("v1.2.0"))
+        self.assertFalse(chisel_supports_bin_store("1.4.2"))
 
     def test_full_slice_name(self):
         """
@@ -211,22 +357,6 @@ class TestScriptMethods(unittest.TestCase):
                 Package("foo123", []),
             ],
         )
-
-    def test_install_slice(self):
-        """
-        Test install_slice()
-        """
-        mock_missing_copyright = set()
-        install_slice("libc6", "libs", "amd64", "ubuntu-22.04", mock_missing_copyright)
-        assert mock_missing_copyright == set()
-        #
-        try:
-            install_slice(
-                "foo123", "bar", "amd64", "ubuntu-22.04", mock_missing_copyright
-            )
-            assert False
-        except SystemExit as e:
-            self.assertEqual(e.code, 1)
 
     @unittest.mock.patch("os.popen")
     @unittest.mock.patch("pathlib.Path.rglob")
