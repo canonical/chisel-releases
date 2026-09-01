@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - "slices/**"
+      - "bin-slices/**"
   workflow_call:
 
 jobs:

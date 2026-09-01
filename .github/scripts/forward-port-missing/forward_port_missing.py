@@ -13,27 +13,26 @@ Any slices for any discontinued packages are ignored.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import argparse
-import tempfile
 import datetime
 import gzip
 import io
 import logging
 import os
 import re
-from concurrent.futures import ThreadPoolExecutor
-from itertools import product
 import subprocess as sub
-from dataclasses import dataclass
-from contextlib import contextmanager
+import tempfile
 import time
-from typing import Iterator, Callable
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
+from dataclasses import dataclass
+from itertools import product
+from pathlib import Path
+from typing import Callable, Iterator
 
-from diff_parser import Diff
 import requests
 import yaml
+from diff_parser import Diff
 
 # For dev you can use requests-cache to cache the
 # GitHub API responses and avoid hitting rate limits:
@@ -82,6 +81,29 @@ class PR:
         )
 
 
+# Regex matching a top-level "store: bin" key in the added lines of a diff
+# block. The key must be at the start of a line (no indentation), so that a
+# nested key of the same name does not match.
+_BIN_STORE_RE = re.compile(r"^\+store:\s*bin\s*$", re.MULTILINE)
+
+
+def _diff_adds_bin_store(diff_text: str, filepath: str) -> bool:
+    """Whether the given diff adds a top-level "store: bin" key to the given
+    file. Used to detect bin SDFs from a PR diff, where the file content itself
+    is not available."""
+    # Extract the block of the diff corresponding to the given file
+    block_start = diff_text.find(f"diff --git a/{filepath} b/{filepath}")
+    if block_start == -1:
+        return False
+    next_block = diff_text.find("\ndiff --git ", block_start + 1)
+    block = (
+        diff_text[block_start:]
+        if next_block == -1
+        else diff_text[block_start:next_block]
+    )
+    return _BIN_STORE_RE.search(block) is not None
+
+
 def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
     """Fetch the list of open PRs into 'ubuntu-XX.XX' branches in chisel-releases which correspond to
     the supported Ubuntu releases. For each PR determine the set of new slices it introduces"""
@@ -128,8 +150,9 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
 
     # fetch the diff for each PR in parallel and determine which slices they are modifying (i.e. which files in the /slices directory they are adding/modifying)
 
-    def _fetch_diff(pr: dict) -> tuple[int, Diff | None]:
-        """Fetch a PR's diff and return the PR number and the parsed Diff object."""
+    def _fetch_diff(pr: dict) -> tuple[int, Diff | None, str | None]:
+        """Fetch a PR's diff and return the PR number, the parsed Diff object
+        and the raw diff text (needed to inspect the added lines)."""
         with requests.Session() as s:
             response = s.get(pr["diff_url"], headers=headers)
             response.raise_for_status()
@@ -139,19 +162,21 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
             warn(
                 f"Rate limit exceeded when fetching diff for PR #{pr_number}. Skipping."
             )
-            return pr_number, None
-        return pr_number, Diff(diff_text)
+            return pr_number, None, None
+        return pr_number, Diff(diff_text), diff_text
 
     with timing_context() as elapsed:
         with ThreadPoolExecutor(max_workers=5) as executor:
             _diffs = list(executor.map(_fetch_diff, results))
-    diffs: dict[int, Diff | None] = dict(_diffs)
+    diffs: dict[int, tuple[Diff | None, str | None]] = {
+        number: (diff, text) for number, diff, text in _diffs
+    }
 
     info(f"Fetched diffs for {len(results)} PRs in {elapsed():.2f} seconds.")
 
     # for each PR patch in a field "new_slices" based on the fetched diff
     for result in results:
-        diff = diffs.get(result["number"])
+        diff, diff_text = diffs.get(result["number"], (None, None))
         if not diff:
             warn(f"Could not fetch diff for PR #{result['number']}. Skipping.")
             continue
@@ -164,7 +189,15 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
                     new_filepath.parent.name == "slices"
                     and new_filepath.suffix == ".yaml"
                 ):
-                    new_slices.add(new_filepath.stem)
+                    # Skip bin SDFs ("store: bin"), which are
+                    # release-specific. The key is looked up in the added
+                    # lines of the diff, as the file content itself is not
+                    # available here.
+                    # NOTE: diff_parser prefixes new_filepath with "/".
+                    if not _diff_adds_bin_store(
+                        diff_text, block.new_filepath.lstrip("/")
+                    ):
+                        new_slices.add(new_filepath.stem)
         result["new_slices"] = sorted(new_slices)
 
     return set(PR.from_github_json(r) for r in results if r.get("new_slices"))
@@ -286,8 +319,12 @@ def checkout_chisel_releases_info(
                 )
                 continue
 
+            # Skip bin SDFs ("store: bin"), which are release-specific.
+            # bin-slices/ is not scanned at all, for the same reason.
             slices_per_branch[branch] = set(
-                sdf.stem for sdf in (tmpdir / "slices").glob("*.yaml")
+                sdf.stem
+                for sdf in (tmpdir / "slices").glob("*.yaml")
+                if yaml.safe_load(sdf.read_text()).get("store") != "bin"
             )
             codenames[branch] = _codenames.pop()
 

@@ -25,10 +25,12 @@ curref="$(git rev-parse --short HEAD)"
 exitcode=0
 
 # Check for deleted or renamed slice definition files.
+# NOTE: the bin-slices/ directory only exists in releases using the "v3"
+# format (e.g. ubuntu-26.04); git diff ignores it when it does not exist.
 deleted_files=()
 while IFS= read -r f; do
   deleted_files+=( "$f" )
-done < <(git diff --name-only --diff-filter=DR "$oldref" "$curref" -- slices/)
+done < <(git diff --name-only --diff-filter=DR "$oldref" "$curref" -- slices/ bin-slices/)
 if (( ${#deleted_files[@]} )); then
   echo "The following slice definition files have been deleted or renamed:"
   for f in "${deleted_files[@]}"; do
@@ -43,7 +45,7 @@ fi
 modified=()
 while IFS= read -r f; do
   modified+=( "$f" )
-done < <(git diff --name-only --diff-filter=adr "$oldref" "$curref" -- slices/)
+done < <(git diff --name-only --diff-filter=adr "$oldref" "$curref" -- slices/ bin-slices/)
 
 # Lists all slices in the [modified] files.
 list() {

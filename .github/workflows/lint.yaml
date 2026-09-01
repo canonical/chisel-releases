@@ -81,9 +81,11 @@ jobs:
           config-path: "${{ env.main-branch-path }}/.github/yamllint.yaml"
         run: |
           set -e
-          yamllint -c "${{ env.config-path }}" \
-            chisel.yaml \
-            slices/
+          targets=(chisel.yaml slices/)
+          if [ -d bin-slices ]; then
+            targets+=(bin-slices/)
+          fi
+          yamllint -c "${{ env.config-path }}" "${targets[@]}"
 
       - name: Lint with SDF-specific rules
         run: |
@@ -97,7 +99,12 @@ jobs:
             EXIT_CODE=1
           }
 
-          for filename in $(find slices/ | grep "\.yaml$" | sort); do
+          sdf_files="$(find slices/ | grep "\.yaml$" | sort)"
+          if [ -d bin-slices ]; then
+            sdf_files="${sdf_files} $(find bin-slices/ | grep "\.yaml$" | sort)"
+          fi
+
+          for filename in $sdf_files; do
             for slice in $(yq '.slices | keys | .[]' "$filename"); do
               # Because of chisel format "v3", essential can either be a map or an array
               # so the following "essential" check needs to cope with that and verify the type of essential

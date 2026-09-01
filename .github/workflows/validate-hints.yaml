@@ -28,6 +28,7 @@ jobs:
           filters: |
             slices:
               - added|modified: 'slices/**/*.yaml'
+              - added|modified: 'bin-slices/**/*.yaml'
           # Space delimited list usable as command-line argument list in
           # Linux shell. If needed, it uses single or double quotes to
           # wrap filename with unsafe characters.

@@ -3,15 +3,15 @@
 Unit tests for forward_port_missing.py
 """
 
-import pytest
-
-import sys
-import os
 import gzip
-from unittest.mock import patch, MagicMock
-from textwrap import dedent
-from dataclasses import replace
+import os
+import sys
 from copy import deepcopy
+from dataclasses import replace
+from textwrap import dedent
+from unittest.mock import MagicMock, patch
+
+import pytest
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -306,3 +306,101 @@ class TestDetermineForwardPortingStatus:
 
         assert to_add == (set() if labels else {1})
         assert to_remove == set()
+
+
+class TestBinSlices:
+    """Bin SDFs ("store: bin") are excluded from forward port tracking;
+    regular SDFs are not."""
+
+    @staticmethod
+    def _make_diff(filepath: str, content: str) -> str:
+        return dedent(f"""
+        diff --git a/{filepath} b/{filepath}
+        new file mode 100644
+        index 0000000..1111111
+        --- /dev/null
+        +++ b/{filepath}
+        @@ -0,0 +1,2 @@
+        {content}
+        """).strip()
+
+    json_response = [
+        {
+            "number": 1,
+            "base": {"ref": "ubuntu-26.04"},
+            "labels": [{"name": "bug"}],
+            "diff_url": "http://example.com/diff1",
+            "draft": False,
+        }
+    ]
+
+    @patch("forward_port_missing.requests.Session")
+    def test_bin_sdf_in_slices_ignored(self, mock_session: MagicMock) -> None:
+        """PRs adding bin SDFs (store: bin) in slices/ must not be tracked"""
+        diff_text = self._make_diff("slices/foo.yaml", "+package: foo\n+store: bin")
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = TestFetchPRs.make_side_effects(self.json_response, diff_text)
+        prs = forward_port_missing.fetch_prs()
+
+        assert len(prs) == 0, "bin SDFs in slices/ should be ignored"
+
+    @patch("forward_port_missing.requests.Session")
+    def test_bin_sdf_in_bin_slices_dir_ignored(self, mock_session: MagicMock) -> None:
+        """PRs adding SDFs under bin-slices/ must not be tracked"""
+        diff_text = self._make_diff("bin-slices/foo.yaml", "+package: foo\n+store: bin")
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = TestFetchPRs.make_side_effects(self.json_response, diff_text)
+        prs = forward_port_missing.fetch_prs()
+
+        assert len(prs) == 0, "bin-slices/ SDFs should be ignored"
+
+    @patch("forward_port_missing.requests.Session")
+    def test_deb_sdf_in_slices_tracked(self, mock_session: MagicMock) -> None:
+        """PRs adding regular deb SDFs under slices/ must still be tracked"""
+        diff_text = self._make_diff("slices/foo.yaml", "+package: foo")
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = TestFetchPRs.make_side_effects(self.json_response, diff_text)
+        prs = forward_port_missing.fetch_prs()
+
+        assert len(prs) == 1
+        pr = next(iter(prs))
+        assert pr.new_slices == frozenset(["foo"])
+
+    @patch("forward_port_missing.requests.Session")
+    def test_deb_sdf_misplaced_in_bin_slices_not_tracked(
+        self, mock_session: MagicMock
+    ) -> None:
+        """A deb SDF under bin-slices/ is not tracked (the directory is not
+        scanned for forward porting)."""
+        diff_text = self._make_diff("bin-slices/foo.yaml", "+package: foo")
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = TestFetchPRs.make_side_effects(self.json_response, diff_text)
+        prs = forward_port_missing.fetch_prs()
+
+        assert len(prs) == 0, "bin-slices/ is not scanned for forward porting"
+
+    def test_diff_adds_bin_store(self) -> None:
+        """Test the _diff_adds_bin_store() helper directly"""
+        diff_text = self._make_diff("slices/foo.yaml", "+package: foo\n+store: bin")
+        assert forward_port_missing._diff_adds_bin_store(diff_text, "slices/foo.yaml")
+
+        # deb SDF (no store key)
+        diff_text = self._make_diff("slices/foo.yaml", "+package: foo")
+        assert not forward_port_missing._diff_adds_bin_store(
+            diff_text, "slices/foo.yaml"
+        )
+
+        # nested "store" key must not match (only top-level counts)
+        diff_text = self._make_diff("slices/foo.yaml", "+package: foo\n+  store: bin")
+        assert not forward_port_missing._diff_adds_bin_store(
+            diff_text, "slices/foo.yaml"
+        )
+
+        # file not in the diff
+        assert not forward_port_missing._diff_adds_bin_store(
+            diff_text, "slices/bar.yaml"
+        )
