@@ -1,0 +1,19 @@
+package: python3-redis
+
+essential:
+  python3-redis_copyright:
+
+slices:
+  libs:
+    essential:
+      # The deb's "python3-async-timeout | python3-supported-min (>= 3.11.3)"
+      # alternative is satisfied by python3 itself, which provides
+      # python3-supported-min and ships asyncio.timeout in the stdlib.
+      python3_standard:
+    contents:
+      /usr/lib/python3/dist-packages/redis-*.dist-info/**:
+      /usr/lib/python3/dist-packages/redis/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-redis/copyright:
