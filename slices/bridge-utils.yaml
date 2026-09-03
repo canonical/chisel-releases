@@ -1,0 +1,23 @@
+package: bridge-utils
+
+essential:
+  bridge-utils_copyright:
+
+slices:
+  bins:
+    hint: Ethernet bridge administration
+    essential:
+      libc6_libs:
+    contents:
+      /usr/sbin/brctl:
+
+  # The deb also ships the ifupdown hooks (/etc/network/if-*.d/bridge ->
+  # /usr/lib/bridge-utils/ifupdown.sh), /etc/default/bridge-utils, and the udev
+  # hotplug helper (/usr/lib/udev/bridge-network-interface and its rule). All of
+  # them need "ifquery" from ifupdown, and the udev rule needs a running udevd;
+  # neither ifupdown nor udevd is in chisel-releases, so those paths are left
+  # out until a consumer exists.
+
+  copyright:
+    contents:
+      /usr/share/doc/bridge-utils/copyright:
