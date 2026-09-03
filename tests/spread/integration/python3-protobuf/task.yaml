@@ -1,0 +1,27 @@
+summary: Integration tests for python3-protobuf
+
+execute: |
+  rootfs="$(install-slices python3-protobuf_libs)"
+
+  # The module is a PEP 420 namespace package: the deb ships no
+  # google/__init__.py, so "google" only resolves if the directory itself lands.
+  test -d "${rootfs}/usr/lib/python3/dist-packages/google/protobuf"
+  ! test -e "${rootfs}/usr/lib/python3/dist-packages/google/__init__.py"
+
+  # Importing the package and every generated well-known type module has to work
+  # from the sliced tree alone.
+  chroot "${rootfs}" /usr/bin/python3 -c \
+    'import google.protobuf; print(google.protobuf.__version__)' | grep -Fq "4.21"
+
+  # Distribution metadata has to be discoverable, so consumers can version-check.
+  out="$(chroot "${rootfs}" /usr/bin/python3 -c \
+    'from importlib.metadata import version; print(version("protobuf"))')"
+  echo "${out}" | grep -Fq "4.21"
+
+  # The functional suite: serialisation, JSON and text formats, runtime message
+  # construction and descriptor handling.
+  cp test_protobuf.py "${rootfs}/test_protobuf.py"
+  out="$(chroot "${rootfs}" /usr/bin/python3 /test_protobuf.py)"
+  echo "${out}" | grep -Fq "ALL-PROTOBUF-CHECKS-PASSED"
+  # Debian ships the pure-Python implementation only -- no _message extension.
+  echo "${out}" | grep -Fq "implementation python"
