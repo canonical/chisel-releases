@@ -1,0 +1,36 @@
+summary: Integration tests for libdaemon0
+
+execute: |
+  # libdaemon0_libs: the package has no sliced consumer, so build one -- a
+  # program linked against libdaemon.so.0 that drives the library's dlog, dpid,
+  # dsignal, dnonblock and dfork/retval entry points -- and run it in the
+  # sliced rootfs. base-files_tmp supplies the /tmp the PID file test needs.
+  rootfs="$(install-slices libdaemon0_libs base-files_tmp)"
+
+  cleanup() {
+    umount "$rootfs/proc" || true
+    umount "$rootfs/dev" || true
+  }
+  trap cleanup EXIT
+
+  # gcc alone only recommends libc6-dev, so ask for the headers explicitly.
+  apt install --update -y gcc libc6-dev libdaemon-dev
+  libdir="/usr/lib/$(gcc -dumpmachine)"
+
+  # Both the soname symlink and the versioned object must land, otherwise the
+  # dynamic linker cannot resolve consumers built against libdaemon.so.0.
+  test -L "$rootfs$libdir/libdaemon.so.0"
+  test -f "$rootfs$libdir/$(readlink "$rootfs$libdir/libdaemon.so.0")"
+
+  gcc test.c -ldaemon -o test-libdaemon
+  ldd test-libdaemon | grep -Fiq "libdaemon.so.0"
+  cp test-libdaemon "$rootfs/"
+
+  # daemon_fork() reopens stdio on /dev/null and daemon_close_all() walks
+  # /proc/self/fd; a sliced rootfs provides neither.
+  mkdir -p "$rootfs/dev" "$rootfs/proc"
+  mount --bind /dev "$rootfs/dev"
+  mount --bind /proc "$rootfs/proc"
+
+  output="$(chroot "$rootfs" /test-libdaemon)"
+  echo "$output" | grep -Fiq "dlog works"
