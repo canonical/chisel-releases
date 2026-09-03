@@ -1,0 +1,44 @@
+summary: Integration tests for rsyslog
+
+execute: |
+  rootfs="$(install-slices base-files_tmp base-passwd_data rsyslog_bins rsyslog_data)"
+
+  chroot "${rootfs}" /usr/sbin/rsyslogd -v | grep -q "^rsyslogd"
+
+  # /etc/rsyslog.conf drops privileges to syslog:syslog and creates its files
+  # as syslog:adm. adduser gives the package that account from postinst, which
+  # a chiselled rootfs never runs.
+  echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
+  echo "syslog:x:101:" >> "${rootfs}/etc/group"
+
+  # rsyslogd points its standard streams at /dev/null when it daemonises
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  trap 'pkill -x rsyslogd || true; umount "${rootfs}/dev" || true' EXIT
+
+  # The shipped configuration, /etc/rsyslog.d/50-default.conf included, has to
+  # be loadable: a validation run dlopen's every module it pulls in and rejects
+  # a $WorkDirectory or a privilege drop target that is not there.
+  chroot "${rootfs}" /usr/sbin/rsyslogd -N1 -f /etc/rsyslog.conf
+
+  # A message has to survive the trip from a Unix socket to a log file.
+  cp test.conf "${rootfs}/tmp/test.conf"
+  chroot "${rootfs}" /usr/sbin/rsyslogd -iNONE -f /tmp/test.conf
+
+  for _ in $(seq 30); do
+    if [ -S "${rootfs}/tmp/rsyslog-test.sock" ]; then
+      break
+    fi
+    sleep 1
+  done
+
+  logger --socket "${rootfs}/tmp/rsyslog-test.sock" "hello-from-chisel"
+
+  for _ in $(seq 30); do
+    if [ -s "${rootfs}/tmp/rsyslog-test.log" ]; then
+      break
+    fi
+    sleep 1
+  done
+
+  grep -Fq "hello-from-chisel" "${rootfs}/tmp/rsyslog-test.log"
