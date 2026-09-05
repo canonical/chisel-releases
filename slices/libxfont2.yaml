@@ -1,0 +1,19 @@
+package: libxfont2
+
+essential:
+  libxfont2_copyright:
+
+slices:
+  libs:
+    essential:
+      libbz2-1.0_libs:
+      libc6_libs:
+      libfontenc1_libs:
+      libfreetype6_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libXfont2.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxfont2/copyright:

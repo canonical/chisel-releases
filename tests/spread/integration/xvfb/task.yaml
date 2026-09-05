@@ -1,0 +1,47 @@
+summary: Integration tests for xvfb
+
+prepare: |
+  apt-get install -y mesa-utils x11-utils
+
+execute: |
+  set -eu
+
+  rootfs="$(install-slices xvfb_server)"
+
+  cleanup() {
+    status=$?
+    trap - EXIT
+    kill "$server_pid" 2>/dev/null || true
+    wait "$server_pid" || true
+    if [ "$status" -ne 0 ]; then
+      tail -n 80 "$rootfs/xvfb.log"
+    fi
+    exit "$status"
+  }
+
+  # Let Xvfb choose a free display and report it only when ready.
+  chroot "$rootfs" /usr/bin/Xvfb \
+    -displayfd 3 -screen 0 640x480x24 -nolisten tcp \
+    3>"$rootfs/display" >"$rootfs/xvfb.log" 2>&1 &
+  server_pid=$!
+  trap cleanup EXIT
+
+  for attempt in $(seq 1 100); do
+    test ! -s "$rootfs/display" || break
+    kill -0 "$server_pid"
+    sleep 0.1
+  done
+  test -s "$rootfs/display"
+
+  # Query the display without adding any server dependencies to the rootfs.
+  display=":$(cat "$rootfs/display")"
+  xdpyinfo -display "$display" >"$rootfs/xdpyinfo"
+  grep -Eq 'dimensions: +640x480 pixels' "$rootfs/xdpyinfo"
+  grep -Eq 'depth of root window: +24 planes' "$rootfs/xdpyinfo"
+
+  # Copy only the test executable; all GL libraries must come from the slices.
+  install -m 755 "$(command -v glxinfo)" "$rootfs/glxinfo-test"
+  XDG_CACHE_HOME=/tmp LIBGL_ALWAYS_SOFTWARE=1 \
+    chroot "$rootfs" /glxinfo-test \
+    -display "$display" -B >"$rootfs/glxinfo"
+  grep -q 'OpenGL renderer string:' "$rootfs/glxinfo"
