@@ -1,0 +1,32 @@
+package: libgl1-mesa-dri
+
+essential:
+  - libgl1-mesa-dri_copyright
+
+slices:
+  swrast:
+    essential:
+      - libc6_libs
+      - libdrm-amdgpu1_libs
+      - libdrm-nouveau2_libs
+      - libdrm-radeon1_libs
+      - libdrm2_libs
+      - libelf1_libs
+      - libexpat1_libs
+      - libgcc-s1_libs
+      - libglapi-mesa_libs
+      - libllvm15_libs
+      - libsensors5_libs
+      - libstdc++6_libs
+      - libxcb-dri3-0_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    # Architecture-specific essentials require Chisel >= 1.3.0.
+    v3-essential:
+      libdrm-intel1_libs: {arch: [amd64, i386]}
+    contents:
+      /usr/lib/*-linux-*/dri/swrast_dri.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgl1-mesa-dri/copyright:

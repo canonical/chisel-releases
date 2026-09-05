@@ -1,0 +1,13 @@
+package: libx11-xcb1
+
+essential:
+  - libx11-xcb1_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/*-linux-*/libX11-xcb.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libx11-xcb1/copyright:
