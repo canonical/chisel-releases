@@ -1,0 +1,22 @@
+package: libsndfile1
+
+essential:
+  libsndfile1_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libflac14_libs:
+      libmp3lame0_libs:
+      libmpg123-0t64_libs:
+      libogg0_libs:
+      libopus0_libs:
+      libvorbis0a_libs:
+      libvorbisenc2_libs:
+    contents:
+      /usr/lib/*-linux-*/libsndfile.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsndfile1/copyright:
