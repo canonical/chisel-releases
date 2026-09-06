@@ -1,0 +1,24 @@
+summary: Integration tests for libpulse0
+
+execute: |
+  # libpulse0_libs: the client libraries and every dependency they link against.
+  rootfs="$(install-slices libpulse0_libs)"
+  libdir="$(cd "$rootfs" && ls -d usr/lib/*-linux-*/)"
+  libdir="${libdir%/}"
+  loader="$(cd "$rootfs" && ls "$libdir"/ld*.so.*)"
+
+  for solib in "$rootfs/$libdir"/libpulse.so.0 \
+               "$rootfs/$libdir"/libpulse-simple.so.0 \
+               "$rootfs/$libdir"/pulseaudio/libpulsecommon-*.so; do
+    head -c4 "$solib" | grep -Faq ELF
+    # The loader resolves every DT_NEEDED entry, so no dependency slice is missing.
+    chroot "$rootfs" "/$loader" --list "${solib#"$rootfs"}" > deps.txt
+    ! grep -Fq "not found" deps.txt
+  done
+
+  # libpulse pulls in its private support library from the pulseaudio subdirectory.
+  chroot "$rootfs" "/$loader" --list "/$libdir/libpulse.so.0" | grep -Fq libpulsecommon
+
+  # libpulse0_config: the client-side configuration libpulse reads at startup.
+  rootfs="$(install-slices libpulse0_config)"
+  grep -Fq "default-server" "$rootfs/etc/pulse/client.conf"

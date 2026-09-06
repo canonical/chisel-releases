@@ -1,0 +1,16 @@
+summary: Integration tests for libsndfile1
+
+execute: |
+  # libsndfile1_libs: the shared library and every dependency it links against.
+  rootfs="$(install-slices libsndfile1_libs)"
+  libdir="$(cd "$rootfs" && ls -d usr/lib/*-linux-*/)"
+  libdir="${libdir%/}"
+  loader="$(cd "$rootfs" && ls "$libdir"/ld*.so.*)"
+
+  head -c4 "$rootfs/$libdir/libsndfile.so.1" | grep -Faq ELF
+
+  # The loader resolves every DT_NEEDED entry, so no dependency slice is missing.
+  chroot "$rootfs" "/$loader" --list "/$libdir/libsndfile.so.1" > deps.txt
+  grep -Fq libFLAC.so deps.txt
+  grep -Fq libvorbisenc.so deps.txt
+  ! grep -Fq "not found" deps.txt
