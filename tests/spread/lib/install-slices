@@ -15,8 +15,10 @@ trap 'rm -f "$_OUTPUT"' EXIT
 
 function main() {
     local slices="$*"
+    # manifest generation is broken on sha512-only archives, see
+    # https://github.com/canonical/chisel/issues/305. restore once chisel 1.5.1 lands.
     # add base-files_chisel slice to ensure we generate the manifest
-    slices="${slices} base-files_chisel"
+    # slices="${slices} base-files_chisel"
 
     # chrooted daemons that drop privileges need the path to stay traversable
     #shellcheck disable=SC2174 # the parent always exists, only the leaf is created
@@ -25,7 +27,7 @@ function main() {
     local rootfs
     rootfs="$(mktemp -d -p "$ROOTFS_DIR")"
     chisel_cut "$rootfs" "$slices"
-    if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
+    if [ -n "$MANIFESTS_EXPORT_DIR" ] && [ -f "$rootfs/var/lib/chisel/manifest.wall" ]; then
         export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
     fi
 
