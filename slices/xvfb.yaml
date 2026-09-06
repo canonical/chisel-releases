@@ -4,6 +4,17 @@ essential:
   xvfb_copyright:
 
 slices:
+  bins:
+    essential:
+      coreutils_bins:
+      gawk_bins:
+      util-linux_getopt:
+      util-linux_mcookie:
+      xauth_bins:
+      xvfb_server:
+    contents:
+      /usr/bin/xvfb-run:
+
   server:
     essential:
       base-files_bin:
