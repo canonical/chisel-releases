@@ -14,7 +14,8 @@ slices:
       - libtinfo6_libs
       - libxml2_libs
       - zlib1g_libs
-    # Architecture-specific essentials require Chisel >= 1.3.0.
+    # Chisel < 1.3 silently ignores this block and omits the atomic runtime
+    # required by LLVM on these architectures. Use Chisel >= 1.3.
     v3-essential:
       libatomic1_libs: {arch: [i386, riscv64]}
     contents:

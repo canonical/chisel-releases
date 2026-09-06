@@ -4,6 +4,17 @@ essential:
   - xvfb_copyright
 
 slices:
+  bins:
+    essential:
+      - coreutils_bins
+      - gawk_bins
+      - util-linux_cli-helpers
+      - util-linux_mcookie
+      - xauth_bins
+      - xvfb_server
+    contents:
+      /usr/bin/xvfb-run:
+
   server:
     essential:
       - base-files_tmp
@@ -23,7 +34,8 @@ slices:
       - x11-xkb-utils_xkbcomp
       - xkb-data_data
       - xserver-common_data
-    # Architecture-specific essentials require Chisel >= 1.3.0.
+    # Chisel < 1.3 silently ignores this block, leaving Xvfb unable to start
+    # on the listed architectures because libunwind.so.8 is missing.
     v3-essential:
       libunwind8_libs: {arch: [amd64, arm64, armhf, i386, ppc64el]}
     contents:

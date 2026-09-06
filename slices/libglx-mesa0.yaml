@@ -9,7 +9,8 @@ slices:
       - libc6_libs
       - libdrm2_libs
       - libexpat1_libs
-      - libgl1-mesa-dri_swrast
+      # Jammy embeds Gallium in DRI drivers; mesa-libgallium is not packaged.
+      - libgl1-mesa-dri_libs
       - libglapi-mesa_libs
       - libx11-6_libs
       - libx11-xcb1_libs
@@ -27,6 +28,7 @@ slices:
       - libxshmfence1_libs
       - libxxf86vm1_libs
     contents:
+      /usr/lib/*-linux-*/libGLX_indirect.so.0*:
       /usr/lib/*-linux-*/libGLX_mesa.so.0*:
 
   copyright:
