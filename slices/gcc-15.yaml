@@ -9,8 +9,12 @@ slices:
       binutils_assembler:
       binutils_linker:
       cpp-15-aarch64-linux-gnu_cc1: {arch: [arm64]}
+      cpp-15-powerpc64le-linux-gnu_cc1: {arch: [ppc64el]}
+      cpp-15-s390x-linux-gnu_cc1: {arch: [s390x]}
       cpp-15-x86-64-linux-gnu_cc1: {arch: [amd64]}
       gcc-15-aarch64-linux-gnu_gcc-15: {arch: [arm64]}
+      gcc-15-powerpc64le-linux-gnu_gcc-15: {arch: [ppc64el]}
+      gcc-15-s390x-linux-gnu_gcc-15: {arch: [s390x]}
       gcc-15-x86-64-linux-gnu_gcc-15: {arch: [amd64]}
       libgcc-15-dev_core:
     contents:
