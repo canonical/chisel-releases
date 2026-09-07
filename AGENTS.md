@@ -11,6 +11,6 @@ This is the `ubuntu-26.04` [Chisel](https://github.com/canonical/chisel/) releas
 ## Instructions for working on package slices
 
 If creating, modifying or testing slice definitions, you MUST install and use 
-the `chisel-slicer` skill (from https://github.com/canonical/mason/tree/main/mason/skills/chisel-slicer/SKILL.md). If missing: `npx tessl i canonical/mason@0.1.0 --skill chisel-slicer`. 
+the `chisel-slicer` skill (from https://github.com/canonical/mason/tree/main/skills/chisel-slicer/SKILL.md). If missing: `npx tessl i canonical/mason@0.1.0 --skill chisel-slicer`. 
 
 
