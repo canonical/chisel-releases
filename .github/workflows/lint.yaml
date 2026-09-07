@@ -21,6 +21,10 @@ jobs:
   prepare-lint:
     runs-on: ubuntu-latest
     name: "Prepare to lint"
+    # Don't run unattended in forks
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
     outputs:
       matrix: ${{ steps.set-output.outputs.matrix }}
       main-ref: ${{ steps.set-output.outputs.main_ref }}

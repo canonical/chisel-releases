@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     # Needs to be called, from a workflow triggered by a PR
     if: |
-      startswith(github.event_name, 'pull_request') &&
+      github.event_name == 'pull_request' &&
       startswith(github.base_ref, 'ubuntu-')
     outputs:
       changed-files: ${{ steps.changed-paths.outputs.slices_files }}

@@ -110,6 +110,6 @@ two project maintainers.
 
 If you are slicing Debian packages and thus proposing new slice definitions,
 make sure you read the [package slicing guidelines available in the
-Chisel documentation](https://documentation.ubuntu.com/chisel/en/latest/how-to/slice-a-package/).
+Chisel documentation](https://ubuntu.com/chisel/docs/latest/how-to/slice-a-package/).
 
 

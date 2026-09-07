@@ -27,14 +27,18 @@ env:
       {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0"]},
       {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
       {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
-      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.4.2","main"]},
-      {"ref": "ubuntu-26.10", "chisel-versions": ["v1.4.2","main"]}
+      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.4.2","v1.5.0","main"]},
+      {"ref": "ubuntu-26.10", "chisel-versions": ["v1.5.0","main"]}
     ]
 
 jobs:
   prepare-install:
     runs-on: ubuntu-latest
     name: "Prepare to install"
+    # Don't run unattended in forks
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
     outputs:
       install-all: ${{ steps.set-output.outputs.install_all }}
       matrix: ${{ steps.set-output.outputs.matrix }}
