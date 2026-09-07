@@ -7,6 +7,8 @@ slices:
   archiver:
     essential:
       binutils-aarch64-linux-gnu_archiver: {arch: [arm64]}
+      binutils-powerpc64le-linux-gnu_archiver: {arch: [ppc64el]}
+      binutils-s390x-linux-gnu_archiver: {arch: [s390x]}
       binutils-x86-64-linux-gnu_archiver: {arch: [amd64]}
     contents:
       /usr/bin/ar:  # Symlink to ${ARCH_TRIPLET}-ar
@@ -14,6 +16,8 @@ slices:
   assembler:
     essential:
       binutils-aarch64-linux-gnu_assembler: {arch: [arm64]}
+      binutils-powerpc64le-linux-gnu_assembler: {arch: [ppc64el]}
+      binutils-s390x-linux-gnu_assembler: {arch: [s390x]}
       binutils-x86-64-linux-gnu_assembler: {arch: [amd64]}
     contents:
       /usr/bin/as:  # Symlink to ${ARCH_TRIPLET}-as
@@ -21,6 +25,8 @@ slices:
   linker:
     essential:
       binutils-aarch64-linux-gnu_linker: {arch: [arm64]}
+      binutils-powerpc64le-linux-gnu_linker: {arch: [ppc64el]}
+      binutils-s390x-linux-gnu_linker: {arch: [s390x]}
       binutils-x86-64-linux-gnu_linker: {arch: [amd64]}
     contents:
       /usr/bin/ld:  # Symlink to ${ARCH_TRIPLET}-ld

@@ -1,5 +1,8 @@
 package: make
 
+essential:
+  make_copyright:
+
 slices:
   bins:
     essential:
