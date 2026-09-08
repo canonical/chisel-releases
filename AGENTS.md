@@ -4,7 +4,6 @@ This is the `ubuntu-22.04` [Chisel](https://github.com/canonical/chisel/) releas
 
  - the Chisel release configuration file is `chisel.yaml`
  - slice definitions for Debian packages MUST go under `slices/`
- - slice definitions for packages of `kind: bin` MUST go under `bin-slices/`
  - [Spread](https://github.com/canonical/spread) tests for slice definitions go under `tests/spread`
  - the Spread configuration file is `spread.yaml`
 
