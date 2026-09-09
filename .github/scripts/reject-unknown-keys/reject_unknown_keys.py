@@ -57,6 +57,11 @@ ESSENTIAL_KEYS = frozenset({"arch"})
 LEGACY_ESSENTIAL_FORMATS = frozenset({"v1", "v2"})  # where v3-essential applies
 STORE_KEYS = frozenset({"store", "default-track"})  # v3 onwards
 
+# Only format v3 keeps bin slice definitions in their own directory, so that
+# older Chisel versions -- which read slices/ and know nothing of stores -- are
+# unaffected by the new store fields. v4 moved them back into slices/.
+BIN_SLICES_FORMATS = frozenset({"v3"})
+
 
 @dataclass(frozen=True)
 class KeySets:
@@ -108,6 +113,13 @@ def key_sets_for(release_format: str) -> KeySets:
         path=PATH_KEYS,
         essential=ESSENTIAL_KEYS,
     )
+
+
+def slice_dirs(release_format: str) -> tuple[str, ...]:
+    """Directories Chisel reads slice definitions from, for a release format."""
+    if release_format in BIN_SLICES_FORMATS:
+        return ("slices", "bin-slices")
+    return ("slices",)
 
 
 def read_format(release_dir: Path) -> str:
@@ -227,20 +239,22 @@ def check_file(path: Path, keys: KeySets) -> list[Finding]:
     return findings
 
 
-def resolve_targets(release_dir: Path, files: Iterable[str]) -> list[Path]:
+def resolve_targets(release_dir: Path, files: Iterable[str], dirs: tuple[str, ...]) -> list[Path]:
     """Return the SDFs to check: those named, else every slice in the release.
 
-    Paths outside slices/ are dropped so the caller can hand over a raw
-    changed-file list, and missing paths are dropped because a pull request may
-    name files it deleted.
+    Paths in directories Chisel does not read slices from are dropped, so the
+    caller can hand over a raw changed-file list, and missing paths are dropped
+    because a pull request may name files it deleted.
     """
     named = [Path(f) for f in files]
     if not named:
-        return sorted((release_dir / "slices").glob("*.yaml"))
+        return sorted(
+            path for name in dirs for path in (release_dir / name).glob("*.yaml")
+        )
     return sorted(
         path
         for path in named
-        if path.suffix == ".yaml" and path.parent.name == "slices" and path.is_file()
+        if path.suffix == ".yaml" and path.parent.name in dirs and path.is_file()
     )
 
 
@@ -251,7 +265,10 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "files",
         nargs="*",
-        help="SDFs to check. Entries outside slices/ are ignored. Defaults to every slice.",
+        help=(
+            "SDFs to check. Entries outside the release's slice directories are "
+            "ignored. Defaults to every slice."
+        ),
     )
     parser.add_argument(
         "--release",
@@ -278,7 +295,7 @@ def main(argv: list[str] | None = None) -> int:
         logging.error("error: %s", err)
         return 2
 
-    targets = resolve_targets(args.release, args.files)
+    targets = resolve_targets(args.release, args.files, slice_dirs(release_format))
     if not targets:
         logging.info("no slice definition files to check")
         return 0

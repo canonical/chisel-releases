@@ -88,9 +88,12 @@ jobs:
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         with:
           # ref: https://github.com/marketplace/actions/paths-changes-filter
+          # In format v3 bin slices live in their own directory, which Chisel
+          # reads alongside slices/.
           filters: |
             slices:
               - added|modified: 'slices/**/*.yaml'
+              - added|modified: 'bin-slices/**/*.yaml'
           # Space delimited list usable as command-line argument list in
           # Linux shell. If needed, it uses single or double quotes to
           # wrap filename with unsafe characters.

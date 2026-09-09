@@ -268,22 +268,34 @@ class TestCheckFile:
         assert "top-level mapping" in finding.reason
 
 
+class TestSliceDirs:
+    def test_v3_also_reads_bin_slices(self):
+        # Only v3 keeps bin slices in their own directory.
+        assert ruk.slice_dirs("v3") == ("slices", "bin-slices")
+
+    def test_other_formats_read_only_slices(self):
+        for fmt in ("v1", "v2", "v4"):
+            assert ruk.slice_dirs(fmt) == ("slices",)
+
+
 class TestResolveTargets:
     def test_no_files_means_every_slice(self, tmp_path):
         release = write_release(tmp_path, "v3", a=CLEAN_V3, b=CLEAN_V3)
-        assert [p.name for p in ruk.resolve_targets(release, [])] == ["a.yaml", "b.yaml"]
+        targets = ruk.resolve_targets(release, [], ("slices",))
+        assert [p.name for p in targets] == ["a.yaml", "b.yaml"]
 
     def test_named_files_are_used(self, tmp_path):
         release = write_release(tmp_path, "v3", a=CLEAN_V3, b=CLEAN_V3)
-        targets = ruk.resolve_targets(release, [str(release / "slices" / "a.yaml")])
+        targets = ruk.resolve_targets(release, [str(release / "slices" / "a.yaml")], ("slices",))
         assert [p.name for p in targets] == ["a.yaml"]
 
-    def test_paths_outside_slices_are_dropped(self, tmp_path):
+    def test_paths_outside_slice_dirs_are_dropped(self, tmp_path):
         release = write_release(tmp_path, "v3", a=CLEAN_V3)
         (release / "README.md").write_text("hi\n")
         targets = ruk.resolve_targets(
             release,
             [str(release / "slices" / "a.yaml"), str(release / "README.md"), "chisel.yaml"],
+            ("slices",),
         )
         assert [p.name for p in targets] == ["a.yaml"]
 
@@ -293,7 +305,39 @@ class TestResolveTargets:
         targets = ruk.resolve_targets(
             release,
             [str(release / "slices" / "a.yaml"), str(release / "slices" / "gone.yaml")],
+            ("slices",),
         )
+        assert [p.name for p in targets] == ["a.yaml"]
+
+    def test_bin_slices_are_swept_when_the_format_reads_them(self, tmp_path):
+        release = write_release(tmp_path, "v3", a=CLEAN_V3)
+        bin_slices = release / "bin-slices"
+        bin_slices.mkdir()
+        (bin_slices / "b.yaml").write_text(CLEAN_V3)
+        targets = ruk.resolve_targets(release, [], ("slices", "bin-slices"))
+        assert sorted(p.name for p in targets) == ["a.yaml", "b.yaml"]
+
+    def test_bin_slices_ignored_when_the_format_does_not_read_them(self, tmp_path):
+        release = write_release(tmp_path, "v4", a=CLEAN_V3)
+        bin_slices = release / "bin-slices"
+        bin_slices.mkdir()
+        (bin_slices / "b.yaml").write_text(CLEAN_V3)
+        targets = ruk.resolve_targets(release, [], ("slices",))
+        assert [p.name for p in targets] == ["a.yaml"]
+
+    def test_named_bin_slice_accepted_only_when_read(self, tmp_path):
+        release = write_release(tmp_path, "v3", a=CLEAN_V3)
+        bin_slices = release / "bin-slices"
+        bin_slices.mkdir()
+        named = [str(bin_slices / "b.yaml")]
+        (bin_slices / "b.yaml").write_text(CLEAN_V3)
+        assert ruk.resolve_targets(release, named, ("slices", "bin-slices"))
+        assert ruk.resolve_targets(release, named, ("slices",)) == []
+
+    def test_missing_bin_slices_dir_is_not_an_error(self, tmp_path):
+        # bin-slices/ is optional; chisel stats it before reading.
+        release = write_release(tmp_path, "v3", a=CLEAN_V3)
+        targets = ruk.resolve_targets(release, [], ("slices", "bin-slices"))
         assert [p.name for p in targets] == ["a.yaml"]
 
 
@@ -327,6 +371,23 @@ class TestMain:
     def test_no_matching_files_exits_zero(self, tmp_path):
         release = write_release(tmp_path, "v3", example=CLEAN_V3)
         assert ruk.main(["--release", str(release), str(release / "README.md")]) == 0
+
+    def test_bad_key_in_a_bin_slice_is_caught_on_v3(self, tmp_path):
+        release = write_release(tmp_path, "v3", example=CLEAN_V3)
+        bin_slices = release / "bin-slices"
+        bin_slices.mkdir()
+        (bin_slices / "tool.yaml").write_text(
+            dedent(
+                """
+                package: tool
+                slices:
+                  copyright:
+                    content:
+                      /usr/share/doc/tool/copyright:
+                """
+            ).lstrip()
+        )
+        assert ruk.main(["--release", str(release)]) == 1
 
     def test_annotation_is_emitted_on_request(self, tmp_path, capsys):
         release = write_release(
