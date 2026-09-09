@@ -39,7 +39,7 @@ slices:
 
   dev:
     essential:
-      tomcat11-common_scripts:
+      tomcat11-common_extra-scripts:
       tomcat11_standard:
 
   copyright:
