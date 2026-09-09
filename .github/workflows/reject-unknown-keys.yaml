@@ -1,0 +1,109 @@
+name: Reject unknown keys
+
+# Chisel ignores SDF keys it does not recognise, so that an older binary can
+# still parse a release using fields added in a later format. A misspelled key
+# is therefore indistinguishable from a future one: it is silently dropped and
+# the slice resolves to something other than what the author wrote. This repo
+# knows which format each branch targets, so it can be strict where Chisel
+# cannot.
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/reject-unknown-keys.yaml"
+      - ".github/scripts/reject-unknown-keys/**"
+  schedule:
+    # Run at 00:00 every day.
+    # Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "0 0 * * *"
+  workflow_call:
+
+env:
+  # chisel-releases branches to check.
+  RELEASES: ${{ toJson('["ubuntu-20.04","ubuntu-22.04","ubuntu-24.04","ubuntu-26.04","ubuntu-26.10"]') }}
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    name: "Prepare to check keys"
+    # Don't run unattended in forks
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
+    outputs:
+      matrix: ${{ steps.set-output.outputs.matrix }}
+      main-ref: ${{ steps.set-output.outputs.main_ref }}
+    steps:
+      - name: Set output
+        id: set-output
+        run: |
+          set -ex
+
+          if [[
+            "${{ github.base_ref || github.ref_name }}" == "main" ||
+            "${{ github.event_name }}" == "schedule"
+          ]]; then
+            echo "matrix={\"ref\":${{ env.RELEASES }}}" >> $GITHUB_OUTPUT
+          else
+            echo "matrix={\"ref\":[\"\"]}" >> $GITHUB_OUTPUT
+          fi
+
+          # For PRs to main, use the updated files from PR head_ref by leaving
+          # main_ref unset. Otherwise, set main_ref to main.
+          if [[ "${{ github.base_ref }}" != "main" ]]; then
+            echo "main_ref=main" >> $GITHUB_OUTPUT
+          fi
+
+  check:
+    runs-on: ubuntu-latest
+    name: "Check keys"
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    env:
+      main-branch-path: files-from-main
+      script-dir: files-from-main/.github/scripts/reject-unknown-keys
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ matrix.ref }}
+
+      # The script is maintained on main and shared by every release branch.
+      - name: Checkout main branch
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare.outputs.main-ref }}
+          path: ${{ env.main-branch-path }}
+
+      # Only a pull request against a release branch has a diff to narrow to.
+      # Every other trigger leaves this unset and the whole release is checked.
+      - name: Check changed paths
+        id: changed-paths
+        if: >-
+          github.event_name == 'pull_request'
+          && startswith(github.base_ref, 'ubuntu-')
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          pip-install: -r ${{ env.script-dir }}/requirements.txt
+
+      # With no file arguments the script checks every slice in the release.
+      - name: Reject unknown keys
+        run: |
+          ./${{ env.script-dir }}/reject_unknown_keys.py --annotate \
+            ${{ steps.changed-paths.outputs.slices_files }}
