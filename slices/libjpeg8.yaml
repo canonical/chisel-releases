@@ -8,7 +8,9 @@ essential:
 slices:
   libs:
     essential:
-      libjpeg-turbo8_libs:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libjpeg.so.8*:
 
   copyright:
     contents:

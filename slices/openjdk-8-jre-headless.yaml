@@ -110,7 +110,7 @@ slices:
     essential:
       libfontconfig1_libs:
       libfreetype6_libs:
-      libjpeg-turbo8_libs:
+      libjpeg8_libs:
       liblcms2-2_libs:
       openjdk-8-jre-headless_core:
     contents:
