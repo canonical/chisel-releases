@@ -35,7 +35,7 @@ execute: |
       chroot "$rootfs" /usr/share/tomcat11/bin/setclasspath.sh \
        | grep -q "Neither the JAVA_HOME nor the JRE_HOME environment variable is defined"
     ;;
-    extrascripts)
+    extra-scripts)
       chroot "$rootfs" /usr/share/tomcat11/bin/ciphers.sh \
         | grep -q TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
       chroot "$rootfs" /usr/share/tomcat11/bin/digest.sh foo \
