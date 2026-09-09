@@ -73,12 +73,12 @@ class TestKeySets:
 class TestReadFormat:
     def test_reads_format(self, tmp_path):
         release = write_release(tmp_path, "v3")
-        assert ruk.read_format(release) == 3
+        assert ruk.read_format(release) == "v3"
 
     def test_accepts_every_known_format(self, tmp_path):
-        for version in ruk.KNOWN_FORMATS:
-            release = write_release(tmp_path, f"v{version}")
-            assert ruk.read_format(release) == version
+        for fmt in ruk.KNOWN_FORMATS:
+            release = write_release(tmp_path, fmt)
+            assert ruk.read_format(release) == fmt
 
     def test_missing_file(self, tmp_path):
         with pytest.raises(ValueError, match="cannot read"):
@@ -96,11 +96,6 @@ class TestReadFormat:
 
     def test_unknown_format_rejected(self, tmp_path):
         release = write_release(tmp_path, "v9")
-        with pytest.raises(ValueError, match="unknown format"):
-            ruk.read_format(release)
-
-    def test_malformed_format_rejected(self, tmp_path):
-        release = write_release(tmp_path, "three")
         with pytest.raises(ValueError, match="unknown format"):
             ruk.read_format(release)
 
@@ -129,6 +124,8 @@ class TestCheckFile:
         assert findings[0].line == 4
 
     def test_catches_a_typo_at_every_level(self, tmp_path):
+        # One typo per place the walkers descend into, so that dropping any
+        # single descent fails this test.
         release = write_release(
             tmp_path,
             "v3",
@@ -138,16 +135,25 @@ class TestCheckFile:
             essential:
               other_copyright:
                 arhc: [amd64]
+            v3-essential:
+              other_libs:
+                archh: [amd64]
             slices:
               bins:
                 mutat: "typo"
+                essential:
+                  libc6_libs:
+                    ach: [amd64]
+                v3-essential:
+                  libc6_libs:
+                    archhh: [amd64]
                 contents:
                   /usr/bin/example:
                     symlnk: /usr/bin/other
             """,
         )
         found = {f.key for f in ruk.check_file(release / "slices" / "example.yaml")}
-        assert found == {"packge", "arhc", "mutat", "symlnk"}
+        assert found == {"packge", "arhc", "archh", "mutat", "ach", "archhh", "symlnk"}
 
     def test_does_not_flag_the_valid_neighbour(self, tmp_path):
         release = write_release(
