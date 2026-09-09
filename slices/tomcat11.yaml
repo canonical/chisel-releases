@@ -43,5 +43,5 @@ slices:
       tomcat11_standard:
 
   copyright:
-    content:
+    contents:
       /usr/share/doc/tomcat11/copyright:
