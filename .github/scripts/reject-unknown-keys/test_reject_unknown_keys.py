@@ -73,12 +73,12 @@ class TestKeySets:
 class TestReadFormat:
     def test_reads_format(self, tmp_path):
         release = write_release(tmp_path, "v3")
-        assert ruk.read_format(release) == "v3"
+        assert ruk.read_format(release) == 3
 
     def test_accepts_every_known_format(self, tmp_path):
-        for fmt in ruk.KNOWN_FORMATS:
-            release = write_release(tmp_path, fmt)
-            assert ruk.read_format(release) == fmt
+        for version in ruk.KNOWN_FORMATS:
+            release = write_release(tmp_path, f"v{version}")
+            assert ruk.read_format(release) == version
 
     def test_missing_file(self, tmp_path):
         with pytest.raises(ValueError, match="cannot read"):
@@ -96,6 +96,11 @@ class TestReadFormat:
 
     def test_unknown_format_rejected(self, tmp_path):
         release = write_release(tmp_path, "v9")
+        with pytest.raises(ValueError, match="unknown format"):
+            ruk.read_format(release)
+
+    def test_malformed_format_rejected(self, tmp_path):
+        release = write_release(tmp_path, "three")
         with pytest.raises(ValueError, match="unknown format"):
             ruk.read_format(release)
 

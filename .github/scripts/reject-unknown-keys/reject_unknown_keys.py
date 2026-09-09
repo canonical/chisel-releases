@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -29,8 +30,9 @@ from typing import Iterable, Iterator
 
 import yaml
 
-# Release formats this check understands.
-KNOWN_FORMATS = ("v1", "v2", "v3")
+# Release formats this check understands, as they are numbered in chisel.yaml's
+# "vN" format field.
+KNOWN_FORMATS = (1, 2, 3)
 
 # Every key Chisel reads.
 PACKAGE_KEYS = frozenset(
@@ -64,8 +66,8 @@ class Finding:
         return f"{self.path}:{self.line}: {self.key!r} is not a key known to Chisel"
 
 
-def read_format(release_dir: Path) -> str:
-    """Read and validate the `format` field from a release's chisel.yaml.
+def read_format(release_dir: Path) -> int:
+    """Read the `format` field from a release's chisel.yaml, as its version number.
 
     An unrecognised format means Chisel may read keys this check knows nothing
     about, so such a release is rejected rather than checked.
@@ -79,12 +81,12 @@ def read_format(release_dir: Path) -> str:
         raise ValueError(f"cannot parse {chisel_yaml}: {err}") from err
     if not isinstance(doc, dict) or "format" not in doc:
         raise ValueError(f"{chisel_yaml}: no 'format' field")
-    release_format = str(doc["format"])
-    if release_format not in KNOWN_FORMATS:
-        raise ValueError(
-            f"unknown format {release_format!r}, expected one of {', '.join(KNOWN_FORMATS)}"
-        )
-    return release_format
+    raw = str(doc["format"])
+    match = re.fullmatch(r"v(\d+)", raw)
+    if match is None or int(match.group(1)) not in KNOWN_FORMATS:
+        known = ", ".join(f"v{version}" for version in KNOWN_FORMATS)
+        raise ValueError(f"unknown format {raw!r}, expected one of {known}")
+    return int(match.group(1))
 
 
 def _mapping_items(node: yaml.Node | None) -> Iterator[tuple[yaml.ScalarNode, yaml.Node]]:
@@ -194,7 +196,7 @@ def main(argv: list[str] | None = None) -> int:
         logging.error("error: %s", err)
         return 2
 
-    logging.info("checked %d slice(s) against format %s", len(targets), release_format)
+    logging.info("checked %d slice(s) against format v%d", len(targets), release_format)
     for finding in findings:
         logging.error("%s", finding)
 
