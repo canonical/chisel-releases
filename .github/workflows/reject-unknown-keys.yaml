@@ -1,0 +1,64 @@
+name: Reject unknown keys
+
+# Chisel ignores SDF keys it does not recognise, so that an older binary can
+# still parse a release using fields added in a later format. A misspelled key
+# is therefore indistinguishable from a future one: it is silently dropped and
+# the slice resolves to something other than what the author wrote. This repo
+# knows which format each branch targets, so it can be strict where Chisel
+# cannot.
+
+# Called by each release branch's ci.yaml, so the checked-out ref is always the
+# release under test and there is never a matrix of branches to iterate.
+on:
+  workflow_call:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: "Check keys"
+    env:
+      main-branch-path: files-from-main
+      script-dir: files-from-main/.github/scripts/reject-unknown-keys
+    steps:
+      - uses: actions/checkout@v6
+
+      # The script is maintained on main and shared by every release branch.
+      - name: Checkout main branch
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          path: ${{ env.main-branch-path }}
+
+      # Only a pull request has a diff to narrow to. ci.yaml also fires on
+      # branch creation, where this is skipped and the whole release is checked.
+      - name: Check changed paths
+        id: changed-paths
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        with:
+          # ref: https://github.com/marketplace/actions/paths-changes-filter
+          filters: |
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          # Space delimited list usable as command-line argument list in
+          # Linux shell. If needed, it uses single or double quotes to
+          # wrap filename with unsafe characters.
+          list-files: shell
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          pip-install: -r ${{ env.script-dir }}/requirements.txt
+
+      # A pull request that touches no slices has nothing to check. Without this
+      # the empty file list would be indistinguishable from "no list given", and
+      # the whole release would be scanned -- failing unrelated pull requests
+      # over defects that predate them.
+      - name: Reject unknown keys
+        if: >-
+          github.event_name != 'pull_request'
+          || steps.changed-paths.outputs.slices == 'true'
+        run: |
+          ./${{ env.script-dir }}/reject_unknown_keys.py \
+            ${{ steps.changed-paths.outputs.slices_files }}
