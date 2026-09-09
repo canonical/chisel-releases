@@ -54,5 +54,5 @@ jobs:
       # With no file arguments the script checks every slice in the release.
       - name: Reject unknown keys
         run: |
-          ./${{ env.script-dir }}/reject_unknown_keys.py --annotate \
+          ./${{ env.script-dir }}/reject_unknown_keys.py \
             ${{ steps.changed-paths.outputs.slices_files }}

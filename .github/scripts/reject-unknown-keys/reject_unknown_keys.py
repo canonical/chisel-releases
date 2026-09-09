@@ -9,10 +9,9 @@ from a future one: it is silently dropped, and the slice resolves to something
 other than what the author wrote. `chisel cut` succeeds, no gate complains, and
 the defect ships.
 
-Since this repository knows which format each branch targets (the `format` field
-in chisel.yaml), it can afford to be strict where Chisel cannot. This script reads
-that format, derives the set of keys Chisel would actually read, and reports any
-key outside it.
+This check only asks whether Chisel reads a key at all. Keys that are valid under
+some formats and not others are Chisel's own business: it errors on those rather
+than ignoring them, so the installability tests already catch their misuse.
 
 The key sets below mirror the yaml struct tags in Chisel's internal/setup/yaml.go.
 They must be updated whenever Chisel gains a field, otherwise this check will
@@ -30,15 +29,14 @@ from typing import Iterable, Iterator
 
 import yaml
 
-# Formats this check knows how to reason about. Chisel itself also accepts "v4",
-# which is deliberately not handled yet: v4 moves bin slice definitions out of
-# bin-slices/ and back into slices/, so adopting it needs more than adding the
-# string here. Until then a v4 release is rejected rather than checked wrongly.
+# Release formats this check understands.
 KNOWN_FORMATS = ("v1", "v2", "v3")
 
-# Keys valid regardless of format.
-PACKAGE_KEYS = frozenset({"package", "archive", "essential", "slices"})
-SLICE_KEYS = frozenset({"hint", "essential", "contents", "mutate"})
+# Every key Chisel reads.
+PACKAGE_KEYS = frozenset(
+    {"package", "archive", "essential", "slices", "store", "default-track", "v3-essential"}
+)
+SLICE_KEYS = frozenset({"hint", "essential", "contents", "mutate", "v3-essential"})
 PATH_KEYS = frozenset(
     {
         "make",
@@ -55,21 +53,6 @@ PATH_KEYS = frozenset(
 )
 ESSENTIAL_KEYS = frozenset({"arch"})
 
-# Format-gated keys. Chisel errors on these when used under the wrong format
-# rather than ignoring them, but they are still the wrong key for the branch.
-LEGACY_ESSENTIAL_FORMATS = frozenset({"v1", "v2"})  # where v3-essential applies
-STORE_KEYS = frozenset({"store", "default-track"})  # v3 onwards
-
-
-@dataclass(frozen=True)
-class KeySets:
-    """The keys Chisel reads for a given release format."""
-
-    package: frozenset[str]
-    slice: frozenset[str]
-    path: frozenset[str]
-    essential: frozenset[str]
-
 
 @dataclass(frozen=True)
 class Finding:
@@ -78,43 +61,20 @@ class Finding:
     column: int
     where: str
     key: str
-    reason: str
 
-    def annotation(self) -> str:
-        """Render as a GitHub Actions error annotation."""
+    def __str__(self) -> str:
         return (
-            f"::error file={self.path},line={self.line},col={self.column}::"
-            f"{self.where}: {self.reason}"
+            f"{self.path}:{self.line}:{self.column}: {self.where}: "
+            f"{self.key!r} is not a key Chisel reads; it is silently ignored"
         )
-
-    def human(self) -> str:
-        return f"{self.path}:{self.line}:{self.column}: {self.where}: {self.reason}"
-
-
-def key_sets_for(release_format: str) -> KeySets:
-    """Derive the readable key set for a release format."""
-    if release_format not in KNOWN_FORMATS:
-        raise ValueError(
-            f"unknown format {release_format!r}, expected one of {', '.join(KNOWN_FORMATS)}"
-        )
-    package = set(PACKAGE_KEYS)
-    slice_keys = set(SLICE_KEYS)
-    if release_format in LEGACY_ESSENTIAL_FORMATS:
-        # v3-essential back-ports arch-specific essentials into v1/v2 releases.
-        package.add("v3-essential")
-        slice_keys.add("v3-essential")
-    else:
-        package |= STORE_KEYS
-    return KeySets(
-        package=frozenset(package),
-        slice=frozenset(slice_keys),
-        path=PATH_KEYS,
-        essential=ESSENTIAL_KEYS,
-    )
 
 
 def read_format(release_dir: Path) -> str:
-    """Read the `format` field from a release's chisel.yaml."""
+    """Read and validate the `format` field from a release's chisel.yaml.
+
+    An unrecognised format means Chisel may read keys this check knows nothing
+    about, so such a release is rejected rather than checked.
+    """
     chisel_yaml = release_dir / "chisel.yaml"
     try:
         doc = yaml.safe_load(chisel_yaml.read_text())
@@ -124,7 +84,12 @@ def read_format(release_dir: Path) -> str:
         raise ValueError(f"cannot parse {chisel_yaml}: {err}") from err
     if not isinstance(doc, dict) or "format" not in doc:
         raise ValueError(f"{chisel_yaml}: no 'format' field")
-    return str(doc["format"])
+    release_format = str(doc["format"])
+    if release_format not in KNOWN_FORMATS:
+        raise ValueError(
+            f"unknown format {release_format!r}, expected one of {', '.join(KNOWN_FORMATS)}"
+        )
+    return release_format
 
 
 def _mapping_items(node: yaml.Node | None) -> Iterator[tuple[yaml.ScalarNode, yaml.Node]]:
@@ -157,16 +122,12 @@ def _check_keys(
                 column=key.start_mark.column + 1,
                 where=where,
                 key=key.value,
-                reason=(
-                    f"{key.value!r} is not a key Chisel reads; it is silently ignored. "
-                    f"Expected one of: {', '.join(sorted(allowed))}"
-                ),
             )
         )
 
 
 def _check_essential(
-    path: Path, node: yaml.Node | None, keys: KeySets, where: str, findings: list[Finding]
+    path: Path, node: yaml.Node | None, where: str, findings: list[Finding]
 ) -> None:
     """Check the per-entry options of a mapping-style `essential` block.
 
@@ -176,40 +137,22 @@ def _check_essential(
     for entry, options in _mapping_items(node):
         if not isinstance(entry, yaml.ScalarNode):
             continue
-        _check_keys(path, options, keys.essential, f"{where}[{entry.value}]", findings)
+        _check_keys(path, options, ESSENTIAL_KEYS, f"{where}[{entry.value}]", findings)
 
 
-def check_file(path: Path, keys: KeySets) -> list[Finding]:
+def check_file(path: Path) -> list[Finding]:
     """Report every key in an SDF that Chisel would not read."""
     findings: list[Finding] = []
     try:
         root = yaml.compose(path.read_text())
     except yaml.YAMLError as err:
-        return [
-            Finding(
-                path=path,
-                line=1,
-                column=1,
-                where="<file>",
-                key="",
-                reason=f"cannot parse as YAML: {err}",
-            )
-        ]
+        raise ValueError(f"{path}: cannot parse as YAML: {err}") from err
     if not isinstance(root, yaml.MappingNode):
-        return [
-            Finding(
-                path=path,
-                line=1,
-                column=1,
-                where="<file>",
-                key="",
-                reason="expected a top-level mapping",
-            )
-        ]
+        raise ValueError(f"{path}: expected a top-level mapping")
 
-    _check_keys(path, root, keys.package, "top level", findings)
-    _check_essential(path, _find(root, "essential"), keys, "essential", findings)
-    _check_essential(path, _find(root, "v3-essential"), keys, "v3-essential", findings)
+    _check_keys(path, root, PACKAGE_KEYS, "top level", findings)
+    _check_essential(path, _find(root, "essential"), "essential", findings)
+    _check_essential(path, _find(root, "v3-essential"), "v3-essential", findings)
 
     slices = _find(root, "slices")
     if slices is None:
@@ -218,15 +161,13 @@ def check_file(path: Path, keys: KeySets) -> list[Finding]:
         if not isinstance(name, yaml.ScalarNode):
             continue
         where = f"slice {name.value!r}"
-        _check_keys(path, body, keys.slice, where, findings)
-        _check_essential(path, _find(body, "essential"), keys, f"{where} essential", findings)
-        _check_essential(
-            path, _find(body, "v3-essential"), keys, f"{where} v3-essential", findings
-        )
+        _check_keys(path, body, SLICE_KEYS, where, findings)
+        _check_essential(path, _find(body, "essential"), f"{where} essential", findings)
+        _check_essential(path, _find(body, "v3-essential"), f"{where} v3-essential", findings)
         for entry, options in _mapping_items(_find(body, "contents")):
             if not isinstance(entry, yaml.ScalarNode):
                 continue
-            _check_keys(path, options, keys.path, f"{where} path {entry.value!r}", findings)
+            _check_keys(path, options, PATH_KEYS, f"{where} path {entry.value!r}", findings)
     return findings
 
 
@@ -262,11 +203,6 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=Path("."),
         help="Path to the release checkout containing chisel.yaml (default: .)",
     )
-    parser.add_argument(
-        "--annotate",
-        action="store_true",
-        help="Emit GitHub Actions error annotations as well as human-readable output.",
-    )
     return parser.parse_args(argv)
 
 
@@ -276,25 +212,17 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         release_format = read_format(args.release)
-        keys = key_sets_for(release_format)
+        targets = resolve_targets(args.release, args.files)
+        findings: list[Finding] = []
+        for path in targets:
+            findings.extend(check_file(path))
     except ValueError as err:
         logging.error("error: %s", err)
         return 2
 
-    targets = resolve_targets(args.release, args.files)
-    if not targets:
-        logging.info("no slice definition files to check")
-        return 0
-
-    findings: list[Finding] = []
-    for path in targets:
-        findings.extend(check_file(path, keys))
-
     logging.info("checked %d slice(s) against format %s", len(targets), release_format)
     for finding in findings:
-        if args.annotate:
-            print(finding.annotation())
-        logging.error("%s", finding.human())
+        logging.error("%s", finding)
 
     if findings:
         logging.error(
