@@ -58,15 +58,10 @@ ESSENTIAL_KEYS = frozenset({"arch"})
 class Finding:
     path: Path
     line: int
-    column: int
-    where: str
     key: str
 
     def __str__(self) -> str:
-        return (
-            f"{self.path}:{self.line}:{self.column}: {self.where}: "
-            f"{self.key!r} is not a key Chisel reads; it is silently ignored"
-        )
+        return f"{self.path}:{self.line}: {self.key!r} is not a key known to Chisel"
 
 
 def read_format(release_dir: Path) -> str:
@@ -106,38 +101,22 @@ def _find(node: yaml.Node, name: str) -> yaml.Node | None:
 
 
 def _check_keys(
-    path: Path,
-    node: yaml.Node | None,
-    allowed: frozenset[str],
-    where: str,
-    findings: list[Finding],
+    path: Path, node: yaml.Node | None, allowed: frozenset[str], findings: list[Finding]
 ) -> None:
     for key, _ in _mapping_items(node):
         if not isinstance(key, yaml.ScalarNode) or key.value in allowed:
             continue
-        findings.append(
-            Finding(
-                path=path,
-                line=key.start_mark.line + 1,
-                column=key.start_mark.column + 1,
-                where=where,
-                key=key.value,
-            )
-        )
+        findings.append(Finding(path=path, line=key.start_mark.line + 1, key=key.value))
 
 
-def _check_essential(
-    path: Path, node: yaml.Node | None, where: str, findings: list[Finding]
-) -> None:
+def _check_essential(path: Path, node: yaml.Node | None, findings: list[Finding]) -> None:
     """Check the per-entry options of a mapping-style `essential` block.
 
     A v1/v2 `essential` is a list, which has no per-entry options; _mapping_items
     yields nothing for it, so this is a no-op there.
     """
-    for entry, options in _mapping_items(node):
-        if not isinstance(entry, yaml.ScalarNode):
-            continue
-        _check_keys(path, options, ESSENTIAL_KEYS, f"{where}[{entry.value}]", findings)
+    for _, options in _mapping_items(node):
+        _check_keys(path, options, ESSENTIAL_KEYS, findings)
 
 
 def check_file(path: Path) -> list[Finding]:
@@ -150,24 +129,19 @@ def check_file(path: Path) -> list[Finding]:
     if not isinstance(root, yaml.MappingNode):
         raise ValueError(f"{path}: expected a top-level mapping")
 
-    _check_keys(path, root, PACKAGE_KEYS, "top level", findings)
-    _check_essential(path, _find(root, "essential"), "essential", findings)
-    _check_essential(path, _find(root, "v3-essential"), "v3-essential", findings)
+    _check_keys(path, root, PACKAGE_KEYS, findings)
+    _check_essential(path, _find(root, "essential"), findings)
+    _check_essential(path, _find(root, "v3-essential"), findings)
 
     slices = _find(root, "slices")
     if slices is None:
         return findings
-    for name, body in _mapping_items(slices):
-        if not isinstance(name, yaml.ScalarNode):
-            continue
-        where = f"slice {name.value!r}"
-        _check_keys(path, body, SLICE_KEYS, where, findings)
-        _check_essential(path, _find(body, "essential"), f"{where} essential", findings)
-        _check_essential(path, _find(body, "v3-essential"), f"{where} v3-essential", findings)
-        for entry, options in _mapping_items(_find(body, "contents")):
-            if not isinstance(entry, yaml.ScalarNode):
-                continue
-            _check_keys(path, options, PATH_KEYS, f"{where} path {entry.value!r}", findings)
+    for _, body in _mapping_items(slices):
+        _check_keys(path, body, SLICE_KEYS, findings)
+        _check_essential(path, _find(body, "essential"), findings)
+        _check_essential(path, _find(body, "v3-essential"), findings)
+        for _, options in _mapping_items(_find(body, "contents")):
+            _check_keys(path, options, PATH_KEYS, findings)
     return findings
 
 

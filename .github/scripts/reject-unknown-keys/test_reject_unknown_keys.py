@@ -121,7 +121,6 @@ class TestCheckFile:
         findings = ruk.check_file(release / "slices" / "example.yaml")
         assert len(findings) == 1
         assert findings[0].key == "content"
-        assert findings[0].where == "slice 'copyright'"
         assert findings[0].line == 4
 
     def test_catches_a_typo_at_every_level(self, tmp_path):
@@ -163,7 +162,7 @@ class TestCheckFile:
         findings = ruk.check_file(release / "slices" / "example.yaml")
         assert [f.key for f in findings] == ["symlnk"]
 
-    def test_reports_line_and_column(self, tmp_path):
+    def test_reports_the_line(self, tmp_path):
         release = write_release(
             tmp_path,
             "v3",
@@ -177,7 +176,7 @@ class TestCheckFile:
             """,
         )
         (finding,) = ruk.check_file(release / "slices" / "example.yaml")
-        assert (finding.line, finding.column) == (6, 9)
+        assert finding.line == 6
         assert "symlnk" in str(finding)
 
     def test_essential_as_list_is_not_walked_for_options(self, tmp_path):
