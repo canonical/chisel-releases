@@ -100,28 +100,39 @@ def _find(node: yaml.Node, name: str) -> yaml.Node | None:
     return None
 
 
-def _check_keys(
-    path: Path, node: yaml.Node | None, allowed: frozenset[str], findings: list[Finding]
-) -> None:
-    for key, _ in _mapping_items(node):
-        if not isinstance(key, yaml.ScalarNode) or key.value in allowed:
-            continue
-        findings.append(Finding(path=path, line=key.start_mark.line + 1, key=key.value))
+def _check_keys(path: Path, node: yaml.Node | None, allowed: frozenset[str]) -> list[Finding]:
+    return [
+        Finding(path=path, line=key.start_mark.line + 1, key=key.value)
+        for key, _ in _mapping_items(node)
+        if isinstance(key, yaml.ScalarNode) and key.value not in allowed
+    ]
 
 
-def _check_essential(path: Path, node: yaml.Node | None, findings: list[Finding]) -> None:
+def _check_essential(path: Path, node: yaml.Node | None) -> list[Finding]:
     """Check the per-entry options of a mapping-style `essential` block.
 
     A v1/v2 `essential` is a list, which has no per-entry options; _mapping_items
-    yields nothing for it, so this is a no-op there.
+    yields nothing for it, so this finds nothing there.
     """
-    for _, options in _mapping_items(node):
-        _check_keys(path, options, ESSENTIAL_KEYS, findings)
+    return [
+        finding
+        for _, options in _mapping_items(node)
+        for finding in _check_keys(path, options, ESSENTIAL_KEYS)
+    ]
+
+
+def _check_slice(path: Path, body: yaml.Node) -> list[Finding]:
+    """Check one slice: its own keys, its essentials, and its contents entries."""
+    findings = _check_keys(path, body, SLICE_KEYS)
+    findings += _check_essential(path, _find(body, "essential"))
+    findings += _check_essential(path, _find(body, "v3-essential"))
+    for _, options in _mapping_items(_find(body, "contents")):
+        findings += _check_keys(path, options, PATH_KEYS)
+    return findings
 
 
 def check_file(path: Path) -> list[Finding]:
     """Report every key in an SDF that Chisel would not read."""
-    findings: list[Finding] = []
     try:
         root = yaml.compose(path.read_text())
     except yaml.YAMLError as err:
@@ -129,19 +140,11 @@ def check_file(path: Path) -> list[Finding]:
     if not isinstance(root, yaml.MappingNode):
         raise ValueError(f"{path}: expected a top-level mapping")
 
-    _check_keys(path, root, PACKAGE_KEYS, findings)
-    _check_essential(path, _find(root, "essential"), findings)
-    _check_essential(path, _find(root, "v3-essential"), findings)
-
-    slices = _find(root, "slices")
-    if slices is None:
-        return findings
-    for _, body in _mapping_items(slices):
-        _check_keys(path, body, SLICE_KEYS, findings)
-        _check_essential(path, _find(body, "essential"), findings)
-        _check_essential(path, _find(body, "v3-essential"), findings)
-        for _, options in _mapping_items(_find(body, "contents")):
-            _check_keys(path, options, PATH_KEYS, findings)
+    findings = _check_keys(path, root, PACKAGE_KEYS)
+    findings += _check_essential(path, _find(root, "essential"))
+    findings += _check_essential(path, _find(root, "v3-essential"))
+    for _, body in _mapping_items(_find(root, "slices")):
+        findings += _check_slice(path, body)
     return findings
 
 
