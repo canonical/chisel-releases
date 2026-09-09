@@ -185,9 +185,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         release_format = read_format(args.release)
         targets = resolve_targets(args.release, args.files)
-        findings: list[Finding] = []
-        for path in targets:
-            findings.extend(check_file(path))
+        findings = [finding for path in targets for finding in check_file(path)]
     except ValueError as err:
         logging.error("error: %s", err)
         return 2
