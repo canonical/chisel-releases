@@ -51,8 +51,14 @@ jobs:
           python-version: "3.12"
           pip-install: -r ${{ env.script-dir }}/requirements.txt
 
-      # With no file arguments the script checks every slice in the release.
+      # A pull request that touches no slices has nothing to check. Without this
+      # the empty file list would be indistinguishable from "no list given", and
+      # the whole release would be scanned -- failing unrelated pull requests
+      # over defects that predate them.
       - name: Reject unknown keys
+        if: >-
+          github.event_name != 'pull_request'
+          || steps.changed-paths.outputs.slices == 'true'
         run: |
           ./${{ env.script-dir }}/reject_unknown_keys.py \
             ${{ steps.changed-paths.outputs.slices_files }}
