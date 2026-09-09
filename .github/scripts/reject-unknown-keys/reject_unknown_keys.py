@@ -158,11 +158,7 @@ def resolve_targets(release_dir: Path, files: Iterable[str]) -> list[Path]:
     named = [Path(f) for f in files]
     if not named:
         return sorted((release_dir / "slices").glob("*.yaml"))
-    return sorted(
-        path
-        for path in named
-        if path.suffix == ".yaml" and path.parent.name == "slices" and path.is_file()
-    )
+    return sorted(path for path in named if path.match("slices/*.yaml") and path.is_file())
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
