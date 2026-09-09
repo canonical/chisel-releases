@@ -6,9 +6,6 @@ essential:
 slices:
   libs:
     essential:
-      # The chisel tool does not support per-architecture packages
-      # libgcc-s1 is required on armhf
-      # libgcc-s1_libs:
       libboost-context1.90.0_libs:
       libc6_libs:
       libstdc++6_libs:
