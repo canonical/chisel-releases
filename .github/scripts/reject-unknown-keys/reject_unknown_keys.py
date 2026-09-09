@@ -30,8 +30,11 @@ from typing import Iterable, Iterator
 
 import yaml
 
-# Formats Chisel accepts, per the check in setup.parseRelease.
-KNOWN_FORMATS = ("v1", "v2", "v3", "v4")
+# Formats this check knows how to reason about. Chisel itself also accepts "v4",
+# which is deliberately not handled yet: v4 moves bin slice definitions out of
+# bin-slices/ and back into slices/, so adopting it needs more than adding the
+# string here. Until then a v4 release is rejected rather than checked wrongly.
+KNOWN_FORMATS = ("v1", "v2", "v3")
 
 # Keys valid regardless of format.
 PACKAGE_KEYS = frozenset({"package", "archive", "essential", "slices"})
@@ -56,11 +59,6 @@ ESSENTIAL_KEYS = frozenset({"arch"})
 # rather than ignoring them, but they are still the wrong key for the branch.
 LEGACY_ESSENTIAL_FORMATS = frozenset({"v1", "v2"})  # where v3-essential applies
 STORE_KEYS = frozenset({"store", "default-track"})  # v3 onwards
-
-# Only format v3 keeps bin slice definitions in their own directory, so that
-# older Chisel versions -- which read slices/ and know nothing of stores -- are
-# unaffected by the new store fields. v4 moved them back into slices/.
-BIN_SLICES_FORMATS = frozenset({"v3"})
 
 
 @dataclass(frozen=True)
@@ -113,13 +111,6 @@ def key_sets_for(release_format: str) -> KeySets:
         path=PATH_KEYS,
         essential=ESSENTIAL_KEYS,
     )
-
-
-def slice_dirs(release_format: str) -> tuple[str, ...]:
-    """Directories Chisel reads slice definitions from, for a release format."""
-    if release_format in BIN_SLICES_FORMATS:
-        return ("slices", "bin-slices")
-    return ("slices",)
 
 
 def read_format(release_dir: Path) -> str:
@@ -239,22 +230,20 @@ def check_file(path: Path, keys: KeySets) -> list[Finding]:
     return findings
 
 
-def resolve_targets(release_dir: Path, files: Iterable[str], dirs: tuple[str, ...]) -> list[Path]:
+def resolve_targets(release_dir: Path, files: Iterable[str]) -> list[Path]:
     """Return the SDFs to check: those named, else every slice in the release.
 
-    Paths in directories Chisel does not read slices from are dropped, so the
-    caller can hand over a raw changed-file list, and missing paths are dropped
-    because a pull request may name files it deleted.
+    Paths outside slices/ are dropped so the caller can hand over a raw
+    changed-file list, and missing paths are dropped because a pull request may
+    name files it deleted.
     """
     named = [Path(f) for f in files]
     if not named:
-        return sorted(
-            path for name in dirs for path in (release_dir / name).glob("*.yaml")
-        )
+        return sorted((release_dir / "slices").glob("*.yaml"))
     return sorted(
         path
         for path in named
-        if path.suffix == ".yaml" and path.parent.name in dirs and path.is_file()
+        if path.suffix == ".yaml" and path.parent.name == "slices" and path.is_file()
     )
 
 
@@ -265,10 +254,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "files",
         nargs="*",
-        help=(
-            "SDFs to check. Entries outside the release's slice directories are "
-            "ignored. Defaults to every slice."
-        ),
+        help="SDFs to check. Entries outside slices/ are ignored. Defaults to every slice.",
     )
     parser.add_argument(
         "--release",
@@ -295,7 +281,7 @@ def main(argv: list[str] | None = None) -> int:
         logging.error("error: %s", err)
         return 2
 
-    targets = resolve_targets(args.release, args.files, slice_dirs(release_format))
+    targets = resolve_targets(args.release, args.files)
     if not targets:
         logging.info("no slice definition files to check")
         return 0
