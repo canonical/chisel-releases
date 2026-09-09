@@ -83,5 +83,5 @@ slices:
 #    essential:
 #      libtomcat11-java_jars:
 #    contents:
-#      /usr/share/java/tomcat11-catalina-ant-10*.jar:
+#      /usr/share/java/tomcat11-catalina-ant-11*.jar:
 #      /usr/share/java/tomcat11-catalina-ant.jar:
