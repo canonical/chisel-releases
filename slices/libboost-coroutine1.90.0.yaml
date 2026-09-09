@@ -11,6 +11,7 @@ slices:
       libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libboost_coroutine.so.1.90.0:
+
   copyright:
     contents:
       /usr/share/doc/libboost-coroutine1.90.0/copyright:

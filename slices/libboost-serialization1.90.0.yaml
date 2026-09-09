@@ -12,6 +12,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libboost_serialization.so.1.90.0:
       /usr/lib/*-linux-*/libboost_wserialization.so.1.90.0:
+
   copyright:
     contents:
       /usr/share/doc/libboost-serialization1.90.0/copyright:

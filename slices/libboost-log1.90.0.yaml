@@ -14,6 +14,7 @@ slices:
     contents:
       /usr/lib/*-linux-*/libboost_log.so.1.90.0:
       /usr/lib/*-linux-*/libboost_log_setup.so.1.90.0:
+
   copyright:
     contents:
       /usr/share/doc/libboost-log1.90.0/copyright:
