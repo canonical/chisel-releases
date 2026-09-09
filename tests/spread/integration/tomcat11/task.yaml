@@ -3,7 +3,7 @@ summary: Integration tests for tomcat11
 environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
-# no change in tests over tomcat11-common_extra-scripts
+# no change in tests over tomcat11-common_scripts
 #  SLICE/dev: "dev"
 
 restore: |
