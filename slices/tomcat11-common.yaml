@@ -85,6 +85,11 @@ slices:
     essential:
       tomcat11-common_catalina:
       tomcat11-common_setclasspath:
+
+  extra-scripts:
+    essential:
+      tomcat11-common_catalina:
+      tomcat11-common_setclasspath:
     contents:
       /usr/share/tomcat11/bin/ciphers.sh:
       /usr/share/tomcat11/bin/configtest.sh:
