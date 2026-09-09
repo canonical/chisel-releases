@@ -11,6 +11,7 @@ slices:
       libc6_libs:
       libcares2_libs:
       libgcc-s1_libs:
+      libhdr-histogram6_libs:
       libicu78_libs:
       libllhttp9.4_libs:
       libnghttp2-14_libs:
@@ -22,7 +23,6 @@ slices:
       libuv1t64_libs:
       libzstd1_libs:
       node-acorn_libs:
-      node-cjs-module-lexer_libs:
       node-minimatch_libs:
       node-undici_libs:
       zlib1g_libs:
