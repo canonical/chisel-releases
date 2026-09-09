@@ -10,6 +10,7 @@ slices:
       libgnutls30t64_libs:
       libldap-common_config:
       libsasl2-2_libs:
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/liblber.so.2*:
       /usr/lib/*-linux-*/libldap.so.2*:
