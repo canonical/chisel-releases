@@ -32,10 +32,10 @@ execute: |
       apt-get install -y retry
       chroot "$rootfs" /bin/sh -c \
         "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat11/bin/catalina.sh start"
-      retry --times=3 --delay 5 -- grep -q "org.apache.catalina.startup.Catalina.start" "$rootfs/var/lib/tomcat10/logs/catalina.out"
+      retry --times=3 --delay 5 -- grep -q "org.apache.catalina.startup.Catalina.start" "$rootfs/var/lib/tomcat11/logs/catalina.out"
       chroot "$rootfs" /bin/sh -c \
         "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat11/bin/catalina.sh stop"
-      grep "Инициализация" $rootfs/var/lib/tomcat10/logs/*.log
+      grep "Инициализация" $rootfs/var/lib/tomcat11/logs/*.log
     ;;
     core)
       chroot "$rootfs" /usr/share/tomcat11/bin/catalina.sh version \
@@ -48,7 +48,7 @@ execute: |
         -DarchetypeArtifactId=maven-archetype-webapp \
         -DarchetypeVersion=1.4  -DinteractiveMode=false
       (cd hello-world-war && mvn package)
-      cp hello-world-war/target/*.war "$rootfs/var/lib/tomcat10/webapps"
+      cp hello-world-war/target/*.war "$rootfs/var/lib/tomcat11/webapps"
       chroot "$rootfs" /usr/share/tomcat11/bin/catalina.sh start
       (retry --times=10 --delay 2 -- curl http://localhost:8080/hello-world-war/) | grep -q "Hello World!"
       chroot "$rootfs" /usr/share/tomcat11/bin/catalina.sh stop
