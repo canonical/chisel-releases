@@ -1,0 +1,40 @@
+summary: Integration tests for net-tools
+
+execute: |
+  function cleanup() {
+    umount "$rootfs/proc" || true
+  }
+  trap cleanup EXIT
+
+  rootfs="$(install-slices net-tools_bins)"
+
+  # Every tool here reads kernel state out of /proc/net.
+  mkdir -p "$rootfs/proc"
+  mount --bind /proc "$rootfs/proc"
+
+  # Interface configuration and statistics.
+  chroot "$rootfs" /usr/sbin/ifconfig lo | grep -Fq "127.0.0.1"
+  chroot "$rootfs" /usr/sbin/ifconfig -a | grep -Fq "lo"
+  chroot "$rootfs" /usr/bin/netstat -i | grep -Fq "lo"
+
+  # Routing table, via both entry points.
+  chroot "$rootfs" /usr/bin/netstat -rn | grep -Fiq "routing table"
+  chroot "$rootfs" /usr/sbin/route -n | grep -Fiq "destination"
+
+  # Listening sockets, plus an ARP cache lookup for an address that is never
+  # cached (the cache itself is empty in a fresh container).
+  chroot "$rootfs" /usr/bin/netstat -tuln | grep -Fiq "proto"
+  chroot "$rootfs" /usr/sbin/arp -n 10.99.99.99 | grep -Fiq "no entry"
+
+  # Multicast addresses and tunnel list.
+  chroot "$rootfs" /usr/sbin/ipmaddr show | grep -Fq "lo"
+  chroot "$rootfs" /usr/sbin/iptunnel show
+
+  # The remaining tools need hardware (a MII-capable NIC, a PLIP or serial
+  # line) or a RARP-enabled kernel, so only their own output is asserted --
+  # enough to prove the dynamic linker resolves them.
+  chroot "$rootfs" /usr/sbin/mii-tool --version | grep -Fiq "net-tools"
+  chroot "$rootfs" /usr/sbin/plipconfig --version | grep -Fiq "net-tools"
+  chroot "$rootfs" /usr/sbin/rarp --version | grep -Fiq "net-tools"
+  chroot "$rootfs" /usr/sbin/slattach --version | grep -Fiq "net-tools"
+  chroot "$rootfs" /usr/sbin/nameif --version 2>&1 | grep -Fiq "usage: nameif"
