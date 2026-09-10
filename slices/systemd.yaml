@@ -32,6 +32,7 @@ slices:
       systemd_run0:
       systemd_service-handlers:
       systemd_system-generators:
+      systemd_system-services:
       systemd_timedate:
       systemd_user-services:
     contents:
@@ -103,10 +104,14 @@ slices:
       libsystemd-shared_libs:
       libsystemd0_libs:
       systemd_config:
-      systemd_system-services:
     contents:
       /usr/bin/journalctl:
       /usr/lib/systemd/system/sockets.target.wants/systemd-journalctl.socket:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-journald.socket:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-catalog-update.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-flush.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-journald.service:
       /usr/lib/systemd/system/systemd-journal-catalog-update.service:
       /usr/lib/systemd/system/systemd-journal-flush.service:
       /usr/lib/systemd/system/systemd-journalctl.socket:
@@ -135,11 +140,14 @@ slices:
       systemd_config:
       systemd_pam-profile:
       systemd_polkit:
-      systemd_system-services:
       systemd_udev-rules:
     contents:
       /usr/bin/loginctl:
       /usr/lib/systemd/system/dbus-org.freedesktop.login1.service:
+      /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service:
+      /usr/lib/systemd/system/multi-user.target.wants/systemd-user-sessions.service:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-logind-varlink.socket:
+      /usr/lib/systemd/system/systemd-logind-varlink.socket:
       /usr/lib/systemd/system/systemd-logind.service:
       /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
       /usr/lib/systemd/system/systemd-user-sessions.service:
@@ -158,10 +166,10 @@ slices:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_polkit:
-      systemd_system-services:
     contents:
       /usr/bin/hostnamectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.hostname1.service:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:
       /usr/lib/systemd/system/systemd-hostnamed.service:
       /usr/lib/systemd/system/systemd-hostnamed.socket:
       /usr/lib/systemd/systemd-hostnamed:
@@ -172,7 +180,6 @@ slices:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_polkit:
-      systemd_system-services:
     contents:
       /usr/bin/localectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.locale1.service:
@@ -186,7 +193,6 @@ slices:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_polkit:
-      systemd_system-services:
     contents:
       /usr/bin/timedatectl:
       /usr/lib/systemd/system/dbus-org.freedesktop.timedate1.service:
@@ -203,7 +209,6 @@ slices:
       systemd_config:
       systemd_network-config:
       systemd_polkit:
-      systemd_system-services:
     contents:
       /etc/systemd/network/: {make: true, mode: 0755}
       /usr/bin/networkctl:
@@ -407,8 +412,6 @@ slices:
       /usr/lib/systemd/system/multi-user.target:
       /usr/lib/systemd/system/multi-user.target.wants/getty.target:
       /usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path:
-      /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service:
-      /usr/lib/systemd/system/multi-user.target.wants/systemd-user-sessions.service:
       /usr/lib/systemd/system/network-online.target:
       /usr/lib/systemd/system/network-pre.target:
       /usr/lib/systemd/system/network.target:
@@ -437,10 +440,6 @@ slices:
       /usr/lib/systemd/system/sockets.target.wants/systemd-ask-password.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-creds.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-factory-reset.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-hostnamed.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-journald.socket:
-      /usr/lib/systemd/system/sockets.target.wants/systemd-logind-varlink.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-mute-console.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-sysext.socket:
       /usr/lib/systemd/system/soft-reboot.target:
@@ -469,9 +468,6 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-binfmt.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-firstboot.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-hibernate-clear.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-catalog-update.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-flush.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-journald.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:
@@ -522,11 +518,6 @@ slices:
       /usr/lib/systemd/system/systemd-hibernate.service:
       /usr/lib/systemd/system/systemd-hybrid-sleep.service:
       /usr/lib/systemd/system/systemd-kexec.service:
-      /usr/lib/systemd/system/systemd-localed.service:
-      /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
-      /usr/lib/systemd/system/systemd-logind-varlink.socket:
-      /usr/lib/systemd/system/systemd-logind.service:
-      /usr/lib/systemd/system/systemd-logind.service.d/dbus.conf:
       /usr/lib/systemd/system/systemd-loop@.service:
       /usr/lib/systemd/system/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/systemd-mute-console.socket:
@@ -558,7 +549,6 @@ slices:
       /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/systemd-update-done.service:
-      /usr/lib/systemd/system/systemd-user-sessions.service:
       /usr/lib/systemd/system/systemd-validatefs@.service:
       /usr/lib/systemd/system/systemd-volatile-root.service:
       /usr/lib/systemd/system/time-set.target:
