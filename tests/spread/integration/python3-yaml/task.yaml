@@ -1,0 +1,33 @@
+summary: Integration tests for python3-yaml
+
+execute: |
+  rootfs="$(install-slices python3-yaml_libs)"
+
+  # The LibYAML C extension must be usable, not just importable: without
+  # libyaml-0-2 PyYAML silently falls back to the pure-Python parser.
+  chroot "$rootfs" python3 -c "
+  import yaml
+  assert yaml.__with_libyaml__, 'LibYAML extension not available'
+  print(yaml.__version__)
+  "
+
+  # Parse and emit with both the pure-Python and the C implementations.
+  chroot "$rootfs" python3 -c "
+  import yaml
+  doc = 'a: 1\nb: [x, y]\nc:\n  d: true\n'
+  want = {'a': 1, 'b': ['x', 'y'], 'c': {'d': True}}
+  for loader in (yaml.SafeLoader, yaml.CSafeLoader):
+      assert yaml.load(doc, Loader=loader) == want, loader
+  for dumper in (yaml.SafeDumper, yaml.CSafeDumper):
+      assert yaml.safe_load(yaml.dump({'k': [1, 2]}, Dumper=dumper)) == {'k': [1, 2]}, dumper
+  assert list(yaml.safe_load_all('---\na: 1\n---\nb: 2\n')) == [{'a': 1}, {'b': 2}]
+  try:
+      yaml.safe_load('a: [1, 2\n')
+  except yaml.YAMLError:
+      pass
+  else:
+      raise AssertionError('malformed input did not raise YAMLError')
+  "
+
+  # The legacy top-level "_yaml" stub module re-exports the extension.
+  chroot "$rootfs" python3 -W ignore::DeprecationWarning -c "import _yaml"
