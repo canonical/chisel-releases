@@ -7,7 +7,7 @@ slices:
   libs:
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/sasl2/libanonymous.so*:
       /usr/lib/*-linux-*/sasl2/libcrammd5.so*:

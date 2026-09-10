@@ -10,7 +10,7 @@ slices:
     contents:
       /usr/share/nodejs/minimatch/dist/**.js:
       /usr/share/nodejs/minimatch/dist/**.ts:
-      /usr/share/nodejs/minimatch/index.js:
+      /usr/share/nodejs/minimatch/index.cjs:
       /usr/share/nodejs/minimatch/package.json:
 
   copyright:

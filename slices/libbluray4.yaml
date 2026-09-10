@@ -1,7 +1,7 @@
-package: libbluray3
+package: libbluray4
 
 essential:
-  libbluray3_copyright:
+  libbluray4_copyright:
 
 slices:
   libs:
@@ -12,8 +12,8 @@ slices:
       libudfread3_libs:
       libxml2-16_libs:
     contents:
-      /usr/lib/*-linux-*/libbluray.so.3*:
+      /usr/lib/*-linux-*/libbluray.so.4*:
 
   copyright:
     contents:
-      /usr/share/doc/libbluray3/copyright:
+      /usr/share/doc/libbluray4/copyright:
