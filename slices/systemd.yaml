@@ -72,6 +72,7 @@ slices:
       /usr/bin/systemd-socket-activate:
       /usr/bin/systemd-stdio-bridge:
       /usr/bin/systemd-sysext:
+      /usr/bin/systemd-sysinstall:
       /usr/bin/systemd-tty-ask-password-agent:
       /usr/bin/systemd-umount:  # Symlink to systemd-mount
       /usr/bin/systemd-vpick:
@@ -105,8 +106,11 @@ slices:
       systemd_system-services:
     contents:
       /usr/bin/journalctl:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-journalctl.socket:
       /usr/lib/systemd/system/systemd-journal-catalog-update.service:
       /usr/lib/systemd/system/systemd-journal-flush.service:
+      /usr/lib/systemd/system/systemd-journalctl.socket:
+      /usr/lib/systemd/system/systemd-journalctl@.service:
       /usr/lib/systemd/system/systemd-journald-audit.socket:
       /usr/lib/systemd/system/systemd-journald-dev-log.socket:
       /usr/lib/systemd/system/systemd-journald-sync@.service:
@@ -117,6 +121,9 @@ slices:
       /usr/lib/systemd/system/systemd-journald@.service:
       /usr/lib/systemd/system/systemd-journald@.socket:
       /usr/lib/systemd/systemd-journald:
+      /usr/lib/systemd/user/sockets.target.wants/systemd-journalctl.socket:
+      /usr/lib/systemd/user/systemd-journalctl.socket:
+      /usr/lib/systemd/user/systemd-journalctl@.service:
 
   login:
     hint: Manage user logins and sessions
@@ -203,6 +210,7 @@ slices:
       /usr/lib/systemd/system/systemd-network-generator.service:
       /usr/lib/systemd/system/systemd-networkd-persistent-storage.service:
       /usr/lib/systemd/system/systemd-networkd-resolve-hook.socket:
+      /usr/lib/systemd/system/systemd-networkd-varlink-metrics.socket:
       /usr/lib/systemd/system/systemd-networkd-varlink.socket:
       /usr/lib/systemd/system/systemd-networkd-wait-online.service:
       /usr/lib/systemd/system/systemd-networkd-wait-online@.service:
@@ -293,7 +301,10 @@ slices:
       systemd_sysusers-config:
       systemd_tmpfiles-config:
     contents:
+      /etc/profile.d/70-systemd-shell-extra.sh:
+      /etc/profile.d/80-systemd-osc-context.sh:
       /etc/security/limits.d/10-coredump-debian.conf:
+      /etc/ssh/ssh_config.d/20-systemd-ssh-proxy.conf:
       /etc/systemd/journald.conf:
       /etc/systemd/logind.conf:
       /etc/systemd/networkd.conf:
@@ -318,6 +329,7 @@ slices:
 
   system-generators:
     contents:
+      /etc/systemd/system-generators/systemd-gpt-auto-generator:
       /usr/lib/systemd/system-generators/systemd-debug-generator:
       /usr/lib/systemd/system-generators/systemd-factory-reset-generator:
       /usr/lib/systemd/system-generators/systemd-fstab-generator:
@@ -468,6 +480,8 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
       /usr/lib/systemd/system/syslog.socket:
+      /usr/lib/systemd/system/system-install.target:
+      /usr/lib/systemd/system/system-install.target.wants/systemd-sysinstall.service:
       /usr/lib/systemd/system/system-systemd\x2dmute\x2dconsole.slice:
       /usr/lib/systemd/system/system-update-cleanup.service:
       /usr/lib/systemd/system/system-update-pre.target:
@@ -485,6 +499,7 @@ slices:
       /usr/lib/systemd/system/systemd-bsod.service:
         arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/system/systemd-confext-initrd.service:
+      /usr/lib/systemd/system/systemd-confext-sysroot.service:
       /usr/lib/systemd/system/systemd-confext.service:
       /usr/lib/systemd/system/systemd-creds.socket:
       /usr/lib/systemd/system/systemd-creds@.service:
@@ -530,9 +545,11 @@ slices:
       /usr/lib/systemd/system/systemd-suspend.service:
       /usr/lib/systemd/system/systemd-sysctl.service:
       /usr/lib/systemd/system/systemd-sysext-initrd.service:
+      /usr/lib/systemd/system/systemd-sysext-sysroot.service:
       /usr/lib/systemd/system/systemd-sysext.service:
       /usr/lib/systemd/system/systemd-sysext.socket:
       /usr/lib/systemd/system/systemd-sysext@.service:
+      /usr/lib/systemd/system/systemd-sysinstall.service:
       /usr/lib/systemd/system/systemd-sysusers.service:
       /usr/lib/systemd/system/systemd-tmpfiles-clean.service:
       /usr/lib/systemd/system/systemd-tmpfiles-clean.timer:
@@ -682,6 +699,7 @@ slices:
       /usr/lib/tmpfiles.d/20-systemd-shell-extra.conf:
       /usr/lib/tmpfiles.d/20-systemd-ssh-generator.conf:
       /usr/lib/tmpfiles.d/20-systemd-stub.conf:
+      /usr/lib/tmpfiles.d/20-systemd-varlink.conf:
       /usr/lib/tmpfiles.d/credstore.conf:
       /usr/lib/tmpfiles.d/debian.conf:
       /usr/lib/tmpfiles.d/home.conf:
@@ -695,6 +713,7 @@ slices:
       /usr/lib/tmpfiles.d/tmp.conf:
       /usr/lib/tmpfiles.d/var.conf:
       /usr/lib/tmpfiles.d/x11.conf:
+      /usr/share/user-tmpfiles.d/20-systemd-varlink.conf:
 
   udev-rules:
     contents:
