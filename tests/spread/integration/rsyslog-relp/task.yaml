@@ -1,0 +1,57 @@
+summary: Integration tests for rsyslog-relp
+
+execute: |
+  # Functional test: start rsyslogd with imrelp listening on a TCP port,
+  # send a log message via the RELP protocol, and verify it is written
+  # to a log file.
+  rootfs="$(install-slices rsyslog_bins rsyslog_data base-passwd_data rsyslog-relp_modules)"
+
+  # Create syslog user/group (normally done by postinst via adduser)
+  echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
+  echo "syslog:x:101:" >> "${rootfs}/etc/group"
+
+  # Set up /var/log permissions (normally done by postinst)
+  chgrp syslog "${rootfs}/var/log"
+  chmod g+w "${rootfs}/var/log"
+
+  # Bind-mount host /dev so rsyslogd has /dev/null
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  trap "pkill -x rsyslogd; umount ${rootfs}/dev || true" EXIT
+
+  # Config: load imrelp, listen on port 10514, write all messages to a file
+  cat >"${rootfs}/tmp/test-relp.conf" <<'CONF'
+module(load="imrelp")
+input(type="imrelp" port="10514")
+$PrivDropToUser root
+$PrivDropToGroup root
+$WorkDirectory /var/spool/rsyslog
+*.* /tmp/rsyslog-relp-test.log
+CONF
+
+  # Start daemon
+  chroot "$rootfs" /usr/sbin/rsyslogd -iNONE -f /tmp/test-relp.conf
+  sleep 1
+
+  # Send a log message via the RELP protocol using Python.
+  # RELP frame format: "<txnr> <command> <datalen> <data>\n"
+  python3 -c "
+import socket, time
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.settimeout(3)
+s.connect(('127.0.0.1', 10514))
+# RELP open
+s.sendall(b'1 open 6 relp1\n')
+time.sleep(0.5)
+# RELP syslog
+msg = '<34>chisel-relp: hello from chisel\n'
+frame = '2 syslog ' + str(len(msg)) + ' ' + msg
+s.sendall(frame.encode())
+time.sleep(1)
+s.close()
+"
+  sleep 1
+  pkill -x rsyslogd
+
+  # Verify the message was logged
+  grep -Fq "chisel-relp: hello from chisel" "${rootfs}/tmp/rsyslog-relp-test.log"
