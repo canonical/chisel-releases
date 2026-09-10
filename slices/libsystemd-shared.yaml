@@ -16,7 +16,7 @@ slices:
       libpam0g_libs:
       libseccomp2_libs:
       libselinux1_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:

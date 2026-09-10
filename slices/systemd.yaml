@@ -191,7 +191,7 @@ slices:
     hint: Manage network configuration
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libsystemd-shared_libs:
       systemd_config:
       systemd_network-config:
