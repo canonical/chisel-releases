@@ -2,7 +2,16 @@ summary: Integration tests for systemd
 
 variants:
     - standard
+    - standard-tools
+    - dev
     - detect-virt
     - run0
+    - journal
+    - login
+    - hostname
+    - locale
+    - timedate
+    - network
+    - service-handlers
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
