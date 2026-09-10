@@ -5,6 +5,7 @@ essential:
 
 slices:
   standard:
+    hint: Core service manager and tools
     essential:
       libacl1_libs:
       libapparmor1_libs:
@@ -50,6 +51,7 @@ slices:
       /usr/lib/systemd/systemd-shutdown:
 
   dev:
+    hint: Additional systemd utilities
     essential:
       libc6_libs:
       libsystemd-shared_libs:
@@ -226,6 +228,7 @@ slices:
       /usr/lib/systemd/systemd-networkd-wait-online:
 
   network-config:
+    hint: Default network configuration files
     contents:
       /usr/lib/systemd/network/80-6rd-tunnel.link:
       /usr/lib/systemd/network/80-6rd-tunnel.network:
@@ -280,6 +283,7 @@ slices:
       /usr/lib/systemd/systemd-xdg-autostart-condition:
 
   catalog:
+    hint: Journal message catalogs
     contents:
       /usr/lib/systemd/catalog/systemd.be.catalog:
       /usr/lib/systemd/catalog/systemd.be@latin.catalog:
@@ -300,6 +304,7 @@ slices:
       /usr/lib/systemd/catalog/systemd.zh_TW.catalog:
 
   config:
+    hint: Default configuration files
     essential:
       systemd_modprobe-config:
       systemd_pam-profile:
@@ -333,6 +338,7 @@ slices:
       /var/log/journal/: {make: true}
 
   system-generators:
+    hint: System unit generators
     contents:
       /etc/systemd/system-generators/systemd-gpt-auto-generator:
       /usr/lib/systemd/system-generators/systemd-debug-generator:
@@ -346,6 +352,7 @@ slices:
       /usr/lib/systemd/system-generators/systemd-system-update-generator:
 
   system-services:
+    hint: System units and targets
     essential:
       systemd_generated-services:
     contents:
@@ -565,6 +572,7 @@ slices:
       /usr/lib/systemd/system/x11-common.service:
 
   user-services:
+    hint: User units and targets
     contents:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
@@ -595,6 +603,7 @@ slices:
       /usr/lib/systemd/user/xdg-desktop-autostart.target:
 
   dbus-services:
+    hint: DBus service definitions
     essential:
       systemd-dev_dbus-interfaces:
     contents:
@@ -614,6 +623,7 @@ slices:
       /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
 
   extras:
+    hint: Keyboard, locale and MIME data
     contents:
       /usr/share/mime/packages/io.systemd.xml:
       /usr/share/systemd/kbd-model-map:
@@ -628,6 +638,7 @@ slices:
   # on a running system, but this is not the case here.
   # These are the few that seems to be not emulated
   generated-services:
+    hint: Default unit enablement links
     contents:
       /etc/systemd/system/getty.target.wants/getty@tty1.service:
         symlink: /usr/lib/systemd/system/getty@.service
@@ -637,6 +648,7 @@ slices:
         symlink: /usr/lib/systemd/system/systemd-pstore.service
 
   kernel-install:
+    hint: Kernel installation plugins
     contents:
       /usr/lib/kernel/install.conf:
       /usr/lib/kernel/install.d/50-depmod.install:
@@ -645,19 +657,23 @@ slices:
       /usr/lib/kernel/install.d/90-uki-copy.install:
 
   kernel-parameters:
+    hint: Kernel PID limit setting
     contents:
       /usr/lib/sysctl.d/50-pid-max.conf:
         arch: [amd64, arm64, riscv64, s390x, ppc64el]
 
   modprobe-config:
+    hint: Kernel module options
     contents:
       /usr/lib/modprobe.d/systemd.conf:
 
   pam-profile:
+    hint: PAM profile for user sessions
     contents:
       /usr/lib/pam.d/systemd-user:
 
   polkit:
+    hint: Polkit actions and rules
     contents:
       /usr/share/polkit-1/actions/io.systemd.ask-password.policy:
       /usr/share/polkit-1/actions/io.systemd.credentials.policy:
@@ -674,12 +690,14 @@ slices:
       /usr/share/polkit-1/rules.d/systemd-networkd.rules:
 
   sysusers-config:
+    hint: System user definitions
     contents:
       /usr/lib/sysusers.d/basic.conf:
       /usr/lib/sysusers.d/systemd-journal.conf:
       /usr/lib/sysusers.d/systemd-network.conf:
 
   tmpfiles-config:
+    hint: Temporary file rules
     contents:
       /usr/lib/tmpfiles.d/20-systemd-osc-context.conf:
       /usr/lib/tmpfiles.d/20-systemd-shell-extra.conf:
@@ -702,6 +720,7 @@ slices:
       /usr/share/user-tmpfiles.d/20-systemd-varlink.conf:
 
   udev-rules:
+    hint: Seat and access udev rules
     contents:
       /usr/lib/udev/rules.d/70-uaccess.rules:
       /usr/lib/udev/rules.d/71-seat.rules:
