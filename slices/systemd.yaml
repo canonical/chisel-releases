@@ -255,7 +255,6 @@ slices:
       /usr/lib/systemd/systemd-binfmt:
       /usr/lib/systemd/systemd-boot-check-no-failures:
       /usr/lib/systemd/systemd-bsod:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/systemd-factory-reset:
       /usr/lib/systemd/systemd-fsck:
       /usr/lib/systemd/systemd-growfs:
@@ -355,6 +354,10 @@ slices:
       /usr/lib/systemd/system/blockdev@.target:
       /usr/lib/systemd/system/bluetooth.target:
       /usr/lib/systemd/system/boot-complete.target:
+      /usr/lib/systemd/system/breakpoint-pre-basic.service:
+      /usr/lib/systemd/system/breakpoint-pre-mount.service:
+      /usr/lib/systemd/system/breakpoint-pre-switch-root.service:
+      /usr/lib/systemd/system/breakpoint-pre-udev.service:
       /usr/lib/systemd/system/capsule.slice:
       /usr/lib/systemd/system/capsule@.service:
       /usr/lib/systemd/system/console-getty.service:
@@ -398,7 +401,6 @@ slices:
       /usr/lib/systemd/system/initrd.target:
       /usr/lib/systemd/system/initrd.target.wants/systemd-battery-check.service:
       /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/system/initrd.target.wants/systemd-confext-initrd.service:
       /usr/lib/systemd/system/initrd.target.wants/systemd-sysext-initrd.service:
       /usr/lib/systemd/system/kexec.target:
@@ -494,7 +496,6 @@ slices:
       /usr/lib/systemd/system/systemd-binfmt.service:
       /usr/lib/systemd/system/systemd-boot-check-no-failures.service:
       /usr/lib/systemd/system/systemd-bsod.service:
-        arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/system/systemd-confext-initrd.service:
       /usr/lib/systemd/system/systemd-confext-sysroot.service:
       /usr/lib/systemd/system/systemd-confext.service:
@@ -611,13 +612,6 @@ slices:
       /usr/share/dbus-1/system.d/org.freedesktop.network1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
       /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
-
-  breakpoint:
-    contents:
-      /usr/lib/systemd/system/breakpoint-pre-basic.service:
-      /usr/lib/systemd/system/breakpoint-pre-mount.service:
-      /usr/lib/systemd/system/breakpoint-pre-switch-root.service:
-      /usr/lib/systemd/system/breakpoint-pre-udev.service:
 
   extras:
     contents:
