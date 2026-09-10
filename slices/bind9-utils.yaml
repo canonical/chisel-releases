@@ -35,7 +35,7 @@ slices:
       bind9-libs_libs:
       libc6_libs:
       libjemalloc2_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       liburcu8t64_libs:
     contents:
       /usr/bin/dnssec-cds:

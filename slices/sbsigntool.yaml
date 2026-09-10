@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libuuid1_libs:
     contents:
       /usr/bin/kmodsign:

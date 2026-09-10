@@ -39,7 +39,7 @@ slices:
       dotnet-runtime-10.0_minimal:
       libbrotli1_libs:
       liblttng-ust1t64_libs: {arch: [amd64, arm64]}
-      libssl3t64_libs:
+      libssl4_libs:
       zlib1g_libs:
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/**:
