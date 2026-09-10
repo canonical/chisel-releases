@@ -1,0 +1,16 @@
+package: libdrm2
+
+essential:
+  - libdrm2_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdrm-common_data
+    contents:
+      /usr/lib/*-linux-*/libdrm.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdrm2/copyright:
