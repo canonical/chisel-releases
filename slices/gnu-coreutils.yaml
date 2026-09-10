@@ -637,6 +637,19 @@ slices:
     contents:
       /usr/bin/gnuwhoami:
 
+  md5sum:
+    essential:
+      libc6_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/bin/gnumd5sum:
+
+  seq:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/gnuseq:
+
   copyright:
     contents:
       /usr/share/doc/gnu-coreutils/copyright:

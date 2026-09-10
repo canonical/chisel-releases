@@ -3,16 +3,86 @@ package: ucf
 essential:
   ucf_copyright:
 
-# Uses /usr/share/ucf/ucf_helper_functions.sh for some debhelper functions
-# during install and removal.
+# ucf and ucfr both source /usr/share/ucf/ucf_library.sh, so each ships it.
 slices:
   scripts:
     essential:
-      sensible-utils_scripts:
+      ucf_ucf:
+      ucf_ucfq:
+      ucf_ucfr:
+
+  # The conffile conflict prompt is driven entirely by debconf, which has no
+  # slice definition yet. Everything it reaches for from there -- bash, diff,
+  # iconv, ps, which -- is pulled in regardless, so the slice stays complete
+  # once debconf lands.
+  ucf:
+    hint: Preserve user changes in config files
+    essential:
+      base-files_bin:
+      bash_bins:  # we need bash as well as dash
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_cp-bin:
+      coreutils_date:
+      coreutils_dirname:
+      coreutils_id-bin:
+      coreutils_md5sum:
+      coreutils_mkdir:
+      coreutils_mv-bin:
+      coreutils_readlink:
+      coreutils_rm-bin:
+      coreutils_seq:
+      coreutils_sleep:
+      coreutils_stat:
+      coreutils_tr-bin:
+      coreutils_wc-bin:
+      dash_bins:
+      debianutils_which:
+      diffutils_bins:
+      dpkg_divert:
+      gawk_bins:
+      grep_bins:
+      libc-bin_iconv:
+      procps_ps-bin:
+      sed_bins:
+      sensible-utils_sensible-pager:
+      util-linux_getopt:
     contents:
       /usr/bin/ucf:
+      /usr/share/ucf/ucf_library.sh:
+
+  ucfq:
+    hint: Query config file registry
+    essential:
+      coreutils_md5sum:
+      perl-base_bins:
+      perl-base_modules:
+    contents:
       /usr/bin/ucfq:
+
+  ucfr:
+    hint: Update config file registry
+    essential:
+      base-files_bin:
+      coreutils_basename:
+      coreutils_cat:
+      coreutils_cp-bin:
+      coreutils_dirname:
+      coreutils_id-bin:
+      coreutils_mkdir:
+      coreutils_mv-bin:
+      coreutils_readlink:
+      coreutils_seq:
+      coreutils_touch:
+      dash_bins:
+      dpkg_divert:
+      gawk_bins:
+      grep_bins:
+      sed_bins:
+      util-linux_getopt:
+    contents:
       /usr/bin/ucfr:
+      /usr/share/ucf/ucf_library.sh:
 
   config:
     contents:
