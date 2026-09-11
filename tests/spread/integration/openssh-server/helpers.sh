@@ -38,14 +38,6 @@ prepare_sshd() {
   useradd --root "$rootfs" --system --gid nogroup --home-dir /run/sshd \
     --shell /usr/sbin/nologin sshd
   chroot "$rootfs" ssh-keygen -q -N "" -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
-  cat > "$rootfs/etc/ssh/sshd_config" <<'EOF'
-Port 2222
-HostKey /etc/ssh/ssh_host_ed25519_key
-PubkeyAuthentication yes
-PasswordAuthentication no
-UsePAM no
-PidFile none
-EOF
 
   # the default "!" password would count as a locked account
   useradd --root "$rootfs" --create-home --uid 1000 --shell "$shell" --password "*" tester
@@ -56,10 +48,23 @@ EOF
   chown -R 1000 "$rootfs/home/tester/.ssh"
 }
 
-# runs sshd in the background and waits for it to listen
+# a minimal config for the variants that do not ship one
+write_sshd_config() {
+  cat > "$1/etc/ssh/sshd_config" <<'EOF'
+HostKey /etc/ssh/ssh_host_ed25519_key
+PubkeyAuthentication yes
+PasswordAuthentication no
+UsePAM no
+PidFile none
+EOF
+}
+
+# runs sshd in the background, off the spread host's own port, and waits for
+# it to listen
 start_sshd() {
   sshd_rootfs="$1"
-  chroot "$sshd_rootfs" /usr/sbin/sshd -D -e -f /etc/ssh/sshd_config 2> "$sshd_rootfs/sshd.log" &
+  chroot "$sshd_rootfs" /usr/sbin/sshd -D -e -p 2222 -f /etc/ssh/sshd_config \
+    2> "$sshd_rootfs/sshd.log" &
   sshd_pid=$!
   for _ in $(seq 60); do
     : 2> /dev/null > /dev/tcp/127.0.0.1/2222 && break

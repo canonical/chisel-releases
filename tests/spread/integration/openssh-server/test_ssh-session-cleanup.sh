@@ -12,6 +12,7 @@ test -z "$(chroot "$rootfs" /usr/lib/openssh/ssh-session-cleanup 2>&1)"
 rootfs="$(install-slices openssh-server_ssh-session-cleanup openssh-server_bins bash_bins coreutils_sleep)"
 mount_rootfs "$rootfs"
 prepare_sshd "$rootfs" /usr/bin/bash
+write_sshd_config "$rootfs"
 start_sshd "$rootfs"
 
 # sshd-session retitles itself "sshd-session: <user>@pts/<n>" once the pty is

@@ -5,6 +5,7 @@ source "$(dirname "$0")/helpers.sh"
 rootfs="$(install-slices openssh-server_bins dash_bins)"
 trap cleanup EXIT
 prepare_sshd "$rootfs"
+write_sshd_config "$rootfs"
 chroot "$rootfs" /usr/sbin/sshd -t -f /etc/ssh/sshd_config
 
 # a config check does not exec sshd-session or sshd-auth, only a login does
