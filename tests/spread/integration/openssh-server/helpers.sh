@@ -27,15 +27,16 @@ cleanup() {
 }
 
 # the privsep user is normally created by the sysusers snippet and the host
-# keys by the postinst; tester is who the tests log in as
+# keys by the postinst; tester is who the tests log in as, with the given shell
 prepare_sshd() {
-  local rootfs="$1"
+  local rootfs="$1" shell="${2:-/usr/bin/sh}"
   # install-slices hands out a 0700 dir; sshd reads authorized_keys as the
   # user, who then cannot get past the chroot's /
   chmod 755 "$rootfs"
   mkdir -p "$rootfs/dev" "$rootfs/etc/ssh"
   touch "$rootfs/dev/null"
-  useradd -R "$rootfs" -r -g nogroup -d /run/sshd -s /usr/sbin/nologin sshd
+  useradd --root "$rootfs" --system --gid nogroup --home-dir /run/sshd \
+    --shell /usr/sbin/nologin sshd
   chroot "$rootfs" ssh-keygen -q -N "" -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
   cat > "$rootfs/etc/ssh/sshd_config" <<'EOF'
 Port 2222
@@ -47,7 +48,7 @@ PidFile none
 EOF
 
   # the default "!" password would count as a locked account
-  useradd -R "$rootfs" -m -u 1000 -s /usr/bin/sh -p "*" tester
+  useradd --root "$rootfs" --create-home --uid 1000 --shell "$shell" --password "*" tester
   mkdir -p -m 0700 "$rootfs/root/.ssh" "$rootfs/home/tester/.ssh"
   chroot "$rootfs" ssh-keygen -q -N "" -t ed25519 -f /root/.ssh/id_ed25519
   cp "$rootfs/root/.ssh/id_ed25519.pub" "$rootfs/home/tester/.ssh/authorized_keys"
