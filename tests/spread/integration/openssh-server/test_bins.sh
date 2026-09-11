@@ -14,9 +14,9 @@ mkdir -p "$rootfs/dev" "$rootfs/proc"
 mount --bind /dev "$rootfs/dev"
 mount --bind /proc "$rootfs/proc"
 
-# the privsep user and its chroot are normally created by the deb's sysusers
-# and tmpfiles snippets, the host keys by the postinst
-echo "sshd:x:101:65534::/run/sshd:/usr/sbin/nologin" >> "$rootfs/etc/passwd"
+# the privsep user is normally created by the sysusers snippet, /run/sshd by
+# ssh.service and the host keys by the postinst
+useradd -R "$rootfs" -r -g nogroup -d /run/sshd -s /usr/sbin/nologin sshd
 mkdir -p -m 0755 "$rootfs/run/sshd" "$rootfs/etc/ssh"
 chroot "$rootfs" ssh-keygen -q -N "" -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
 cat > "$rootfs/etc/ssh/sshd_config" <<'EOF'
