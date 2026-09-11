@@ -21,6 +21,9 @@ slices:
       libssl3t64_libs:
       libwrap0_libs:
       openssh-client_bins:
+      # TODO: only here because the script used to ship in this slice; drop
+      # it from bins in the next release.
+      openssh-server_ssh-session-cleanup:
       openssh-sftp-server_bins:
       zlib1g_libs:
     contents:
@@ -30,6 +33,10 @@ slices:
       /usr/sbin/sshd:
 
   scripts:
+    essential:
+      openssh-server_ssh-session-cleanup:
+
+  ssh-session-cleanup:
     essential:
       base-files_bin:
       dash_bins:
