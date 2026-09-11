@@ -5,9 +5,9 @@ essential:
 
 slices:
   bins:
-    # openssh-server actually depends on adduser as well to create and remove
-    # a user during package install/removal - however we don't support this
-    # currently so adduser is not added here.
+    # The sshd privilege separation user must be created after cutting this
+    # slice, matching the sysusers snippet the config slice ships:
+    #   useradd -R "$rootfs" -r -g nogroup -d /run/sshd -s /usr/sbin/nologin sshd
     essential:
       dash_bins:
       libaudit1_libs:
@@ -27,6 +27,9 @@ slices:
       procps_bins:
       zlib1g_libs:
     contents:
+      # RuntimeDirectory= of ssh.service; sshd refuses to start without it.
+      # Left out so far because /run is expected to be a tmpfs at runtime.
+      # /run/sshd/: {make: true, mode: 0755}
       /usr/lib/openssh/ssh-session-cleanup:
       /usr/lib/openssh/sshd-auth:
       /usr/lib/openssh/sshd-session:
@@ -36,10 +39,14 @@ slices:
     contents:
       /etc/pam.d/sshd:
       /etc/ssh/moduli:
+      /etc/ssh/sshd_config: {text: FIXME, mutable: true}
       /etc/ssh/sshd_config.d/:
       /etc/ufw/applications.d/openssh-server:
+      /usr/lib/sysusers.d/openssh-server.conf:
       /usr/share/openssh/sshd_config:
       /usr/share/openssh/sshd_config.md5sum:
+    mutate: |
+      content.write("/etc/ssh/sshd_config", content.read("/usr/share/openssh/sshd_config"))
 
   services:
     essential:
