@@ -2,6 +2,7 @@ summary: Integration tests for openssh-server
 
 variants:
   - bins
+  - scripts
   - config
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh

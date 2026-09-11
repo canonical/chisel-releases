@@ -1,5 +1,5 @@
 set -eu
-rootfs="$(install-slices openssh-server_config openssh-server_bins base-passwd_data)"
+rootfs="$(install-slices openssh-server_config openssh-server_bins)"
 
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
