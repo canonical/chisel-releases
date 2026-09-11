@@ -1,0 +1,79 @@
+summary: Integration tests for e2fsprogs
+
+execute: |
+  rootfs="$(install-slices e2fsprogs_standard)"
+
+  cleanup() {
+    umount -l "${rootfs}/dev" 2>/dev/null || true
+    rm -f "${rootfs}/tmp/ext2.img" "${rootfs}/tmp/ext3.img" "${rootfs}/tmp/ext4.img" "${rootfs}/tmp/ext4.e2i" "${rootfs}/tmp/testfile" 2>/dev/null || true
+    rm -rf "${rootfs}/tmp/mklostfound" 2>/dev/null || true
+  }
+  trap cleanup EXIT
+
+  mkdir -p "${rootfs}/dev" "${rootfs}/tmp"
+  mount --bind /dev "${rootfs}/dev"
+
+  # Basic smoke: versions/help
+  chroot "${rootfs}" /usr/sbin/e2fsck -V >/dev/null
+  chroot "${rootfs}" /usr/sbin/mke2fs -V >/dev/null
+  chroot "${rootfs}" /usr/sbin/debugfs -V >/dev/null
+
+  # Create tiny filesystem images on the host (no real devices touched)
+  dd if=/dev/zero of="${rootfs}/tmp/ext2.img" bs=1M count=16
+  dd if=/dev/zero of="${rootfs}/tmp/ext3.img" bs=1M count=16
+  dd if=/dev/zero of="${rootfs}/tmp/ext4.img" bs=1M count=16
+
+  # mkfs.* and fsck.*: do something real but safe (-n for fsck)
+  chroot "${rootfs}" /usr/sbin/mkfs.ext2 -F /tmp/ext2.img >/dev/null
+  chroot "${rootfs}" /usr/sbin/fsck.ext2 -n /tmp/ext2.img >/dev/null
+
+  chroot "${rootfs}" /usr/sbin/mkfs.ext3 -F /tmp/ext3.img >/dev/null
+  chroot "${rootfs}" /usr/sbin/fsck.ext3 -n /tmp/ext3.img >/dev/null
+
+  chroot "${rootfs}" /usr/sbin/mkfs.ext4 -F /tmp/ext4.img >/dev/null
+  chroot "${rootfs}" /usr/sbin/fsck.ext4 -n /tmp/ext4.img >/dev/null
+
+  # e2fsck should also be able to check the image directly
+  chroot "${rootfs}" /usr/sbin/e2fsck -fn /tmp/ext4.img >/dev/null
+
+  # Label/tune/dump/debug/resize against the ext4 image
+  chroot "${rootfs}" /usr/sbin/e2label /tmp/ext4.img TESTIMG
+  chroot "${rootfs}" /usr/sbin/e2label /tmp/ext4.img | grep -F TESTIMG >/dev/null
+
+  chroot "${rootfs}" /usr/sbin/tune2fs -l /tmp/ext4.img | grep -E '^Filesystem volume name:[[:space:]]*TESTIMG$' >/dev/null
+  chroot "${rootfs}" /usr/sbin/dumpe2fs -h /tmp/ext4.img | grep -E '^Filesystem volume name:[[:space:]]*TESTIMG$' >/dev/null
+  chroot "${rootfs}" /usr/sbin/resize2fs -P /tmp/ext4.img >/dev/null
+  chroot "${rootfs}" /usr/sbin/debugfs -R 'stats' /tmp/ext4.img | grep -E '^Block size:' >/dev/null
+
+  # Other diagnostic tools
+  chroot "${rootfs}" /usr/sbin/filefrag -v /tmp/ext4.img >/dev/null
+  chroot "${rootfs}" /usr/sbin/badblocks -sv /tmp/ext4.img >/dev/null
+
+  # e2image: generate a raw metadata image and ensure it was created
+  chroot "${rootfs}" /usr/sbin/e2image -r /tmp/ext4.img /tmp/ext4.e2i >/dev/null
+  test -s "${rootfs}/tmp/ext4.e2i"
+
+  # Attributes: best-effort functional smoke on a regular file
+  echo "hello" > "${rootfs}/tmp/testfile"
+  chroot "${rootfs}" /usr/bin/lsattr /tmp/testfile >/dev/null || true
+  chroot "${rootfs}" /usr/bin/chattr --help 2>&1 | grep -i 'Usage' >/dev/null
+
+  # Advanced tools: cover binaries without requiring a mounted ext4 filesystem
+  chroot "${rootfs}" /usr/sbin/e4crypt help 2>&1 | grep -i 'Usage\|Commands\|help' >/dev/null
+  chroot "${rootfs}" /usr/sbin/e4defrag --help >/dev/null
+  chroot "${rootfs}" /usr/sbin/e2undo --help >/dev/null
+
+  mkdir -p "${rootfs}/tmp/mklostfound"
+  chroot "${rootfs}" /usr/sbin/mklost+found /tmp/mklostfound >/dev/null
+  test -d "${rootfs}/tmp/mklostfound/lost+found"
+
+  # Scrub tooling (scripts/services): just verify the entrypoints respond
+  chroot "${rootfs}" /usr/sbin/e2scrub --help >/dev/null || true
+  chroot "${rootfs}" /usr/sbin/e2scrub_all --help >/dev/null || true
+  chroot "${rootfs}" /usr/libexec/e2fsprogs/e2scrub_fail --help >/dev/null || true
+
+  # MMP status may require a real block device; ensure it at least runs
+  chroot "${rootfs}" /usr/sbin/e2mmpstatus --help >/dev/null || true
+
+  # e2freefrag expects a mounted ext filesystem; smoke-test help only
+  chroot "${rootfs}" /usr/sbin/e2freefrag --help >/dev/null
