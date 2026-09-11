@@ -1,6 +1,8 @@
 summary: Integration tests for systemd
 
 variants:
+    - minimal
+    - core
     - standard
     - standard-tools
     - dev
