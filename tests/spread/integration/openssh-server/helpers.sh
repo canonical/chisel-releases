@@ -3,12 +3,13 @@
 
 mounted=()
 
-# only for a pty login (devpts) and for pgrep (/proc); a plain login needs
-# nothing beyond the /dev/null prepare_sshd creates
+# only for a pty login and for pgrep (/proc); a plain login needs nothing
+# beyond the /dev/null prepare_sshd creates. /dev goes in with its submounts:
+# on lxd /dev/ptmx is a bind mount of /dev/pts/ptmx, and openpty() needs both
 mount_rootfs() {
   mkdir -p "$1/dev" "$1/proc"
-  mount --bind /dev "$1/dev"
-  mount --bind /dev/pts "$1/dev/pts"
+  mount --rbind /dev "$1/dev"
+  mount --make-rslave "$1/dev"
   mount --bind /proc "$1/proc"
   mounted+=("$1")
 }
@@ -20,9 +21,8 @@ cleanup() {
     cat "$sshd_rootfs/sshd.log"
   fi
   for rootfs in "${mounted[@]}"; do
-    umount "$rootfs/dev/pts" || true
-    umount "$rootfs/proc" || true
-    umount "$rootfs/dev" || true
+    umount --lazy "$rootfs/proc" || true
+    umount --lazy "$rootfs/dev" || true
   done
 }
 
