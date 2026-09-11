@@ -28,6 +28,8 @@ slices:
       zlib1g_libs:
     contents:
       /usr/lib/openssh/ssh-session-cleanup:
+      /usr/lib/openssh/sshd-auth:
+      /usr/lib/openssh/sshd-session:
       /usr/sbin/sshd:
 
   config:
