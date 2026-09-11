@@ -30,6 +30,9 @@ cleanup() {
 # keys by the postinst; tester is who the tests log in as
 prepare_sshd() {
   local rootfs="$1"
+  # install-slices hands out a 0700 dir; sshd reads authorized_keys as the
+  # user, who then cannot get past the chroot's /
+  chmod 755 "$rootfs"
   mkdir -p "$rootfs/dev" "$rootfs/etc/ssh"
   touch "$rootfs/dev/null"
   useradd -R "$rootfs" -r -g nogroup -d /run/sshd -s /usr/sbin/nologin sshd
