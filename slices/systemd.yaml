@@ -4,6 +4,87 @@ essential:
   systemd_copyright:
 
 slices:
+  # The service manager alone: PID 1, systemctl, and the units without which
+  # it cannot reach multi-user.target or shut down again. Boot-time setup is
+  # limited to sysusers and tmpfiles, since /run and /tmp have to exist before
+  # anything else can start. No daemons, no journal, no bus: services log to
+  # stdout and systemctl talks to PID 1 over its private socket. tmp.mount is
+  # left out on purpose; mounting a tmpfs needs privileges a container may not
+  # have, and a failed mount would divert the boot to emergency.target.
+  minimal:
+    hint: PID 1 service manager and boot units
+    essential:
+      libacl1_libs:
+      libapparmor1_libs:
+      libc6_libs:
+      liblzma5_libs:
+      libmount1_libs:
+      libpam0g_libs:
+      libseccomp2_libs:
+      libselinux1_libs:
+      libsystemd-shared_libs:
+      libsystemd0_libs:
+      mount_bins:
+      systemd_sysusers-config:
+      systemd_tmpfiles-config:
+    contents:
+      /usr/bin/systemctl:
+      /usr/bin/systemd-sysusers:
+      /usr/bin/systemd-tmpfiles:
+      /usr/lib/systemd/system/basic.target:
+      /usr/lib/systemd/system/default.target:
+      /usr/lib/systemd/system/exit.target:
+      /usr/lib/systemd/system/final.target:
+      /usr/lib/systemd/system/graphical.target:
+      /usr/lib/systemd/system/halt.target:
+      /usr/lib/systemd/system/local-fs-pre.target:
+      /usr/lib/systemd/system/local-fs.target:
+      /usr/lib/systemd/system/multi-user.target:
+      /usr/lib/systemd/system/paths.target:
+      /usr/lib/systemd/system/poweroff.target:
+      /usr/lib/systemd/system/reboot.target:
+      /usr/lib/systemd/system/shutdown.target:
+      /usr/lib/systemd/system/slices.target:
+      /usr/lib/systemd/system/sockets.target:
+      /usr/lib/systemd/system/swap.target:
+      /usr/lib/systemd/system/sysinit.target:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
+      /usr/lib/systemd/system/systemd-exit.service:
+      /usr/lib/systemd/system/systemd-halt.service:
+      /usr/lib/systemd/system/systemd-poweroff.service:
+      /usr/lib/systemd/system/systemd-reboot.service:
+      /usr/lib/systemd/system/systemd-sysusers.service:
+      /usr/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service:
+      /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
+      /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
+      /usr/lib/systemd/system/timers.target:
+      /usr/lib/systemd/system/umount.target:
+      /usr/lib/systemd/systemd:
+      /usr/lib/systemd/systemd-executor:
+      /usr/lib/systemd/systemd-shutdown:
+
+  # What a service supervisor such as snapd expects on top of minimal: the
+  # journal for logs, the org.freedesktop.systemd1 bus API for transient units
+  # and cgroup tracking, systemd-detect-virt for container detection, and the
+  # passive targets that service units order themselves against. The bus
+  # daemon itself is dbus_services, not part of this package.
+  core:
+    hint: Service manager with journal and DBus
+    essential:
+      systemd_detect-virt:
+      systemd_journal:
+      systemd_minimal:
+    contents:
+      /usr/lib/systemd/system/network-online.target:
+      /usr/lib/systemd/system/network-pre.target:
+      /usr/lib/systemd/system/network.target:
+      /usr/lib/systemd/system/time-set.target:
+      /usr/share/dbus-1/system-services/org.freedesktop.systemd1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
+
   standard:
     hint: Core service manager and tools
     essential:
@@ -20,6 +101,7 @@ slices:
       mount_bins:
       systemd_catalog:
       systemd_config:
+      systemd_core:
       systemd_dbus-services:
       systemd_detect-virt:
       systemd_extras:
