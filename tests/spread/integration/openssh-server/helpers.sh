@@ -1,7 +1,10 @@
+#!/usr/bin/env bash
 # helpers for the variants that run sshd inside a rootfs
 
 mounted=()
 
+# only for a pty login (devpts) and for pgrep (/proc); a plain login needs
+# nothing beyond the /dev/null prepare_sshd creates
 mount_rootfs() {
   mkdir -p "$1/dev" "$1/proc"
   mount --bind /dev "$1/dev"
@@ -27,8 +30,9 @@ cleanup() {
 # keys by the postinst; tester is who the tests log in as
 prepare_sshd() {
   local rootfs="$1"
+  mkdir -p "$rootfs/dev" "$rootfs/etc/ssh"
+  touch "$rootfs/dev/null"
   useradd -R "$rootfs" -r -g nogroup -d /run/sshd -s /usr/sbin/nologin sshd
-  mkdir -p "$rootfs/etc/ssh"
   chroot "$rootfs" ssh-keygen -q -N "" -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
   cat > "$rootfs/etc/ssh/sshd_config" <<'EOF'
 Port 2222

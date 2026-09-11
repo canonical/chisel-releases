@@ -1,7 +1,7 @@
 set -eu
-. ./shared/sshd.sh
+source "$(dirname "$0")/helpers.sh"
 
-rootfs="$(install-slices openssh-server_scripts)"
+rootfs="$(install-slices openssh-server_ssh-session-cleanup)"
 trap cleanup EXIT
 mount_rootfs "$rootfs"
 
@@ -9,7 +9,7 @@ mount_rootfs "$rootfs"
 test -z "$(chroot "$rootfs" /usr/lib/openssh/ssh-session-cleanup 2>&1)"
 
 # now with a live interactive session, which is what the script is there to end
-rootfs="$(install-slices openssh-server_scripts openssh-server_bins dash_bins coreutils_sleep)"
+rootfs="$(install-slices openssh-server_ssh-session-cleanup openssh-server_bins dash_bins coreutils_sleep)"
 mount_rootfs "$rootfs"
 prepare_sshd "$rootfs"
 start_sshd "$rootfs"

@@ -1,10 +1,9 @@
 set -eu
-. ./shared/sshd.sh
+source "$(dirname "$0")/helpers.sh"
 
 # dash is the login shell of the test user, not something sshd needs
 rootfs="$(install-slices openssh-server_bins dash_bins)"
 trap cleanup EXIT
-mount_rootfs "$rootfs"
 prepare_sshd "$rootfs"
 chroot "$rootfs" /usr/sbin/sshd -t -f /etc/ssh/sshd_config
 

@@ -2,7 +2,7 @@ summary: Integration tests for openssh-server
 
 variants:
   - bins
-  - scripts
+  - ssh-session-cleanup
   - config
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
