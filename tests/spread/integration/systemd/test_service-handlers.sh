@@ -1,5 +1,5 @@
 #!/bin/bash
-#spellchecker: ignore rootfs binfmt bsod growfs pstore quotacheck rfkill storagetm sulogin sysctl sysroot fstab validatefs xdg
+#spellchecker: ignore rootfs pstore quotacheck rfkill sulogin sysroot fstab xdg
 
 rootfs="$(install-slices systemd_service-handlers)"
 
@@ -8,28 +8,8 @@ mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 trap 'umount "$rootfs/proc"' EXIT
 
-bins=(
-  systemd-battery-check
-  systemd-binfmt
-  systemd-boot-check-no-failures
-  systemd-bsod
-  systemd-factory-reset
-  systemd-growfs
-  systemd-hibernate-resume
-  systemd-random-seed
-  systemd-sleep
-  systemd-socket-proxyd
-  systemd-ssh-issue
-  systemd-storagetm
-  systemd-sysctl
-  systemd-update-done
-  systemd-validatefs
-)
-for bin in "${bins[@]}"; do
-  chroot "$rootfs" "/usr/lib/systemd/$bin" --version 2>&1 | grep -Fiq "systemd"
-done
-
-# these take no --version; each still has to load and reject the argument
+# most answer --version; these take none and reject the argument instead,
+# which still proves they load
 declare -A usage=(
   [systemd-backlight]="Unknown command verb"
   [systemd-fsck]="Failed to stat"
@@ -43,12 +23,21 @@ declare -A usage=(
   [systemd-volatile-root]="Couldn't parse volatile mode"
   [systemd-xdg-autostart-condition]="Wrong argument count"
 )
-for bin in "${!usage[@]}"; do
-  chroot "$rootfs" "/usr/lib/systemd/$bin" --version 2>&1 | grep -Fiq "${usage[$bin]}"
-done
 
-chroot "$rootfs" /usr/lib/systemd/systemd-quotacheck --version
-
-# the rescue shell treats its argument as a mode and then waits for a login
-timeout 5 chroot "$rootfs" /usr/lib/systemd/systemd-sulogin-shell --version 2>&1 \
-  | grep -Fiq "journalctl -xb"
+# every handler the slice itself ships
+while read -r bin; do
+  name="${bin##*/}"
+  case "$name" in
+    systemd-quotacheck)
+      # says nothing, must not fail
+      chroot "$rootfs" "$bin" --version
+      ;;
+    systemd-sulogin-shell)
+      # treats its argument as a mode and then waits for a login
+      timeout 5 chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "journalctl -xb"
+      ;;
+    *)
+      chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "${usage[$name]:-systemd}"
+      ;;
+  esac
+done < <(chisel info --release "$PROJECT_PATH" systemd_service-handlers | grep -oE '^ +/usr/lib/systemd/[^:]+' | tr -d ' ')

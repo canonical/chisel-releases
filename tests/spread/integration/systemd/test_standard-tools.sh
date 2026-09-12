@@ -8,21 +8,11 @@ mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 trap 'umount "$rootfs/proc"' EXIT
 
-bins=(
-  /usr/bin/kernel-install
-  /usr/bin/systemctl
-  /usr/bin/systemd-analyze
-  /usr/bin/systemd-escape
-  /usr/bin/systemd-mute-console
-  /usr/bin/systemd-notify
-  /usr/bin/systemd-pty-forward
-  /usr/bin/systemd-sysusers
-  /usr/bin/systemd-tmpfiles
-  /usr/lib/systemd/systemd-executor
-)
-for bin in "${bins[@]}"; do
+# every tool the slice itself ships answers --version (PID 1 and its helpers
+# under /usr/lib are covered by the boot tests)
+while read -r bin; do
   chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "systemd"
-done
+done < <(chisel info --release "$PROJECT_PATH" systemd_standard | grep -oE '^ +/usr/bin/[^:]+' | tr -d ' ')
 
 test "$(chroot "$rootfs" systemd-escape --path /foo/bar)" = "foo-bar"
 test "$(chroot "$rootfs" systemd-escape --unescape --path foo-bar)" = "/foo/bar"

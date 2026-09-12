@@ -1,21 +1,9 @@
 #!/bin/bash
-#spellchecker: ignore rootfs virt
+#spellchecker: ignore rootfs virt nsrun nsystemctl hostnamectl loginctl timedatectl networkctl logind hostnamed timedated networkd
 
-rootfs="$(install-slices systemd_standard)"
+# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
+. ./boot_helpers.sh
 
-# copy over a couple of services for testing
-rootfs_services="$(install-slices systemd_system-services)"
-to_copy=(
-  /usr/lib/systemd/system/getty@.service
-  /usr/lib/systemd/system/getty.target
-  /usr/lib/systemd/system/ctrl-alt-del.target
-  /usr/lib/systemd/system/reboot.target
-)
-for f in "${to_copy[@]}"; do
-  mkdir -p "$rootfs$(dirname "$f")"
-  cp "$rootfs_services$f" "$rootfs$f"
-done
-  
 # unit links are absolute, so resolve them inside the rootfs rather than on the host
 resolves_in_rootfs() {
   local target
@@ -23,9 +11,10 @@ resolves_in_rootfs() {
   test -f "$rootfs$target"
 }
 
-mkdir "$rootfs/proc"
+# the slice on its own: enabling and presetting units is offline work
+rootfs="$(install-slices systemd_standard)"
+mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
-trap "umount $rootfs/proc" EXIT
 
 chroot "$rootfs" systemctl disable getty@tty1.service
 ! test -L "$rootfs/etc/systemd/system/getty.target.wants/getty@tty1.service"
@@ -34,12 +23,41 @@ chroot "$rootfs" systemctl enable getty@tty1.service
 resolves_in_rootfs /etc/systemd/system/getty.target.wants/getty@tty1.service
 
 # run preset-all and test for one of the expected symlinks
-ls "$rootfs/usr/lib/systemd/system/"
-ls "$rootfs/etc/systemd/system/"
 chroot "$rootfs" systemctl preset-all
-ls "$rootfs/usr/lib/systemd/system/"
-ls "$rootfs/etc/systemd/system/"
 resolves_in_rootfs /etc/systemd/system/ctrl-alt-del.target
 
-# Run some auxiliary commands to ensure they don't fail
 chroot "$rootfs" /usr/lib/systemd/systemd --help 2>&1 | grep -Fiq "systemd"
+umount "$rootfs/proc"
+clean-rootfs "$rootfs"
+
+# with a bus on top, the whole closure boots: generators, every enabled unit,
+# the shipped daemons
+rootfs="$(install-slices systemd_standard dbus_services)"
+
+trap 'shutdown_rootfs || true' EXIT
+boot_rootfs "$rootfs"
+
+# the container cannot mount kernel file systems; nothing else may fail
+assert_failed_units sys-kernel-config.mount sys-kernel-debug.mount
+nsystemctl is-active multi-user.target
+nsystemctl is-active dbus.service
+
+# the ldconfig unit ran against the cut and left a cache behind
+test "$(nsystemctl show -p Result --value ldconfig.service)" = "success"
+test -s "$rootfs/etc/ld.so.cache"
+
+# the daemons start and answer their own tools over the bus
+for daemon in systemd-logind systemd-hostnamed systemd-timedated systemd-networkd; do
+  nsystemctl start "$daemon.service"
+  nsystemctl is-active "$daemon.service"
+done
+nsrun hostnamectl hostname chisel-test
+test "$(nsrun hostnamectl hostname)" = "chisel-test"
+nsrun loginctl list-seats --no-pager | grep -Fq "SEAT"
+nsrun timedatectl --no-pager | grep -Fq "Local time"
+nsrun networkctl list --no-pager | grep -Fq "lo "
+
+# run0 elevates through PAM and the manager
+test "$(nsrun run0 --no-ask-password systemd-detect-virt --container)" != "none"
+
+shutdown_rootfs
