@@ -8,7 +8,6 @@ slices:
     # The sshd privilege separation user must be created after cutting this slice:
     #   useradd -R "$rootfs" -r -g nogroup -d /run/sshd -s /usr/sbin/nologin sshd
     essential:
-      dash_bins:
       libaudit1_libs:
       libc6_libs:
       libcom-err2_libs:
@@ -22,15 +21,28 @@ slices:
       libssl4_libs:
       libwrap0_libs:
       openssh-client_bins:
+      # TODO: ssh-session-cleanup is here for backwards-compatibility
+      # remove in next release
+      openssh-server_ssh-session-cleanup:
       openssh-sftp-server_bins:
-      procps_bins:
       zlib1g_libs:
     contents:
       /run/sshd/: {make: true, mode: 0755}
-      /usr/lib/openssh/ssh-session-cleanup:
       /usr/lib/openssh/sshd-auth:
       /usr/lib/openssh/sshd-session:
       /usr/sbin/sshd:
+
+  scripts:
+    essential:
+      openssh-server_ssh-session-cleanup:
+
+  ssh-session-cleanup:
+    essential:
+      base-files_bin:
+      dash_bins:
+      procps_bins:
+    contents:
+      /usr/lib/openssh/ssh-session-cleanup:
 
   config:
     contents:
