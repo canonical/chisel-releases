@@ -345,6 +345,7 @@ slices:
     essential:
       coreutils-from-gnu_factor:
 
+  # NOTE: quoted so yaml parsers don't think this is a bool
   "false":
     essential:
       coreutils-from-gnu_false:
@@ -485,6 +486,7 @@ slices:
     essential:
       coreutils-from-gnu_tee:
 
+  # NOTE: quoted so yaml parsers don't think this is a bool
   "true":
     essential:
       coreutils-from-gnu_true:

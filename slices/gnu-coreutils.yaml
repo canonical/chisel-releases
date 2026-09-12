@@ -661,6 +661,7 @@ slices:
     contents:
       /usr/bin/gnufactor:
 
+  # NOTE: quoted so yaml parsers don't think this is a bool
   "false":
     essential:
       libc6_libs:
@@ -883,6 +884,7 @@ slices:
     contents:
       /usr/bin/gnutee:
 
+  # NOTE: quoted so yaml parsers don't think this is a bool
   "true":
     essential:
       libc6_libs:

@@ -632,6 +632,7 @@ slices:
     contents:
       /usr/bin/factor:
 
+  # NOTE: quoted so yaml parsers don't think this is a bool
   "false":
     essential:
       gnu-coreutils_false:
@@ -842,6 +843,7 @@ slices:
     contents:
       /usr/bin/tee:
 
+  # NOTE: quoted so yaml parsers don't think this is a bool
   "true":
     essential:
       gnu-coreutils_true:
