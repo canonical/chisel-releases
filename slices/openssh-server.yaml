@@ -21,8 +21,8 @@ slices:
       libssl3t64_libs:
       libwrap0_libs:
       openssh-client_bins:
-      # TODO: only here because the script used to ship in this slice; drop
-      # it from bins in the next release.
+      # TODO: ssh-session-cleanup is here for backwards-compatibility
+      # remove in next release
       openssh-server_ssh-session-cleanup:
       openssh-sftp-server_bins:
       zlib1g_libs:
