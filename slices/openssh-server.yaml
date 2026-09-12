@@ -20,7 +20,7 @@ slices:
       libpam-runtime_config:
       libpam0g_libs:
       libselinux1_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libwrap0_libs:
       openssh-client_bins:
       openssh-sftp-server_bins:

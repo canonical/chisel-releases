@@ -16,7 +16,7 @@ slices:
       libfido2-1_libs:
       libgssapi-krb5-2_libs:
       libselinux1_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       passwd_config:
       zlib1g_libs:
     contents:
