@@ -167,6 +167,10 @@ slices:
     hint: Elevate privileges interactively
     essential:
       libc6_libs:
+      # the session is set up through PAM; the package ships no pam.d file
+      # of its own, so it is the "other" stack
+      libpam-modules_libs:
+      libpam-runtime_config:
       libsystemd-shared_libs:
       systemd_polkit:
     contents:
