@@ -6,15 +6,33 @@ essential:
 slices:
   bins:
     essential:
+      openssh-common_ssh-keygen:
+      openssh-common_ssh-pkcs11-helper:
+      openssh-common_ssh-sk-helper:
+
+  ssh-keygen:
+    essential:
       # ssh-keygen looks up the invoking user and fails without /etc/passwd
       base-passwd_data:
       libc6_libs:
-      libfido2-1_libs:
       libselinux1_libs:
       libssl4_libs:
     contents:
       /usr/bin/ssh-keygen:
+
+  ssh-pkcs11-helper:
+    essential:
+      libc6_libs:
+      libssl4_libs:
+    contents:
       /usr/lib/openssh/ssh-pkcs11-helper:
+
+  ssh-sk-helper:
+    essential:
+      libc6_libs:
+      libfido2-1_libs:
+      libssl4_libs:
+    contents:
       /usr/lib/openssh/ssh-sk-helper:
 
   copyright:
