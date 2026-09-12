@@ -5,8 +5,8 @@
 # settings, and a tool that reads and writes them over the bus. The zone data
 # is tzdata's, so a timezone this test sets has to come from there.
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_timedate)"

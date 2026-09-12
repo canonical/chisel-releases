@@ -4,8 +4,8 @@
 # What a consumer gets from systemd_hostname: a daemon that owns the system
 # hostname, and a tool that reads and writes it over the bus.
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_hostname)"

@@ -4,8 +4,8 @@
 # What a consumer can do with systemd_minimal: boot a container, supervise
 # programs that carry everything they need, and shut the container down.
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 rootfs="$(install-slices systemd_minimal)"
 

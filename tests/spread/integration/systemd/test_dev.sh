@@ -1,8 +1,8 @@
 #!/bin/bash
 #spellchecker: ignore rootfs busctl cgls cgtop confext firstboot sysext sysinstall varlinkctl vpick nsrun nsystemctl logind
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 # the slice on its own: every binary it ships answers --version
 rootfs="$(install-slices systemd_dev)"

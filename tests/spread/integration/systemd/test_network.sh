@@ -4,8 +4,8 @@
 # What a consumer gets from systemd_network: a daemon that reads .network
 # files and manages links, and a tool that reports on them.
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_network)"

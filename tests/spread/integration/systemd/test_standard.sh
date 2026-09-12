@@ -1,8 +1,8 @@
 #!/bin/bash
 #spellchecker: ignore rootfs virt nsrun nsystemctl hostnamectl loginctl timedatectl networkctl logind hostnamed timedated networkd
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 # unit links are absolute, so resolve them inside the rootfs rather than on the host
 resolves_in_rootfs() {

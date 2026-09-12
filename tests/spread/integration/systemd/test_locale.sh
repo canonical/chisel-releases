@@ -8,8 +8,8 @@
 # so it exits 226/NAMESPACE here and the checks below stop at what the
 # manager can tell us about the unit the slice ships.
 
-# shellcheck source=tests/spread/integration/systemd/boot_helpers.sh
-. ./boot_helpers.sh
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
 
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_locale)"
