@@ -436,8 +436,12 @@ slices:
   system-services:
     hint: System units and targets
     essential:
+      # sysinit.target.wants/ldconfig.service runs it on every boot
+      libc-bin_ldconfig:
       systemd_generated-services:
     contents:
+      # sysinit.target.wants/systemd-machine-id-commit.service runs it
+      /usr/bin/systemd-machine-id-setup:
       /usr/lib/lsb/init-functions.d/40-systemd:
       /usr/lib/systemd/system/basic.target:
       /usr/lib/systemd/system/blockdev@.target:
