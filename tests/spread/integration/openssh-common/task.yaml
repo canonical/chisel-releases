@@ -1,6 +1,8 @@
 summary: Integration tests for openssh-common
 
 variants:
-  - bins
+  - ssh-keygen
+  - ssh-pkcs11-helper
+  - ssh-sk-helper
 
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh
