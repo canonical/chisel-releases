@@ -10,17 +10,14 @@ slices:
     essential:
       libaudit1_libs:
       libc6_libs:
-      libcom-err2_libs:
       libcrypt1_libs:
-      libgssapi-krb5-2_libs:
-      libkrb5-3_libs:
       libpam-modules_libs:
       libpam-runtime_config:
       libpam0g_libs:
       libselinux1_libs:
       libssl4_libs:
       libwrap0_libs:
-      openssh-client_bins:
+      openssh-common_bins:
       # TODO: ssh-session-cleanup is here for backwards-compatibility
       # remove in next release
       openssh-server_ssh-session-cleanup:
@@ -67,6 +64,6 @@ slices:
 
   copyright:
     essential:
-      openssh-client_copyright:
+      openssh-common_copyright:
     contents:
       /usr/share/doc/openssh-server:
