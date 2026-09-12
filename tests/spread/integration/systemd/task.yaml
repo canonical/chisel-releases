@@ -4,5 +4,7 @@ variants:
     - standard
     - detect-virt
     - run0
+    - control
+    - observability
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
