@@ -31,6 +31,7 @@ slices:
     contents:
       /etc/ssh/ssh_config:
       /etc/ssh/ssh_config.d/:
+      /usr/lib/sysusers.d/openssh-client.conf:
       /usr/lib/tmpfiles.d/openssh-client.conf:
 
   scripts:
