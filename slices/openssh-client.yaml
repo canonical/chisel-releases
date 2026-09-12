@@ -13,10 +13,9 @@ slices:
     essential:
       libc6_libs:
       libedit2_libs:
-      libfido2-1_libs:
-      libgssapi-krb5-2_libs:
       libselinux1_libs:
-      libssl3t64_libs:
+      libssl4_libs:
+      openssh-common_bins:
       passwd_config:
       zlib1g_libs:
     contents:
@@ -25,16 +24,14 @@ slices:
       /usr/bin/ssh:
       /usr/bin/ssh-add:
       /usr/bin/ssh-agent:
-      /usr/bin/ssh-keygen:
       /usr/bin/ssh-keyscan:
       /usr/lib/openssh/ssh-keysign:
-      /usr/lib/openssh/ssh-pkcs11-helper:
-      /usr/lib/openssh/ssh-sk-helper:
 
   config:
     contents:
       /etc/ssh/ssh_config:
       /etc/ssh/ssh_config.d/:
+      /usr/lib/sysusers.d/openssh-client.conf:
       /usr/lib/tmpfiles.d/openssh-client.conf:
 
   scripts:
@@ -80,5 +77,7 @@ slices:
       /usr/lib/systemd/user/ssh-agent.socket:
 
   copyright:
+    essential:
+      openssh-common_copyright:
     contents:
-      /usr/share/doc/openssh-client/copyright:
+      /usr/share/doc/openssh-client:
