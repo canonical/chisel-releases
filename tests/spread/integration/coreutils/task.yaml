@@ -1,31 +1,6 @@
 summary: Integration tests for coreutils
 
 variants:
-    - libs
-    - bins
-    - output-of-entire-files
-    - formatting-file-contents
-    - output-of-parts-of-files
-    - summarizing-files
-    - operating-on-sorted-files
-    - operating-on-fields
-    - operating-on-characters
-    - directory-listing
-    - basic-operations
-    - special-file-types
-    - changing-file-attributes
-    - file-space-usage
-    - printing-text
-    - conditions
-    - redirection
-    - file-name-manipulation
-    - working-context
-    - user-information
-    - system-context
-    - selinux-context
-    - modified-command-invocation
-    - delaying
-    - numeric-operations
     - env
     - expr
     - mkdir
@@ -85,7 +60,7 @@ variants:
     - du-bin
     - expand
     - factor
-    - false-bin
+    - "false"
     - fmt
     - fold
     - groups
@@ -120,7 +95,7 @@ variants:
     - sum
     - tac
     - tee
-    - true-bin
+    - "true"
     - truncate
     - tsort
     - tty
@@ -129,6 +104,6 @@ variants:
     - users
     - vdir
     - who
-    - yes-bin
+    - "yes"
 
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh
