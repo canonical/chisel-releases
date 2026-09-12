@@ -1,0 +1,24 @@
+package: libpulse0
+
+essential:
+  libpulse0_copyright:
+
+slices:
+  libs:
+    essential:
+      libapparmor1_libs:
+      libasyncns0_libs:
+      libc6_libs:
+      libdbus-1-3_libs:
+      libsndfile1_libs:
+      libsystemd0_libs:
+      libx11-6_libs:
+      libx11-xcb1_libs:
+      libxcb1_libs:
+    contents:
+      /usr/lib/*-linux-*/libpulse*.so*:
+      /usr/lib/*-linux-*/pulseaudio/libpulsecommon*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpulse0/copyright:

@@ -1,0 +1,19 @@
+package: libplacebo360
+
+essential:
+  libplacebo360_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      liblcms2-2_libs:
+      libstdc++6_libs:
+      libvulkan1_libs:
+    contents:
+      /usr/lib/*-linux-*/libplacebo.so.360:
+
+  copyright:
+    contents:
+      /usr/share/doc/libplacebo360/copyright:
