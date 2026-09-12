@@ -18,9 +18,6 @@ slices:
       libssl4_libs:
       libwrap0_libs:
       openssh-common_bins:
-      # TODO: ssh-session-cleanup is here for backwards-compatibility
-      # remove in next release
-      openssh-server_ssh-session-cleanup:
       openssh-sftp-server_bins:
       zlib1g_libs:
     contents:
