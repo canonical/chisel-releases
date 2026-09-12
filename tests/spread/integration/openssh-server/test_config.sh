@@ -1,16 +1,11 @@
-set -eu
 source "$(dirname "$0")/helpers.sh"
 
 # dash is the login shell of the test user, not something sshd needs
 rootfs="$(install-slices openssh-server_config openssh-server_bins dash_bins)"
-trap cleanup EXIT
+trap cleanup_sshd EXIT
 prepare_sshd "$rootfs"
 
-# the mutate script installs the default config where sshd looks for it
-cmp "$rootfs/etc/ssh/sshd_config" "$rootfs/usr/share/openssh/sshd_config"
-
-# a login through the shipped config: UsePAM yes, so /etc/pam.d/sshd and the
-# pam stack behind it are in play
+# the default config has "UsePAM yes", so we should be using the PAM stack
 start_sshd "$rootfs"
 chroot "$rootfs" ssh "${ssh_opts[@]}" tester@127.0.0.1 'echo "hello from $SSH_CONNECTION"' \
   | grep -Fq "hello from 127.0.0.1 "

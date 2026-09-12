@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cleanup() {
+cleanup_sshd() {
   if [ -n "${sshd_pid:-}" ]; then
     kill "$sshd_pid" || true
     cat "$sshd_rootfs/sshd.log"
@@ -27,17 +27,6 @@ prepare_sshd() {
   cp "$rootfs/root/.ssh/id_ed25519.pub" "$rootfs/home/tester/.ssh/authorized_keys"
   chmod 0600 "$rootfs/home/tester/.ssh/authorized_keys"
   chown -R 1000 "$rootfs/home/tester/.ssh"
-}
-
-# a minimal config for the variants that do not ship one
-write_sshd_config() {
-  cat > "$1/etc/ssh/sshd_config" <<'EOF'
-HostKey /etc/ssh/ssh_host_ed25519_key
-PubkeyAuthentication yes
-PasswordAuthentication no
-UsePAM no
-PidFile none
-EOF
 }
 
 # runs sshd in the background, off the spread host's own port, and waits for
