@@ -7,11 +7,11 @@ essential:
 #   - libs: contains all shared object files.
 #   - bins: contains all binaries, or executables.
 #   - copyright: contains the copyright file.
-# It also contains a list of other granular slices, each of which contains a
-# list of binaries. These slices have been created based on the grouping in the
-# GNU docs: https://www.gnu.org/software/coreutils/manual/html_node/index.html.
-# Ideally, users would install (or, add as an essential to some other slice) one
-# or more of these granular slices when they need a particular set of binaries.
+# It also contains one slice per binary, and one slice per group of binaries
+# in the GNU docs: https://www.gnu.org/software/coreutils/manual/html_node/index.html.
+# A group slice only pulls in the single-binary slices of its group. Ideally,
+# users would install (or, add as an essential to some other slice) just the
+# slices for the binaries they need.
 slices:
   libs:
     essential:
@@ -58,7 +58,6 @@ slices:
       gnu-coreutils_nl-bin:
       gnu-coreutils_od-bin:
       gnu-coreutils_tac:
-      libc6_libs:
 
   # Formatting file contents -- These commands reformat the contents of files.
   # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-contents.html
@@ -67,7 +66,6 @@ slices:
       gnu-coreutils_fmt:
       gnu-coreutils_fold:
       gnu-coreutils_pr-bin:
-      libc6_libs:
 
   # Output of parts of files -- These commands output pieces of the input.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
@@ -77,7 +75,6 @@ slices:
       gnu-coreutils_head:
       gnu-coreutils_split:
       gnu-coreutils_tail:
-      libc6_libs:
 
   # Summarizing files -- These commands generate just a few numbers representing
   # entire contents of files.
@@ -94,8 +91,6 @@ slices:
       gnu-coreutils_sha512sum:
       gnu-coreutils_sum:
       gnu-coreutils_wc-bin:
-      libc6_libs:
-      libssl3t64_libs:
 
   # Operating on sorted files -- These commands work with (or produce) sorted
   # files.
@@ -108,8 +103,6 @@ slices:
       gnu-coreutils_sort:
       gnu-coreutils_tsort:
       gnu-coreutils_uniq:
-      libc6_libs:
-      libssl3t64_libs:
 
   # Operating on fields.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
@@ -118,7 +111,6 @@ slices:
       gnu-coreutils_cut:
       gnu-coreutils_join:
       gnu-coreutils_paste:
-      libc6_libs:
 
   # Operating on characters -- These commands operate on individual characters.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
@@ -127,7 +119,6 @@ slices:
       gnu-coreutils_expand:
       gnu-coreutils_tr-bin:
       gnu-coreutils_unexpand:
-      libc6_libs:
 
   # Directory listing -- This slice contains the ls command and its variants dir
   # and vdir, which list information about files.
@@ -138,9 +129,6 @@ slices:
       gnu-coreutils_dircolors:
       gnu-coreutils_ls-bin:
       gnu-coreutils_vdir:
-      libc6_libs:
-      libcap2_libs:
-      libselinux1_libs:
 
   # Basic operations -- This slice contains the commands for basic file
   # manipulation: copying, moving (renaming), and deleting (removing).
@@ -153,10 +141,6 @@ slices:
       gnu-coreutils_mv-bin:
       gnu-coreutils_rm-bin:
       gnu-coreutils_shred:
-      libacl1_libs:
-      libattr1_libs:
-      libc6_libs:
-      libselinux1_libs:
 
   # Special file types -- This slice contains commands which create special
   # types of files (and rmdir, which removes directories, one special file
@@ -172,8 +156,6 @@ slices:
       gnu-coreutils_readlink:
       gnu-coreutils_rmdir:
       gnu-coreutils_unlink:
-      libc6_libs:
-      libselinux1_libs:
 
   # Changing file attributes -- These commands change file attributes.
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
@@ -183,7 +165,6 @@ slices:
       gnu-coreutils_chmod:
       gnu-coreutils_chown:
       gnu-coreutils_touch:
-      libc6_libs:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -196,8 +177,6 @@ slices:
       gnu-coreutils_stat:
       gnu-coreutils_sync:
       gnu-coreutils_truncate:
-      libc6_libs:
-      libselinux1_libs:
 
   # Printing text -- This slice contains commands that display text strings.
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
@@ -205,8 +184,7 @@ slices:
     essential:
       gnu-coreutils_echo:
       gnu-coreutils_printf:
-      gnu-coreutils_yes-bin:
-      libc6_libs:
+      gnu-coreutils_yes:
 
   # Conditions -- This slice contains commands that are primarily useful for
   # their exit status, rather than their output. Thus, they are often used as
@@ -215,18 +193,15 @@ slices:
   conditions:
     essential:
       gnu-coreutils_expr:
-      gnu-coreutils_false-bin:
+      gnu-coreutils_false:
       gnu-coreutils_test:
-      gnu-coreutils_true-bin:
-      libc6_libs:
-      libgmp10_libs:
+      gnu-coreutils_true:
 
   # Redirection -- This slice contains the tee command.
   # https://www.gnu.org/software/coreutils/manual/html_node/Redirection.html
   redirection:
     essential:
       gnu-coreutils_tee:
-      libc6_libs:
 
   # File name manipulation -- This slice contains commands that manipulate file
   # names.
@@ -238,7 +213,6 @@ slices:
       gnu-coreutils_mktemp:
       gnu-coreutils_pathchk:
       gnu-coreutils_realpath:
-      libc6_libs:
 
   # Working context -- This slice contains commands that display or alter the
   # context in which you are working: the current directory, the terminal
@@ -250,7 +224,6 @@ slices:
       gnu-coreutils_pwd:
       gnu-coreutils_stty:
       gnu-coreutils_tty:
-      libc6_libs:
 
   # User information -- This slice contains commands that print user-related
   # information: logins, groups, and so forth.
@@ -264,9 +237,6 @@ slices:
       gnu-coreutils_users:
       gnu-coreutils_who:
       gnu-coreutils_whoami:
-      libc6_libs:
-      libselinux1_libs:
-      libsystemd0_libs:
 
   # System context -- This slice contains commands that print or change
   # system-wide information.
@@ -278,7 +248,6 @@ slices:
       gnu-coreutils_hostid:
       gnu-coreutils_nproc:
       gnu-coreutils_uname:
-      libc6_libs:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -287,8 +256,6 @@ slices:
     essential:
       gnu-coreutils_chcon:
       gnu-coreutils_runcon:
-      libc6_libs:
-      libselinux1_libs:
 
   # Modified command invocation -- This slice contains commands that run other
   # commands in some context different than the current one: a modified
@@ -298,12 +265,10 @@ slices:
     essential:
       gnu-coreutils_chroot:
       gnu-coreutils_env:
-      gnu-coreutils_libs:
       gnu-coreutils_nice:
       gnu-coreutils_nohup:
       gnu-coreutils_stdbuf:
       gnu-coreutils_timeout:
-      libc6_libs:
 
   # Delaying.
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
@@ -318,8 +283,6 @@ slices:
       gnu-coreutils_factor:
       gnu-coreutils_numfmt:
       gnu-coreutils_seq:
-      libc6_libs:
-      libgmp10_libs:
 
   # Single-binary slices
 
@@ -431,7 +394,6 @@ slices:
   dir:
     essential:
       libc6_libs:
-      libcap2_libs:
       libselinux1_libs:
     contents:
       /usr/bin/gnudir:
@@ -445,7 +407,6 @@ slices:
   ls-bin:
     essential:
       libc6_libs:
-      libcap2_libs:
       libselinux1_libs:
     contents:
       /usr/bin/gnuls:
@@ -579,40 +540,30 @@ slices:
   wc-bin:
     essential:
       libc6_libs:
-      libgcc-s1_libs:
-      libselinux1_libs:
     contents:
       /usr/bin/gnuwc:
 
   chgrp:
     essential:
       libc6_libs:
-      libgcc-s1_libs:
-      libselinux1_libs:
     contents:
       /usr/bin/gnuchgrp:
 
   realpath:
     essential:
       libc6_libs:
-      libgcc-s1_libs:
-      libselinux1_libs:
     contents:
       /usr/bin/gnurealpath:
 
   sync:
     essential:
       libc6_libs:
-      libgcc-s1_libs:
-      libselinux1_libs:
     contents:
       /usr/bin/gnusync:
 
   whoami:
     essential:
       libc6_libs:
-      libgcc-s1_libs:
-      libselinux1_libs:
     contents:
       /usr/bin/gnuwhoami:
 
@@ -710,7 +661,7 @@ slices:
     contents:
       /usr/bin/gnufactor:
 
-  false-bin:
+  "false":
     essential:
       libc6_libs:
     contents:
@@ -902,6 +853,7 @@ slices:
 
   stdbuf:
     essential:
+      # NOTE: libstdbuf.so not in the link table but is loaded
       gnu-coreutils_libs:
       libc6_libs:
     contents:
@@ -931,7 +883,7 @@ slices:
     contents:
       /usr/bin/gnutee:
 
-  true-bin:
+  "true":
     essential:
       libc6_libs:
     contents:
@@ -988,7 +940,8 @@ slices:
     contents:
       /usr/bin/gnuwho:
 
-  yes-bin:
+  # NOTE: quoted so yaml parsers don't think this is a bool
+  "yes":
     essential:
       libc6_libs:
     contents:

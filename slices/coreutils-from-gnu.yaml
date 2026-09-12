@@ -48,7 +48,6 @@ slices:
       coreutils-from-gnu_nl-bin:
       coreutils-from-gnu_od-bin:
       coreutils-from-gnu_tac:
-      gnu-coreutils_output-of-entire-files:
 
   # Formatting file contents -- These commands reformat the contents of files.
   # https://www.gnu.org/software/coreutils/manual/html_node/Formatting-file-contents.html
@@ -57,7 +56,6 @@ slices:
       coreutils-from-gnu_fmt:
       coreutils-from-gnu_fold:
       coreutils-from-gnu_pr-bin:
-      gnu-coreutils_formatting-file-contents:
 
   # Output of parts of files -- These commands output pieces of the input.
   # https://www.gnu.org/software/coreutils/manual/html_node/Output-of-parts-of-files.html
@@ -67,7 +65,6 @@ slices:
       coreutils-from-gnu_head:
       coreutils-from-gnu_split:
       coreutils-from-gnu_tail:
-      gnu-coreutils_output-of-parts-of-files:
 
   # Summarizing files -- These commands generate just a few numbers representing
   # entire contents of files.
@@ -84,7 +81,6 @@ slices:
       coreutils-from-gnu_sha512sum:
       coreutils-from-gnu_sum:
       coreutils-from-gnu_wc-bin:
-      gnu-coreutils_summarizing-files:
 
   # Operating on sorted files -- These commands work with (or produce) sorted
   # files.
@@ -97,7 +93,6 @@ slices:
       coreutils-from-gnu_sort:
       coreutils-from-gnu_tsort:
       coreutils-from-gnu_uniq:
-      gnu-coreutils_operating-on-sorted-files:
 
   # Operating on fields.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-fields.html
@@ -106,7 +101,6 @@ slices:
       coreutils-from-gnu_cut:
       coreutils-from-gnu_join:
       coreutils-from-gnu_paste:
-      gnu-coreutils_operating-on-fields:
 
   # Operating on characters -- These commands operate on individual characters.
   # https://www.gnu.org/software/coreutils/manual/html_node/Operating-on-characters.html
@@ -115,7 +109,6 @@ slices:
       coreutils-from-gnu_expand:
       coreutils-from-gnu_tr-bin:
       coreutils-from-gnu_unexpand:
-      gnu-coreutils_operating-on-characters:
 
   # Directory listing -- This slice contains the ls command and its variants dir
   # and vdir, which list information about files.
@@ -126,7 +119,6 @@ slices:
       coreutils-from-gnu_dircolors:
       coreutils-from-gnu_ls-bin:
       coreutils-from-gnu_vdir:
-      gnu-coreutils_directory-listing:
 
   # Basic operations -- This slice contains the commands for basic file
   # manipulation: copying, moving (renaming), and deleting (removing).
@@ -139,7 +131,6 @@ slices:
       coreutils-from-gnu_mv-bin:
       coreutils-from-gnu_rm-bin:
       coreutils-from-gnu_shred:
-      gnu-coreutils_basic-operations:
 
   # Special file types -- This slice contains commands which create special
   # types of files (and rmdir, which removes directories, one special file
@@ -155,7 +146,6 @@ slices:
       coreutils-from-gnu_readlink:
       coreutils-from-gnu_rmdir:
       coreutils-from-gnu_unlink:
-      gnu-coreutils_special-file-types:
 
   # Changing file attributes -- These commands change file attributes.
   # https://www.gnu.org/software/coreutils/manual/html_node/Changing-file-attributes.html
@@ -165,7 +155,6 @@ slices:
       coreutils-from-gnu_chmod:
       coreutils-from-gnu_chown:
       coreutils-from-gnu_touch:
-      gnu-coreutils_changing-file-attributes:
 
   # File space usage -- These commands report how much storage is in use or
   # available, report other file and file status information, and write buffers
@@ -178,7 +167,6 @@ slices:
       coreutils-from-gnu_stat:
       coreutils-from-gnu_sync:
       coreutils-from-gnu_truncate:
-      gnu-coreutils_file-space-usage:
 
   # Printing text -- This slice contains commands that display text strings.
   # https://www.gnu.org/software/coreutils/manual/html_node/Printing-text.html
@@ -186,8 +174,7 @@ slices:
     essential:
       coreutils-from-gnu_echo:
       coreutils-from-gnu_printf:
-      coreutils-from-gnu_yes-bin:
-      gnu-coreutils_printing-text:
+      coreutils-from-gnu_yes:
 
   # Conditions -- This slice contains commands that are primarily useful for
   # their exit status, rather than their output. Thus, they are often used as
@@ -196,17 +183,15 @@ slices:
   conditions:
     essential:
       coreutils-from-gnu_expr:
-      coreutils-from-gnu_false-bin:
+      coreutils-from-gnu_false:
       coreutils-from-gnu_test:
-      coreutils-from-gnu_true-bin:
-      gnu-coreutils_conditions:
+      coreutils-from-gnu_true:
 
   # Redirection -- This slice contains the tee command.
   # https://www.gnu.org/software/coreutils/manual/html_node/Redirection.html
   redirection:
     essential:
       coreutils-from-gnu_tee:
-      gnu-coreutils_redirection:
 
   # File name manipulation -- This slice contains commands that manipulate file
   # names.
@@ -218,7 +203,6 @@ slices:
       coreutils-from-gnu_mktemp:
       coreutils-from-gnu_pathchk:
       coreutils-from-gnu_realpath:
-      gnu-coreutils_file-name-manipulation:
 
   # Working context -- This slice contains commands that display or alter the
   # context in which you are working: the current directory, the terminal
@@ -230,7 +214,6 @@ slices:
       coreutils-from-gnu_pwd:
       coreutils-from-gnu_stty:
       coreutils-from-gnu_tty:
-      gnu-coreutils_working-context:
 
   # User information -- This slice contains commands that print user-related
   # information: logins, groups, and so forth.
@@ -244,7 +227,6 @@ slices:
       coreutils-from-gnu_users:
       coreutils-from-gnu_who:
       coreutils-from-gnu_whoami:
-      gnu-coreutils_user-information:
 
   # System context -- This slice contains commands that print or change
   # system-wide information.
@@ -256,7 +238,6 @@ slices:
       coreutils-from-gnu_hostid:
       coreutils-from-gnu_nproc:
       coreutils-from-gnu_uname:
-      gnu-coreutils_system-context:
 
   # SELinux context -- This slice contains commands for operations with SELinux
   # contexts.
@@ -265,7 +246,6 @@ slices:
     essential:
       coreutils-from-gnu_chcon:
       coreutils-from-gnu_runcon:
-      gnu-coreutils_selinux-context:
 
   # Modified command invocation -- This slice contains commands that run other
   # commands in some context different than the current one: a modified
@@ -275,19 +255,16 @@ slices:
     essential:
       coreutils-from-gnu_chroot:
       coreutils-from-gnu_env:
-      coreutils-from-gnu_libs:
       coreutils-from-gnu_nice:
       coreutils-from-gnu_nohup:
       coreutils-from-gnu_stdbuf:
       coreutils-from-gnu_timeout:
-      gnu-coreutils_modified-command-invocation:
 
   # Delaying.
   # https://www.gnu.org/software/coreutils/manual/html_node/Delaying.html
   delaying:
     essential:
       coreutils-from-gnu_sleep:
-      gnu-coreutils_delaying:
 
   # Numeric operations -- These programs do numerically-related operations.
   # https://www.gnu.org/software/coreutils/manual/html_node/Numeric-operations.html
@@ -296,7 +273,6 @@ slices:
       coreutils-from-gnu_factor:
       coreutils-from-gnu_numfmt:
       coreutils-from-gnu_seq:
-      gnu-coreutils_numeric-operations:
 
   # Single-binary slices
 
@@ -656,9 +632,9 @@ slices:
     contents:
       /usr/bin/factor:
 
-  false-bin:
+  "false":
     essential:
-      gnu-coreutils_false-bin:
+      gnu-coreutils_false:
     contents:
       /usr/bin/false:
 
@@ -866,9 +842,9 @@ slices:
     contents:
       /usr/bin/tee:
 
-  true-bin:
+  "true":
     essential:
-      gnu-coreutils_true-bin:
+      gnu-coreutils_true:
     contents:
       /usr/bin/true:
 
@@ -920,9 +896,10 @@ slices:
     contents:
       /usr/bin/who:
 
-  yes-bin:
+  # NOTE: quoted so yaml parsers don't think this is a bool
+  "yes":
     essential:
-      gnu-coreutils_yes-bin:
+      gnu-coreutils_yes:
     contents:
       /usr/bin/yes:
 

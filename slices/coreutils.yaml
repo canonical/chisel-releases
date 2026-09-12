@@ -345,9 +345,9 @@ slices:
     essential:
       coreutils-from-gnu_factor:
 
-  false-bin:
+  "false":
     essential:
-      coreutils-from-gnu_false-bin:
+      coreutils-from-gnu_false:
 
   fmt:
     essential:
@@ -485,9 +485,9 @@ slices:
     essential:
       coreutils-from-gnu_tee:
 
-  true-bin:
+  "true":
     essential:
-      coreutils-from-gnu_true-bin:
+      coreutils-from-gnu_true:
 
   truncate:
     essential:
@@ -521,9 +521,10 @@ slices:
     essential:
       coreutils-from-gnu_who:
 
-  yes-bin:
+  # NOTE: quoted so yaml parsers don't think this is a bool
+  "yes":
     essential:
-      coreutils-from-gnu_yes-bin:
+      coreutils-from-gnu_yes:
 
   copyright:
     contents:
