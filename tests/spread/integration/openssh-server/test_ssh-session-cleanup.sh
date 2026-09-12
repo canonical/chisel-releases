@@ -1,8 +1,26 @@
 set -eu
 source "$(dirname "$0")/helpers.sh"
 
+# pgrep needs /proc, the pty login needs /dev with its submounts: on lxd
+# /dev/ptmx is a bind mount of /dev/pts/ptmx, and openpty() needs both
+mounted=()
+mount_rootfs() {
+  mkdir -p "$1/dev" "$1/proc"
+  mount --rbind /dev "$1/dev"
+  mount --make-rslave "$1/dev"
+  mount --bind /proc "$1/proc"
+  mounted+=("$1")
+}
+unmount_rootfs() {
+  local rootfs
+  for rootfs in "${mounted[@]}"; do
+    umount --lazy "$rootfs/proc" || true
+    umount --lazy "$rootfs/dev" || true
+  done
+}
+
 rootfs="$(install-slices openssh-server_ssh-session-cleanup)"
-trap cleanup EXIT
+trap 'cleanup; unmount_rootfs' EXIT
 mount_rootfs "$rootfs"
 
 # no interactive sshd sessions around, so nothing to kill and nothing to say
