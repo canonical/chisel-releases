@@ -27,6 +27,9 @@ function main() {
 
     local rootfs
     rootfs="$(mktemp -d -p "$ROOTFS_DIR")"
+    # mktemp makes it 0700; a daemon that drops privileges inside could not
+    # chdir to its own root
+    chmod 755 "$rootfs"
     chisel_cut "$rootfs" "$slices"
     if [ -n "$MANIFESTS_EXPORT_DIR" ] && [ -f "$rootfs/var/lib/chisel/manifest.wall" ]; then
         export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
