@@ -16,9 +16,6 @@ slices:
     hint: PID 1 service manager and boot units
     essential:
       libc6_libs:
-      # PID 1 and the executor dlopen it to turn SystemCallFilter= and friends
-      # into seccomp filters; without it every unit silently runs unfiltered
-      libseccomp2_libs:
       libsystemd-shared_libs:
       mount_bins:
     contents:

@@ -6,7 +6,27 @@ essential:
 slices:
   libs:
     essential:
+      # blkid, mount, seccomp and selinux are dlopened, but part of the
+      # minimal viable systemd launch (see systemd_minimal)
+      libblkid1_libs:
       libc6_libs:
+      libmount1_libs:
+      libseccomp2_libs:
+      libselinux1_libs:
+      # enable for ACL lines in tmpfiles.d and per-user journal ACLs
+      # libacl1_libs:
+      # enable for units with AppArmorProfile=
+      # libapparmor1_libs:
+      # enable for audit records of unit starts and logins
+      # libaudit1_libs:
+      # enable for hashing plaintext passwords in firstboot and sysusers
+      # libcrypt1_libs:
+      # enable to load kernel modules at boot, outside containers
+      # libkmod2_libs:
+      # enable for units with PAMName=, e.g. user@.service
+      # libpam0g_libs:
+      # enable to read or write zstd-compressed journals and coredumps
+      # libzstd1_libs:
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:
