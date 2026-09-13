@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libssl3t64_libs:
     contents:
-      /usr/lib/*-linux-*/librabbitmq.so.4*:
+      /usr/lib/*-linux-*/librabbitmq.so.*:
 
   copyright:
     contents:
