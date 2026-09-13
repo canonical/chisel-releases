@@ -9,7 +9,7 @@ slices:
       # NOTE: libxkbcommon0 deb also depends on xkb-data
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libxkbcommon.so.0*:
+      /usr/lib/*-linux-*/libxkbcommon.so*:
 
   copyright:
     contents:
