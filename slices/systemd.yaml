@@ -4,6 +4,109 @@ essential:
   systemd_copyright:
 
 slices:
+  # The service manager alone: PID 1, systemctl, and the units it needs to
+  # reach multi-user.target and shut down again. Enough to supervise programs
+  # that carry what they need, and no more: nothing in here runs as root at
+  # boot to set the system up, and there is no daemon, no journal and no bus,
+  # so services log to stdout and systemctl talks to PID 1 over its private
+  # socket. tmp.mount is left out on purpose: mounting a tmpfs needs
+  # privileges a container may not have, and a failed mount would divert the
+  # boot to emergency.target.
+  minimal:
+    hint: PID 1 service manager and boot units
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+      mount_bins:
+    contents:
+      /usr/bin/systemctl:
+      /usr/lib/systemd/system/basic.target:
+      /usr/lib/systemd/system/default.target:
+      /usr/lib/systemd/system/exit.target:
+      /usr/lib/systemd/system/final.target:
+      /usr/lib/systemd/system/graphical.target:
+      /usr/lib/systemd/system/halt.target:
+      /usr/lib/systemd/system/local-fs-pre.target:
+      /usr/lib/systemd/system/local-fs.target:
+      /usr/lib/systemd/system/multi-user.target:
+      /usr/lib/systemd/system/paths.target:
+      /usr/lib/systemd/system/poweroff.target:
+      /usr/lib/systemd/system/reboot.target:
+      /usr/lib/systemd/system/shutdown.target:
+      /usr/lib/systemd/system/slices.target:
+      /usr/lib/systemd/system/sockets.target:
+      /usr/lib/systemd/system/swap.target:
+      /usr/lib/systemd/system/sysinit.target:
+      /usr/lib/systemd/system/systemd-exit.service:
+      /usr/lib/systemd/system/systemd-halt.service:
+      /usr/lib/systemd/system/systemd-poweroff.service:
+      /usr/lib/systemd/system/systemd-reboot.service:
+      /usr/lib/systemd/system/timers.target:
+      /usr/lib/systemd/system/umount.target:
+      /usr/lib/systemd/systemd:
+      /usr/lib/systemd/systemd-executor:
+      /usr/lib/systemd/systemd-shutdown:
+
+  # What an ordinary daemon's unit file assumes on top of minimal, whoever
+  # wrote it. sysusers and tmpfiles: a package declares its users in a
+  # sysusers.d fragment and its directories in a tmpfiles.d one and expects
+  # both to have been applied before its unit starts; they run as root before
+  # sysinit.target, which is why minimal does without them. The journal:
+  # StandardOutput= defaults to it, and without journald every unit's output
+  # is dropped. systemd-notify: the shell side of the sd_notify(3) protocol
+  # for Type=notify units that are scripts; compiled daemons get it from
+  # libsystemd. The network and time-set targets: inert RefuseManualStart=yes
+  # placeholders that unit files order against with After= and Wants=,
+  # resolvable here even though nothing satisfies them. The manager's D-Bus
+  # registration and systemd-detect-virt are left out: no unit depends on
+  # either, and each is one essential away (systemd_dbus-services,
+  # systemd_detect-virt).
+  # the journal's own paths are listed here, as systemd_journal pulls in
+  # system-services on this release
+  core:
+    hint: Journal, boot setup and notify
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+      systemd_config:
+      systemd_minimal:
+      systemd_sysusers:
+      systemd_sysusers-config:
+      systemd_tmpfiles:
+      systemd_tmpfiles-config:
+    contents:
+      /usr/bin/journalctl:
+      /usr/bin/systemd-notify:
+      /usr/lib/systemd/system/network-online.target:
+      /usr/lib/systemd/system/network-pre.target:
+      /usr/lib/systemd/system/network.target:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-journald-dev-log.socket:
+      /usr/lib/systemd/system/sockets.target.wants/systemd-journald.socket:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-catalog-update.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-journal-flush.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-journald.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
+      /usr/lib/systemd/system/systemd-journal-catalog-update.service:
+      /usr/lib/systemd/system/systemd-journal-flush.service:
+      /usr/lib/systemd/system/systemd-journald-audit.socket:
+      /usr/lib/systemd/system/systemd-journald-dev-log.socket:
+      /usr/lib/systemd/system/systemd-journald-sync@.service:
+      /usr/lib/systemd/system/systemd-journald-varlink@.socket:
+      /usr/lib/systemd/system/systemd-journald.service:
+      /usr/lib/systemd/system/systemd-journald.service.d/nice.conf:
+      /usr/lib/systemd/system/systemd-journald.socket:
+      /usr/lib/systemd/system/systemd-journald@.service:
+      /usr/lib/systemd/system/systemd-journald@.socket:
+      /usr/lib/systemd/system/systemd-sysusers.service:
+      /usr/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service:
+      /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
+      /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
+      /usr/lib/systemd/system/time-set.target:
+      /usr/lib/systemd/systemd-journald:
+
   standard:
     essential:
       libacl1_libs:
@@ -19,6 +122,7 @@ slices:
       mount_bins:
       systemd_catalog:
       systemd_config:
+      systemd_core:
       systemd_dbus-services:
       systemd_detect-virt:
       systemd_extras:
@@ -95,6 +199,38 @@ slices:
       libsystemd-shared_libs:
     contents:
       /usr/bin/systemd-detect-virt:
+
+  # Standalone: applies sysusers.d fragments to a root of its choice, running
+  # system or not, which is how an image build uses it.
+  sysusers:
+    hint: Create system users and groups
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+    contents:
+      /usr/bin/systemd-sysusers:
+
+  # Standalone: applies tmpfiles.d fragments to a root of its choice, running
+  # system or not, which is how an image build uses it.
+  tmpfiles:
+    hint: Create and clean up volatile files
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+    contents:
+      /usr/bin/systemd-tmpfiles:
+
+  # its unit prompts on the console at first boot for anything not handed
+  # to it as a credential; system-services also enables it on this release
+  firstboot:
+    hint: First boot system setup
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
+    contents:
+      /usr/bin/systemd-firstboot:
+      /usr/lib/systemd/system/sysinit.target.wants/systemd-firstboot.service:
+      /usr/lib/systemd/system/systemd-firstboot.service:
 
   journal:
     hint: View and manage system logs
