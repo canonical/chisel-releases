@@ -5,13 +5,12 @@ essential:
 
 slices:
   # The service manager alone: PID 1, systemctl, and the units it needs to
-  # reach multi-user.target and shut down again. Enough to supervise programs
-  # that carry what they need, and no more: nothing in here runs as root at
-  # boot to set the system up, and there is no daemon, no journal and no bus,
-  # so services log to stdout and systemctl talks to PID 1 over its private
-  # socket. tmp.mount is left out on purpose: mounting a tmpfs needs
-  # privileges a container may not have, and a failed mount would divert the
-  # boot to emergency.target.
+  # reach multi-user.target and shut down again. This is enough to supervise
+  # self-contained programs. Nothing in this slice runs as root at boot to set
+  # the system up, and there is no daemon, no journal and no bus, so services
+  # log to stdout and systemctl talks to PID 1 over its private socket.
+  # tmp.mount is left out on purpose since mounting a tmpfs needs additional
+  # privileges which the user of this slice may not have.
   minimal:
     hint: PID 1 service manager and boot units
     essential:
@@ -50,20 +49,10 @@ slices:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-shutdown:
 
-  # What an ordinary daemon's unit file assumes on top of minimal, whoever
-  # wrote it. sysusers and tmpfiles: a package declares its users in a
-  # sysusers.d fragment and its directories in a tmpfiles.d one and expects
-  # both to have been applied before its unit starts; they run as root before
-  # sysinit.target, which is why minimal does without them. The journal:
-  # StandardOutput= defaults to it, and without journald every unit's output
-  # is dropped. systemd-notify: the shell side of the sd_notify(3) protocol
-  # for Type=notify units that are scripts; compiled daemons get it from
-  # libsystemd. The network and time-set targets: inert RefuseManualStart=yes
-  # placeholders that unit files order against with After= and Wants=,
-  # resolvable here even though nothing satisfies them. The manager's D-Bus
-  # registration and systemd-detect-virt are left out: no unit depends on
-  # either, and each is one essential away (systemd_dbus-services,
-  # systemd_detect-virt).
+  # What an ordinary daemon's unit file assumes on top of minimal. The manager's
+  # D-Bus registration and systemd-detect-virt are left out since no unit
+  # depends on either. Users can additionally cut systemd_dbus-services, or
+  # systemd_detect-virt to get these respectively.
   core:
     hint: Journal, boot setup and notify
     essential:
