@@ -20,6 +20,7 @@ declare -A usage=(
   [systemd-rfkill]="requires no arguments"
   [systemd-ssh-proxy]="Expected two arguments"
   [systemd-sysroot-fstab-check]="takes no arguments"
+  [systemd-sysv-install]="Usage:"
   [systemd-update-done]="unrecognized option"
   [systemd-volatile-root]="Couldn't parse volatile mode"
   [systemd-xdg-autostart-condition]="Wrong argument count"
@@ -38,9 +39,6 @@ while read -r bin; do
     systemd-sulogin-shell)
       # treats its argument as a mode and then waits for a login
       timeout 5 chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "journalctl -xb"
-      ;;
-    systemd-sysv-install)
-      # a sh script around update-rc.d, checked below with that slice under it
       ;;
     *)
       if [ -n "${usage[$name]:-}" ]; then
