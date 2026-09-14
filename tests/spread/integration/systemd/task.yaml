@@ -1,8 +1,22 @@
 summary: Integration tests for systemd
 
 variants:
+    - minimal
+    - core
     - standard
+    - standard-tools
+    - dev
     - detect-virt
+    - sysusers
+    - tmpfiles
+    - firstboot
     - run0
+    - journal
+    - login
+    - hostname
+    - locale
+    - timedate
+    - network
+    - service-handlers
 
-execute: bash -ex ./test_${SPREAD_VARIANT}.sh
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
