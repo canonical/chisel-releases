@@ -373,6 +373,7 @@ slices:
       /usr/lib/systemd/systemd-binfmt:
       /usr/lib/systemd/systemd-boot-check-no-failures:
       /usr/lib/systemd/systemd-bsod:
+        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]  # not built on i386
       /usr/lib/systemd/systemd-factory-reset:
       /usr/lib/systemd/systemd-fsck:
       /usr/lib/systemd/systemd-growfs:
@@ -534,6 +535,7 @@ slices:
       /usr/lib/systemd/system/initrd.target:
       /usr/lib/systemd/system/initrd.target.wants/systemd-battery-check.service:
       /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service:
+        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]  # not built on i386
       /usr/lib/systemd/system/initrd.target.wants/systemd-confext-initrd.service:
       /usr/lib/systemd/system/initrd.target.wants/systemd-sysext-initrd.service:
       /usr/lib/systemd/system/kexec.target:
@@ -628,6 +630,7 @@ slices:
       /usr/lib/systemd/system/systemd-binfmt.service:
       /usr/lib/systemd/system/systemd-boot-check-no-failures.service:
       /usr/lib/systemd/system/systemd-bsod.service:
+        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]  # not built on i386
       /usr/lib/systemd/system/systemd-confext-initrd.service:
       /usr/lib/systemd/system/systemd-confext-sysroot.service:
       /usr/lib/systemd/system/systemd-confext.service:
