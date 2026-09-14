@@ -6,8 +6,7 @@
 
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_run0)"
-out="$(chroot "$rootfs" /usr/bin/run0 --help 2>&1)"
-grep -Fiq "run0" <<<"$out"
+chroot "$rootfs" /usr/bin/run0 --help | grep -Fiq "run0"
 for bin in /usr/bin/run0 /usr/bin/systemd-run; do
   assert_version "$rootfs" "$bin"
 done

@@ -25,19 +25,15 @@ trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 
 # the unit loads, and the manager parses it as a bus-activated service
-out="$(nsystemctl show -p LoadState --value systemd-localed.service)"
-grep -Fxq "loaded" <<<"$out"
+nsystemctl show -p LoadState --value systemd-localed.service | grep -Fxq "loaded"
 test "$(nsystemctl show -p BusName --value systemd-localed.service)" = "org.freedesktop.locale1"
 test "$(nsystemctl show -p Type --value systemd-localed.service)" = "notify"
 
 # the drop-in the slice ships is read on top of it
-out="$(nsrun systemctl cat systemd-localed.service)"
-grep -Fq "x11-keyboard.conf" <<<"$out"
-out="$(nsystemctl show -p ReadOnlyPaths systemd-localed.service)"
-grep -Fq "/etc/X11/xorg.conf.d" <<<"$out"
+nsrun systemctl cat systemd-localed.service | grep -Fq "x11-keyboard.conf"
+nsystemctl show -p ReadOnlyPaths systemd-localed.service | grep -Fq "/etc/X11/xorg.conf.d"
 
 # the client is there and talks to the bus rather than to files
-out="$(nsrun localectl --help)"
-grep -Fq "set-locale" <<<"$out"
+nsrun localectl --help | grep -Fq "set-locale"
 
 shutdown_rootfs

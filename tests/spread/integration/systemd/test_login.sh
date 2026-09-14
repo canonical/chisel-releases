@@ -14,10 +14,8 @@ for bin in /usr/bin/loginctl /usr/lib/systemd/systemd-logind; do
 done
 
 # helpers that insist on specific arguments still prove they load
-out="$(chroot "$rootfs" /usr/lib/systemd/systemd-user-runtime-dir 2>&1 || true)"
-grep -Fiq "takes two arguments" <<<"$out"
-out="$(chroot "$rootfs" /usr/lib/systemd/systemd-user-sessions --version 2>&1 || true)"
-grep -Fiq "Unknown verb" <<<"$out"
+chroot "$rootfs" /usr/lib/systemd/systemd-user-runtime-dir 2>&1 | grep -Fiq "takes two arguments"
+chroot "$rootfs" /usr/lib/systemd/systemd-user-sessions --version 2>&1 | grep -Fiq "Unknown verb"
 clean-rootfs "$rootfs"
 
 # with a manager and a bus under it, the daemon does its job
@@ -30,14 +28,10 @@ nsystemctl start systemd-logind.service
 nsystemctl is-active systemd-logind.service
 
 # the daemon answers its client about the three things it tracks
-out="$(nsrun loginctl list-sessions)"
-grep -Fq "SESSION" <<<"$out"
-out="$(nsrun loginctl list-users)"
-grep -Fq "UID" <<<"$out"
-out="$(nsrun loginctl list-seats)"
-grep -Fq "SEAT" <<<"$out"
-out="$(nsrun loginctl seat-status seat0)"
-grep -Fq "seat0" <<<"$out"
+nsrun loginctl list-sessions | grep -Fq "SESSION"
+nsrun loginctl list-users | grep -Fq "UID"
+nsrun loginctl list-seats | grep -Fq "SEAT"
+nsrun loginctl seat-status seat0 | grep -Fq "seat0"
 
 # and it is what creates a user's runtime directory
 nsystemctl start user-runtime-dir@0.service

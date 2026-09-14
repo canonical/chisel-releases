@@ -21,16 +21,12 @@ done <<<"$bins"
 
 test "$(chroot "$rootfs" systemd-escape --path /foo/bar)" = "foo-bar"
 test "$(chroot "$rootfs" systemd-escape --unescape --path foo-bar)" = "/foo/bar"
-out="$(chroot "$rootfs" systemd-analyze calendar daily)"
-grep -Fq "*-*-* 00:00:00" <<<"$out"
-out="$(chroot "$rootfs" systemd-analyze timespan 1h30m)"
-grep -Fq "1h 30min" <<<"$out"
+chroot "$rootfs" systemd-analyze calendar daily | grep -Fq "*-*-* 00:00:00"
+chroot "$rootfs" systemd-analyze timespan 1h30m | grep -Fq "1h 30min"
 
 # the shipped configs are the ones the tools actually read
-out="$(chroot "$rootfs" systemd-tmpfiles --cat-config)"
-grep -Fq "/usr/lib/tmpfiles.d/20-systemd-varlink.conf" <<<"$out"
-out="$(chroot "$rootfs" systemd-sysusers --cat-config)"
-grep -Fq "/usr/lib/sysusers.d/systemd-journal.conf" <<<"$out"
+chroot "$rootfs" systemd-tmpfiles --cat-config | grep -Fq "/usr/lib/tmpfiles.d/20-systemd-varlink.conf"
+chroot "$rootfs" systemd-sysusers --cat-config | grep -Fq "/usr/lib/sysusers.d/systemd-journal.conf"
 
 # /etc activation links resolve to what the config slices ship
 for link in /etc/profile.d/70-systemd-shell-extra.sh /etc/profile.d/80-systemd-osc-context.sh \

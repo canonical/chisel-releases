@@ -22,8 +22,7 @@ boot_rootfs "$rootfs"
 
 nsystemctl start systemd-hostnamed.service
 nsystemctl is-active systemd-hostnamed.service
-out="$(nsrun hostnamectl)"
-grep -Fq "hostname:" <<<"$out"
+nsrun hostnamectl | grep -Fq "hostname:"
 
 # the hostname the daemon sets is the one it reads back, and the one on disk
 nsrun hostnamectl hostname chisel-test

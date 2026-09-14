@@ -39,13 +39,11 @@ while read -r bin; do
       ;;
     systemd-sulogin-shell)
       # treats its argument as a mode and then waits for a login
-      out="$(timeout 5 chroot "$rootfs" "$bin" --version 2>&1 || true)"
-      grep -Fiq "journalctl -xb" <<<"$out"
+      timeout 5 chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "journalctl -xb"
       ;;
     *)
       if [ -n "${usage[$name]:-}" ]; then
-        out="$(chroot "$rootfs" "$bin" --version 2>&1 || true)"
-        grep -Fiq "${usage[$name]}" <<<"$out"
+        chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "${usage[$name]}"
       else
         assert_version "$rootfs" "$bin"
       fi

@@ -18,10 +18,8 @@ for bin in systemd-notify systemd-sysusers systemd-tmpfiles; do
 done
 
 # the appliers read the fragments the package ships
-out="$(chroot "$rootfs" systemd-tmpfiles --cat-config)"
-grep -Fq "/usr/lib/tmpfiles.d/systemd.conf" <<<"$out"
-out="$(chroot "$rootfs" systemd-sysusers --cat-config)"
-grep -Fq "/usr/lib/sysusers.d/basic.conf" <<<"$out"
+chroot "$rootfs" systemd-tmpfiles --cat-config | grep -Fq "/usr/lib/tmpfiles.d/systemd.conf"
+chroot "$rootfs" systemd-sysusers --cat-config | grep -Fq "/usr/lib/sysusers.d/basic.conf"
 umount "$rootfs/proc"
 clean-rootfs "$rootfs"
 
@@ -50,11 +48,9 @@ test -d "$rootfs/run/user"
 for unit in systemd-journald.service systemd-journald.socket systemd-journald-dev-log.socket; do
   nsystemctl is-active "$unit"
 done
-out="$(nsrun journalctl --no-pager -b)"
-grep -Fq "Journal started" <<<"$out"
+nsrun journalctl --no-pager -b | grep -Fq "Journal started"
 # a short-lived unit can lose its unit field in the journal; its identifier stays
-out="$(nsrun journalctl --no-pager -b -t systemd-sysusers)"
-grep -Fq "Creating group" <<<"$out"
+nsrun journalctl --no-pager -b -t systemd-sysusers | grep -Fq "Creating group"
 
 # a unit that reports readiness from a script rather than a compiled binary,
 # ordered against the targets other packages name
@@ -84,7 +80,6 @@ ExecStart=/usr/bin/systemctl --version
 EOF
 nsystemctl daemon-reload
 nsystemctl start probe-log.service
-out="$(nsrun journalctl --no-pager -b -u probe-log.service -o cat)"
-grep -Fiq "systemd" <<<"$out"
+nsrun journalctl --no-pager -b -u probe-log.service -o cat | grep -Fiq "systemd"
 
 shutdown_rootfs

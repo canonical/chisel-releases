@@ -64,12 +64,10 @@ nsystemctl() {
   nsrun systemctl "$@"
 }
 
-# a binary in the rootfs runs and prints systemd's version banner; loader and
-# chroot errors name systemd too, so the exit status has to count
+# a binary in the rootfs runs and prints systemd's version banner; stderr stays
+# out of the pipe, since loader and chroot errors name systemd too
 assert_version() {
-  local out
-  out="$(chroot "$1" "$2" --version 2>&1)"
-  grep -Eq '^systemd [0-9]+ ' <<<"$out"
+  chroot "$1" "$2" --version | grep -Eq '^systemd [0-9]+ '
 }
 
 # fail on any failed unit other than the ones named; the container cannot

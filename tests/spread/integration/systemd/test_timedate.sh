@@ -23,10 +23,8 @@ boot_rootfs "$rootfs"
 
 nsystemctl start systemd-timedated.service
 nsystemctl is-active systemd-timedated.service
-out="$(nsrun timedatectl)"
-grep -Fq "Local time:" <<<"$out"
-out="$(nsrun timedatectl show -p TimeUSec)"
-grep -Fq "TimeUSec=" <<<"$out"
+nsrun timedatectl | grep -Fq "Local time:"
+nsrun timedatectl show -p TimeUSec | grep -Fq "TimeUSec="
 
 # a timezone the daemon sets is the one it reports back
 nsrun timedatectl set-timezone UTC

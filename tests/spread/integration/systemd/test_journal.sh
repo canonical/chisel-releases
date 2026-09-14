@@ -8,5 +8,5 @@ rootfs="$(install-slices systemd_journal)"
 
 assert_version "$rootfs" journalctl
 # /var/log/journal is created by the slice but holds no journals yet
-out="$(chroot "$rootfs" journalctl --no-pager --directory=/var/log/journal 2>&1)"
-grep -Fiq "No journal files were found" <<<"$out"
+chroot "$rootfs" journalctl --no-pager --directory=/var/log/journal 2>&1 \
+  | grep -Fiq "No journal files were found"

@@ -35,15 +35,11 @@ nsystemctl start systemd-networkd.service
 nsystemctl is-active systemd-networkd.service
 
 # it enumerates the links it manages, and reports on one of them
-out="$(nsrun networkctl list)"
-grep -Eq "^ *1 +lo +loopback" <<<"$out"
-out="$(nsrun networkctl status lo)"
-grep -Fq "lo" <<<"$out"
-out="$(nsrun networkctl --json=short list)"
-grep -Fq '"Name":"lo"' <<<"$out"
+nsrun networkctl list | grep -Eq "^ *1 +lo +loopback"
+nsrun networkctl status lo | grep -Fq "lo"
+nsrun networkctl --json=short list | grep -Fq '"Name":"lo"'
 
 # and the file this test wrote is the configuration it read
-out="$(nsrun networkctl cat 10-loopback.network)"
-grep -Fq "Address=127.0.0.1/8" <<<"$out"
+nsrun networkctl cat 10-loopback.network | grep -Fq "Address=127.0.0.1/8"
 
 shutdown_rootfs

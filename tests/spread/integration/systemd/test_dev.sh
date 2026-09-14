@@ -13,10 +13,8 @@ while read -r bin; do
 done <<<"$bins"
 
 # a couple that do real work without a running systemd
-out="$(chroot "$rootfs" systemd-id128 new)"
-grep -Eq "^[0-9a-f]{32}$" <<<"$out"
-out="$(chroot "$rootfs" systemd-path system-binaries)"
-grep -Fxq "/usr/bin" <<<"$out"
+chroot "$rootfs" systemd-id128 new | grep -Eq "^[0-9a-f]{32}$"
+chroot "$rootfs" systemd-path system-binaries | grep -Fxq "/usr/bin"
 clean-rootfs "$rootfs"
 
 # the rest are clients of a running manager, and of the bus it registers on
@@ -25,35 +23,27 @@ rootfs="$(install-slices systemd_dev dbus_services)"
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 
-out="$(nsrun busctl call org.freedesktop.systemd1 /org/freedesktop/systemd1 \
-  org.freedesktop.systemd1.Manager GetDefaultTarget)"
-grep -Fq "graphical.target" <<<"$out"
-out="$(nsrun varlinkctl call /run/systemd/io.systemd.Manager io.systemd.Manager.Describe '{}')"
-grep -Fq '"Version"' <<<"$out"
+nsrun busctl call org.freedesktop.systemd1 /org/freedesktop/systemd1 \
+  org.freedesktop.systemd1.Manager GetDefaultTarget | grep -Fq "graphical.target"
+nsrun varlinkctl call /run/systemd/io.systemd.Manager io.systemd.Manager.Describe '{}' \
+  | grep -Fq '"Version"'
 nsrun systemd-cat -t chisel-test systemd-detect-virt --container
-out="$(nsrun journalctl --no-pager -b -t chisel-test -o cat)"
-grep -Fvq "none" <<<"$out"
-out="$(nsrun systemd-cgls --no-pager)"
-grep -Fq "systemd-journald" <<<"$out"
+nsrun journalctl --no-pager -b -t chisel-test -o cat | grep -Fvq "none"
+nsrun systemd-cgls --no-pager | grep -Fq "systemd-journald"
 # the tree only shows up from the second sample on
-out="$(nsrun systemd-cgtop -n2 -d 0.5 -b)"
-grep -Fq "system.slice" <<<"$out"
-out="$(nsrun systemd-id128 boot-id)"
-grep -Eq "^[0-9a-f]{32}$" <<<"$out"
+nsrun systemd-cgtop -n2 -d 0.5 -b | grep -Fq "system.slice"
+nsrun systemd-id128 boot-id | grep -Eq "^[0-9a-f]{32}$"
 test "$(nsrun systemd-machine-id-setup --print)" = "$(nsrun systemd-id128 machine-id)"
-out="$(nsrun systemd-delta --no-pager --diff=no)"
-grep -Fq "ctrl-alt-del.target" <<<"$out"
-out="$(nsrun systemd-mount --list --no-pager)"
-grep -Fq "NODE" <<<"$out"
-out="$(nsrun systemd-sysext list 2>&1)"
-grep -Fq "No OS extensions" <<<"$out"
+nsrun systemd-delta --no-pager --diff=no | grep -Fq "ctrl-alt-del.target"
+nsrun systemd-mount --list --no-pager | grep -Fq "NODE"
+nsrun systemd-sysext list 2>&1 | grep -Fq "No OS extensions"
 # spread keeps the rootfs on a tmpfs, where systemd will not keep a host key
-out="$(echo secret | nsrun systemd-creds encrypt --with-key=null --name=chisel-test - - \
-  | nsrun systemd-creds decrypt --with-key=null --allow-null --name=chisel-test - -)"
-test "$out" = "secret"
+echo secret | nsrun systemd-creds encrypt --with-key=null --name=chisel-test - - \
+  | nsrun systemd-creds decrypt --with-key=null --allow-null --name=chisel-test - - \
+  | grep -Fxq "secret"
 nsystemctl start systemd-logind.service
 # hold a lock and list the locks from inside it
-out="$(nsrun systemd-inhibit --what=shutdown --who=chisel-test --why=test systemd-inhibit --list)"
-grep -Fq "chisel-test" <<<"$out"
+nsrun systemd-inhibit --what=shutdown --who=chisel-test --why=test systemd-inhibit --list \
+  | grep -Fq "chisel-test"
 
 shutdown_rootfs

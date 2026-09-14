@@ -6,9 +6,6 @@
 
 rootfs="$(install-slices systemd_detect-virt)"
 
-out="$(chroot "$rootfs" systemd-detect-virt --help 2>&1)"
-
-grep -Fiq "systemd-detect-virt" <<<"$out"
+chroot "$rootfs" systemd-detect-virt --help | grep -Fiq "systemd-detect-virt"
 assert_version "$rootfs" systemd-detect-virt
-out="$(chroot "$rootfs" systemd-detect-virt --list 2>&1)"
-grep -Fiq "none" <<<"$out"
+chroot "$rootfs" systemd-detect-virt --list | grep -Fiq "none"

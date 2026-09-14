@@ -14,8 +14,7 @@ mount --bind /proc "$rootfs/proc"
 for bin in /usr/bin/systemctl /usr/lib/systemd/systemd /usr/lib/systemd/systemd-executor; do
   assert_version "$rootfs" "$bin"
 done
-out="$(chroot "$rootfs" /usr/lib/systemd/systemd-shutdown 2>&1 || true)"
-grep -Fiq "not executed by init" <<<"$out"
+chroot "$rootfs" /usr/lib/systemd/systemd-shutdown 2>&1 | grep -Fiq "not executed by init"
 umount "$rootfs/proc"
 
 trap 'shutdown_rootfs || true' EXIT
@@ -49,8 +48,7 @@ test -d "$rootfs/var/lib/probe"
 # systemctl drives the manager without a bus
 nsystemctl stop probe.service
 test "$(nsystemctl is-active probe.service)" = "inactive"
-out="$(nsystemctl list-units --no-legend --type=target)"
-grep -Fq "multi-user.target" <<<"$out"
+nsystemctl list-units --no-legend --type=target | grep -Fq "multi-user.target"
 
 # nothing in this slice runs as root at boot to set the system up; the
 # sysusers.d and tmpfiles.d appliers are systemd_core's
