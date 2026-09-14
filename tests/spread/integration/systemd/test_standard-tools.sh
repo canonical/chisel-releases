@@ -1,9 +1,6 @@
 #!/bin/bash
 #spellchecker: ignore rootfs sysusers tmpfiles timespan
 
-# shellcheck source=tests/spread/integration/systemd/helpers.sh
-. ./helpers.sh
-
 rootfs="$(install-slices systemd_standard)"
 
 # some tools refuse to run without /proc
@@ -16,7 +13,7 @@ trap 'umount "$rootfs/proc"' EXIT
 bins="$(chisel info --release "$PROJECT_PATH" systemd_standard | grep -oE '^ +/usr/bin/[^:]+' | tr -d ' ')"
 test -n "$bins"
 while read -r bin; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done <<<"$bins"
 
 test "$(chroot "$rootfs" systemd-escape --path /foo/bar)" = "foo-bar"

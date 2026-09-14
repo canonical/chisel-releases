@@ -1,9 +1,6 @@
 #!/bin/bash
 #spellchecker: ignore rootfs pstore quotacheck rfkill sulogin sysroot fstab xdg
 
-# shellcheck source=tests/spread/integration/systemd/helpers.sh
-. ./helpers.sh
-
 rootfs="$(install-slices systemd_service-handlers)"
 
 # some tools refuse to run without /proc
@@ -45,7 +42,7 @@ while read -r bin; do
       if [ -n "${usage[$name]:-}" ]; then
         chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "${usage[$name]}"
       else
-        assert_version "$rootfs" "$bin"
+        chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
       fi
       ;;
   esac

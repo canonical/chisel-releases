@@ -14,7 +14,7 @@ rootfs="$(install-slices systemd_core)"
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 for bin in systemd-notify systemd-sysusers systemd-tmpfiles; do
-  assert_version "$rootfs" "/usr/bin/$bin"
+  chroot "$rootfs" "/usr/bin/$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 
 # the appliers read the fragments the package ships

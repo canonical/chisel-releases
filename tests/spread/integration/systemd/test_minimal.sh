@@ -12,7 +12,7 @@ rootfs="$(install-slices systemd_minimal)"
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 for bin in /usr/bin/systemctl /usr/lib/systemd/systemd /usr/lib/systemd/systemd-executor; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 chroot "$rootfs" /usr/lib/systemd/systemd-shutdown 2>&1 | grep -Fiq "not executed by init"
 umount "$rootfs/proc"

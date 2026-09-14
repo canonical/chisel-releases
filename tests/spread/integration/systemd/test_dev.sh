@@ -9,7 +9,7 @@ rootfs="$(install-slices systemd_dev)"
 bins="$(chisel info --release "$PROJECT_PATH" systemd_dev | grep -oE '^ +/usr/bin/[^:]+' | tr -d ' ')"
 test -n "$bins"
 while read -r bin; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done <<<"$bins"
 
 # a couple that do real work without a running systemd

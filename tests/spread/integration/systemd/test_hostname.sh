@@ -10,7 +10,7 @@
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_hostname)"
 for bin in /usr/bin/hostnamectl /usr/lib/systemd/systemd-hostnamed; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 clean-rootfs "$rootfs"
 

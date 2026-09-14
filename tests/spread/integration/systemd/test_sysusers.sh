@@ -4,12 +4,9 @@
 # systemd-sysusers on its own: it applies sysusers.d fragments to an image
 # root with no systemd running, which is how an image build uses it.
 
-# shellcheck source=tests/spread/integration/systemd/helpers.sh
-. ./helpers.sh
-
 rootfs="$(install-slices systemd_sysusers)"
 
-assert_version "$rootfs" /usr/bin/systemd-sysusers
+chroot "$rootfs" /usr/bin/systemd-sysusers --version | grep -Eq '^systemd [0-9]+ '
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 trap 'umount "$rootfs/proc"' EXIT

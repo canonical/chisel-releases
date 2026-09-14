@@ -10,7 +10,7 @@
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_login)"
 for bin in /usr/bin/loginctl /usr/lib/systemd/systemd-logind; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 
 # helpers that insist on specific arguments still prove they load

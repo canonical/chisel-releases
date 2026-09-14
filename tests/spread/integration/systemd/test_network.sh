@@ -11,7 +11,7 @@
 rootfs="$(install-slices systemd_network)"
 for bin in /usr/bin/networkctl /usr/lib/systemd/systemd-networkd \
   /usr/lib/systemd/systemd-networkd-wait-online /usr/lib/systemd/systemd-network-generator; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 clean-rootfs "$rootfs"
 

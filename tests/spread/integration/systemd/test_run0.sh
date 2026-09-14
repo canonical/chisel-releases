@@ -8,7 +8,7 @@
 rootfs="$(install-slices systemd_run0)"
 chroot "$rootfs" /usr/bin/run0 --help | grep -Fiq "run0"
 for bin in /usr/bin/run0 /usr/bin/systemd-run; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 clean-rootfs "$rootfs"
 

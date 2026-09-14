@@ -11,7 +11,7 @@ hash='$6$abcdefgh$ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz
 
 # offline: an image root gets seeded with no systemd running at all
 rootfs="$(install-slices systemd_firstboot)"
-assert_version "$rootfs" /usr/bin/systemd-firstboot
+chroot "$rootfs" /usr/bin/systemd-firstboot --version | grep -Eq '^systemd [0-9]+ '
 img="$rootfs/work/img"
 mkdir -p "$img/etc" "$img/bin"
 printf '#!/bin/sh\n' > "$img/bin/sh"

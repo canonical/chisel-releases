@@ -11,7 +11,7 @@
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_timedate)"
 for bin in /usr/bin/timedatectl /usr/lib/systemd/systemd-timedated; do
-  assert_version "$rootfs" "$bin"
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
 done
 clean-rootfs "$rootfs"
 

@@ -64,12 +64,6 @@ nsystemctl() {
   nsrun systemctl "$@"
 }
 
-# a binary in the rootfs runs and prints systemd's version banner; stderr stays
-# out of the pipe, since loader and chroot errors name systemd too
-assert_version() {
-  chroot "$1" "$2" --version | grep -Eq '^systemd [0-9]+ '
-}
-
 # fail on any failed unit other than the ones named; the container cannot
 # mount kernel file systems, so those two are expected under standard
 assert_failed_units() {
