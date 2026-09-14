@@ -60,21 +60,14 @@ slices:
     contents:
       /usr/sbin/service:
 
-  # also carries what systemd-sysv-install needs, since systemctl runs that
-  # script to hand SysV init scripts to update-rc.d
-  # TODO: move those to the script's own slice for future releases.
   update-rc-d:
     essential:
       base-files_bin:
-      # systemd-sysv-install is-enabled lists rc links with it
-      coreutils_ls-bin:
       dash_bins:
       init-system-helpers_config:
       perl-base_bins:
       perl-base_modules:
       systemd_standard:
-      # systemd-sysv-install parses its arguments with it
-      util-linux_getopt:
     contents:
       /usr/sbin/update-rc.d:
 

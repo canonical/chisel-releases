@@ -369,12 +369,16 @@ slices:
   service-handlers:
     hint: System service handlers
     essential:
+      base-files_bin:
+      coreutils_ls-bin:
+      dash_bins:
       libc6_libs:
       # systemd-modules-load dlopens it, and runs wherever PID 1 holds CAP_SYS_MODULE
       libkmod2_libs:
       libsystemd-shared_libs:
       systemd_config:
       systemd_system-generators:
+      util-linux_getopt:
     contents:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
@@ -402,8 +406,9 @@ slices:
       /usr/lib/systemd/systemd-sulogin-shell:
       /usr/lib/systemd/systemd-sysctl:
       /usr/lib/systemd/systemd-sysroot-fstab-check:
-      # a sh script around update-rc.d: also cut init-system-helpers_update-rc-d
-      # to enable SysV init scripts
+      # a sh script: base-files_bin and dash_bins give it /bin/sh, getopt parses
+      # its arguments and ls backs is-enabled. enable and disable run
+      # update-rc.d, so also cut init-system-helpers_update-rc-d for those
       # TODO: give it its own slice with its essentials for future releases.
       /usr/lib/systemd/systemd-sysv-install:
       /usr/lib/systemd/systemd-update-done:
