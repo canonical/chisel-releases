@@ -109,16 +109,10 @@ slices:
 
   standard:
     essential:
-      libacl1_libs:
       libapparmor1_libs:
       libc6_libs:
       liblzma5_libs:
-      libmount1_libs:
-      libpam0g_libs:
-      libseccomp2_libs:
-      libselinux1_libs:
       libsystemd-shared_libs:
-      libsystemd0_libs:
       mount_bins:
       systemd_catalog:
       systemd_config:
@@ -265,7 +259,6 @@ slices:
     hint: Manage user logins and sessions
     essential:
       libc6_libs:
-      libpam0g_libs:
       libsystemd-shared_libs:
       libsystemd0_libs:
       systemd_config:
@@ -333,7 +326,6 @@ slices:
     hint: Manage network configuration
     essential:
       libc6_libs:
-      libssl3t64_libs:
       libsystemd-shared_libs:
       systemd_config:
       systemd_network-config:
