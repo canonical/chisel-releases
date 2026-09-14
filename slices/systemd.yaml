@@ -375,6 +375,8 @@ slices:
     hint: System service handlers
     essential:
       libc6_libs:
+      # systemd-modules-load dlopens it, and runs wherever PID 1 holds CAP_SYS_MODULE
+      libkmod2_libs:
       libsystemd-shared_libs:
       systemd_config:
       systemd_system-generators:
