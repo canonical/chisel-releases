@@ -402,6 +402,9 @@ slices:
       /usr/lib/systemd/systemd-sulogin-shell:
       /usr/lib/systemd/systemd-sysctl:
       /usr/lib/systemd/systemd-sysroot-fstab-check:
+      # a sh script around update-rc.d: also cut init-system-helpers_update-rc-d
+      # to enable SysV init scripts
+      # TODO: give it its own slice with its essentials for future releases.
       /usr/lib/systemd/systemd-sysv-install:
       /usr/lib/systemd/systemd-update-done:
       /usr/lib/systemd/systemd-validatefs:
