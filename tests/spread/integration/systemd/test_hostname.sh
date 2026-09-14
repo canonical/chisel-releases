@@ -10,7 +10,7 @@
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_hostname)"
 for bin in /usr/bin/hostnamectl /usr/lib/systemd/systemd-hostnamed; do
-  chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "systemd"
+  assert_version "$rootfs" "$bin"
 done
 clean-rootfs "$rootfs"
 
@@ -22,7 +22,8 @@ boot_rootfs "$rootfs"
 
 nsystemctl start systemd-hostnamed.service
 nsystemctl is-active systemd-hostnamed.service
-nsrun hostnamectl | grep -Fq "hostname:"
+out="$(nsrun hostnamectl)"
+grep -Fq "hostname:" <<<"$out"
 
 # the hostname the daemon sets is the one it reads back, and the one on disk
 nsrun hostnamectl hostname chisel-test

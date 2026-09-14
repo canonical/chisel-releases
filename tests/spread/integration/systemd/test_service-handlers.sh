@@ -1,6 +1,9 @@
 #!/bin/bash
 #spellchecker: ignore rootfs pstore quotacheck rfkill sulogin sysroot fstab xdg
 
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
+
 rootfs="$(install-slices systemd_service-handlers)"
 
 # some tools refuse to run without /proc
@@ -25,6 +28,8 @@ declare -A usage=(
 )
 
 # every handler the slice itself ships
+bins="$(chisel info --release "$PROJECT_PATH" systemd_service-handlers | grep -oE '^ +/usr/lib/systemd/[^:]+' | tr -d ' ')"
+test -n "$bins"
 while read -r bin; do
   name="${bin##*/}"
   case "$name" in
@@ -34,10 +39,16 @@ while read -r bin; do
       ;;
     systemd-sulogin-shell)
       # treats its argument as a mode and then waits for a login
-      timeout 5 chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "journalctl -xb"
+      out="$(timeout 5 chroot "$rootfs" "$bin" --version 2>&1 || true)"
+      grep -Fiq "journalctl -xb" <<<"$out"
       ;;
     *)
-      chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "${usage[$name]:-systemd}"
+      if [ -n "${usage[$name]:-}" ]; then
+        out="$(chroot "$rootfs" "$bin" --version 2>&1 || true)"
+        grep -Fiq "${usage[$name]}" <<<"$out"
+      else
+        assert_version "$rootfs" "$bin"
+      fi
       ;;
   esac
-done < <(chisel info --release "$PROJECT_PATH" systemd_service-handlers | grep -oE '^ +/usr/lib/systemd/[^:]+' | tr -d ' ')
+done <<<"$bins"

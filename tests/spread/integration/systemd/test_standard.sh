@@ -17,7 +17,7 @@ mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 
 chroot "$rootfs" systemctl disable getty@tty1.service
-! test -L "$rootfs/etc/systemd/system/getty.target.wants/getty@tty1.service"
+test ! -L "$rootfs/etc/systemd/system/getty.target.wants/getty@tty1.service"
 
 chroot "$rootfs" systemctl enable getty@tty1.service
 resolves_in_rootfs /etc/systemd/system/getty.target.wants/getty@tty1.service
@@ -26,7 +26,9 @@ resolves_in_rootfs /etc/systemd/system/getty.target.wants/getty@tty1.service
 chroot "$rootfs" systemctl preset-all
 resolves_in_rootfs /etc/systemd/system/ctrl-alt-del.target
 
-chroot "$rootfs" /usr/lib/systemd/systemd --help 2>&1 | grep -Fiq "systemd"
+out="$(chroot "$rootfs" /usr/lib/systemd/systemd --help 2>&1)"
+
+grep -Fiq "systemd" <<<"$out"
 umount "$rootfs/proc"
 clean-rootfs "$rootfs"
 
@@ -53,9 +55,12 @@ for daemon in systemd-logind systemd-hostnamed systemd-timedated systemd-network
 done
 nsrun hostnamectl hostname chisel-test
 test "$(nsrun hostnamectl hostname)" = "chisel-test"
-nsrun loginctl list-seats --no-pager | grep -Fq "SEAT"
-nsrun timedatectl --no-pager | grep -Fq "Local time"
-nsrun networkctl list --no-pager | grep -Fq "lo "
+out="$(nsrun loginctl list-seats --no-pager)"
+grep -Fq "SEAT" <<<"$out"
+out="$(nsrun timedatectl --no-pager)"
+grep -Fq "Local time" <<<"$out"
+out="$(nsrun networkctl list --no-pager)"
+grep -Fq "lo " <<<"$out"
 
 # run0 elevates through PAM and the manager
 expected="$(nsrun systemd-detect-virt --container || true)"

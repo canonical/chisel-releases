@@ -1,9 +1,10 @@
 #!/bin/bash
-#spellchecker: ignore rootfs nsenter nsrun nsystemctl getty
+#spellchecker: ignore rootfs nsenter nsrun nsystemctl getty uts
 
-# Boots a chiselled rootfs with systemd as PID 1 of a nested pid+mount
-# namespace, so the slice under test is what PID 1 sees and nothing else.
-# The mounts made here live under $ROOTFS_DIR and are swept by clean-rootfs.
+# Boots a chiselled rootfs with systemd as PID 1 of nested pid, mount, uts and
+# network namespaces, so the slice under test is what PID 1 sees and what its
+# daemons change stays in there. The mounts made here live under $ROOTFS_DIR
+# and are swept by clean-rootfs.
 
 boot_rootfs() {
   local rootfs="$1"
@@ -29,7 +30,7 @@ boot_rootfs() {
   # onto / rather than a chroot: setns() back into this namespace resets root
   # to its /, and machine-id-commit reads the id back through that
   env -i container=lxc SYSTEMD_LOG_TARGET=console \
-    unshare --pid --fork --mount-proc="$rootfs/proc" \
+    unshare --pid --uts --net --fork --mount-proc="$rootfs/proc" \
     sh -c 'cd "$1" && mount --move . / && exec chroot . /usr/lib/systemd/systemd' sh "$rootfs" &
   unshare_pid=$!
 
@@ -56,11 +57,19 @@ boot_rootfs() {
 
 # run a command inside the booted rootfs
 nsrun() {
-  nsenter -t "$systemd_pid" -m -p -r -w "$@"
+  nsenter -t "$systemd_pid" -m -p -u -n -r -w "$@"
 }
 
 nsystemctl() {
   nsrun systemctl "$@"
+}
+
+# a binary in the rootfs runs and prints systemd's version banner; loader and
+# chroot errors name systemd too, so the exit status has to count
+assert_version() {
+  local out
+  out="$(chroot "$1" "$2" --version 2>&1)"
+  grep -Eq '^systemd [0-9]+ ' <<<"$out"
 }
 
 # fail on any failed unit other than the ones named; the container cannot

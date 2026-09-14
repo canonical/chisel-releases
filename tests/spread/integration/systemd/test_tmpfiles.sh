@@ -4,10 +4,12 @@
 # systemd-tmpfiles on its own: it applies tmpfiles.d fragments to an image
 # root with no systemd running, which is how an image build uses it.
 
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
+
 rootfs="$(install-slices systemd_tmpfiles)"
 
-chroot "$rootfs" /usr/bin/systemd-tmpfiles --version 2>&1 | grep -Fiq "systemd"
-
+assert_version "$rootfs" /usr/bin/systemd-tmpfiles
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 trap 'umount "$rootfs/proc"' EXIT
@@ -28,4 +30,4 @@ test "$(stat -c '%a' "$img/var/lib/chisel")" = "750"
 test "$(readlink "$img/var/run")" = "../run"
 test "$(stat -c '%a' "$img/etc/chisel.conf")" = "640"
 grep -Fxq "chisel" "$img/etc/chisel.conf"
-! test -e "$img/var/lib/stale"
+test ! -e "$img/var/lib/stale"

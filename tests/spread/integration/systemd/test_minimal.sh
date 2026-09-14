@@ -12,9 +12,10 @@ rootfs="$(install-slices systemd_minimal)"
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 for bin in /usr/bin/systemctl /usr/lib/systemd/systemd /usr/lib/systemd/systemd-executor; do
-  chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "systemd"
+  assert_version "$rootfs" "$bin"
 done
-chroot "$rootfs" /usr/lib/systemd/systemd-shutdown 2>&1 | grep -Fiq "not executed by init"
+out="$(chroot "$rootfs" /usr/lib/systemd/systemd-shutdown 2>&1 || true)"
+grep -Fiq "not executed by init" <<<"$out"
 umount "$rootfs/proc"
 
 trap 'shutdown_rootfs || true' EXIT
@@ -48,12 +49,13 @@ test -d "$rootfs/var/lib/probe"
 # systemctl drives the manager without a bus
 nsystemctl stop probe.service
 test "$(nsystemctl is-active probe.service)" = "inactive"
-nsystemctl list-units --no-legend --type=target | grep -Fq "multi-user.target"
+out="$(nsystemctl list-units --no-legend --type=target)"
+grep -Fq "multi-user.target" <<<"$out"
 
 # nothing in this slice runs as root at boot to set the system up; the
 # sysusers.d and tmpfiles.d appliers are systemd_core's
-! test -e "$rootfs/usr/bin/systemd-sysusers"
-! test -e "$rootfs/usr/bin/systemd-tmpfiles"
+test ! -e "$rootfs/usr/bin/systemd-sysusers"
+test ! -e "$rootfs/usr/bin/systemd-tmpfiles"
 test -z "$(nsystemctl list-units --no-legend --all 'systemd-tmpfiles-*')"
 
 shutdown_rootfs

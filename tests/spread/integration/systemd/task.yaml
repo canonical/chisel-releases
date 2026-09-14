@@ -19,4 +19,4 @@ variants:
     - network
     - service-handlers
 
-execute: bash -ex ./test_${SPREAD_VARIANT}.sh
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

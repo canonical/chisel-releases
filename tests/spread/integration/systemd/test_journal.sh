@@ -1,10 +1,12 @@
 #!/bin/bash
 #spellchecker: ignore rootfs journalctl
 
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
+
 rootfs="$(install-slices systemd_journal)"
 
-chroot "$rootfs" journalctl --version 2>&1 | grep -Fiq "systemd"
-
+assert_version "$rootfs" journalctl
 # /var/log/journal is created by the slice but holds no journals yet
-chroot "$rootfs" journalctl --no-pager --directory=/var/log/journal 2>&1 \
-  | grep -Fiq "No journal files were found"
+out="$(chroot "$rootfs" journalctl --no-pager --directory=/var/log/journal 2>&1)"
+grep -Fiq "No journal files were found" <<<"$out"

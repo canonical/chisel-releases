@@ -11,7 +11,7 @@
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_timedate)"
 for bin in /usr/bin/timedatectl /usr/lib/systemd/systemd-timedated; do
-  chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "systemd"
+  assert_version "$rootfs" "$bin"
 done
 clean-rootfs "$rootfs"
 
@@ -23,8 +23,10 @@ boot_rootfs "$rootfs"
 
 nsystemctl start systemd-timedated.service
 nsystemctl is-active systemd-timedated.service
-nsrun timedatectl | grep -Fq "Local time:"
-nsrun timedatectl show -p TimeUSec | grep -Fq "TimeUSec="
+out="$(nsrun timedatectl)"
+grep -Fq "Local time:" <<<"$out"
+out="$(nsrun timedatectl show -p TimeUSec)"
+grep -Fq "TimeUSec=" <<<"$out"
 
 # a timezone the daemon sets is the one it reports back
 nsrun timedatectl set-timezone UTC
@@ -33,6 +35,6 @@ nsrun timedatectl set-timezone Etc/UTC
 test "$(nsrun timedatectl show -p Timezone --value)" = "Etc/UTC"
 
 # and it only accepts zones tzdata actually ships
-! nsrun timedatectl set-timezone Mars/Olympus 2>/dev/null
+if nsrun timedatectl set-timezone Mars/Olympus 2>/dev/null; then exit 1; fi
 
 shutdown_rootfs

@@ -14,7 +14,7 @@
 # the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_locale)"
 for bin in /usr/bin/localectl /usr/lib/systemd/systemd-localed; do
-  chroot "$rootfs" "$bin" --version 2>&1 | grep -Fiq "systemd"
+  assert_version "$rootfs" "$bin"
 done
 clean-rootfs "$rootfs"
 
@@ -25,15 +25,19 @@ trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 
 # the unit loads, and the manager parses it as a bus-activated service
-nsystemctl show -p LoadState --value systemd-localed.service | grep -Fxq "loaded"
+out="$(nsystemctl show -p LoadState --value systemd-localed.service)"
+grep -Fxq "loaded" <<<"$out"
 test "$(nsystemctl show -p BusName --value systemd-localed.service)" = "org.freedesktop.locale1"
 test "$(nsystemctl show -p Type --value systemd-localed.service)" = "notify"
 
 # the drop-in the slice ships is read on top of it
-nsrun systemctl cat systemd-localed.service | grep -Fq "x11-keyboard.conf"
-nsystemctl show -p ReadOnlyPaths systemd-localed.service | grep -Fq "/etc/X11/xorg.conf.d"
+out="$(nsrun systemctl cat systemd-localed.service)"
+grep -Fq "x11-keyboard.conf" <<<"$out"
+out="$(nsystemctl show -p ReadOnlyPaths systemd-localed.service)"
+grep -Fq "/etc/X11/xorg.conf.d" <<<"$out"
 
 # the client is there and talks to the bus rather than to files
-nsrun localectl --help | grep -Fq "set-locale"
+out="$(nsrun localectl --help)"
+grep -Fq "set-locale" <<<"$out"
 
 shutdown_rootfs

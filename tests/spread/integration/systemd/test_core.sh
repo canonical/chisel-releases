@@ -14,12 +14,14 @@ rootfs="$(install-slices systemd_core)"
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 for bin in systemd-notify systemd-sysusers systemd-tmpfiles; do
-  chroot "$rootfs" "/usr/bin/$bin" --version 2>&1 | grep -Fiq "systemd"
+  assert_version "$rootfs" "/usr/bin/$bin"
 done
 
 # the appliers read the fragments the package ships
-chroot "$rootfs" systemd-tmpfiles --cat-config | grep -Fq "/usr/lib/tmpfiles.d/systemd.conf"
-chroot "$rootfs" systemd-sysusers --cat-config | grep -Fq "/usr/lib/sysusers.d/basic.conf"
+out="$(chroot "$rootfs" systemd-tmpfiles --cat-config)"
+grep -Fq "/usr/lib/tmpfiles.d/systemd.conf" <<<"$out"
+out="$(chroot "$rootfs" systemd-sysusers --cat-config)"
+grep -Fq "/usr/lib/sysusers.d/basic.conf" <<<"$out"
 umount "$rootfs/proc"
 clean-rootfs "$rootfs"
 
@@ -48,9 +50,11 @@ test -d "$rootfs/run/user"
 for unit in systemd-journald.service systemd-journald.socket systemd-journald-dev-log.socket; do
   nsystemctl is-active "$unit"
 done
-nsrun journalctl --no-pager -b | grep -Fq "Journal started"
+out="$(nsrun journalctl --no-pager -b)"
+grep -Fq "Journal started" <<<"$out"
 # a short-lived unit can lose its unit field in the journal; its identifier stays
-nsrun journalctl --no-pager -b -t systemd-sysusers | grep -Fq "Creating group"
+out="$(nsrun journalctl --no-pager -b -t systemd-sysusers)"
+grep -Fq "Creating group" <<<"$out"
 
 # a unit that reports readiness from a script rather than a compiled binary,
 # ordered against the targets other packages name
@@ -80,6 +84,7 @@ ExecStart=/usr/bin/systemctl --version
 EOF
 nsystemctl daemon-reload
 nsystemctl start probe-log.service
-nsrun journalctl --no-pager -b -u probe-log.service -o cat | grep -Fiq "systemd"
+out="$(nsrun journalctl --no-pager -b -u probe-log.service -o cat)"
+grep -Fiq "systemd" <<<"$out"
 
 shutdown_rootfs
