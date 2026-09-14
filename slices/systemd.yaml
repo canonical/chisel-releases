@@ -186,6 +186,12 @@ slices:
     hint: Elevate privileges interactively
     essential:
       libc6_libs:
+      # the session is set up through PAM; the package ships no pam.d file
+      # of its own, so it is the "other" stack, whose pam_unix account check
+      # runs the unix_chkpwd helper
+      libpam-modules-bin_unix-chkpwd:
+      libpam-modules_libs:
+      libpam-runtime_config:
       libsystemd-shared_libs:
       systemd_polkit:
     contents:
@@ -371,6 +377,7 @@ slices:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_config:
+      systemd_system-generators:
     contents:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
@@ -475,7 +482,11 @@ slices:
       /var/log/journal/: {make: true}
 
   system-generators:
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
     contents:
+      /etc/systemd/system-generators/systemd-gpt-auto-generator:
       /usr/lib/systemd/system-generators/systemd-debug-generator:
       /usr/lib/systemd/system-generators/systemd-factory-reset-generator:
       /usr/lib/systemd/system-generators/systemd-fstab-generator:
@@ -492,8 +503,18 @@ slices:
 
   system-services:
     essential:
+      # sysinit.target.wants/ldconfig.service runs it on every boot
+      libc-bin_ldconfig:
+      libc6_libs:
+      libsystemd-shared_libs:
       systemd_generated-services:
+      # the tpm2 and pcr units run binaries only that slice ships
+      systemd_tpm2:
+      # the getty units run agetty wherever their tty exists, and fail without it
+      util-linux_tty:
     contents:
+      # sysinit.target.wants/systemd-machine-id-commit.service runs it
+      /usr/bin/systemd-machine-id-setup:
       /usr/lib/lsb/init-functions.d/40-systemd:
       /usr/lib/systemd/system/autovt@.service:
       /usr/lib/systemd/system/basic.target:
@@ -737,6 +758,9 @@ slices:
       /usr/lib/systemd/system/x11-common.service:
 
   user-services:
+    essential:
+      libc6_libs:
+      libsystemd-shared_libs:
     contents:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
@@ -858,6 +882,8 @@ slices:
         arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/750-enter-initrd.pcrlock:
         arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
+      /usr/lib/pcrlock.d/770-nvpcr-separator.pcrlock:
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/800-leave-initrd.pcrlock:
         arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /usr/lib/pcrlock.d/850-sysinit.pcrlock:
@@ -944,6 +970,7 @@ slices:
       /usr/share/polkit-1/actions/org.freedesktop.timedate1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.timesync1.policy:
       /usr/share/polkit-1/rules.d/10-systemd-logind-root-ignore-inhibitors.rules:
+      /usr/share/polkit-1/rules.d/10-systemd-logind-root-ignore-inhibitors.rules.example:
       /usr/share/polkit-1/rules.d/empower.rules:
       /usr/share/polkit-1/rules.d/systemd-networkd.rules:
 
