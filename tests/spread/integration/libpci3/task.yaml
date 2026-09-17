@@ -1,0 +1,30 @@
+summary: Integration tests for libpci3
+
+execute: |
+  rootfs="$(install-slices libpci3_libs)"
+
+  # The soname symlink and the versioned object both have to land.
+  for lib in "${rootfs}"/usr/lib/*-linux-*/libpci.so.3; do
+    test -L "${lib}"
+    target="$(readlink -f "${lib}")"
+    test -f "${target}"
+    head -c4 "${target}" | grep -Fq "ELF"
+  done
+
+  # Prove the library is loadable and usable by pairing it with its consumer in
+  # a fresh rootfs: lspci links against libpci.so.3.
+  rootfs="$(install-slices libpci3_libs pciutils_bins)"
+
+  # A synthetic config space dump for 8086:100e (Intel 82540EM Gigabit
+  # Ethernet), subsystem 8086:001e, class 0200.
+  printf '%s\n' \
+    '00:03.0 Ethernet controller' \
+    '00: 86 80 0e 10 07 00 10 00 03 00 00 02 00 00 00 00' \
+    '10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' \
+    '20: 00 00 00 00 00 00 00 00 00 00 00 00 86 80 1e 00' \
+    '30: 00 00 00 00 00 00 00 00 00 00 00 00 0b 00 00 00' \
+    > "${rootfs}/dump"
+
+  # libpci parses the config space dump; the numeric form needs no name lookup.
+  out="$(chroot "${rootfs}" /usr/bin/lspci -F /dump -n)"
+  echo "${out}" | grep -Fq "8086:100e"
