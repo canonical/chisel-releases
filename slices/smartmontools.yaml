@@ -1,0 +1,64 @@
+package: smartmontools
+
+essential:
+  smartmontools_copyright:
+
+slices:
+  bins:
+    hint: SMART disk monitoring tools
+    essential:
+      libc6_libs:
+      libcap-ng0_libs:
+      libgcc-s1_libs:
+      libselinux1_libs:
+      libstdc++6_libs:
+      libsystemd0_libs:
+      smartmontools_drivedb:
+    contents:
+      /usr/sbin/smartctl:
+      /usr/sbin/smartd:
+
+  config:
+    essential:
+      smartmontools_scripts:
+    contents:
+      # smartd.conf's DEVICESCAN line runs smartd-runner from the scripts slice.
+      /etc/default/smartmontools:
+      /etc/smartd.conf:
+
+  drivedb:
+    hint: Drive presets database
+    contents:
+      # smartctl and smartd read the presets from /var/lib; the deb ships the
+      # database at /usr/share/smartmontools/drivedb.h and its postinst installs
+      # it here. Only the location the binaries read is shipped.
+      /var/lib/smartmontools/drivedb/drivedb.h:
+        copy: /usr/share/smartmontools/drivedb.h
+
+  scripts:
+    hint: Warning notification handlers
+    essential:
+      base-files_bin:
+      coreutils_uname:
+      dash_bins:
+      debianutils_run-parts:
+      sed_bins:
+    contents:
+      # run.d is smartd-runner's drop-in directory. The deb's own 10mail script
+      # is left out: it needs /usr/bin/mail from bsd-mailx or mailutils, and
+      # neither is in chisel-releases.
+      /etc/smartmontools/run.d/:
+      /etc/smartmontools/smartd_warning.d/:
+      /usr/share/smartmontools/smartd-runner:
+      /usr/share/smartmontools/smartd_warning.sh:
+
+  services:
+    essential:
+      smartmontools_bins:
+      smartmontools_config:
+    contents:
+      /usr/lib/systemd/system/smartmontools.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/smartmontools/copyright:
