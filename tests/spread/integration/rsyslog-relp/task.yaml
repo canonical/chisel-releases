@@ -1,0 +1,39 @@
+summary: Integration tests for rsyslog-relp
+
+execute: |
+  # imrelp.so and omrelp.so are dlopen'ed by rsyslogd, so the only meaningful
+  # check is a message actually travelling over RELP. relp.conf wires a plain
+  # TCP listener to omrelp and imrelp to a file, both in one rsyslogd.
+  rootfs="$(install-slices base-files_tmp rsyslog-relp_modules rsyslog_bins)"
+
+  logfile="${rootfs}/tmp/rsyslog-relp-test.log"
+  cp relp.conf "${rootfs}/tmp/relp.conf"
+
+  # rsyslogd points its standard streams at /dev/null when it daemonises
+  mkdir -p "${rootfs}/dev"
+  mount --bind /dev "${rootfs}/dev"
+  trap 'pkill -x rsyslogd || true; umount "${rootfs}/dev" || true' EXIT
+
+  chroot "${rootfs}" /usr/sbin/rsyslogd -iNONE -f /tmp/relp.conf
+
+  # chroot does not isolate the network, so the listener shows up on the host.
+  # The retried write doubles as the readiness probe: it fails until imptcp
+  # binds the port. A complete RFC 3164 header keeps the parser from having to
+  # guess where the hostname ends and the tag begins.
+  for _ in $(seq 30); do
+    if printf '<34>Jan  1 00:00:00 chisel-host relp-test: hello-over-relp\n' \
+        2>/dev/null >/dev/tcp/127.0.0.1/10515; then
+      break
+    fi
+    sleep 1
+  done
+
+  # omrelp opens the RELP session and delivers off the main thread
+  for _ in $(seq 60); do
+    if [ -s "$logfile" ]; then
+      break
+    fi
+    sleep 1
+  done
+
+  grep -Fq "hello-over-relp" "$logfile"
