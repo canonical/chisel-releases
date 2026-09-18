@@ -1,0 +1,26 @@
+summary: Integration tests for hostname
+
+execute: |
+  rootfs="$(install-slices hostname_bins)"
+  chroot "$rootfs" hostname --version | grep -Fiq "hostname"
+
+  # hostname/domainname mutate global kernel state, so isolate them in their
+  # own UTS namespace rather than touching the test host's real hostname.
+  export rootfs
+  unshare --uts bash -c '
+    set -eu
+    chroot "$rootfs" hostname myhost.example.com
+    chroot "$rootfs" hostname | grep -Fxq "myhost.example.com"
+
+    chroot "$rootfs" domainname example.com
+    chroot "$rootfs" domainname | grep -Fxq "example.com"
+    # nisdomainname/ypdomainname are the same binary dispatching on argv[0];
+    # prove they read back the domain set above.
+    chroot "$rootfs" nisdomainname | grep -Fxq "example.com"
+    chroot "$rootfs" ypdomainname | grep -Fxq "example.com"
+
+    # dnsdomainname resolves the FQDN via /etc/hosts to derive the domain part.
+    mkdir -p "$rootfs/etc"
+    printf "127.0.1.1 myhost.example.com myhost\n" > "$rootfs/etc/hosts"
+    chroot "$rootfs" dnsdomainname | grep -Fxq "example.com"
+  '
