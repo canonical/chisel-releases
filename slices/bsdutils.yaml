@@ -1,0 +1,56 @@
+package: bsdutils
+
+essential:
+  - bsdutils_copyright
+
+slices:
+  bins:
+    essential:
+      - bsdutils_logger
+      - bsdutils_renice
+      - bsdutils_script
+      - bsdutils_scriptlive
+      - bsdutils_scriptreplay
+      - bsdutils_wall
+
+  logger:
+    essential:
+      - libc6_libs
+      - libsystemd0_libs
+    contents:
+      /usr/bin/logger:
+
+  renice:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/renice:
+
+  script:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/script:
+
+  scriptlive:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/scriptlive:
+
+  scriptreplay:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/scriptreplay:
+
+  wall:
+    essential:
+      - base-passwd_data
+      - libc6_libs
+    contents:
+      /usr/bin/wall:
+
+  copyright:
+    contents:
+      /usr/share/doc/bsdutils/copyright:
