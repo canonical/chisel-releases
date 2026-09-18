@@ -1,0 +1,23 @@
+summary: Integration tests for dhcpcd-base
+
+execute: |
+  rootfs="$(install-slices dhcpcd-base_standard)"
+
+  # Basic smoke: binary exists and runs
+  test -x "${rootfs}/usr/sbin/dhcpcd"
+  chroot "${rootfs}" /usr/sbin/dhcpcd --version >/dev/null
+
+  # Help output (flag differs across builds). Require at least one to succeed.
+  chroot "${rootfs}" /usr/sbin/dhcpcd --help >/dev/null 2>&1 || chroot "${rootfs}" /usr/sbin/dhcpcd -h >/dev/null 2>&1
+
+  # Validate expected runtime state dir exists (created by slice)
+  test -d "${rootfs}/var/lib/dhcpcd"
+
+  # Validate hook plumbing is present (core includes hooks-core)
+  test -f "${rootfs}/usr/lib/dhcpcd/dhcpcd-run-hooks"
+  test -f "${rootfs}/usr/lib/dhcpcd/dhcpcd-hooks/01-test"
+  test -f "${rootfs}/usr/lib/dhcpcd/dhcpcd-hooks/20-resolv.conf"
+  test -f "${rootfs}/usr/lib/dhcpcd/dhcpcd-hooks/30-hostname"
+
+  # Validate the udev plugin is present (path is multiarch)
+  ls "${rootfs}"/usr/lib/*-linux-*/dhcpcd/dev/udev.so >/dev/null
