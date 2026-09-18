@@ -1,0 +1,17 @@
+package: python3-cffi-backend
+
+essential:
+  - python3-cffi-backend_copyright
+
+slices:
+  data:
+    essential:
+      - libc6_libs
+      - libffi8_libs
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/_cffi_backend.cpython-*-linux-*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-cffi-backend/copyright:

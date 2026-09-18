@@ -1,0 +1,19 @@
+summary: Integration tests for netplan.io
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices bash_bins coreutils_bins passwd_config base-files_base grep_bins netplan.io_bins)"
+  
+  # netplan needs proc and dev mounted
+  mkdir "${rootfs}"/proc
+  mount -t proc /proc "${rootfs}"/proc
+
+  mkdir "${rootfs}"/dev
+  mount --rbind /dev "${rootfs}"/dev
+
+  cp test.sh "${rootfs}/"
+  chroot "${rootfs}/" /test.sh
+
+  umount -l "${rootfs}"/dev
+  umount "${rootfs}"/proc
