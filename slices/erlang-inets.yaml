@@ -5,8 +5,7 @@ essential:
 
 slices:
   scripts:
-    contents:
-      /usr/lib/erlang/lib/inets-*/priv/bin/runcgi.sh:
+    contents: {}
 
   modules:
     essential:
