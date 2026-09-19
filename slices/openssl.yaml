@@ -14,13 +14,6 @@ slices:
     contents:
       /usr/bin/openssl:
 
-  scripts:
-    essential:
-      openssl_bins:
-      perl-base_bins:
-    contents:
-      /usr/bin/c_rehash:
-
   config:
     contents:
       /etc/ssl/openssl.cnf:
