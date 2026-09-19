@@ -22,6 +22,16 @@ slices:
       /usr/sbin/unix_chkpwd:
       /usr/sbin/unix_update:
 
+  unix-chkpwd:
+    hint: Password verification helper for PAM
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libcrypt1_libs:
+      libselinux1_libs: {arch: [armhf, riscv64]}  # linked only on these
+    contents:
+      /usr/sbin/unix_chkpwd:
+
   scripts:
     hint: Create home directories
     essential:
