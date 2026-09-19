@@ -74,10 +74,10 @@ slices:
     contents:
       /usr/lib/*-linux-*/libm-2.*.a:
         arch: [amd64, arm64]
-      # on amd64/arm64 this is a linker script which redirects to libm-2.41.a and libmvec.so
+      # on amd64/arm64 this is a linker script which redirects to libm-2.*.a and libmvec.a
       # on non-amd64/arm64 archs libm.a is not a linker script, but a real static library
       /usr/lib/*-linux-*/libm.a:
-      # on amd64/arm64 this is a linker script which redirects to libm.so and libmvec.so from libc6
+      # on amd64/arm64 this is a linker script redirecting to libm.so.6 and libmvec.so.1 from libc6
       # on non-amd64/arm64 this is a symlink to libm.so.6 from libc6
       /usr/lib/*-linux-*/libm.so:
       /usr/lib/*-linux-*/libmvec.a:
