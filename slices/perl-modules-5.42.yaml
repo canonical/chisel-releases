@@ -8,6 +8,7 @@ slices:
   # dependent upon each other. Splitting them into separate slices
   # would cause cyclic dependencies.
   core:
+    hint: Tightly interdependent core modules
     essential:
       perl-base_modules:
     contents:
@@ -66,6 +67,7 @@ slices:
       /usr/share/perl/5.42*/warnings/register.pm:
 
   standard:
+    hint: Complete module collection
     essential:
       perl-base_modules:
       perl-modules-5.42_app-cpan:
@@ -121,6 +123,7 @@ slices:
       perl-modules-5.42_vmsish:
 
   app-prove:
+    hint: Prove test harness runner script
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_system-utils:
@@ -129,6 +132,7 @@ slices:
       /usr/share/perl/5.42*/App/Prove/**.pm:
 
   app-cpan:
+    hint: Cpan module installer script
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_digest:
@@ -139,18 +143,21 @@ slices:
       /usr/share/perl/5.42*/App/Cpan.pm:
 
   archive:
+    hint: Archive extraction and creation modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Archive/**.pm:
 
   attribute:
+    hint: Attribute handling framework modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Attribute/**.pm:
 
   autodie:
+    hint: Automatic error checking for builtins
     essential:
       perl-modules-5.42_core:
     contents:
@@ -163,18 +170,21 @@ slices:
       /usr/share/perl/5.42*/autodie/skip.pm:
 
   autouse:
+    hint: Deferred module loading on first use
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/autouse.pm:
 
   benchmark:
+    hint: Code execution timing and benchmarking
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Benchmark.pm:
 
   bigmath:
+    hint: Arbitrary precision big number math
     essential:
       perl-modules-5.42_core:
     contents:
@@ -184,18 +194,21 @@ slices:
       /usr/share/perl/5.42*/bigrat.pm:
 
   blib:
+    hint: Uninstalled built module tree pragma
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/blib.pm:
 
   compiler-utils:
+    hint: Perl compiler backend B module
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/B/**.pm:
 
   config:
+    hint: Config module extensions and accessors
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_digest:
@@ -205,6 +218,7 @@ slices:
   # CORE - Namespace for Perl's core routines
   # https://perldoc.perl.org/CORE
   core-routines:
+    hint: CORE namespace documentation
     essential:
       perl-base_modules:
     contents:
@@ -213,6 +227,7 @@ slices:
   # CPAN - query, download and build perl modules from CPAN sites
   # https://perldoc.perl.org/CPAN
   cpan:
+    hint: CPAN module discovery and installation
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_digest:
@@ -225,6 +240,7 @@ slices:
       /usr/share/perl/5.42*/Parse/CPAN/Meta.pm:
 
   databases:
+    hint: Generic DBM file wrapper modules
     essential:
       perl-modules-5.42_core:
     contents:
@@ -233,24 +249,28 @@ slices:
       /usr/share/perl/5.42*/DBM_Filter/**.pm:
 
   debug:
+    hint: Perl debugger internals module
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/DB.pm:
 
   devel:
+    hint: Development and introspection modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Devel/**.pm:
 
   diagnostics:
+    hint: Verbose warning and error explanations
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/diagnostics.pm:
 
   digest:
+    hint: Digest algorithm base class module
     essential:
       perl-modules-5.42_core:
     contents:
@@ -258,6 +278,7 @@ slices:
       /usr/share/perl/5.42*/Digest/**.pm:
 
   dumps:
+    hint: Interactive value dumping utilities
     essential:
       perl-modules-5.42_core:
     contents:
@@ -265,6 +286,7 @@ slices:
       /usr/share/perl/5.42*/dumpvar.pl:
 
   encodings:
+    hint: Additional character encoding modules
     essential:
       perl-modules-5.42_core:
     contents:
@@ -272,12 +294,14 @@ slices:
       /usr/share/perl/5.42*/encoding/warnings.pm:
 
   english:
+    hint: English names for punctuation variables
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/English.pm:
 
   exutils:
+    hint: ExtUtils module build toolchain
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_system-utils:
@@ -289,6 +313,7 @@ slices:
       /usr/share/perl/5.42*/ExtUtils/xsubpp:
 
   filters:
+    hint: Source code filtering framework
     essential:
       perl-modules-5.42_core:
     contents:
@@ -297,12 +322,14 @@ slices:
   # Internals - Reserved special namespace for internals related functions
   # https://perldoc.perl.org/Internals
   internals:
+    hint: Internals symbol documentation
     essential:
       perl-base_modules:
     contents:
       /usr/share/perl/5.42*/Internals.pod:
 
   json-pp:
+    hint: Pure Perl JSON encoder and decoder
     essential:
       perl-modules-5.42_core:
     contents:
@@ -310,18 +337,21 @@ slices:
       /usr/share/perl/5.42*/JSON/PP/**.pm:
 
   less:
+    hint: Pragma for optional runtime features
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/less.pm:
 
   math:
+    hint: Trigonometric and complex number modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Math/**.pm:
 
   memoize:
+    hint: Memoize function caching wrapper
     essential:
       perl-modules-5.42_core:
     contents:
@@ -329,6 +359,7 @@ slices:
       /usr/share/perl/5.42*/Memoize/**.pm:
 
   misc:
+    hint: Debugger helpers and FAQ documentation
     essential:
       perl-modules-5.42_core:
     contents:
@@ -338,6 +369,7 @@ slices:
       /usr/share/perl/5.42*/pod/perldiag.pod:
 
   module:
+    hint: Module metadata and loading utilities
     essential:
       perl-modules-5.42_core:
     contents:
@@ -345,6 +377,7 @@ slices:
       /usr/share/perl/5.42*/Module/**.pod:
 
   networking:
+    hint: HTTP and Net protocol client modules
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_digest:
@@ -356,24 +389,28 @@ slices:
       /usr/share/perl/5.42*/Net/**.pod:
 
   next:
+    hint: Method resolution order redispatch
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/NEXT.pm:
 
   params:
+    hint: Parameter validation utilities
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Params/Check.pm:
 
   perl-ostype:
+    hint: Operating system type classification
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Perl/OSType.pm:
 
   perlio:
+    hint: PerlIO layer control pragmas
     essential:
       perl-modules-5.42_core:
     contents:
@@ -382,6 +419,7 @@ slices:
       /usr/share/perl/5.42*/open.pm:
 
   pod:
+    hint: Plain Old Documentation parsing modules
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_digest:
@@ -394,30 +432,35 @@ slices:
       /usr/share/perl/5.42*/Pod/**.pod:
 
   safe:
+    hint: Restricted compartment code execution
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Safe.pm:
 
   search:
+    hint: Dictionary search tree modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Search/**.pm:
 
   sort:
+    hint: Sort pragma for algorithm selection
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/sort.pm:
 
   subs:
+    hint: Subroutine predeclaration pragma
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/subs.pm:
 
   system-utils:
+    hint: Environment and option parsing utilities
     essential:
       perl-modules-5.42_core:
     contents:
@@ -426,6 +469,7 @@ slices:
       /usr/share/perl/5.42*/sigtrap.pm:
 
   tap:
+    hint: Test Anything Protocol parser modules
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_test2:
@@ -434,12 +478,14 @@ slices:
       /usr/share/perl/5.42*/TAP/**.pod:
 
   term:
+    hint: Terminal and readline modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Term/**.pm:
 
   test:
+    hint: Simple test framework modules
     essential:
       perl-modules-5.42_core:
     contents:
@@ -449,6 +495,7 @@ slices:
       /usr/share/perl/5.42*/ok.pm:
 
   test2:
+    hint: Modern Test2 testing framework
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_term:
@@ -458,6 +505,7 @@ slices:
       /usr/share/perl/5.42*/Test2/**.pod:
 
   thread:
+    hint: Legacy threading compatibility modules
     essential:
       perl-modules-5.42_core:
     contents:
@@ -465,12 +513,14 @@ slices:
       /usr/share/perl/5.42*/Thread/**.pm:
 
   time:
+    hint: Time formatting and calculation modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/Time/**.pm:
 
   unicode:
+    hint: Unicode utility modules and data
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_test:
@@ -481,6 +531,7 @@ slices:
       /usr/share/perl/5.42*/Unicode/**.txt:
 
   unicore:
+    hint: Unicode character database tables
     essential:
       perl-modules-5.42_core:
       perl-modules-5.42_test:
@@ -489,18 +540,21 @@ slices:
       /usr/share/perl/5.42*/unicore/**:
 
   universal:
+    hint: UNIVERSAL base class documentation
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/UNIVERSAL.pm:
 
   user:
+    hint: User account and group modules
     essential:
       perl-modules-5.42_core:
     contents:
       /usr/share/perl/5.42*/User/**.pm:
 
   version:
+    hint: Version object parsing and comparison
     essential:
       perl-modules-5.42_core:
     contents:
@@ -511,11 +565,13 @@ slices:
 
   # vmsish - Control VMS-specific language features
   vmsish:
+    hint: VMS specific language feature pragma
     essential:
       perl-base_modules:
     contents:
       /usr/share/perl/5.42*/vmsish.pm:
 
   copyright:
+    hint: Perl modules licensing text
     contents:
       /usr/share/doc/perl-modules-5.42/copyright:

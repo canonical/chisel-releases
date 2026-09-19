@@ -5,6 +5,7 @@ essential:
 
 slices:
   bins:
+    hint: Versioned Perl interpreter binary
     essential:
       libc6_libs:
       libperl5.42_libs:
@@ -12,6 +13,7 @@ slices:
       /usr/bin/perl5.42-*-linux-*:
 
   scripts:
+    hint: CPAN client script
     essential:
       libperl5.42_bins:
       libperl5.42_standard:
@@ -20,6 +22,7 @@ slices:
       /usr/bin/cpan5.42-*-linux-*:
 
   libs:
+    hint: Shared Perl library and arch modules
     essential:
       libc6_libs:
       libcrypt1_libs:
@@ -28,6 +31,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42:
 
   standard:
+    hint: Full Perl core module set
     essential:
       libc6_libs:
       libperl5.42_bits:
@@ -61,10 +65,12 @@ slices:
       perl-modules-5.42_standard:
 
   bits:
+    hint: Low level C bits headers for Perl
     contents:
       /usr/lib/*-linux-*/perl/5.42*/bits/**.ph:
 
   compiler-utils:
+    hint: Compiler backend and opcode modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -85,6 +91,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/ops.pm:
 
   compress:
+    hint: Zlib and bzip2 compression modules
     essential:
       libbz2-1.0_libs:
       libperl5.42_libs:
@@ -95,6 +102,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Compress/**.pm:
 
   config:
+    hint: Perl build configuration data
     essential:
       libcrypt1_libs:
       perl-base_modules:
@@ -111,12 +119,14 @@ slices:
       /usr/lib/*-linux-*/perl/debian-config-data-5.42*/config.sh.static.gz:
 
   core-routines:
+    hint: Perl core C API headers
     essential:
       libcrypt1_libs:
     contents:
       /usr/lib/*-linux-*/perl/5.42*/CORE/**.h:
 
   data-dumper:
+    hint: Data structure stringification module
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -125,6 +135,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Data/Dumper.pm:
 
   data-structures:
+    hint: List and scalar utility modules
     essential:
       libperl5.42_libs:
       perl-modules-5.42_core:
@@ -133,6 +144,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Scalar/**.pm:
 
   databases:
+    hint: DBM database access modules
     essential:
       libdb5.3t64_libs:
       libgdbm-compat4t64_libs:
@@ -148,6 +160,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/SDBM_File.pm:
 
   devel:
+    hint: Perl introspection and debugging modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -157,6 +170,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Devel/**.pm:
 
   digest:
+    hint: MD5 and SHA message digest modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -166,6 +180,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Digest/**.pm:
 
   encodings:
+    hint: Character encoding conversion modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -177,6 +192,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/endian.ph:
 
   error-handling:
+    hint: Errno symbol access module
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -186,6 +202,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/errno.ph:
 
   file-handling:
+    hint: Filesystem path and file access modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -197,6 +214,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Storable.pm:
 
   filters:
+    hint: Source filter modules
     essential:
       libc6_libs:
       libperl5.42_libs:
@@ -206,10 +224,12 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Filter/**.pm:
 
   gnu:
+    hint: GNU C header bits for Perl
     contents:
       /usr/lib/*-linux-*/perl/5.42*/gnu/**.ph:
 
   hashing:
+    hint: Hash utility modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -218,6 +238,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Hash/**.pm:
 
   io-modules:
+    hint: IO handle and PerlIO layer modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -228,10 +249,12 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/PerlIO/**.pm:
 
   linux:
+    hint: Linux specific C header bits for Perl
     contents:
       /usr/lib/*-linux-*/perl/5.42*/linux/**.ph:
 
   loaders:
+    hint: Dynamic module loading support
     essential:
       libc6_libs:
       libperl5.42_libs:
@@ -242,6 +265,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/auto/**.so:
 
   i18n:
+    hint: Internationalization support modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -250,12 +274,14 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/I18N/**.pm:
 
   machine:
+    hint: Architecture specific module directory
     essential:
       libperl5.42_libs:
     contents:
       /usr/lib/*-linux-*/perl/5.42*/machine/:
 
   math:
+    hint: Big number and trigonometry modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -264,6 +290,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Math/**.pm:
 
   module-utils:
+    hint: Subroutine attribute and MRO modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -277,6 +304,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/mro.pm:
 
   networking:
+    hint: Socket and IPC networking modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -286,6 +314,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Socket.pm:
 
   std-headers:
+    hint: Standard C header bits for Perl
     contents:
       /usr/lib/*-linux-*/perl/5.42*/signal.ph:
       /usr/lib/*-linux-*/perl/5.42*/stdarg.ph:
@@ -295,6 +324,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/wait.ph:
 
   system-utils:
+    hint: POSIX and system call interface modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -310,6 +340,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/syslog.ph:
 
   text-processing:
+    hint: MIME and Unicode text processing modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -320,6 +351,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/re.pm:
 
   threading:
+    hint: Perl threading support modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -329,6 +361,7 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/threads/**.pm:
 
   time:
+    hint: Time and date utility modules
     essential:
       libperl5.42_libs:
       perl-base_modules:
@@ -337,5 +370,6 @@ slices:
       /usr/lib/*-linux-*/perl/5.42*/Time/**.pm:
 
   copyright:
+    hint: Licensing and copyright text
     contents:
       /usr/share/doc/libperl5.42/copyright:
