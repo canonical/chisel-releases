@@ -16,7 +16,7 @@ slices:
 
   runtime:
     contents:
-      /usr/share/vim/vim91/debian.vim:
+      /usr/share/vim/vim9*/debian.vim:
 
   copyright:
     contents:
