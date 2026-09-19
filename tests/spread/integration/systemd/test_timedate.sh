@@ -33,6 +33,6 @@ nsrun timedatectl set-timezone Etc/UTC
 test "$(nsrun timedatectl show -p Timezone --value)" = "Etc/UTC"
 
 # and it only accepts zones tzdata actually ships
-if nsrun timedatectl set-timezone Mars/Olympus 2>/dev/null; then exit 1; fi
+! nsrun timedatectl set-timezone Mars/Olympus 2>/dev/null || exit 1
 
 shutdown_rootfs

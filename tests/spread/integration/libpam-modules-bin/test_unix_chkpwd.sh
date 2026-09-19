@@ -13,4 +13,4 @@ chmod 640 "$rootfs/etc/shadow"
 
 # pam_unix runs it without a terminal, naming the user and the check to make
 chroot "$rootfs" /usr/sbin/unix_chkpwd root chkexpiry < /dev/null
-if chroot "$rootfs" /usr/sbin/unix_chkpwd expired chkexpiry < /dev/null; then exit 1; fi
+! chroot "$rootfs" /usr/sbin/unix_chkpwd expired chkexpiry < /dev/null
