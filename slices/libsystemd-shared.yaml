@@ -16,7 +16,8 @@ slices:
       libpam0g_libs:
       libseccomp2_libs:
       libselinux1_libs:
-      libssl3t64_libs:
+      # dlopened, and the package accepts libssl3t64 | libssl4
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:

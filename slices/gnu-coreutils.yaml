@@ -88,7 +88,7 @@ slices:
   summarizing-files:
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/bin/gnub2sum:
       /usr/bin/gnucksum:
@@ -108,7 +108,7 @@ slices:
     essential:
       gnu-coreutils_sort:
       libc6_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/bin/gnucomm:
       /usr/bin/gnuptx:

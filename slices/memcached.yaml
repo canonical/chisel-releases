@@ -10,7 +10,7 @@ slices:
       libevent-2.1-7t64_libs:
       liblua5.4-0_libs:
       libsasl2-2_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       memcached_config:
     contents:
       /usr/bin/memcached:

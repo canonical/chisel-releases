@@ -191,7 +191,8 @@ slices:
     hint: Manage network configuration
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      # dlopened, and the package accepts libssl3t64 | libssl4
+      libssl4_libs:
       libsystemd-shared_libs:
       systemd_config:
       systemd_network-config:
