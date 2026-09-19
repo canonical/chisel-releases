@@ -152,8 +152,10 @@ execute: |
   rootfs_od="$(install-slices coreutils_od-bin)"
   chroot "$rootfs_od" od --version
   echo -e "Hello\nWorld" > "$rootfs_od/test_file"
-  test "$(chroot "$rootfs_od" od test_file)" = \
-      $'0000000 062510 066154 005157 067527 066162 005144\n0000014'
+  # NOTE: bare od prints two-byte octal words, whose order follows the host
+  # endianness. Ask for single bytes so the expected value holds on s390x too.
+  test "$(chroot "$rootfs_od" od -A n -t x1 test_file | tr -d ' \n')" = \
+      "48656c6c6f0a576f726c640a"
 
   # test rmdir binary
   rootfs_rmdir="$(install-slices coreutils_rmdir)"
@@ -292,3 +294,16 @@ execute: |
   chroot "$rootfs_whoami" whoami --version
   # we either expect 'root' or 'cannot find name for user ID 0' depending on the test environment's user management
   chroot "$rootfs_whoami" whoami 2>&1 | grep -E "root|cannot find name for user ID 0"
+
+  # test md5sum binary
+  rootfs_md5sum="$(install-slices coreutils_md5sum)"
+  chroot "$rootfs_md5sum" md5sum --version
+  echo -n "Hello, World!" > "$rootfs_md5sum/test_file"
+  test "$(chroot "$rootfs_md5sum" md5sum test_file | awk '{print $1}')" = \
+      "65a8e27d8879283831b664bd8b7f0ad4"
+
+  # test seq binary
+  rootfs_seq="$(install-slices coreutils_seq)"
+  chroot "$rootfs_seq" seq --version
+  test "$(chroot "$rootfs_seq" seq 3 | tr '\n' '-')" = "1-2-3-"
+  test "$(chroot "$rootfs_seq" seq 3 -1 1 | tr '\n' '-')" = "3-2-1-"
