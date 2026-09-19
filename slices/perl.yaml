@@ -5,6 +5,7 @@ essential:
 
 slices:
   bins:
+    hint: User facing Perl utility scripts
     essential:
       perl_encodings:
       perl_misc:
@@ -14,8 +15,9 @@ slices:
       perl_zip:
 
   encodings:
+    hint: Encoding conversion and JSON tools
     essential:
-      libperl5.40_standard:
+      libperl5.42_standard:
       perl-base_bins:
     contents:
       /usr/bin/enc2xs:
@@ -24,8 +26,9 @@ slices:
       /usr/bin/piconv:
 
   ptar:
+    hint: Tar archive creation and inspection
     essential:
-      libperl5.40_standard:
+      libperl5.42_standard:
       perl-base_bins:
     contents:
       /usr/bin/ptar:
@@ -33,8 +36,9 @@ slices:
       /usr/bin/ptargrep:
 
   pod:
+    hint: POD documentation conversion tools
     essential:
-      libperl5.40_standard:
+      libperl5.42_standard:
       perl-base_bins:
     contents:
       /usr/bin/pod2html:
@@ -44,16 +48,18 @@ slices:
       /usr/bin/podchecker:
 
   zip:
+    hint: Zip archive packing and inspection tools
     essential:
-      libperl5.40_standard:
+      libperl5.42_standard:
       perl-base_bins:
     contents:
       /usr/bin/streamzip:
       /usr/bin/zipdetails:
 
   utils:
+    hint: Module development and doc utilities
     essential:
-      libperl5.40_standard:
+      libperl5.42_standard:
       perl-base_bins:
     contents:
       /usr/bin/h2ph:
@@ -69,8 +75,9 @@ slices:
       /usr/bin/xsubpp:
 
   misc:
+    hint: CPAN client and script runner utilities
     essential:
-      libperl5.40_standard:
+      libperl5.42_standard:
       perl-base_bins:
       perl_config:
     contents:
@@ -81,9 +88,11 @@ slices:
       /usr/bin/shasum:
 
   config:
+    hint: Libnet network configuration file
     contents:
       /etc/perl/Net/libnet.cfg:
 
   copyright:
+    hint: Perl package license text
     contents:
       /usr/share/doc/perl/copyright:
