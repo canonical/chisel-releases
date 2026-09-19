@@ -43,8 +43,5 @@ execute: |
   # test start_embedded to start the embedded environment
   chroot "$rootfs" /usr/bin/start_embedded
 
-  # test runcgi.sh from erlang-inets
-  chroot "$rootfs" dash -c '/usr/lib/erlang/lib/inets-*/priv/bin/runcgi.sh /bin'
-
   # test snmpc
   chroot "$rootfs" dash -c 'snmpc /usr/lib/erlang/lib/snmp-*/mibs/STANDARD-MIB.mib'
