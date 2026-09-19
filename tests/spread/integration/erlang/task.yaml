@@ -4,7 +4,6 @@ execute: |
   # install slices
   rootfs="$(install-slices \
   erlang-base_bins \
-  erlang-inets_scripts \
   erlang-os-mon_bins \
   erlang-crypto_libs \
   erlang-crypto_modules \

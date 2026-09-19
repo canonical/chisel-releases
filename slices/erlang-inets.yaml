@@ -4,9 +4,6 @@ essential:
   erlang-inets_copyright:
 
 slices:
-  scripts:
-    contents: {}
-
   modules:
     essential:
       erlang-base_bins:
