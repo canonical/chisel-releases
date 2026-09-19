@@ -44,7 +44,7 @@ slices:
       libc6-dev_runtime:
       libc6_libs:
     contents:
-      # dummy file to allow linking with -lanl. this functionality in integrated into libc
+      # dummy file to allow linking with -lanl. this functionality is integrated into libc
       /usr/lib/*-linux-*/libanl.a:
       # symlink to libanl.so from libc6
       /usr/lib/*-linux-*/libanl.so:
@@ -53,17 +53,17 @@ slices:
       # linker script to look up symbols in libc_nonshared.a and libc.so.6 from libc6
       /usr/lib/*-linux-*/libc.so:
       /usr/lib/*-linux-*/libc_nonshared.a:
-      # dummy file to allow linking with -ldl. this functionality in integrated into libc
+      # dummy file to allow linking with -ldl. this functionality is integrated into libc
       /usr/lib/*-linux-*/libdl.a:
-      # dummy file to allow linking with -lbg. this functionality in integrated into libc
+      # dummy file to allow linking with -lg. this functionality is integrated into libc
       /usr/lib/*-linux-*/libg.a:
-      # dummy file to allow linking with -lpthread. this functionality in integrated into libc
+      # dummy file to allow linking with -lpthread. this functionality is integrated into libc
       /usr/lib/*-linux-*/libpthread.a:
       # dummy file. part of libpthread, but separate file.
       /usr/lib/*-linux-*/libpthread_nonshared.a:
-      # dummy file to allow linking with -lrt. this functionality in integrated into libc
+      # dummy file to allow linking with -lrt. this functionality is integrated into libc
       /usr/lib/*-linux-*/librt.a:
-      # dummy file to allow linking with -lutil. this functionality in integrated into libc
+      # dummy file to allow linking with -lutil. this functionality is integrated into libc
       /usr/lib/*-linux-*/libutil.a:
 
   # only needed if linking with -lm
@@ -102,7 +102,7 @@ slices:
       # symlink to libresolv.so from libc6
       /usr/lib/*-linux-*/libresolv.so:
 
-  # dynamic linter auditing library
+  # dynamic linker auditing library
   # needs to be manually enabled with e.g. LD_AUDIT=<path to sotruss-lib.so>
   audit:
     essential:
