@@ -14,11 +14,7 @@ slices:
   minimal:
     hint: PID 1 service manager and boot units
     essential:
-      libc6_libs:
-      # PID 1 and the executor dlopen it to turn SystemCallFilter= and friends
-      # into seccomp filters; without it every unit silently runs unfiltered
-      libseccomp2_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_minimal:
       mount_bins:
     contents:
       /usr/bin/systemctl:
@@ -57,7 +53,7 @@ slices:
     hint: Journal, boot setup and notify
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
       systemd_journal:
       systemd_minimal:
       systemd_sysusers:
@@ -83,7 +79,7 @@ slices:
     hint: Core service manager and tools
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       mount_bins:
       systemd_catalog:
       systemd_config:
@@ -122,10 +118,7 @@ slices:
     hint: Additional systemd utilities
     essential:
       libc6_libs:
-      # systemd-creds dlopens libcrypto and can neither encrypt nor decrypt
-      # without it; the package accepts libssl3t64 | libssl4
-      libssl4_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_dev:
       systemd_standard:
     contents:
       /usr/bin/busctl:
@@ -162,7 +155,7 @@ slices:
       libpam-modules-bin_unix-chkpwd:
       libpam-modules_libs:
       libpam-runtime_config:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_polkit:
     contents:
       /usr/bin/run0:  # Symlink to systemd-run
@@ -172,7 +165,7 @@ slices:
     hint: Identify virtualization environment
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
     contents:
       /usr/bin/systemd-detect-virt:
 
@@ -182,7 +175,7 @@ slices:
     hint: Create system users and groups
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
     contents:
       /usr/bin/systemd-sysusers:
 
@@ -192,7 +185,7 @@ slices:
     hint: Create and clean up volatile files
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
     contents:
       /usr/bin/systemd-tmpfiles:
 
@@ -202,7 +195,7 @@ slices:
     hint: First boot system setup
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
     contents:
       /usr/bin/systemd-firstboot:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-firstboot.service:
@@ -212,7 +205,7 @@ slices:
     hint: View and manage system logs
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
       systemd_config:
     contents:
       /usr/bin/journalctl:
@@ -244,7 +237,7 @@ slices:
     hint: Manage user logins and sessions
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_config:
       systemd_pam-profile:
       systemd_polkit:
@@ -272,7 +265,7 @@ slices:
     hint: Control system hostname
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_polkit:
     contents:
       /usr/bin/hostnamectl:
@@ -286,7 +279,7 @@ slices:
     hint: Control system locale settings
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_polkit:
     contents:
       /usr/bin/localectl:
@@ -299,7 +292,7 @@ slices:
     hint: Control system time and date settings
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_polkit:
     contents:
       /usr/bin/timedatectl:
@@ -311,7 +304,7 @@ slices:
     hint: Manage network configuration
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_config:
       systemd_network-config:
       systemd_polkit:
@@ -353,7 +346,7 @@ slices:
     hint: System service handlers
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_config:
       systemd_system-generators:
     contents:
@@ -446,7 +439,7 @@ slices:
     hint: System unit generators
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
     contents:
       /etc/systemd/system-generators/systemd-gpt-auto-generator:
       /usr/lib/systemd/system-generators/systemd-debug-generator:
@@ -465,7 +458,7 @@ slices:
       # sysinit.target.wants/ldconfig.service runs it on every boot
       libc-bin_ldconfig:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
       systemd_generated-services:
       # the getty units run agetty wherever their tty exists, and fail without it
       util-linux_tty:
@@ -691,7 +684,7 @@ slices:
     hint: User units and targets
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_standard:
     contents:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:

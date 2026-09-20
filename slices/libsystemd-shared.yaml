@@ -4,33 +4,88 @@ essential:
   libsystemd-shared_copyright:
 
 slices:
+  # The link table is libc and nothing else; every other library is reached
+  # through a dlopen gate, so the shared objects sit in a slice of their own
+  # and the tiers below add only dependencies. Each tier matches the systemd
+  # slice of the same name, which is the only consumer. libs is for everyone
+  # else, and lands on standard.
   libs:
+    hint: Systemd internal libraries
     essential:
-      # blkid, mount and selinux are dlopened, but part of the minimal viable
-      # systemd launch (see systemd_minimal)
-      # enable for ACL lines in tmpfiles.d and per-user journal ACLs
-      # libacl1_libs:
-      # enable for units with AppArmorProfile=, or early policy load at boot
-      # libapparmor1_libs:
-      # enable for audit records of unit starts/stops and sysusers accounts
-      # libaudit1_libs:
-      libblkid1_libs:
+      libsystemd-shared_libsystemd-shared:
+      libsystemd-shared_standard:
+
+  libsystemd-shared:
+    essential:
       libc6_libs:
-      # enable for hashing plaintext passwords in firstboot and sysusers
-      # libcrypt1_libs:
-      # enable to load kernel modules at boot, outside containers
-      # libkmod2_libs:
-      libmount1_libs:
-      # enable for units with PAMName=, e.g. user@.service
-      # libpam0g_libs:
-      # pulled by systemd_minimal, where PID 1 and the executor use it
-      # libseccomp2_libs:
-      libselinux1_libs:
-      # enable to read or write zstd-compressed journal files
-      # libzstd1_libs:
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:
+
+  # Each dlopen check is marked as 'recommended' or 'suggested'. This info
+  # can be found in so's '.note.dlopen' section. Read it with:
+  #   readelf -p .note.dlopen /usr/lib/*/systemd/libsystemd-shared-*.so
+
+  # PID 1, the executor and systemd-shutdown.
+  minimal:
+    hint: Shared libraries for PID 1 and units
+    essential:
+      # early policy load at boot, and units with AppArmorProfile=
+      libapparmor1_libs:
+      # RestrictFileSystems= and RestrictNetworkInterfaces= in the executor;
+      # like seccomp, the restriction silently stops applying without it
+      # libbpf1_libs:
+      # PID 1 reads mountinfo through it and systemd-shutdown unmounts with
+      # it; neither has any fallback
+      libmount1_libs:
+      # the executor turns SystemCallFilter= and friends into seccomp filters;
+      # without it every unit silently runs unfiltered
+      libseccomp2_libs:
+      # PID 1 treats SELinux as off without it, which stock Ubuntu does anyway
+      libselinux1_libs:
+      libsystemd-shared_libsystemd-shared:
+
+  # The journal, sysusers, tmpfiles and firstboot.
+  core:
+    hint: Shared libraries for journal and setup
+    essential:
+      # ACL lines in tmpfiles.d and per-user journal files
+      libacl1_libs:
+      # hashing a plaintext password in sysusers and firstboot
+      libcrypt1_libs:
+      # journal sealing, so journalctl --verify and --setup-keys
+      # libgcrypt20_libs:
+      # lz4-compressed journal entries
+      # liblz4-1_libs:
+      # xz-compressed journal entries
+      # liblzma5_libs:
+      # journalctl --grep
+      # libpcre2-8-0_libs:
+      libsystemd-shared_minimal:
+      # read compressed entries. journald compresses by default
+      libzstd1_libs:
+
+  # logind, run0, the service handlers and the system services.
+  standard:
+    hint: Shared libraries for logins and services
+    essential:
+      # audit records for unit starts and stops, and for sysusers accounts
+      libaudit1_libs:
+      # systemd-validatefs probes a filesystem with it
+      libblkid1_libs:
+      # systemd-modules-load
+      libkmod2_libs:
+      # units with PAMName=, e.g. user@.service and run0
+      libpam0g_libs:
+      libsystemd-shared_core:
+
+  # systemd-creds and the rest of the tooling.
+  dev:
+    hint: Shared libraries for extra utilities
+    essential:
+      # systemd-creds; the package accepts libssl3t64 | libssl4
+      # libssl4_libs:
+      libsystemd-shared_standard:
 
   copyright:
     contents:
