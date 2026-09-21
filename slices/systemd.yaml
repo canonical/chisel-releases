@@ -120,6 +120,7 @@ slices:
       libc6_libs:
       libsystemd-shared_dev:
       systemd_standard:
+      systemd_sysinstall:
     contents:
       /usr/bin/busctl:
       /usr/bin/systemd-ac-power:
@@ -139,7 +140,6 @@ slices:
       /usr/bin/systemd-socket-activate:
       /usr/bin/systemd-stdio-bridge:
       /usr/bin/systemd-sysext:
-      /usr/bin/systemd-sysinstall:
       /usr/bin/systemd-tty-ask-password-agent:
       /usr/bin/systemd-umount:  # Symlink to systemd-mount
       /usr/bin/systemd-vpick:
