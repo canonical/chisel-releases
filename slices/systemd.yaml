@@ -14,8 +14,7 @@ slices:
   minimal:
     hint: PID 1 service manager and boot units
     essential:
-      libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_minimal:
       mount_bins:
     contents:
       /usr/bin/systemctl:
@@ -56,7 +55,7 @@ slices:
     hint: Journal, boot setup and notify
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
       systemd_config:
       systemd_minimal:
       systemd_sysusers:
@@ -197,7 +196,7 @@ slices:
     hint: Create system users and groups
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
     contents:
       /usr/bin/systemd-sysusers:
 
@@ -207,7 +206,7 @@ slices:
     hint: Create and clean up volatile files
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
     contents:
       /usr/bin/systemd-tmpfiles:
 
@@ -217,7 +216,7 @@ slices:
     hint: First boot system setup
     essential:
       libc6_libs:
-      libsystemd-shared_libs:
+      libsystemd-shared_core:
     contents:
       /usr/bin/systemd-firstboot:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-firstboot.service:
