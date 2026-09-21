@@ -979,7 +979,9 @@ slices:
       /usr/share/polkit-1/actions/org.freedesktop.systemd1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.timedate1.policy:
       /usr/share/polkit-1/actions/org.freedesktop.timesync1.policy:
+      # symlink to the .example below
       /usr/share/polkit-1/rules.d/10-systemd-logind-root-ignore-inhibitors.rules:
+      # the symlink target: despite the name this is the rule itself, not a sample
       /usr/share/polkit-1/rules.d/10-systemd-logind-root-ignore-inhibitors.rules.example:
       /usr/share/polkit-1/rules.d/empower.rules:
       /usr/share/polkit-1/rules.d/systemd-networkd.rules:
