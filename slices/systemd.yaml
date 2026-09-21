@@ -201,6 +201,30 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-firstboot.service:
       /usr/lib/systemd/system/systemd-firstboot.service:
 
+  # Opt-in: booting into system-install.target hands the console to an
+  # installer that copies the running OS onto a disk and reboots into it.
+  sysinstall:
+    hint: Install the running system onto a disk
+    essential:
+      libc6_libs:
+      # systemd-creds encrypts the settings carried over to the new system,
+      # and only this tier has the openssl it needs for that
+      libsystemd-shared_dev:
+      # the unit wants logind, and the final reboot is requested through it
+      systemd_login:
+      # TODO: systemd-boot-tools is unsliced
+      # bootctl installs the kernel and the boot loader onto the new ESP
+      # systemd-boot-tools_bins:
+      # TODO: systemd-repart is unsliced
+      # partitions the target disk and copies the OS onto it
+      # systemd-repart_bins:
+    contents:
+      /usr/bin/systemd-creds:
+      /usr/bin/systemd-sysinstall:
+      /usr/lib/systemd/system/system-install.target:
+      /usr/lib/systemd/system/system-install.target.wants/systemd-sysinstall.service:
+      /usr/lib/systemd/system/systemd-sysinstall.service:
+
   journal:
     hint: View and manage system logs
     essential:
@@ -595,8 +619,6 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
       /usr/lib/systemd/system/syslog.socket:
-      /usr/lib/systemd/system/system-install.target:
-      /usr/lib/systemd/system/system-install.target.wants/systemd-sysinstall.service:
       /usr/lib/systemd/system/system-systemd\x2dmute\x2dconsole.slice:
       /usr/lib/systemd/system/system-update-cleanup.service:
       /usr/lib/systemd/system/system-update-pre.target:
@@ -658,7 +680,6 @@ slices:
       /usr/lib/systemd/system/systemd-sysext.service:
       /usr/lib/systemd/system/systemd-sysext.socket:
       /usr/lib/systemd/system/systemd-sysext@.service:
-      /usr/lib/systemd/system/systemd-sysinstall.service:
       /usr/lib/systemd/system/systemd-sysusers.service:
       /usr/lib/systemd/system/systemd-tmpfiles-clean.service:
       /usr/lib/systemd/system/systemd-tmpfiles-clean.timer:
