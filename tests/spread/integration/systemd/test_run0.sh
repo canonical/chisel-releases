@@ -14,7 +14,7 @@ clean-rootfs "$rootfs"
 
 # both ask the manager over the bus, so a manager, a bus and the manager's
 # own bus policy have to be under them
-rootfs="$(install-slices systemd_run0 systemd_core systemd_dbus-services dbus_services)"
+rootfs="$(install-slices systemd_run0 systemd_core dbus_services)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"

@@ -45,10 +45,10 @@ slices:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-shutdown:
 
-  # What an ordinary daemon's unit file assumes on top of minimal. The manager's
-  # D-Bus registration and systemd-detect-virt are left out since no unit
-  # depends on either. Users can additionally cut systemd_dbus-services, or
-  # systemd_detect-virt to get these respectively.
+  # What an ordinary daemon's unit file assumes on top of minimal, the manager's
+  # bus policy included: a BusName= unit or a bus-activated daemon needs PID 1
+  # on the bus once there is one. systemd-detect-virt is left out since no unit
+  # depends on it; users can additionally cut systemd_detect-virt to get it.
   core:
     hint: Journal, boot setup and notify
     essential:
@@ -74,6 +74,9 @@ slices:
       /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
       /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/time-set.target:
+      /usr/share/dbus-1/services/org.freedesktop.systemd1.service:
+      /usr/share/dbus-1/system-services/org.freedesktop.systemd1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
 
   standard:
     hint: Core service manager and tools
@@ -84,7 +87,6 @@ slices:
       systemd_catalog:
       systemd_config:
       systemd_core:
-      systemd_dbus-services:
       systemd_detect-virt:
       systemd_extras:
       systemd_hostname:
@@ -119,6 +121,7 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_dev:
+      systemd-dev_dbus-interfaces:
       systemd_standard:
       systemd_sysinstall:
     contents:
@@ -263,7 +266,6 @@ slices:
       libc6_libs:
       libsystemd-shared_standard:
       systemd_config:
-      systemd_dbus-services:
       systemd_pam-profile:
       systemd_polkit:
       systemd_udev-rules:
@@ -293,7 +295,6 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_standard:
-      systemd_dbus-services:
       systemd_polkit:
     contents:
       /usr/bin/hostnamectl:
@@ -310,7 +311,6 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_standard:
-      systemd_dbus-services:
       systemd_polkit:
     contents:
       /usr/bin/localectl:
@@ -327,7 +327,6 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_standard:
-      systemd_dbus-services:
       systemd_polkit:
     contents:
       /usr/bin/timedatectl:
@@ -343,7 +342,6 @@ slices:
       libc6_libs:
       libsystemd-shared_standard:
       systemd_config:
-      systemd_dbus-services:
       systemd_network-config:
       systemd_polkit:
     contents:
@@ -775,17 +773,6 @@ slices:
       /usr/lib/systemd/user/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/user/timers.target:
       /usr/lib/systemd/user/xdg-desktop-autostart.target:
-
-  # PID 1 on the system bus. The daemons' bus activation goes through it, so
-  # each daemon slice with an activation file pulls it in.
-  dbus-services:
-    hint: DBus service definitions
-    essential:
-      systemd-dev_dbus-interfaces:
-    contents:
-      /usr/share/dbus-1/services/org.freedesktop.systemd1.service:
-      /usr/share/dbus-1/system-services/org.freedesktop.systemd1.service:
-      /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
 
   extras:
     hint: Keyboard, locale and MIME data

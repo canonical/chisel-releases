@@ -18,7 +18,7 @@ chroot "$rootfs" /usr/bin/systemd-sysinstall </dev/null 2>&1 \
 clean-rootfs "$rootfs"
 
 # the target pulls the installer in, and its unit runs it
-rootfs="$(install-slices systemd_sysinstall systemd_core systemd_dbus-services dbus_services)"
+rootfs="$(install-slices systemd_sysinstall systemd_core dbus_services)"
 
 # the unit wants a console, and a failed install would halt the manager
 mkdir -p "$rootfs/etc/systemd/system/systemd-sysinstall.service.d"

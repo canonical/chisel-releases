@@ -40,7 +40,7 @@ clean-rootfs "$rootfs"
 # bash is here only to produce one log line long enough to be compressed;
 # coreutils would do too, but it links libacl and libzstd and so would mask
 # both of the checks below
-rootfs="$(install-slices systemd_core dbus_services bash_bins)"
+rootfs="$(install-slices systemd_core dbus_services dbus-bin_bins bash_bins)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
@@ -53,6 +53,15 @@ assert_failed_units
 grep -q "^messagebus:" "$rootfs/etc/passwd"
 nsystemctl is-active dbus.service
 nsystemctl is-active dbus.socket
+
+# and the manager takes its own name on the bus it came up with
+for _ in $(seq 1 20); do
+  nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+    org.freedesktop.DBus.NameHasOwner string:org.freedesktop.systemd1 | grep -Fq "boolean true" && break
+  sleep 0.5
+done
+nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+  org.freedesktop.DBus.NameHasOwner string:org.freedesktop.systemd1 | grep -Fq "boolean true"
 
 # the same two appliers set up what systemd's own fragments declare
 nsystemctl is-active systemd-sysusers.service
