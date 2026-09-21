@@ -42,6 +42,37 @@ clean-rootfs "$rootfs"
 # both of the checks below
 rootfs="$(install-slices systemd_core dbus_services dbus-bin_bins bash_bins)"
 
+# and a bus daemon from another package, shipped the way its package would: a
+# unit, a bus policy, and an activation file that hands starting it to the
+# manager. It only has to run, not answer, to show the hand-over happened.
+mkdir -p "$rootfs/etc/systemd/system" "$rootfs/usr/share/dbus-1/system-services" \
+  "$rootfs/usr/share/dbus-1/system.d"
+cat > "$rootfs/etc/systemd/system/example-daemon.service" <<'EOF'
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/bash -c 'exit 0'
+EOF
+cat > "$rootfs/usr/share/dbus-1/system-services/org.example.Daemon1.service" <<'EOF'
+[D-BUS Service]
+Name=org.example.Daemon1
+Exec=/bin/false
+User=root
+SystemdService=example-daemon.service
+EOF
+cat > "$rootfs/usr/share/dbus-1/system.d/org.example.Daemon1.conf" <<'EOF'
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <policy user="root">
+    <allow own="org.example.Daemon1"/>
+  </policy>
+  <policy context="default">
+    <allow send_destination="org.example.Daemon1"/>
+  </policy>
+</busconfig>
+EOF
+
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 # shellcheck disable=SC2119 # nothing in this closure is expected to fail
@@ -62,6 +93,16 @@ for _ in $(seq 1 20); do
 done
 nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
   org.freedesktop.DBus.NameHasOwner string:org.freedesktop.systemd1 | grep -Fq "boolean true"
+
+# so a call to the other package's daemon gets it started; the call itself
+# goes unanswered, since the stand-in never takes its name
+nsrun dbus-send --system --print-reply --reply-timeout=2000 --dest=org.example.Daemon1 \
+  /org/example/Daemon1 org.freedesktop.DBus.Peer.Ping >/dev/null 2>&1 || true
+for _ in $(seq 1 20); do
+  [ "$(nsystemctl show -p ActiveState --value example-daemon.service)" = "active" ] && break
+  sleep 0.5
+done
+test "$(nsystemctl show -p ActiveState --value example-daemon.service)" = "active"
 
 # the same two appliers set up what systemd's own fragments declare
 nsystemctl is-active systemd-sysusers.service
