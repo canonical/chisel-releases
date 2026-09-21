@@ -50,6 +50,24 @@ nsystemctl stop probe.service
 test "$(nsystemctl is-active probe.service)" = "inactive"
 nsystemctl list-units --no-legend --type=target | grep -Fq "multi-user.target"
 
+# libseccomp is in this slice because the executor turns SystemCallFilter=
+# into a filter. Without it the setting silently stops applying, which looks
+# exactly like it working, so the unit below denies the syscall it needs to
+# exit and has to die of SIGSYS.
+cat > "$rootfs/run/systemd/system/probe-seccomp.service" <<'EOF'
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --version
+SystemCallFilter=~exit_group
+EOF
+nsystemctl daemon-reload
+if nsystemctl start probe-seccomp.service; then
+  echo "a unit that denied its own exit syscall still started: filters are not applied" >&2
+  exit 1
+fi
+# which of the two it reports depends on whether core dumping is on
+nsystemctl show -p Result --value probe-seccomp.service | grep -Eq '^(signal|core-dump)$'
+
 # nothing in this slice runs as root at boot to set the system up; the
 # sysusers.d and tmpfiles.d appliers are systemd_core's
 test ! -e "$rootfs/usr/bin/systemd-sysusers"
