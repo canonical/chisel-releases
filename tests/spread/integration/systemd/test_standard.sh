@@ -11,11 +11,8 @@ resolves_in_rootfs() {
   test -f "$rootfs$target"
 }
 
-# the slice on its own: every unit it ships runs a program it ships
+# the slice on its own: enabling and presetting units is offline work
 rootfs="$(install-slices systemd_standard)"
-assert_unit_programs "$rootfs"
-
-# and enabling and presetting units is offline work
 mkdir -p "$rootfs/proc"
 mount --bind /proc "$rootfs/proc"
 

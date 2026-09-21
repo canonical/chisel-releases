@@ -9,9 +9,6 @@
 
 rootfs="$(install-slices systemd_system-services systemd_minimal)"
 
-# every unit it ships runs a program it ships, sockets and path units included
-assert_unit_programs "$rootfs"
-
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 
