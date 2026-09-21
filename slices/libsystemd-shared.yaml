@@ -34,8 +34,9 @@ slices:
       # early policy load at boot, and units with AppArmorProfile=
       libapparmor1_libs:
       # firewalling and sandboxing with BPF; RestrictFileSystems= and friends
-      # silently stop applying without it
-      libbpf1_libs:
+      # silently stop applying without it. The armhf, i386 and riscv64 builds
+      # have no BPF support.
+      libbpf1_libs: {arch: [amd64, arm64, ppc64el, s390x]}
       # disk encryption, integrity and authentication; the executor needs it
       # for an encrypted RootImage=
       libcryptsetup12_libs:
