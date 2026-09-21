@@ -484,6 +484,10 @@ slices:
       libc6_libs:
       libsystemd-shared_standard:
       systemd_generated-services:
+      # the binaries most of these units run, the boot-time ones included
+      systemd_service-handlers:
+      systemd_sysusers:
+      systemd_tmpfiles:
       # the getty units run agetty wherever their tty exists, and fail without it
       util-linux_tty:
     contents:
@@ -495,6 +499,8 @@ slices:
       /usr/bin/systemd-creds:
       # sysinit.target.wants/systemd-machine-id-commit.service runs it
       /usr/bin/systemd-machine-id-setup:
+      # systemd-mute-console@.service runs it
+      /usr/bin/systemd-mute-console:
       # sockets.target.wants/systemd-sysext.socket and the sysext units run it
       /usr/bin/systemd-sysext:
       # the ask-password console and wall path units start it on each request
@@ -716,6 +722,8 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_standard:
+      # the user tmpfiles units run it
+      systemd_tmpfiles:
     contents:
       # sockets.target.wants/systemd-ask-password.socket hands requests to it
       /usr/bin/systemd-ask-password:
