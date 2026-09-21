@@ -57,6 +57,7 @@ execute: |
   chroot "$rootfs_sort" gnusort test_file > sorted_output
   # NOTE: sorted output has a trailing newline. replaced by hyphen to show better
   test "$(cat sorted_output | tr '\n' '-')" = "apple-banana-cherry-"
+  chroot "$rootfs_sort" gnusort -R test_file | wc -l | grep -x 3
 
   # test dirname binary
   rootfs_dirname="$(install-slices gnu-coreutils_dirname)"
