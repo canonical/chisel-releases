@@ -10,6 +10,7 @@ variants:
     - sysusers
     - tmpfiles
     - firstboot
+    - sysinstall
     - run0
     - journal
     - login
