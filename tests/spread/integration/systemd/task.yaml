@@ -19,5 +19,7 @@ variants:
     - timedate
     - network
     - service-handlers
+    - system-services
+    - user-services
 
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh

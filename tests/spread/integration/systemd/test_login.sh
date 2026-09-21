@@ -19,7 +19,7 @@ chroot "$rootfs" /usr/lib/systemd/systemd-user-sessions --version 2>&1 | grep -F
 clean-rootfs "$rootfs"
 
 # with a manager and a bus under it, the daemon does its job
-rootfs="$(install-slices systemd_login systemd_core systemd_dbus-services dbus_services)"
+rootfs="$(install-slices systemd_login systemd_core dbus_services)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"

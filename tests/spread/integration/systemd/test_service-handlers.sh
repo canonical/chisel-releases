@@ -1,5 +1,5 @@
 #!/bin/bash
-#spellchecker: ignore rootfs pstore quotacheck rfkill sulogin sysroot fstab xdg
+#spellchecker: ignore rootfs pstore quotacheck rfkill sulogin sysroot fstab xdg rslave
 
 rootfs="$(install-slices systemd_service-handlers)"
 
@@ -47,3 +47,18 @@ while read -r bin; do
       ;;
   esac
 done <<<"$bins"
+
+# the rescue and emergency shells: sulogin, with a locked root forced through,
+# falls back to /bin/sh since root's shell is not in here. It flushes the
+# terminal before it prompts, so keep typing until a shell answers.
+mkdir -p "$rootfs/dev"
+mount --rbind /dev "$rootfs/dev"
+mount --make-rslave "$rootfs/dev"
+trap 'umount -R "$rootfs/dev"; umount "$rootfs/proc"' EXIT
+echo 'root:x:0:0:root:/root:/bin/bash' > "$rootfs/etc/passwd"
+echo 'root:*:19000:0:99999:7:::' > "$rootfs/etc/shadow"
+out="$(
+  { for _ in $(seq 1 15); do sleep 1; printf '\necho rescue-shell-$((6 * 7))\n'; done; printf 'exit\n'; } \
+    | timeout 60 script -qec "chroot $rootfs /usr/sbin/sulogin --force" /dev/null
+)"
+grep -Fq "rescue-shell-42" <<<"$out"

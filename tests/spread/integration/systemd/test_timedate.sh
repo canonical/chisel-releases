@@ -16,14 +16,14 @@ done
 clean-rootfs "$rootfs"
 
 # with a manager, a bus and zone data under it, the daemon does its job
-rootfs="$(install-slices systemd_timedate systemd_core systemd_dbus-services dbus_services tzdata_etc)"
+rootfs="$(install-slices systemd_timedate systemd_core dbus_services tzdata_etc)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 
-nsystemctl start systemd-timedated.service
-nsystemctl is-active systemd-timedated.service
+# the first call starts the daemon over the bus
 nsrun timedatectl | grep -Fq "Local time:"
+nsystemctl is-active systemd-timedated.service
 nsrun timedatectl show -p TimeUSec | grep -Fq "TimeUSec="
 
 # a timezone the daemon sets is the one it reports back

@@ -1,5 +1,5 @@
 #!/bin/bash
-#spellchecker: ignore rootfs nsenter nsrun nsystemctl getty uts
+#spellchecker: ignore rootfs nsenter nsrun nsystemctl getty uts kmod quotaon modprobe plymouth udevadm initrd fstab
 
 # Boots a chiselled rootfs with systemd as PID 1 of nested pid, mount, uts and
 # network namespaces, so the slice under test is what PID 1 sees and what its
@@ -74,6 +74,67 @@ assert_failed_units() {
   if [ -n "$unexpected" ]; then
     echo "unexpected failed units: $unexpected" >&2
     nsystemctl --failed --no-legend >&2
+    return 1
+  fi
+}
+
+# whether a path exists inside the rootfs, following an absolute link in there
+# rather than on the host
+exists_in_rootfs() {
+  local rootfs="$1" path="$2" link
+  for _ in 1 2 3 4 5 6 7 8; do
+    link="$(readlink "$rootfs$path")" || { [ -e "$rootfs$path" ]; return; }
+    case "$link" in
+      /*) path="$link" ;;
+      *) path="$(dirname "$path")/$link" ;;
+    esac
+  done
+  return 1
+}
+
+# Programs systemd units run that come from packages systemd does not depend
+# on. Each sits behind a condition, a "-" prefix or an opt-in, so a rootfs
+# without it boots the same.
+UNIT_PROGRAMS_ELSEWHERE=(
+  /usr/bin/bash      # debug-shell and the breakpoint units, kernel command line opt-ins
+  /usr/bin/kmod      # kmod-static-nodes, ConditionPathExists= on it
+  /usr/sbin/quotaon  # quotaon units, pulled in by quota options in fstab only
+  modprobe           # modprobe@, "-" prefixed
+  plymouth           # "-" prefixed ExecStartPre= of rescue, emergency and the breakpoints
+  systemd-dissect    # systemd-loop@, started through the API only
+  udevadm            # initrd-udevadm-cleanup-db, initrd only
+)
+
+# fail on any program a unit file in the rootfs runs that the rootfs lacks,
+# other than the ones above and the ones named
+assert_unit_programs() {
+  local rootfs="$1"
+  shift
+  local allowed=" ${UNIT_PROGRAMS_ELSEWHERE[*]} $* "
+  local runs missing="" file program dir
+  runs="$(grep -rsHE '^Exec(Condition|Start|StartPre|StartPost|Reload|Stop|StopPost)=' \
+      "$rootfs"/usr/lib/systemd/system "$rootfs"/usr/lib/systemd/user \
+      "$rootfs"/etc/systemd/system "$rootfs"/etc/systemd/user \
+    | sed -E "s#^$rootfs##; s#:Exec[A-Za-z]*=[-@:+!|]*# #" \
+    | awk '$2 != "" && $2 !~ /[%$]/ {print $1, $2}' | sort -u || true)"
+  if [ -z "$runs" ]; then
+    echo "no unit in $rootfs runs anything" >&2
+    return 1
+  fi
+  while read -r file program; do
+    [[ "$allowed" == *" $program "* ]] && continue
+    if [[ "$program" == /* ]]; then
+      exists_in_rootfs "$rootfs" "$program" && continue
+    else
+      # bare names resolve against the manager's fixed search path
+      for dir in /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin; do
+        exists_in_rootfs "$rootfs" "$dir/$program" && continue 2
+      done
+    fi
+    missing+="$file: $program"$'\n'
+  done <<<"$runs"
+  if [ -n "$missing" ]; then
+    printf 'units run programs the rootfs lacks:\n%s' "$missing" >&2
     return 1
   fi
 }
