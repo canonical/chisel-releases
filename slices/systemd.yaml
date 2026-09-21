@@ -369,10 +369,15 @@ slices:
   service-handlers:
     hint: System service handlers
     essential:
+      # sulogin falls back to /bin/sh when root's shell is missing
+      base-files_bin:
+      dash_bins:
       libc6_libs:
       libsystemd-shared_standard:
       systemd_config:
       systemd_system-generators:
+      # systemd-sulogin-shell hands the rescue and emergency shells to sulogin
+      util-linux_login:
     contents:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:
