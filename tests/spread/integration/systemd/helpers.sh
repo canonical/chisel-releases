@@ -36,7 +36,7 @@ boot_rootfs() {
 
   systemd_pid=""
   for _ in $(seq 1 100); do
-    systemd_pid="$(pgrep -P "$unshare_pid" || true)"
+    systemd_pid="$(pgrep -P "$unshare_pid"  -x "systemd"|| true)"
     [ -n "$systemd_pid" ] && break
     sleep 0.1
   done
