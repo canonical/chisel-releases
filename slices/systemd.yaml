@@ -487,8 +487,18 @@ slices:
       # the getty units run agetty wherever their tty exists, and fail without it
       util-linux_tty:
     contents:
+      # sockets.target.wants/systemd-ask-password.socket hands requests to it
+      /usr/bin/systemd-ask-password:
+      # the confext units run it
+      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
+      # sockets.target.wants/systemd-creds.socket hands requests to it
+      /usr/bin/systemd-creds:
       # sysinit.target.wants/systemd-machine-id-commit.service runs it
       /usr/bin/systemd-machine-id-setup:
+      # sockets.target.wants/systemd-sysext.socket and the sysext units run it
+      /usr/bin/systemd-sysext:
+      # the ask-password console and wall path units start it on each request
+      /usr/bin/systemd-tty-ask-password-agent:
       /usr/lib/lsb/init-functions.d/40-systemd:
       /usr/lib/systemd/system/basic.target:
       /usr/lib/systemd/system/blockdev@.target:
@@ -707,6 +717,8 @@ slices:
       libc6_libs:
       libsystemd-shared_standard:
     contents:
+      # sockets.target.wants/systemd-ask-password.socket hands requests to it
+      /usr/bin/systemd-ask-password:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
       /usr/lib/systemd/user/app.slice:
