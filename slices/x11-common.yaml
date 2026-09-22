@@ -8,10 +8,6 @@ slices:
     contents:
       /etc/X11/Xresources/x11-common:
 
-  services:
-    essential:
-      lsb-base_bins:
-
   copyright:
     contents:
       /usr/share/doc/x11-common/copyright:
