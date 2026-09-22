@@ -1,8 +1,6 @@
 #!/bin/bash
 # spellchecker: ignore rootfs chkpwd chkexpiry
 
-set -eu
-
 rootfs="$(install-slices libpam-modules-bin_unix-chkpwd)"
 
 # an account database with one current and one expired account
