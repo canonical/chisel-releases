@@ -7,6 +7,11 @@ variants:
     - standard-tools
     - dev
     - detect-virt
+    - ask-password
+    - creds
+    - machine-id-setup
+    - mute-console
+    - sysext
     - sysusers
     - tmpfiles
     - firstboot
