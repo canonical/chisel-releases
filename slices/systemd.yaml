@@ -104,17 +104,9 @@ slices:
       systemd_user-services:
     contents:
       /usr/bin/kernel-install:
-      /usr/bin/systemctl:
       /usr/bin/systemd-analyze:
       /usr/bin/systemd-escape:
-      /usr/bin/systemd-mute-console:
-      /usr/bin/systemd-notify:
       /usr/bin/systemd-pty-forward:
-      /usr/bin/systemd-sysusers:
-      /usr/bin/systemd-tmpfiles:
-      /usr/lib/systemd/systemd:
-      /usr/lib/systemd/systemd-executor:
-      /usr/lib/systemd/systemd-shutdown:
 
   dev:
     hint: Additional systemd utilities
@@ -127,23 +119,17 @@ slices:
     contents:
       /usr/bin/busctl:
       /usr/bin/systemd-ac-power:
-      /usr/bin/systemd-ask-password:
       /usr/bin/systemd-cat:
       /usr/bin/systemd-cgls:
       /usr/bin/systemd-cgtop:
-      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
-      /usr/bin/systemd-creds:
       /usr/bin/systemd-delta:
       /usr/bin/systemd-firstboot:
       /usr/bin/systemd-id128:
       /usr/bin/systemd-inhibit:
-      /usr/bin/systemd-machine-id-setup:
       /usr/bin/systemd-mount:
       /usr/bin/systemd-path:
       /usr/bin/systemd-socket-activate:
       /usr/bin/systemd-stdio-bridge:
-      /usr/bin/systemd-sysext:
-      /usr/bin/systemd-tty-ask-password-agent:
       /usr/bin/systemd-umount:  # Symlink to systemd-mount
       /usr/bin/systemd-vpick:
       /usr/bin/varlinkctl:
@@ -171,6 +157,50 @@ slices:
       libsystemd-shared_standard:
     contents:
       /usr/bin/systemd-detect-virt:
+
+  ask-password:
+    hint: Password prompts and their agent
+    essential:
+      libc6_libs:
+      libsystemd-shared_libsystemd-shared:
+    contents:
+      /usr/bin/systemd-ask-password:
+      /usr/bin/systemd-tty-ask-password-agent:
+
+  creds:
+    hint: Encrypt and decrypt service credentials
+    essential:
+      libc6_libs:
+      # it encrypts through libcrypto, which it only opens at runtime
+      libssl4_libs:
+      libsystemd-shared_minimal:
+    contents:
+      /usr/bin/systemd-creds:
+
+  machine-id-setup:
+    hint: Initialize the machine ID
+    essential:
+      libc6_libs:
+      libsystemd-shared_libsystemd-shared:
+    contents:
+      /usr/bin/systemd-machine-id-setup:
+
+  mute-console:
+    hint: Mute console output during prompts
+    essential:
+      libc6_libs:
+      libsystemd-shared_libsystemd-shared:
+    contents:
+      /usr/bin/systemd-mute-console:
+
+  sysext:
+    hint: Merge system and config extensions
+    essential:
+      libc6_libs:
+      libsystemd-shared_standard:
+    contents:
+      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
+      /usr/bin/systemd-sysext:
 
   # Standalone: applies sysusers.d fragments to a root of its choice, running
   # system or not, which is how an image build uses it.
@@ -213,6 +243,7 @@ slices:
       # systemd-creds encrypts the settings carried over to the new system,
       # and only this tier has the openssl it needs for that
       libsystemd-shared_dev:
+      systemd_creds:
       # the unit wants logind, and the final reboot is requested through it
       systemd_login:
       # TODO: systemd-boot-tools is unsliced
@@ -222,7 +253,6 @@ slices:
       # partitions the target disk and copies the OS onto it
       # systemd-repart_bins:
     contents:
-      /usr/bin/systemd-creds:
       /usr/bin/systemd-sysinstall:
       /usr/lib/systemd/system/system-install.target:
       /usr/lib/systemd/system/system-install.target.wants/systemd-sysinstall.service:
@@ -502,30 +532,20 @@ slices:
       libc-bin_ldconfig:
       libc6_libs:
       libsystemd-shared_standard:
+      systemd_ask-password:
+      systemd_core:
+      systemd_creds:
       systemd_generated-services:
+      # sysinit.target.wants/systemd-machine-id-commit.service runs it
+      systemd_machine-id-setup:
+      systemd_mute-console:
       # the binaries most of these units run, the boot-time ones included
       systemd_service-handlers:
-      systemd_sysusers:
-      systemd_tmpfiles:
+      systemd_sysext:
       # the getty units run agetty wherever their tty exists, and fail without it
       util-linux_tty:
     contents:
-      # sockets.target.wants/systemd-ask-password.socket hands requests to it
-      /usr/bin/systemd-ask-password:
-      # the confext units run it
-      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
-      # sockets.target.wants/systemd-creds.socket hands requests to it
-      /usr/bin/systemd-creds:
-      # sysinit.target.wants/systemd-machine-id-commit.service runs it
-      /usr/bin/systemd-machine-id-setup:
-      # systemd-mute-console@.service runs it
-      /usr/bin/systemd-mute-console:
-      # sockets.target.wants/systemd-sysext.socket and the sysext units run it
-      /usr/bin/systemd-sysext:
-      # the ask-password console and wall path units start it on each request
-      /usr/bin/systemd-tty-ask-password-agent:
       /usr/lib/lsb/init-functions.d/40-systemd:
-      /usr/lib/systemd/system/basic.target:
       /usr/lib/systemd/system/blockdev@.target:
       /usr/lib/systemd/system/bluetooth.target:
       /usr/lib/systemd/system/boot-complete.target:
@@ -541,24 +561,19 @@ slices:
       /usr/lib/systemd/system/cryptdisks.service:
       /usr/lib/systemd/system/ctrl-alt-del.target:
       /usr/lib/systemd/system/debug-shell.service:
-      /usr/lib/systemd/system/default.target:
       /usr/lib/systemd/system/dev-hugepages.mount:
       /usr/lib/systemd/system/dev-mqueue.mount:
       /usr/lib/systemd/system/emergency.service:
       /usr/lib/systemd/system/emergency.target:
-      /usr/lib/systemd/system/exit.target:
       /usr/lib/systemd/system/factory-reset-now.target:
       /usr/lib/systemd/system/factory-reset.target:
       /usr/lib/systemd/system/factory-reset.target.wants/systemd-factory-reset-request.service:
-      /usr/lib/systemd/system/final.target:
       /usr/lib/systemd/system/first-boot-complete.target:
       /usr/lib/systemd/system/getty-pre.target:
       /usr/lib/systemd/system/getty-static.service:
       /usr/lib/systemd/system/getty.target:
       /usr/lib/systemd/system/getty.target.wants/getty-static.service:
       /usr/lib/systemd/system/getty@.service:
-      /usr/lib/systemd/system/graphical.target:
-      /usr/lib/systemd/system/halt.target:
       /usr/lib/systemd/system/hibernate.target:
       /usr/lib/systemd/system/hwclock.service:
       /usr/lib/systemd/system/hybrid-sleep.target:
@@ -582,39 +597,27 @@ slices:
       /usr/lib/systemd/system/kexec.target:
       /usr/lib/systemd/system/kmod-static-nodes.service:
       /usr/lib/systemd/system/ldconfig.service:
-      /usr/lib/systemd/system/local-fs-pre.target:
-      /usr/lib/systemd/system/local-fs.target:
       /usr/lib/systemd/system/local-fs.target.wants/tmp.mount:
       /usr/lib/systemd/system/machine.slice:
       /usr/lib/systemd/system/modprobe@.service:
-      /usr/lib/systemd/system/multi-user.target:
       /usr/lib/systemd/system/multi-user.target.wants/getty.target:
       /usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path:
-      /usr/lib/systemd/system/network-online.target:
-      /usr/lib/systemd/system/network-pre.target:
-      /usr/lib/systemd/system/network.target:
       /usr/lib/systemd/system/nss-lookup.target:
       /usr/lib/systemd/system/nss-user-lookup.target:
-      /usr/lib/systemd/system/paths.target:
-      /usr/lib/systemd/system/poweroff.target:
       /usr/lib/systemd/system/printer.target:
       /usr/lib/systemd/system/proc-sys-fs-binfmt_misc.automount:
       /usr/lib/systemd/system/proc-sys-fs-binfmt_misc.mount:
       /usr/lib/systemd/system/quotaon-root.service:
       /usr/lib/systemd/system/quotaon@.service:
-      /usr/lib/systemd/system/reboot.target:
       /usr/lib/systemd/system/remote-fs-pre.target:
       /usr/lib/systemd/system/remote-fs.target:
       /usr/lib/systemd/system/rescue.service:
       /usr/lib/systemd/system/rescue.target:
       /usr/lib/systemd/system/rpcbind.target:
       /usr/lib/systemd/system/serial-getty@.service:
-      /usr/lib/systemd/system/shutdown.target:
       /usr/lib/systemd/system/sigpwr.target:
       /usr/lib/systemd/system/sleep.target:
-      /usr/lib/systemd/system/slices.target:
       /usr/lib/systemd/system/smartcard.target:
-      /usr/lib/systemd/system/sockets.target:
       /usr/lib/systemd/system/sockets.target.wants/systemd-ask-password.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-creds.socket:
       /usr/lib/systemd/system/sockets.target.wants/systemd-factory-reset.socket:
@@ -626,12 +629,10 @@ slices:
       /usr/lib/systemd/system/storage-target-mode.target:
       /usr/lib/systemd/system/suspend-then-hibernate.target:
       /usr/lib/systemd/system/suspend.target:
-      /usr/lib/systemd/system/swap.target:
       /usr/lib/systemd/system/sys-fs-fuse-connections.mount:
       /usr/lib/systemd/system/sys-kernel-config.mount:
       /usr/lib/systemd/system/sys-kernel-debug.mount:
       /usr/lib/systemd/system/sys-kernel-tracing.mount:
-      /usr/lib/systemd/system/sysinit.target:
       /usr/lib/systemd/system/sysinit.target.wants/dev-hugepages.mount:
       /usr/lib/systemd/system/sysinit.target.wants/dev-mqueue.mount:
       /usr/lib/systemd/system/sysinit.target.wants/imports.target:
@@ -648,10 +649,6 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev-early.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup-dev.service:
-      /usr/lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-update-done.service:
       /usr/lib/systemd/system/syslog.socket:
       /usr/lib/systemd/system/system-systemd\x2dmute\x2dconsole.slice:
@@ -675,7 +672,6 @@ slices:
       /usr/lib/systemd/system/systemd-confext.service:
       /usr/lib/systemd/system/systemd-creds.socket:
       /usr/lib/systemd/system/systemd-creds@.service:
-      /usr/lib/systemd/system/systemd-exit.service:
       /usr/lib/systemd/system/systemd-factory-reset-complete.service:
       /usr/lib/systemd/system/systemd-factory-reset-reboot.service:
       /usr/lib/systemd/system/systemd-factory-reset-request.service:
@@ -686,7 +682,6 @@ slices:
       /usr/lib/systemd/system/systemd-fsck@.service:
       /usr/lib/systemd/system/systemd-growfs-root.service:
       /usr/lib/systemd/system/systemd-growfs@.service:
-      /usr/lib/systemd/system/systemd-halt.service:
       /usr/lib/systemd/system/systemd-hibernate-clear.service:
       /usr/lib/systemd/system/systemd-hibernate-resume.service:
       /usr/lib/systemd/system/systemd-hibernate.service:
@@ -696,12 +691,10 @@ slices:
       /usr/lib/systemd/system/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/systemd-mute-console.socket:
       /usr/lib/systemd/system/systemd-mute-console@.service:
-      /usr/lib/systemd/system/systemd-poweroff.service:
       /usr/lib/systemd/system/systemd-pstore.service:
       /usr/lib/systemd/system/systemd-quotacheck-root.service:
       /usr/lib/systemd/system/systemd-quotacheck@.service:
       /usr/lib/systemd/system/systemd-random-seed.service:
-      /usr/lib/systemd/system/systemd-reboot.service:
       /usr/lib/systemd/system/systemd-remount-fs.service:
       /usr/lib/systemd/system/systemd-rfkill.service:
       /usr/lib/systemd/system/systemd-rfkill.socket:
@@ -715,22 +708,15 @@ slices:
       /usr/lib/systemd/system/systemd-sysext.service:
       /usr/lib/systemd/system/systemd-sysext.socket:
       /usr/lib/systemd/system/systemd-sysext@.service:
-      /usr/lib/systemd/system/systemd-sysusers.service:
       /usr/lib/systemd/system/systemd-tmpfiles-clean.service:
       /usr/lib/systemd/system/systemd-tmpfiles-clean.timer:
-      /usr/lib/systemd/system/systemd-tmpfiles-setup-dev-early.service:
-      /usr/lib/systemd/system/systemd-tmpfiles-setup-dev.service:
-      /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/systemd-update-done.service:
       /usr/lib/systemd/system/systemd-validatefs@.service:
       /usr/lib/systemd/system/systemd-volatile-root.service:
-      /usr/lib/systemd/system/time-set.target:
       /usr/lib/systemd/system/time-sync.target:
-      /usr/lib/systemd/system/timers.target:
       /usr/lib/systemd/system/timers.target.wants/systemd-tmpfiles-clean.timer:
       /usr/lib/systemd/system/tmp.mount:
       /usr/lib/systemd/system/tpm2.target:
-      /usr/lib/systemd/system/umount.target:
       /usr/lib/systemd/system/usb-gadget.target:
       /usr/lib/systemd/system/user-.slice.d/10-defaults.conf:
       /usr/lib/systemd/system/user.slice:
@@ -741,11 +727,10 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_standard:
+      systemd_ask-password:
       # the user tmpfiles units run it
       systemd_tmpfiles:
     contents:
-      # sockets.target.wants/systemd-ask-password.socket hands requests to it
-      /usr/bin/systemd-ask-password:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
       /usr/lib/systemd/user/app.slice:

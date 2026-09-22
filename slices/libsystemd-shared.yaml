@@ -7,8 +7,9 @@ slices:
   # The link table is libc and nothing else; every other library is reached
   # through a dlopen gate, so the shared objects sit in a slice of their own
   # and the tiers below add only dependencies. Each tier matches the systemd
-  # slice of the same name, which is the only consumer. libs is for everyone
-  # else, and lands on standard.
+  # slice of the same name, which is the only consumer; a systemd slice whose
+  # programs open no gate takes the shared objects alone. libs is for
+  # everyone else, and lands on standard.
   libs:
     hint: Systemd internal libraries
     essential:
