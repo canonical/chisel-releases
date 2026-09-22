@@ -1,13 +1,13 @@
 #!/bin/bash
 #spellchecker: ignore rootfs nsystemctl sysctl sysusers tmpfiles
 
-# What systemd_system-services adds on top of minimal: the stock system units,
+# What systemd_system-services adds on top of core: the stock system units,
 # each with the program it runs, so a boot on them alone fails none of them.
 
 # shellcheck source=tests/spread/integration/systemd/helpers.sh
 . ./helpers.sh
 
-rootfs="$(install-slices systemd_system-services systemd_minimal)"
+rootfs="$(install-slices systemd_system-services)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
