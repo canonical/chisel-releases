@@ -240,9 +240,8 @@ slices:
     hint: Install the running system onto a disk
     essential:
       libc6_libs:
-      # systemd-creds encrypts the settings carried over to the new system,
-      # and only this tier has the openssl it needs for that
-      libsystemd-shared_dev:
+      libsystemd-shared_libsystemd-shared:
+      # encrypts the settings carried over to the new system
       systemd_creds:
       # the unit wants logind, and the final reboot is requested through it
       systemd_login:
