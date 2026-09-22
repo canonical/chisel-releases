@@ -28,3 +28,11 @@ test "$(readlink "$img/var/run")" = "../run"
 test "$(stat -c '%a' "$img/etc/chisel.conf")" = "640"
 grep -Fxq "chisel" "$img/etc/chisel.conf"
 test ! -e "$img/var/lib/stale"
+umount "$rootfs/proc"
+clean-rootfs "$rootfs"
+
+# with the fragments systemd ships, those are the ones it reads
+rootfs="$(install-slices systemd_tmpfiles systemd_tmpfiles-config)"
+mkdir -p "$rootfs/proc"
+mount --bind /proc "$rootfs/proc"
+chroot "$rootfs" systemd-tmpfiles --cat-config | grep -Fq "/usr/lib/tmpfiles.d/20-systemd-varlink.conf"

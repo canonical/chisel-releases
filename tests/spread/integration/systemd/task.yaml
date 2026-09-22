@@ -4,8 +4,8 @@ variants:
     - minimal
     - core
     - standard
-    - standard-tools
     - dev
+    - config
     - detect-virt
     - ask-password
     - creds
