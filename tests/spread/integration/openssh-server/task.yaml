@@ -1,4 +1,8 @@
-summary: Integration and ablation tests for openssh-server
+summary: End-to-end and ablation tests for openssh-server
+
+environment:
+  TEST_SCRIPT/e2e: test_e2e.sh
+  TEST_SCRIPT/ablation: test_ablation.sh
 
 execute: |
-  bash ./test_ablation.sh
+  bash "./$TEST_SCRIPT"
