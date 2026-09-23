@@ -20,7 +20,7 @@ slices:
     essential:
       libc6_libs:
       libpython3.14-minimal_config:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/lib/python3.14/__future__.py:
       /usr/lib/python3.14/_ast_unparse.py:
