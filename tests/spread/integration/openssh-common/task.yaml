@@ -1,13 +1,18 @@
 summary: Integration tests for openssh-common
 
 execute: |
+  set -euo pipefail
   rootfs="$(install-slices openssh-common_bins)"
   mkdir -p "$rootfs/tmp"
 
-  chroot "$rootfs" /usr/bin/ssh-keygen -q -t ed25519 -N '' -f /tmp/test-key
-  test -s "$rootfs/tmp/test-key"
-  chroot "$rootfs" /usr/bin/ssh-keygen -lf /tmp/test-key.pub | MATCH 'ED25519'
+  chroot "$rootfs" /usr/bin/ssh-keygen -q -t ed25519 -N '' -f /tmp/key
+  chroot "$rootfs" /usr/bin/ssh-keygen -lf /tmp/key.pub | MATCH 'ED25519'
 
-  # The helpers need a PKCS#11 token or FIDO device for a full operation.
-  test -x "$rootfs/usr/lib/openssh/ssh-pkcs11-helper"
-  test -x "$rootfs/usr/lib/openssh/ssh-sk-helper"
+  # Hardware-backed operations need a token; -h still runs each helper and
+  # checks its expected usage response and exit code.
+  for helper in ssh-pkcs11-helper ssh-sk-helper; do
+    status=0
+    output="$(chroot "$rootfs" "/usr/lib/openssh/$helper" -h 2>&1)" || status=$?
+    test "$status" -eq 1
+    test "$output" = "usage: $helper [-v]"
+  done
