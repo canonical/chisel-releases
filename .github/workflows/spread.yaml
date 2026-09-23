@@ -80,9 +80,11 @@ jobs:
           do
             pkg_name=$(basename $file | sed 's/\.yaml//g')
             pkg_tests="${{ env.integration-tests }}/${pkg_name}"
-            if [ -f "${pkg_tests}/task.yaml" ] && [[ $spread_tasks != *"${pkg_tests}"* ]]
+            task="${{ env.backend }}:${pkg_tests}"
+            # Match whole task names; unversioned names may prefix versioned ones.
+            if [ -f "${pkg_tests}/task.yaml" ] && [[ " ${spread_tasks} " != *" ${task} "* ]]
             then
-              spread_tasks="${spread_tasks} ${{ env.backend }}:${pkg_tests}"
+              spread_tasks="${spread_tasks} ${task}"
             fi
           done
 
