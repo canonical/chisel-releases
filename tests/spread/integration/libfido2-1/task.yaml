@@ -1,0 +1,8 @@
+summary: Integration tests for libfido2-1
+
+execute: |
+  rootfs="$(install-slices libfido2-1_libs)"
+  test -L "$rootfs"/usr/lib/*-linux-gnu/libfido2.so.1
+  for library in "$rootfs"/usr/lib/*-linux-gnu/libfido2.so.1.*; do
+    file "$library" | MATCH 'ELF'
+  done

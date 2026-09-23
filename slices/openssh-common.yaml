@@ -1,0 +1,20 @@
+package: openssh-common
+
+essential:
+  openssh-common_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libfido2-1_libs:
+      libselinux1_libs:
+      libssl4_libs:
+    contents:
+      /usr/bin/ssh-keygen:
+      /usr/lib/openssh/ssh-pkcs11-helper:
+      /usr/lib/openssh/ssh-sk-helper:
+
+  copyright:
+    contents:
+      /usr/share/doc/openssh-common/copyright:

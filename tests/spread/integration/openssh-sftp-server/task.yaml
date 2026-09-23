@@ -1,0 +1,12 @@
+summary: Integration tests for openssh-sftp-server
+
+execute: |
+  rootfs="$(install-slices openssh-sftp-server_bins)"
+
+  # An INIT request with protocol version 3 must receive a VERSION reply.
+  for program in /usr/lib/openssh/sftp-server /usr/lib/sftp-server; do
+    reply="$(printf '\000\000\000\005\001\000\000\000\003' | chroot "$rootfs" "$program" | od -An -tu1 -N9)"
+    read -r size1 size2 size3 size4 type version1 version2 version3 version4 <<< "$reply"
+    test "$type" -eq 2
+    test "$version4" -eq 3
+  done

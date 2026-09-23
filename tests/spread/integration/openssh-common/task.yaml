@@ -1,0 +1,13 @@
+summary: Integration tests for openssh-common
+
+execute: |
+  rootfs="$(install-slices openssh-common_bins)"
+  mkdir -p "$rootfs/tmp"
+
+  chroot "$rootfs" /usr/bin/ssh-keygen -q -t ed25519 -N '' -f /tmp/test-key
+  test -s "$rootfs/tmp/test-key"
+  chroot "$rootfs" /usr/bin/ssh-keygen -lf /tmp/test-key.pub | MATCH 'ED25519'
+
+  # The helpers need a PKCS#11 token or FIDO device for a full operation.
+  test -x "$rootfs/usr/lib/openssh/ssh-pkcs11-helper"
+  test -x "$rootfs/usr/lib/openssh/ssh-sk-helper"

@@ -1,0 +1,12 @@
+summary: Integration tests for openssh-server
+
+execute: |
+  rootfs="$(install-slices openssh-server_bins openssh-server_config)"
+  chroot "$rootfs" /usr/sbin/sshd -G -f /usr/share/openssh/sshd_config | MATCH 'port 22'
+  test -x "$rootfs/usr/lib/openssh/sshd-auth"
+  test -x "$rootfs/usr/lib/openssh/sshd-session"
+  test -x "$rootfs/usr/lib/systemd/system-generators/sshd-socket-generator"
+
+  rootfs="$(install-slices openssh-server_services)"
+  test -f "$rootfs/usr/lib/systemd/system/ssh.service"
+  test -f "$rootfs/usr/lib/systemd/system/ssh.socket"
