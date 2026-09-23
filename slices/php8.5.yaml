@@ -6,11 +6,11 @@ essential:
 slices:
   core:
     essential:
-      php8.5-cli_core:
+      php8.5-cli_core: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
 
   standard:
     essential:
-      php8.5-cli_standard:
+      php8.5-cli_standard: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
 
   copyright:
     contents:

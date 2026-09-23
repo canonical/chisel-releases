@@ -1,8 +1,31 @@
 summary: Integration tests for systemd
 
 variants:
+    - minimal
+    - core
     - standard
+    - dev
+    - config
     - detect-virt
+    - ask-password
+    - creds
+    - machine-id-setup
+    - mute-console
+    - sysext
+    - sysusers
+    - tmpfiles
+    - firstboot
+    - sysinstall
     - run0
+    - journal
+    - login
+    - hostname
+    - locale
+    - timedate
+    - network
+    - service-handlers
+    - system-services
+    - user-services
+    - unit-programs
 
-execute: bash -ex ./test_${SPREAD_VARIANT}.sh
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
