@@ -8,8 +8,8 @@ execute: |
   chroot "$rootfs" /usr/bin/ssh-keygen -q -t ed25519 -N '' -f /tmp/key
   chroot "$rootfs" /usr/bin/ssh-keygen -lf /tmp/key.pub | MATCH 'ED25519'
 
-  # Hardware-backed operations need a token; -h still runs each helper and
-  # checks its expected usage response and exit code.
+  # These are OpenSSH internal helpers, not commands for users to invoke directly.
+  # Without a hardware token, check each helper's usage response and exit code.
   for helper in ssh-pkcs11-helper ssh-sk-helper; do
     status=0
     output="$(chroot "$rootfs" "/usr/lib/openssh/$helper" -h 2>&1)" || status=$?
