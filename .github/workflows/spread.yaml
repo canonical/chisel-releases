@@ -110,7 +110,7 @@ jobs:
         with:
           ref: main
           path: ${{ env.main-branch-path }}
-
+      
       - name: Create json coverage report
         if: ${{ steps.run-spread.conclusion == 'success' }}
         id: json-coverage-report
@@ -143,7 +143,7 @@ jobs:
         with:
           ref: main
           path: ${{ env.main-branch-path }}
-
+      
       - name: Download coverage reports
         uses: actions/download-artifact@v4
         with:
@@ -156,7 +156,7 @@ jobs:
           set -ex
           ln -s "${{ env.main-branch-path }}/.github/scripts/test-coverage/coverage-to-md" coverage-to-md
           ./coverage-to-md $(ls coverage-reports/*.json | xargs) > coverage-summary.md
-
+    
       - name: Upload comment to PR
         if: ${{ github.event.pull_request }}
         uses: canonical/chisel-releases/.github/actions/upload-pr-comment@main
