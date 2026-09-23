@@ -26,8 +26,13 @@ slices:
       zlib1g_libs:
     contents:
       /usr/lib/openssh/ssh-session-cleanup:
+      # OpenSSH 9.8 (Ubuntu 25.04) split sshd-session from the sshd listener;
+      # OpenSSH 10.0 (Ubuntu 25.10) split authentication into sshd-auth.
+      # All three are needed to serve SSH connections.
       /usr/lib/openssh/sshd-auth:
       /usr/lib/openssh/sshd-session:
+      # Ubuntu's socket generator (since 24.04) applies sshd listen settings
+      # to ssh.socket when systemd socket activation is used.
       /usr/lib/systemd/system-generators/sshd-socket-generator:
       /usr/sbin/sshd:
 
