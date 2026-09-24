@@ -497,7 +497,6 @@ slices:
       /usr/lib/sysctl.d/10-coredump-debian.conf:
       /usr/lib/systemd/initrd-preset/90-systemd.preset:
       /usr/lib/systemd/initrd-preset/99-default.preset:
-      /usr/lib/systemd/journald.conf.d/syslog.conf:
       /usr/lib/systemd/profile.d/70-systemd-shell-extra.sh:
       /usr/lib/systemd/profile.d/80-systemd-osc-context.sh:
       /usr/lib/systemd/ssh_config.d/20-systemd-ssh-proxy.conf:
@@ -556,8 +555,6 @@ slices:
       /usr/lib/systemd/system/capsule@.service:
       /usr/lib/systemd/system/console-getty.service:
       /usr/lib/systemd/system/container-getty@.service:
-      /usr/lib/systemd/system/cryptdisks-early.service:
-      /usr/lib/systemd/system/cryptdisks.service:
       /usr/lib/systemd/system/ctrl-alt-del.target:
       /usr/lib/systemd/system/debug-shell.service:
       /usr/lib/systemd/system/dev-hugepages.mount:
@@ -719,7 +716,6 @@ slices:
       /usr/lib/systemd/system/usb-gadget.target:
       /usr/lib/systemd/system/user-.slice.d/10-defaults.conf:
       /usr/lib/systemd/system/user.slice:
-      /usr/lib/systemd/system/x11-common.service:
 
   user-services:
     hint: User units and targets
