@@ -26,8 +26,6 @@ slices:
       # All three are needed to serve SSH connections.
       /run/sshd/: {make: true, mode: 0755}
       /usr/lib/openssh/sshd-auth:
-      # Ubuntu's socket generator (since 24.04) applies sshd listen settings
-      # to ssh.socket when systemd socket activation is used.
       /usr/lib/openssh/sshd-session:
       /usr/sbin/sshd:
 
@@ -65,8 +63,8 @@ slices:
       /usr/lib/systemd/system/ssh.service:
       /usr/lib/systemd/system/ssh.socket:
 
-  # carries the sshd_config listen settings over to ssh.socket
   socket-generator:
+    hint: Listen settings for ssh.socket
     essential:
       libaudit1_libs:
       libc6_libs:
