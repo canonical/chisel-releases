@@ -21,8 +21,13 @@ slices:
       openssh-sftp-server_bins:
       zlib1g_libs:
     contents:
+      # OpenSSH 9.8 (Ubuntu 25.04) split sshd-session from the sshd listener;
+      # OpenSSH 10.0 (Ubuntu 25.10) split authentication into sshd-auth.
+      # All three are needed to serve SSH connections.
       /run/sshd/: {make: true, mode: 0755}
       /usr/lib/openssh/sshd-auth:
+      # Ubuntu's socket generator (since 24.04) applies sshd listen settings
+      # to ssh.socket when systemd socket activation is used.
       /usr/lib/openssh/sshd-session:
       /usr/sbin/sshd:
 
