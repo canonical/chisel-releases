@@ -1,0 +1,86 @@
+summary: Integration tests for smartmontools
+
+execute: |
+  # smartmontools_bins -- smartctl and smartd, plus the drive presets database
+  # they pull in through smartmontools_drivedb.
+  rootfs="$(install-slices smartmontools_bins)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  out="$(chroot "${rootfs}" /usr/sbin/smartctl --version)"
+  echo "${out}" | grep -Fq "smartctl 7.5"
+  out="$(chroot "${rootfs}" /usr/sbin/smartctl -h)"
+  echo "${out}" | grep -Fq "Usage: smartctl"
+
+  # The presets database has to be readable at the path the binaries look at,
+  # /var/lib/smartmontools/drivedb/drivedb.h. "Entries read from file(s)" counts
+  # only the entries parsed out of that file, not the ones compiled into
+  # smartctl, so a non-zero count proves the drivedb slice landed and parses.
+  out="$(chroot "${rootfs}" /usr/sbin/smartctl -P showall)"
+  echo "${out}" | grep -Eq "Entries read from file\(s\): +[1-9][0-9]*"
+
+  # Device enumeration works even when the chroot exposes no disks.
+  chroot "${rootfs}" /usr/sbin/smartctl --scan
+  chroot "${rootfs}" /usr/sbin/smartctl --scan-open
+
+  # A non-disk target is rejected by the device-detection layer.
+  out="$(chroot "${rootfs}" /usr/sbin/smartctl -i /dev/null 2>&1 || true)"
+  echo "${out}" | grep -Fiq "unable to detect device type"
+
+  # smartd parses a config file and exits with 17 ("no devices to monitor") in a
+  # chroot with no SMART-capable disks.
+  printf '# no directives\n' > "${rootfs}/test.conf"
+  rc=0
+  out="$(chroot "${rootfs}" /usr/sbin/smartd -c /test.conf -q onecheck 2>&1)" || rc=$?
+  test "${rc}" -eq 17
+  echo "${out}" | grep -Fq "Opened configuration file /test.conf"
+  echo "${out}" | grep -Fiq "parsed but has no entries"
+
+  # smartmontools_config -- the shipped smartd.conf has to be the one smartd
+  # picks up by default.
+  rootfs="$(install-slices smartmontools_bins smartmontools_config)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  test -s "${rootfs}/etc/default/smartmontools"
+  rc=0
+  out="$(chroot "${rootfs}" /usr/sbin/smartd -q onecheck 2>&1)" || rc=$?
+  test "${rc}" -eq 17
+  echo "${out}" | grep -Fq "Opened configuration file /etc/smartd.conf"
+  echo "${out}" | grep -Fq "found DEVICESCAN"
+
+  # smartmontools_scripts -- smartd's warning delivery machinery.
+  rootfs="$(install-slices smartmontools_scripts)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  # smartd-runner runs whatever is dropped into /etc/smartmontools/run.d.
+  chroot "${rootfs}" /usr/share/smartmontools/smartd-runner
+  printf '#!/bin/sh\necho ran > /marker-runner\n' \
+    > "${rootfs}/etc/smartmontools/run.d/50chisel"
+  chmod 755 "${rootfs}/etc/smartmontools/run.d/50chisel"
+  chroot "${rootfs}" /usr/share/smartmontools/smartd-runner
+  grep -Fxq "ran" "${rootfs}/marker-runner"
+
+  # smartd_warning.sh formats the notification. --dryrun prints the mailer
+  # invocation instead of running it, so no MTA is needed.
+  out="$(SMARTD_ADDRESS=root SMARTD_MESSAGE="chisel test message" \
+    SMARTD_FAILTYPE=EmailTest SMARTD_PREVCNT=0 SMARTD_DEVICEINFO="chisel device" \
+    chroot "${rootfs}" /usr/share/smartmontools/smartd_warning.sh --dryrun)"
+  echo "${out}" | grep -Fq "SMART error (EmailTest) detected on host:"
+  echo "${out}" | grep -Fq "chisel test message"
+  echo "${out}" | grep -Fq "chisel device"
+
+  # The @<name> address form runs a plugin from /etc/smartmontools/smartd_warning.d.
+  printf '#!/bin/sh\nprintf "%%s" "$SMARTD_SUBJECT" > /marker-plugin\n' \
+    > "${rootfs}/etc/smartmontools/smartd_warning.d/chiselplug"
+  chmod 755 "${rootfs}/etc/smartmontools/smartd_warning.d/chiselplug"
+  SMARTD_ADDRESS="@chiselplug" SMARTD_MESSAGE="chisel test message" \
+    SMARTD_FAILTYPE=EmailTest SMARTD_PREVCNT=0 SMARTD_DEVICEINFO="chisel device" \
+    chroot "${rootfs}" /usr/share/smartmontools/smartd_warning.sh
+  grep -Fq "SMART error (EmailTest) detected on host:" "${rootfs}/marker-plugin"
+
+  # smartmontools_services -- the unit file and everything it references.
+  rootfs="$(install-slices smartmontools_services)"
+  unit="${rootfs}/usr/lib/systemd/system/smartmontools.service"
+  grep -Fq "ExecStart=/usr/sbin/smartd" "${unit}"
+  grep -Fq "EnvironmentFile=-/etc/default/smartmontools" "${unit}"
+  test -x "${rootfs}/usr/sbin/smartd"
+  test -s "${rootfs}/etc/default/smartmontools"
