@@ -3,6 +3,7 @@
 cleanup_sshd() {
   if [ -n "${sshd_pid:-}" ]; then
     kill "$sshd_pid" || true
+    wait "$sshd_pid" || true
     cat "$sshd_rootfs/sshd.log"
   fi
 }
