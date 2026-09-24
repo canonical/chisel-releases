@@ -5,11 +5,6 @@ essential:
 
 slices:
   bins:
-    # openssh-client depends on adduser as well to create or update
-    # the ssh agent user during package install - however we
-    # don't support this currently so adduser is not added here.
-    # Likewise, the init-system-helpers dependency is for the postinst
-    # script to configure systemd for the socket.
     essential:
       libc6_libs:
       libedit2_libs:
