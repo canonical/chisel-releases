@@ -4,5 +4,6 @@ variants:
   - sshd
   - ssh-session-cleanup
   - config
+  - socket-generator
 
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh

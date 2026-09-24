@@ -54,10 +54,22 @@ slices:
   services:
     essential:
       init-system-helpers_scripts:
+      openssh-server_socket-generator:
     contents:
       /usr/lib/systemd/system/rescue-ssh.target:
       /usr/lib/systemd/system/ssh.service:
       /usr/lib/systemd/system/ssh.socket:
+
+  # carries the sshd_config listen settings over to ssh.socket
+  socket-generator:
+    essential:
+      libaudit1_libs:
+      libc6_libs:
+      libssl4_libs:
+      openssh-server_config:
+      zlib1g_libs:
+    contents:
+      /usr/lib/systemd/system-generators/sshd-socket-generator:
 
   copyright:
     essential:
