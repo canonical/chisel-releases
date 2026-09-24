@@ -14,7 +14,7 @@ grep -Fxq "ListenStream=0.0.0.0:2222" "$rootfs/gen/ssh.socket.d/addresses.conf"
 # ssh.service checks the config, then serves the socket ssh.socket hands it;
 # systemd-socket-activate stands in for ssh.socket from a rootfs of its own
 chroot "$rootfs" /usr/sbin/sshd -t
-sysroot="$(install-slices systemd_dev coreutils-from-gnu_chroot)"
+sysroot="$(install-slices systemd_socket-activate coreutils-from-gnu_chroot)"
 mkdir "$sysroot/sshd-root"
 mount --bind "$rootfs" "$sysroot/sshd-root"
 trap 'cleanup_sshd; umount "$sysroot/sshd-root"' EXIT
