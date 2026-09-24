@@ -57,6 +57,7 @@ slices:
   services:
     essential:
       init-system-helpers_scripts:
+      openssh-server_bins:
       openssh-server_socket-generator:
     contents:
       /usr/lib/systemd/system/rescue-ssh.target:
