@@ -1,0 +1,11 @@
+summary: Integration tests for python3-pytest
+
+execute: |
+  rootfs="$(install-slices python3-pytest_bins)"
+
+  # make artificial /dev/null for testing
+  mkdir "$rootfs/dev"
+  touch "$rootfs/dev/null"
+
+  cp sample.py "$rootfs/"
+  chroot ${rootfs} pytest sample.py | grep "1 passed"
