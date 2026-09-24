@@ -1,0 +1,25 @@
+package: cpp-11
+
+essential:
+  - cpp-11_copyright
+
+slices:
+  cc1:
+    essential:
+      - libc6-dev_headers
+      - libc6_libs
+      - libgmp10_libs
+      - libisl23_libs
+      - libmpc3_libs
+      - libmpfr6_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/gcc/*-linux-*/11/cc1:
+
+  copyright:
+    essential:
+      - gcc-11-base_copyright
+    contents:
+      # Symlink to gcc-11-base
+      /usr/share/doc/cpp-11:
