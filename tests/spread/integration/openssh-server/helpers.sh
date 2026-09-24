@@ -3,6 +3,7 @@
 cleanup_sshd() {
   if [ -n "${sshd_pid:-}" ]; then
     kill "$sshd_pid" || true
+    wait "$sshd_pid" || true
     cat "$sshd_rootfs/sshd.log"
   fi
 }
@@ -36,6 +37,10 @@ start_sshd() {
   chroot "$sshd_rootfs" /usr/sbin/sshd -D -e -p 2222 -f /etc/ssh/sshd_config \
     2> "$sshd_rootfs/sshd.log" &
   sshd_pid=$!
+  wait_sshd
+}
+
+wait_sshd() {
   for _ in $(seq 60); do
     : 2> /dev/null > /dev/tcp/127.0.0.1/2222 && break
     kill -0 "$sshd_pid"
