@@ -19,3 +19,14 @@ chroot "$rootfs" /usr/sbin/sshd -t -f /etc/ssh/sshd_config
 start_sshd "$rootfs"
 chroot "$rootfs" ssh "${ssh_opts[@]}" tester@127.0.0.1 'echo "hello from $SSH_CONNECTION"' \
   | grep -Fq "hello from 127.0.0.1 "
+
+# and the login needs each of them
+for helper in sshd-session sshd-auth; do
+  mv "$rootfs/usr/lib/openssh/$helper" "$rootfs/$helper"
+  if chroot "$rootfs" ssh "${ssh_opts[@]}" tester@127.0.0.1 true; then
+    echo "login worked without $helper" >&2
+    exit 1
+  fi
+  mv "$rootfs/$helper" "$rootfs/usr/lib/openssh/$helper"
+done
+chroot "$rootfs" ssh "${ssh_opts[@]}" tester@127.0.0.1 true
