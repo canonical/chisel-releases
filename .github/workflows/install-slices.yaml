@@ -5,12 +5,14 @@ on:
     branches:
       - "main"
     paths:
+      - ".github/scripts/affected-slices/**"
       - ".github/scripts/install-slices/**"
       - ".github/workflows/install-slices.yaml"
   pull_request:
     branches:
       - "main"
     paths:
+      - ".github/scripts/affected-slices/**"
       - ".github/scripts/install-slices/**"
       - ".github/workflows/install-slices.yaml"
   schedule:
@@ -102,6 +104,7 @@ jobs:
               # install all the slices for that release only
               targetref="${{ github.ref_name }}"
               RELEASES="$(echo $RELEASES_COMPATIBILITY | jq --arg ref "$ref" '[.[] | select(.ref == $ref)]')"
+              echo "install_all=true" >> $GITHUB_OUTPUT
             else
               # Filter the releases to only the affected branch, then swap the ref
               # such that the correct branch is tested.
@@ -126,12 +129,10 @@ jobs:
   # The "install" job tests the slices by installing them.
   # It installs **all** slices if:
   #   - chisel.yaml is changed
-  #   - any slice definition files are deleted
   #   - github workflows (and related files) are changed
-  # Otherwise, it installs only the slices from **added** and/or
-  # **modified** slice definition files.
-  # Please note that "change" is defined to encompass additions,
-  # modifications and deletions here.
+  # Otherwise, it installs the slices of every package with an affected
+  # slice, i.e. an added or modified slice, or one which depends, directly
+  # or transitively, on an added, modified or removed slice.
   install:
     runs-on: ubuntu-latest
     name: "Install"
@@ -148,24 +149,6 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ matrix.ref }}
-
-      - name: Check changed paths
-        id: changed-paths
-        if: env.install-all != 'true'
-        uses: dorny/paths-filter@v3
-        with:
-          # ref: https://github.com/marketplace/actions/paths-changes-filter
-          filters: |
-            install-all:
-              - 'chisel.yaml'
-              - deleted: 'slices/**/*.yaml'
-              - '.github/**'
-            slices:
-              - added|modified: 'slices/**/*.yaml'
-          # Space delimited list usable as command-line argument list in
-          # Linux shell. If needed, it uses single or double quotes to
-          # wrap filename with unsafe characters.
-          list-files: shell
 
       - name: Setup Go environment
         uses: actions/setup-go@v5
@@ -184,6 +167,7 @@ jobs:
       - name: Install dependencies
         env:
           script-dir: "${{ env.main-branch-path }}/.github/scripts/install-slices"
+          affected-script-dir: "${{ env.main-branch-path }}/.github/scripts/affected-slices"
         run: |
           set -ex
 
@@ -192,13 +176,25 @@ jobs:
           # so `chisel version` always returns "unknown".
           go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
 
-          # Install dependencies of the install_slices script
+          # Install dependencies of the install_slices and affected_slices scripts
           sudo apt-get -y update
           sudo apt-get install -y $(cat "${{ env.script-dir }}/deb-requirements.txt")
           pip install -r "${{ env.script-dir }}/requirements.txt"
+          pip install -r "${{ env.affected-script-dir }}/requirements.txt"
 
-          # Configure the path of install_slices script
+          # Configure the paths of install_slices and affected_slices scripts
           ln -s "${{ env.script-dir }}/install_slices.py" install-slices
+          ln -s "${{ env.affected-script-dir }}/affected_slices.py" affected-slices
+
+      - name: Find affected slices
+        run: |
+          set -ex
+          # On a PR merge commit, the first parent is the tip of the base branch.
+          ./affected-slices \
+            --release ./ \
+            --base HEAD^1 \
+            --all="${{ env.install-all }}" \
+            > affected.json
 
       # TODO: As we are installing the slices for every (ref, arch), when
       #   installing all slices, we are also checking the existence of every
@@ -212,27 +208,14 @@ jobs:
           WORKERS: 20
         run: |
           set -ex
-          if [[
-            "${{ env.install-all }}" == "true" ||
-            "${{ steps.changed-paths.outputs.install-all }}" == "true"
-          ]]; then
-            # Install all slices in slices/ dir.
-            # We need to enable globstar to use the ** patterns below.
-            shopt -s globstar
+          mapfile -t files < <(jq -r '.files[]' affected.json)
+          if [[ ${#files[@]} -gt 0 ]]; then
             ./install-slices --arch "${{ matrix.arch }}" --release ./ \
               --ensure-existence \
               --ignore-missing \
               --chisel-version "${{ matrix.chisel-version }}" \
               --workers "${WORKERS}" \
-              slices/**/*.yaml
-          elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
-            # Install slices from changed files.
-            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
-              --ensure-existence \
-              --ignore-missing \
-              --chisel-version "${{ matrix.chisel-version }}" \
-              --workers "${WORKERS}" \
-              ${{ steps.changed-paths.outputs.slices_files }}
+              "${files[@]}"
           fi
 
       - name: Check installation errors
