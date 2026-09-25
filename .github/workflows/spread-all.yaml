@@ -1,0 +1,64 @@
+name: Spread (all)
+run-name: Spread (all) for ${{ github.ref }}
+
+# Runs every spread job instead of only the changed suites, for the combined
+# 26.10 test PR. The jobs are dealt round-robin into shards so that each shard
+# fits the 6h job limit on the slower arches.
+
+on:
+  workflow_call:
+
+jobs:
+  spread-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: >-
+          ${{ github.repository_owner == 'canonical'
+          && fromJSON('[
+          {"name": "X64", "runs-on": "self-hosted-linux-amd64-noble-large"},
+          {"name": "ARM64", "runs-on": "self-hosted-linux-arm64-noble-medium"},
+          {"name": "S390X", "runs-on": "self-hosted-linux-s390x-noble-medium"},
+          {"name": "PPC64EL", "runs-on": "self-hosted-linux-ppc64el-noble-edge"}
+          ]')
+          || fromJSON('[
+          {"name": "X64", "runs-on": "ubuntu-24.04"},
+          {"name": "ARM64", "runs-on": "ubuntu-24.04-arm"}
+          ]') }}
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    name: Run Spread tests | ${{ matrix.runner.name }} | ${{ matrix.shard }}
+    runs-on: ${{ matrix.runner.runs-on }}
+    env:
+      MANIFESTS_EXPORT_DIR: /usr/share/manifests
+      SHARDS: 12
+      SHARD: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          repository: snapcore/spread
+          path: _spread
+
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16  # v6.5.0
+        with:
+          go-version: '>=1.17.0'
+          architecture: ${{ matrix.runner.name == 'PPC64EL' && 'ppc64le' || '' }}
+          cache: false
+
+      - name: Install LXD
+        uses: canonical/setup-lxd@v0.1.1
+        with:
+          channel: 5.21/stable
+
+      - name: Build and run spread
+        run: |
+          set -ex
+          (cd _spread/cmd/spread && go build)
+          sudo mkdir -p "$MANIFESTS_EXPORT_DIR" && sudo chown "$USER:$USER" "$MANIFESTS_EXPORT_DIR"
+          _spread/cmd/spread/spread -list lxd: \
+            | awk -v n="$SHARDS" -v s="$SHARD" '(NR - 1) % n == s' > shard-jobs
+          wc -l shard-jobs
+          if [ -s shard-jobs ]; then
+            _spread/cmd/spread/spread -v $(cat shard-jobs)
+          fi
