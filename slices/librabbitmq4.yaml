@@ -9,7 +9,9 @@ slices:
       libc6_libs:
       libssl3t64_libs:
     contents:
-      /usr/lib/*-linux-*/librabbitmq.so.*:
+      # the real file is librabbitmq.so.0.15.0; librabbitmq.so.4 links to it
+      /usr/lib/*-linux-*/librabbitmq.so.0*:
+      /usr/lib/*-linux-*/librabbitmq.so.4*:
 
   copyright:
     contents:
