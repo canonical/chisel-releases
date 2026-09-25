@@ -1,0 +1,15 @@
+package: libllhttp9.4
+
+essential:
+  libllhttp9.4_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libllhttp.so.9.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libllhttp9.4/copyright:

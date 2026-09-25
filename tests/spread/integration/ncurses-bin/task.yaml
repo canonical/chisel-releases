@@ -1,0 +1,39 @@
+summary: Integration tests for ncurses-bin
+
+execute: |
+  # ncurses-bin_bins: one fresh rootfs; ncurses-base_terminfo provides the database.
+  rootfs="$(install-slices ncurses-bin_bins ncurses-base_terminfo)"
+
+  # tic -V prints the ncurses version; captoinfo and infotocap are symlinks to tic.
+  chroot "$rootfs" tic -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" captoinfo -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" infotocap -V 2>&1 | grep -Fiq "ncurses"
+
+  # tic compiles a terminfo source into a database; infocmp -A reads it back.
+  mkdir -p "$rootfs/tmp/terminfo"
+  printf 'chiseltest|chisel test terminal,\n\tcols#80, lines#24,\n' > "$rootfs/tmp/chiseltest.ti"
+  chroot "$rootfs" tic -o /tmp/terminfo /tmp/chiseltest.ti
+  chroot "$rootfs" infocmp -A /tmp/terminfo chiseltest | grep -Fq "cols#80"
+
+  # infocmp -V prints version; decompile a real entry as a functional check.
+  chroot "$rootfs" infocmp -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" infocmp xterm | grep -Fiq "xterm"
+
+  # tput -V prints version; -T selects a terminal type without needing $TERM.
+  chroot "$rootfs" tput -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" tput -T xterm longname | grep -Fiq "xterm"
+
+  # tset -V prints version; reset is a symlink to tset.
+  chroot "$rootfs" tset -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" reset -V 2>&1 | grep -Fiq "ncurses"
+
+  # toe -V prints version; -a lists all available terminfo entries.
+  chroot "$rootfs" toe -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" toe -a | grep -Fiq "xterm"
+
+  # tabs -V prints version.
+  chroot "$rootfs" tabs -V 2>&1 | grep -Fiq "ncurses"
+
+  # clear -V prints version; -T selects a terminal type without needing $TERM.
+  chroot "$rootfs" clear -V 2>&1 | grep -Fiq "ncurses"
+  chroot "$rootfs" clear -T xterm | grep -aFq $'\e[2J'
