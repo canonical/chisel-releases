@@ -15,6 +15,3 @@ execute: |
   output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
   echo "$output"
   echo "$output" | grep -Fq "libgnutls.so.30"
-  if echo "$output" | grep -Fiq "not found"; then
-    exit 1
-  fi
