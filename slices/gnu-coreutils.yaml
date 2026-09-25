@@ -334,8 +334,6 @@ slices:
   sort:
     essential:
       libc6_libs:
-      # not in the link table; libcrypto is dlopened for --random-sort
-      libssl4_libs:
     contents:
       /usr/bin/gnusort:
 
