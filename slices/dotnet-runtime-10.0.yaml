@@ -17,6 +17,7 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.NETCore.App.deps.json:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.NETCore.App.runtimeconfig.json:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.Win32.Primitives.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Collections.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Console.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Private.CoreLib.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Runtime.InteropServices.dll:
