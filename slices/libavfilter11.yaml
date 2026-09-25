@@ -25,7 +25,7 @@ slices:
       libswresample6_libs:
       libswscale9_libs:
       libva2_libs:
-      libvidstab1.1_libs:
+      libvidstab1.2_libs:
       libvpl2_libs: {arch: [amd64]}
       libzimg2_libs:
       libzmq5_libs:

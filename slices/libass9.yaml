@@ -11,7 +11,7 @@ slices:
       libfreetype6_libs:
       libfribidi0_libs:
       libharfbuzz0b_libs:
-      libunibreak6_libs:
+      libunibreak7_libs:
     contents:
       /usr/lib/*-linux-*/libass.so*:
 

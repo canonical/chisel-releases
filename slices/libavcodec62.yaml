@@ -25,7 +25,7 @@ slices:
       libsnappy1v5_libs:
       libspeex1_libs:
       libstdc++6_libs:
-      libsvtav1enc2_libs:
+      libsvtav1enc4_libs:
       libswresample6_libs:
       libtheoradec2_libs:
       libtheoraenc2_libs:
@@ -38,7 +38,7 @@ slices:
       libwebp7_libs:
       libwebpmux3_libs:
       libx264-165_libs:
-      libx265-215_libs:
+      libx265-216_libs:
       libxvidcore4_libs:
       libzvbi0t64_libs:
       zlib1g_libs:
