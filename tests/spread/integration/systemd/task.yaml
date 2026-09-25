@@ -11,6 +11,7 @@ variants:
     - creds
     - machine-id-setup
     - mute-console
+    - socket-activate
     - sysext
     - sysusers
     - tmpfiles
