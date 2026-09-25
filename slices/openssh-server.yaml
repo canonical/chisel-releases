@@ -45,14 +45,12 @@ slices:
     contents:
       /etc/pam.d/sshd:
       /etc/ssh/moduli:
-      /etc/ssh/sshd_config: {text: FIXME, mutable: true}
+      /etc/ssh/sshd_config: {copy: /usr/share/openssh/sshd_config}
       /etc/ssh/sshd_config.d/:
       /etc/ufw/applications.d/openssh-server:
       /usr/lib/sysusers.d/openssh-server.conf:
       /usr/share/openssh/sshd_config:
       /usr/share/openssh/sshd_config.md5sum:
-    mutate: |
-      content.write("/etc/ssh/sshd_config", content.read("/usr/share/openssh/sshd_config"))
 
   services:
     essential:
