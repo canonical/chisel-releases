@@ -9,22 +9,18 @@ slices:
       libc6_libs:
       libcjson1_libs:
       libdlt3_libs:
-      libedit2_libs:
       libmicrohttpd12t64_libs:
-      libmosquitto1_libs:
       libpicohttpparser1_libs:
       libssl4_libs:
       libsystemd0_libs:
       libwrap0_libs:
       mosquitto_config:
+      mosquitto_ctrl:
       mosquitto_data:
       mosquitto_dynamic-security-plugin:
       mosquitto_logs:
+      mosquitto_passwd:
     contents:
-      # For future reference, these binaries can also be put in their own "tools" slice,
-      # and depend on libc6_libs, libcjson1_libs, libedit2_libs, libmosquitto1_libs, libssl4_libs
-      /usr/bin/mosquitto_ctrl:
-      /usr/bin/mosquitto_passwd:
       /usr/sbin/mosquitto:
 
   config:
@@ -55,6 +51,24 @@ slices:
   logs:
     contents:
       /var/log/mosquitto/:
+
+  ctrl:
+    essential:
+      libc6_libs:
+      libcjson1_libs:
+      libedit2_libs:
+      libmosquitto1_libs:
+      libssl4_libs:
+    contents:
+      /usr/bin/mosquitto_ctrl:
+
+  passwd:
+    essential:
+      libc6_libs:
+      libcjson1_libs:
+      libssl4_libs:
+    contents:
+      /usr/bin/mosquitto_passwd:
 
   copyright:
     contents:
