@@ -1,0 +1,15 @@
+package: libsodium26
+
+essential:
+  libsodium26_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libsodium.so.26*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libsodium26/copyright:
