@@ -36,7 +36,7 @@ slices:
       libpocketsphinx3_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
       libsphinxbase3t64_sphinxbase: {arch: [amd64, arm64, armhf, ppc64el, riscv64]}
     contents:
-      /usr/lib/*-linux-*/libavfilter.so*:
+      /usr/lib/*-linux-*/libavfilter.so.9*:
 
   copyright:
     contents:
