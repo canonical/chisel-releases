@@ -7,6 +7,7 @@ slices:
   libs:
     essential:
       libc6_libs:
+      libfido2-1_libs:
       libgssapi-krb5-2_libs:
       libssl3t64_libs:
       zlib1g_libs:
