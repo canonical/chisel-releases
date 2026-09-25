@@ -8,6 +8,7 @@ on:
       - ".github/workflows/*.yaml"
       - ".github/scripts/validate-hints/**"
       - ".github/scripts/forward-port-missing/**"
+      - ".github/scripts/install-slices/**"
 
 jobs:
   test-validate-hints:
@@ -39,5 +40,20 @@ jobs:
       - name: Run "forward-port-missing" unit tests
         run: |
           pytest .github/scripts/forward-port-missing/
+
+  test-install-slices:
+    name: Test install slices workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          pip-install: -r .github/scripts/install-slices/requirements.txt
+      - run: pip install pytest
+      - name: Run "install-slices" unit tests
+        run: |
+          pytest .github/scripts/install-slices/
 
   # TODO: add tests for remaining CI scripts
