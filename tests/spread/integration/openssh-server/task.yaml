@@ -1,0 +1,10 @@
+summary: Integration tests for openssh-server
+
+variants:
+  - sshd
+  - ssh-session-cleanup
+  - config
+  - socket-generator
+  - services
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
