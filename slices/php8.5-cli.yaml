@@ -13,7 +13,7 @@ slices:
         arch: [amd64]
       libpcre2-8-0_libs:
       libsodium23_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libxml2-16_libs:
       media-types_data:
       php-common_session:

@@ -10,7 +10,7 @@ slices:
       libc6_libs:
       libdevmapper1.02.1_libs:
       libjson-c5_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libuuid1_libs:
     contents:
       /usr/lib/*-linux-*/libcryptsetup.so.12*:
