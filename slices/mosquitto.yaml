@@ -9,12 +9,10 @@ slices:
       libc6_libs:
       libcjson1_libs:
       libdlt3_libs:
-      libedit2_libs:
-      libmicrohttpd12t64_libs:
       libmosquitto1_libs:
-      libpicohttpparser1_libs:
-      libssl4_libs:
+      libssl3t64_libs:
       libsystemd0_libs:
+      libwebsockets19t64_libs:
       libwrap0_libs:
       mosquitto_config:
       mosquitto_data:
@@ -22,7 +20,7 @@ slices:
       mosquitto_logs:
     contents:
       # For future reference, these binaries can also be put in their own "tools" slice,
-      # and depend on libc6_libs, libcjson1_libs, libedit2_libs, libmosquitto1_libs, libssl4_libs
+      # and depend on libc6_libs, libcjson1_libs. libmosquitto1_libs, libssl3t64_libs
       /usr/bin/mosquitto_ctrl:
       /usr/bin/mosquitto_passwd:
       /usr/sbin/mosquitto:
@@ -39,9 +37,8 @@ slices:
     essential:
       libc6_libs:
       libcjson1_libs:
-      libssl4_libs:
+      libssl3t64_libs:
     contents:
-      /usr/lib/*-linux-*/mosquitto/mosquitto_dynamic_security.so:
       /usr/lib/*-linux-*/mosquitto_dynamic_security.so:
 
   # The postinst script changes the ownership of /var/lib/mosquitto and /var/log/mosquitto
