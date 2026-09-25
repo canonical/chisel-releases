@@ -13,7 +13,6 @@ slices:
 
   copyright:
     essential:
-      # NOTE: FP likely needs arch-qualified essentials.
       - gcc-14-base_copyright
     contents:
       # Symlink to gcc-14-base
