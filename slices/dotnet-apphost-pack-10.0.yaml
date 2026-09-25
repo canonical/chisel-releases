@@ -9,7 +9,7 @@ slices:
       libbrotli1_libs: {arch: [amd64, arm64]}
       libc6_libs:
       libgcc-s1_libs:
-      libssl3t64_libs: {arch: [amd64, arm64]}
+      libssl4_libs: {arch: [amd64, arm64]}
       libstdc++6_libs:
       libunwind8_libs: {arch: [amd64]}
       zlib1g_libs: {arch: [amd64, arm64]}
