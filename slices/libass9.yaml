@@ -13,7 +13,7 @@ slices:
       libharfbuzz0b_libs:
       libunibreak6_libs:
     contents:
-      /usr/lib/*-linux-*/libass.so*:
+      /usr/lib/*-linux-*/libass.so.9*:
 
   copyright:
     contents:
