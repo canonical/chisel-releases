@@ -5,10 +5,10 @@ rootfs="$(install-slices memcached_bins base-passwd_data)"
 chroot "$rootfs" memcached -V
 
 # the rootfs has no /dev/null for memcached -d to detach onto, so a daemon would
-# hold the job's stdout open; run it in the background with its output closed off
-chroot "$rootfs" memcached -u root > /dev/null 2>&1 &
+# hold the job's stdout open; run it in its own process group with its output closed off
+setsid chroot "$rootfs" memcached -u root > /dev/null 2>&1 &
 pid=$!
-trap 'kill "$pid" || true' EXIT
+trap 'kill -- -"$pid" 2>/dev/null || true' EXIT
 
 # Verify it listens on the default port (11211)
 for _ in $(seq 10); do
