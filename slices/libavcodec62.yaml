@@ -12,6 +12,7 @@ slices:
       libcairo2_libs:
       libcodec2-1.2_libs:
       libdav1d7_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libglib2.0-0t64_libs:
       libgsm1_libs:
       libjxl0.11_libs:

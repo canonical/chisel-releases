@@ -17,6 +17,7 @@ slices:
       libcdio-paranoia2t64_libs:
       libdc1394-25_libs:
       libdrm2_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libiec61883-0_libs:
       libjack-jackd2-0_jack:
       libopenal1_libs:

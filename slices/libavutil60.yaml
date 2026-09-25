@@ -12,8 +12,10 @@ slices:
       libva-x11-2_libs:
       libva2_libs:
       libvdpau1_libs:
+      libvpl2_libs: {arch: [amd64]}
       libx11-6_libs:
       ocl-icd-libopencl1_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libavutil.so.60*:
 

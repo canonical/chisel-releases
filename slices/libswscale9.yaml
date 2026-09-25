@@ -8,6 +8,9 @@ slices:
     essential:
       libavutil60_libs:
       libc6_libs:
+      libgcc-s1_libs: {arch: [armhf]}
+      libstdc++6_libs:
+      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libswscale.so.9*:
 

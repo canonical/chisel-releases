@@ -16,9 +16,11 @@ slices:
       libfontconfig1_libs:
       libfreetype6_libs:
       libfribidi0_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libharfbuzz0b_libs:
       liblilv-0-0_libs:
       libmysofa1_libs:
+      libopenmpt0t64_libs: {arch: [armhf, riscv64]}
       libplacebo360_libs:
       librubberband3_libs:
       libstdc++6_libs:

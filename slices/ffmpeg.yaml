@@ -12,6 +12,7 @@ slices:
       libavformat62_libs:
       libavutil60_libs:
       libc6_libs:
+      libgcc-s1_libs: {arch: [amd64, armhf]}
       libplacebo360_libs:
       libsdl2-2.0-0_libs:
       libswresample6_libs:

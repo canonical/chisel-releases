@@ -14,6 +14,7 @@ slices:
       libchromaprint1_libs:
       libdvdnav4_libs:
       libdvdread8t64_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libgme0_libs:
       libgnutls30t64_libs:
       libopenmpt0t64_libs:
