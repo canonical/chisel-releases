@@ -38,7 +38,7 @@ printf "set mykey 0 60 5\r\nhello\r\n" > /dev/tcp/127.0.0.1/11211
 # Protocol: get <key>\r\n
 echo "Reading from memcached..."
 
-RESPONSE=$(printf "get mykey\r\n" | timeout 10 nc -w 2 -q 1 127.0.0.1 11211)
+RESPONSE=$(printf "get mykey\r\n" | nc -q 1 127.0.0.1 11211)
 
 # Check if we got the expected response
 echo "Response: $RESPONSE"
