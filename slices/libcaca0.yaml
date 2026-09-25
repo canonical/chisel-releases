@@ -25,17 +25,17 @@ slices:
       - libc6_libs
       - libcaca0_caca
       - libstdc++6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf]}
     contents:
       /usr/lib/*-linux-*/libcaca++.so.0*:
 
   plugins:
     essential:
+      - libc6_libs
       - libcaca0_caca
-      - libgl1_libs
       - libx11-6_libs
     contents:
-      /usr/lib/*-linux-*/caca/libgl_plugin.so:
-      /usr/lib/*-linux-*/caca/libgl_plugin.so.0*:
       /usr/lib/*-linux-*/caca/libx11_plugin.so:
       /usr/lib/*-linux-*/caca/libx11_plugin.so.0*:
 
