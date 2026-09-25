@@ -7,9 +7,12 @@ execute: |
 
   # test py3versions
   rootfs_py3versions="$(install-slices python3-minimal_py3versions)"
-  chroot "$rootfs_py3versions" py3versions -d | grep "python3.13"
+  chroot "$rootfs_py3versions" py3versions --help | grep -iq "usage"
+  chroot "$rootfs_py3versions" py3versions --default | grep "python3.14"
 
   # test py3compile
   rootfs_py3compile="$(install-slices python3-minimal_py3compile)"
-  chroot "$rootfs_py3compile" py3compile -h
-  chroot "$rootfs_py3compile" py3clean -h
+  chroot "$rootfs_py3compile" py3compile --help | grep -iq "usage: py3compile"
+  chroot "$rootfs_py3compile" py3compile --version | grep -iq "py3compile 3.14"
+  chroot "$rootfs_py3compile" py3clean --help | grep -iq "usage: py3clean"
+  chroot "$rootfs_py3compile" py3clean --version | grep -iq "py3clean 3.14"

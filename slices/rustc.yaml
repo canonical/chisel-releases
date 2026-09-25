@@ -4,17 +4,17 @@ essential:
   rustc_copyright:
 
 slices:
-  # NOTE: Rust compiler needs the target-specific linker to link the final
-  #       binary. The default toolchain included here is using gcc and binutils,
-  #       which are already included in the gcc_gcc essential.
-  #       Rust calls `cc` to link the final binary, so you will need to create
-  #       the symlink for that to work:
-  #       ls -s gcc /usr/bin/cc
   rustc:
     essential:
-      rustc-1.88_rustc:
+      rustc-1.93_rustc:
     contents:
-      /usr/bin/rustc:  # symlink to ../lib/rustc-1.88/bin/rustc
+      /usr/bin/rustc:  # symlink to ../lib/rustc-1.93/bin/rustc
+
+  rustdoc:
+    essential:
+      rustc-1.93_rustdoc:
+    contents:
+      /usr/bin/rustdoc:  # symlink to ../lib/rust-1.93/bin/rustdoc
 
   copyright:
     contents:

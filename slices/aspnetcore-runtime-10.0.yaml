@@ -1,0 +1,86 @@
+package: aspnetcore-runtime-10.0
+
+essential:
+  aspnetcore-runtime-10.0_copyright:
+
+slices:
+  minimal:
+    essential:
+      dotnet-runtime-10.0_core:
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.App.deps.json:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.App.runtimeconfig.json:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Authentication.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Authorization.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Connections.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.HostFiltering.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Hosting.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Hosting.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Http.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Http.Extensions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Http.Features.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Http.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.HttpOverrides.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Metadata.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Routing.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Routing.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.IIS.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.IISIntegration.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Core.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.WebUtilities.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.Binder.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.CommandLine.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.EnvironmentVariables.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.FileExtensions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.Json.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.DependencyInjection.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.DependencyInjection.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Diagnostics.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Diagnostics.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Features.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.FileProviders.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.FileProviders.Physical.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Hosting.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Hosting.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Configuration.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Console.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Debug.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.EventSource.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.ObjectPool.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Options.ConfigurationExtensions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Options.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Primitives.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Validation.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Net.Http.Headers.dll:
+
+  # libicu is not needed if the environment is set to invariant by using
+  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+  # If globalization is needed, libicu must be included as well.
+  # For more information, see:
+  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  core:
+    essential:
+      aspnetcore-runtime-10.0_minimal:
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/**:
+
+  standard:
+    essential:
+      aspnetcore-runtime-10.0_core:
+      dotnet-runtime-10.0_standard:
+      libicu78_libs:
+
+  copyright:
+    contents:
+      /usr/share/doc/aspnetcore-runtime-10.0/NOTICE.txt.gz:
+      /usr/share/doc/aspnetcore-runtime-10.0/copyright:

@@ -1,0 +1,17 @@
+package: libnss3-tools
+
+essential:
+  libnss3-tools_copyright:
+
+slices:
+  certutil:
+    essential:
+      libc6_libs:
+      libnspr4_libs:
+      libnss3_libs:
+    contents:
+      /usr/bin/certutil:
+
+  copyright:
+    contents:
+      /usr/share/doc/libnss3-tools/copyright:

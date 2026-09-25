@@ -21,3 +21,9 @@ execute: |
 
   # ...and sdiff
   chroot "${rootfs}/" sdiff /test1.txt /test2.txt | grep -q -E 'This is a test file\s+| This is another test file'
+
+  # Test only the cmp slice
+  rootfs_cmp="$(install-slices diffutils_cmp)"
+  echo "This is a test file" > "$rootfs_cmp/test1.txt"
+  echo "This is another test file" > "$rootfs_cmp/test2.txt"
+  chroot "$rootfs_cmp" cmp -b /test1.txt /test2.txt | grep -q '/test1.txt /test2.txt differ: byte 10, line 1'

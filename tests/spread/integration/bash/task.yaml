@@ -1,0 +1,7 @@
+summary: Integration tests for bash
+
+variants:
+    - bash
+    - bashbug
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

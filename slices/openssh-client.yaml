@@ -64,7 +64,7 @@ slices:
       coreutils_operating-on-characters:
       coreutils_output-of-entire-files:
       coreutils_output-of-parts-of-files:
-      coreutils_rm-utility:
+      coreutils_rm-bin:
       coreutils_summarizing-files:
       dash_bins:
       grep_bins:

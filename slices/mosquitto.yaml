@@ -1,0 +1,58 @@
+package: mosquitto
+
+essential:
+  mosquitto_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libcjson1_libs:
+      libdlt3_libs:
+      libmosquitto1_libs:
+      libssl3t64_libs:
+      libsystemd0_libs:
+      libwebsockets19t64_libs:
+      libwrap0_libs:
+      mosquitto_config:
+      mosquitto_data:
+      mosquitto_dynamic-security-plugin:
+      mosquitto_logs:
+    contents:
+      # For future reference, these binaries can also be put in their own "tools" slice,
+      # and depend on libc6_libs, libcjson1_libs. libmosquitto1_libs, libssl3t64_libs
+      /usr/bin/mosquitto_ctrl:
+      /usr/bin/mosquitto_passwd:
+      /usr/sbin/mosquitto:
+
+  config:
+    contents:
+      /etc/mosquitto/ca_certificates/:
+      /etc/mosquitto/certs/:
+      /etc/mosquitto/conf.d/:
+      /etc/mosquitto/mosquitto.conf:
+
+  dynamic-security-plugin:
+    hint: Plugin library for Dynamic Security
+    essential:
+      libc6_libs:
+      libcjson1_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/lib/*-linux-*/mosquitto_dynamic_security.so:
+
+  # The postinst script changes the ownership of /var/lib/mosquitto and /var/log/mosquitto
+  # to the mosquitto user. This user doesn't exist at this stage, and it is not created by
+  # mutation scripts, so the "date" and "logs" slices preserve the ownership of these directories
+  # according to the deb.
+  data:
+    contents:
+      /var/lib/mosquitto/:
+
+  logs:
+    contents:
+      /var/log/mosquitto/:
+
+  copyright:
+    contents:
+      /usr/share/doc/mosquitto/copyright:

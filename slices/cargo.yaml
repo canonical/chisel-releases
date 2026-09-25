@@ -1,0 +1,16 @@
+package: cargo
+
+essential:
+  cargo_copyright:
+
+slices:
+  cargo:
+    essential:
+      cargo-1.93_cargo:
+      rustc_rustc:
+    contents:
+      /usr/bin/cargo:  # symlink to cargo-1.93
+
+  copyright:
+    contents:
+      /usr/share/doc/cargo/copyright:

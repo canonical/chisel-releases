@@ -1,0 +1,22 @@
+package: rustfmt
+
+essential:
+  rustfmt_copyright:
+
+slices:
+  cargo-fmt:
+    essential:
+      rustfmt-1.93_cargo-fmt:
+      rustfmt_rustfmt:
+    contents:
+      /usr/bin/cargo-fmt:  # symlink to ../lib/rust-1.93/bin/cargo-fmt
+
+  rustfmt:
+    essential:
+      rustfmt-1.93_rustfmt:
+    contents:
+      /usr/bin/rustfmt:  # symlink to ../lib/rust-1.93/bin/rustfmt
+
+  copyright:
+    contents:
+      /usr/share/doc/rustfmt/copyright:

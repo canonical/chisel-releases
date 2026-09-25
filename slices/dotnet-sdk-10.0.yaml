@@ -1,0 +1,60 @@
+package: dotnet-sdk-10.0
+
+essential:
+  dotnet-sdk-10.0_copyright:
+
+slices:
+  minimal:
+    essential:
+      aspnetcore-targeting-pack-10.0_libs:
+      ca-certificates_data:
+      dotnet-apphost-pack-10.0_libs:
+      dotnet-runtime-10.0_core:
+      dotnet-targeting-pack-10.0_libs:
+      dotnet-templates-10.0_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+    contents:
+      # SDK directory - include all accessed files
+      /usr/lib/dotnet/sdk/10.0.*/*.dll:
+      /usr/lib/dotnet/sdk/10.0.*/*.json:
+      /usr/lib/dotnet/sdk/10.0.*/*.props:
+      /usr/lib/dotnet/sdk/10.0.*/*.targets:
+      /usr/lib/dotnet/sdk/10.0.*/*.tasks:
+      /usr/lib/dotnet/sdk/10.0.*/Current/**:
+      /usr/lib/dotnet/sdk/10.0.*/Microsoft/**:
+      /usr/lib/dotnet/sdk/10.0.*/Roslyn/**:
+      /usr/lib/dotnet/sdk/10.0.*/SdkResolvers/**:
+      /usr/lib/dotnet/sdk/10.0.*/Sdks/**:
+
+  # libicu is not needed if the environment is set to invariant by using
+  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+  # If globalization is needed, libicu must be included as well.
+  # For more information, see:
+  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
+  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  core:
+    essential:
+      aspnetcore-runtime-10.0_core:
+      dotnet-sdk-10.0_minimal:
+    contents:
+      /usr/lib/dotnet/library-packs/Microsoft.DotNet.ILCompiler.10.0.*.nupkg: {arch: [amd64, arm64]}
+      /usr/lib/dotnet/library-packs/Microsoft.NET.ILLink.Tasks.10.0.*.nupkg: {arch: [amd64, arm64]}
+      /usr/lib/dotnet/metadata/workloads/10.0.*/userlocal:
+      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/10.0.*/**:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.*/10.0.*/**:
+      /usr/lib/dotnet/sdk-manifests/10.0.*/microsoft.net.workload.*/**:
+      /usr/lib/dotnet/sdk/10.0.*/**:
+
+  standard:
+    essential:
+      aspnetcore-runtime-10.0_standard:
+      dotnet-sdk-10.0_core:
+      dotnet-sdk-aot-10.0_libs: {arch: [amd64, arm64]}
+      # see comment of dotnet-sdk-10.0_core slice above:
+      libicu78_libs:
+
+  copyright:
+    contents:
+      /usr/share/doc/dotnet-sdk-10.0/copyright:

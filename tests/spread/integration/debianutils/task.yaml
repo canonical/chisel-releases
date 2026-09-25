@@ -1,25 +1,15 @@
 summary: Integration tests for debianutils
+# spellchecker: ignore rootfs debianutils ischroot savelog installkernel
 
-environment:
-  SLICE/which: "which"
-  SLICE/ischroot: "ischroot"
-  SLICE/runparts: "run-parts"
+variants:
+    - which
+    - ischroot
+    - run-parts
+    - tempfile
+    - savelog
+    - add-shell
+    - installkernel
+    - remove-shell
+    - update-shells
 
-execute: |
-  case ${SLICE} in
-    which)
-      rootfs="$(install-slices debianutils_${SLICE})"
-      chroot "${rootfs}" which sh | grep -q "/bin/sh"
-    ;;
-    ischroot)
-      rootfs="$(install-slices debianutils_${SLICE})"
-      chroot "${rootfs}" ischroot --version | grep -q "Debian ischroot"
-    ;;
-    run-parts)
-      rootfs="$(install-slices debianutils_${SLICE})"
-      mkdir -p "${rootfs}/test-run-parts"
-      echo -e '#!/bin/sh\necho "Hello from test script!"' > "${rootfs}/test-run-parts/test-script"
-      chmod +x "${rootfs}/test-run-parts/test-script"
-      chroot "${rootfs}" run-parts --test /test-run-parts | grep "/test-run-parts/test-script"
-    ;;
-  esac
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

@@ -1,0 +1,6 @@
+summary: Integration tests for libpam-modules-bin
+
+variants:
+    - pam_namespace_helper
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

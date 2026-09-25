@@ -14,9 +14,16 @@ slices:
 
   scripts:
     essential:
+      base-files_bin:
+      dash_bins:
       xdg-user-dirs_config:
     contents:
       /usr/bin/xdg-user-dir:
+
+  bins:
+    essential:
+      libc6_libs:
+    contents:
       /usr/bin/xdg-user-dirs-update:
 
   copyright:

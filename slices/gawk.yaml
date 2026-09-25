@@ -17,15 +17,17 @@ slices:
       /usr/bin/awk: { symlink: /usr/bin/gawk }  # symlink created in postinst
       /usr/bin/gawk:
       /usr/bin/nawk: { symlink: /usr/bin/gawk }  # symlink created in postinst
-      /usr/lib/*-linux-*/awk/grcat:
-      /usr/lib/*-linux-*/awk/pwcat:
+      /usr/libexec/awk/grcat:
+      /usr/libexec/awk/pwcat:
   config:
     contents:
       /etc/profile.d/gawk.csh:
       /etc/profile.d/gawk.sh:
+
   headers:
     contents:
       /usr/include/gawkapi.h:
+
   libs:
     essential:
       libc6_libs:

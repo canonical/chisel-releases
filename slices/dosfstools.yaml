@@ -6,18 +6,37 @@ essential:
 slices:
   bins:
     essential:
+      dosfstools_fatlabel:
+      dosfstools_fschk:
+      dosfstools_mkfs:
+
+  fatlabel:
+    hint: Change FAT filesystem label
+    essential:
       libc6_libs:
     contents:
-      /usr/sbin/dosfsck:
-      /usr/sbin/dosfslabel:
+      /usr/sbin/dosfslabel:  # Symlink to fatlabel
       /usr/sbin/fatlabel:
+
+  fschk:
+    hint: Check FAT filesystem
+    essential:
+      libc6_libs:
+    contents:
+      /usr/sbin/dosfsck:  # Symlink to fsck.fat
       /usr/sbin/fsck.fat:
-      /usr/sbin/fsck.msdos:
-      /usr/sbin/fsck.vfat:
-      /usr/sbin/mkdosfs:
+      /usr/sbin/fsck.msdos:  # Symlink to fsck.fat
+      /usr/sbin/fsck.vfat:  # Symlink to fsck.fat
+
+  mkfs:
+    hint: Create FAT filesystem
+    essential:
+      libc6_libs:
+    contents:
+      /usr/sbin/mkdosfs:  # Symlink to mkfs.fat
       /usr/sbin/mkfs.fat:
-      /usr/sbin/mkfs.msdos:
-      /usr/sbin/mkfs.vfat:
+      /usr/sbin/mkfs.msdos:  # Symlink to mkfs.fat
+      /usr/sbin/mkfs.vfat:  # Symlink to mkfs.fat
 
   copyright:
     contents:

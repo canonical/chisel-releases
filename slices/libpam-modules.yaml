@@ -15,6 +15,7 @@ slices:
       /etc/security/namespace.d/:
       /etc/security/namespace.init:
       /etc/security/pam_env.conf:
+      /etc/security/pwhistory.conf:
       /etc/security/sepermit.conf:
       /etc/security/time.conf:
 
@@ -29,6 +30,7 @@ slices:
       libsystemd0_libs:
     contents:
       /usr/lib/*-linux-*/security/pam_access.so:
+      /usr/lib/*-linux-*/security/pam_canonicalize_user.so:
       /usr/lib/*-linux-*/security/pam_debug.so:
       /usr/lib/*-linux-*/security/pam_deny.so:
       /usr/lib/*-linux-*/security/pam_echo.so:
@@ -67,6 +69,7 @@ slices:
       /usr/lib/*-linux-*/security/pam_tty_audit.so:
       /usr/lib/*-linux-*/security/pam_umask.so:
       /usr/lib/*-linux-*/security/pam_unix.so:
+      /usr/lib/*-linux-*/security/pam_userdb.so:
       /usr/lib/*-linux-*/security/pam_usertype.so:
       /usr/lib/*-linux-*/security/pam_warn.so:
       /usr/lib/*-linux-*/security/pam_wheel.so:
