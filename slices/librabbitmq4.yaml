@@ -9,7 +9,9 @@ slices:
       libc6_libs:
       libssl4_libs:
     contents:
-      /usr/lib/*-linux-*/librabbitmq.so.*:
+      # librabbitmq.so.4 is a symlink to the real librabbitmq.so.0.* file
+      /usr/lib/*-linux-*/librabbitmq.so.0*:
+      /usr/lib/*-linux-*/librabbitmq.so.4*:
 
   copyright:
     contents:
