@@ -1,0 +1,59 @@
+package: libdbi-perl
+
+essential:
+  libdbi-perl_copyright:
+
+slices:
+
+  modules:
+    essential:
+      libdbi-perl_driver:
+      libdbi-perl_libs:
+      perl_bins:
+    contents:
+      /usr/lib/*-linux-*/perl5/*/Bundle/DBI.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/DBM.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/File.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Gofer.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Gofer/**/*.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Mem.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/NullP.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Proxy.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/Sponge.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Changes.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfo/*.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfoReturn.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Const/GetInfoType.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/DBD.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/DBD/Metadata.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/DBD/SqlEngine.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Execute.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Request.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Response.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Serializer/*.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Gofer/Transport/*.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Profile.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/ProfileData.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/ProfileDumper.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/ProfileDumper/Apache.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/ProfileSubs.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/ProxyServer.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/PurePerl.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/SQL/Nano.pm:
+      /usr/lib/*-linux-*/perl5/*/DBI/Util/*.pm:
+
+  libs:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/perl5/*/auto/DBI/DBI.so:
+
+  driver:
+    hint: XS template file to build DBI drivers
+    contents:
+      /usr/lib/*-linux-*/perl5/*/auto/DBI/Driver.xst*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdbi-perl/copyright:

@@ -8,6 +8,8 @@ slices:
     essential:
       gcc-15_gcc-15:
       gcc-aarch64-linux-gnu_gcc: {arch: [arm64]}
+      gcc-powerpc64le-linux-gnu_gcc: {arch: [ppc64el]}
+      gcc-s390x-linux-gnu_gcc: {arch: [s390x]}
       gcc-x86-64-linux-gnu_gcc: {arch: [amd64]}
     contents:
       # NOTE: there are 3 packages which provide /usr/bin/cc alternative implementations:
@@ -22,6 +24,8 @@ slices:
   copyright:
     essential:
       cpp-15-aarch64-linux-gnu_copyright: {arch: [arm64]}
+      cpp-15-powerpc64le-linux-gnu_copyright: {arch: [ppc64el]}
+      cpp-15-s390x-linux-gnu_copyright: {arch: [s390x]}
       cpp-15-x86-64-linux-gnu_copyright: {arch: [amd64]}
     contents:
       /usr/share/doc/gcc:  # Symlink to gcc-${ARCH_TRIPLET}

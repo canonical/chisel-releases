@@ -4,7 +4,7 @@ essential:
   sensible-utils_copyright:
 
 slices:
-  bins:
+  scripts:
     contents:
       /usr/bin/select-editor:
       /usr/bin/sensible-browser:

@@ -1,7 +1,7 @@
 summary: Integration tests for logsave
 
 execute: |
-  rootfs="$(install-slices coreutils-from-gnu_ls-utility logsave_bins)"
+  rootfs="$(install-slices coreutils-from-gnu_ls-bin logsave_bins)"
 
   mkdir -p "${rootfs}/tmp"
 

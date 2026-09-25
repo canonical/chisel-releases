@@ -1,0 +1,102 @@
+package: golang-1.26-go
+
+essential:
+  golang-1.26-go_copyright:
+
+slices:
+  # Note: The minimal slice provides a working Go installation
+  #       that can be used to build and run simple Go programs,
+  #       such as a "Hello World" program.
+  #       See tests/spread/integration/golang-1.26-go/test_minimal.sh
+  #       for more details.
+  minimal:
+    essential:
+      base-files_tmp:
+      golang-1.26-go_build-tools:
+      golang-1.26-go_headers:
+      golang-1.26-go_symlinks:
+      golang-1.26-src_src-with-tests:
+    contents:
+      /usr/lib/go-1.26/bin/go:
+      /usr/lib/go-1.26/bin/gofmt:
+
+  # Note: The core slice provides the source code within the golang-1.26-go
+  #       package in addition to the minimal slice.
+  core:
+    essential:
+      golang-1.26-go_cmd-src:
+      golang-1.26-go_go-env:
+      golang-1.26-go_internal-src:
+      golang-1.26-go_minimal:
+      golang-1.26-go_runtime-src:
+      golang-1.26-go_time-src:
+
+  # Note: The build-tools slice provides the essential Go tools for building
+  #       a minimal Go program, i.e., a single Hello World program.
+  build-tools:
+    contents:
+      /usr/lib/go-1.26/pkg/tool/linux_*/asm:
+      /usr/lib/go-1.26/pkg/tool/linux_*/compile:
+      /usr/lib/go-1.26/pkg/tool/linux_*/link:
+      # vet is used for go test
+      /usr/lib/go-1.26/pkg/tool/linux_*/vet:
+
+  cgo-tools:
+    essential:
+      gcc_gcc:
+      libc6-dev_core:
+      libc6-dev_libresolv:
+      libc6-dev_runtime:
+    contents:
+      /usr/lib/go-1.26/pkg/tool/linux_*/cgo:
+
+  cmd-src:
+    contents:
+      /usr/share/go-1.26/src/cmd/cgo/zdefaultcc.go:
+      /usr/share/go-1.26/src/cmd/go/internal/cfg/zdefaultcc.go:
+      /usr/share/go-1.26/src/cmd/internal/objabi/zbootstrap.go:
+
+  fix-tools:
+    contents:
+      /usr/lib/go-1.26/pkg/tool/linux_*/fix:
+
+  go-env:
+    contents:
+      /usr/lib/go-1.26/go.env:
+
+  headers:
+    contents:
+      /usr/share/go-1.26/pkg/include/*.h:
+
+  internal-src:
+    contents:
+      /usr/share/go-1.26/src/internal/buildcfg/zbootstrap.go:
+
+  profiling-tools:
+    contents:
+      /usr/lib/go-1.26/pkg/tool/linux_*/preprofile:
+
+  runtime-src:
+    contents:
+      /usr/share/go-1.26/src/internal/runtime/sys/zversion.go:
+
+  symlinks:
+    contents:
+      /usr/lib/go-1.26/api:      # Symlink to ../share/go-1.26/api
+      /usr/lib/go-1.26/lib:      # Symlink to ../share/go-1.26/lib
+      /usr/lib/go-1.26/misc:     # Symlink to ../share/go-1.26/misc
+      /usr/lib/go-1.26/pkg/include:  # Symlink to ../share/go-1.26/pkg/include
+      /usr/lib/go-1.26/src:      # Symlink to ../share/go-1.26/src
+      /usr/lib/go-1.26/test:     # Symlink to ../share/go-1.26/test
+
+  testing-tools:
+    contents:
+      /usr/lib/go-1.26/pkg/tool/linux_*/cover:
+
+  time-src:
+    contents:
+      /usr/share/go-1.26/src/time/tzdata/zzipdata.go:
+
+  copyright:
+    contents:
+      /usr/share/doc/golang-1.26-go/copyright:

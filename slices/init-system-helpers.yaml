@@ -36,7 +36,7 @@ slices:
       base-files_bin:
       coreutils_basename:
       coreutils_cat:
-      coreutils_ls-utility:
+      coreutils_ls-bin:
       dash_bins:
       findutils_xargs:
       grep_bins:
@@ -51,8 +51,8 @@ slices:
       coreutils_basename:
       coreutils_cat:
       coreutils_env:
-      coreutils_ln-utility:
-      coreutils_rm-utility:
+      coreutils_ln-bin:
+      coreutils_rm-bin:
       dash_bins:
       grep_bins:
       sed_bins:

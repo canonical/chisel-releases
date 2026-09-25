@@ -11,6 +11,7 @@ slices:
       libglib2.0-0t64_core:
       libx11-6_libs:
       libxi6_libs:
+      libxres1_libs:
     contents:
       /usr/lib/*-linux-*/libatspi.so.0*:
 
