@@ -9,7 +9,9 @@ execute: |
 
   chroot "${rootfs}/" apt update
 
-  chroot "${rootfs}/" apt install python3.14 -y
+  # libselinux1 recommends selinux-utils, which pulls in systemd, whose postinst
+  # needs /proc; the other recommends bring the essential packages the chroot lacks
+  chroot "${rootfs}/" apt install python3.14 selinux-utils- -y
 
   chroot "${rootfs}/" python3.14 -c 'print("Hello, World!")' | grep -q "Hello, World!"
 
