@@ -1,0 +1,20 @@
+summary: Integration tests for libmicrohttpd12t64
+
+execute: |
+  rootfs="$(install-slices libmicrohttpd12t64_libs)"
+
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libmicrohttpd.so.12" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
+
+  # Have the dynamic loader resolve every shared library libmicrohttpd links
+  # against, gnutls and its own dependencies included; it fails if any is
+  # missing.
+  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+  echo "$output"
+  echo "$output" | grep -Fq "libgnutls.so.30"
+  if echo "$output" | grep -Fiq "not found"; then
+    exit 1
+  fi

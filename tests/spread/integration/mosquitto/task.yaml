@@ -11,6 +11,7 @@ execute: |
   chroot "${rootfs}/" mosquitto_ctrl dynsec help
 
   echo "Ensure the dynsec plugin is functional"
+  mkdir -p "${rootfs}/tmp"
   test ! -f "${rootfs}/tmp/dynsecconfig"
   chroot "${rootfs}/" mosquitto_ctrl dynsec init /tmp/dynsecconfig adminuser adminpass
   cat "${rootfs}/tmp/dynsecconfig" | jq -r '.clients[0].username' | MATCH "adminuser"
@@ -19,7 +20,7 @@ execute: |
   test ! -f "${rootfs}/tmp/passwd"
   chroot "${rootfs}/" mosquitto_passwd -c -b /tmp/passwd testuser testpassword
   test -f "${rootfs}/tmp/passwd"
-  [[ "$(cat "$rootfs/tmp/passwd")" = "USER:"* ]]
+  [[ "$(cat "$rootfs/tmp/passwd")" = "testuser:"* ]]
 
   # Start mosquitto broker in background, needs /dev
   mkdir -p "${rootfs}/dev"
@@ -28,13 +29,27 @@ execute: |
 
   # Force using the the root user
   echo "user root" >> "${rootfs}/etc/mosquitto/mosquitto.conf"
+
+  # Have the broker load the dynsec plugin with the config made above
+  plugin="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/mosquitto_dynamic_security.so" -print -quit)"
+  test -n "$plugin"
+  cat > "${rootfs}/etc/mosquitto/conf.d/dynsec.conf" <<EOF
+  listener 1883 127.0.0.1
+  plugin ${plugin#"$rootfs"}
+  plugin_opt_config_file /tmp/dynsecconfig
+  EOF
+
   echo "Starting mosquitto broker in background"
-  chroot "${rootfs}/" mosquitto -d -c /etc/mosquitto/mosquitto.conf 
+  chroot "${rootfs}/" mosquitto -d -c /etc/mosquitto/mosquitto.conf
 
   # Give it a moment to start
   sleep 2
 
   pgrep mosquitto -a
+
+  echo "Ensure the broker serves dynsec requests"
+  timeout 10 chroot "${rootfs}/" mosquitto_ctrl -h 127.0.0.1 -u adminuser -P adminpass dynsec listClients \
+    | MATCH "adminuser"
 
 restore: |
   # Kill mosquitto broker
