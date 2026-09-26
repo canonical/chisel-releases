@@ -16,8 +16,7 @@ printf "testuser:$(openssl passwd -apr1 testpass)\n" > "$rootfs/etc/squid/auth/p
 
 # Configured standard NCSA auth managed by helper-mux
 echo "auth_param basic program /usr/lib/squid/helper-mux /usr/lib/squid/basic_ncsa_auth /etc/squid/auth/passwd" >> "$rootfs/etc/squid/squid.conf"
-echo "auth_param basic children 20 startup=5 idle=1" >> "$rootfs/etc/squid/squid.conf"
-echo "auth_param basic concurrency 10" >> "$rootfs/etc/squid/squid.conf"
+echo "auth_param basic children 20 startup=5 idle=1 concurrency=10" >> "$rootfs/etc/squid/squid.conf"
 
 # Setup mysql for testing
 apt install -y mysql-server
