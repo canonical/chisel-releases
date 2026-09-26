@@ -56,7 +56,8 @@ jobs:
           set -ex
           (cd _spread/cmd/spread && go build)
           sudo mkdir -p "$MANIFESTS_EXPORT_DIR" && sudo chown "$USER:$USER" "$MANIFESTS_EXPORT_DIR"
-          _spread/cmd/spread/spread -list lxd: \
+          # spread -list order changes between calls, so every shard must sort it
+          _spread/cmd/spread/spread -list lxd: | LC_ALL=C sort \
             | awk -v n="$SHARDS" -v s="$SHARD" '(NR - 1) % n == s' > shard-jobs
           wc -l shard-jobs
           if [ -s shard-jobs ]; then
