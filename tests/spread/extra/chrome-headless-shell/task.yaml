@@ -1,0 +1,2 @@
+summary: Integration tests for chrome-headless-shell
+execute: bash -ex ./test.sh
