@@ -10,6 +10,12 @@ slices:
     contents:
       /usr/bin/rustc:  # symlink to ../lib/rustc-1.93/bin/rustc
 
+  rustdoc:
+    essential:
+      rustc-1.93_rustdoc:
+    contents:
+      /usr/bin/rustdoc:  # symlink to ../lib/rust-1.93/bin/rustdoc
+
   copyright:
     contents:
       /usr/share/doc/rustc/copyright:

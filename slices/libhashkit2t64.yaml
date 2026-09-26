@@ -7,7 +7,7 @@ slices:
   libs:
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/libhashkit.so.2*:
 

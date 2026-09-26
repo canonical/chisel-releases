@@ -44,7 +44,7 @@ slices:
       libc6-dev_runtime:
       libc6_libs:
     contents:
-      # dummy file to allow linking with -lanl. this functionality in integrated into libc
+      # dummy file to allow linking with -lanl. this functionality is integrated into libc
       /usr/lib/*-linux-*/libanl.a:
       # symlink to libanl.so from libc6
       /usr/lib/*-linux-*/libanl.so:
@@ -53,17 +53,17 @@ slices:
       # linker script to look up symbols in libc_nonshared.a and libc.so.6 from libc6
       /usr/lib/*-linux-*/libc.so:
       /usr/lib/*-linux-*/libc_nonshared.a:
-      # dummy file to allow linking with -ldl. this functionality in integrated into libc
+      # dummy file to allow linking with -ldl. this functionality is integrated into libc
       /usr/lib/*-linux-*/libdl.a:
-      # dummy file to allow linking with -lbg. this functionality in integrated into libc
+      # dummy file to allow linking with -lg. this functionality is integrated into libc
       /usr/lib/*-linux-*/libg.a:
-      # dummy file to allow linking with -lpthread. this functionality in integrated into libc
+      # dummy file to allow linking with -lpthread. this functionality is integrated into libc
       /usr/lib/*-linux-*/libpthread.a:
       # dummy file. part of libpthread, but separate file.
       /usr/lib/*-linux-*/libpthread_nonshared.a:
-      # dummy file to allow linking with -lrt. this functionality in integrated into libc
+      # dummy file to allow linking with -lrt. this functionality is integrated into libc
       /usr/lib/*-linux-*/librt.a:
-      # dummy file to allow linking with -lutil. this functionality in integrated into libc
+      # dummy file to allow linking with -lutil. this functionality is integrated into libc
       /usr/lib/*-linux-*/libutil.a:
 
   # only needed if linking with -lm
@@ -74,10 +74,10 @@ slices:
     contents:
       /usr/lib/*-linux-*/libm-2.*.a:
         arch: [amd64, arm64]
-      # on amd64/arm64 this is a linker script which redirects to libm-2.41.a and libmvec.so
+      # on amd64/arm64 this is a linker script which redirects to libm-2.*.a and libmvec.a
       # on non-amd64/arm64 archs libm.a is not a linker script, but a real static library
       /usr/lib/*-linux-*/libm.a:
-      # on amd64/arm64 this is a linker script which redirects to libm.so and libmvec.so from libc6
+      # on amd64/arm64 this is a linker script redirecting to libm.so.6 and libmvec.so.1 from libc6
       # on non-amd64/arm64 this is a symlink to libm.so.6 from libc6
       /usr/lib/*-linux-*/libm.so:
       /usr/lib/*-linux-*/libmvec.a:
@@ -102,7 +102,7 @@ slices:
       # symlink to libresolv.so from libc6
       /usr/lib/*-linux-*/libresolv.so:
 
-  # dynamic linter auditing library
+  # dynamic linker auditing library
   # needs to be manually enabled with e.g. LD_AUDIT=<path to sotruss-lib.so>
   audit:
     essential:
@@ -139,6 +139,7 @@ slices:
       /usr/include/*-linux-*/bits/argp-ldbl.h:
       /usr/include/*-linux-*/bits/atomic_wide_counter.h:
       /usr/include/*-linux-*/bits/byteswap.h:
+      /usr/include/*-linux-*/bits/cloexec.h:
       /usr/include/*-linux-*/bits/cmathcalls.h:
       /usr/include/*-linux-*/bits/confname.h:
       /usr/include/*-linux-*/bits/cpu-set.h:
@@ -382,7 +383,7 @@ slices:
       /usr/include/*-linux-*/gnu/lib-names-64-v2.h:
         arch: [ppc64el]
       /usr/include/*-linux-*/gnu/lib-names-64.h:
-        arch: [amd64, s390x]
+        arch: [amd64]
       /usr/include/*-linux-*/gnu/lib-names-hard.h:
         arch: [armhf]
       /usr/include/*-linux-*/gnu/lib-names-lp64.h:
@@ -396,7 +397,7 @@ slices:
       /usr/include/*-linux-*/gnu/stubs-64-v2.h:
         arch: [ppc64el]
       /usr/include/*-linux-*/gnu/stubs-64.h:
-        arch: [amd64, s390x]
+        arch: [amd64]
       /usr/include/*-linux-*/gnu/stubs-hard.h:
         arch: [armhf]
       /usr/include/*-linux-*/gnu/stubs-lp64.h:
