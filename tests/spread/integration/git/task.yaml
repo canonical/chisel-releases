@@ -91,7 +91,7 @@ execute: |
 
     pushd $ftp_root/srv/git
     # own process group, so the trap stops the server and anything it started
-    setsid chroot $ftp_root /usr/bin/python3 -m pyftpdlib -V -p 2121 -d /srv/git &
+    setsid chroot $ftp_root /usr/bin/python3 -m pyftpdlib -D -p 2121 -d /srv/git &
     pyftpdlib_pid=$!
     trap 'kill -- -"$pyftpdlib_pid" 2>/dev/null || true' EXIT
     popd
