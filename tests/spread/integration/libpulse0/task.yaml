@@ -1,0 +1,7 @@
+summary: Integration tests for libpulse0
+
+execute: |
+  rootfs="$(install-slices libpulse0_libs)"
+  libdir="$(find "$rootfs/usr/lib" -maxdepth 1 -type d -name '*-linux-*')"
+  loader="$(find "$libdir" -maxdepth 1 -name 'ld*.so.*')"
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${libdir#"$rootfs"}/libpulse.so.0"
