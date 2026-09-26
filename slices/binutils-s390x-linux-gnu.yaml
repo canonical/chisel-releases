@@ -1,0 +1,103 @@
+package: binutils-s390x-linux-gnu
+
+essential:
+  - binutils-s390x-linux-gnu_copyright
+
+slices:
+  # NOTE: You might want to create a symlink from /usr/bin/as to
+  #       /usr/bin/s390x-linux-gnu-as in your rootfs to use these slices.
+  #       ln -s s390x-linux-gnu-as "$rootfs/usr/bin/as"
+  assembler:
+    essential:
+      - libbinutils_libs
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/bin/s390x-linux-gnu-as:
+      /usr/s390x-linux-gnu/bin/as:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  linker:
+    essential:
+      - libbinutils_libs
+      - libc6_libs
+      - libctf0_libs
+      - libjansson4_libs
+    contents:
+      /usr/bin/s390x-linux-gnu-ld:  # Symlink to s390x-linux-gnu-ld.bfd
+      /usr/bin/s390x-linux-gnu-ld.bfd:
+      /usr/s390x-linux-gnu/bin/ld:
+        arch: [arm64, i386, ppc64el, amd64]
+      /usr/s390x-linux-gnu/bin/ld.bfd:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  archiver:
+    essential:
+      - libbinutils_libs
+      - libc6_libs
+    contents:
+      /usr/bin/s390x-linux-gnu-ar:
+      /usr/s390x-linux-gnu/bin/ar:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  # Libraries for cross compiling
+  cross-libs:
+    essential:
+      - binutils-s390x-linux-gnu_cross-libbfd
+      - binutils-s390x-linux-gnu_cross-libctf
+      - binutils-s390x-linux-gnu_cross-libctf-nobfd
+      - binutils-s390x-linux-gnu_cross-libopcodes
+
+  cross-libbfd:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libbfd-*-s390x.so:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  cross-libctf:
+    essential:
+      - binutils-s390x-linux-gnu_cross-libbfd
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libctf-s390x.so*:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  cross-libctf-nobfd:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libctf-nobfd-s390x.so*:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  cross-libopcodes:
+    essential:
+      - binutils-s390x-linux-gnu_cross-libbfd
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libopcodes-*-s390x.so:
+        arch: [arm64, i386, ppc64el, amd64]
+
+  ldscripts:
+    contents:
+      /usr/lib/s390x-linux-gnu/ldscripts/*:
+
+  bfd-plugins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/s390x-linux-gnu/bfd-plugins/libdep.so:
+
+  copyright:
+    essential:
+      - libbinutils_copyright
+    contents:
+      # On the native s390x host the doc dir is a symlink to libbinutils;
+      # on cross hosts it is a real directory with its own copyright file.
+      /usr/share/doc/binutils-s390x-linux-gnu:  # Symlink to libbinutils
+        arch: [s390x]
+      /usr/share/doc/binutils-s390x-linux-gnu/copyright:
+        arch: [amd64, arm64, i386, ppc64el]

@@ -1,0 +1,8 @@
+summary: Integration tests for binutils-aarch64-linux-gnu
+
+variants:
+    - archiver
+    - hello
+    - help_and_version
+
+execute: bash ./test_${SPREAD_VARIANT}.sh

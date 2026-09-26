@@ -1,0 +1,15 @@
+package: libjansson4
+
+essential:
+  - libjansson4_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libjansson.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libjansson4/copyright:
