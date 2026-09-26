@@ -1,20 +1,13 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver resolv
 
-arch=$(uname -m)
-case "${arch}" in
-    aarch64) chisel_arch="arm64" ;;
-    x86_64) chisel_arch="amd64" ;;
-    *) echo "Unsupported architecture: ${arch}"; exit 1 ;;
-esac
-
 slices=(
     cargo_cargo
     binutils_archiver # the zlib dependency requires ar
     ca-certificates_data # for HTTPS access to crates.io
 )
 
-rootfs="$(install-slices --arch "$chisel_arch" "${slices[@]}")"
+rootfs="$(install-slices "${slices[@]}")"
 
 # Create minimal /dev/null 
 mkdir -p "$rootfs/dev" && touch "$rootfs/dev/null" && chmod +x "$rootfs/dev/null"

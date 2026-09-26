@@ -1,0 +1,16 @@
+package: libiec61883-0
+
+essential:
+  - libiec61883-0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libraw1394-11_libs
+    contents:
+      /usr/lib/*-linux-*/libiec61883.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libiec61883-0/copyright:
