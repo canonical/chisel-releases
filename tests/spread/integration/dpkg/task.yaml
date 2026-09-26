@@ -19,7 +19,7 @@ execute: |
   # re-install from the deb packages. The completeness of the slice should be further
   # validated with the spread test of `apt`
 
-  # Note 2: This is for testing only and is not a valid real-world use case of dokg.
+  # Note 2: This is for testing only and is not a valid real-world use case of dpkg.
   # For the distro-related packages, their initial installation should be performed by
   # debootstrap when building the base image by design. For add-on packages, their
   # installation should be dictated by apt to sort the dependencies. User installing
