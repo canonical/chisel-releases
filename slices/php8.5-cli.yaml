@@ -12,7 +12,7 @@ slices:
       libgcc-s1_libs:
         arch: [amd64]
       libpcre2-8-0_libs:
-      libsodium23_libs:
+      libsodium26_libs:
       libssl3t64_libs:
       libxml2-16_libs:
       media-types_data:
