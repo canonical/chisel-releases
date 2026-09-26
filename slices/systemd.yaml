@@ -367,6 +367,8 @@ slices:
       systemd_config:
       systemd_system-generators:
       util-linux_getopt:
+      # systemd-sulogin-shell hands the rescue and emergency shells to sulogin
+      util-linux_login:
     contents:
       /usr/lib/systemd/systemd-backlight:
       /usr/lib/systemd/systemd-battery-check:

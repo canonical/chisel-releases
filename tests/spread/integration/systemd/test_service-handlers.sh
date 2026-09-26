@@ -49,6 +49,8 @@ while read -r bin; do
       ;;
   esac
 done <<<"$bins"
+# systemd-sulogin-shell hands the rescue and emergency shells to sulogin
+chroot "$rootfs" /usr/sbin/sulogin --version | grep -Fq "util-linux"
 umount "$rootfs/proc"
 trap - EXIT
 clean-rootfs "$rootfs"
