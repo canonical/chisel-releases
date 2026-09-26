@@ -31,8 +31,9 @@ from contextlib import contextmanager
 import time
 from typing import Iterator, Callable
 
-from diff_parser import Diff
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import yaml
 
 # For dev you can use requests-cache to cache the
@@ -41,6 +42,14 @@ import yaml
 # requests_cache.install_cache("requests_cache")
 
 FORWARD_PORT_MISSING_LABEL = "forward port missing"
+
+# retry rate limits and transient server errors, honouring Retry-After
+GITHUB_API_RETRY = Retry(
+    total=5,
+    backoff_factor=2,
+    status_forcelist=(429, 500, 502, 503, 504),
+    allowed_methods=("GET",),
+)
 
 COLORED_LOGGING: dict[str, str] = {
     "yellow": "\033[33m",
@@ -99,6 +108,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
 
     results: list[dict] = []
     with requests.Session() as s:
+        s.mount("https://", HTTPAdapter(max_retries=GITHUB_API_RETRY))
         while True:
             response = s.get(url, params=params, headers=headers)
             response.raise_for_status()
@@ -126,46 +136,42 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
     # run the generator
     results = list(_results)
 
-    # fetch the diff for each PR in parallel and determine which slices they are modifying (i.e. which files in the /slices directory they are adding/modifying)
+    # fetch the file list of each PR in parallel and collect the slice definition files it adds
 
-    def _fetch_diff(pr: dict) -> tuple[int, Diff | None]:
-        """Fetch a PR's diff and return the PR number and the parsed Diff object."""
+    def _fetch_new_slices(pr: dict) -> tuple[int, list[str]]:
+        """Return the PR number and the names of the slice definition files the PR adds."""
+        files: list[dict] = []
+        params: dict[str, int] = {"per_page": per_page, "page": 1}
         with requests.Session() as s:
-            response = s.get(pr["diff_url"], headers=headers)
-            response.raise_for_status()
-        diff_text = response.text
-        pr_number = pr["number"]
-        if "<h1>Too many requests</h1>" in diff_text:
-            warn(
-                f"Rate limit exceeded when fetching diff for PR #{pr_number}. Skipping."
-            )
-            return pr_number, None
-        return pr_number, Diff(diff_text)
+            s.mount("https://", HTTPAdapter(max_retries=GITHUB_API_RETRY))
+            while True:
+                response = s.get(f"{url}/{pr['number']}/files", params=params, headers=headers)
+                # no skipping on failure: a PR left out takes its slices out of the union
+                # the other PRs are checked against, and they would get mislabelled
+                response.raise_for_status()
+                page = response.json()
+                files.extend(page)
+                if len(page) < per_page:
+                    break
+                params["page"] += 1
+
+        new_slices = {
+            Path(f["filename"]).stem
+            for f in files
+            if f["status"] == "added"
+            and Path(f["filename"]).parent.name == "slices"
+            and Path(f["filename"]).suffix == ".yaml"
+        }
+        return pr["number"], sorted(new_slices)
 
     with timing_context() as elapsed:
         with ThreadPoolExecutor(max_workers=5) as executor:
-            _diffs = list(executor.map(_fetch_diff, results))
-    diffs: dict[int, Diff | None] = dict(_diffs)
+            new_slices_per_pr = dict(executor.map(_fetch_new_slices, results))
 
-    info(f"Fetched diffs for {len(results)} PRs in {elapsed():.2f} seconds.")
+    info(f"Fetched the files of {len(results)} PRs in {elapsed():.2f} seconds.")
 
-    # for each PR patch in a field "new_slices" based on the fetched diff
     for result in results:
-        diff = diffs.get(result["number"])
-        if not diff:
-            warn(f"Could not fetch diff for PR #{result['number']}. Skipping.")
-            continue
-
-        new_slices: set[str] = set()
-        for block in diff:
-            if block.type == "new":
-                new_filepath = Path(block.new_filepath)
-                if (
-                    new_filepath.parent.name == "slices"
-                    and new_filepath.suffix == ".yaml"
-                ):
-                    new_slices.add(new_filepath.stem)
-        result["new_slices"] = sorted(new_slices)
+        result["new_slices"] = new_slices_per_pr[result["number"]]
 
     return set(PR.from_github_json(r) for r in results if r.get("new_slices"))
 
