@@ -91,10 +91,7 @@ cleanup
 
 # DB AUTH (basic_db_auth)
 # ------------------------------------------------
-rootfs="$(install-slices squid_auth sqlite3_bins)"
-
-# Manually add the sqlite perl module (Only for tests)
-apt download libdbd-sqlite3-perl && dpkg -x libdbd-sqlite3-perl_*.deb "$rootfs/" && rm libdbd-sqlite3-perl_*.deb
+rootfs="$(install-slices squid_auth sqlite3_bins libdbd-sqlite3-perl_modules)"
 
 # Remove pre-existing http_access rules
 sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
@@ -171,8 +168,8 @@ cleanup
 # ------------------------------------------------
 rootfs="$(install-slices squid_auth)"
 
-# Manually add saslpasswd2 binary to create the sasldb (only for tests)
-apt install -y --no-install-recommends sasl2-bin
+# saslpasswd2 creates the sasldb from its own rootfs (only for tests)
+sasl_tools="$(install-slices sasl2-bin_saslpasswd2)"
 
 # Remove pre-existing http_access rules
 sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
@@ -196,8 +193,8 @@ mech_list: PLAIN LOGIN
 EOF
 
 # Create sasl user using saslpasswd2 and move the generated sasldb into the chroot
-echo "testpass" | saslpasswd2 -p -c -u testrealm testuser
-mv /etc/sasldb2 "$rootfs/etc/sasldb2"
+echo "testpass" | chroot "$sasl_tools" saslpasswd2 -f /sasldb2 -p -c -u testrealm testuser
+mv "$sasl_tools/sasldb2" "$rootfs/etc/sasldb2"
 chown proxy:proxy "$rootfs/etc/sasldb2"
 chmod 640 "$rootfs/etc/sasldb2"
 

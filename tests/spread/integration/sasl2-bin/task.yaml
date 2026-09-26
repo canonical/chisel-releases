@@ -1,0 +1,11 @@
+summary: Integration tests for sasl2-bin
+
+execute: |
+  rootfs="$(install-slices sasl2-bin_saslpasswd2 sasl2-bin_sasldblistusers2)"
+
+  # the slices bring no /etc, so point both tools at an explicit database
+  echo "testpass" | chroot "$rootfs" saslpasswd2 -f /sasldb2 -p -c -u testrealm testuser
+  test -s "$rootfs/sasldb2"
+
+  out="$(chroot "$rootfs" sasldblistusers2 -f /sasldb2)"
+  echo "$out" | grep -q '^testuser@testrealm: userPassword$'
