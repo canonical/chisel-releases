@@ -2,6 +2,9 @@ summary: Integration tests for bind9-host
 
 execute: |
   rootfs="$(install-slices bind9-host_bins)"
+  # bind9 opens /dev/null at startup to keep fds 0-2 in use
+  mkdir -p "${rootfs}/dev"
+  touch "${rootfs}/dev/null"
 
   chroot "${rootfs}/" host -V
   chroot "${rootfs}/" host example.com 127.0.0.53 | grep -P 'example.com [has|mail]'
