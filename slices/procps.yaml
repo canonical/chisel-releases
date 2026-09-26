@@ -6,38 +6,150 @@ essential:
 slices:
   bins:
     essential:
+      procps_free:
+      procps_kill:
+      procps_pgrep:
+      procps_pidwait:
+      procps_pmap:
+      procps_ps-bin:
+      procps_pwdx:
+      procps_skill:
+      procps_slabtop:
+      procps_sysctl:
+      procps_tload:
+      procps_top:
+      procps_uptime:
+      procps_vmstat:
+      procps_w-bin:
+      procps_watch:
+
+  free:
+    hint: Display free and used memory
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/free:
+
+  kill:
+    hint: Send a signal to a process
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/kill:
+
+  pgrep:
+    hint: Look up or signal processes by name
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pgrep:
+      /usr/bin/pkill:  # Symlink to pgrep
+
+  pidwait:
+    hint: Wait for a process to exit
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pidwait:
+
+  pmap:
+    hint: Report memory map of a process
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/pmap:
+
+  pwdx:
+    hint: Report current directory of a process
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/pwdx:
+
+  skill:
+    hint: Send a signal or report process status
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
+      /usr/bin/skill:
+      /usr/bin/snice:  # Symlink to skill
+
+  slabtop:
+    hint: Display kernel slab cache info
+    essential:
       libc6_libs:
       libncursesw6_libs:
       libproc2-0_libs:
-      libsystemd0_libs:
       libtinfo6_libs:
-      procps_ps-bin:
-      procps_sysctl:
     contents:
-      /usr/bin/free:
-      /usr/bin/kill:
-      /usr/bin/pgrep:
-      /usr/bin/pidwait:
-      /usr/bin/pkill:
-      /usr/bin/pmap:
-      /usr/bin/pwdx:
-      /usr/bin/skill:
       /usr/bin/slabtop:
-      /usr/bin/snice:
+
+  tload:
+    hint: Graph the system load average
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/tload:
+
+  top:
+    hint: Linux process viewer
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+      libtinfo6_libs:
+      ncurses-base_terminfo:
+    contents:
       /usr/bin/top:
+
+  uptime:
+    hint: Show system running time
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/uptime:
+
+  vmstat:
+    hint: Report virtual memory statistics
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+    contents:
       /usr/bin/vmstat:
+
+  w-bin:
+    hint: Show other users
+    essential:
+      libc6_libs:
+      libproc2-0_libs:
+      libsystemd0_libs:
+    contents:
       /usr/bin/w:
+
+  watch:
+    hint: Execute a program periodically
+    essential:
+      libc6_libs:
+      libncursesw6_libs:
+      libtinfo6_libs:
+    contents:
       /usr/bin/watch:
 
   sysctl:
+    hint: Read or write system parameters
     essential:
       libc6_libs:
     contents:
       /usr/sbin/sysctl:
 
   ps-bin:
+    hint: Report current process snapshot
     essential:
       libc6_libs:
       libproc2-0_libs:
