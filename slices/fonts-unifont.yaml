@@ -1,0 +1,13 @@
+package: fonts-unifont
+
+essential:
+  - fonts-unifont_copyright
+
+slices:
+  fonts:
+    contents:
+      /usr/share/fonts/opentype/unifont/unifont_*.otf:
+
+  copyright:
+    contents:
+      /usr/share/doc/fonts-unifont/copyright:

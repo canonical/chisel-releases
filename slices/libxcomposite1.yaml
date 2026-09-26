@@ -1,0 +1,16 @@
+package: libxcomposite1
+
+essential:
+  - libxcomposite1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libx11-6_libs
+    contents:
+      /usr/lib/*-linux-*/libXcomposite.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxcomposite1/copyright:

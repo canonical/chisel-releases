@@ -1,0 +1,16 @@
+package: libasound2t64
+
+essential:
+  - libasound2t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libasound2-data_data
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libasound.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libasound2t64/copyright:

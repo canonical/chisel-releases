@@ -1,0 +1,9 @@
+package: cpp-aarch64-linux-gnu
+
+essential:
+  - cpp-aarch64-linux-gnu_copyright
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/cpp-aarch64-linux-gnu/copyright:

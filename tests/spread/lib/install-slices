@@ -1,19 +1,35 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 # spellchecker: ignore rootfs
 
 # Installs one or more slices into a dynamically created temporary path.
 # Usage: install-slices [<slice>...]
 # Returns the path of the chiselled rootfs
 
+if [ -z "${ROOTFS_DIR:-}" ]; then
+    echo "Error: ROOTFS_DIR is not set" >&2
+    exit 1
+fi
+
+_OUTPUT="$(mktemp)"
+trap 'rm -f "$_OUTPUT"' EXIT
+
 function main() {
     local slices="$*"
     # add base-files_chisel slice to ensure we generate the manifest
     slices="${slices} base-files_chisel"
 
-    local rootfs="$(mktemp -d)"
-    #shellcheck disable=SC2086
-    chisel cut --release "$PROJECT_PATH" --root "$rootfs" $slices
-    [ -n "$MANIFESTS_EXPORT_DIR" ] && export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
+    # chrooted daemons that drop privileges need the path to stay traversable
+    #shellcheck disable=SC2174 # the parent always exists, only the leaf is created
+    mkdir -p -m 755 "$ROOTFS_DIR"
+
+    local rootfs
+    rootfs="$(mktemp -d -p "$ROOTFS_DIR")"
+    # mktemp makes it 0700; open it up the same way as its parent
+    chmod 755 "$rootfs"
+    chisel_cut "$rootfs" "$slices"
+    if [ -n "$MANIFESTS_EXPORT_DIR" ]; then
+        export_manifests "$rootfs" "$MANIFESTS_EXPORT_DIR"
+    fi
 
     echo "${rootfs}"
 }
@@ -32,6 +48,52 @@ function export_manifests() {
     mkdir -p "$export_dir"
     local seq=$(find "$export_dir" -type f -name 'manifest_*.wall' | wc -l)
     cp "$rootfs/var/lib/chisel/manifest.wall" "$export_dir/manifest_$(printf "%05d" "$seq").wall"
+}
+
+_PATTERNS_TO_RETRY=(
+    # https://github.com/canonical/chisel-releases/issues/765
+    "cannot fetch from archive"
+    # https://github.com/canonical/chisel-releases/issues/766
+    "cannot talk to archive"
+    # https://github.com/canonical/chisel-releases/issues/768
+    "cannot find archive data"
+)
+
+function chisel_cut() {
+    # chisel cut with retry logic for known transient errors
+    local rootfs="$1"
+    local slices="$2"
+
+    local n_retries=3
+    local attempt
+
+    for ((attempt=1; attempt<=n_retries; attempt++)); do
+        #shellcheck disable=SC2086
+        chisel cut \
+            --ignore=unstable \
+            --ignore=unmaintained \
+            --release "$PROJECT_PATH" \
+            --root "$rootfs" \
+            $slices \
+            2>&1 | tee "$_OUTPUT" >&2
+        [[ "${PIPESTATUS[0]}" -eq 0 ]] && break
+
+        local matched=""
+        for pattern in "${_PATTERNS_TO_RETRY[@]}"; do
+            if grep -q "$pattern" "$_OUTPUT"; then
+                matched="$pattern"
+                break
+            fi
+        done
+
+        if [ $attempt -lt $n_retries ] && [ -n "$matched" ]; then
+            echo "Warning: Error while installing $slices (attempt $attempt/$n_retries). Retrying..." >&2
+            continue
+        else
+            echo "Failed to cut slices. See above for details." >&2
+            exit 1
+        fi
+    done
 }
 
 main "$@"
