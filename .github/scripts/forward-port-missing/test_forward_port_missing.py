@@ -81,7 +81,7 @@ class TestFetchPRs:
 
     @patch("forward_port_missing.requests.Session")
     def test_draft(self, mock_session: MagicMock) -> None:
-        json_response = self.json_response.copy()
+        json_response = deepcopy(self.json_response)
         json_response[0]["draft"] = True
 
         side_effects: list[MagicMock] = self.make_side_effects(
