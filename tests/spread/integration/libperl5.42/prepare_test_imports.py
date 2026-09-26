@@ -11,7 +11,7 @@ def main(args: argparse.Namespace) -> None:
 
     slice_def = yaml.safe_load(
         open(
-            os.path.join(args.project_path, "slices/libperl5.40.yaml"), encoding="utf-8"
+            os.path.join(args.project_path, "slices/libperl5.42.yaml"), encoding="utf-8"
         )
     )
 
@@ -55,7 +55,7 @@ def main(args: argparse.Namespace) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Prepare test imports for libperl5.40 slices"
+        description="Prepare test imports for libperl5.42 slices"
     )
     parser.add_argument("project_path", help="Path to chisel-release root directory")
     parser.add_argument(
