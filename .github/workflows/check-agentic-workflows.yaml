@@ -1,0 +1,65 @@
+name: Check agentic workflows
+
+# Agentic workflows are authored as Markdown and compiled to `.lock.yml` by
+# `gh aw compile`. GitHub Actions runs the lock file, not the Markdown, so a lock
+# file that no longer matches its source is a silent behaviour change. Recompile
+# and fail if anything moves.
+
+on:
+  pull_request:
+    branches:
+      - "main"
+    paths:
+      - ".github/workflows/**"
+      - ".github/aw/**"
+
+jobs:
+  check-lock-files:
+    name: Check compiled workflows are current
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+
+      - name: Read the compiler version from the lock files
+        id: compiler
+        run: |
+          set -ex
+
+          versions=$(grep -ho '"compiler_version":"[^"]*"' .github/workflows/*.lock.yml \
+            | cut -d '"' -f 4 | sort -u)
+
+          # Lock files compiled by different gh-aw versions cannot all be current.
+          if [ -z "$versions" ] || [ "$(echo "$versions" | wc -l)" -ne 1 ]; then
+            echo "error:    expected exactly one gh-aw version, got:" "$versions" >&2
+            exit 1
+          fi
+
+          echo "version=$versions" >> $GITHUB_OUTPUT
+
+      - name: Install the gh-aw CLI
+        uses: github/gh-aw-actions/setup-cli@5e508589e03a7757a7e05b26e834292f5445bfb6 # v0.88.7
+        with:
+          # The version that compiled the lock files, not the version of this action;
+          # a different compiler emits different output and would fail the check.
+          version: ${{ steps.compiler.outputs.version }}
+
+      - name: Recompile
+        env:
+          # gh is not authenticated by default; the token avoids the unauthenticated
+          # rate limit when a ref is not already resolved in .github/aw/.
+          GITHUB_TOKEN: ${{ github.token }}
+        run: gh aw compile --no-check-update
+
+      - name: Check for drift
+        run: |
+          set -ex
+
+          # --intent-to-add so a lock file that was never committed counts as drift.
+          git add --intent-to-add .
+
+          if ! git diff --exit-code; then
+            echo "error:    lock files are stale; run 'gh aw compile' and commit" >&2
+            exit 1
+          fi
