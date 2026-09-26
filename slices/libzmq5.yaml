@@ -12,7 +12,7 @@ slices:
       libgssapi-krb5-2_libs:
       libnorm1t64_libs:
       libpgm-5.3-0t64_libs:
-      libsodium23_libs:
+      libsodium26_libs:
       libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libzmq.so.5*:
