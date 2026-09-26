@@ -37,7 +37,17 @@ backends:
         status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
         [ "$status" = "running" ] && break
         if [ "$status" = "degraded" ]; then
-          FATAL "System is degraded, aborting"
+          # On newer host kernels (7.0) focal's apparmor_parser cannot load its
+          # profiles and systemd-remount-fs cannot find LABEL=cloudimg-rootfs.
+          # Neither matters in a test container, so clear just those two.
+          # Anything else degraded is still fatal.
+          lxc exec $SPREAD_SYSTEM -- \
+            systemctl reset-failed apparmor.service systemd-remount-fs.service || true
+          status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
+          [ "$status" = "running" ] && break
+          failed=$(lxc exec $SPREAD_SYSTEM -- systemctl --failed --no-legend --plain \
+            | awk '{print $1}' | xargs)
+          FATAL "System is '$status' (failed: $failed), aborting"
         fi
         sleep 5
       done
