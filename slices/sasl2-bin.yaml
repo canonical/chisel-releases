@@ -1,0 +1,23 @@
+package: sasl2-bin
+
+essential:
+  sasl2-bin_copyright:
+
+slices:
+  sasldblistusers2:
+    essential:
+      libc6_libs:
+      libsasl2-2_libs:
+    contents:
+      /usr/sbin/sasldblistusers2:
+
+  saslpasswd2:
+    essential:
+      libc6_libs:
+      libsasl2-2_libs:
+    contents:
+      /usr/sbin/saslpasswd2:
+
+  copyright:
+    contents:
+      /usr/share/doc/sasl2-bin/copyright:
