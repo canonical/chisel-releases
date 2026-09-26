@@ -101,6 +101,9 @@ backends:
           password: ubuntu
 
 prepare: |
+  # keep unmounts of rbind copies of /dev from propagating back to the host
+  mount --make-rprivate / || true
+
   # Deb arch to GOARCH
   arch="$(dpkg --print-architecture | sed -e 's/armhf/arm/g' -e 's/ppc64el/ppc64le/g')"
 
