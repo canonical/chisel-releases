@@ -6,3 +6,4 @@ chroot "$rootfs" gnusort --version
 printf "banana\napple\ncherry\n" > "$rootfs/test_file"
 test "$(chroot "$rootfs" gnusort test_file | tr '\n' '-')" = "apple-banana-cherry-"
 test "$(chroot "$rootfs" gnusort -r test_file | tr '\n' '-')" = "cherry-banana-apple-"
+test "$(chroot "$rootfs" gnusort -R test_file | wc -l)" -eq 3

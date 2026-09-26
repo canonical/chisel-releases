@@ -13,7 +13,7 @@ slices:
       libc6_libs:
       libjemalloc2_libs:
       liblzf1_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libsystemd0_libs:
     contents:
       /usr/bin/redis-benchmark:

@@ -12,7 +12,7 @@ python3 prepare_test_imports.py "$PROJECT_PATH" cases
 for slice in $(find cases -type f -printf "%f\n"); do
     slice_name=$(echo "$slice" | cut -d. -f1)
     echo "Testing slice: $slice_name"
-    rootfs=$(install-slices "libperl5.40_$slice_name" base-files_base perl-base_bins)
+    rootfs=$(install-slices "libperl5.42_$slice_name" base-files_base perl-base_bins)
     cp "cases/$slice" "$rootfs"
     chroot "$rootfs" /usr/bin/perl "$slice"
 done

@@ -11,7 +11,7 @@ slices:
       libgcc-s1_libs:
       liblz4-1_libs:
       liblzma5_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libstdc++6_libs:
       libsystemd0_libs:
       libudev1_libs:
