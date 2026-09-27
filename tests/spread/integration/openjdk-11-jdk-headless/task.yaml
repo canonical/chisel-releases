@@ -8,8 +8,9 @@ environment:
 execute: |
   pids=()
   cleanup() {
+    # background JVMs run in their own process group, so this stops them and anything they started
     for pid in "${pids[@]}"; do
-      kill "$pid" || true
+      kill -- -"$pid" || true
     done
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
@@ -56,7 +57,7 @@ execute: |
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
         # a JVM from the jdk under test for the monitoring tools to attach to
-        nohup chroot . ${java} -cp / MonitoringTest > /dev/null 2>&1 &
+        setsid nohup chroot . ${java} -cp / MonitoringTest > /dev/null 2>&1 &
         pid=$!
         pids+=("$pid")
         for retry in 0 1 2 3 4 5; do
@@ -95,7 +96,7 @@ execute: |
         # /usr/lib/jvm/java-11-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-11-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd -J-Djava.security.policy=all.policy > ./jstatd.log &
+        setsid nohup chroot . ${home}/jstatd -J-Djava.security.policy=all.policy > ./jstatd.log &
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
           if [ ${retry} -eq 5 ]; then
