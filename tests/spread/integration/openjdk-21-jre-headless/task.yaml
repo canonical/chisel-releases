@@ -17,12 +17,16 @@ execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
-  apt install --update -y openjdk-21-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
-  javac *.java
+  # Compile the test classes with a jdk from the release under test, not one on the test host
+  jdk="$(install-slices openjdk-21-jdk-headless_core)"
+  cp *.java ${jdk}/
+  mkdir -p ${jdk}/proc
+  mount --bind /proc ${jdk}/proc
+  jdk_bin=$(dirname $(cd ${jdk} && find usr/lib/jvm -name javac))
+  chroot ${jdk} /${jdk_bin}/javac -d / $(ls *.java)
+  umount ${jdk}/proc
   cp *.java ${rootfs}/
-  cp *.class ${rootfs}/
+  cp ${jdk}/*.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
@@ -31,7 +35,7 @@ execute: |
     case ${SLICE} in
       awt)
         chroot . ${java} /ImageTest.java
-        file -i HelloWorld.png | grep -q "image/png; charset=binary"
+        test "$(head -c 8 HelloWorld.png | od -An -tx1 | tr -d ' \n')" = 89504e470d0a1a0a
       ;;
       class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java
@@ -64,6 +68,3 @@ execute: |
       ;;
     esac
   done
-
-restore: |
-  apt remove -y --purge openjdk-21-jdk-headless
