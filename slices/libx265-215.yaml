@@ -7,6 +7,7 @@ slices:
   libs:
     essential:
       libc6_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libnuma1_libs:
       libstdc++6_libs:
     contents:
