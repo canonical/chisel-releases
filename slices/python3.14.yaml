@@ -51,6 +51,8 @@ slices:
   # The "utlis" slice extends "core" with various tools.
   utils:
     essential:
+      base-files_bin:
+      dash_bins:
       libpython3.14-stdlib_debug:
       libpython3.14-stdlib_pydoc:
       python3.14_core:
