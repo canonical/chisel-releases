@@ -23,15 +23,15 @@ echo "auth_param basic children 20 startup=5 idle=1 concurrency=10" >> "$rootfs/
 apt install -y mysql-server
 trap "pkill mysqld; wait; cleanup" EXIT
 
-# Enable mysql_native_password plugin
-echo "[mysqld]" > /etc/mysql/mysql.conf.d/mysql.cnf
-echo "mysql_native_password=ON" >> /etc/mysql/mysql.conf.d/mysql.cnf
-service mysql restart
-
+# The squid user keeps the server's default auth plugin: mysql 9 clients have
+# no mysql_native_password any more.
 mysql -e "CREATE DATABASE IF NOT EXISTS squid_log;"
-mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'test_password';"
+mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED BY 'test_password';"
 mysql -e "GRANT ALL PRIVILEGES ON squid_log.* TO 'squid'@'127.0.0.1';"
 mysql -e "FLUSH PRIVILEGES;"
+# DBD::mysql connects without TLS, and caching_sha2_password then only admits
+# a user the server already has in its auth cache. One login over TLS fills it.
+mysql -h 127.0.0.1 -u squid -ptest_password -e "SELECT 1;" squid_log
 mysql squid_log <<EOF
 CREATE TABLE IF NOT EXISTS access_log (
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
