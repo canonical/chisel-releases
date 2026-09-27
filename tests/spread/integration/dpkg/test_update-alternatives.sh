@@ -8,7 +8,9 @@ chroot "$rootfs" update-alternatives --version | grep -iq "update-alternatives"
 
 # non-existent alternative
 chroot "$rootfs" update-alternatives --display foo 2>&1 | grep -iq "no alternatives"
-! chroot "$rootfs" update-alternatives --list foo
+rc=0
+chroot "$rootfs" update-alternatives --list foo || rc=$?
+test "$rc" -ne 0
 
 # make test alternatives
 echo "foo1" > "$rootfs/usr/bin/foo1"
@@ -52,10 +54,9 @@ test "$(readlink "$rootfs/etc/alternatives/foo")" = "/usr/bin/foo1"
 chroot "$rootfs" update-alternatives --remove foo /usr/bin/foo1
 test "$(readlink "$rootfs/usr/bin/foo")" = "/etc/alternatives/foo"
 test "$(readlink "$rootfs/etc/alternatives/foo")" = "/usr/bin/foo2"
-chroot "$rootfs" update-alternatives --list foo | grep -q "/usr/bin/foo2"
-! chroot "$rootfs" update-alternatives --list foo | grep -q "/usr/bin/foo1"
+test "$(chroot "$rootfs" update-alternatives --list foo)" = "/usr/bin/foo2"
 
 # remove all
 chroot "$rootfs" update-alternatives --remove-all foo
 chroot "$rootfs" update-alternatives --display foo 2>&1 | grep -iq "no alternatives"
-! test -L "$rootfs/usr/bin/foo"
+test ! -L "$rootfs/usr/bin/foo"
