@@ -285,6 +285,249 @@ slices:
     essential:
       coreutils-from-gnu_whoami:
 
+  arch:
+    essential:
+      coreutils-from-gnu_arch:
+
+  b2sum:
+    essential:
+      coreutils-from-gnu_b2sum:
+
+  base32:
+    essential:
+      coreutils-from-gnu_base32:
+
+  base64:
+    essential:
+      coreutils-from-gnu_base64:
+
+  basenc:
+    essential:
+      coreutils-from-gnu_basenc:
+
+  chcon:
+    essential:
+      coreutils-from-gnu_chcon:
+
+  chroot:
+    essential:
+      coreutils-from-gnu_chroot:
+
+  cksum:
+    essential:
+      coreutils-from-gnu_cksum:
+
+  comm:
+    essential:
+      coreutils-from-gnu_comm:
+
+  csplit:
+    essential:
+      coreutils-from-gnu_csplit:
+
+  df-bin:
+    essential:
+      coreutils-from-gnu_df-bin:
+
+  dircolors:
+    essential:
+      coreutils-from-gnu_dircolors:
+
+  du-bin:
+    essential:
+      coreutils-from-gnu_du-bin:
+
+  expand:
+    essential:
+      coreutils-from-gnu_expand:
+
+  factor:
+    essential:
+      coreutils-from-gnu_factor:
+
+  # NOTE: quoted so yaml parsers don't think this is a bool
+  "false":
+    essential:
+      coreutils-from-gnu_false:
+
+  fmt:
+    essential:
+      coreutils-from-gnu_fmt:
+
+  fold:
+    essential:
+      coreutils-from-gnu_fold:
+
+  groups:
+    essential:
+      coreutils-from-gnu_groups:
+
+  hostid:
+    essential:
+      coreutils-from-gnu_hostid:
+
+  logname:
+    essential:
+      coreutils-from-gnu_logname:
+
+  md5sum:
+    essential:
+      coreutils-from-gnu_md5sum:
+
+  mkfifo:
+    essential:
+      coreutils-from-gnu_mkfifo:
+
+  mknod:
+    essential:
+      coreutils-from-gnu_mknod:
+
+  nice:
+    essential:
+      coreutils-from-gnu_nice:
+
+  nl-bin:
+    essential:
+      coreutils-from-gnu_nl-bin:
+
+  nohup:
+    essential:
+      coreutils-from-gnu_nohup:
+
+  nproc:
+    essential:
+      coreutils-from-gnu_nproc:
+
+  numfmt:
+    essential:
+      coreutils-from-gnu_numfmt:
+
+  paste:
+    essential:
+      coreutils-from-gnu_paste:
+
+  pathchk:
+    essential:
+      coreutils-from-gnu_pathchk:
+
+  pinky:
+    essential:
+      coreutils-from-gnu_pinky:
+
+  pr-bin:
+    essential:
+      coreutils-from-gnu_pr-bin:
+
+  printenv:
+    essential:
+      coreutils-from-gnu_printenv:
+
+  ptx:
+    essential:
+      coreutils-from-gnu_ptx:
+
+  pwd:
+    essential:
+      coreutils-from-gnu_pwd:
+
+  runcon:
+    essential:
+      coreutils-from-gnu_runcon:
+
+  seq:
+    essential:
+      coreutils-from-gnu_seq:
+
+  sha1sum:
+    essential:
+      coreutils-from-gnu_sha1sum:
+
+  sha224sum:
+    essential:
+      coreutils-from-gnu_sha224sum:
+
+  sha256sum:
+    essential:
+      coreutils-from-gnu_sha256sum:
+
+  sha384sum:
+    essential:
+      coreutils-from-gnu_sha384sum:
+
+  sha512sum:
+    essential:
+      coreutils-from-gnu_sha512sum:
+
+  shred:
+    essential:
+      coreutils-from-gnu_shred:
+
+  shuf:
+    essential:
+      coreutils-from-gnu_shuf:
+
+  stdbuf:
+    essential:
+      coreutils-from-gnu_stdbuf:
+
+  stty:
+    essential:
+      coreutils-from-gnu_stty:
+
+  sum:
+    essential:
+      coreutils-from-gnu_sum:
+
+  tac:
+    essential:
+      coreutils-from-gnu_tac:
+
+  tee:
+    essential:
+      coreutils-from-gnu_tee:
+
+  # NOTE: quoted so yaml parsers don't think this is a bool
+  "true":
+    essential:
+      coreutils-from-gnu_true:
+
+  truncate:
+    essential:
+      coreutils-from-gnu_truncate:
+
+  tsort:
+    essential:
+      coreutils-from-gnu_tsort:
+
+  tty:
+    essential:
+      coreutils-from-gnu_tty:
+
+  unexpand:
+    essential:
+      coreutils-from-gnu_unexpand:
+
+  uniq:
+    essential:
+      coreutils-from-gnu_uniq:
+
+  users:
+    essential:
+      coreutils-from-gnu_users:
+
+  vdir:
+    essential:
+      coreutils-from-gnu_vdir:
+
+  who:
+    essential:
+      coreutils-from-gnu_who:
+
+  # NOTE: quoted so yaml parsers don't think this is a bool
+  "yes":
+    essential:
+      coreutils-from-gnu_yes:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
