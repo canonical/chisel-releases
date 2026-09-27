@@ -114,7 +114,7 @@ execute: |
           if [ ${retry} -eq 5 ]; then
             exit 1
           fi
-          (exec 3<>/dev/tcp/127.0.0.1/8000 && printf 'GET / HTTP/1.0\r\n\r\n' >&3 && grep -q '^HTTP/1\.[01] 200' <&3) && break
+          curl http://127.0.0.1:8000 && break
           sleep 10
         done
         # /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
