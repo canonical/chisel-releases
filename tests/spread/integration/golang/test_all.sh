@@ -6,7 +6,7 @@ rootfs="$(install-slices \
 find ${rootfs} -depth \( \
     -name '*_test.go' -o \
     \( -type d -name 'testdata' \) -o \
-    \( -type d -path '*/go-1.26/test' \) -o \
+    \( -type d -path '*/go-1.27/test' \) -o \
     \( -type d -path '*/src/internal/testenv' \) -o \
     \( -type d -path '*/src/internal/testpty' \) -o \
     \( -type d -path '*/src/internal/testhash' \) -o \
