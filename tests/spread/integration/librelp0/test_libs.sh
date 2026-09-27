@@ -1,0 +1,21 @@
+#!/bin/bash
+#spellchecker: ignore rootfs librelp
+
+rootfs="$(install-slices librelp0_libs)"
+
+# The multiarch directory and the dynamic loader's name differ per arch.
+lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/librelp.so.0.*" -print -quit)"
+loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+test -n "$lib"
+test -n "$loader"
+
+# The soname symlink points at the library.
+test "$(readlink "$(dirname "$lib")/librelp.so.0")" = "$(basename "$lib")"
+
+# Have the dynamic loader resolve every shared library librelp links
+# against; it fails if any is missing.
+output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+echo "$output"
+grep -Fq "libgnutls.so.30" <<<"$output"
+grep -Fq "libssl.so.4" <<<"$output"
+grep -Fq "libcrypto.so.4" <<<"$output"
