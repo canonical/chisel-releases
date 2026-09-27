@@ -14,26 +14,15 @@ environment:
   SLICE/awt: "awt"
 
 execute: |
-  cleanup() {
-    if [ -n "${jdk:-}" ] && mountpoint -q "$jdk/proc"; then umount "$jdk/proc"; fi
-  }
-  trap cleanup EXIT
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
-  # Build and copy java test files
-  jdk="$(install-slices openjdk-21-jdk-headless_core)"
-  cp *.java ${jdk}/
-  mkdir -p ${jdk}/proc
-  mount --bind /proc ${jdk}/proc
-  jdk_bin=$(dirname $(cd ${jdk} && find usr/lib/jvm -name javac))
-  chroot ${jdk} /${jdk_bin}/javac -d / *.java
   cp *.java ${rootfs}/
-  cp ${jdk}/*.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
     ln -sf /${java} proc/self/exe
+    chroot . ${java} -m jdk.compiler/com.sun.tools.javac.Main -d / *.java
     chroot . ${java} --version
     case ${SLICE} in
       awt)
