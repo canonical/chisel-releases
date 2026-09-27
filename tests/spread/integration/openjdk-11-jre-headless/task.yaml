@@ -15,14 +15,18 @@ execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-11-jre-headless_${SLICE} dash_bins)"
-  apt install --update -y openjdk-11-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
-  javac *.java
-  jar cvf test.jar *.java
-  cp *.jar ${rootfs}/
+  # Compile the test classes with a jdk from the release under test, not one on the test host
+  jdk="$(install-slices openjdk-11-jdk-headless_standard)"
+  cp *.java ${jdk}/
+  mkdir -p ${jdk}/proc
+  mount --bind /proc ${jdk}/proc
+  jdk_bin=$(dirname $(cd ${jdk} && find usr/lib/jvm -name javac))
+  chroot ${jdk} /${jdk_bin}/javac -d / $(ls *.java)
+  chroot ${jdk} /${jdk_bin}/jar cvf /test.jar $(ls *.java)
+  umount ${jdk}/proc
+  cp ${jdk}/test.jar ${rootfs}/
   cp *.java ${rootfs}/
-  cp *.class ${rootfs}/
+  cp ${jdk}/*.class ${rootfs}/
   cp certificate.pem ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
@@ -32,7 +36,7 @@ execute: |
     case ${SLICE} in
       awt)
         chroot . ${java} /ImageTest.java
-        file -i HelloWorld.png | grep -q "image/png; charset=binary"
+        test "$(head -c 8 HelloWorld.png | od -An -tx1 | tr -d ' \n')" = 89504e470d0a1a0a
       ;;
       class-data-sharing)
         chroot . ${java} -Xshare:dump
@@ -67,6 +71,3 @@ execute: |
       ;;
     esac
   done
-
-restore: |
-  apt remove -y --purge openjdk-11-jdk-headless
