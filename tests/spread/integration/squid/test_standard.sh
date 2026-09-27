@@ -23,8 +23,8 @@ echo "auth_param basic children 20 startup=5 idle=1 concurrency=10" >> "$rootfs/
 apt install -y mysql-server
 trap "pkill mysqld; wait; cleanup" EXIT
 
-# The squid user keeps the server's default auth plugin: mysql 9 clients have
-# no mysql_native_password any more.
+# mysql 9 clients do not support mysql_native_password, so the squid user
+# keeps the server's default auth plugin.
 mysql -e "CREATE DATABASE IF NOT EXISTS squid_log;"
 mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED BY 'test_password';"
 mysql -e "GRANT ALL PRIVILEGES ON squid_log.* TO 'squid'@'127.0.0.1';"
