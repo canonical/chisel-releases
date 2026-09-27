@@ -29,3 +29,11 @@ grep -Fxq "chisel-user:x:4243:4242:Chisel test user:/var/lib/chisel:/usr/sbin/no
 cp "$img/etc/passwd" "$rootfs/work/passwd.before"
 chroot "$rootfs" /usr/bin/systemd-sysusers --root=/work/img /work/chisel.conf
 cmp "$img/etc/passwd" "$rootfs/work/passwd.before"
+umount "$rootfs/proc"
+clean-rootfs "$rootfs"
+
+# with the fragments systemd ships, those are the ones it reads
+rootfs="$(install-slices systemd_sysusers systemd_sysusers-config)"
+mkdir -p "$rootfs/proc"
+mount --bind /proc "$rootfs/proc"
+chroot "$rootfs" systemd-sysusers --cat-config | grep -Fq "/usr/lib/sysusers.d/systemd-journal.conf"
