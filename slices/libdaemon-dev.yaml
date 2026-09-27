@@ -5,7 +5,6 @@ essential:
 
 slices:
   libs:
-    hint: Static library and linker symlink
     essential:
       libdaemon0_libs:
     contents:
@@ -13,7 +12,6 @@ slices:
       /usr/lib/*-linux-*/libdaemon.so:  # Symlink to libdaemon.so.0.* from libdaemon0
 
   headers:
-    hint: C headers for libdaemon
     contents:
       /usr/include/libdaemon/daemon.h:
       /usr/include/libdaemon/dexec.h:
