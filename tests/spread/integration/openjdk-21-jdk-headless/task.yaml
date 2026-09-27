@@ -8,8 +8,9 @@ environment:
 execute: |
   pids=()
   cleanup() {
+    # background JVMs run in their own process group, so this stops them and anything they started
     for pid in "${pids[@]}"; do
-      kill "$pid" 2>/dev/null
+      kill -- -"$pid" 2>/dev/null
     done
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
@@ -54,7 +55,7 @@ execute: |
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
         # a JVM from the jdk under test for the monitoring tools to attach to
-        nohup chroot . ${java} /MonitoringTest.java > /dev/null 2>&1 &
+        setsid nohup chroot . ${java} /MonitoringTest.java > /dev/null 2>&1 &
         pid=$!
         pids+=("$pid")
         for retry in 0 1 2 3 4 5; do
@@ -96,7 +97,7 @@ execute: |
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd > ./jstatd.log &
+        setsid nohup chroot . ${home}/jstatd > ./jstatd.log &
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
           if [ ${retry} -eq 5 ]; then
@@ -106,7 +107,7 @@ execute: |
           sleep 10
         done
         # /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
-        nohup chroot . ${home}/jwebserver &
+        setsid nohup chroot . ${home}/jwebserver &
         sleep 10
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
