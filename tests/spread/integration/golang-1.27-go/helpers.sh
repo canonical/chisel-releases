@@ -20,12 +20,13 @@ setup() {
       \( -type d -path '*/src/net/internal/cgotest' \) -o \
       \( -type d -path '*/src/net/internal/socktest' \) -o \
       \( -type d -path '*/src/os/exec/internal/fdtest' \) -o \
-      \( -type d -path '*/src/net/http/internal/testcert' \) -o \
       \( -type d -path '*/src/crypto/internal/cryptotest' \) -o \
       \( -type d -path '*/src/crypto/internal/fips140/check/checktest' \) -o \
       \( -type d -path '*/src/crypto/internal/fips140test' \) -o \
-      \( -type d -path '*/src/crypto/mlkem/mlkemtest' \) -o \
       \( -type d -path '*/src/embed/internal/embedtest' \) -o \
+      \( -type d -path '*/src/simd/archsimd/internal/simd_test' \) -o \
+      \( -type d -path '*/src/simd/archsimd/internal/test_helpers' \) -o \
+      \( -type d -path '*/src/encoding/json/internal/jsontest' \) -o \
       \( -type d -path '*/src/vendor/golang.org/x/net/nettest' \) \
       \) -exec rm -rf {} +
 
