@@ -7,6 +7,8 @@ variants:
     - update-alternatives
     - start-stop-daemon
     - scripts
+    - sh-lib
+    - maintscript-helper
     - db-backup
     - db-keeper
 

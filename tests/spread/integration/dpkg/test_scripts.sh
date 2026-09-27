@@ -1,11 +1,10 @@
 #!/bin/bash
-#spellchecker: ignore rootfs dpkg maintscript conffile
+#spellchecker: ignore rootfs dpkg maintscript
 
+# the aggregate brings every dpkg script and the library they source
 rootfs="$(install-slices dpkg_scripts)"
 
 chroot "$rootfs" dpkg-maintscript-helper --help | grep -q "^Usage: dpkg-maintscript-helper"
-
-# it checks its commands against the dpkg in the rootfs
-export DPKG_MAINTSCRIPT_NAME=postinst DPKG_MAINTSCRIPT_PACKAGE=example
-chroot "$rootfs" dpkg-maintscript-helper supports rm_conffile
-chroot "$rootfs" dpkg-maintscript-helper supports dir_to_symlink
+test -x "$rootfs/usr/libexec/dpkg/dpkg-db-backup"
+test -x "$rootfs/usr/libexec/dpkg/dpkg-db-keeper"
+test -f "$rootfs/usr/share/dpkg/sh/dpkg-error.sh"
