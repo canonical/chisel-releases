@@ -28,8 +28,9 @@ essential_packages=(
   base-passwd
   bash
   coreutils
-  # the slices ship the gnu implementation; letting apt pick the uutils one
-  # repoints rm at a binary dpkg has not unpacked yet
+  # the rootfs has gnu coreutils from the slices. unpacking apt's default
+  # (uutils) in -R order would point the tools into rust-coreutils before
+  # it exists.
   coreutils-from-gnu
   dash
   debianutils
