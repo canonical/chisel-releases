@@ -15,7 +15,7 @@ execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-17-jre-headless_${SLICE} dash_bins)"
-  # Compile the test classes with a jdk from the release under test, not one on the test host
+  # Build and copy java test files
   jdk="$(install-slices openjdk-17-jdk-headless_standard)"
   cp *.java ${jdk}/
   mkdir -p ${jdk}/proc
@@ -36,7 +36,7 @@ execute: |
     case ${SLICE} in
       awt)
         chroot . ${java} /ImageTest.java
-        test "$(head -c 8 HelloWorld.png | od -An -tx1 | tr -d ' \n')" = 89504e470d0a1a0a
+        file -i HelloWorld.png | grep -q "image/png; charset=binary"
       ;;
       class-data-sharing)
         chroot . ${java} -Xshare:dump
