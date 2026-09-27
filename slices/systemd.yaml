@@ -94,6 +94,9 @@ slices:
       /usr/lib/systemd/system/systemd-tmpfiles-setup.service:
       /usr/lib/systemd/system/time-set.target:
       /usr/lib/systemd/systemd-journald:
+      /usr/share/dbus-1/services/org.freedesktop.systemd1.service:
+      /usr/share/dbus-1/system-services/org.freedesktop.systemd1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.systemd1.conf:
 
   standard:
     hint: Core service manager and tools
