@@ -15,8 +15,6 @@ execute: |
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
-  apt install --update -y retry
-
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins base-passwd_data)"
@@ -50,7 +48,7 @@ execute: |
       setsid nohup chroot . ${java} /MonitoringTest.java > /dev/null 2>&1 &
       pid=$!
       pids+=("$pid")
-      retry --times=10 --delay 2 -- sh -c "chroot . ${home}/jcmd -l | grep -q MonitoringTest"
+      timeout 20 sh -c "until chroot . ${home}/jcmd -l | grep -q MonitoringTest; do sleep 2; done"
       # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
       # /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
       chroot . ${home}/jar cvf test.jar *.java
