@@ -28,21 +28,12 @@ execute: |
   mkdir -p "$ROOTFS/proc"
   mkdir -p "$ROOTFS/tmp"
   sudo mount --bind /proc "$ROOTFS/proc"
-  cleanup() {
-    for dir in "$ROOTFS" ${jdk:+"$jdk"}; do
-      if mountpoint -q "$dir/proc"; then sudo umount "$dir/proc"; fi
-    done
-  }
-  trap cleanup EXIT
+  trap 'sudo umount "$ROOTFS/proc"' EXIT
 
   # Build and copy java test files
-  jdk="$(install-slices openjdk-25-jdk-headless_core)"
-  mkdir -p "$jdk/testfiles" "$jdk/proc"
-  cp testfiles/*.java "$jdk/testfiles/"
-  sudo mount --bind /proc "$jdk/proc"
-  chroot "$jdk" "$JAVA_HOME/bin/javac" -d / testfiles/*.java
-  cp "$jdk"/*.class "$ROOTFS/"
+  cp -r testfiles "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
+  chroot "$ROOTFS" ${java} -m jdk.compiler/com.sun.tools.javac.Main -d / testfiles/*.java
 
   chroot "$ROOTFS" ${java} --version
   bash -ex test_${SLICE}.sh
