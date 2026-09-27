@@ -73,26 +73,43 @@ slices:
       /usr/share/locale/**/dpkg.mo:
 
   scripts:
+    hint: Helper scripts shipped with dpkg
+    essential:
+      dpkg_db-backup:
+      dpkg_db-keeper:
+      dpkg_maintscript-helper:
+
+  sh-lib:
+    hint: Shared shell functions for dpkg scripts
+    essential:
+      coreutils_basename:
+    contents:
+      # Sourced by the dpkg scripts for their messages and colours.
+      /usr/share/dpkg/sh/dpkg-error.sh:
+
+  maintscript-helper:
+    hint: Maintainer script helper for conffiles
     essential:
       base-files_bin:
       coreutils_bins:
       dash_bins:
       dpkg_bins:
+      dpkg_sh-lib:
       findutils_bins:
       grep_bins:
       sed_bins:
     contents:
       /usr/bin/dpkg-maintscript-helper:
-      # Note: This file defines the color scheme used by dpkg.
-      # It is sourced by dpkg's `dpkg-maintscript-helper` script.
-      /usr/share/dpkg/sh/dpkg-error.sh:
 
   db-backup:
     hint: Back up the dpkg database
     essential:
+      base-files_bin:
+      coreutils_bins:
+      dash_bins:
       debianutils_savelog:
       diffutils_cmp:
-      dpkg_scripts:
+      dpkg_sh-lib:
       # savelog compresses the older backups
       gzip_bins:
       tar_tar:
@@ -102,7 +119,9 @@ slices:
   db-keeper:
     hint: Record dpkg database changes in git
     essential:
-      dpkg_scripts:
+      base-files_bin:
+      dash_bins:
+      dpkg_sh-lib:
     contents:
       # git is optional: without it the script does nothing
       /usr/libexec/dpkg/dpkg-db-keeper:
@@ -127,7 +146,7 @@ slices:
       base-files_bin:
       coreutils_bins:
       dpkg_bins:
-      dpkg_scripts:
+      dpkg_maintscript-helper:
       sed_bins:
 
   copyright:
