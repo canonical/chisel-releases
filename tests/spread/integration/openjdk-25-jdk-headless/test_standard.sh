@@ -7,7 +7,6 @@ fi
 
 pids=()
 cleanup() {
-    # background JVMs run in their own process group, so this stops them and anything they started
     for pid in "${pids[@]}"; do
         kill -- -"$pid" 2>/dev/null || true
     done
@@ -16,7 +15,6 @@ cleanup() {
 for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
 trap cleanup EXIT
 
-# a JVM from the jdk under test for the monitoring tools to attach to
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
 pid=$!
 pids+=("$pid")
