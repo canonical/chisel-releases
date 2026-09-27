@@ -9,31 +9,25 @@ execute: |
   pids=()
   cleanup() {
     for pid in "${pids[@]}"; do
-      kill "$pid" 2>/dev/null
+      kill -- -"$pid" 2>/dev/null
     done
-    apt remove -y --purge openjdk-21-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
-  apt install --update -y openjdk-21-jdk-headless curl
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.21.0*
-  nohup java MonitoringTest.java &
-  pid=$!
-  pids+=("$pid")
+  apt install --update -y retry
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins)"
+  rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins base-passwd_data)"
   cp *.java ${rootfs}/
-  javac *.java
-  cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc sys tmp
   mount --bind /proc proc
   mount --bind /sys sys
   mount --bind /tmp tmp
+  javac=$(find usr/lib/jvm -name javac)
+  chroot . ${javac} -d / *.java
   case ${SLICE} in
     core)
       for java in `find usr/lib/jvm -name java`; do
@@ -57,6 +51,10 @@ execute: |
     standard)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
+        setsid nohup chroot . ${java} /MonitoringTest.java > /dev/null 2>&1 &
+        pid=$!
+        pids+=("$pid")
+        retry --times=10 --delay 2 -- sh -c "chroot . ${home}/jcmd -l | grep -q MonitoringTest"
         # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
         # /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
         chroot . ${home}/jar cvf test.jar *.java
@@ -89,7 +87,7 @@ execute: |
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-21-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd > ./jstatd.log &
+        setsid nohup chroot . ${home}/jstatd > ./jstatd.log &
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
           if [ ${retry} -eq 5 ]; then
@@ -99,7 +97,7 @@ execute: |
           sleep 10
         done
         # /usr/lib/jvm/java-21-openjdk-amd64/bin/jwebserver
-        nohup chroot . ${home}/jwebserver &
+        setsid nohup chroot . ${home}/jwebserver &
         sleep 10
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
@@ -110,7 +108,7 @@ execute: |
           sleep 10
         done
         # /usr/lib/jvm/java-21-openjdk-*/bin/jrunscript:
-        ${home}/jrunscript -q
+        chroot . ${home}/jrunscript -q
       done
       ;;
     modules)

@@ -9,37 +9,27 @@ execute: |
   pids=()
   cleanup() {
     for pid in "${pids[@]}"; do
-      kill "$pid" || true
+      kill -- -"$pid" || true
     done
-    apt remove --purge -y openjdk-17-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
-  apt install --update -y openjdk-17-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.17.0*
+  apt install --update -y retry
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-17-jdk-headless_${SLICE} dash_bins)"
+  rootfs="$(install-slices openjdk-17-jdk-headless_${SLICE} dash_bins base-passwd_data)"
   cp *.java ${rootfs}/
-
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.17.0*
   cp all.policy ${rootfs}/
-  javac *.java
 
-  nohup java -cp . MonitoringTest &
-  pid=$!
-  pids+=("$pid")
-
-  cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc sys tmp
   mount --bind /proc proc
   mount --bind /sys sys
   mount --bind /tmp tmp
+  javac=$(find usr/lib/jvm -name javac)
+  chroot . ${javac} -d / *.java
   case ${SLICE} in
     core)
       for java in `find usr/lib/jvm -name java`; do
@@ -63,6 +53,10 @@ execute: |
     standard)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
+        setsid nohup chroot . ${java} -cp / MonitoringTest > /dev/null 2>&1 &
+        pid=$!
+        pids+=("$pid")
+        retry --times=10 --delay 2 -- sh -c "chroot . ${home}/jcmd -l | grep -q MonitoringTest"
         # /usr/lib/jvm/java-17-openjdk-*/bin/jar:
         # /usr/lib/jvm/java-17-openjdk-*/bin/jarsigner:
         chroot . ${home}/jar cvf test.jar *.java
@@ -92,7 +86,7 @@ execute: |
         # /usr/lib/jvm/java-17-openjdk-*/bin/jstat:
         chroot . ${home}/jstat -gc ${pid}
         # /usr/lib/jvm/java-17-openjdk-*/bin/jstatd:
-        nohup chroot . ${home}/jstatd -J-Djava.security.policy=all.policy > ./jstatd.log &
+        setsid nohup chroot . ${home}/jstatd -J-Djava.security.policy=all.policy > ./jstatd.log &
         pids+=($!)
         for retry in 0 1 2 3 4 5; do
           if [ ${retry} -eq 5 ]; then
