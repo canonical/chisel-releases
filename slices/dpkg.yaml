@@ -11,7 +11,6 @@ slices:
       dpkg_config:
       dpkg_divert:
       dpkg_realpath:
-      dpkg_scripts:
       dpkg_start-stop-daemon:
       dpkg_tables:
       dpkg_update-alternatives:
@@ -28,12 +27,10 @@ slices:
     contents:
       /usr/bin/dpkg:
       /usr/bin/dpkg-deb:
-      /usr/bin/dpkg-maintscript-helper:
       /usr/bin/dpkg-query:
       /usr/bin/dpkg-split:
       /usr/bin/dpkg-statoverride:
       /usr/bin/dpkg-trigger:
-      /usr/libexec/dpkg/*:
 
   start-stop-daemon:
     hint: Start and stop system demon programs
@@ -77,11 +74,38 @@ slices:
 
   scripts:
     essential:
-      coreutils_echo:
+      base-files_bin:
+      coreutils_bins:
+      dash_bins:
+      dpkg_bins:
+      findutils_bins:
+      grep_bins:
+      sed_bins:
     contents:
+      /usr/bin/dpkg-maintscript-helper:
       # Note: This file defines the color scheme used by dpkg.
       # It is sourced by dpkg's `dpkg-maintscript-helper` script.
       /usr/share/dpkg/sh/dpkg-error.sh:
+
+  db-backup:
+    hint: Back up the dpkg database
+    essential:
+      debianutils_savelog:
+      diffutils_cmp:
+      dpkg_scripts:
+      # savelog compresses the older backups
+      gzip_bins:
+      tar_tar:
+    contents:
+      /usr/libexec/dpkg/dpkg-db-backup:
+
+  db-keeper:
+    hint: Record dpkg database changes in git
+    essential:
+      dpkg_scripts:
+    contents:
+      # git is optional: without it the script does nothing
+      /usr/libexec/dpkg/dpkg-db-keeper:
 
   tables:
     contents:
@@ -103,6 +127,7 @@ slices:
       base-files_bin:
       coreutils_bins:
       dpkg_bins:
+      dpkg_scripts:
       sed_bins:
 
   copyright:

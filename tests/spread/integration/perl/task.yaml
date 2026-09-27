@@ -32,8 +32,8 @@ execute: |
   out=$(chroot "$rootfs" /usr/bin/piconv -f gbk -t utf-8 -s $tmp 2>null)
   test "$out" = "$in"
 
-  # Test 5: misc
-  rootfs=$(install-slices perl_misc)
+  # Test 5: scripts
+  rootfs=$(install-slices perl_scripts)
   # The first output line is the CoreList data date, which changes with every
   # perl release, so only the query result is checked.
   out=$(chroot "$rootfs" /usr/bin/corelist -d 2024-07-26 2>null)
