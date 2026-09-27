@@ -10,7 +10,6 @@ execute: |
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  # the JVM only publishes the perf data jcmd -l and jstat read when it can resolve its user
   export ROOTFS="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins base-passwd_data)"
   # Find java in the chroot
   java=/$(find "$ROOTFS" -name java -type f -printf '%P\n' -quit 2>/dev/null)
