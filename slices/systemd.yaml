@@ -195,6 +195,48 @@ slices:
 
   # Standalone: applies sysusers.d fragments to a root of its choice, running
   # system or not, which is how an image build uses it.
+  ask-password:
+    hint: Password prompts and their agent
+    essential:
+      libc6_libs:
+      libsystemd-shared_libsystemd-shared:
+    contents:
+      /usr/bin/systemd-ask-password:
+      /usr/bin/systemd-tty-ask-password-agent:
+
+  creds:
+    hint: Encrypt and decrypt service credentials
+    essential:
+      libc6_libs:
+      libsystemd-shared_minimal:
+    contents:
+      /usr/bin/systemd-creds:
+
+  machine-id-setup:
+    hint: Initialize the machine ID
+    essential:
+      libc6_libs:
+      libsystemd-shared_libsystemd-shared:
+    contents:
+      /usr/bin/systemd-machine-id-setup:
+
+  mute-console:
+    hint: Mute console output during prompts
+    essential:
+      libc6_libs:
+      libsystemd-shared_libsystemd-shared:
+    contents:
+      /usr/bin/systemd-mute-console:
+
+  sysext:
+    hint: Merge system and config extensions
+    essential:
+      libc6_libs:
+      libsystemd-shared_standard:
+    contents:
+      /usr/bin/systemd-confext:  # Symlink to systemd-sysext
+      /usr/bin/systemd-sysext:
+
   sysusers:
     hint: Create system users and groups
     essential:
@@ -521,7 +563,12 @@ slices:
       libc-bin_ldconfig:
       libc6_libs:
       libsystemd-shared_libs:
+      systemd_ask-password:
+      systemd_creds:
       systemd_generated-services:
+      systemd_machine-id-setup:
+      systemd_mute-console:
+      systemd_sysext:
       # the tpm2 and pcr units run binaries only that slice ships
       systemd_tpm2:
       # the getty units run agetty wherever their tty exists, and fail without it
@@ -776,6 +823,7 @@ slices:
     essential:
       libc6_libs:
       libsystemd-shared_libs:
+      systemd_ask-password:
     contents:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
