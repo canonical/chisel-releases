@@ -12,6 +12,10 @@ environment:
   SLICE/tools: "tools"
 
 execute: |
+  cleanup() {
+    if [ -n "${jdk:-}" ] && mountpoint -q "$jdk/proc"; then umount "$jdk/proc"; fi
+  }
+  trap cleanup EXIT
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-11-jre-headless_${SLICE} dash_bins)"
@@ -21,9 +25,8 @@ execute: |
   mkdir -p ${jdk}/proc
   mount --bind /proc ${jdk}/proc
   jdk_bin=$(dirname $(cd ${jdk} && find usr/lib/jvm -name javac))
-  chroot ${jdk} /${jdk_bin}/javac -d / $(ls *.java)
-  chroot ${jdk} /${jdk_bin}/jar cvf /test.jar $(ls *.java)
-  umount ${jdk}/proc
+  chroot ${jdk} /${jdk_bin}/javac -d / *.java
+  chroot ${jdk} /${jdk_bin}/jar cvf /test.jar *.java
   cp ${jdk}/test.jar ${rootfs}/
   cp *.java ${rootfs}/
   cp ${jdk}/*.class ${rootfs}/
