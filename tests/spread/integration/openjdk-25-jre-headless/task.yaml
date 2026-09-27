@@ -30,17 +30,15 @@ execute: |
   sudo mount --bind /proc "$ROOTFS/proc"
   trap 'sudo umount "$ROOTFS/proc"' EXIT
 
-  # NOTE: we install openjdk-25-jdk-headless *on the testing host*, not in the chroot
-  apt-get install --update -y openjdk-25-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
-
-  # Build and copy java test files
-  javac testfiles/*.java -d "$ROOTFS/"
+  # Compile the test classes with a jdk from the release under test, not one on the test host
+  jdk="$(install-slices openjdk-25-jdk-headless_core)"
+  cp testfiles/*.java "$jdk/"
+  mkdir -p "$jdk/proc"
+  sudo mount --bind /proc "$jdk/proc"
+  chroot "$jdk" "$JAVA_HOME/bin/javac" -d / $(cd testfiles && ls *.java)
+  sudo umount "$jdk/proc"
+  cp "$jdk"/*.class "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
 
   chroot "$ROOTFS" ${java} --version
   bash -ex test_${SLICE}.sh
-
-restore: |
-  apt-get remove -y --purge openjdk-25-jdk-headless
