@@ -1,5 +1,3 @@
-# This is a nothing package but other packages reference this instead of
-# libjpeg-turbo8, so it is included for convenience.
 package: libjpeg8
 
 essential:
@@ -8,7 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      libjpeg-turbo8_libs:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/libjpeg.so.8*:
 
   copyright:
     contents:

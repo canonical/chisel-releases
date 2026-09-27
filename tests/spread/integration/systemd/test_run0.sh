@@ -1,10 +1,31 @@
 #!/bin/bash
-#spellchecker: ignore rootfs
+#spellchecker: ignore rootfs virt nsrun nsystemctl
 
+# shellcheck source=tests/spread/integration/systemd/helpers.sh
+. ./helpers.sh
+
+# the slice on its own carries what its own programs need
 rootfs="$(install-slices systemd_run0)"
+chroot "$rootfs" /usr/bin/run0 --help | grep -Fiq "run0"
+for bin in /usr/bin/run0 /usr/bin/systemd-run; do
+  chroot "$rootfs" "$bin" --version | grep -Eq '^systemd [0-9]+ '
+done
+clean-rootfs "$rootfs"
 
-chroot "$rootfs" /usr/bin/run0 --help 2>&1 | grep -Fiq "run0"
-chroot "$rootfs" /usr/bin/run0 --version 2>&1 | grep -Fiq "systemd"
+# both ask the manager over the bus, so a manager, a bus and the manager's
+# own bus policy have to be under them
+rootfs="$(install-slices systemd_run0 systemd_core dbus_services)"
 
-# try to run something. this will fail because we don't have systemd running
-chroot "$rootfs" /usr/bin/run0 echo hi 2>&1 | grep -Fiq "host is down"
+trap 'shutdown_rootfs || true' EXIT
+boot_rootfs "$rootfs"
+# shellcheck disable=SC2119 # nothing is expected to fail here
+assert_failed_units
+
+# the command's output has to come back through them, not just an exit code
+expected="$(nsrun systemctl show -p Version --value)"
+test -n "$expected"
+test "$(nsrun systemd-run --wait --collect --pipe --quiet systemctl show -p Version --value)" = "$expected"
+test "$(nsrun run0 --no-ask-password systemctl show -p Version --value)" = "$expected"
+test "$(nsrun run0 --no-ask-password --user=root systemctl show -p Version --value)" = "$expected"
+
+shutdown_rootfs

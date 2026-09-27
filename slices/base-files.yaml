@@ -66,7 +66,6 @@ slices:
       /etc/host.conf:
       /etc/issue:
       /etc/issue.net:
-      /etc/lsb-release:
       /etc/os-release:
       /usr/lib/os-release:
 
