@@ -13,8 +13,14 @@ cleanup() {
 for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
 trap cleanup EXIT
 
-nohup java testfiles/MonitoringTest.java &
+# a JVM from the jdk under test for the monitoring tools to attach to
+nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
 pid=$!
+for i in $(seq 10); do
+    chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest && break
+    test "$i" -lt 10
+    sleep 2
+done
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
 # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
@@ -35,10 +41,9 @@ if [ -f "$JAVA_HOME/bin/jhsdb" ]; then
 fi
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
-# nb. we are dumping host process
-chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.start name=recording filename="$ROOTFS"/recording.jfr maxsize=1MB
+chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.start name=recording filename=/recording.jfr maxsize=1MB
 chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.stop
-chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.dump name=recording  filename="$ROOTFS"/recording.jfr
+chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.dump name=recording  filename=/recording.jfr
 chroot "$ROOTFS" "$JAVA_HOME/bin/jfr" print recording.jfr > /dev/null
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
@@ -66,11 +71,19 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
 nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
-retry --times=10 --delay 2 -- grep -q "bound to /JStatRemoteHost" "jstatd.log"
+for i in $(seq 10); do
+    grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
+    test "$i" -lt 10
+    sleep 2
+done
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
 nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
-retry --times=10 --delay 2 -- curl http://127.0.0.1:8000
+for i in $(seq 10); do
+    (exec 3<>/dev/tcp/127.0.0.1/8000 && printf 'GET / HTTP/1.0\r\n\r\n' >&3 && grep -q '^HTTP/1\.[01] 200' <&3) && break
+    test "$i" -lt 10
+    sleep 2
+done
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jrunscript" -q
