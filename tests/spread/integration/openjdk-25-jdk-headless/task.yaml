@@ -24,9 +24,11 @@ execute: |
   mkdir -p "$ROOTFS/tmp"
   sudo mount --bind /proc "$ROOTFS/proc"
 
-  # Build the java test files with the jdk under test, not one on the test host
+  apt-get install --update -y retry
+
+  # Build and copy java test files
   cp testfiles/*.java "$ROOTFS/"
-  cp testfiles/*.sh "$ROOTFS/"
   chroot "$ROOTFS" "$JAVA_HOME/bin/javac" -d / $(cd testfiles && ls *.java)
+  cp testfiles/*.sh "$ROOTFS/"
 
   bash -ex test_${SLICE}.sh

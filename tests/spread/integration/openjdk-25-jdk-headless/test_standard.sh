@@ -20,11 +20,7 @@ trap cleanup EXIT
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
 pid=$!
 pids+=("$pid")
-for i in $(seq 10); do
-    chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest && break
-    test "$i" -lt 10
-    sleep 2
-done
+retry --times=10 --delay 2 -- sh -c 'chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest'
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
 # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
@@ -82,20 +78,12 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
 pids+=($!)
-for i in $(seq 10); do
-    grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
-    test "$i" -lt 10
-    sleep 2
-done
+retry --times=10 --delay 2 -- grep -q "bound to /JStatRemoteHost" "jstatd.log"
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
 pids+=($!)
-for i in $(seq 10); do
-    curl http://127.0.0.1:8000 && break
-    test "$i" -lt 10
-    sleep 2
-done
+retry --times=10 --delay 2 -- curl http://127.0.0.1:8000
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jrunscript" -q
