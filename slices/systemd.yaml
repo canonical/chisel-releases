@@ -559,15 +559,20 @@ slices:
   system-services:
     hint: System units and targets
     essential:
+      # system-update-cleanup.service runs it
+      coreutils_rm-bin:
       # sysinit.target.wants/ldconfig.service runs it on every boot
       libc-bin_ldconfig:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_ask-password:
+      systemd_core:
       systemd_creds:
       systemd_generated-services:
       systemd_machine-id-setup:
       systemd_mute-console:
+      # the binaries most of these units run, the boot-time ones included
+      systemd_service-handlers:
       systemd_sysext:
       # the tpm2 and pcr units run binaries only that slice ships
       systemd_tpm2:
@@ -824,6 +829,8 @@ slices:
       libc6_libs:
       libsystemd-shared_libs:
       systemd_ask-password:
+      # the user tmpfiles units run it
+      systemd_tmpfiles:
     contents:
       /usr/lib/systemd/user-environment-generators/30-systemd-environment-d-generator:
       /usr/lib/systemd/user-generators/systemd-xdg-autostart-generator:
