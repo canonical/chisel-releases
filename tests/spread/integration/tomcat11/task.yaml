@@ -49,7 +49,8 @@ execute: |
 
       apt-get update
       apt-get install -y retry
-      cp -r hello-world "$rootfs/var/lib/tomcat11/webapps/"
+      cp -r hello-world "$rootfs/"
+      chroot "$rootfs" "/$java" -m jdk.jartool/sun.tools.jar.Main cf /var/lib/tomcat11/webapps/hello-world.war -C /hello-world .
       setsid chroot "$rootfs" /usr/share/tomcat11/bin/catalina.sh start &
       pids+=($!)
       wait $!
