@@ -12,29 +12,17 @@ environment:
   SLICE/tools: "tools"
 
 execute: |
-  cleanup() {
-    if [ -n "${jdk:-}" ] && mountpoint -q "$jdk/proc"; then umount "$jdk/proc"; fi
-  }
-  trap cleanup EXIT
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-11-jre-headless_${SLICE} dash_bins)"
-  # Build and copy java test files
-  jdk="$(install-slices openjdk-11-jdk-headless_standard)"
-  cp *.java ${jdk}/
-  mkdir -p ${jdk}/proc
-  mount --bind /proc ${jdk}/proc
-  jdk_bin=$(dirname $(cd ${jdk} && find usr/lib/jvm -name javac))
-  chroot ${jdk} /${jdk_bin}/javac -d / *.java
-  chroot ${jdk} /${jdk_bin}/jar cvf /test.jar *.java
-  cp ${jdk}/test.jar ${rootfs}/
   cp *.java ${rootfs}/
-  cp ${jdk}/*.class ${rootfs}/
   cp certificate.pem ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
     ln -sf /${java} proc/self/exe
+    chroot . ${java} -m jdk.compiler/com.sun.tools.javac.Main -d / *.java
+    chroot . ${java} -m jdk.jartool/sun.tools.jar.Main cvf /test.jar *.java
     chroot . ${java} --version
     case ${SLICE} in
       awt)
