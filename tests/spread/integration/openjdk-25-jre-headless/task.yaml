@@ -30,7 +30,7 @@ execute: |
   sudo mount --bind /proc "$ROOTFS/proc"
   trap 'sudo umount "$ROOTFS/proc"' EXIT
 
-  # Compile the test classes with a jdk from the release under test, not one on the test host
+  # Build and copy java test files
   jdk="$(install-slices openjdk-25-jdk-headless_core)"
   cp testfiles/*.java "$jdk/"
   mkdir -p "$jdk/proc"
