@@ -1,9 +1,6 @@
 summary: Integration tests for libestr0
 
-execute: |
-  rootfs="$(install-slices libestr0_libs)"
+variants:
+    - libs
 
-  for f in "${rootfs}"/usr/lib/*/libestr.so.0 "${rootfs}"/usr/lib/*/libestr.so.0.0.0; do
-    test -f "$f"
-    head -c4 "$f" | grep -Fiq "ELF"
-  done
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
