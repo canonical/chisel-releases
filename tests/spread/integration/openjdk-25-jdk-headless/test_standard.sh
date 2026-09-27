@@ -5,17 +5,21 @@ if [ -z "$ROOTFS" ] || [ -z "$JAVA_HOME" ]; then
   exit 1
 fi
 
+pids=()
 cleanup() {
-     ps -ef | grep /usr/lib/jvm | awk '{ print $2 }' | xargs kill -9 2>/dev/null || true
-     kill -9 $pid || true
+    # background JVMs run in their own process group, so this stops them and anything they started
+    for pid in "${pids[@]}"; do
+        kill -- -"$pid" 2>/dev/null || true
+    done
 }
 
 for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
 trap cleanup EXIT
 
 # a JVM from the jdk under test for the monitoring tools to attach to
-nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
+setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
 pid=$!
+pids+=("$pid")
 for i in $(seq 10); do
     chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest && break
     test "$i" -lt 10
@@ -37,7 +41,9 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" VM.version
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
 if [ -f "$JAVA_HOME/bin/jhsdb" ]; then
-    chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jhsdb jstack --pid
+    setsid chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jhsdb jstack --pid &
+    pids+=($!)
+    wait $!
 fi
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
@@ -53,7 +59,9 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jinfo" "$pid"
 chroot "$ROOTFS" /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | '$JAVA_HOME/bin/jshell'"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
- chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jmap -clstats
+setsid chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jmap -clstats &
+pids+=($!)
+wait $!
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
 mkdir "$ROOTFS/nativetest"
@@ -64,13 +72,16 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jnativescan" -class-path /nativetest | grep -q 
 chroot "$ROOTFS" "$JAVA_HOME/bin/jps" -l
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
-chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jstack
+setsid chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jstack &
+pids+=($!)
+wait $!
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
-nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
+setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
+pids+=($!)
 for i in $(seq 10); do
     grep -q "bound to /JStatRemoteHost" "jstatd.log" && break
     test "$i" -lt 10
@@ -78,7 +89,8 @@ for i in $(seq 10); do
 done
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
-nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
+setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
+pids+=($!)
 for i in $(seq 10); do
     (exec 3<>/dev/tcp/127.0.0.1/8000 && printf 'GET / HTTP/1.0\r\n\r\n' >&3 && grep -q '^HTTP/1\.[01] 200' <&3) && break
     test "$i" -lt 10
