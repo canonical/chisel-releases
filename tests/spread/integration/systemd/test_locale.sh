@@ -19,7 +19,7 @@ done
 clean-rootfs "$rootfs"
 
 # with a manager and a bus under it, the manager reads what the slice ships
-rootfs="$(install-slices systemd_locale systemd_core systemd_dbus-services dbus_services)"
+rootfs="$(install-slices systemd_locale systemd_core dbus_services dbus-bin_bins)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
@@ -32,6 +32,10 @@ test "$(nsystemctl show -p Type --value systemd-localed.service)" = "notify"
 # the drop-in the slice ships is read on top of it
 nsrun systemctl cat systemd-localed.service | grep -Fq "x11-keyboard.conf"
 nsystemctl show -p ReadOnlyPaths systemd-localed.service | grep -Fq "/etc/X11/xorg.conf.d"
+
+# the bus can start it on demand
+nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+  org.freedesktop.DBus.ListActivatableNames | grep -Fq '"org.freedesktop.locale1"'
 
 # the client is there and talks to the bus rather than to files
 nsrun localectl --help | grep -Fq "set-locale"

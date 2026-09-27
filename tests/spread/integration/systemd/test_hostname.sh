@@ -15,14 +15,14 @@ done
 clean-rootfs "$rootfs"
 
 # with a manager and a bus under it, the daemon does its job
-rootfs="$(install-slices systemd_hostname systemd_core systemd_dbus-services dbus_services)"
+rootfs="$(install-slices systemd_hostname systemd_core dbus_services)"
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
 
-nsystemctl start systemd-hostnamed.service
-nsystemctl is-active systemd-hostnamed.service
+# the first call starts the daemon over the bus
 nsrun hostnamectl | grep -Fq "hostname:"
+nsystemctl is-active systemd-hostnamed.service
 
 # the hostname the daemon sets is the one it reads back, and the one on disk
 nsrun hostnamectl hostname chisel-test

@@ -16,7 +16,7 @@ done
 clean-rootfs "$rootfs"
 
 # with a manager and a bus under it, the daemon does its job
-rootfs="$(install-slices systemd_network systemd_core systemd_dbus-services dbus_services)"
+rootfs="$(install-slices systemd_network systemd_core dbus_services dbus-bin_bins)"
 
 # the daemon picks its configuration up from the directory the slice makes
 test -d "$rootfs/etc/systemd/network"
@@ -38,6 +38,10 @@ nsystemctl is-active systemd-networkd.service
 nsrun networkctl list | grep -Eq "^ *1 +lo +loopback"
 nsrun networkctl status lo | grep -Fq "lo"
 nsrun networkctl --json=short list | grep -Fq '"Name":"lo"'
+
+# the bus can start it on demand
+nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+  org.freedesktop.DBus.ListActivatableNames | grep -Fq '"org.freedesktop.network1"'
 
 # and the file this test wrote is the configuration it read
 nsrun networkctl cat 10-loopback.network | grep -Fq "Address=127.0.0.1/8"
