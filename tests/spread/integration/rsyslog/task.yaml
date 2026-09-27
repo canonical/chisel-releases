@@ -11,11 +11,6 @@ execute: |
   echo "syslog:x:100:101::/nonexistent:/usr/sbin/nologin" >> "${rootfs}/etc/passwd"
   echo "syslog:x:101:" >> "${rootfs}/etc/group"
 
-  # rsyslogd points its standard streams at /dev/null when it daemonises
-  mkdir -p "${rootfs}/dev"
-  mount --bind /dev "${rootfs}/dev"
-  trap 'pkill -x rsyslogd || true; umount "${rootfs}/dev" || true' EXIT
-
   # The shipped configuration, /etc/rsyslog.d/50-default.conf included, has to
   # be loadable: a validation run dlopen's every module it pulls in and rejects
   # a $WorkDirectory or a privilege drop target that is not there.
@@ -23,7 +18,12 @@ execute: |
 
   # A message has to survive the trip from a Unix socket to a log file.
   cp test.conf "${rootfs}/tmp/test.conf"
-  chroot "${rootfs}" /usr/sbin/rsyslogd -iNONE -f /tmp/test.conf
+
+  # -n keeps rsyslogd in the foreground: a daemonised one calls setsid() itself
+  # and would escape the process group kill.
+  setsid chroot "${rootfs}" /usr/sbin/rsyslogd -n -iNONE -f /tmp/test.conf &
+  rsyslogd_pid=$!
+  trap 'kill -- -"${rsyslogd_pid}" || true; wait "${rsyslogd_pid}" || true' EXIT
 
   for _ in $(seq 30); do
     if [ -S "${rootfs}/tmp/rsyslog-test.sock" ]; then

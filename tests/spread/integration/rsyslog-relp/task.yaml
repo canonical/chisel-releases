@@ -9,12 +9,11 @@ execute: |
   logfile="${rootfs}/tmp/rsyslog-relp-test.log"
   cp relp.conf "${rootfs}/tmp/relp.conf"
 
-  # rsyslogd points its standard streams at /dev/null when it daemonises
-  mkdir -p "${rootfs}/dev"
-  mount --bind /dev "${rootfs}/dev"
-  trap 'pkill -x rsyslogd || true; umount "${rootfs}/dev" || true' EXIT
-
-  chroot "${rootfs}" /usr/sbin/rsyslogd -iNONE -f /tmp/relp.conf
+  # -n keeps rsyslogd in the foreground: a daemonised one calls setsid() itself
+  # and would escape the process group kill.
+  setsid chroot "${rootfs}" /usr/sbin/rsyslogd -n -iNONE -f /tmp/relp.conf &
+  rsyslogd_pid=$!
+  trap 'kill -- -"${rsyslogd_pid}" || true; wait "${rsyslogd_pid}" || true' EXIT
 
   # chroot does not isolate the network, so the listener shows up on the host.
   # The retried write doubles as the readiness probe: it fails until imptcp
