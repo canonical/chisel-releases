@@ -23,8 +23,6 @@ execute: |
   mkdir -p "$ROOTFS/tmp"
   sudo mount --bind /proc "$ROOTFS/proc"
 
-  apt-get install --update -y retry
-
   # Build and copy java test files
   cp -r testfiles "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
