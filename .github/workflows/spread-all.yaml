@@ -2,8 +2,9 @@ name: Spread (all)
 run-name: Spread (all) for ${{ github.ref }}
 
 # Runs every spread job instead of only the changed suites, for the combined
-# 26.10 test PR. The jobs are dealt round-robin into shards so that each shard
-# fits the 6h job limit on the slower arches.
+# 26.10 test PR. Suites that are known to fail and not worked on yet run in a
+# shard of their own per group; the rest are dealt round-robin into numbered
+# shards so that each shard fits the 6h job limit on the slower arches.
 
 on:
   workflow_call:
@@ -25,13 +26,16 @@ jobs:
           {"name": "X64", "runs-on": "ubuntu-24.04"},
           {"name": "ARM64", "runs-on": "ubuntu-24.04-arm"}
           ]') }}
-        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+        shard: [rust, golang, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     name: Run Spread tests | ${{ matrix.runner.name }} | ${{ matrix.shard }}
     runs-on: ${{ matrix.runner.runs-on }}
     env:
       MANIFESTS_EXPORT_DIR: /usr/share/manifests
       SHARDS: 12
       SHARD: ${{ matrix.shard }}
+      # suite names, as an extended regex, for each group of expected failures
+      GROUP_RUST: cargo|rustc|rust-clippy|rust-miri|rust-src|rustfmt
+      GROUP_GOLANG: golang
     steps:
       - uses: actions/checkout@v4
 
@@ -57,8 +61,18 @@ jobs:
           (cd _spread/cmd/spread && go build)
           sudo mkdir -p "$MANIFESTS_EXPORT_DIR" && sudo chown "$USER:$USER" "$MANIFESTS_EXPORT_DIR"
           # spread -list order changes between calls, so every shard must sort it
-          _spread/cmd/spread/spread -list lxd: | LC_ALL=C sort \
-            | awk -v n="$SHARDS" -v s="$SHARD" '(NR - 1) % n == s' > shard-jobs
+          _spread/cmd/spread/spread -list lxd: | LC_ALL=C sort > all-jobs
+          case "$SHARD" in
+            rust) group="$GROUP_RUST" ;;
+            golang) group="$GROUP_GOLANG" ;;
+            *) group= ;;
+          esac
+          if [ -n "$group" ]; then
+            grep -E ":tests/spread/integration/($group)(:|\$)" all-jobs > shard-jobs || true
+          else
+            grep -v -E ":tests/spread/integration/($GROUP_RUST|$GROUP_GOLANG)(:|\$)" all-jobs \
+              | awk -v n="$SHARDS" -v s="$SHARD" '(NR - 1) % n == s' > shard-jobs
+          fi
           wc -l shard-jobs
           if [ -s shard-jobs ]; then
             _spread/cmd/spread/spread -v $(cat shard-jobs)
