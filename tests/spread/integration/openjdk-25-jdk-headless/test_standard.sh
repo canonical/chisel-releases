@@ -92,7 +92,7 @@ done
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
 pids+=($!)
 for i in $(seq 10); do
-    (exec 3<>/dev/tcp/127.0.0.1/8000 && printf 'GET / HTTP/1.0\r\n\r\n' >&3 && grep -q '^HTTP/1\.[01] 200' <&3) && break
+    curl http://127.0.0.1:8000 && break
     test "$i" -lt 10
     sleep 2
 done
