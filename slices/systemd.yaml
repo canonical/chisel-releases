@@ -270,6 +270,8 @@ slices:
       /usr/lib/systemd/systemd-logind:
       /usr/lib/systemd/systemd-user-runtime-dir:
       /usr/lib/systemd/systemd-user-sessions:
+      /usr/share/dbus-1/system-services/org.freedesktop.login1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.login1.conf:
 
   hostname:
     hint: Control system hostname
@@ -284,6 +286,8 @@ slices:
       /usr/lib/systemd/system/systemd-hostnamed.service:
       /usr/lib/systemd/system/systemd-hostnamed.socket:
       /usr/lib/systemd/systemd-hostnamed:
+      /usr/share/dbus-1/system-services/org.freedesktop.hostname1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.hostname1.conf:
 
   locale:
     hint: Control system locale settings
@@ -298,6 +302,9 @@ slices:
       /usr/lib/systemd/system/systemd-localed.service:
       /usr/lib/systemd/system/systemd-localed.service.d/x11-keyboard.conf:
       /usr/lib/systemd/systemd-localed:
+      /usr/share/dbus-1/system-services/org.freedesktop.locale1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.locale1.conf:
+      /usr/share/dbus-1/system.d/org.freedesktop.locale1.read-only.conf:
 
   timedate:
     hint: Control system time and date settings
@@ -311,6 +318,8 @@ slices:
       /usr/lib/systemd/system/dbus-org.freedesktop.timedate1.service:
       /usr/lib/systemd/system/systemd-timedated.service:
       /usr/lib/systemd/systemd-timedated:
+      /usr/share/dbus-1/system-services/org.freedesktop.timedate1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.timedate1.conf:
 
   network:
     hint: Manage network configuration
@@ -335,6 +344,8 @@ slices:
       /usr/lib/systemd/systemd-network-generator:
       /usr/lib/systemd/systemd-networkd:
       /usr/lib/systemd/systemd-networkd-wait-online:
+      /usr/share/dbus-1/system-services/org.freedesktop.network1.service:
+      /usr/share/dbus-1/system.d/org.freedesktop.network1.conf:
 
   network-config:
     hint: Default network configuration files
