@@ -18,7 +18,7 @@ trap cleanup EXIT
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
 pid=$!
 pids+=("$pid")
-retry --times=10 --delay 2 -- sh -c 'chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest'
+timeout 20 sh -c 'until chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest; do sleep 2; done'
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
 # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
@@ -76,12 +76,12 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
 pids+=($!)
-retry --times=10 --delay 2 -- grep -q "bound to /JStatRemoteHost" "jstatd.log"
+timeout 20 sh -c 'until grep -q "bound to /JStatRemoteHost" jstatd.log; do sleep 2; done'
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
 setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
 pids+=($!)
-retry --times=10 --delay 2 -- curl http://127.0.0.1:8000
+curl --retry 10 --retry-delay 2 --retry-connrefused http://127.0.0.1:8000
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jrunscript" -q
