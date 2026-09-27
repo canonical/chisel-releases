@@ -37,12 +37,13 @@ backends:
         status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
         [ "$status" = "running" ] && break
         if [ "$status" = "degraded" ]; then
-          # On newer host kernels (7.0) focal's apparmor_parser cannot load its
-          # profiles and systemd-remount-fs cannot find LABEL=cloudimg-rootfs.
-          # Neither matters in a test container, so clear just those two.
-          # Anything else degraded is still fatal.
-          lxc exec $SPREAD_SYSTEM -- \
-            systemctl reset-failed apparmor.service systemd-remount-fs.service || true
+          # focal's apparmor_parser and systemd-remount-fs are degraded on newer
+          # kernels. neither matters for tests, so skip both.
+          # https://bugs.launchpad.net/bugs/2148193
+          # https://bugs.launchpad.net/bugs/2089380
+          lxc exec $SPREAD_SYSTEM -- systemctl reset-failed \
+            apparmor.service \
+            systemd-remount-fs.service || true
           status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running || true)
           [ "$status" = "running" ] && break
           failed=$(lxc exec $SPREAD_SYSTEM -- systemctl --failed --no-legend --plain \
