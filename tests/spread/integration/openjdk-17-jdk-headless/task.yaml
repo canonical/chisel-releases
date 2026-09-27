@@ -11,35 +11,27 @@ execute: |
     for pid in "${pids[@]}"; do
       kill "$pid" || true
     done
-    apt remove --purge -y openjdk-17-jdk-headless
   }
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
-  apt install --update -y openjdk-17-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.17.0*
-
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  rootfs="$(install-slices openjdk-17-jdk-headless_${SLICE} dash_bins)"
+  # the JVM only publishes the perf data jcmd -l and jstat read when it can resolve its user
+  rootfs="$(install-slices openjdk-17-jdk-headless_${SLICE} dash_bins base-passwd_data)"
   cp *.java ${rootfs}/
-
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.17.0*
   cp all.policy ${rootfs}/
-  javac *.java
 
-  nohup java -cp . MonitoringTest &
-  pid=$!
-  pids+=("$pid")
-
-  cp *.class ${rootfs}/
   cd ${rootfs}
   mkdir -p proc sys tmp
   mount --bind /proc proc
   mount --bind /sys sys
   mount --bind /tmp tmp
+
+  # Compile the test classes with the jdk under test, not one on the test host
+  javac=$(find usr/lib/jvm -name javac)
+  chroot . ${javac} -d / $(ls *.java)
+
   case ${SLICE} in
     core)
       for java in `find usr/lib/jvm -name java`; do
@@ -63,6 +55,17 @@ execute: |
     standard)
       for java in `find usr/lib/jvm -name java`; do
         home=$(dirname ${java})
+        # a JVM from the jdk under test for the monitoring tools to attach to
+        nohup chroot . ${java} -cp / MonitoringTest > /dev/null 2>&1 &
+        pid=$!
+        pids+=("$pid")
+        for retry in 0 1 2 3 4 5; do
+          if [ ${retry} -eq 5 ]; then
+            exit 1
+          fi
+          chroot . ${home}/jcmd -l | grep -q MonitoringTest && break
+          sleep 2
+        done
         # /usr/lib/jvm/java-17-openjdk-*/bin/jar:
         # /usr/lib/jvm/java-17-openjdk-*/bin/jarsigner:
         chroot . ${home}/jar cvf test.jar *.java
