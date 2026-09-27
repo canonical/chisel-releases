@@ -15,19 +15,14 @@ execute: |
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-17-jre-headless_${SLICE} dash_bins)"
-  apt install --update -y openjdk-11-jdk-headless
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.11.0*
-  javac *.java
-  jar cvf test.jar *.java
-  cp *.jar ${rootfs}/
   cp *.java ${rootfs}/
-  cp *.class ${rootfs}/
   cp certificate.pem ${rootfs}/
   cd ${rootfs}
   mkdir -p proc/self
   for java in `find usr/lib/jvm -name java`; do
     ln -sf /${java} proc/self/exe
+    chroot . ${java} -m jdk.compiler/com.sun.tools.javac.Main -d / *.java
+    chroot . ${java} -m jdk.jartool/sun.tools.jar.Main cvf /test.jar *.java
     chroot . ${java} --version
     case ${SLICE} in
       awt)
@@ -66,6 +61,3 @@ execute: |
       ;;
     esac
   done
-
-restore: |
-  apt remove -y --purge openjdk-11-jdk-headless

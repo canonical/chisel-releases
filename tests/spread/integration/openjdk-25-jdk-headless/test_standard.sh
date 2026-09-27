@@ -5,16 +5,20 @@ if [ -z "$ROOTFS" ] || [ -z "$JAVA_HOME" ]; then
   exit 1
 fi
 
+pids=()
 cleanup() {
-     ps -ef | grep /usr/lib/jvm | awk '{ print $2 }' | xargs kill -9 2>/dev/null || true
-     kill -9 $pid || true
+    for pid in "${pids[@]}"; do
+        kill -- -"$pid" 2>/dev/null || true
+    done
 }
 
 for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
 trap cleanup EXIT
 
-nohup java testfiles/MonitoringTest.java &
+setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/java" /MonitoringTest.java > /dev/null 2>&1 &
 pid=$!
+pids+=("$pid")
+retry --times=10 --delay 2 -- sh -c 'chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" -l | grep -q MonitoringTest'
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jar:
 # /usr/lib/jvm/java-25-openjdk-*/bin/jarsigner:
@@ -31,14 +35,15 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" VM.version
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jhsdb:
 if [ -f "$JAVA_HOME/bin/jhsdb" ]; then
-    chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jhsdb jstack --pid
+    setsid chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jhsdb jstack --pid &
+    pids+=($!)
+    wait $!
 fi
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
-# nb. we are dumping host process
-chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.start name=recording filename="$ROOTFS"/recording.jfr maxsize=1MB
+chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.start name=recording filename=/recording.jfr maxsize=1MB
 chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.stop
-chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.dump name=recording  filename="$ROOTFS"/recording.jfr
+chroot "$ROOTFS" "$JAVA_HOME/bin/jcmd" "$pid" JFR.dump name=recording  filename=/recording.jfr
 chroot "$ROOTFS" "$JAVA_HOME/bin/jfr" print recording.jfr > /dev/null
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jinfo:
@@ -48,7 +53,9 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jinfo" "$pid"
 chroot "$ROOTFS" /usr/bin/sh -c "echo 'System.out.println(\"hello world\")' | '$JAVA_HOME/bin/jshell'"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jmap:
- chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jmap -clstats
+setsid chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jmap -clstats &
+pids+=($!)
+wait $!
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jnativescan:
 mkdir "$ROOTFS/nativetest"
@@ -59,17 +66,21 @@ chroot "$ROOTFS" "$JAVA_HOME/bin/jnativescan" -class-path /nativetest | grep -q 
 chroot "$ROOTFS" "$JAVA_HOME/bin/jps" -l
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstack:
-chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jstack
+setsid chroot "$ROOTFS" /usr/bin/sh /serviceability.sh "$JAVA_HOME" jstack &
+pids+=($!)
+wait $!
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstat:
 chroot "$ROOTFS" "$JAVA_HOME/bin/jstat" -gc "$pid"
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
-nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
+setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jstatd" > ./jstatd.log &
+pids+=($!)
 retry --times=10 --delay 2 -- grep -q "bound to /JStatRemoteHost" "jstatd.log"
 
 # /usr/lib/jvm/java-25-openjdk-amd64/bin/jwebserver
-nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
+setsid nohup chroot "$ROOTFS" "$JAVA_HOME/bin/jwebserver" &
+pids+=($!)
 retry --times=10 --delay 2 -- curl http://127.0.0.1:8000
 
 # /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
