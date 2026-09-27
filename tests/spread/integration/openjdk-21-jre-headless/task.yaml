@@ -14,6 +14,10 @@ environment:
   SLICE/awt: "awt"
 
 execute: |
+  cleanup() {
+    if [ -n "${jdk:-}" ] && mountpoint -q "$jdk/proc"; then umount "$jdk/proc"; fi
+  }
+  trap cleanup EXIT
   # Test different slice installations
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-21-jre-headless_${SLICE})"
@@ -23,8 +27,7 @@ execute: |
   mkdir -p ${jdk}/proc
   mount --bind /proc ${jdk}/proc
   jdk_bin=$(dirname $(cd ${jdk} && find usr/lib/jvm -name javac))
-  chroot ${jdk} /${jdk_bin}/javac -d / $(ls *.java)
-  umount ${jdk}/proc
+  chroot ${jdk} /${jdk_bin}/javac -d / *.java
   cp *.java ${rootfs}/
   cp ${jdk}/*.class ${rootfs}/
   cd ${rootfs}
