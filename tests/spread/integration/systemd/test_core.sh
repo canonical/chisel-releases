@@ -38,9 +38,40 @@ clean-rootfs "$rootfs"
 
 # with a packaged daemon on top, to see the manager underneath it behave
 # bash is here only to produce one log line long enough to be compressed;
-# coreutils would do too, but it pulls in libacl and libzstd and so would mask
+# coreutils would do too, but it links libacl and libzstd and so would mask
 # both of the checks below
-rootfs="$(install-slices systemd_core dbus_services bash_bins)"
+rootfs="$(install-slices systemd_core dbus_services dbus-bin_bins bash_bins)"
+
+# and a bus daemon from another package, shipped the way its package would: a
+# unit, a bus policy, and an activation file that hands starting it to the
+# manager. It only has to run, not answer, to show the hand-over happened.
+mkdir -p "$rootfs/etc/systemd/system" "$rootfs/usr/share/dbus-1/system-services" \
+  "$rootfs/usr/share/dbus-1/system.d"
+cat > "$rootfs/etc/systemd/system/example-daemon.service" <<'EOF'
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/bash -c 'exit 0'
+EOF
+cat > "$rootfs/usr/share/dbus-1/system-services/org.example.Daemon1.service" <<'EOF'
+[D-BUS Service]
+Name=org.example.Daemon1
+Exec=/bin/false
+User=root
+SystemdService=example-daemon.service
+EOF
+cat > "$rootfs/usr/share/dbus-1/system.d/org.example.Daemon1.conf" <<'EOF'
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <policy user="root">
+    <allow own="org.example.Daemon1"/>
+  </policy>
+  <policy context="default">
+    <allow send_destination="org.example.Daemon1"/>
+  </policy>
+</busconfig>
+EOF
 
 trap 'shutdown_rootfs || true' EXIT
 boot_rootfs "$rootfs"
@@ -53,6 +84,25 @@ assert_failed_units
 grep -q "^messagebus:" "$rootfs/etc/passwd"
 nsystemctl is-active dbus.service
 nsystemctl is-active dbus.socket
+
+# and the manager takes its own name on the bus it came up with
+for _ in $(seq 1 20); do
+  nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+    org.freedesktop.DBus.NameHasOwner string:org.freedesktop.systemd1 | grep -Fq "boolean true" && break
+  sleep 0.5
+done
+nsrun dbus-send --system --print-reply --dest=org.freedesktop.DBus /org/freedesktop/DBus \
+  org.freedesktop.DBus.NameHasOwner string:org.freedesktop.systemd1 | grep -Fq "boolean true"
+
+# so a call to the other package's daemon gets it started; the call itself
+# goes unanswered, since the stand-in never takes its name
+nsrun dbus-send --system --print-reply --reply-timeout=2000 --dest=org.example.Daemon1 \
+  /org/example/Daemon1 org.freedesktop.DBus.Peer.Ping >/dev/null 2>&1 || true
+for _ in $(seq 1 20); do
+  [ "$(nsystemctl show -p ActiveState --value example-daemon.service)" = "active" ] && break
+  sleep 0.5
+done
+test "$(nsystemctl show -p ActiveState --value example-daemon.service)" = "active"
 
 # the same two appliers set up what systemd's own fragments declare
 nsystemctl is-active systemd-sysusers.service
