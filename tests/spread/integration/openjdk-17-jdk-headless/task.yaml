@@ -29,7 +29,7 @@ execute: |
   mount --bind /sys sys
   mount --bind /tmp tmp
   javac=$(find usr/lib/jvm -name javac)
-  chroot . ${javac} -d / $(ls *.java)
+  chroot . ${javac} -d / *.java
   case ${SLICE} in
     core)
       for java in `find usr/lib/jvm -name java`; do
