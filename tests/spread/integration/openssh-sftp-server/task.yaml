@@ -1,0 +1,15 @@
+summary: Integration tests for openssh-sftp-server
+
+execute: |
+  # sftp, from the client, drives the server directly over a pipe
+  rootfs="$(install-slices openssh-sftp-server_bins openssh-client_bins)"
+  mkdir -p "$rootfs/dev" "$rootfs/tmp"
+  touch "$rootfs/dev/null"
+  echo "sftp-transfer-ok" > "$rootfs/tmp/source"
+
+  for server in /usr/lib/openssh/sftp-server /usr/lib/sftp-server; do
+    echo "put /tmp/source /tmp/destination" \
+      | timeout 5 chroot "$rootfs" sftp -D "$server" -b -
+    cmp "$rootfs/tmp/source" "$rootfs/tmp/destination"
+    rm "$rootfs/tmp/destination"
+  done

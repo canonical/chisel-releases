@@ -411,7 +411,6 @@ slices:
   # The "extra" slice consists of easter-eggs and deprecated modules
   extras:
     essential:
-      libnsl2_libs:
       libpython3.14-stdlib_core:
       libpython3.14-stdlib_internet:
       libtirpc3t64_libs:
