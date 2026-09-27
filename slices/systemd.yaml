@@ -941,6 +941,10 @@ slices:
 
   pcrlock:
     hint: TPM2 PCR lock policy predictions
+    essential:
+      libc6_libs:
+      libssl3t64_libs:
+      libsystemd-shared_libs:
     contents:
       /etc/pcrlock.d/:
         arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
@@ -1033,6 +1037,12 @@ slices:
         arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrproduct.service:
         arch: [amd64, arm64, armhf, riscv64]
+      # the pcrextend and pcrlock units run them; tpm2 depends on this slice,
+      # so the units cannot pull them in from there
+      /usr/lib/systemd/systemd-pcrextend:
+        arch: [amd64, arm64, armhf, riscv64]
+      /usr/lib/systemd/systemd-pcrlock:
+        arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
       /var/lib/pcrlock.d/:
         arch: [amd64, arm64, armhf, riscv64, ppc64el, s390x]
         make: true
