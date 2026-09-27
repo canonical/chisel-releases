@@ -22,12 +22,12 @@ execute: |
   rootfs="$(install-slices openjdk-21-jdk-headless_${SLICE} dash_bins base-passwd_data)"
   cp *.java ${rootfs}/
   cd ${rootfs}
+  java=/$(find "${rootfs}" -name java -type f -printf '%P\n' -quit 2>/dev/null)
+  home=$(dirname ${java})
   mkdir -p proc sys tmp
   mount --bind /proc proc
   mount --bind /sys sys
   mount --bind /tmp tmp
-  java=/$(find "${rootfs}" -name java -type f -printf '%P\n' -quit 2>/dev/null)
-  home=$(dirname ${java})
   chroot . ${home}/javac -d / *.java
   case ${SLICE} in
     core)
