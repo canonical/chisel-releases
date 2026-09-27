@@ -1,7 +1,5 @@
-rootfs="$(install-slices \
-  golang_cgo-support \
-  ca-certificates_data \  # for `go get` to work properly
-)"
+# ca-certificates for go to fetch modules
+rootfs="$(install-slices golang_cgo-support ca-certificates_data)"
 
 find ${rootfs} -depth \( \
     -name '*_test.go' -o \
@@ -47,12 +45,10 @@ chroot "${rootfs}/" gofmt /hello/cmd/hello/main.go > /dev/null
 
 chroot "${rootfs}/" go -C /hello test
 
-git clone https://github.com/canonical/chisel.git "${rootfs}/chisel"
-git -C "$rootfs/chisel" checkout v1.2.0
+# a real module, fetched through the module proxy from inside the rootfs
 cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
-
-chroot "${rootfs}/" go -C chisel build ./cmd/chisel
-chroot "${rootfs}/" ./chisel/chisel 2>&1 > /dev/null
+GOPATH=/go chroot "${rootfs}/" go install github.com/canonical/chisel/cmd/chisel@v1.2.0
+chroot "${rootfs}/" /go/bin/chisel > /dev/null
 
 
 export CGO_ENABLED=1
