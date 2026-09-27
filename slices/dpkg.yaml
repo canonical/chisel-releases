@@ -9,9 +9,11 @@ slices:
       coreutils_rm-bin:
       diffutils_bins:  # used by dpkg -i
       dpkg_config:
+      dpkg_divert:
       dpkg_realpath:
       dpkg_start-stop-daemon:
       dpkg_tables:
+      dpkg_update-alternatives:
       dpkg_var:
       libbz2-1.0_libs:
       libc-bin_ldconfig:
@@ -25,12 +27,10 @@ slices:
     contents:
       /usr/bin/dpkg:
       /usr/bin/dpkg-deb:
-      /usr/bin/dpkg-divert:
       /usr/bin/dpkg-query:
       /usr/bin/dpkg-split:
       /usr/bin/dpkg-statoverride:
       /usr/bin/dpkg-trigger:
-      /usr/bin/update-alternatives:
 
   start-stop-daemon:
     hint: Start and stop system demon programs
@@ -39,12 +39,27 @@ slices:
     contents:
       /usr/sbin/start-stop-daemon:
 
+  update-alternatives:
+    hint: Maintain symbolic links for commands
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/update-alternatives:
+
   realpath:
     hint: Resolve path with dpkg root support
     essential:
       libc6_libs:
     contents:
       /usr/bin/dpkg-realpath:
+
+  divert:
+    hint: Override a file with a diverted version
+    essential:
+      libc6_libs:
+      libmd0_libs:
+    contents:
+      /usr/bin/dpkg-divert:
 
   config:
     contents:
