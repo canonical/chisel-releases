@@ -1,0 +1,7 @@
+summary: Integration tests for sasl2-bin
+
+variants:
+    - saslpasswd2
+    - sasldblistusers2
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

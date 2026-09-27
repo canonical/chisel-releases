@@ -1,0 +1,17 @@
+summary: Integration tests for libdbd-sqlite3-perl
+
+execute: |
+  rootfs="$(install-slices libdbd-sqlite3-perl_modules)"
+  # perl -e reads its script handle from /dev/null
+  mkdir -p "$rootfs/dev"
+  touch "$rootfs/dev/null"
+
+  # Write a value to an on-disk database and read it back through DBI.
+  out="$(chroot "$rootfs" perl -MDBI -e '
+    my $dbh = DBI->connect("dbi:SQLite:dbname=/test.db", "", "", { RaiseError => 1 });
+    $dbh->do("CREATE TABLE t (v TEXT)");
+    $dbh->do("INSERT INTO t VALUES (?)", undef, "hello");
+    print $dbh->selectrow_array("SELECT v FROM t");
+  ')"
+  test "$out" = "hello"
+  test -s "$rootfs/test.db"
