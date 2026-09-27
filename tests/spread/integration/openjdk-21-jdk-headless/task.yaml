@@ -16,6 +16,8 @@ execute: |
   for sig in INT QUIT HUP TERM; do trap "cleanup; trap - $sig EXIT; kill -s $sig "'"$$"' "$sig"; done
   trap cleanup EXIT
 
+  apt install --update -y retry
+
   # Test different slice installations
   echo "SLICE=${SLICE}"
   # the JVM only publishes the perf data jcmd -l and jstat read when it can resolve its user
@@ -58,13 +60,7 @@ execute: |
         setsid nohup chroot . ${java} /MonitoringTest.java > /dev/null 2>&1 &
         pid=$!
         pids+=("$pid")
-        for retry in 0 1 2 3 4 5; do
-          if [ ${retry} -eq 5 ]; then
-            exit 1
-          fi
-          chroot . ${home}/jcmd -l | grep -q MonitoringTest && break
-          sleep 2
-        done
+        retry --times=10 --delay 2 -- sh -c "chroot . ${home}/jcmd -l | grep -q MonitoringTest"
         # /usr/lib/jvm/java-21-openjdk-*/bin/jar:
         # /usr/lib/jvm/java-21-openjdk-*/bin/jarsigner:
         chroot . ${home}/jar cvf test.jar *.java
