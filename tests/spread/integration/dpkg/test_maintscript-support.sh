@@ -28,6 +28,9 @@ essential_packages=(
   base-passwd
   bash
   coreutils
+  # the slices ship the gnu implementation; letting apt pick the uutils one
+  # repoints rm at a binary dpkg has not unpacked yet
+  coreutils-from-gnu
   dash
   debianutils
   diffutils
@@ -47,11 +50,17 @@ essential_packages=(
   util-linux
 )
 
-apt update
-mkdir -p "$rootfs/debs"
-
-apt-get -o Dir::Cache::archives="$rootfs/debs" -o Debug::NoLocking=1 -o Dir::State::status=/dev/null install --assume-yes \
-  --download-only --reinstall --no-install-recommends "${essential_packages[@]}"
+# The sliced apt fetches the debs from the release under test, not the test host.
+apt_root="$(install-slices apt_apt-get)"
+mkdir -p "$apt_root/dev" "$apt_root/debs/partial" "$rootfs/debs"
+mount --bind /dev "$apt_root/dev"
+cp /etc/resolv.conf "$apt_root/etc/resolv.conf"
+touch "$apt_root/empty-status"
+chroot "$apt_root" apt-get update
+chroot "$apt_root" apt-get -o Dir::Cache::archives=/debs -o Debug::NoLocking=1 -o Dir::State::status=/empty-status \
+  install --assume-yes --download-only --no-install-recommends "${essential_packages[@]}"
+cp "$apt_root"/debs/*.deb "$rootfs/debs/"
+umount "$apt_root/dev"
 
 # the first pass is expected to have some errors due to unmet dependencies for, e.g., libpam-modules and util-linux.
 chroot "$rootfs" dpkg --unpack --force-depends -R /debs || true
