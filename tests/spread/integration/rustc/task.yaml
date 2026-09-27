@@ -3,6 +3,7 @@ summary: Integration tests for rustc
 variants:
     - hello
     - help_and_version
+    - rustdoc
     - std
     - static
 
