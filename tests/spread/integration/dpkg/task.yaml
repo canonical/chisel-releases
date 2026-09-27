@@ -5,5 +5,8 @@ variants:
     - basic
     - maintscript-support
     - start-stop-daemon
+    - scripts
+    - db-backup
+    - db-keeper
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
