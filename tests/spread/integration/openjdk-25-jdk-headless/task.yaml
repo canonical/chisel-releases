@@ -26,8 +26,9 @@ execute: |
   apt-get install --update -y retry
 
   # Build and copy java test files
+  cp -r testfiles "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
-  chroot "$ROOTFS" "$JAVA_HOME/bin/javac" -d / $(cd testfiles && ls *.java)
+  chroot "$ROOTFS" "$JAVA_HOME/bin/javac" -d / testfiles/*.java
   cp testfiles/*.sh "$ROOTFS/"
 
   bash -ex test_${SLICE}.sh
