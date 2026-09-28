@@ -35,6 +35,9 @@ slices:
       aspnetcore-runtime-10.0_core:
       dotnet-sdk-10.0_minimal:
       dotnet-templates-10.0_data:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
     contents:
       /usr/lib/dotnet/library-packs/Microsoft.DotNet.ILCompiler.10.0.*.nupkg: {arch: [amd64, arm64]}
       /usr/lib/dotnet/library-packs/Microsoft.NET.ILLink.Tasks.10.0.*.nupkg: {arch: [amd64, arm64]}
