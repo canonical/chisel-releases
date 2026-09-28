@@ -4,6 +4,10 @@ variants:
     - minimal
     - core
     - standard
+    - tracing
+    - debugging
+    - kerberos
+    - dev
 
 environment:
   DOTNET_NOLOGO: "true"

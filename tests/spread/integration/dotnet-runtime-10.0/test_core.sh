@@ -1,5 +1,5 @@
 #!/bin/bash
-#spellchecker: ignore rootfs
+#spellchecker: ignore rootfs createdump tracept mscordaccore mscordbi lttng
 
 # What a consumer can do with dotnet-runtime-10.0_core: run an app that
 # hashes and compresses, still in invariant globalization mode.
@@ -27,3 +27,11 @@ chroot "$rootfs" /usr/bin/dotnet /app/Hello.dll compression | grep -Fxq "compres
 chroot "$rootfs" /usr/bin/dotnet /app/Hello.dll culture | grep -Fq "culture: FAIL CultureNotFoundException"
 chroot "$rootfs" /usr/bin/dotnet /app/Hello.dll timezone | grep -Fq "timezone: FAIL TimeZoneNotFoundException"
 chroot "$rootfs" /usr/bin/dotnet /app/Hello.dll negotiate | grep -Fq "negotiate: FAIL TypeInitializationException"
+
+# tracing and debugging are slices of their own, and lttng-ust comes with
+# tracing only
+fw="$(framework_dir "$rootfs")"
+for f in createdump libcoreclrtraceptprovider.so libmscordaccore.so libmscordbi.so; do
+  test ! -e "$fw/$f"
+done
+test -z "$(find "$rootfs/usr/lib" -name 'liblttng-ust*')"
