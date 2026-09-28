@@ -5,11 +5,4 @@ variants:
     - singlefilehost
     - nethost
 
-prepare: |
-  if [ "$SPREAD_VARIANT" = nethost ]; then
-    # the nethost probe is compiled on the host against the rootfs
-    apt-get update
-    apt-get install -y gcc libc6-dev
-  fi
-
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh
