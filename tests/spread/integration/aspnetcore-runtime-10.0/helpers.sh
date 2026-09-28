@@ -1,6 +1,29 @@
 # shellcheck shell=bash
 #spellchecker: ignore rootfs setsid urandom
 
+# Build the web app into web_helloworld/out with the release's own SDK, in a
+# rootfs of its own, so nothing is installed on the test host.
+build_web() {
+  local tools
+  tools="$(install-slices base-passwd_data dotnet-sdk-10.0_minimal)" || return 1
+  mkdir -p "$tools/proc" "$tools/tmp" "$tools/dev" "$tools/root/.nuget/NuGet" || return 1
+  mount --bind /proc "$tools/proc" || return 1
+  head -c 10000 /dev/urandom > "$tools/dev/random" || return 1
+  head -c 10000 /dev/urandom > "$tools/dev/urandom" || return 1
+  # restore from the packs the SDK ships, never the network
+  cp NuGet.Config "$tools/root/.nuget/NuGet/NuGet.Config" || return 1
+  cp -r web_helloworld "$tools/web" || return 1
+  if ! DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 HOME=/root chroot "$tools" /usr/bin/dotnet publish \
+    /web/Hello.csproj --configuration Release --no-self-contained --output /out; then
+    umount "$tools/proc"
+    return 1
+  fi
+  umount "$tools/proc" || return 1
+  rm -rf web_helloworld/out
+  cp -r "$tools/out" web_helloworld/out || return 1
+  clean-rootfs "$tools"
+}
+
 # Cut the given slices with the web app at /web and /proc mounted, and print
 # the rootfs.
 web_rootfs() {
