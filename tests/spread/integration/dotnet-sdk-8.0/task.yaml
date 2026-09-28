@@ -31,10 +31,14 @@ prepare: |
   # needed by various utilities of the SDK
   mkdir -p "${rootfs}/tmp"
   
-  # needed by crypto libraries e.g. to generate a GUID's
+  # needed by crypto libraries e.g. to generate a GUID's. the real devices: .NET
+  # reads /dev/urandom until it has every byte it asked for, so a copied file
+  # that runs out makes it spin forever
   mkdir -p "${rootfs}"/dev
-  head -c 500 /dev/urandom > "${rootfs}"/dev/random
-  head -c 500 /dev/urandom > "${rootfs}"/dev/urandom
+  for dev in random urandom; do
+    touch "${rootfs}/dev/${dev}"
+    mount --bind "/dev/${dev}" "${rootfs}/dev/${dev}"
+  done
   
   # The .NET SDK creates config files in the users home directory.
   mkdir -p "${rootfs}${HOME}"
@@ -61,10 +65,8 @@ execute: |
 
   # Build the C# Hello World .NET app
   chroot "${rootfs}" /usr/bin/dotnet restore /app_helloworld/app_helloworld.csproj
-  # in-process, without worker nodes or build servers, which can hang on ppc64el
-  chroot "${rootfs}" /usr/bin/dotnet build /app_helloworld/app_helloworld.csproj --configuration Release --no-restore \
-    --disable-build-servers -maxcpucount:1
+  chroot "${rootfs}" /usr/bin/dotnet build /app_helloworld/app_helloworld.csproj --configuration Release --no-restore
   chroot "${rootfs}" /usr/bin/dotnet publish /app_helloworld/app_helloworld.csproj --no-restore --no-build
-  
+
   # Run the C# Hello World .NET app
   chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net8.0/publish/app_helloworld.dll | grep -q "Hello, World!"
