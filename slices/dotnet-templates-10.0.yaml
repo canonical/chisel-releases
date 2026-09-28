@@ -4,7 +4,8 @@ essential:
   dotnet-templates-10.0_copyright:
 
 slices:
-  libs:
+  data:
+    hint: Project and item templates
     essential:
       dotnet-host-10.0_bins:
     contents:
