@@ -34,4 +34,4 @@ fw="$(framework_dir "$rootfs")"
 for f in createdump libcoreclrtraceptprovider.so libmscordaccore.so libmscordbi.so; do
   test ! -e "$fw/$f"
 done
-test -z "$(find "$rootfs/usr/lib" -name 'liblttng-ust*')"
+test -z "$(find "$rootfs/usr/lib" -name 'liblttng-ust*' -print -quit)"

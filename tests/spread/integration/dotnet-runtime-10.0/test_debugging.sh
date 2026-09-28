@@ -2,9 +2,9 @@
 #spellchecker: ignore rootfs createdump mscordaccore mscordbi
 
 # What a consumer gets from dotnet-runtime-10.0_debugging on top of core:
-# crash dumps of an app, taken from outside it or written when it fails fast.
-# libmscordbi is only there for an attached debugger; createdump reads the
-# app through libmscordaccore.
+# crash dumps of an app, taken from outside it or written when it fails fast,
+# and the interface a debugger attaches through. createdump reads the app
+# through libmscordaccore.
 
 # shellcheck source=tests/spread/integration/dotnet-runtime-10.0/helpers.sh
 . ./helpers.sh
@@ -42,3 +42,10 @@ if DOTNET_DbgEnableMiniDump=1 DOTNET_DbgMiniDumpName=/tmp/crash.dmp \
   exit 1
 fi
 test -s "$rootfs/tmp/crash.dmp"
+
+# nothing here attaches a debugger, so have the loader resolve what
+# libmscordbi links against instead
+loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+test -n "$loader"
+chroot "$rootfs" "${loader#"$rootfs"}" --list "${fw#"$rootfs"}/libmscordbi.so" \
+  | grep -Eq "libmscordaccore\.so => /usr/lib/dotnet/shared/"
