@@ -1,10 +1,5 @@
 summary: Integration tests for dotnet-sdk-aot-10.0
 
-# the package is only built where coreclr runs
-systems:
-  - -ubuntu-26.10-ppc64le
-  - -ubuntu-26.10-s390x
-
 environment:
   DOTNET_NOLOGO: "true"
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
@@ -12,6 +7,13 @@ environment:
   HOME: /root
 
 execute: |
+  # The package is only built where coreclr runs. Spread's system name is
+  # the same on every arch, so skip here rather than under systems.
+  case "$(dpkg --print-architecture)" in
+    amd64 | arm64) ;;
+    *) exit 0 ;;
+  esac
+
   # The slice ships no C toolchain, so the test brings one for the link.
   rootfs="$(install-slices base-passwd_data dotnet-sdk-aot-10.0_libs dash_bins gcc_gcc libc6-dev_libs)"
   mkdir -p "$rootfs/proc" "$rootfs/tmp" "$rootfs/dev" "$rootfs$HOME/.nuget/NuGet"
