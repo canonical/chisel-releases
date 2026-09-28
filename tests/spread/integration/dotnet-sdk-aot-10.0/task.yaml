@@ -1,0 +1,42 @@
+summary: Integration tests for dotnet-sdk-aot-10.0
+
+# the package is only built where coreclr runs
+systems:
+  - -ubuntu-26.10-ppc64le
+  - -ubuntu-26.10-s390x
+
+environment:
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
+  HOME: /root
+
+execute: |
+  # The slice ships no C toolchain, so the test brings one for the link.
+  rootfs="$(install-slices base-passwd_data dotnet-sdk-aot-10.0_libs dash_bins gcc_gcc libc6-dev_libs)"
+  mkdir -p "$rootfs/proc" "$rootfs/tmp" "$rootfs/dev" "$rootfs$HOME/.nuget/NuGet"
+  mount --bind /proc "$rootfs/proc"
+  trap 'umount "$rootfs/proc"' EXIT
+  head -c 10000 /dev/urandom > "$rootfs/dev/random"
+  head -c 10000 /dev/urandom > "$rootfs/dev/urandom"
+  cp NuGet.Config "$rootfs$HOME/.nuget/NuGet/NuGet.Config"
+  cp -r hello "$rootfs/hello"
+
+  # There are no -dev slices for openssl and brotli yet, so point the
+  # linker's unversioned names at the runtime libraries.
+  libdir="$(dirname "$(find "$rootfs/usr/lib" -name libssl.so.4 -print -quit)")"
+  for lib in libssl.so.4 libcrypto.so.4 libz.so.1 libbrotlienc.so.1 libbrotlidec.so.1 libbrotlicommon.so.1; do
+    ln -sf "$lib" "$libdir/${lib%%.so.*}.so"
+  done
+
+  # gcc in place of the default clang, and no objcopy to strip with
+  rid="$(chroot "$rootfs" /usr/bin/dotnet --info | awk '$1 == "RID:" { print $2; exit }')"
+  test -n "$rid"
+  chroot "$rootfs" /usr/bin/dotnet publish /hello/Hello.csproj --configuration Release --runtime "$rid" \
+    -p:PublishAot=true -p:CppCompilerAndLinker=gcc -p:StripSymbols=false --output /native
+  chroot "$rootfs" /native/Hello | grep -Fxq "Hello, World!"
+
+  # The result is native code that needs nothing but libc.
+  bare="$(install-slices libc6_libs)"
+  cp "$rootfs/native/Hello" "$bare/Hello"
+  chroot "$bare" /Hello | grep -Fxq "Hello, World!"
