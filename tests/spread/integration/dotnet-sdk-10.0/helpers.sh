@@ -19,7 +19,9 @@ sdk_rootfs() {
 
 # The runtime identifier the SDK in the rootfs builds for.
 sdk_rid() {
-  chroot "$1" /usr/bin/dotnet --info | awk '$1 == "RID:" { print $2; exit }'
+  local info
+  info="$(chroot "$1" /usr/bin/dotnet --info)" || return 1
+  awk '$1 == "RID:" { print $2; exit }' <<< "$info"
 }
 
 # coreclr runs on amd64 and arm64. ppc64el and s390x get the mono runtime,
