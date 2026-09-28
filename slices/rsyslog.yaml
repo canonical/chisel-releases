@@ -9,6 +9,8 @@ slices:
       libc6_libs:
       libestr0_libs:
       libfastjson4_libs:
+      # glibc dlopens libgcc_s for pthread_exit, which rsyslogd calls on shutdown
+      libgcc-s1_libs:
       libsystemd0_libs:
       libuuid1_libs:
       rsyslog_config:
