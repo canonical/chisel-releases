@@ -4,9 +4,18 @@ essential:
   dotnet-runtime-10.0_copyright:
 
 slices:
+  # Each slice opens only the dependency gates its own files reach. Past
+  # core, a feature is its own slice on top of core, to cut with core or
+  # standard; dev pulls every one of them.
+
+  # The console set: CoreLib, the JIT, the host policy and what their
+  # assemblies reference. Globalization must be invariant
+  # (DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1), since ICU opens in standard.
   minimal:
+    hint: Runtime for console apps
     essential:
       dotnet-hostfxr-10.0_libs:
+      # the mono runtime on ppc64el and s390x links them into libcoreclr.so
       libbrotli1_libs: {arch: [ppc64el, s390x]}
       libc6_libs:
       libgcc-s1_libs:
@@ -32,27 +41,93 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclr.so:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libhostpolicy.so:
 
-  # libicu is not needed if the environment is set to invariant by using
-  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-  # If globalization is needed, libicu must be included as well.
-  # For more information, see:
-  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
-  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
+  # Every assembly and native shim, bar the tracing and debugging ones.
   core:
+    hint: Runtime with crypto and compression
     essential:
       dotnet-runtime-10.0_minimal:
+      # System.IO.Compression, through libSystem.IO.Compression.Native
       libbrotli1_libs:
-      liblttng-ust1t64_libs: {arch: [amd64, arm64]}
+      libc6_libs:
+      libgcc-s1_libs:
+      # TLS and System.Security.Cryptography, through the OpenSSL shim
       libssl4_libs:
+      libstdc++6_libs:
+      libunwind8_libs: {arch: [amd64]}
       zlib1g_libs:
     contents:
-      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/**:
+      # the mono runtime on ppc64el and s390x ships its components as
+      # static archives and headers
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/*.a:
+        arch: [ppc64el, s390x]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/*.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/*.h:
+        arch: [ppc64el, s390x]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/*.json:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/.version:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libSystem.*.so:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libclr*.so:
+        arch: [amd64, arm64]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclr.so:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libhostpolicy.so:
 
   standard:
+    hint: Runtime with ICU and time zones
     essential:
       dotnet-runtime-10.0_core:
+      # culture data, dlopened by libSystem.Globalization.Native unless
+      # DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
       libicu78_libs:
+      # TimeZoneInfo reads the zone files directly
       tzdata_zoneinfo:
+
+  # coreclr loads the provider at startup whenever it is present. The mono
+  # runtime on ppc64el and s390x has no tracing provider.
+  tracing:
+    hint: LTTng tracing provider
+    essential:
+      dotnet-runtime-10.0_core:
+      libc6_libs:
+      libgcc-s1_libs:
+      liblttng-ust1t64_libs: {arch: [amd64, arm64]}
+      libstdc++6_libs:
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclrtraceptprovider.so:
+        arch: [amd64, arm64]
+
+  # The debugger interface and the crash dump writer. The mono runtime on
+  # ppc64el and s390x has neither.
+  debugging:
+    hint: Debugger libraries and crash dumps
+    essential:
+      dotnet-runtime-10.0_core:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+      libunwind8_libs: {arch: [amd64]}
+    contents:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/createdump:
+        arch: [amd64, arm64]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libmscordaccore.so:
+        arch: [amd64, arm64]
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libmscordbi.so:
+        arch: [amd64, arm64]
+
+  # Negotiate authentication in System.Net.Security, which
+  # libSystem.Net.Security.Native reaches by dlopening GSSAPI.
+  kerberos:
+    hint: Kerberos and Negotiate authentication
+    essential:
+      dotnet-runtime-10.0_core:
+      libgssapi-krb5-2_libs:
+
+  dev:
+    hint: Runtime with every optional feature
+    essential:
+      dotnet-runtime-10.0_debugging:
+      dotnet-runtime-10.0_kerberos:
+      dotnet-runtime-10.0_standard:
+      dotnet-runtime-10.0_tracing:
 
   copyright:
     contents:
