@@ -8,7 +8,7 @@ slices:
     essential:
       aspnetcore-targeting-pack-10.0_libs:
       ca-certificates_data:
-      dotnet-apphost-pack-10.0_libs:
+      dotnet-apphost-pack-10.0_apphost:
       dotnet-runtime-10.0_core:
       dotnet-targeting-pack-10.0_libs:
       dotnet-templates-10.0_libs:
@@ -37,6 +37,7 @@ slices:
   core:
     essential:
       aspnetcore-runtime-10.0_core:
+      dotnet-apphost-pack-10.0_singlefilehost:
       dotnet-sdk-10.0_minimal:
     contents:
       /usr/lib/dotnet/library-packs/Microsoft.DotNet.ILCompiler.10.0.*.nupkg: {arch: [amd64, arm64]}
