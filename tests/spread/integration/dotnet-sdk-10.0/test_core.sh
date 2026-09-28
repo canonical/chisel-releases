@@ -29,4 +29,4 @@ fi
 
 chroot "$rootfs" /usr/bin/dotnet publish /hello/Hello.csproj --configuration Release \
   --runtime "$rid" --self-contained --output /sc 2>&1 \
-  | grep -Fq "error NU1101: Unable to find package Microsoft.NETCore.App.Runtime.$rid."
+  | grep -Eq "error NU110[01]: Unable to (find package |resolve ')Microsoft\.NETCore\.App\.Runtime\.$rid"
