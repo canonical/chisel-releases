@@ -61,10 +61,7 @@ execute: |
 
   # Build the C# Hello World .NET app
   chroot "${rootfs}" /usr/bin/dotnet restore /app_helloworld/app_helloworld.csproj
-  # in-process, without worker nodes or build servers, which can hang on ppc64el
-  chroot "${rootfs}" /usr/bin/dotnet build /app_helloworld/app_helloworld.csproj --configuration Release --no-restore \
-    --disable-build-servers -maxcpucount:1
-  chroot "${rootfs}" /usr/bin/dotnet publish /app_helloworld/app_helloworld.csproj --no-restore --no-build
-  
-  # Run the C# Hello World .NET app
-  chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net8.0/publish/app_helloworld.dll | grep -q "Hello, World!"
+
+  # temporary: diagnose the ppc64el build hang; fail on purpose so spread prints the output
+  bash ./debug.sh "${rootfs}"
+  exit 99
