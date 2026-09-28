@@ -1,0 +1,25 @@
+summary: Integration tests for dotnet-templates-10.0
+
+environment:
+  DOTNET_NOLOGO: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+  DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: "true"
+  HOME: /root
+
+execute: |
+  # The template packs on their own.
+  rootfs="$(install-slices dotnet-templates-10.0_data)"
+  test -e "$(echo "$rootfs"/usr/lib/dotnet/templates/10.0.*/microsoft.dotnet.common.projecttemplates.10.0.*.nupkg)"
+  clean-rootfs "$rootfs"
+
+  # On top of the SDK's minimal slice, which has none, they make dotnet new
+  # work. --no-restore, since dotnet new can hang restoring.
+  rootfs="$(install-slices base-passwd_data dotnet-sdk-10.0_minimal dotnet-templates-10.0_data)"
+  mkdir -p "$rootfs/proc" "$rootfs/tmp" "$rootfs/dev" "$rootfs$HOME"
+  mount --bind /proc "$rootfs/proc"
+  trap 'umount "$rootfs/proc"' EXIT
+  head -c 10000 /dev/urandom > "$rootfs/dev/random"
+  head -c 10000 /dev/urandom > "$rootfs/dev/urandom"
+  chroot "$rootfs" /usr/bin/dotnet new console --output /app --no-restore \
+    | grep -Fq 'The template "Console App" was created successfully.'
+  test -e "$rootfs/app/Program.cs"
