@@ -45,7 +45,7 @@ test -s "$rootfs/tmp/crash.dmp"
 
 # nothing here attaches a debugger, so have the loader resolve what
 # libmscordbi links against instead
-loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+loader="$(find "$rootfs/usr/lib" -maxdepth 2 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
 test -n "$loader"
 chroot "$rootfs" "${loader#"$rootfs"}" --list "${fw#"$rootfs"}/libmscordbi.so" \
   | grep -Eq "libmscordaccore\.so => /usr/lib/dotnet/shared/"
