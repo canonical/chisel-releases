@@ -1,0 +1,15 @@
+package: libgpm2
+
+essential:
+  - libgpm2_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libgpm.so.2:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgpm2/copyright:
