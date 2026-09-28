@@ -5,13 +5,13 @@ essential:
 
 slices:
   minimal:
+    hint: SDK for apps on the shared runtime
     essential:
       aspnetcore-targeting-pack-10.0_libs:
       ca-certificates_data:
       dotnet-apphost-pack-10.0_apphost:
       dotnet-runtime-10.0_core:
       dotnet-targeting-pack-10.0_libs:
-      dotnet-templates-10.0_data:
       libc6_libs:
       libgcc-s1_libs:
       libstdc++6_libs:
@@ -29,32 +29,40 @@ slices:
       /usr/lib/dotnet/sdk/10.0.*/SdkResolvers/**:
       /usr/lib/dotnet/sdk/10.0.*/Sdks/**:
 
-  # libicu is not needed if the environment is set to invariant by using
-  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-  # If globalization is needed, libicu must be included as well.
-  # For more information, see:
-  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
-  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
+    hint: SDK with ASP.NET Core and templates
     essential:
       aspnetcore-runtime-10.0_core:
-      dotnet-apphost-pack-10.0_singlefilehost:
       dotnet-sdk-10.0_minimal:
+      dotnet-templates-10.0_data:
     contents:
       /usr/lib/dotnet/library-packs/Microsoft.DotNet.ILCompiler.10.0.*.nupkg: {arch: [amd64, arm64]}
       /usr/lib/dotnet/library-packs/Microsoft.NET.ILLink.Tasks.10.0.*.nupkg: {arch: [amd64, arm64]}
       /usr/lib/dotnet/metadata/workloads/10.0.*/userlocal:
-      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/10.0.*/**:
-      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.*/10.0.*/**:
       /usr/lib/dotnet/sdk-manifests/10.0.*/microsoft.net.workload.*/**:
       /usr/lib/dotnet/sdk/10.0.*/**:
 
+  # The runtime packs are symlinks into the shared frameworks, one for every
+  # file, so a self-contained publish needs the runtime's tracing and
+  # debugging slices too.
+  publish:
+    hint: Publishing of standalone apps
+    essential:
+      dotnet-apphost-pack-10.0_singlefilehost:
+      dotnet-runtime-10.0_debugging:
+      dotnet-runtime-10.0_tracing:
+      dotnet-sdk-10.0_core:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/10.0.*/**:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.ubuntu.*/10.0.*/**:
+
   standard:
+    hint: SDK with native AOT and ICU
     essential:
       aspnetcore-runtime-10.0_standard:
       dotnet-sdk-10.0_core:
+      dotnet-sdk-10.0_publish:
       dotnet-sdk-aot-10.0_libs: {arch: [amd64, arm64]}
-      # see comment of dotnet-sdk-10.0_core slice above:
       libicu78_libs:
 
   copyright:
