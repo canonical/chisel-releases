@@ -14,9 +14,7 @@ environment:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
 
 prepare: |
-  # the probe app is built on the host and run on the chiselled runtime
-  apt-get update
-  apt-get install -y dotnet-sdk-10.0
-  dotnet publish app_helloworld/Hello.csproj --configuration Release --no-self-contained --output app_helloworld/out
+  . ./helpers.sh
+  build_probe
 
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh
