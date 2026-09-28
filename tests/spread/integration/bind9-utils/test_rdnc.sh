@@ -34,7 +34,7 @@ chroot "${rootfs}/" rndc-confgen -a
 #--------------------------------------------------------------------------------
 
 chroot "${rootfs}/" named -c /etc/bind/named.conf
-trap 'chroot "${rootfs}/" rndc stop || true' EXIT
+trap 'chroot "${rootfs}/" rndc stop || true; umount "$rootfs/proc"' EXIT
 
 #--------------------------------------------------------------------------------
 # TEST RNDC COMMANDS
@@ -63,5 +63,12 @@ chroot "${rootfs}/" rndc zonestatus test.local 2>&1 | grep "no matching zone 'te
 # Stop the server
 chroot "${rootfs}/" rndc stop
 
-# Check server is stopped
+# Check server is stopped; named closes its control channel a little after
+# rndc stop returns
+for _ in $(seq 50); do
+    if chroot "${rootfs}/" rndc status 2>&1 | grep -q "connection refused"; then
+        break
+    fi
+    sleep 0.2
+done
 chroot "${rootfs}/" rndc status 2>&1 | grep "connection refused"
