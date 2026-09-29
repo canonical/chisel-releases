@@ -1,35 +1,77 @@
 name: Triage PRs
 
+# Requests reviews on PRs into the release branches, from the reviewers which
+# .github/codeowners.yaml lists for the packages each PR touches. Each reviewer
+# is only requested once per PR, so the workflow can run as often as needed.
+
 on:
-  # Using a schedule because events like pull_request only work if the workflow
-  # exists on the base (target) branch of the PR
+  # A pull_request workflow runs from the PR's base branch, which is a release
+  # branch without this file. Instead, this listens for the CI run of every push
+  # to a PR. workflow_run always runs from main with secrets, also for forks.
+  workflow_run:
+    workflows: ["CI"]
+    types: [requested]
+  # Catches what the CI runs miss: drafts marked as ready for review, CI runs
+  # waiting for approval, and changes to .github/codeowners.yaml.
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "30 */3 * * *"
   workflow_dispatch:
+    inputs:
+      pr:
+        description: "PR number to triage. Leave empty to triage all open PRs."
+        required: false
+      apply:
+        description: "Request the reviews. Otherwise only print them."
+        type: boolean
+        default: true
 
 jobs:
-  add-reviewers:
-    if: github.repository_owner == 'canonical'
+  request-reviews:
+    name: "Request reviews"
+    if: >-
+      github.repository_owner == 'canonical'
+      && (github.event_name != 'workflow_run'
+          || github.event.workflow_run.event == 'pull_request')
     runs-on: ubuntu-latest
+    env:
+      script: ".github/scripts/triage-prs"
+
+    permissions:
+      contents: read
+
     steps:
-      - env:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+
+      - name: Install dependencies
+        run: pip install -r ${{ env.script }}/requirements.txt
+
+      - name: Request reviews
+        env:
+          # The actions token cannot request team reviews.
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_PR_TOKEN }}
-          REVIEWERS: "slice-reviewers-guild"
+          GH_REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+          # workflow_run.pull_requests is empty for PRs from forks, so the PR is
+          # found by its head instead.
+          HEAD_OWNER: ${{ github.event.workflow_run.head_repository.owner.login }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          PR: ${{ inputs.pr }}
+          APPLY: ${{ github.event_name != 'workflow_dispatch' || inputs.apply }}
         run: |
-          set -euxo pipefail
-          
-          for pr_number in `gh pr list -R ${{ github.repository }} \
-            --search "-team-review-requested:canonical/${{ env.REVIEWERS }}" --json number | jq -e '.[].number'`
-            do
-              echo "Requesting review from ${{ env.REVIEWERS }} on PR ${pr_number}"
+          set -euo pipefail
 
-              gh api \
-                --method POST \
-                -H "Accept: application/vnd.github+json" \
-                -H "X-GitHub-Api-Version: 2022-11-28" \
-                /repos/${{ github.repository }}/pulls/${pr_number}/requested_reviewers \
-                -f "team_reviewers[]=${{ env.REVIEWERS }}"
+          args=()
+          if [[ "$EVENT" == "workflow_run" ]]; then
+            args+=(--head "$HEAD_OWNER:$HEAD_BRANCH")
+          elif [[ -n "$PR" ]]; then
+            args+=(--pr "$PR")
+          fi
+          if [[ "$APPLY" == "true" ]]; then
+            args+=(--apply)
+          fi
 
-              # Cannot use `gh pr edit`:
-              # https://github.com/cli/cli/issues/4844
-          done
+          ${{ env.script }}/triage_prs.py "${args[@]}"
