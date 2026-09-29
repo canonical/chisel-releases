@@ -1,0 +1,7 @@
+summary: Integration tests for rust-clippy
+
+variants:
+    - help_and_version
+    - lint
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
