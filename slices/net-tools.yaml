@@ -1,0 +1,29 @@
+package: net-tools
+
+essential:
+  net-tools_copyright:
+
+slices:
+  # net-tools is a collection of small, closely related networking utilities.
+  # They are kept in a single slice because consumers that pull net-tools in as
+  # a dependency generally cannot predict which of them will be invoked.
+  bins:
+    essential:
+      libc6_libs:
+      libselinux1_libs:
+    contents:
+      /usr/bin/netstat:
+      /usr/sbin/arp:
+      /usr/sbin/ifconfig:
+      /usr/sbin/ipmaddr:
+      /usr/sbin/iptunnel:
+      /usr/sbin/mii-tool:
+      /usr/sbin/nameif:
+      /usr/sbin/plipconfig:
+      /usr/sbin/rarp:
+      /usr/sbin/route:
+      /usr/sbin/slattach:
+
+  copyright:
+    contents:
+      /usr/share/doc/net-tools/copyright:
