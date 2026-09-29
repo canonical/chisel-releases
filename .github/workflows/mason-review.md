@@ -12,7 +12,8 @@ on:
   slash_command:
     name: mason-review
     events:
-      - issue_comment
+      # gh-aw's issue_comment excludes comments on pull requests.
+      - pull_request_comment
   roles:
     - admin
     - maintainer
