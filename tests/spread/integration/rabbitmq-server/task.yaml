@@ -4,7 +4,7 @@ execute: |
   # These tests only run for amd64 and arm64
   # For this test we also need libc-bin_getconf
 
-  slices="rabbitmq-server_bins libc-bin_getconf"
+  slices="rabbitmq-server_scripts libc-bin_getconf"
   rootfs="$(install-slices ${slices})"
 
   mkdir "$rootfs"/dev "$rootfs"/proc

@@ -1,0 +1,375 @@
+package: libperl5.42
+
+essential:
+  libperl5.42_copyright:
+
+slices:
+  bins:
+    hint: Versioned Perl interpreter binary
+    essential:
+      libc6_libs:
+      libperl5.42_libs:
+    contents:
+      /usr/bin/perl5.42-*-linux-*:
+
+  scripts:
+    hint: CPAN client script
+    essential:
+      libperl5.42_bins:
+      libperl5.42_standard:
+      perl-modules-5.42_standard:
+    contents:
+      /usr/bin/cpan5.42-*-linux-*:
+
+  libs:
+    hint: Shared Perl library and arch modules
+    essential:
+      libc6_libs:
+      libcrypt1_libs:
+    contents:
+      /usr/lib/*-linux-*/libperl.so.5.42*:
+      /usr/lib/*-linux-*/perl/5.42:
+
+  standard:
+    hint: Full Perl core module set
+    essential:
+      libc6_libs:
+      libperl5.42_bits:
+      libperl5.42_compiler-utils:
+      libperl5.42_compress:
+      libperl5.42_config:
+      libperl5.42_core-routines:
+      libperl5.42_data-dumper:
+      libperl5.42_data-structures:
+      libperl5.42_databases:
+      libperl5.42_devel:
+      libperl5.42_digest:
+      libperl5.42_encodings:
+      libperl5.42_error-handling:
+      libperl5.42_file-handling:
+      libperl5.42_gnu:
+      libperl5.42_hashing:
+      libperl5.42_i18n:
+      libperl5.42_io-modules:
+      libperl5.42_linux:
+      libperl5.42_loaders:
+      libperl5.42_machine:
+      libperl5.42_math:
+      libperl5.42_module-utils:
+      libperl5.42_networking:
+      libperl5.42_std-headers:
+      libperl5.42_system-utils:
+      libperl5.42_text-processing:
+      libperl5.42_threading:
+      libperl5.42_time:
+      perl-modules-5.42_standard:
+
+  bits:
+    hint: Low level C bits headers for Perl
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/bits/**.ph:
+
+  compiler-utils:
+    hint: Compiler backend and opcode modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_compiler-utils:
+      perl-modules-5.42_core:
+    contents:
+      # The Perl Compiler Backend
+      /usr/lib/*-linux-*/perl/5.42*/B.pm:
+      /usr/lib/*-linux-*/perl/5.42*/B/**.pm:
+      # Generic interface to Perl Compiler backends
+      /usr/lib/*-linux-*/perl/5.42*/O.pm:
+      # Disable named opcodes when compiling perl code
+      /usr/lib/*-linux-*/perl/5.42*/Opcode.pm:
+      /usr/lib/*-linux-*/perl/5.42*/_h2ph_pre.ph:
+      /usr/lib/*-linux-*/perl/5.42*/asm-generic/**.ph:
+      /usr/lib/*-linux-*/perl/5.42*/asm/**.ph:
+      # Perl pragma to restrict unsafe operations when compiling
+      /usr/lib/*-linux-*/perl/5.42*/ops.pm:
+
+  compress:
+    hint: Zlib and bzip2 compression modules
+    essential:
+      libbz2-1.0_libs:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Compress/**.pm:
+
+  config:
+    hint: Perl build configuration data
+    essential:
+      libcrypt1_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Config.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Config.pod:
+      /usr/lib/*-linux-*/perl/5.42*/Config_git.pl:
+      /usr/lib/*-linux-*/perl/5.42*/Config_heavy.pl:
+      /usr/lib/*-linux-*/perl/cross-config-5.42*/Config.pm:
+      /usr/lib/*-linux-*/perl/cross-config-5.42*/Config_heavy.pl:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.42*/config.sh.debug.gz:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.42*/config.sh.shared.gz:
+      /usr/lib/*-linux-*/perl/debian-config-data-5.42*/config.sh.static.gz:
+
+  core-routines:
+    hint: Perl core C API headers
+    essential:
+      libcrypt1_libs:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/CORE/**.h:
+
+  data-dumper:
+    hint: Data structure stringification module
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Data/Dumper.pm:
+
+  data-structures:
+    hint: List and scalar utility modules
+    essential:
+      libperl5.42_libs:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/List/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Scalar/**.pm:
+
+  databases:
+    hint: DBM database access modules
+    essential:
+      libdb5.3t64_libs:
+      libgdbm-compat4t64_libs:
+      libgdbm6t64_libs:
+      libperl5.42_libs:
+      perl-modules-5.42_core:
+      perl-modules-5.42_databases:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/DB_File.pm:
+      /usr/lib/*-linux-*/perl/5.42*/GDBM_File.pm:
+      /usr/lib/*-linux-*/perl/5.42*/NDBM_File.pm:
+      /usr/lib/*-linux-*/perl/5.42*/ODBM_File.pm:
+      /usr/lib/*-linux-*/perl/5.42*/SDBM_File.pm:
+
+  devel:
+    hint: Perl introspection and debugging modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+      perl-modules-5.42_devel:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Devel/**.pm:
+
+  digest:
+    hint: MD5 and SHA message digest modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+      perl-modules-5.42_digest:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Digest/**.pm:
+
+  encodings:
+    hint: Character encoding conversion modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Encode.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Encode/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/encoding.pm:
+      /usr/lib/*-linux-*/perl/5.42*/endian.ph:
+
+  error-handling:
+    hint: Errno symbol access module
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Errno.pm:
+      /usr/lib/*-linux-*/perl/5.42*/errno.ph:
+
+  file-handling:
+    hint: Filesystem path and file access modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Cwd.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Fcntl.pm:
+      /usr/lib/*-linux-*/perl/5.42*/File/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Storable.pm:
+
+  filters:
+    hint: Source filter modules
+    essential:
+      libc6_libs:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Filter/**.pm:
+
+  gnu:
+    hint: GNU C header bits for Perl
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/gnu/**.ph:
+
+  hashing:
+    hint: Hash utility modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Hash/**.pm:
+
+  io-modules:
+    hint: IO handle and PerlIO layer modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/IO.pm:
+      /usr/lib/*-linux-*/perl/5.42*/IO/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/PerlIO/**.pm:
+
+  linux:
+    hint: Linux specific C header bits for Perl
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/linux/**.ph:
+
+  loaders:
+    hint: Dynamic module loading support
+    essential:
+      libc6_libs:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/DynaLoader.pm:
+      /usr/lib/*-linux-*/perl/5.42*/auto/**.so:
+
+  i18n:
+    hint: Internationalization support modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/I18N/**.pm:
+
+  machine:
+    hint: Architecture specific module directory
+    essential:
+      libperl5.42_libs:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/machine/:
+
+  math:
+    hint: Big number and trigonometry modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Math/**.pm:
+
+  module-utils:
+    hint: Subroutine attribute and MRO modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Sub/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/attributes.pm:
+      /usr/lib/*-linux-*/perl/5.42*/features-time64.ph:
+      /usr/lib/*-linux-*/perl/5.42*/features.ph:
+      /usr/lib/*-linux-*/perl/5.42*/lib.pm:
+      /usr/lib/*-linux-*/perl/5.42*/mro.pm:
+
+  networking:
+    hint: Socket and IPC networking modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/IPC/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Socket.pm:
+
+  std-headers:
+    hint: Standard C header bits for Perl
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/signal.ph:
+      /usr/lib/*-linux-*/perl/5.42*/stdarg.ph:
+      /usr/lib/*-linux-*/perl/5.42*/stdc-predef.ph:
+      /usr/lib/*-linux-*/perl/5.42*/stddef.ph:
+      /usr/lib/*-linux-*/perl/5.42*/unistd.ph:
+      /usr/lib/*-linux-*/perl/5.42*/wait.ph:
+
+  system-utils:
+    hint: POSIX and system call interface modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/POSIX.pm:
+      /usr/lib/*-linux-*/perl/5.42*/POSIX.pod:
+      /usr/lib/*-linux-*/perl/5.42*/Sys/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/sys/**.ph:
+      /usr/lib/*-linux-*/perl/5.42*/syscall.ph:
+      /usr/lib/*-linux-*/perl/5.42*/sysexits.ph:
+      /usr/lib/*-linux-*/perl/5.42*/syslimits.ph:
+      /usr/lib/*-linux-*/perl/5.42*/syslog.ph:
+
+  text-processing:
+    hint: MIME and Unicode text processing modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/MIME/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/Unicode/**.pm:
+      /usr/lib/*-linux-*/perl/5.42*/re.pm:
+
+  threading:
+    hint: Perl threading support modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/threads.pm:
+      /usr/lib/*-linux-*/perl/5.42*/threads/**.pm:
+
+  time:
+    hint: Time and date utility modules
+    essential:
+      libperl5.42_libs:
+      perl-base_modules:
+      perl-modules-5.42_core:
+    contents:
+      /usr/lib/*-linux-*/perl/5.42*/Time/**.pm:
+
+  copyright:
+    hint: Licensing and copyright text
+    contents:
+      /usr/share/doc/libperl5.42/copyright:
