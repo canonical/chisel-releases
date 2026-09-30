@@ -212,7 +212,12 @@ slices:
     contents:
       /usr/share/go-1.27/api/*.txt:
 
+  # These scripts build, test, cross-compile and maintain the Go toolchain.
+  # They are not runnable with only this slice or the golang-1.27-src package.
+  # They need a writable, complete source/build tree, version metadata,
+  # build utilities and a bootstrap or built Go toolchain, depending on the script.
   bash-scripts:
+    hint: Go toolchain maintenance scripts
     essential:
       bash_bins:
       binutils_linker:
