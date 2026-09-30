@@ -4,6 +4,7 @@ Unit tests for forward_port_missing.py
 """
 
 import pytest
+import requests
 
 import sys
 import os
@@ -29,34 +30,24 @@ class TestFetchPRs:
             "number": 1,
             "base": {"ref": "ubuntu-20.04"},
             "labels": [{"name": "bug"}],
-            "diff_url": "http://example.com/diff1",
             "draft": False,
         }
     ]
 
-    diff_text = dedent("""
-    diff --git a/slices/foo.yaml b/slices/foo.yaml
-    new file mode 100644
-    index 0000000..1111111
-    --- /dev/null
-    +++ b/slices/foo.yaml
-    @@ -0,0 +1,2 @@
-    +name: foo
-    +hint: A test slice
-    """).strip()
+    files = [{"filename": "slices/foo.yaml", "status": "added"}]
 
     @staticmethod
-    def make_side_effects(json_response: list[dict], diff_text: str) -> list[MagicMock]:
+    def make_side_effects(json_response: list[dict], *file_pages: list[dict]) -> list[MagicMock]:
         return [
             MagicMock(json=MagicMock(return_value=json_response)),  # PR list response
-            MagicMock(text=diff_text),  # Diff response
+            *(MagicMock(json=MagicMock(return_value=page)) for page in file_pages),  # PR files
         ]
 
     @patch("forward_port_missing.requests.Session")
     def test_basic(self, mock_session: MagicMock) -> None:
 
         side_effects: list[MagicMock] = self.make_side_effects(
-            self.json_response, self.diff_text
+            self.json_response, self.files
         )
 
         get = _mock_session_get(mock_session)
@@ -81,11 +72,11 @@ class TestFetchPRs:
 
     @patch("forward_port_missing.requests.Session")
     def test_draft(self, mock_session: MagicMock) -> None:
-        json_response = self.json_response.copy()
+        json_response = deepcopy(self.json_response)
         json_response[0]["draft"] = True
 
         side_effects: list[MagicMock] = self.make_side_effects(
-            json_response, self.diff_text
+            json_response, self.files
         )
 
         get = _mock_session_get(mock_session)
@@ -96,18 +87,10 @@ class TestFetchPRs:
 
     @patch("forward_port_missing.requests.Session")
     def test_no_new_slices(self, mock_session: MagicMock) -> None:
-        diff_text = dedent("""
-        diff --git a/slices/foo.yaml b/slices/foo.yaml
-        index 1111111..2222222
-        --- a/slices/foo.yaml
-        +++ b/slices/foo.yaml
-        @@ -1,2 +1,2 @@
-         name: foo
-         hint: A test slice
-        """).strip()
+        files = [{"filename": "slices/foo.yaml", "status": "modified"}]
 
         side_effects: list[MagicMock] = self.make_side_effects(
-            self.json_response, diff_text
+            self.json_response, files
         )
 
         get = _mock_session_get(mock_session)
@@ -115,6 +98,48 @@ class TestFetchPRs:
         prs = forward_port_missing.fetch_prs()
 
         assert len(prs) == 0, "PRs that don't add new slices should be ignored"
+
+    @patch("forward_port_missing.requests.Session")
+    def test_only_added_slice_definitions(self, mock_session: MagicMock) -> None:
+        files = [
+            {"filename": "slices/foo.yaml", "status": "added"},
+            {"filename": "slices/bar.yaml", "status": "renamed"},
+            {"filename": "slices/baz.yaml", "status": "removed"},
+            {"filename": "slices/sub/qux.yaml", "status": "added"},
+            {"filename": "slices/notes.txt", "status": "added"},
+            {"filename": "tests/spread/integration/foo/task.yaml", "status": "added"},
+        ]
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = self.make_side_effects(self.json_response, files)
+        prs = forward_port_missing.fetch_prs()
+
+        assert len(prs) == 1
+        assert next(iter(prs)).new_slices == frozenset(["foo"])
+
+    @patch("forward_port_missing.requests.Session")
+    def test_files_pagination(self, mock_session: MagicMock) -> None:
+        first_page = [{"filename": f"tests/file{i}", "status": "added"} for i in range(100)]
+        second_page = [{"filename": "slices/foo.yaml", "status": "added"}]
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = self.make_side_effects(self.json_response, first_page, second_page)
+        prs = forward_port_missing.fetch_prs()
+
+        assert next(iter(prs)).new_slices == frozenset(["foo"])
+        assert get.call_count == 3, "PR list, then two pages of files"
+
+    @patch("forward_port_missing.requests.Session")
+    def test_files_error_fails(self, mock_session: MagicMock) -> None:
+        failing = MagicMock(
+            raise_for_status=MagicMock(side_effect=requests.HTTPError("429 Too Many Requests"))
+        )
+
+        get = _mock_session_get(mock_session)
+        get.side_effect = [MagicMock(json=MagicMock(return_value=self.json_response)), failing]
+
+        with pytest.raises(requests.HTTPError):
+            forward_port_missing.fetch_prs()
 
 
 class TestFetchPackagesInRelease:
