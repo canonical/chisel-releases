@@ -3,6 +3,7 @@ summary: Integration tests for golang-1.27-go
 variants:
   - build-tools
   - cgo-tools
+  - fips140
   - fix-tools
   - minimal
   - profiling-tools

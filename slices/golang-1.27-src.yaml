@@ -247,6 +247,7 @@ slices:
       make_bins:
     contents:
       /usr/share/go-1.27/lib/fips140/Makefile:
+      /usr/share/go-1.27/lib/fips140/certified.txt:
       /usr/share/go-1.27/lib/fips140/fips140.sum:
       /usr/share/go-1.27/lib/fips140/inprocess.txt:
       /usr/share/go-1.27/lib/fips140/v*.txt:
