@@ -10,7 +10,7 @@ slices:
       libcurl4t64_libs:
       liblz4-1_libs:
       libsasl2-2_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libzstd1_libs:
       zlib1g_libs:
     contents:
