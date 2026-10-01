@@ -25,10 +25,7 @@ func main() {
     if !fips140.Enabled() {
         panic("FIPS mode is disabled")
     }
-    digest := fmt.Sprintf("%x", sha256.Sum256([]byte("abc")))
-    if digest != "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad" {
-        panic("incorrect SHA-256 digest")
-    }
+    fmt.Printf("%x\n", sha256.Sum256([]byte("abc")))
     info, ok := debug.ReadBuildInfo()
     if !ok {
         panic("missing build information")
@@ -43,8 +40,11 @@ func main() {
 }
 EOF
 
+# Compare the Go digest with an independent implementation on the test host.
+read -r expected_digest _ < <(printf '%s' abc | sha256sum)
 # Check the resolved snapshot, including its suffix, without pinning a version.
-expected="$(cat "$rootfs/usr/share/go-1.27/lib/fips140/certified.txt")"
+expected_snapshot="$(cat "$rootfs/usr/share/go-1.27/lib/fips140/certified.txt")"
+expected="$(printf '%s\n%s' "$expected_digest" "$expected_snapshot")"
 actual="$(GOFIPS140=certified CGO_ENABLED=0 GODEBUG='' \
   chroot "$rootfs" /usr/lib/go-1.27/bin/go run /fips.go)"
 test "$actual" = "$expected"
