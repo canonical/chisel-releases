@@ -11,7 +11,7 @@ trap 'umount "$rootfs/dev"' EXIT
 mount --bind /proc "$rootfs/proc"
 trap cleanup EXIT
 
-cp testfiles/fips.go "$rootfs/fips.go"
+cp shared/fips.go "$rootfs/fips.go"
 
 # Compare the Go digest with an independent implementation on the test host.
 read -r expected_digest _ < <(printf '%s' abc | sha256sum)
