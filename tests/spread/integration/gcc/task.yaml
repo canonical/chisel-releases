@@ -1,0 +1,6 @@
+summary: Integration test for gcc
+
+variants:
+    - hello
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
