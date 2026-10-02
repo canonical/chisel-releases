@@ -1,0 +1,19 @@
+package: libpci3
+
+essential:
+  libpci3_copyright:
+
+slices:
+  libs:
+    hint: PCI configuration space library
+    essential:
+      libc6_libs:
+      libudev1_libs:
+      pci.ids_data:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libpci.so.3*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpci3/copyright:

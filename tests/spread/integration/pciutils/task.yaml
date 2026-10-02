@@ -1,0 +1,80 @@
+summary: Integration tests for pciutils
+
+execute: |
+  rootfs="$(install-slices pciutils_bins)"
+
+  out="$(chroot "${rootfs}" /usr/bin/lspci --version)"
+  echo "${out}" | grep -Fq "lspci version"
+  out="$(chroot "${rootfs}" /usr/bin/setpci --version)"
+  echo "${out}" | grep -Fq "setpci version"
+
+  # A saved config space dump keeps lspci independent of the host's real PCI
+  # topology. It describes 8086:100e (Intel 82540EM Gigabit Ethernet),
+  # subsystem 8086:001e, class 0200, revision 03.
+  printf '%s\n' \
+    '00:03.0 Ethernet controller' \
+    '00: 86 80 0e 10 07 00 10 00 03 00 00 02 00 00 00 00' \
+    '10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' \
+    '20: 00 00 00 00 00 00 00 00 00 00 00 00 86 80 1e 00' \
+    '30: 00 00 00 00 00 00 00 00 00 00 00 00 0b 00 00 00' \
+    > "${rootfs}/dump"
+
+  out="$(chroot "${rootfs}" /usr/bin/lspci -F /dump -nn -vv)"
+  echo "${out}" | grep -Fq "[8086:100e]"
+  echo "${out}" | grep -Fq "[0200]"
+  echo "${out}" | grep -Fq "Subsystem"
+  echo "${out}" | grep -Fiq "82540EM Gigabit Ethernet Controller"
+
+  # -i overrides the ID database, proving the lookup path is honoured.
+  printf '8086  ChiselVendor\n\t100e  ChiselDevice\n' > "${rootfs}/ids"
+  out="$(chroot "${rootfs}" /usr/bin/lspci -F /dump -i /ids)"
+  echo "${out}" | grep -Fq "ChiselVendor ChiselDevice"
+
+  # The machine-readable listing has to parse as well.
+  out="$(chroot "${rootfs}" /usr/bin/lspci -F /dump -mm -n)"
+  echo "${out}" | grep -Fq '"0200" "8086" "100e"'
+
+  # setpci knows the symbolic register names without touching any hardware.
+  out="$(chroot "${rootfs}" /usr/bin/setpci --dumpregs)"
+  echo "${out}" | grep -Fq "VENDOR_ID"
+  echo "${out}" | grep -Fq "DEVICE_ID"
+  out="$(chroot "${rootfs}" /usr/bin/setpci --help 2>&1)"
+  echo "${out}" | grep -Fq "Usage: setpci"
+
+  # setpci and pcilmr have no dump reader, so give them the same device through
+  # a synthetic sysfs tree inside the rootfs -- pcilib's sysfs access method
+  # only needs /sys/bus/pci/devices/<addr>/{config,class,vendor,device,irq}.
+  # Building it in the rootfs keeps the test hermetic on every architecture.
+  dev="${rootfs}/sys/bus/pci/devices/0000:00:03.0"
+  mkdir -p "${dev}"
+  printf '\x86\x80\x0e\x10\x07\x00\x10\x00\x03\x00\x00\x02\x00\x00\x00\x00' > "${dev}/config"
+  printf '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00' >> "${dev}/config"
+  printf '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x86\x80\x1e\x00' >> "${dev}/config"
+  printf '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0b\x00\x00\x00' >> "${dev}/config"
+  echo "0x020000" > "${dev}/class"
+  echo "0x8086" > "${dev}/vendor"
+  echo "0x100e" > "${dev}/device"
+  echo "11" > "${dev}/irq"
+
+  # lspci finds the device through sysfs, with no dump file involved.
+  out="$(chroot "${rootfs}" /usr/bin/lspci -nn)"
+  echo "${out}" | grep -Fq "00:03.0"
+  echo "${out}" | grep -Fq "[8086:100e]"
+
+  # setpci reads named registers, selecting by both slot and vendor:device.
+  out="$(chroot "${rootfs}" /usr/bin/setpci -s 00:03.0 VENDOR_ID DEVICE_ID CLASS_DEVICE)"
+  echo "${out}" | tr '\n' ' ' | grep -Fq "8086 100e 0200"
+  out="$(chroot "${rootfs}" /usr/bin/setpci -d 8086:100e SUBSYSTEM_VENDOR_ID)"
+  echo "${out}" | grep -Fq "8086"
+
+  # ... and writes them back.
+  chroot "${rootfs}" /usr/bin/setpci -s 00:03.0 LATENCY_TIMER=20
+  out="$(chroot "${rootfs}" /usr/bin/setpci -s 00:03.0 LATENCY_TIMER)"
+  echo "${out}" | grep -Fxq "20"
+
+  # pcilmr needs real PCIe links to margin; with a working access method it
+  # reports that none are available and prints its usage.
+  out="$(chroot "${rootfs}" /usr/bin/pcilmr 2>&1)"
+  echo "${out}" | grep -Fq "pcilmr [--margin]"
+  out="$(chroot "${rootfs}" /usr/bin/pcilmr --scan 2>&1)"
+  echo "${out}" | grep -Fiq "lane margining"

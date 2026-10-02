@@ -1,0 +1,28 @@
+summary: Integration tests for pci.ids
+
+execute: |
+  # pci.ids is a data-only package: prove a consumer can actually resolve names
+  # out of the shipped database rather than just checking that the file exists.
+  rootfs="$(install-slices pci.ids_data pciutils_bins)"
+
+  test -s "${rootfs}/usr/share/misc/pci.ids"
+
+  # A synthetic config space dump for 8086:100e (Intel 82540EM Gigabit
+  # Ethernet), subsystem 8086:001e, class 0200.
+  printf '%s\n' \
+    '00:03.0 Ethernet controller' \
+    '00: 86 80 0e 10 07 00 10 00 03 00 00 02 00 00 00 00' \
+    '10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00' \
+    '20: 00 00 00 00 00 00 00 00 00 00 00 00 86 80 1e 00' \
+    '30: 00 00 00 00 00 00 00 00 00 00 00 00 0b 00 00 00' \
+    > "${rootfs}/dump"
+
+  # Vendor, device and subsystem names all come from /usr/share/misc/pci.ids.
+  out="$(chroot "${rootfs}" /usr/bin/lspci -F /dump -vnn)"
+  echo "${out}" | grep -Fq "Intel Corporation"
+  echo "${out}" | grep -Fq "82540EM Gigabit Ethernet Controller"
+  echo "${out}" | grep -Fq "PRO/1000 MT Desktop Adapter"
+
+  # The database also carries the device-class names.
+  out="$(chroot "${rootfs}" /usr/bin/lspci -F /dump)"
+  echo "${out}" | grep -Fq "Ethernet controller"
