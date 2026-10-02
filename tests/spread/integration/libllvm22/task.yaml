@@ -1,0 +1,11 @@
+summary: Integration tests for libllvm22
+
+execute: |
+  rootfs="$(install-slices libllvm22_libs)"
+  found=false
+  for library in "$rootfs"/usr/lib/*-linux-*/libLLVM.so.22.1; do
+    test -f "$library"
+    file "$library" | grep -Eq 'ELF .*shared object'
+    found=true
+  done
+  test "$found" = true
