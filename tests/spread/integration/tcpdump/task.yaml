@@ -1,0 +1,89 @@
+summary: Integration tests for tcpdump
+
+execute: |
+  # Build a two-packet EN10MB savefile by hand: an ARP request
+  # (who-has 10.0.0.2 tell 10.0.0.1) and an IPv4/UDP datagram
+  # (10.0.0.1.4444 > 10.0.0.2.4445, payload "chisel"). Hand-rolling it keeps the
+  # test hermetic -- no capture device, no network, same bytes on every arch.
+  hex() { printf '%b' "$(printf '%s' "$1" | tr -d ' ' | sed 's/../\\x&/g')"; }
+  make_pcap() {
+    {
+      hex 'd4c3b2a1 0200 0400 00000000 00000000 ffff0000 01000000'
+      hex '01000000 00000000 2a000000 2a000000'
+      hex 'ffffffffffff 020000000001 0806'
+      hex '0001 0800 06 04 0001 020000000001 0a000001 000000000000 0a000002'
+      hex '02000000 00000000 30000000 30000000'
+      hex '020000000002 020000000001 0800'
+      hex '4500 0022 0001 0000 40 11 66c8 0a000001 0a000002'
+      hex '115c 115d 000e 0000'
+      printf 'chisel'
+    } > "$1"
+  }
+
+  rootfs="$(install-slices tcpdump_bins)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+  make_pcap "${rootfs}/test.pcap"
+
+  out="$(chroot "${rootfs}" /usr/bin/tcpdump --version 2>&1)"
+  echo "${out}" | grep -Fq "tcpdump version 4.99"
+  echo "${out}" | grep -Fq "libpcap version"
+  out="$(chroot "${rootfs}" /usr/bin/tcpdump -h 2>&1)"
+  echo "${out}" | grep -Fq "Usage: tcpdump"
+
+  # Debian's tcpdump drops privileges to the "tcpdump" user whenever it runs as
+  # root, so -Z root is needed until that user exists (see the sysusers test at
+  # the end of this file).
+  td() { chroot "${rootfs}" /usr/bin/tcpdump -Z root -nn "$@"; }
+
+  # Decode the savefile: protocol dissection is the core function.
+  out="$(td -r /test.pcap 2>&1)"
+  echo "${out}" | grep -Fq "ARP, Request who-has 10.0.0.2 tell 10.0.0.1"
+  echo "${out}" | grep -Fq "10.0.0.1.4444 > 10.0.0.2.4445: UDP, length 6"
+
+  # Link-layer and verbose IP decoding.
+  out="$(td -e -r /test.pcap 2>&1)"
+  echo "${out}" | grep -Fq "02:00:00:00:00:01 > ff:ff:ff:ff:ff:ff"
+  echo "${out}" | grep -Fq "ethertype IPv4 (0x0800)"
+  out="$(td -v -r /test.pcap 2>&1)"
+  echo "${out}" | grep -Fq "proto UDP (17)"
+  echo "${out}" | grep -Fq "ttl 64"
+
+  # ASCII payload dump.
+  out="$(td -A -r /test.pcap 2>&1)"
+  echo "${out}" | grep -Fq "chisel"
+
+  # BPF filters have to compile and select the right packets.
+  out="$(td -r /test.pcap 'udp port 4445' 2>&1)"
+  echo "${out}" | grep -Fq "10.0.0.2.4445"
+  ! echo "${out}" | grep -Fq "ARP"
+  out="$(td -r /test.pcap 'arp' 2>&1)"
+  echo "${out}" | grep -Fq "ARP"
+  ! echo "${out}" | grep -Fq "4445"
+
+  # -d dumps the compiled BPF program.
+  out="$(td -d -r /test.pcap 'udp port 4445' 2>&1)"
+  echo "${out}" | grep -Fq "ldh"
+  echo "${out}" | grep -Fq "jeq"
+
+  # Writing a savefile and reading it back has to round-trip.
+  td -w /out.pcap -r /test.pcap 'arp'
+  out="$(td -r /out.pcap 2>&1)"
+  echo "${out}" | grep -Fq "ARP, Request who-has 10.0.0.2 tell 10.0.0.1"
+  ! echo "${out}" | grep -Fq "4445"
+
+  # Interface enumeration goes through libpcap and needs no capture privileges.
+  chroot "${rootfs}" /usr/bin/tcpdump -Z root -D >/dev/null
+
+  # tcpdump_sysusers-config -- systemd-sysusers turns the shipped drop-in into
+  # the "tcpdump" user, after which tcpdump runs as root without -Z.
+  rootfs="$(install-slices tcpdump_bins tcpdump_sysusers-config \
+    base-passwd_data systemd_standard)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+  make_pcap "${rootfs}/test.pcap"
+
+  ! grep -q "^tcpdump:" "${rootfs}/etc/passwd"
+  chroot "${rootfs}" /usr/bin/systemd-sysusers tcpdump.conf
+  grep -q "^tcpdump:" "${rootfs}/etc/passwd"
+
+  out="$(chroot "${rootfs}" /usr/bin/tcpdump -nn -r /test.pcap 2>&1)"
+  echo "${out}" | grep -Fq "ARP, Request who-has 10.0.0.2 tell 10.0.0.1"
