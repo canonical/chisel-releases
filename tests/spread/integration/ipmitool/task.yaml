@@ -1,0 +1,72 @@
+summary: Integration tests for ipmitool
+
+execute: |
+  rootfs="$(install-slices ipmitool_bins)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -V)"
+  echo "${out}" | grep -Fq "ipmitool version 1.8"
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -h 2>&1)"
+  echo "${out}" | grep -Fq "usage: ipmitool"
+
+  # The command and OEM tables are built in, so they list without a BMC.
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool help 2>&1)"
+  echo "${out}" | grep -Fq "Send a RAW IPMI request"
+  echo "${out}" | grep -Fq "Print System Event Log"
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -o list 2>&1)"
+  echo "${out}" | grep -Fq "OEM Support:"
+  echo "${out}" | grep -Fq "supermicro"
+
+  # The "open" interface talks to the kernel IPMI driver, which a chroot has no
+  # access to; reaching that error proves the interface plugin was selected and
+  # initialised.
+  rc=0
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -I open mc info 2>&1)" || rc=$?
+  echo "${out}" | grep -Fiq "could not open device at /dev/ipmi0"
+
+  # The lanplus interface sets up an RMCP+ session, which is where the OpenSSL
+  # dependency is exercised. 127.0.0.1:623 has no BMC, so the handshake fails
+  # after one bounded retry -- but only after the crypto path has run.
+  rc=0
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -I lanplus -H 127.0.0.1 \
+    -U chisel -P chisel -R 1 -N 1 mc info 2>&1)" || rc=$?
+  test "${rc}" -ne 0
+  echo "${out}" | grep -Fiq "rmcp+"
+
+  # The IANA Private Enterprise Number registry is loaded from
+  # /usr/share/misc/enterprise-numbers.txt on every run. -v -v reports the load,
+  # and reports "registry open failed" when the file is not there, so the
+  # absence of that line proves the data slice landed at the expected path.
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -I lanplus -H 127.0.0.1 \
+    -U chisel -P chisel -R 1 -N 1 -v -v mc info 2>&1 || true)"
+  echo "${out}" | grep -Fq "Loading IANA PEN Registry"
+  ! echo "${out}" | grep -Fiq "IANA PEN registry open failed"
+
+  # The IBM OEM SEL decode table is read from IPMI_OEM_IBM_DATAFILE. "nrecs="
+  # counts the records parsed out of that file, so a non-zero count proves
+  # oem_ibm_sel_map landed and parses.
+  out="$(IPMI_OEM_IBM_DATAFILE=/usr/share/ipmitool/oem_ibm_sel_map \
+    chroot "${rootfs}" /usr/bin/ipmitool -o ibm -I open sel list 2>&1 || true)"
+  echo "${out}" | grep -Eq "nrecs=[1-9][0-9]*"
+
+  # ... and it really is read from that file: a missing one is reported.
+  out="$(IPMI_OEM_IBM_DATAFILE=/nonexistent \
+    chroot "${rootfs}" /usr/bin/ipmitool -o ibm -I open sel list 2>&1 || true)"
+  echo "${out}" | grep -Fq "Could not open /nonexistent file"
+
+  # ipmievd is the event daemon. Its command table lists without a BMC; running
+  # it for real needs the kernel IPMI driver, so it stops at the same device
+  # error as ipmitool above.
+  out="$(chroot "${rootfs}" /usr/sbin/ipmievd -V)"
+  echo "${out}" | grep -Fq "ipmievd version 1.8"
+  out="$(chroot "${rootfs}" /usr/sbin/ipmievd help 2>&1)"
+  echo "${out}" | grep -Fq "Poll SEL for notification of events"
+  rc=0
+  out="$(chroot "${rootfs}" /usr/sbin/ipmievd -I open open 2>&1)" || rc=$?
+  echo "${out}" | grep -Fiq "could not open device at /dev/ipmi0"
+
+  # ipmitool_services -- the unit and the binary it starts.
+  rootfs="$(install-slices ipmitool_services)"
+  unit="${rootfs}/usr/lib/systemd/system/ipmievd.service"
+  grep -Fq "ExecStart=/usr/sbin/ipmievd open daemon" "${unit}"
+  test -x "${rootfs}/usr/sbin/ipmievd"

@@ -1,0 +1,36 @@
+summary: Integration tests for freeipmi-common
+
+execute: |
+  # freeipmi-common ships configuration only, so install it together with the
+  # library that reads it and prove both land in a usable state.
+  rootfs="$(install-slices freeipmi-common_config libfreeipmi17_libs)"
+
+  # Each file has to be the real thing, identified by its own header, not an
+  # empty placeholder.
+  conf="${rootfs}/etc/freeipmi"
+  grep -Fq "FreeIPMI configuration" "${conf}/freeipmi.conf"
+  grep -Fq "FreeIPMI Interpret SEL" "${conf}/freeipmi_interpret_sel.conf"
+  grep -Fq "FreeIPMI Interpret Sensor" "${conf}/freeipmi_interpret_sensor.conf"
+  grep -Fq "Libipmiconsole defaults" "${conf}/libipmiconsole.conf"
+
+  # freeipmi.conf can hold BMC credentials, so it must stay unreadable to
+  # group and other. The other three are ordinary 0644.
+  test "$(stat -c '%a' "${conf}/freeipmi.conf")" = "640"
+  for c in freeipmi_interpret_sel freeipmi_interpret_sensor libipmiconsole; do
+    test "$(stat -c '%a' "${conf}/${c}.conf")" = "644"
+  done
+
+  # All four are shipped as templates with every directive commented out, so
+  # installing them cannot change library or tool defaults. Assert that: no
+  # line outside a comment carries anything.
+  for c in "${conf}"/*.conf; do
+    ! grep -qvE '^[[:space:]]*(#|$)' "${c}"
+  done
+
+  # Pair with the consumer: ipmitool links libfreeipmi, and libfreeipmi resolves
+  # its /etc/freeipmi lookups at runtime, so the two have to co-install and run.
+  rootfs="$(install-slices freeipmi-common_config ipmitool_bins)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -V)"
+  echo "${out}" | grep -Fq "ipmitool version 1.8"
