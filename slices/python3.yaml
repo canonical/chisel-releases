@@ -43,11 +43,11 @@ slices:
       python3.14_standard:
       python3_core:
 
-  utils:
+  scripts:
     essential:
       libpython3-stdlib_debug:
       libpython3-stdlib_pydoc:
-      python3.14_utils:
+      python3.14_scripts:
     contents:
       /usr/bin/pdb3:
       /usr/bin/pydoc3:
