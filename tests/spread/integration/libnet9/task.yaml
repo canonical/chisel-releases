@@ -1,0 +1,25 @@
+summary: Integration tests for libnet9
+
+execute: |
+  rootfs="$(install-slices libnet9_libs)"
+
+  # Both the soname symlink and the versioned object have to land.
+  for lib in "${rootfs}"/usr/lib/*-linux-*/libnet.so.9; do
+    test -L "${lib}"
+    target="$(readlink -f "${lib}")"
+    test -f "${target}"
+    head -c4 "${target}" | grep -Fq "ELF"
+  done
+
+  # Prove the library loads and works by pairing it with its consumer in a fresh
+  # rootfs: libnet builds every ARP frame arping puts on the wire below.
+  rootfs="$(install-slices libnet9_libs arping_bins base-passwd_data)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  gw="$(ip -4 route show default | awk '{print $3; exit}')"
+  iface="$(ip -4 route show default | awk '{print $5; exit}')"
+  test -n "${gw}"
+  test -n "${iface}"
+
+  out="$(chroot "${rootfs}" /usr/sbin/arping -i "${iface}" -c 1 -w 5 "${gw}" 2>&1)"
+  echo "${out}" | grep -Eq "1 packets transmitted, 1 packets received"

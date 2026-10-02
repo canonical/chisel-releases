@@ -1,0 +1,24 @@
+summary: Integration tests for libpcap0.8t64
+
+execute: |
+  rootfs="$(install-slices libpcap0.8t64_libs)"
+
+  for lib in "${rootfs}"/usr/lib/*-linux-*/libpcap.so.0.8; do
+    rel="${lib#"${rootfs}"}"
+
+    # The soname symlink and the versioned object both have to land.
+    test -L "${lib}"
+    target="$(readlink -f "${lib}")"
+    test -f "${target}"
+    head -c4 "${target}" | grep -Fq "ELF"
+
+    # The dynamic linker has to resolve the whole closure from inside the
+    # rootfs: anything the slice forgot shows up as "not found".
+    ld="$(find "${rootfs}/usr/lib" -maxdepth 2 -name 'ld*.so.*' -print -quit)"
+    test -n "${ld}"
+    out="$(chroot "${rootfs}" "${ld#"${rootfs}"}" --list "${rel}")"
+    echo "${out}" | grep -Fq "libc.so.6 =>"
+    echo "${out}" | grep -Fq "libibverbs.so.1 =>"
+    echo "${out}" | grep -Fq "libdbus-1.so.3 =>"
+    ! echo "${out}" | grep -Fq "not found"
+  done
