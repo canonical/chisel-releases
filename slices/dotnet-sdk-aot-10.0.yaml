@@ -5,8 +5,9 @@ essential:
 
 slices:
   libs:
+    hint: Native AOT compiler and runtime pack
     essential:
-      dotnet-sdk-10.0_core:
+      dotnet-sdk-10.0_publish:
       libbrotli1_libs:
       libc6_libs:
       libgcc-s1_libs:
@@ -15,6 +16,7 @@ slices:
       libunwind8_libs: {arch: [amd64]}
       zlib1g_libs:
     contents:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.NativeAOT.*/10.0.*/**:
       /usr/lib/dotnet/packs/runtime.*.Microsoft.DotNet.ILCompiler/10.0.*/**:
 
   copyright:

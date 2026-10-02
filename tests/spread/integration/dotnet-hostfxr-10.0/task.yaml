@@ -1,0 +1,11 @@
+summary: Integration tests for dotnet-hostfxr-10.0
+
+execute: |
+  rootfs="$(install-slices dotnet-hostfxr-10.0_libs)"
+
+  # hostfxr answers the muxer's queries with no runtime installed.
+  chroot "$rootfs" /usr/bin/dotnet --info | grep -Eq '^  Version: +10\.0\.'
+  chroot "$rootfs" /usr/bin/dotnet --info | grep -Fq "No runtimes were found."
+  # and says what an app it cannot find is missing
+  chroot "$rootfs" /usr/bin/dotnet /app.dll 2>&1 \
+    | grep -Fq "The application '/app.dll' does not exist or is not a managed .dll or .exe."

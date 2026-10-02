@@ -4,7 +4,29 @@ essential:
   dotnet-apphost-pack-10.0_copyright:
 
 slices:
-  libs:
+  apphost:
+    hint: Host for apps on the shared runtime
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/10.0.*/runtimes/*/native/apphost:
+
+  nethost:
+    hint: Library and headers for native hosting
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstdc++6_libs:
+    contents:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/10.0.*/runtimes/*/native/*.h:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/10.0.*/runtimes/*/native/libnethost.a:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/10.0.*/runtimes/*/native/libnethost.so:
+
+  # The mono runtime on ppc64el and s390x has no single-file host.
+  singlefilehost:
+    hint: Host for standalone single file apps
     essential:
       libbrotli1_libs: {arch: [amd64, arm64]}
       libc6_libs:
@@ -13,11 +35,9 @@ slices:
       libstdc++6_libs:
       libunwind8_libs: {arch: [amd64]}
       zlib1g_libs: {arch: [amd64, arm64]}
-    hint: Internal targeting headers and libraries
     contents:
-      # This package is not meant for general use. Therefore we are not
-      # splitting it further into _bins and _headers slices.
-      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/10.0.*/**:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Host.*/10.0.*/runtimes/*/native/singlefilehost:
+        arch: [amd64, arm64]
 
   copyright:
     contents:

@@ -1,0 +1,15 @@
+summary: Integration tests for aspnetcore-targeting-pack-10.0
+
+execute: |
+  rootfs="$(install-slices aspnetcore-targeting-pack-10.0_libs)"
+  pack="$(echo "$rootfs"/usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Ref/10.0.*)"
+
+  # What the SDK compiles web apps against: the reference assemblies, the
+  # analyzers and the framework list. The dotnet-sdk-10.0 tests compile with
+  # them.
+  test -e "$pack/ref/net10.0/Microsoft.AspNetCore.dll"
+  test -e "$pack/data/FrameworkList.xml"
+  test -n "$(find "$pack/analyzers" -name '*.dll' -print -quit)"
+
+  # The IntelliSense docs next to the reference assemblies stay out.
+  test -z "$(find "$pack/ref" -name '*.xml' -print -quit)"
