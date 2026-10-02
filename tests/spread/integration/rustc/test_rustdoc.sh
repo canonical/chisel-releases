@@ -3,7 +3,7 @@
 
 rootfs="$(install-slices rustc_rustdoc)"
 
-chroot "$rootfs" rustdoc --version | grep -Fiq 'rustdoc 1.93'
+chroot "$rootfs" rustdoc --version | grep -Fiq 'rustdoc 1.97'
 chroot "$rootfs" rustdoc --help | grep -Fq 'rustdoc [options] <input>'
 
 cp testfiles/hello.rs "$rootfs/hello.rs"
