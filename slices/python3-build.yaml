@@ -1,0 +1,27 @@
+package: python3-build
+
+essential:
+  python3-build_copyright:
+
+slices:
+  scripts:
+    essential:
+      python3-build_libs:
+    contents:
+      /usr/bin/pyproject-build:
+
+  libs:
+    essential:
+      libpython3-stdlib_concurrency:
+      libpython3-stdlib_file-formats:
+      libpython3-stdlib_text:
+      python3-packaging_libs:
+      python3-pyproject-hooks_libs:
+      python3_core:
+    contents:
+      /usr/lib/python3/dist-packages/build-*.dist-info/**:
+      /usr/lib/python3/dist-packages/build/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-build/copyright:
