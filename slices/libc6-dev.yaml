@@ -382,7 +382,7 @@ slices:
       /usr/include/*-linux-*/gnu/lib-names-64-v2.h:
         arch: [ppc64el]
       /usr/include/*-linux-*/gnu/lib-names-64.h:
-        arch: [amd64, s390x]
+        arch: [amd64]
       /usr/include/*-linux-*/gnu/lib-names-hard.h:
         arch: [armhf]
       /usr/include/*-linux-*/gnu/lib-names-lp64.h:
@@ -396,7 +396,7 @@ slices:
       /usr/include/*-linux-*/gnu/stubs-64-v2.h:
         arch: [ppc64el]
       /usr/include/*-linux-*/gnu/stubs-64.h:
-        arch: [amd64, s390x]
+        arch: [amd64]
       /usr/include/*-linux-*/gnu/stubs-hard.h:
         arch: [armhf]
       /usr/include/*-linux-*/gnu/stubs-lp64.h:
