@@ -1,0 +1,24 @@
+package: python3-build
+
+essential:
+  python3-build_copyright:
+
+slices:
+  scripts:
+    essential:
+      python3-build_libs:
+    contents:
+      /usr/bin/pyproject-build:
+
+  libs:
+    essential:
+      python3-packaging_libs:
+      python3-pyproject-hooks_libs:
+      python3-wheel_libs:
+    contents:
+      /usr/lib/python3/dist-packages/build-*.dist-info/**:
+      /usr/lib/python3/dist-packages/build/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-build/copyright:
