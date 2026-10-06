@@ -1,0 +1,192 @@
+name: Install slices (temporary 26.10 CI verification)
+
+# Copied from main for PR #1361; keep the workaround local to this test PR.
+on:
+  workflow_call:
+
+env:
+  ARCHES: '["amd64","arm64","armhf","ppc64el","riscv64","s390x"]'
+  RELEASES_COMPATIBILITY: |
+    [
+      {"ref": "ubuntu-20.04", "chisel-versions": ["v1.1.0","v1.2.0"]},
+      {"ref": "ubuntu-22.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
+      {"ref": "ubuntu-24.04", "chisel-versions": ["v1.1.0","v1.2.0","main"]},
+      {"ref": "ubuntu-26.04", "chisel-versions": ["v1.4.2","v1.5.1","main"]},
+      {"ref": "ubuntu-26.10", "chisel-versions": ["v1.5.1","main"]}
+    ]
+
+jobs:
+  prepare-install:
+    runs-on: ubuntu-latest
+    name: "Prepare to install"
+    if: >-
+      github.repository_owner == 'canonical'
+      || github.event_name == 'pull_request'
+    outputs:
+      install-all: ${{ steps.set-output.outputs.install_all }}
+      matrix: ${{ steps.set-output.outputs.matrix }}
+      checkout-main-ref: ${{ steps.set-main-ref.outputs.checkout_main_ref }}
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set reference to main branch
+        id: set-main-ref
+        run: |
+          if [[ "${{ github.base_ref }}" == "main" ]]; then
+            echo "checkout_main_ref=" >> $GITHUB_OUTPUT
+          else
+            echo "checkout_main_ref=main" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.set-main-ref.outputs.checkout_main_ref }}
+          fetch-depth: 0
+
+      - name: Set output
+        id: set-output
+        run: |
+          set -ex
+
+          ln -s ".github/scripts/install-slices/version-matrix.py" version-matrix
+
+          if [[
+            "${{ github.base_ref || github.ref_name }}" == "main" ||
+            "${{ github.event_name }}" == "schedule"
+          ]]; then
+            all_branches="$(git branch --all | grep -E "remotes.*ubuntu-[0-9]{2}\.[0-9]{2}$" | cut -d '/' -f 3)"
+
+            RELEASES="[]"
+            for branch in $all_branches; do
+              jq_program='[.[] | select(.ref == $ref) | select(.["chisel-versions"] | index("main")) | ."chisel-versions" = ["main"]]'
+              ref="$(echo "$RELEASES_COMPATIBILITY" | jq --arg ref "$branch" "$jq_program")"
+              RELEASES="$(echo "$RELEASES" | jq --argjson ref "$ref" '. + $ref')"
+            done
+
+            echo "install_all=true" >> $GITHUB_OUTPUT
+          else
+            if [[
+              "${{ github.event_name }}" == "create" &&
+              "${{ github.ref_name }}" != "main"
+            ]]; then
+              targetref="${{ github.ref_name }}"
+              RELEASES="$(echo $RELEASES_COMPATIBILITY | jq --arg ref "$ref" '[.[] | select(.ref == $ref)]')"
+            else
+              targetref=""
+              RELEASES="$(echo $RELEASES_COMPATIBILITY | jq --arg ref "${{ github.base_ref }}" \
+                --arg targetref "$targetref" '[.[] | select(.ref == $ref) | .ref = $targetref]')"
+            fi
+
+            if [[ $(echo $RELEASES | jq 'length') -eq 0 ]]
+            then
+              RELEASES="[{\"ref\": \"${targetref}\", \"chisel-versions\": [\"main\"]}]"
+            fi
+          fi
+
+          export RELEASES
+
+          MATRIX=$(./version-matrix)
+          echo "matrix={\"include\": $MATRIX}" >> $GITHUB_OUTPUT
+
+  install:
+    runs-on: ubuntu-latest
+    name: "Install"
+    needs: prepare-install
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.prepare-install.outputs.matrix) }}
+    env:
+      install-all: ${{ needs.prepare-install.outputs.install-all }}
+      main-branch-ref: ${{ needs.prepare-install.outputs.checkout-main-ref }}
+      main-branch-path: files-from-main
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ matrix.ref }}
+
+      - name: Check changed paths
+        id: changed-paths
+        if: env.install-all != 'true'
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            install-all:
+              - 'chisel.yaml'
+              - deleted: 'slices/**/*.yaml'
+              - '.github/**'
+            slices:
+              - added|modified: 'slices/**/*.yaml'
+          list-files: shell
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.main-branch-ref }}
+          path: ${{ env.main-branch-path }}
+
+      - name: Skip manifest generation on SHA512-only 26.10 archives
+        run: |
+          # Temporary workaround for https://github.com/canonical/chisel/issues/305.
+          patch --batch --fuzz=0 \
+            "${{ env.main-branch-path }}/.github/scripts/install-slices/install_slices.py" \
+            < .github/scripts/install-slices/skip-manifest.patch
+
+      - name: Install dependencies
+        env:
+          script-dir: "${{ env.main-branch-path }}/.github/scripts/install-slices"
+        run: |
+          set -ex
+
+          go install "github.com/canonical/chisel/cmd/chisel@${{ matrix.chisel-version }}"
+
+          sudo apt-get -y update
+          sudo apt-get install -y $(cat "${{ env.script-dir }}/deb-requirements.txt")
+          pip install -r "${{ env.script-dir }}/requirements.txt"
+
+          ln -s "${{ env.script-dir }}/install_slices.py" install-slices
+
+      - name: Install slices
+        env:
+          WORKERS: 20
+        run: |
+          set -ex
+          if [[
+            "${{ env.install-all }}" == "true" ||
+            "${{ steps.changed-paths.outputs.install-all }}" == "true"
+          ]]; then
+            shopt -s globstar
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              --ensure-existence \
+              --ignore-missing \
+              --chisel-version "${{ matrix.chisel-version }}" \
+              --workers "${WORKERS}" \
+              slices/**/*.yaml
+          elif [[ "${{ steps.changed-paths.outputs.slices }}" == "true" ]]; then
+            ./install-slices --arch "${{ matrix.arch }}" --release ./ \
+              --ensure-existence \
+              --ignore-missing \
+              --chisel-version "${{ matrix.chisel-version }}" \
+              --workers "${WORKERS}" \
+              ${{ steps.changed-paths.outputs.slices_files }}
+          fi
+
+      - name: Check installation errors
+        run: |
+          if [ -s error.log ]; then
+            echo "Installation errors found:"
+            cat error.log
+            exit 1
+          fi

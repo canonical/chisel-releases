@@ -1,0 +1,20 @@
+--- install_slices.py
++++ install_slices.py
+@@ -496,6 +496,17 @@
+     # but that means `install_slices` will have to be aware of the nested essentials.
+     all_slices = [(pkg.package, slice) for pkg in packages for slice in pkg.slices]
+
++    # Temporary workaround for canonical/chisel#305 (SHA512-only archives).
++    if parse_archive(cli_args.release).version == "26.10":
++        logging.info("Skipping base-files_chisel on Ubuntu 26.10 (chisel#305).")
++        all_slices = [
++            (pkg, slice) for pkg, slice in all_slices
++            if (pkg, slice) != ("base-files", "chisel")
++        ]
++    if not all_slices:
++        logging.info("No slices will be installed.")
++        return
++
+     chunk_size = math.ceil(len(all_slices) / cli_args.workers)
+     chunks_of_slices: list[tuple[list[tuple[str, str]], bool, str, str, int, str]] = [
+         (

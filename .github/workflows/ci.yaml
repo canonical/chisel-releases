@@ -19,7 +19,7 @@ jobs:
 
   installability-tests:
     name: Installability tests
-    uses: canonical/chisel-releases/.github/workflows/install-slices.yaml@main
+    uses: ./.github/workflows/install-slices-26.10.yaml
 
   lint:
     name: Lint
