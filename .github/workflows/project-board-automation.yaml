@@ -1,0 +1,252 @@
+name: Project board automation
+
+# Extra Review board automations that cannot be expressed with the built-in
+# GitHub Project workflows:
+#   1. Set the "release" custom field to the PR base (target) branch name.
+#   2. When a PR is approved, move its status to "Pending Second Review" if it
+#      has exactly 1 approving review, or "Ready For Merge" if it has 2+.
+#
+# This runs on a schedule (polling) rather than on pull_request events. That is
+# deliberate: PRs in this repo target the release branches (e.g. 24.04, 25.10),
+# not main, so a pull_request workflow living on main would never fire for them
+# (the event only runs workflows that exist on the PR base branch). Polling from
+# main avoids that and never executes PR-authored code. Same pattern as
+# triage-prs.yaml.
+
+on:
+  schedule:
+    # Every 1 hours. Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "0 */1 * * *"
+  workflow_dispatch:
+
+# Projects v2 writes require a token with "project" scope, so the default
+# GITHUB_TOKEN is not enough. The repository secret ROCKSBOT_PR_TOKEN is used
+# instead (same token used by triage-prs.yaml).
+env:
+  PROJECT_OWNER: canonical
+  PROJECT_NUMBER: "161"
+  RELEASE_FIELD_NAME: "Release"
+  STATUS_FIELD_NAME: "Status"
+  STATUS_AWAITING_REVIEW: "Awaiting Review"
+  STATUS_PENDING_SECOND: "Pending Second Review"
+  STATUS_READY_FOR_MERGE: "Ready For Merge"
+
+jobs:
+  update-project:
+    name: Update Review board project
+    if: github.repository_owner == 'canonical'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync release field and review status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.ROCKSBOT_PR_TOKEN }}
+          script: |
+            const projectOwner = process.env.PROJECT_OWNER;
+            const projectNumber = parseInt(process.env.PROJECT_NUMBER, 10);
+            const releaseFieldName = process.env.RELEASE_FIELD_NAME;
+            const statusFieldName = process.env.STATUS_FIELD_NAME;
+            const statusPendingSecond = process.env.STATUS_PENDING_SECOND;
+            const statusReadyForMerge = process.env.STATUS_READY_FOR_MERGE;
+            const statusAwaitingReview = process.env.STATUS_AWAITING_REVIEW;
+
+            // 1. Resolve the project id and its fields.
+            const projectData = await github.graphql(`
+              query($owner: String!, $number: Int!) {
+                organization(login: $owner) {
+                  projectV2(number: $number) {
+                    id
+                    fields(first: 50) {
+                      nodes {
+                        ... on ProjectV2FieldCommon { id name dataType }
+                        ... on ProjectV2SingleSelectField {
+                          id name options { id name }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            `, { owner: projectOwner, number: projectNumber });
+
+            const project = projectData.organization.projectV2;
+            const projectId = project.id;
+            const fields = project.fields.nodes;
+
+            const findField = (name) =>
+              fields.find(f => f.name && f.name.toLowerCase() === name.toLowerCase());
+
+            const releaseField = findField(releaseFieldName);
+            const statusField = findField(statusFieldName);
+
+            if (!releaseField) {
+              throw new Error(`Could not find field "${releaseFieldName}" in project`);
+            }
+            if (!statusField || !statusField.options) {
+              throw new Error(`Could not find single-select field "${statusFieldName}"`);
+            }
+
+            const statusOption = (name) => {
+              const o = statusField.options.find(
+                x => x.name.toLowerCase() === name.toLowerCase()
+              );
+              if (!o) {
+                throw new Error(
+                  `Status option "${name}" not found in field "${statusFieldName}"`
+                );
+              }
+              return o.id;
+            };
+            const pendingSecondId = statusOption(statusPendingSecond);
+            const readyForMergeId = statusOption(statusReadyForMerge);
+            const awaitingReviewId = statusOption(statusAwaitingReview);
+
+            // Statuses this workflow is allowed to move a PR *out of*. We only
+            // ever demote from our own approval states, never from states owned
+            // by other automations (e.g. In Progress, Merged).
+            const ourStatusIds = new Set([
+              pendingSecondId, readyForMergeId,
+            ]);
+
+            // 2. Page through all project items, pulling each PR's base branch,
+            //    state, latest reviews, and current field values inline so we
+            //    can decide what (if anything) needs updating.
+            const setText = async (itemId, fieldId, value) => {
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: String!) {
+                  updateProjectV2ItemFieldValue(input: {
+                    projectId: $projectId, itemId: $itemId, fieldId: $fieldId,
+                    value: { text: $value }
+                  }) { projectV2Item { id } }
+                }
+              `, { projectId, itemId, fieldId, value });
+            };
+
+            const setSelect = async (itemId, fieldId, optionId) => {
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                  updateProjectV2ItemFieldValue(input: {
+                    projectId: $projectId, itemId: $itemId, fieldId: $fieldId,
+                    value: { singleSelectOptionId: $optionId }
+                  }) { projectV2Item { id } }
+                }
+              `, { projectId, itemId, fieldId, optionId });
+            };
+
+            let cursor = null;
+            let processed = 0;
+            do {
+              const page = await github.graphql(`
+                query($projectId: ID!, $cursor: String) {
+                  node(id: $projectId) {
+                    ... on ProjectV2 {
+                      items(first: 50, after: $cursor) {
+                        pageInfo { hasNextPage endCursor }
+                        nodes {
+                          id
+                          fieldValues(first: 50) {
+                            nodes {
+                              ... on ProjectV2ItemFieldTextValue {
+                                text field { ... on ProjectV2FieldCommon { id } }
+                              }
+                              ... on ProjectV2ItemFieldSingleSelectValue {
+                                optionId field { ... on ProjectV2FieldCommon { id } }
+                              }
+                            }
+                          }
+                          content {
+                            ... on PullRequest {
+                              number
+                              state
+                              baseRefName
+                              reviews(first: 100) {
+                                nodes { state author { login } }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              `, { projectId, cursor });
+
+              const items = page.node.items;
+              for (const item of items.nodes) {
+                const pr = item.content;
+                // Only act on OPEN PRs. PullRequest.state is OPEN | CLOSED |
+                // MERGED, so this skips non-PR items as well as closed and
+                // merged PRs. Merged PRs are intentionally a no-op: neither the
+                // release field nor the status is touched once a PR is merged
+                // (the built-in workflow owns the "Merged" status).
+                if (!pr || !pr.number || pr.state !== 'OPEN') { continue; }
+                processed++;
+
+                // Current field values on the item, keyed by field id.
+                const currentText = {};
+                const currentSelect = {};
+                for (const fv of item.fieldValues.nodes) {
+                  if (!fv || !fv.field) { continue; }
+                  if (typeof fv.text === 'string') {
+                    currentText[fv.field.id] = fv.text;
+                  } else if (typeof fv.optionId === 'string') {
+                    currentSelect[fv.field.id] = fv.optionId;
+                  }
+                }
+
+                // (a) release field -> base branch name (idempotent).
+                if (currentText[releaseField.id] !== pr.baseRefName) {
+                  console.log(
+                    `PR #${pr.number}: release "${currentText[releaseField.id] || ''}"` +
+                    ` -> "${pr.baseRefName}"`
+                  );
+                  await setText(item.id, releaseField.id, pr.baseRefName);
+                }
+
+                // (b) status based on approval count. Keep only the latest
+                //     review per author that carries an approval decision.
+                const latestByUser = new Map();
+                for (const r of pr.reviews.nodes) {
+                  if (!r || !r.author || !r.author.login) { continue; }
+                  if (r.state === 'COMMENTED' || r.state === 'PENDING') { continue; }
+                  latestByUser.set(r.author.login, r.state);
+                }
+                let approvals = 0;
+                for (const state of latestByUser.values()) {
+                  if (state === 'APPROVED') { approvals++; }
+                }
+
+                const currentStatusId = currentSelect[statusField.id];
+
+                // Desired status by approval count:
+                //   2+ -> Ready For Merge
+                //   1  -> Pending Second Review
+                //   0  -> Awaiting Review, but ONLY as a demotion from one of
+                //         our own approval states (never override In Progress,
+                //         Merged, etc. set by other automations).
+                let targetOptionId = null;
+                let targetLabel = null;
+                if (approvals >= 2) {
+                  targetOptionId = readyForMergeId;
+                  targetLabel = statusReadyForMerge;
+                } else if (approvals === 1) {
+                  targetOptionId = pendingSecondId;
+                  targetLabel = statusPendingSecond;
+                } else if (ourStatusIds.has(currentStatusId)) {
+                  targetOptionId = awaitingReviewId;
+                  targetLabel = statusAwaitingReview;
+                }
+
+                // Only write when we have a target and it actually differs.
+                if (targetOptionId && currentStatusId !== targetOptionId) {
+                  console.log(
+                    `PR #${pr.number}: ${approvals} approval(s) -> status "${targetLabel}"`
+                  );
+                  await setSelect(item.id, statusField.id, targetOptionId);
+                }
+              }
+
+              cursor = items.pageInfo.hasNextPage ? items.pageInfo.endCursor : null;
+            } while (cursor);
+
+            console.log(`Processed ${processed} open PR item(s).`);
