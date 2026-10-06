@@ -28,6 +28,7 @@ env:
   RELEASE_FIELD_NAME: "Release"
   STATUS_FIELD_NAME: "Status"
   STATUS_AWAITING_REVIEW: "Awaiting Review"
+  STATUS_IN_PROGRESS: "In Progress"
   STATUS_PENDING_SECOND: "Pending Second Review"
   STATUS_READY_FOR_MERGE: "Ready For Merge"
 
@@ -49,6 +50,7 @@ jobs:
             const statusPendingSecond = process.env.STATUS_PENDING_SECOND;
             const statusReadyForMerge = process.env.STATUS_READY_FOR_MERGE;
             const statusAwaitingReview = process.env.STATUS_AWAITING_REVIEW;
+            const statusInProgress = process.env.STATUS_IN_PROGRESS;
 
             // 1. Resolve the project id and its fields.
             const projectData = await github.graphql(`
@@ -100,12 +102,16 @@ jobs:
             const pendingSecondId = statusOption(statusPendingSecond);
             const readyForMergeId = statusOption(statusReadyForMerge);
             const awaitingReviewId = statusOption(statusAwaitingReview);
+            const inProgressId = statusOption(statusInProgress);
 
-            // Statuses this workflow is allowed to move a PR *out of*. We only
-            // ever demote from our own approval states, never from states owned
-            // by other automations (e.g. In Progress, Merged).
-            const ourStatusIds = new Set([
-              pendingSecondId, readyForMergeId,
+            // Statuses this workflow is allowed to move a PR *out of* towards
+            // "Awaiting Review" when there are 0 approvals and no outstanding
+            // change requests. We demote from our own approval states, and also
+            // from "In Progress" (set by the review-request automation) once the
+            // author has addressed all change requests and a re-review is
+            // pending. We never touch states like "Merged".
+            const demotableStatusIds = new Set([
+              pendingSecondId, readyForMergeId, inProgressId,
             ]);
 
             // 2. Page through all project items, pulling each PR's base branch,
@@ -160,7 +166,21 @@ jobs:
                               state
                               baseRefName
                               reviews(first: 100) {
-                                nodes { state author { login } }
+                                nodes {
+                                  state
+                                  author { login }
+                                  onBehalfOf(first: 10) {
+                                    nodes { slug }
+                                  }
+                                }
+                              }
+                              reviewRequests(first: 50) {
+                                nodes {
+                                  requestedReviewer {
+                                    ... on User { login }
+                                    ... on Team { slug }
+                                  }
+                                }
                               }
                             }
                           }
@@ -203,36 +223,92 @@ jobs:
                   await setText(item.id, releaseField.id, pr.baseRefName);
                 }
 
-                // (b) status based on approval count. Keep only the latest
-                //     review per author that carries an approval decision.
+                // (b) status based on review state. Keep only the latest review
+                //     per author that carries a decision (approve / changes
+                //     requested); ignore plain comments and pending reviews. We
+                //     also remember the team(s) a review was submitted "on behalf
+                //     of" so a team re-request can clear it.
                 const latestByUser = new Map();
                 for (const r of pr.reviews.nodes) {
                   if (!r || !r.author || !r.author.login) { continue; }
                   if (r.state === 'COMMENTED' || r.state === 'PENDING') { continue; }
-                  latestByUser.set(r.author.login, r.state);
+                  const teams = (r.onBehalfOf && r.onBehalfOf.nodes)
+                    ? r.onBehalfOf.nodes.map(t => t && t.slug).filter(Boolean)
+                    : [];
+                  latestByUser.set(r.author.login, { state: r.state, teams });
                 }
+
+                // Pending (re-)review requests, split into individual users and
+                // teams. The author re-requesting either the user directly or a
+                // team the review was made on behalf of clears that reviewer.
+                const pendingUserLogins = new Set();
+                const pendingTeamSlugs = new Set();
+                if (pr.reviewRequests && pr.reviewRequests.nodes) {
+                  for (const rr of pr.reviewRequests.nodes) {
+                    const req = rr && rr.requestedReviewer;
+                    if (!req) { continue; }
+                    if (req.login) { pendingUserLogins.add(req.login); }
+                    else if (req.slug) { pendingTeamSlugs.add(req.slug); }
+                  }
+                }
+
+                // A reviewer is "re-requested" if their user is pending, or any
+                // team they reviewed on behalf of is pending.
+                const isReRequested = (login, review) => {
+                  if (pendingUserLogins.has(login)) { return true; }
+                  for (const slug of review.teams) {
+                    if (pendingTeamSlugs.has(slug)) { return true; }
+                  }
+                  return false;
+                };
+
+                // Count approvals, but a re-requested approver's approval is
+                // stale (we presume the author changed something and asked them
+                // to look again), so it does not count until they re-approve.
                 let approvals = 0;
-                for (const state of latestByUser.values()) {
-                  if (state === 'APPROVED') { approvals++; }
+                let changesRequested = 0;
+                for (const [login, review] of latestByUser) {
+                  if (review.state === 'APPROVED') {
+                    if (!isReRequested(login, review)) { approvals++; }
+                  } else if (review.state === 'CHANGES_REQUESTED') {
+                    changesRequested++;
+                  }
+                }
+
+                // Are there unaddressed changes? A change request counts as
+                // unaddressed until the author re-requests that reviewer (directly
+                // or via the team they reviewed on behalf of). So the PR is clear
+                // to leave "In Progress" only when EVERY reviewer whose latest
+                // review is CHANGES_REQUESTED has been re-requested.
+                let hasUnaddressedChanges = false;
+                for (const [login, review] of latestByUser) {
+                  if (review.state === 'CHANGES_REQUESTED' &&
+                      !isReRequested(login, review)) {
+                    hasUnaddressedChanges = true;
+                    break;
+                  }
                 }
 
                 const currentStatusId = currentSelect[statusField.id];
 
-                // Desired status by approval count:
-                //   2+ -> Ready For Merge
-                //   1  -> Pending Second Review
-                //   0  -> Awaiting Review, but ONLY as a demotion from one of
-                //         our own approval states (never override In Progress,
-                //         Merged, etc. set by other automations).
+                // While there are unaddressed changes the PR stays where it is
+                // ("In Progress" is owned by another workflow); we do not promote
+                // or demote. Once all change-requesting reviewers have been
+                // re-requested, the (non-stale) approval count decides:
+                //   2+ approvals -> Ready For Merge
+                //   1  approval  -> Pending Second Review
+                //   0  approvals -> Awaiting Review (demotion only).
                 let targetOptionId = null;
                 let targetLabel = null;
-                if (approvals >= 2) {
+                if (hasUnaddressedChanges) {
+                  // Leave as-is.
+                } else if (approvals >= 2) {
                   targetOptionId = readyForMergeId;
                   targetLabel = statusReadyForMerge;
                 } else if (approvals === 1) {
                   targetOptionId = pendingSecondId;
                   targetLabel = statusPendingSecond;
-                } else if (ourStatusIds.has(currentStatusId)) {
+                } else if (demotableStatusIds.has(currentStatusId)) {
                   targetOptionId = awaitingReviewId;
                   targetLabel = statusAwaitingReview;
                 }
@@ -240,7 +316,10 @@ jobs:
                 // Only write when we have a target and it actually differs.
                 if (targetOptionId && currentStatusId !== targetOptionId) {
                   console.log(
-                    `PR #${pr.number}: ${approvals} approval(s) -> status "${targetLabel}"`
+                    `PR #${pr.number}: ${approvals} approval(s), ` +
+                    `${changesRequested} change request(s), ` +
+                    `unaddressed=${hasUnaddressedChanges} -> ` +
+                    `status "${targetLabel}"`
                   );
                   await setSelect(item.id, statusField.id, targetOptionId);
                 }
