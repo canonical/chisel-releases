@@ -11,7 +11,9 @@ slices:
       - libsasl2-2_libs
     contents:
       /usr/lib/*-linux-*/liblber.so.2*:
+      /usr/lib/*-linux-*/liblber-2.5.so.0*:
       /usr/lib/*-linux-*/libldap.so.2*:
+      /usr/lib/*-linux-*/libldap-2.5.so.0*:
 
   copyright:
     contents:
