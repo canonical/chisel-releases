@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs debianutils savelog
 
-# savelog rotates a log wherever it lives; this one is in / so the rootfs
-# needs no /var
+# savelog rotates a log wherever it lives; this one is in / so the rootfs needs no /var
 rootfs="$(install-slices debianutils_savelog)"
 
 # there is no help so we pass an invalid flag to get the usage message
