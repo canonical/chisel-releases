@@ -1,0 +1,8 @@
+summary: Integration tests for dotnet-apphost-pack-10.0
+
+variants:
+    - apphost
+    - singlefilehost
+    - nethost
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

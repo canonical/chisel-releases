@@ -6,7 +6,10 @@ essential:
 slices:
   libs:
     contents:
-      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Ref/10.0.*/**:
+      # the ref/*.xml IntelliSense docs are left out; builds never read them
+      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Ref/10.0.*/analyzers/**:
+      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Ref/10.0.*/data/*:
+      /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Ref/10.0.*/ref/net10.0/*.dll:
 
   copyright:
     contents:

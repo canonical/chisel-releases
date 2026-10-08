@@ -6,13 +6,21 @@ essential:
 slices:
   minimal:
     essential:
+      # Kestrel references most of the runtime and opens its crypto and
+      # compression gates, so even minimal needs the runtime's core
       dotnet-runtime-10.0_core:
     contents:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.App.deps.json:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.App.runtimeconfig.json:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Authentication.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Authentication.dll:
+        arch: [ppc64el, s390x]
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Authorization.Policy.dll:
+        arch: [ppc64el, s390x]
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Authorization.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Connections.Abstractions.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Diagnostics.dll:
+        arch: [ppc64el, s390x]
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.HostFiltering.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Hosting.Abstractions.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll:
@@ -28,6 +36,8 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.IIS.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.IISIntegration.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Core.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes.dll:
+        arch: [ppc64el, s390x]
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.AspNetCore.Server.Kestrel.dll:
@@ -39,6 +49,8 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.EnvironmentVariables.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.FileExtensions.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.Json.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.UserSecrets.dll:
+        arch: [ppc64el, s390x]
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Configuration.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.DependencyInjection.Abstractions.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.DependencyInjection.dll:
@@ -47,12 +59,16 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Features.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.FileProviders.Abstractions.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.FileProviders.Physical.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.FileSystemGlobbing.dll:
+        arch: [ppc64el, s390x]
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Hosting.Abstractions.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Hosting.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Abstractions.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Configuration.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Console.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.Debug.dll:
+      /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.EventLog.dll:
+        arch: [ppc64el, s390x]
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.EventSource.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Logging.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.ObjectPool.dll:
@@ -62,12 +78,6 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Extensions.Validation.dll:
       /usr/lib/dotnet/shared/Microsoft.AspNetCore.App/10.0.*/Microsoft.Net.Http.Headers.dll:
 
-  # libicu is not needed if the environment is set to invariant by using
-  # the environment variable DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-  # If globalization is needed, libicu must be included as well.
-  # For more information, see:
-  # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
-  # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
     essential:
       aspnetcore-runtime-10.0_minimal:
