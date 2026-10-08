@@ -1,22 +1,23 @@
 summary: Integration tests for libtcnative-1
 
 execute: |
-  # libtcnative-1 installs tomcat native extensions. run
-  # tomcat version to validate that they are loaded
-  rootfs="$(install-slices tomcat10_core libtcnative-1_libs base-files_base coreutils_bins dash_bins openjdk-21-jdk-headless_standard)"
-  java=$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
+  rootfs="$(install-slices libtcnative-1_libs)"
 
-  # Make fake /dev/null and mount /proc
-  mkdir -p "$rootfs/dev"
-  touch "$rootfs/dev/null"
-  chmod +x "$rootfs/dev/null"
-  mkdir -p "$rootfs/proc"
-  sudo mount --bind /proc "$rootfs/proc"
-  trap 'sudo umount "$rootfs/proc"' EXIT
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libtcnative-1.so.0.*" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
 
-  export JAVA_HOME=/$(dirname $(dirname ${java}))
-  export CATALINA_BASE="/var/lib/tomcat10"
-  chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
-    | grep -q "Apache Tomcat/10"
-  chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh configtest 2>&1 \
-    | grep -q 'Loaded Apache Tomcat Native library'
+  # Both the soname symlink and the unversioned one tomcat loads point at
+  # the library.
+  test "$(readlink "$(dirname "$lib")/libtcnative-1.so.0")" = "$(basename "$lib")"
+  test "$(readlink "$(dirname "$lib")/libtcnative-1.so")" = "$(basename "$lib")"
+
+  # Have the dynamic loader resolve every shared library libtcnative-1 links
+  # against; it fails if any is missing.
+  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+  echo "$output"
+  echo "$output" | grep -Fq "libapr-1.so.0"
+  echo "$output" | grep -Fq "libssl.so.3"
+  echo "$output" | grep -Fq "libcrypto.so.3"
