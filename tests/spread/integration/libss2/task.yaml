@@ -1,0 +1,8 @@
+summary: Integration tests for libss2
+
+execute: |
+  rootfs="$(install-slices libss2_libs)"
+
+  arch=$(uname -m)-linux-gnu
+
+  test -f ${rootfs}/usr/lib/${arch}/libss.so.*
