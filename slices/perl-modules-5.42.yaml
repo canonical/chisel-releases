@@ -59,6 +59,7 @@ slices:
       /usr/share/perl/5.42*/overload/**.pm:
       /usr/share/perl/5.42*/overloading.pm:
       /usr/share/perl/5.42*/parent.pm:
+      /usr/share/perl/5.42*/source/encoding.pm:
       /usr/share/perl/5.42*/stable.pm:
       /usr/share/perl/5.42*/strict.pm:
       /usr/share/perl/5.42*/utf8.pm:

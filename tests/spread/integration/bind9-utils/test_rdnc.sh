@@ -65,10 +65,7 @@ chroot "${rootfs}/" rndc stop
 
 # Check server is stopped; named closes its control channel a little after
 # rndc stop returns
-for _ in $(seq 50); do
-    if chroot "${rootfs}/" rndc status 2>&1 | grep -q "connection refused"; then
-        break
-    fi
+until chroot "${rootfs}/" rndc status 2>&1 | grep "connection refused"; do
     sleep 0.2
 done
 chroot "${rootfs}/" rndc status 2>&1 | grep "connection refused"

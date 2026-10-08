@@ -243,6 +243,8 @@ slices:
       coreutils_bins:
       make_bins:
     contents:
+      # FIPS snapshot ZIP checksums are affected by a packaging bug:
+      # https://bugs.launchpad.net/ubuntu/+source/golang/+bug/2169165
       /usr/share/go-1.26/lib/fips140/Makefile:
       /usr/share/go-1.26/lib/fips140/fips140.sum:
       /usr/share/go-1.26/lib/fips140/inprocess.txt:
