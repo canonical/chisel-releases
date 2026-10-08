@@ -1,0 +1,24 @@
+package: python3-openssl
+
+essential:
+  python3-openssl_copyright:
+
+slices:
+  libs:
+    essential:
+      python3-cryptography_libs:
+      python3-minimal_python3:
+    contents:
+      # OpenSSL/debug.py is left out: it imports cffi, which the deb does not
+      # depend on.
+      /usr/lib/python3/dist-packages/OpenSSL/SSL.py:
+      /usr/lib/python3/dist-packages/OpenSSL/__init__.py:
+      /usr/lib/python3/dist-packages/OpenSSL/_util.py:
+      /usr/lib/python3/dist-packages/OpenSSL/crypto.py:
+      /usr/lib/python3/dist-packages/OpenSSL/rand.py:
+      /usr/lib/python3/dist-packages/OpenSSL/version.py:
+      /usr/lib/python3/dist-packages/pyopenssl-*.dist-info/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-openssl/copyright:
