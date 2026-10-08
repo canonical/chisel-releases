@@ -1,4 +1,4 @@
-summary: Integration tests for libperl5.38t64
+summary: Integration tests for libperl5.40
 
 variants:
     - bins
