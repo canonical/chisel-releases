@@ -3,54 +3,5 @@ summary: Integration tests for python3-openssl
 execute: |
   rootfs="$(install-slices python3-openssl_libs)"
 
-  chroot "$rootfs" python3 -c "
-  import OpenSSL
-  print(OpenSSL.__version__, OpenSSL.SSL.OpenSSL_version(OpenSSL.SSL.OPENSSL_VERSION).decode())
-  "
-
-  # A TLS handshake between two pyOpenSSL connections over a socket pair,
-  # with a self-signed certificate made by cryptography.
-  chroot "$rootfs" python3 -c "
-  import datetime, socket, threading
-  from cryptography import x509
-  from cryptography.x509.oid import NameOID
-  from cryptography.hazmat.primitives import hashes
-  from cryptography.hazmat.primitives.asymmetric import ec
-  from OpenSSL import SSL, crypto
-  key = ec.generate_private_key(ec.SECP256R1())
-  name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, 'chisel')])
-  now = datetime.datetime.now(datetime.timezone.utc)
-  cert = (x509.CertificateBuilder().subject_name(name).issuer_name(name)
-          .public_key(key.public_key()).serial_number(x509.random_serial_number())
-          .not_valid_before(now).not_valid_after(now + datetime.timedelta(days=1))
-          .sign(key, hashes.SHA256()))
-  server_ctx = SSL.Context(SSL.TLS_METHOD)
-  server_ctx.use_certificate(crypto.X509.from_cryptography(cert))
-  server_ctx.use_privatekey(crypto.PKey.from_cryptography_key(key))
-  server_ctx.check_privatekey()
-  # Blocking sockets: pyOpenSSL treats a socket with a timeout as
-  # non-blocking. The joins bound the handshake instead.
-  a, b = socket.socketpair()
-  server = SSL.Connection(server_ctx, a)
-  server.set_accept_state()
-  client = SSL.Connection(SSL.Context(SSL.TLS_METHOD), b)
-  client.set_connect_state()
-  errors = []
-  def handshake(conn):
-      try:
-          conn.do_handshake()
-      except Exception as e:
-          errors.append(e)
-  threads = [threading.Thread(target=handshake, args=(c,), daemon=True) for c in (server, client)]
-  for t in threads:
-      t.start()
-  for t in threads:
-      t.join(10)
-  assert not any(t.is_alive() for t in threads), 'handshake timed out'
-  assert not errors, errors
-  client.sendall(b'chisel')
-  assert server.recv(64) == b'chisel'
-  peer = client.get_peer_certificate().to_cryptography()
-  assert peer.subject.get_attributes_for_oid(NameOID.COMMON_NAME)[0].value == 'chisel'
-  print(client.get_protocol_version_name())
-  "
+  cp test_libs.py "$rootfs/"
+  chroot "$rootfs" python3 /test_libs.py
