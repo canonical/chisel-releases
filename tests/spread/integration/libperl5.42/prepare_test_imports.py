@@ -5,13 +5,25 @@ import argparse
 import yaml
 
 NO_IMPORT = {"feature"}
+# scandeps also names optional modules; keep the ones perl itself ships, so
+# whatever other perl packages the host has installed do not end up in a case
+CORE_DIRS = (
+    glob.glob("/usr/share/perl/5.*")
+    + glob.glob("/usr/lib/*/perl/5.*")
+    + glob.glob("/usr/lib/*/perl-base")
+)
+
+
+def is_core(module):
+    path = module.replace("::", "/") + ".pm"
+    return any(os.path.exists(os.path.join(d, path)) for d in CORE_DIRS)
 
 
 def main(args: argparse.Namespace) -> None:
 
     slice_def = yaml.safe_load(
         open(
-            os.path.join(args.project_path, "slices/libperl5.40.yaml"), encoding="utf-8"
+            os.path.join(args.project_path, "slices/libperl5.42.yaml"), encoding="utf-8"
         )
     )
 
@@ -48,14 +60,14 @@ def main(args: argparse.Namespace) -> None:
         filepath = os.path.join(args.output_dir, "{}.pm".format(slice_name))
         with open(filepath, "w", encoding="utf-8") as f:
             for item in slice_deps:
-                if item in NO_IMPORT:
+                if item in NO_IMPORT or not is_core(item):
                     continue
                 f.write("use %s;\n" % item)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Prepare test imports for libperl5.40 slices"
+        description="Prepare test imports for libperl5.42 slices"
     )
     parser.add_argument("project_path", help="Path to chisel-release root directory")
     parser.add_argument(
