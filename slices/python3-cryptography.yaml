@@ -14,7 +14,7 @@ slices:
       libssl4_libs:
       # The Rust extension imports _cffi_backend when it loads.
       python3-cffi-backend_libs:
-      python3-minimal_python3:
+      python3_minimal:
     contents:
       /usr/lib/python3/dist-packages/cryptography-*.dist-info/**:
       /usr/lib/python3/dist-packages/cryptography/**:
