@@ -7,7 +7,8 @@ slices:
   libs:
     essential:
       libc6_libs:
-      libssl3t64_libs:
+      libgcc-s1_libs: {arch: armhf}
+      libssl4_libs:
     contents:
       /usr/lib/erlang/lib/crypto-*/priv/lib/**:
 
@@ -15,6 +16,7 @@ slices:
     essential:
       erlang-base_bins:
       erlang-base_modules:
+      erlang-crypto_libs:
     contents:
       /usr/lib/erlang/lib/crypto-*/ebin/**:
       /usr/lib/erlang/lib/crypto-*/priv/lib/**:
