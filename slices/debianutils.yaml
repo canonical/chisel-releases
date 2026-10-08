@@ -132,6 +132,7 @@ slices:
     hint: Update the list of login shells
     essential:
       base-files_bin:
+      base-files_var:
       coreutils_basename:
       coreutils_cat:
       coreutils_chmod:

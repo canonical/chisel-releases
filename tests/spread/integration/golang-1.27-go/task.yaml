@@ -1,0 +1,17 @@
+summary: Integration tests for golang-1.27-go
+
+variants:
+  - build-tools
+  - cgo-tools
+  # Re-enable once the packaged FIPS snapshot ZIP checksums are fixed:
+  # https://bugs.launchpad.net/ubuntu/+source/golang/+bug/2169165
+  # - fips140
+  - fix-tools
+  - minimal
+  - profiling-tools
+  - testing-tools
+
+environment:
+  GOTOOLCHAIN: local
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

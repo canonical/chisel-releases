@@ -6,7 +6,7 @@ execute: |
   test_sha1="4e1243bd22c66e76c2ba9eddc1f91394e57f9f83"
   chroot "$rootfs" openssl sha1 <<< "test" | grep $test_sha1
 
-  # Generate additional certificates for testing c_rehash
+  # Generate additional certificates for testing rehash
   chroot "$rootfs" openssl \
     req -newkey rsa:2048 -new -nodes \
     -x509 -days 365 -subj "/CN=localhost" \
@@ -16,16 +16,16 @@ execute: |
   temp_dir=$(mktemp -d) 
   mv "$rootfs/cert.pem" "$temp_dir/cert.pem"
 
-  # Test c_rehash functionality
-  rootfs="$(install-slices openssl_bins openssl_scripts)"
+  # Test rehash functionality
+  rootfs="$(install-slices openssl_bins)"
 
   # Copy the generated cert.pem from previous step to the rootfs
   mkdir -p "$rootfs/etc/ssl/certs"
   mv "$temp_dir/cert.pem" $_
   rm -rf "$temp_dir" # cleanup temporary directory
 
-  # Execute c_rehash on generated certs
-  chroot "$rootfs" c_rehash /etc/ssl/certs
+  # Execute rehash on generated certs
+  chroot "$rootfs" openssl rehash /etc/ssl/certs
 
   # Check if the hash symlinks were created
   find "$rootfs/etc/ssl/certs/" | grep -P "\.0$"
