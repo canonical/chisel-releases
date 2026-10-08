@@ -11,7 +11,7 @@ slices:
       libk5crypto3_libs:
       libkeyutils1_libs:
       libkrb5support0_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/krb5/plugins/libkrb5/:
       /usr/lib/*-linux-*/krb5/plugins/preauth/spake.so:

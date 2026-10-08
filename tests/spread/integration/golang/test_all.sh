@@ -1,12 +1,10 @@
-rootfs="$(install-slices \
-  golang_cgo-support \
-  ca-certificates_data \  # for `go get` to work properly
-)"
+# ca-certificates for go to fetch modules
+rootfs="$(install-slices golang_cgo-support ca-certificates_data)"
 
 find ${rootfs} -depth \( \
     -name '*_test.go' -o \
     \( -type d -name 'testdata' \) -o \
-    \( -type d -path '*/go-1.26/test' \) -o \
+    \( -type d -path '*/go-1.27/test' \) -o \
     \( -type d -path '*/src/internal/testenv' \) -o \
     \( -type d -path '*/src/internal/testpty' \) -o \
     \( -type d -path '*/src/internal/testhash' \) -o \
@@ -20,12 +18,13 @@ find ${rootfs} -depth \( \
     \( -type d -path '*/src/net/internal/cgotest' \) -o \
     \( -type d -path '*/src/net/internal/socktest' \) -o \
     \( -type d -path '*/src/os/exec/internal/fdtest' \) -o \
-    \( -type d -path '*/src/net/http/internal/testcert' \) -o \
     \( -type d -path '*/src/crypto/internal/cryptotest' \) -o \
     \( -type d -path '*/src/crypto/internal/fips140/check/checktest' \) -o \
     \( -type d -path '*/src/crypto/internal/fips140test' \) -o \
-    \( -type d -path '*/src/crypto/mlkem/mlkemtest' \) -o \
     \( -type d -path '*/src/embed/internal/embedtest' \) -o \
+    \( -type d -path '*/src/simd/archsimd/internal/simd_test' \) -o \
+    \( -type d -path '*/src/simd/archsimd/internal/test_helpers' \) -o \
+    \( -type d -path '*/src/encoding/json/internal/jsontest' \) -o \
     \( -type d -path '*/src/vendor/golang.org/x/net/nettest' \) \
     \) -exec rm -rf {} +
 
@@ -47,12 +46,10 @@ chroot "${rootfs}/" gofmt /hello/cmd/hello/main.go > /dev/null
 
 chroot "${rootfs}/" go -C /hello test
 
-git clone https://github.com/canonical/chisel.git "${rootfs}/chisel"
-git -C "$rootfs/chisel" checkout v1.2.0
+# a real module, fetched through the module proxy from inside the rootfs
 cp /etc/resolv.conf "${rootfs}/etc/resolv.conf"
-
-chroot "${rootfs}/" go -C chisel build ./cmd/chisel
-chroot "${rootfs}/" ./chisel/chisel 2>&1 > /dev/null
+GOPATH=/go chroot "${rootfs}/" go install github.com/canonical/chisel/cmd/chisel@v1.2.0
+chroot "${rootfs}/" /go/bin/chisel > /dev/null
 
 
 export CGO_ENABLED=1
