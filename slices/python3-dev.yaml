@@ -1,0 +1,20 @@
+package: python3-dev
+
+essential:
+  python3-dev_copyright:
+
+slices:
+  scripts:
+    essential:
+      libpython3-dev_libs:
+      libpython3-dev_scripts:
+      python3-minimal_python3:
+      python3.14-dev_scripts:
+    contents:
+      /usr/bin/python3-config:
+
+  copyright:
+    essential:
+      python3_copyright:
+    contents:
+      /usr/share/doc/python3-dev:

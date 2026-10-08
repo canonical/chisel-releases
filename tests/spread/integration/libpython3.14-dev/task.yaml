@@ -1,0 +1,7 @@
+summary: Integration tests for libpython3.14-dev
+
+variants:
+  - embed
+  - scripts
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
