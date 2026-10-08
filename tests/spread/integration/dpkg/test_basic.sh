@@ -1,7 +1,7 @@
 #!/bin/bash
 #spellchecker: ignore rootfs dpkg
 
-. ./helper.sh
+. ./helpers.sh
 
 # Test package installation without dependencies or maintainer scripts.
 rootfs="$(install-slices dpkg_bins)"

@@ -1,7 +1,7 @@
 #!/bin/bash
 #spellchecker: ignore rootfs dpkg maintscript coreutils preinst postinst prerm postrm
 
-. ./helper.sh
+. ./helpers.sh
 
 # Exercise the shell, coreutils, and sed supplied for maintainer scripts.
 rootfs="$(install-slices dpkg_maintscript-support)"
