@@ -6,8 +6,8 @@ essential:
 slices:
   libs:
     essential:
-      python3-minimal_python3:
       python3-standard-asynchat_libs:
+      python3_minimal:
     contents:
       /usr/lib/python3/dist-packages/pyftpdlib/*.py:
       /usr/lib/python3/dist-packages/pyftpdlib/handlers/__init__.py:
