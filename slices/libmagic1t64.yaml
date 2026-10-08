@@ -17,7 +17,7 @@ slices:
     essential:
       libmagic-mgc_data:
     contents:
-      /usr/share/misc/magic:
+      /usr/share/misc/magic:  # Symlink to ../file/magic
 
   config:
     contents:
