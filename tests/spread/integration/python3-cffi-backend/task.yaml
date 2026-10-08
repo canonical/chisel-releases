@@ -1,0 +1,16 @@
+summary: Integration tests for python3-cffi-backend
+
+execute: |
+  rootfs="$(install-slices python3-cffi-backend_libs)"
+
+  # Allocate C data, and call a libc function through libffi.
+  chroot "$rootfs" python3 -c "
+  import _cffi_backend as b
+  INT = b.new_primitive_type('int')
+  p = b.newp(b.new_pointer_type(INT), 42)
+  assert p[0] == 42
+  libc = b.load_library(None)
+  c_abs = libc.load_function(b.new_function_type((INT,), INT, False), 'abs')
+  assert c_abs(-5) == 5
+  print(b.__version__)
+  "
