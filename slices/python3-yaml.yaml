@@ -8,7 +8,7 @@ slices:
     essential:
       libc6_libs:
       libyaml-0-2_libs:
-      python3_standard:
+      python3-minimal_python3:
     contents:
       # Compatibility stub re-exporting the extension as the old top-level
       # "_yaml" module.
