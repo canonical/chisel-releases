@@ -1,0 +1,70 @@
+#!/bin/bash -e
+# spellchecker: ignore rootfs
+
+# Removes chiselled rootfs'es created by install-slices, freeing the disk they
+# take up. Called between tasks by the restore-each hook in spread.yaml; tests
+# that cut several large rootfs'es can also call it on ones they are done with.
+# Usage: clean-rootfs [<rootfs>...]
+# Each argument has to be a path install-slices returned; anything else is
+# ignored. With no arguments, every rootfs in $ROOTFS_DIR is removed.
+
+if [ -z "${ROOTFS_DIR:-}" ]; then
+    echo "Error: ROOTFS_DIR is not set" >&2
+    exit 1
+fi
+
+function main() {
+    local rootfs target
+
+    for rootfs in "$ROOTFS_DIR"/*; do
+        # an unmatched glob expands to itself
+        [ -e "$rootfs" ] || continue
+
+        if [ "$#" -eq 0 ]; then
+            remove_rootfs "$rootfs"
+            continue
+        fi
+
+        for target in "$@"; do
+            if [ "$target" = "$rootfs" ]; then
+                # rootfs is from /* glob. rm only sees paths under ROOTFS_DIR
+                remove_rootfs "$rootfs"
+                break
+            fi
+        done
+    done
+}
+
+function remove_rootfs() {
+    local rootfs="$1"
+
+    unmount_all "$rootfs"
+    if [ -n "$(mounts_under "$rootfs")" ]; then
+        echo "Warning: $rootfs still has mounts under it, leaving it in place" >&2
+        return 0
+    fi
+
+    # non-zero exit here would fail the restore hook, and spread gives up on
+    # every remaining task of the run when that happens
+    rm -rf -- "$rootfs" || echo "Warning: could not remove $rootfs" >&2
+}
+
+# Tests bind-mount /proc, /dev and friends into their rootfs and do not all unmount
+# on the way out; `rm -rf` over a live bind mount deletes the host's copy.
+function unmount_all() {
+    local rootfs="$1"
+    local mountpoint
+
+    # deepest first, so a mount is gone before the one holding it
+    while IFS= read -r mountpoint; do
+        umount --lazy "$mountpoint" || true
+    done < <(mounts_under "$rootfs" | sort -r)
+}
+
+function mounts_under() {
+    local rootfs="$1"
+    awk -v root="$rootfs" -v prefix="$rootfs/" \
+        '$2 == root || index($2, prefix) == 1 { print $2 }' /proc/self/mounts
+}
+
+main "$@"

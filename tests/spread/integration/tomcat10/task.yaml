@@ -6,9 +6,6 @@ environment:
 # no change in tests over tomcat10-common_extra-scripts
 #  SLICE/dev: "dev"
 
-restore: |
-  killall java || true
-
 execute: |
   rootfs="$(install-slices tomcat10_${SLICE})"
   java=$(find "$rootfs" -name java -type f -printf '%P\n' -quit 2>/dev/null)
@@ -19,7 +16,14 @@ execute: |
   chmod +x "$rootfs/dev/null"
   mkdir -p "$rootfs/proc"
   sudo mount --bind /proc "$rootfs/proc"
-  trap 'sudo umount "$rootfs/proc"' EXIT
+  pids=()
+  cleanup() {
+    for pid in "${pids[@]}"; do
+      kill -KILL -- -"$pid" 2>/dev/null || true
+    done
+    sudo umount "$rootfs/proc"
+  }
+  trap cleanup EXIT
 
   export JAVA_HOME="/$(dirname $(dirname ${java}))"
   export CATALINA_BASE="/var/lib/tomcat10"
@@ -28,11 +32,11 @@ execute: |
 
   case ${SLICE} in
     standard)
-      apt-get update
-      apt-get install -y retry
-      chroot "$rootfs" /bin/sh -c \
-        "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat10/bin/catalina.sh start"
-      retry --times=3 --delay 5 -- grep -q "org.apache.catalina.startup.Catalina.start" "$rootfs/var/lib/tomcat10/logs/catalina.out"
+      setsid chroot "$rootfs" /bin/sh -c \
+        "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat10/bin/catalina.sh start" &
+      pids+=($!)
+      wait $!
+      timeout 15 sh -c 'until grep -q "org.apache.catalina.startup.Catalina.start" "$0"; do sleep 1; done' "$rootfs/var/lib/tomcat10/logs/catalina.out"
       chroot "$rootfs" /bin/sh -c \
         "JAVA_OPTS=-Duser.language=ru /usr/share/tomcat10/bin/catalina.sh stop"
       grep "Инициализация" $rootfs/var/lib/tomcat10/logs/*.log
@@ -41,16 +45,12 @@ execute: |
       chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh version \
         | grep -q "Apache Tomcat/10"
 
-      apt-get update
-      apt-get install -y maven default-jdk retry
-      mvn archetype:generate -DgroupId=com.example \
-        -DartifactId=hello-world-war \
-        -DarchetypeArtifactId=maven-archetype-webapp \
-        -DarchetypeVersion=1.4  -DinteractiveMode=false
-      (cd hello-world-war && mvn package)
-      cp hello-world-war/target/*.war "$rootfs/var/lib/tomcat10/webapps"
-      chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh start
-      (retry --times=10 --delay 2 -- curl http://localhost:8080/hello-world-war/) | grep -q "Hello World!"
+      cp -r hello-world "$rootfs/"
+      chroot "$rootfs" "/$java" -m jdk.jartool/sun.tools.jar.Main cf /var/lib/tomcat10/webapps/hello-world.war -C /hello-world .
+      setsid chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh start &
+      pids+=($!)
+      wait $!
+      curl --retry 10 --retry-delay 2 --retry-connrefused http://localhost:8080/hello-world/ | grep -q "Hello World!"
       chroot "$rootfs" /usr/share/tomcat10/bin/catalina.sh stop
     ;;
   esac
