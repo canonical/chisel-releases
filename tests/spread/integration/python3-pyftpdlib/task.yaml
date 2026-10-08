@@ -31,7 +31,7 @@ execute: |
   # Anonymous hosting
 
   chroot "${rootfs}" /usr/bin/python3 -m pyftpdlib \
-    --verbose \
+    --debug \
     --interface=127.0.0.1 \
     --port=2121 \
     --directory=/srv &
@@ -45,7 +45,7 @@ execute: |
   # With login and file upload.
 
   chroot "${rootfs}" /usr/bin/python3 -m pyftpdlib \
-    --verbose \
+    --debug \
     --interface=127.0.0.1 \
     --port=2121 \
     --directory=/srv \
