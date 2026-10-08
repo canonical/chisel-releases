@@ -1,0 +1,26 @@
+package: rust-1.97-clippy
+
+essential:
+  rust-1.97-clippy_copyright:
+
+slices:
+  clippy:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstd-rust-1.97-dev_libs:
+      rust-1.97-clippy_clippy-driver:  # needs clippy-driver bin
+    contents:
+      /usr/lib/rust-1.97/bin/cargo-clippy:
+
+  clippy-driver:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libstd-rust-1.97-dev_libs:
+    contents:
+      /usr/lib/rust-1.97/bin/clippy-driver:
+
+  copyright:
+    contents:
+      /usr/share/doc/rust-1.97-clippy/copyright:
