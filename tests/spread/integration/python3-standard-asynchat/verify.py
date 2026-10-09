@@ -7,7 +7,6 @@ import socket
 a, b = socket.socketpair()
 lines = []
 
-
 class Chat(asynchat.async_chat):
     def __init__(self, sock):
         super().__init__(sock=sock)
@@ -21,7 +20,6 @@ class Chat(asynchat.async_chat):
         lines.append(b"".join(self.buf))
         self.buf = []
         self.push(b"ack\n")
-
 
 Chat(a)
 b.sendall(b"hello\nchisel\n")
