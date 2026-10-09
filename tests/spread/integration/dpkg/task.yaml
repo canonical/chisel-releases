@@ -4,6 +4,12 @@ summary: Integration tests for dpkg
 variants:
     - basic
     - maintscript-support
+    - update-alternatives
     - start-stop-daemon
+    - scripts
+    - sh-lib
+    - maintscript-helper
+    - db-backup
+    - db-keeper
 
-execute: bash -ex ./test_${SPREAD_VARIANT}.sh
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
