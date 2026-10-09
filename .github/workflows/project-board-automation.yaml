@@ -7,8 +7,9 @@ name: Project board automation
 #   2. Set the "Release" custom field to the PR base (target) branch name.
 #   3. Set the status from the reviews: with no unaddressed change requests, 2+
 #      approvals -> "Ready For Merge", 1 -> "Pending Second Review", 0 -> back to
-#      "Awaiting Review". Only approvals from reviewers with push access count,
-#      as for the branch protection's required reviews.
+#      "Awaiting Review". Approvals count from reviewers with push access (what
+#      the branch protection's required reviews count) and from members of the
+#      reviewer teams in REVIEWER_TEAMS.
 #
 # This runs on a schedule (polling) rather than on pull_request events. That is
 # deliberate: PRs in this repo target the release branches (e.g. 24.04, 25.10),
@@ -34,8 +35,9 @@ concurrency:
 
 # GITHUB_TOKEN cannot access organization projects, so the board needs a token of
 # its own: ROCKSBOT_BOARD_TOKEN, a ROCKsBot token with organization Projects
-# read+write and read access to this repository's pull requests, used for nothing
-# else. ROCKsBot also needs write access to the project itself.
+# read+write, organization Members read (for the reviewer teams) and read access
+# to this repository's pull requests, used for nothing else. ROCKsBot also needs
+# write access to the project itself.
 env:
   # Manual runs follow the dry_run input. Scheduled runs only write once the
   # repository variable PROJECT_BOARD_WRITE is set to "true".
@@ -43,6 +45,8 @@ env:
     ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run
     || github.event_name != 'workflow_dispatch' && vars.PROJECT_BOARD_WRITE != 'true' }}
   ARCHIVE_MERGED_AFTER_DAYS: "7"
+  # Comma-separated team slugs whose members' approvals count too.
+  REVIEWER_TEAMS: "slice-reviewers-guild"
   PROJECT_OWNER: canonical
   PROJECT_NUMBER: "161"
   RELEASE_FIELD_NAME: "Release"
@@ -129,6 +133,38 @@ jobs:
               }
               return o.id;
             };
+            // Members of the reviewer teams, lower-cased: their approvals count
+            // even without push access.
+            const teamMembers = new Set();
+            const reviewerTeams =
+              process.env.REVIEWER_TEAMS.split(',').map(t => t.trim()).filter(Boolean);
+            for (const slug of reviewerTeams) {
+              let teamCursor = null;
+              do {
+                const data = await github.graphql(`
+                  query($owner: String!, $slug: String!, $cursor: String) {
+                    organization(login: $owner) {
+                      team(slug: $slug) {
+                        members(first: 100, after: $cursor) {
+                          pageInfo { hasNextPage endCursor }
+                          nodes { login }
+                        }
+                      }
+                    }
+                  }
+                `, { owner: projectOwner, slug, cursor: teamCursor });
+                const team = data.organization && data.organization.team;
+                if (!team) {
+                  throw new Error(`Team ${projectOwner}/${slug} not found, or no access to it`);
+                }
+                for (const m of team.members.nodes) {
+                  if (m) { teamMembers.add(m.login.toLowerCase()); }
+                }
+                const page = team.members.pageInfo;
+                teamCursor = page.hasNextPage ? page.endCursor : null;
+              } while (teamCursor);
+            }
+
             const pendingSecondId = statusOption(statusPendingSecond);
             const readyForMergeId = statusOption(statusReadyForMerge);
             const awaitingReviewId = statusOption(statusAwaitingReview);
@@ -351,12 +387,14 @@ jobs:
                   // Count approvals, but a re-requested approver's approval is
                   // stale (we presume the author changed something and asked them
                   // to look again), so it does not count until they re-approve.
-                  // Like the required reviews, only reviewers with push access count.
+                  // Only reviewers with push access (as for the required reviews) or
+                  // in a reviewer team count.
                   let approvals = 0;
                   let changesRequested = 0;
                   for (const [login, review] of latestByUser) {
                     if (review.state === 'APPROVED') {
-                      if (review.canPush && !isReRequested(login, review)) { approvals++; }
+                      if ((review.canPush || teamMembers.has(login.toLowerCase())) &&
+                          !isReRequested(login, review)) { approvals++; }
                     } else if (review.state === 'CHANGES_REQUESTED') {
                       changesRequested++;
                     }
