@@ -6,12 +6,10 @@ import socket
 a, b = socket.socketpair()
 got = []
 
-
 class Reader(asyncore.dispatcher):
     def handle_read(self):
         got.append(self.recv(64))
         self.close()
-
 
 Reader(sock=a)
 b.sendall(b"chisel")
