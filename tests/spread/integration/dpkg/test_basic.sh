@@ -1,15 +1,16 @@
 #!/bin/bash
-#spellchecker: ignore rootfs diffutils
+#spellchecker: ignore rootfs dpkg
 
-# basic smoke test for dpkg without maintainer scripts
+. ./helpers.sh
+
+# Test package installation without dependencies or maintainer scripts.
 rootfs="$(install-slices dpkg_bins)"
+make_fixture "$rootfs"
+build_fixture "$rootfs"
 
-# Get a sample deb file to install. Contains no dependencies or install scripts.
-apt update
-mkdir -p "$rootfs/debs"
-pushd "$rootfs/debs" || exit 1
-apt download lsb-release
-popd || exit 1
+chroot "$rootfs" dpkg --install /fixture.deb
+test "$(chroot "$rootfs" dpkg-query -W -f="\${Status}" dpkg-fixture)" = 'install ok installed'
+cmp "$rootfs/fixture/usr/share/dpkg-fixture/payload" "$rootfs/usr/share/dpkg-fixture/payload"
 
-# Run a smoke test for dpkg to ensure that it does not throw an error
-chroot "$rootfs" dpkg --install -R /debs
+chroot "$rootfs" dpkg --remove dpkg-fixture
+test ! -e "$rootfs/usr/share/dpkg-fixture/payload"

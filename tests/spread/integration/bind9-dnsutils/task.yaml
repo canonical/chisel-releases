@@ -2,6 +2,9 @@ summary: Integration tests for bind9-dnsutils
 
 execute: |
   rootfs="$(install-slices bind9-dnsutils_bins)"
+  # bind9 opens /dev/null at startup to keep fds 0-2 in use
+  mkdir -p "${rootfs}/dev"
+  touch "${rootfs}/dev/null"
 
   chroot "${rootfs}/" delv -v
   chroot "${rootfs}/" dig -v
