@@ -16,7 +16,7 @@ slices:
       libelf1t64_libs:
       libexpat1_libs:
       libgcc-s1_libs:
-      libllvm19_libs:
+      libllvm21_libs:
       libsensors5_libs:
       libstdc++6_libs:
       libx11-xcb1_libs:
