@@ -1,0 +1,63 @@
+name: Project board automation
+
+# Keeps the Review board (canonical org project 161) in sync with this repository's
+# PRs, for what the built-in project workflows cannot do. The logic and its tests
+# live in .github/scripts/project-board-automation.
+#
+# This runs on a schedule rather than on pull_request events: PRs here target the
+# release branches, and a pull_request workflow only runs if it exists on the PR's
+# base branch. Polling from main also never runs PR-authored code. Same pattern as
+# forward-port-missing.yaml.
+
+on:
+  schedule:
+    # Every hour. Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
+    - cron: "0 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only log the changes, do not write them"
+        type: boolean
+        default: true
+
+concurrency:
+  group: project-board-automation
+  cancel-in-progress: false
+
+jobs:
+  update-project:
+    name: Update Review board project
+    if: github.repository_owner == 'canonical'
+    runs-on: ubuntu-latest
+    env:
+      script: ".github/scripts/project-board-automation"
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+
+      - name: Install dependencies
+        run: pip install -r ${{ env.script }}/requirements.txt
+
+      - name: Sync the review board
+        env:
+          # GITHUB_TOKEN cannot access organization projects, so the board has a
+          # ROCKsBot token of its own, with organization Projects read+write and
+          # read access to this repository's pull requests. ROCKsBot also needs
+          # write access to the project itself.
+          GITHUB_TOKEN: ${{ secrets.ROCKSBOT_BOARD_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          # Manual runs follow the dry_run input. Scheduled runs only write once
+          # the repository variable PROJECT_BOARD_WRITE is set to "true".
+          APPLY: >-
+            ${{ github.event_name == 'workflow_dispatch' && !inputs.dry_run
+            || github.event_name != 'workflow_dispatch' && vars.PROJECT_BOARD_WRITE == 'true' }}
+        run: |
+          args=()
+          if [ "$APPLY" = "true" ]; then args+=(--apply); fi
+          ${{ env.script }}/project_board_automation.py "${args[@]}"
