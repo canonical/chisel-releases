@@ -43,13 +43,11 @@ client.set_connect_state()
 
 errors = []
 
-
 def handshake(conn):
     try:
         conn.do_handshake()
     except Exception as e:
         errors.append(e)
-
 
 threads = [threading.Thread(target=handshake, args=(c,), daemon=True) for c in (server, client)]
 for t in threads:
