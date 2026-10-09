@@ -1,8 +1,9 @@
 name: Project board automation
 
 # Extra Review board automations that cannot be expressed with the built-in
-# GitHub Project workflows, for this repository's open PRs on the board:
-#   1. Remove draft PRs from the board.
+# GitHub Project workflows, for this repository's PRs on the board:
+#   1. Remove draft and closed (unmerged) PRs from the board, and archive merged
+#      ones a few days after they merge, so the board holds the review queue.
 #   2. Set the "Release" custom field to the PR base (target) branch name.
 #   3. Set the status from the reviews: with no unaddressed change requests, 2+
 #      approvals -> "Ready For Merge", 1 -> "Pending Second Review", 0 -> back to
@@ -35,8 +36,12 @@ concurrency:
 # GITHUB_TOKEN is not enough. The repository secret ROCKSBOT_PR_TOKEN is used
 # instead (same token used by triage-prs.yaml).
 env:
-  # Scheduled runs have no inputs, so they always write.
-  DRY_RUN: ${{ inputs.dry_run == true }}
+  # Manual runs follow the dry_run input. Scheduled runs only write once the
+  # repository variable PROJECT_BOARD_WRITE is set to "true".
+  DRY_RUN: >-
+    ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run
+    || github.event_name != 'workflow_dispatch' && vars.PROJECT_BOARD_WRITE != 'true' }}
+  ARCHIVE_MERGED_AFTER_DAYS: "7"
   PROJECT_OWNER: canonical
   PROJECT_NUMBER: "161"
   RELEASE_FIELD_NAME: "Release"
@@ -66,6 +71,8 @@ jobs:
             const statusAwaitingReview = process.env.STATUS_AWAITING_REVIEW;
             const statusInProgress = process.env.STATUS_IN_PROGRESS;
             const dryRun = process.env.DRY_RUN === 'true';
+            const archiveAfterMs =
+              parseInt(process.env.ARCHIVE_MERGED_AFTER_DAYS, 10) * 24 * 60 * 60 * 1000;
             const repoName = `${context.repo.owner}/${context.repo.repo}`;
             if (dryRun) { console.log('Dry run: logging changes without writing them.'); }
 
@@ -88,7 +95,12 @@ jobs:
               }
             `, { owner: projectOwner, number: projectNumber });
 
-            const project = projectData.organization.projectV2;
+            const project = projectData.organization && projectData.organization.projectV2;
+            if (!project) {
+              throw new Error(
+                `Project ${projectOwner}/${projectNumber} not found, or no access to it`
+              );
+            }
             const projectId = project.id;
             const fields = project.fields.nodes;
 
@@ -158,6 +170,17 @@ jobs:
               `, { projectId, itemId, fieldId, optionId });
             };
 
+            const archiveItem = async (itemId) => {
+              if (dryRun) { return; }
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!) {
+                  archiveProjectV2Item(input: { projectId: $projectId, itemId: $itemId }) {
+                    item { id }
+                  }
+                }
+              `, { projectId, itemId });
+            };
+
             const removeItem = async (itemId) => {
               if (dryRun) { return; }
               await github.graphql(`
@@ -181,6 +204,7 @@ jobs:
                         pageInfo { hasNextPage endCursor }
                         nodes {
                           id
+                          isArchived
                           fieldValues(first: 50) {
                             nodes {
                               ... on ProjectV2ItemFieldTextValue {
@@ -196,6 +220,7 @@ jobs:
                               number
                               state
                               isDraft
+                              mergedAt
                               baseRefName
                               repository { nameWithOwner }
                               # last, not first: the connection is oldest first.
@@ -229,16 +254,29 @@ jobs:
               const items = page.node.items;
               for (const item of items.nodes) {
                 const pr = item.content;
-                // Only act on this repository's OPEN PRs. PullRequest.state is
-                // OPEN | CLOSED | MERGED, so this skips non-PR items as well as
-                // closed and merged PRs. Merged PRs are intentionally a no-op:
-                // neither the release field nor the status is touched once a PR
-                // is merged (the built-in workflow owns the "Merged" status).
-                if (!pr || !pr.number || pr.state !== 'OPEN') { continue; }
+                // Only act on this repository's PRs; this skips non-PR items too.
+                if (!pr || !pr.number) { continue; }
                 if (!pr.repository || pr.repository.nameWithOwner !== repoName) { continue; }
-                processed++;
 
                 try {
+                  // Closed without merging: no longer in the review queue.
+                  if (pr.state === 'CLOSED') {
+                    console.log(`PR #${pr.number}: closed -> removed from the board`);
+                    await removeItem(item.id);
+                    continue;
+                  }
+                  // Merged: the built-in workflow owns the "Merged" status; we only
+                  // archive the item once it has been merged for a while.
+                  if (pr.state === 'MERGED') {
+                    const mergedFor = Date.now() - Date.parse(pr.mergedAt);
+                    if (!item.isArchived && mergedFor > archiveAfterMs) {
+                      console.log(`PR #${pr.number}: merged ${pr.mergedAt} -> archived`);
+                      await archiveItem(item.id);
+                    }
+                    continue;
+                  }
+                  processed++;
+
                   // Drafts do not belong on the board. The built-in auto-add
                   // workflow adds the PR back when it is marked ready for review.
                   if (pr.isDraft) {
