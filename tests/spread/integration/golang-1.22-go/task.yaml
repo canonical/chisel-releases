@@ -1,8 +1,9 @@
-summary: Integration tests for golang-1.22-go 
+summary: Integration tests for golang-1.22-go
 
 variants:
   - build-tools
   - cgo-tools
+  - core
   - debug-tools
   - dist-tools
   - doc-tools
@@ -11,7 +12,8 @@ variants:
   - testing-tools
 
 execute: |
-  export "SLICE=${SPREAD_VARIANT}"
-  export "rootfs=$(bash -ex ./shared/prologue.sh)"
-  bash -ex ./test_${SPREAD_VARIANT}.sh
-  bash -ex ./shared/epilogue.sh
+  export SLICE="$SPREAD_VARIANT"
+  rootfs="$(bash -ex ./shared/prologue.sh)"
+  export rootfs
+  trap 'bash -ex ./shared/epilogue.sh' EXIT
+  bash -ex "./test_${SPREAD_VARIANT}.sh"
