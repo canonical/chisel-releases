@@ -5,8 +5,7 @@ essential:
 
 slices:
   libs:
-    # NOTE: libegl1 deb declared dependency on libegl-mesa0 but it
-    # is not linked with by libEGL.so.1
+    # libEGL finds its vendor library, such as libegl-mesa0, at runtime and does not link it.
     essential:
       libc6_libs:
       libglvnd0_libs:
