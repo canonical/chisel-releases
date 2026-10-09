@@ -3,6 +3,14 @@ summary: Integration tests for libpcre3
 execute: |
   rootfs="$(install-slices libpcre3_libs)"
 
-  arch=$(basename "${rootfs}"/usr/lib/*-linux-gnu)
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libpcre.so.3" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
 
-  test -f ${rootfs}/usr/lib/${arch}/libpcre.so.3
+  # Have the dynamic loader resolve every shared library libpcre links
+  # against; it fails if any is missing.
+  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+  echo "$output"
+  echo "$output" | grep -Fq "libc.so.6"

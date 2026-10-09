@@ -2,6 +2,19 @@ summary: Integration tests for libnftables1
 
 execute: |
   rootfs="$(install-slices libnftables1_libs)"
-  arch=$(basename "${rootfs}"/usr/lib/*-linux-gnu)
 
-  test -f ${rootfs}/usr/lib/${arch}/libnftables.so.1
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libnftables.so.1" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
+
+  # Have the dynamic loader resolve every shared library libnftables links
+  # against; it fails if any is missing.
+  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+  echo "$output"
+  echo "$output" | grep -Fq "libmnl.so.0"
+  echo "$output" | grep -Fq "libnftnl.so.11"
+  echo "$output" | grep -Fq "libxtables.so.12"
+  echo "$output" | grep -Fq "libjansson.so.4"
+  echo "$output" | grep -Fq "libgmp.so.10"
