@@ -1,0 +1,18 @@
+package: xauth
+
+essential:
+  xauth_copyright:
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libx11-6_libs:
+      libxau6_libs:
+      libxext6_libs:
+      libxmuu1_libs:
+    contents:
+      /usr/bin/xauth:
+
+  copyright:
+    contents:
+      /usr/share/doc/xauth/copyright:
