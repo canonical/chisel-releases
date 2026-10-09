@@ -14,9 +14,7 @@ slices:
   bins:
     essential:
       base-files_bin:
-      base-files_etc:
       base-files_home:
-      base-files_var:
       base-passwd_data:
       coreutils_bins:
       dash_bins:
@@ -27,11 +25,8 @@ slices:
       libc-bin_locale:
       libc-bin_nsswitch:
       libtinfo6_libs:
-      login_bins:
       netbase_default-hosts:
-      netbase_default-networks:
       passwd_bins:
-      python3.14_standard:
       rabbitmq-server_config:
       rabbitmq-server_modules:
       sed_bins:
