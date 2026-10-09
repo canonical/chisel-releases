@@ -1,5 +1,4 @@
-"""An async_chat splits incoming data on its terminator and pushes a reply for
-every line."""
+"""An async_chat splits incoming data on its terminator and pushes a reply for every line."""
 
 import asynchat
 import asyncore
