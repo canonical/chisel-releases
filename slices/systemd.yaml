@@ -579,7 +579,6 @@ slices:
       /usr/lib/systemd/system/getty.target.wants/getty-static.service:
       /usr/lib/systemd/system/getty@.service:
       /usr/lib/systemd/system/hibernate.target:
-      /usr/lib/systemd/system/hwclock.service:
       /usr/lib/systemd/system/hybrid-sleep.target:
       /usr/lib/systemd/system/imports-pre.target:
       /usr/lib/systemd/system/imports.target:
