@@ -1,5 +1,5 @@
-"""A TLS handshake between two pyOpenSSL connections over a socket pair, with a
-self-signed certificate made by cryptography."""
+"""A TLS handshake between two pyOpenSSL connections over a socket pair,
+with a self-signed certificate made by cryptography."""
 
 import datetime
 import socket
