@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs miri resolv
 
-rootfs="$(install-slices rust-miri_cargo-miri ca-certificates_data)"
+rootfs="$(install-slices rust-1.97-miri_cargo-miri ca-certificates_data)"
 
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
@@ -15,7 +15,9 @@ mount --bind /proc "$rootfs/proc"
 # shellcheck disable=SC2064
 trap "umount '$rootfs/proc'" EXIT
 
-# Create a simple project and run it under Miri
-chroot "$rootfs" cargo-1.97 new /hello_miri --bin --vcs none
-chroot "$rootfs" /bin/sh -c 'cd /hello_miri && cargo-unstable-miri run' |
-  grep -Fq "Hello, world!"
+cp -r testfiles/hello_ub "$rootfs"
+
+# Miri exits non-zero once it reports undefined behaviour, which is the
+# outcome under test here
+output="$(chroot "$rootfs" /bin/sh -c 'cd /hello_ub && cargo-1.97-unstable-miri run' 2>&1 || true)"
+grep -Fiq 'undefined behavior' <<<"$output"
