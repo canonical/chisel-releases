@@ -7,16 +7,17 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
-      # libQt5Gui links libGLESv2 on armhf and libGL everywhere else.
-      - libgl1_libs
-      - libgles2_libs
       - libharfbuzz0b_libs
       - libmd4c0_libs
       - libpng16-16t64_libs
       - libqt5core5t64_libs
       - libstdc++6_libs
       - zlib1g_libs
+    # Qt is built against OpenGL ES on armhf and against desktop OpenGL elsewhere.
+    v3-essential:
+      libgcc-s1_libs: {arch: [amd64, armhf, i386, riscv64]}
+      libgl1_libs: {arch: [amd64, arm64, i386, ppc64el, riscv64, s390x]}
+      libgles2_libs: {arch: [armhf]}
     contents:
       /usr/lib/*-linux-*/libQt5Gui.so.5*:
 
@@ -25,14 +26,14 @@ slices:
       - libc6_libs
       - libfontconfig1_libs
       - libfreetype6_libs
-      - libgcc-s1_libs
-      # libgl1 and libx11-6 are not linked on armhf, where Qt uses GLES and has no GLX.
-      - libgl1_libs
       - libglib2.0-0t64_core
       - libqt5core5t64_libs
       - libqt5gui5t64_libs
       - libstdc++6_libs
-      - libx11-6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf, i386]}
+      libgl1_libs: {arch: [amd64, arm64, i386, ppc64el, riscv64, s390x]}
+      libx11-6_libs: {arch: [amd64, arm64, i386, ppc64el, riscv64, s390x]}
     contents:
       /usr/lib/*-linux-*/qt5/plugins/platforms/libqoffscreen.so:
 

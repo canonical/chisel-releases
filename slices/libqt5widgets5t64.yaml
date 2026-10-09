@@ -7,10 +7,11 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
       - libqt5core5t64_libs
       - libqt5gui5t64_libs
       - libstdc++6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [amd64, armhf, i386, riscv64]}
     contents:
       /usr/lib/*-linux-*/libQt5Widgets.so.5*:
 

@@ -7,11 +7,12 @@ slices:
   libs:
     essential:
       - libc6_libs
-      - libgcc-s1_libs
       - libgssapi-krb5-2_libs
       - libqt5core5t64_libs
       - libstdc++6_libs
       - zlib1g_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf, riscv64]}
     contents:
       /usr/lib/*-linux-*/libQt5Network.so.5*:
 
