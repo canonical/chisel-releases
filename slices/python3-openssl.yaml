@@ -9,8 +9,7 @@ slices:
       python3-cryptography_libs:
       python3_minimal:
     contents:
-      # OpenSSL/debug.py is left out: it imports cffi, which the deb does not
-      # depend on.
+      # OpenSSL/debug.py is left out: it imports cffi, which the deb does not depend on.
       /usr/lib/python3/dist-packages/OpenSSL/SSL.py:
       /usr/lib/python3/dist-packages/OpenSSL/__init__.py:
       /usr/lib/python3/dist-packages/OpenSSL/_util.py:
