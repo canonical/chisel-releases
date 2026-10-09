@@ -5,26 +5,24 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libEGL_mesa.so.0*:
     essential:
       - libc6_libs
       - libdrm2_libs
       - libexpat1_libs
       - libgbm1_libs
-      - libgcc-s1_libs
-      - libglapi-mesa_libs
       - libwayland-client0_libs
-      - libwayland-server0_libs
       - libx11-xcb1_libs
-      - libxcb-dri2-0_libs
       - libxcb-dri3-0_libs
       - libxcb-present0_libs
       - libxcb-randr0_libs
-      - libxcb-sync1_libs
+      - libxcb-shm0_libs
       - libxcb-xfixes0_libs
       - libxcb1_libs
-      - libxshmfence1_libs
+      - mesa-libgallium_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [amd64, armhf, i386, riscv64]}
+    contents:
+      /usr/lib/*-linux-*/libEGL_mesa.so.0*:
 
   copyright:
     contents:

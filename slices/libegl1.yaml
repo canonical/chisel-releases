@@ -5,12 +5,12 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libEGL.so.1*:
+    # libEGL finds its vendor library, such as libegl-mesa0, at runtime and does not link it.
     essential:
       - libc6_libs
-      - libegl-mesa0_libs
       - libglvnd0_libs
+    contents:
+      /usr/lib/*-linux-*/libEGL.so.1*:
 
   copyright:
     contents:

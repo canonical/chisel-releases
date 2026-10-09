@@ -5,13 +5,13 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libxkbcommon-x11.so.0*:
     essential:
       - libc6_libs
       - libxcb-xkb1_libs
       - libxcb1_libs
       - libxkbcommon0_libs
+    contents:
+      /usr/lib/*-linux-*/libxkbcommon-x11.so.0*:
 
   copyright:
     contents:

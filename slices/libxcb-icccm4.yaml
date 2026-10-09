@@ -5,11 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libxcb-icccm.so.4*:
     essential:
       - libc6_libs
       - libxcb1_libs
+    contents:
+      /usr/lib/*-linux-*/libxcb-icccm.so.4*:
 
   copyright:
     contents:

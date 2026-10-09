@@ -5,13 +5,13 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libxcb-image.so.0*:
     essential:
       - libc6_libs
       - libxcb-shm0_libs
       - libxcb-util1_libs
       - libxcb1_libs
+    contents:
+      /usr/lib/*-linux-*/libxcb-image.so.0*:
 
   copyright:
     contents:

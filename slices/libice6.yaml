@@ -5,12 +5,11 @@ essential:
 
 slices:
   libs:
-    contents:
-      /usr/lib/*-linux-*/libICE.so.6*:
     essential:
       - libbsd0_libs
       - libc6_libs
-      - x11-common_resources
+    contents:
+      /usr/lib/*-linux-*/libICE.so.6*:
 
   copyright:
     contents:
