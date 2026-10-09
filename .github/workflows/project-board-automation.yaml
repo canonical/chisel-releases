@@ -32,9 +32,9 @@ concurrency:
   group: project-board-automation
   cancel-in-progress: false
 
-# Projects v2 writes require a token with "project" scope, so the default
-# GITHUB_TOKEN is not enough. The repository secret ROCKSBOT_PR_TOKEN is used
-# instead (same token used by triage-prs.yaml).
+# GITHUB_TOKEN cannot access organization projects, so the board needs a token of
+# its own: PROJECT_BOARD_TOKEN, with organization Projects read+write and read
+# access to this repository's pull requests. It is used for nothing else.
 env:
   # Manual runs follow the dry_run input. Scheduled runs only write once the
   # repository variable PROJECT_BOARD_WRITE is set to "true".
@@ -60,7 +60,7 @@ jobs:
       - name: Sync release field and review status
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.ROCKSBOT_PR_TOKEN }}
+          github-token: ${{ secrets.PROJECT_BOARD_TOKEN }}
           script: |
             const projectOwner = process.env.PROJECT_OWNER;
             const projectNumber = parseInt(process.env.PROJECT_NUMBER, 10);
