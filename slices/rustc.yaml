@@ -6,15 +6,15 @@ essential:
 slices:
   rustc:
     essential:
-      rustc-1.93_rustc:
+      rustc-1.97_rustc:
     contents:
-      /usr/bin/rustc:  # symlink to ../lib/rustc-1.93/bin/rustc
+      /usr/bin/rustc:  # symlink to ../lib/rust-1.97/bin/rustc
 
   rustdoc:
     essential:
-      rustc-1.93_rustdoc:
+      rustc-1.97_rustdoc:
     contents:
-      /usr/bin/rustdoc:  # symlink to ../lib/rust-1.93/bin/rustdoc
+      /usr/bin/rustdoc:  # symlink to ../lib/rust-1.97/bin/rustdoc
 
   copyright:
     contents:
