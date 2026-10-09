@@ -8,8 +8,9 @@ the PRs on it, for what the built-in project workflows cannot do:
 - set the "Release" text field to the PR's base branch;
 - set the status from the reviews: with no unaddressed change requests, 2+
   approvals -> "Ready For Merge", 1 -> "Pending Second Review", 0 -> back to
-  "Awaiting Review". Only approvals from reviewers with push access count, as for
-  the branch protection's required reviews. A reviewer the author has re-requested
+  "Awaiting Review". Approvals count from reviewers with push access (what the
+  branch protection's required reviews count) and from members of the reviewer
+  teams (by default slice-reviewers-guild). A reviewer the author has re-requested
   (directly, or through a team they reviewed on behalf of) no longer counts: their
   approval is stale and their change request is addressed.
 
@@ -105,6 +106,19 @@ query($projectId: ID!, $cursor: String) {
 }
 """
 
+TEAM_MEMBERS_QUERY = """
+query($owner: String!, $slug: String!, $cursor: String) {
+  organization(login: $owner) {
+    team(slug: $slug) {
+      members(first: 100, after: $cursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes { login }
+      }
+    }
+  }
+}
+"""
+
 SET_TEXT = """
 mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: String!) {
   updateProjectV2ItemFieldValue(input: {
@@ -182,6 +196,23 @@ def load_board(owner: str, number: int) -> Board:
     return Board(project["id"], release["id"], status["id"], status_ids)
 
 
+def load_team_members(owner: str, slugs: list[str]) -> frozenset[str]:
+    """Lower-cased logins of the members of the given teams."""
+    members = set()
+    for slug in slugs:
+        cursor = None
+        while True:
+            data = graphql(TEAM_MEMBERS_QUERY, {"owner": owner, "slug": slug, "cursor": cursor})
+            team = (data.get("organization") or {}).get("team")
+            if not team:
+                raise RuntimeError(f"Team {owner}/{slug} not found, or no access to it")
+            members.update(m["login"].lower() for m in team["members"]["nodes"] if m)
+            if not team["members"]["pageInfo"]["hasNextPage"]:
+                break
+            cursor = team["members"]["pageInfo"]["endCursor"]
+    return frozenset(members)
+
+
 def iter_items(project_id: str):
     cursor = None
     while True:
@@ -227,7 +258,9 @@ def pending_requests(pr: dict) -> tuple[set[str], set[str]]:
     return users, teams
 
 
-def target_status(pr: dict, current: str | None) -> str | None:
+def target_status(
+    pr: dict, current: str | None, team_members: frozenset[str] = frozenset()
+) -> str | None:
     """The status the PR should have, or None to leave it as it is."""
     reviews = latest_reviews(pr)
     users, teams = pending_requests(pr)
@@ -246,7 +279,9 @@ def target_status(pr: dict, current: str | None) -> str | None:
     approvals = sum(
         1
         for login, r in reviews.items()
-        if r.state == "APPROVED" and r.can_push and not re_requested(login, r)
+        if r.state == "APPROVED"
+        and (r.can_push or login.lower() in team_members)
+        and not re_requested(login, r)
     )
     if approvals >= 2:
         return READY_FOR_MERGE
@@ -270,6 +305,7 @@ def plan_item(
     repo: str,
     now: datetime.datetime,
     archive_after: datetime.timedelta,
+    team_members: frozenset[str] = frozenset(),
 ) -> list[Action]:
     """What to change for one board item."""
     pr = item.get("content") or {}
@@ -303,7 +339,7 @@ def plan_item(
 
     names = {v: k for k, v in board.status_ids.items()}
     current = names.get(select.get(board.status_field_id))
-    target = target_status(pr, current)
+    target = target_status(pr, current, team_members)
     if target and target != current:
         actions.append(Action("status", target, reason=f"was {current}"))
     return actions
@@ -328,16 +364,18 @@ def sync(
     repo: str,
     apply: bool,
     archive_after: datetime.timedelta,
+    teams: tuple[str, ...] | list[str] = (),
     now: datetime.datetime | None = None,
 ) -> int:
     """Sync the board. Returns the number of items that failed."""
     now = now or datetime.datetime.now(datetime.timezone.utc)
     board = load_board(owner, number)
+    team_members = load_team_members(owner, list(teams))
     seen = failed = 0
     for item in iter_items(board.project_id):
         pr = item.get("content") or {}
         try:
-            actions = plan_item(item, board, repo, now, archive_after)
+            actions = plan_item(item, board, repo, now, archive_after, team_members)
             if (
                 pr.get("state") == "OPEN"
                 and (pr.get("repository") or {}).get("nameWithOwner") == repo
@@ -377,6 +415,12 @@ def main() -> None:
     parser.add_argument(
         "--archive-after-days", type=int, default=7, help="Archive merged PRs after this many days"
     )
+    parser.add_argument(
+        "--team",
+        action="append",
+        dest="teams",
+        help="Also count approvals from this team's members (repeatable)",
+    )
     args = parser.parse_args()
 
     failed = sync(
@@ -385,6 +429,7 @@ def main() -> None:
         args.repo,
         args.apply,
         datetime.timedelta(days=args.archive_after_days),
+        args.teams or ["slice-reviewers-guild"],
     )
     if failed:
         logging.error("%d item(s) failed, see the log above.", failed)

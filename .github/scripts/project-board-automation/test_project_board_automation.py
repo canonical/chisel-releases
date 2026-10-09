@@ -90,9 +90,10 @@ def item(
 class FakeGitHub:
     """Serves the project and its items, records writes, and can fail chosen items."""
 
-    def __init__(self, items, project=True, fail_items=(), page_size=6):
+    def __init__(self, items, project=True, fail_items=(), page_size=6, team=("Guildie",)):
         self.items = items
         self.project = project
+        self.team = team
         self.fail_items = set(fail_items)
         self.page_size = page_size
         self.writes = []
@@ -101,6 +102,16 @@ class FakeGitHub:
         if "projectV2(number" in query:
             project = {"id": "P", "fields": {"nodes": FIELDS}} if self.project else None
             return {"organization": {"projectV2": project}}
+        if "team(slug" in query:
+            team = None
+            if self.team is not None:
+                team = {
+                    "members": {
+                        "pageInfo": {"hasNextPage": False, "endCursor": None},
+                        "nodes": [{"login": login} for login in self.team],
+                    }
+                }
+            return {"organization": {"team": team}}
         if "items(first: 50" in query:
             start = int(variables["cursor"] or 0)
             page = self.items[start : start + self.page_size]
@@ -140,7 +151,7 @@ def run(monkeypatch):
     def _run(items, apply=True, **kw):
         gh = FakeGitHub(items, **kw)
         monkeypatch.setattr(pba, "graphql", gh)
-        failed = pba.sync("canonical", 161, REPO, apply, WEEK, now=NOW)
+        failed = pba.sync("canonical", 161, REPO, apply, WEEK, teams=["guild"], now=NOW)
         return gh, failed
 
     return _run
@@ -156,6 +167,19 @@ class TestStatus:
             [item("i", 1, reviews=[rev("a", "APPROVED"), rev("m", "APPROVED", can_push=False)])]
         )
         assert ("status", pba.PENDING_SECOND) in gh.of("i")
+
+    def test_reviewer_team_member_approval_counts(self, run):
+        # no push access, but in the reviewer team (login case differs on purpose)
+        gh, _ = run(
+            [
+                item(
+                    "i",
+                    1,
+                    reviews=[rev("a", "APPROVED"), rev("guildie", "APPROVED", can_push=False)],
+                )
+            ]
+        )
+        assert ("status", pba.READY_FOR_MERGE) in gh.of("i")
 
     def test_re_requested_approver_is_stale(self, run):
         gh, _ = run(
@@ -313,6 +337,10 @@ class TestRun:
         assert f"PR #1: status -> {pba.READY_FOR_MERGE}" in caplog.text
         assert "PR #2: remove (closed)" in caplog.text
         assert "(dry run)" in caplog.text
+
+    def test_missing_team_is_a_clear_error(self, run):
+        with pytest.raises(RuntimeError, match="Team canonical/guild not found"):
+            run([], team=None)
 
     def test_missing_project_is_a_clear_error(self, run):
         with pytest.raises(RuntimeError, match="not found, or no access to it"):

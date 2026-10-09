@@ -47,9 +47,10 @@ jobs:
       - name: Sync the review board
         env:
           # GITHUB_TOKEN cannot access organization projects, so the board has a
-          # ROCKsBot token of its own, with organization Projects read+write and
-          # read access to this repository's pull requests. ROCKsBot also needs
-          # write access to the project itself.
+          # ROCKsBot token of its own, with organization Projects read+write,
+          # organization Members read (for the reviewer team) and read access to
+          # this repository's pull requests. ROCKsBot also needs write access to
+          # the project itself.
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_BOARD_TOKEN }}
           GH_REPO: ${{ github.repository }}
           # Manual runs follow the dry_run input. Scheduled runs only write once
