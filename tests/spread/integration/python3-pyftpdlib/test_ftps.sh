@@ -26,7 +26,5 @@ wait_for_ftp
 [[ "$(curl --ssl-reqd --insecure ftp://127.0.0.1:2121/subdir/test-file)" == "Test file" ]]
 
 # The server refuses a client that does not upgrade to TLS.
-if curl ftp://127.0.0.1:2121/subdir/test-file; then
-  echo "plain FTP was accepted"
-  exit 1
-fi
+# A bare `!` is exempt from errexit, hence the explicit exit.
+! curl ftp://127.0.0.1:2121/subdir/test-file || exit 1
