@@ -3,5 +3,5 @@ summary: Integration tests for python3-cryptography
 execute: |
   rootfs="$(install-slices python3-cryptography_libs)"
 
-  cp verify.py "$rootfs/"
-  chroot "$rootfs" python3 /verify.py
+  cp verify.py "$rootfs"
+  chroot "$rootfs" python3 verify.py

@@ -71,8 +71,8 @@ execute: |
   mkdir -p "${rootfs}"/srv/subdir "${rootfs}/tls"
   echo "Test file" > "${rootfs}"/srv/subdir/test-file
 
-  cp make_cert.py "${rootfs}/"
-  chroot "${rootfs}" python3 /make_cert.py
+  cp make_cert.py "${rootfs}"
+  chroot "${rootfs}" python3 make_cert.py
 
   chroot "${rootfs}" /usr/bin/python3 -m pyftpdlib \
     --debug \
