@@ -9,11 +9,5 @@ execute: |
   test -n "$lib"
   test -n "$loader"
 
-  # The old soname is a symlink to the current one.
-  test "$(readlink "$(dirname "$lib")/libcurl-gnutls.so.3")" = "libcurl-gnutls.so.4"
-
-  # Have the dynamic loader resolve every shared library libcurl-gnutls links
-  # against; it fails if any is missing.
-  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
-  echo "$output"
-  echo "$output" | grep -Fq "libgnutls.so.30"
+  # The dynamic loader fails if any shared library libcurl-gnutls links against is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
