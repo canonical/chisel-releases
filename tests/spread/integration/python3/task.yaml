@@ -17,6 +17,6 @@ execute: |
   chroot "$rootfs" python3 /test_${test_slice}.py
 
   if [ "$SLICE" == "minimal" ]; then
-    cp verify_minimal.py "$rootfs"
-    chroot "$rootfs" python3 /verify_minimal.py
+    cp test_minimal.py "$rootfs"
+    chroot "$rootfs" python3 /test_minimal.py
   fi
