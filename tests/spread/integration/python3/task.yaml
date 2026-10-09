@@ -3,6 +3,7 @@ summary: Integration tests for Python3
 environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
+  SLICE/scripts: "scripts"
 
 execute: |
   # Test different slice installations
@@ -11,4 +12,9 @@ execute: |
   rootfs="$(install-slices python3_${SLICE})"
 
   cp ../python3.14/test_${SLICE}.py "$rootfs"
-  chroot "$rootfs" python3 /test_${SLICE}.py
+  if [ "$SLICE" == "scripts" ]; then
+    # python3_scripts only ships the links, and the scripts run python3.14
+    chroot "$rootfs" python3.14 /test_scripts.py 3
+  else
+    chroot "$rootfs" python3 /test_${SLICE}.py
+  fi
