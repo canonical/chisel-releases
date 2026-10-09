@@ -197,11 +197,14 @@ slices:
 
   eurasia:
     essential:
-      # tzdata_africa is needed because the "Iceland" symlink needs it.
+      # TODO: remove tzdata_africa in a future release.
       - tzdata_africa
       - tzdata_config
     contents:
       /usr/share/zoneinfo/Asia/*:
+      # The "Iceland" symlinks point here. tzdata_atlantic cannot be
+      # an essential because it already depends on this slice.
+      /usr/share/zoneinfo/Atlantic/Reykjavik:
       /usr/share/zoneinfo/Eire:
       /usr/share/zoneinfo/Europe/*:
       /usr/share/zoneinfo/GB:
@@ -220,6 +223,7 @@ slices:
       /usr/share/zoneinfo/Turkey:
       /usr/share/zoneinfo/W-SU:
       /usr/share/zoneinfo/posix/Asia/*:
+      /usr/share/zoneinfo/posix/Atlantic/Reykjavik:
       /usr/share/zoneinfo/posix/Eire:
       /usr/share/zoneinfo/posix/Europe/*:
       /usr/share/zoneinfo/posix/GB:
@@ -238,6 +242,7 @@ slices:
       /usr/share/zoneinfo/posix/Turkey:
       /usr/share/zoneinfo/posix/W-SU:
       /usr/share/zoneinfo/right/Asia/*:
+      /usr/share/zoneinfo/right/Atlantic/Reykjavik:
       /usr/share/zoneinfo/right/Eire:
       /usr/share/zoneinfo/right/Europe/*:
       /usr/share/zoneinfo/right/GB:
