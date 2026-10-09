@@ -20,11 +20,11 @@ from __future__ import annotations
 
 import argparse
 import datetime
+import json
 import logging
 import os
 import sys
-
-import requests
+import urllib.request
 
 OWNER = "canonical"
 PROJECT = 161
@@ -112,14 +112,13 @@ mutation($projectId: ID!, $itemId: ID!) {
 
 
 def graphql(query: str, variables: dict) -> dict:
-    response = requests.post(
+    request = urllib.request.Request(
         "https://api.github.com/graphql",
-        json={"query": query, "variables": variables},
+        data=json.dumps({"query": query, "variables": variables}).encode(),
         headers={"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}"},
-        timeout=60,
     )
-    response.raise_for_status()
-    body = response.json()
+    with urllib.request.urlopen(request, timeout=60) as response:  # raises on non-2xx
+        body = json.load(response)
     if body.get("errors"):
         raise RuntimeError(f"GraphQL errors: {body['errors']}")
     return body["data"]

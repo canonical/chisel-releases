@@ -41,9 +41,6 @@ jobs:
         uses: actions/setup-python@v6
         with: { python-version: '3.12' }
 
-      - name: Install dependencies
-        run: pip install -r ${{ env.script }}/requirements.txt
-
       - name: Sync the review board
         env:
           # GITHUB_TOKEN cannot access organization projects, so the board has a
