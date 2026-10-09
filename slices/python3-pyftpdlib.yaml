@@ -10,6 +10,7 @@ slices:
       python3_standard:
     contents:
       /usr/lib/python3/dist-packages/pyftpdlib/*.py:
+      /usr/lib/python3/dist-packages/pyftpdlib/handlers/**:
 
   copyright:
     contents:

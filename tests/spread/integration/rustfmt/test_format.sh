@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs rustfmt
 
+source ./shared.sh
 # Test rustfmt reformats a badly formatted file
 rootfs="$(install-slices rustfmt_rustfmt)"
 
@@ -16,6 +17,7 @@ grep -Fq 'fn main() {' "$rootfs/messy.rs"
 
 # Test cargo fmt reformats a project
 rootfs="$(install-slices rustfmt_cargo-fmt cargo_cargo)"
+mount_proc
 
 mkdir -p "$rootfs/dev"
 touch "$rootfs/dev/null"
