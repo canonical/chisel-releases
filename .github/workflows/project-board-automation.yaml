@@ -1,10 +1,13 @@
 name: Project board automation
 
 # Extra Review board automations that cannot be expressed with the built-in
-# GitHub Project workflows:
-#   1. Set the "release" custom field to the PR base (target) branch name.
-#   2. When a PR is approved, move its status to "Pending Second Review" if it
-#      has exactly 1 approving review, or "Ready For Merge" if it has 2+.
+# GitHub Project workflows, for this repository's open PRs on the board:
+#   1. Remove draft PRs from the board.
+#   2. Set the "Release" custom field to the PR base (target) branch name.
+#   3. Set the status from the reviews: with no unaddressed change requests, 2+
+#      approvals -> "Ready For Merge", 1 -> "Pending Second Review", 0 -> back to
+#      "Awaiting Review". Only approvals from reviewers with push access count,
+#      as for the branch protection's required reviews.
 #
 # This runs on a schedule (polling) rather than on pull_request events. That is
 # deliberate: PRs in this repo target the release branches (e.g. 24.04, 25.10),
@@ -18,11 +21,22 @@ on:
     # Every 1 hours. Ref: https://man7.org/linux/man-pages/man5/crontab.5.html
     - cron: "0 */1 * * *"
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only log the changes, do not write them"
+        type: boolean
+        default: true
+
+concurrency:
+  group: project-board-automation
+  cancel-in-progress: false
 
 # Projects v2 writes require a token with "project" scope, so the default
 # GITHUB_TOKEN is not enough. The repository secret ROCKSBOT_PR_TOKEN is used
 # instead (same token used by triage-prs.yaml).
 env:
+  # Scheduled runs have no inputs, so they always write.
+  DRY_RUN: ${{ inputs.dry_run == true }}
   PROJECT_OWNER: canonical
   PROJECT_NUMBER: "161"
   RELEASE_FIELD_NAME: "Release"
@@ -51,6 +65,9 @@ jobs:
             const statusReadyForMerge = process.env.STATUS_READY_FOR_MERGE;
             const statusAwaitingReview = process.env.STATUS_AWAITING_REVIEW;
             const statusInProgress = process.env.STATUS_IN_PROGRESS;
+            const dryRun = process.env.DRY_RUN === 'true';
+            const repoName = `${context.repo.owner}/${context.repo.repo}`;
+            if (dryRun) { console.log('Dry run: logging changes without writing them.'); }
 
             // 1. Resolve the project id and its fields.
             const projectData = await github.graphql(`
@@ -118,6 +135,7 @@ jobs:
             //    state, latest reviews, and current field values inline so we
             //    can decide what (if anything) needs updating.
             const setText = async (itemId, fieldId, value) => {
+              if (dryRun) { return; }
               await github.graphql(`
                 mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: String!) {
                   updateProjectV2ItemFieldValue(input: {
@@ -129,6 +147,7 @@ jobs:
             };
 
             const setSelect = async (itemId, fieldId, optionId) => {
+              if (dryRun) { return; }
               await github.graphql(`
                 mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
                   updateProjectV2ItemFieldValue(input: {
@@ -139,8 +158,20 @@ jobs:
               `, { projectId, itemId, fieldId, optionId });
             };
 
+            const removeItem = async (itemId) => {
+              if (dryRun) { return; }
+              await github.graphql(`
+                mutation($projectId: ID!, $itemId: ID!) {
+                  deleteProjectV2Item(input: { projectId: $projectId, itemId: $itemId }) {
+                    deletedItemId
+                  }
+                }
+              `, { projectId, itemId });
+            };
+
             let cursor = null;
             let processed = 0;
+            let failed = 0;
             do {
               const page = await github.graphql(`
                 query($projectId: ID!, $cursor: String) {
@@ -164,10 +195,14 @@ jobs:
                             ... on PullRequest {
                               number
                               state
+                              isDraft
                               baseRefName
-                              reviews(first: 100) {
+                              repository { nameWithOwner }
+                              # last, not first: the connection is oldest first.
+                              reviews(last: 100) {
                                 nodes {
                                   state
+                                  authorCanPushToRepository
                                   author { login }
                                   onBehalfOf(first: 10) {
                                     nodes { slug }
@@ -194,138 +229,158 @@ jobs:
               const items = page.node.items;
               for (const item of items.nodes) {
                 const pr = item.content;
-                // Only act on OPEN PRs. PullRequest.state is OPEN | CLOSED |
-                // MERGED, so this skips non-PR items as well as closed and
-                // merged PRs. Merged PRs are intentionally a no-op: neither the
-                // release field nor the status is touched once a PR is merged
-                // (the built-in workflow owns the "Merged" status).
+                // Only act on this repository's OPEN PRs. PullRequest.state is
+                // OPEN | CLOSED | MERGED, so this skips non-PR items as well as
+                // closed and merged PRs. Merged PRs are intentionally a no-op:
+                // neither the release field nor the status is touched once a PR
+                // is merged (the built-in workflow owns the "Merged" status).
                 if (!pr || !pr.number || pr.state !== 'OPEN') { continue; }
+                if (!pr.repository || pr.repository.nameWithOwner !== repoName) { continue; }
                 processed++;
 
-                // Current field values on the item, keyed by field id.
-                const currentText = {};
-                const currentSelect = {};
-                for (const fv of item.fieldValues.nodes) {
-                  if (!fv || !fv.field) { continue; }
-                  if (typeof fv.text === 'string') {
-                    currentText[fv.field.id] = fv.text;
-                  } else if (typeof fv.optionId === 'string') {
-                    currentSelect[fv.field.id] = fv.optionId;
+                try {
+                  // Drafts do not belong on the board. The built-in auto-add
+                  // workflow adds the PR back when it is marked ready for review.
+                  if (pr.isDraft) {
+                    console.log(`PR #${pr.number}: draft -> removed from the board`);
+                    await removeItem(item.id);
+                    continue;
                   }
-                }
 
-                // (a) release field -> base branch name (idempotent).
-                if (currentText[releaseField.id] !== pr.baseRefName) {
-                  console.log(
-                    `PR #${pr.number}: release "${currentText[releaseField.id] || ''}"` +
-                    ` -> "${pr.baseRefName}"`
-                  );
-                  await setText(item.id, releaseField.id, pr.baseRefName);
-                }
-
-                // (b) status based on review state. Keep only the latest review
-                //     per author that carries a decision (approve / changes
-                //     requested); ignore plain comments and pending reviews. We
-                //     also remember the team(s) a review was submitted "on behalf
-                //     of" so a team re-request can clear it.
-                const latestByUser = new Map();
-                for (const r of pr.reviews.nodes) {
-                  if (!r || !r.author || !r.author.login) { continue; }
-                  if (r.state === 'COMMENTED' || r.state === 'PENDING') { continue; }
-                  const teams = (r.onBehalfOf && r.onBehalfOf.nodes)
-                    ? r.onBehalfOf.nodes.map(t => t && t.slug).filter(Boolean)
-                    : [];
-                  latestByUser.set(r.author.login, { state: r.state, teams });
-                }
-
-                // Pending (re-)review requests, split into individual users and
-                // teams. The author re-requesting either the user directly or a
-                // team the review was made on behalf of clears that reviewer.
-                const pendingUserLogins = new Set();
-                const pendingTeamSlugs = new Set();
-                if (pr.reviewRequests && pr.reviewRequests.nodes) {
-                  for (const rr of pr.reviewRequests.nodes) {
-                    const req = rr && rr.requestedReviewer;
-                    if (!req) { continue; }
-                    if (req.login) { pendingUserLogins.add(req.login); }
-                    else if (req.slug) { pendingTeamSlugs.add(req.slug); }
+                  // Current field values on the item, keyed by field id.
+                  const currentText = {};
+                  const currentSelect = {};
+                  for (const fv of item.fieldValues.nodes) {
+                    if (!fv || !fv.field) { continue; }
+                    if (typeof fv.text === 'string') {
+                      currentText[fv.field.id] = fv.text;
+                    } else if (typeof fv.optionId === 'string') {
+                      currentSelect[fv.field.id] = fv.optionId;
+                    }
                   }
-                }
 
-                // A reviewer is "re-requested" if their user is pending, or any
-                // team they reviewed on behalf of is pending.
-                const isReRequested = (login, review) => {
-                  if (pendingUserLogins.has(login)) { return true; }
-                  for (const slug of review.teams) {
-                    if (pendingTeamSlugs.has(slug)) { return true; }
+                  // (a) release field -> base branch name (idempotent).
+                  if (currentText[releaseField.id] !== pr.baseRefName) {
+                    console.log(
+                      `PR #${pr.number}: release "${currentText[releaseField.id] || ''}"` +
+                      ` -> "${pr.baseRefName}"`
+                    );
+                    await setText(item.id, releaseField.id, pr.baseRefName);
                   }
-                  return false;
-                };
 
-                // Count approvals, but a re-requested approver's approval is
-                // stale (we presume the author changed something and asked them
-                // to look again), so it does not count until they re-approve.
-                let approvals = 0;
-                let changesRequested = 0;
-                for (const [login, review] of latestByUser) {
-                  if (review.state === 'APPROVED') {
-                    if (!isReRequested(login, review)) { approvals++; }
-                  } else if (review.state === 'CHANGES_REQUESTED') {
-                    changesRequested++;
+                  // (b) status based on review state. Keep only the latest review
+                  //     per author that carries a decision (approve / changes
+                  //     requested); ignore plain comments and pending reviews. We
+                  //     also remember the team(s) a review was submitted "on behalf
+                  //     of" so a team re-request can clear it.
+                  const latestByUser = new Map();
+                  for (const r of pr.reviews.nodes) {
+                    if (!r || !r.author || !r.author.login) { continue; }
+                    if (r.state === 'COMMENTED' || r.state === 'PENDING') { continue; }
+                    const teams = (r.onBehalfOf && r.onBehalfOf.nodes)
+                      ? r.onBehalfOf.nodes.map(t => t && t.slug).filter(Boolean)
+                      : [];
+                    latestByUser.set(r.author.login, {
+                      state: r.state, teams, canPush: r.authorCanPushToRepository,
+                    });
                   }
-                }
 
-                // Are there unaddressed changes? A change request counts as
-                // unaddressed until the author re-requests that reviewer (directly
-                // or via the team they reviewed on behalf of). So the PR is clear
-                // to leave "In Progress" only when EVERY reviewer whose latest
-                // review is CHANGES_REQUESTED has been re-requested.
-                let hasUnaddressedChanges = false;
-                for (const [login, review] of latestByUser) {
-                  if (review.state === 'CHANGES_REQUESTED' &&
-                      !isReRequested(login, review)) {
-                    hasUnaddressedChanges = true;
-                    break;
+                  // Pending (re-)review requests, split into individual users and
+                  // teams. The author re-requesting either the user directly or a
+                  // team the review was made on behalf of clears that reviewer.
+                  const pendingUserLogins = new Set();
+                  const pendingTeamSlugs = new Set();
+                  if (pr.reviewRequests && pr.reviewRequests.nodes) {
+                    for (const rr of pr.reviewRequests.nodes) {
+                      const req = rr && rr.requestedReviewer;
+                      if (!req) { continue; }
+                      if (req.login) { pendingUserLogins.add(req.login); }
+                      else if (req.slug) { pendingTeamSlugs.add(req.slug); }
+                    }
                   }
-                }
 
-                const currentStatusId = currentSelect[statusField.id];
+                  // A reviewer is "re-requested" if their user is pending, or any
+                  // team they reviewed on behalf of is pending.
+                  const isReRequested = (login, review) => {
+                    if (pendingUserLogins.has(login)) { return true; }
+                    for (const slug of review.teams) {
+                      if (pendingTeamSlugs.has(slug)) { return true; }
+                    }
+                    return false;
+                  };
 
-                // While there are unaddressed changes the PR stays where it is
-                // ("In Progress" is owned by another workflow); we do not promote
-                // or demote. Once all change-requesting reviewers have been
-                // re-requested, the (non-stale) approval count decides:
-                //   2+ approvals -> Ready For Merge
-                //   1  approval  -> Pending Second Review
-                //   0  approvals -> Awaiting Review (demotion only).
-                let targetOptionId = null;
-                let targetLabel = null;
-                if (hasUnaddressedChanges) {
-                  // Leave as-is.
-                } else if (approvals >= 2) {
-                  targetOptionId = readyForMergeId;
-                  targetLabel = statusReadyForMerge;
-                } else if (approvals === 1) {
-                  targetOptionId = pendingSecondId;
-                  targetLabel = statusPendingSecond;
-                } else if (demotableStatusIds.has(currentStatusId)) {
-                  targetOptionId = awaitingReviewId;
-                  targetLabel = statusAwaitingReview;
-                }
+                  // Count approvals, but a re-requested approver's approval is
+                  // stale (we presume the author changed something and asked them
+                  // to look again), so it does not count until they re-approve.
+                  // Like the required reviews, only reviewers with push access count.
+                  let approvals = 0;
+                  let changesRequested = 0;
+                  for (const [login, review] of latestByUser) {
+                    if (review.state === 'APPROVED') {
+                      if (review.canPush && !isReRequested(login, review)) { approvals++; }
+                    } else if (review.state === 'CHANGES_REQUESTED') {
+                      changesRequested++;
+                    }
+                  }
 
-                // Only write when we have a target and it actually differs.
-                if (targetOptionId && currentStatusId !== targetOptionId) {
-                  console.log(
-                    `PR #${pr.number}: ${approvals} approval(s), ` +
-                    `${changesRequested} change request(s), ` +
-                    `unaddressed=${hasUnaddressedChanges} -> ` +
-                    `status "${targetLabel}"`
-                  );
-                  await setSelect(item.id, statusField.id, targetOptionId);
+                  // Are there unaddressed changes? A change request counts as
+                  // unaddressed until the author re-requests that reviewer (directly
+                  // or via the team they reviewed on behalf of). So the PR is clear
+                  // to leave "In Progress" only when EVERY reviewer whose latest
+                  // review is CHANGES_REQUESTED has been re-requested.
+                  let hasUnaddressedChanges = false;
+                  for (const [login, review] of latestByUser) {
+                    if (review.state === 'CHANGES_REQUESTED' &&
+                        !isReRequested(login, review)) {
+                      hasUnaddressedChanges = true;
+                      break;
+                    }
+                  }
+
+                  const currentStatusId = currentSelect[statusField.id];
+
+                  // While there are unaddressed changes the PR stays where it is
+                  // ("In Progress" is owned by another workflow); we do not promote
+                  // or demote. Once all change-requesting reviewers have been
+                  // re-requested, the (non-stale) approval count decides:
+                  //   2+ approvals -> Ready For Merge
+                  //   1  approval  -> Pending Second Review
+                  //   0  approvals -> Awaiting Review (demotion only).
+                  let targetOptionId = null;
+                  let targetLabel = null;
+                  if (hasUnaddressedChanges) {
+                    // Leave as-is.
+                  } else if (approvals >= 2) {
+                    targetOptionId = readyForMergeId;
+                    targetLabel = statusReadyForMerge;
+                  } else if (approvals === 1) {
+                    targetOptionId = pendingSecondId;
+                    targetLabel = statusPendingSecond;
+                  } else if (demotableStatusIds.has(currentStatusId)) {
+                    targetOptionId = awaitingReviewId;
+                    targetLabel = statusAwaitingReview;
+                  }
+
+                  // Only write when we have a target and it actually differs.
+                  if (targetOptionId && currentStatusId !== targetOptionId) {
+                    console.log(
+                      `PR #${pr.number}: ${approvals} approval(s), ` +
+                      `${changesRequested} change request(s), ` +
+                      `unaddressed=${hasUnaddressedChanges} -> ` +
+                      `status "${targetLabel}"`
+                    );
+                    await setSelect(item.id, statusField.id, targetOptionId);
+                  }
+                } catch (err) {
+                  failed++;
+                  console.log(`PR #${pr.number}: failed: ${err.message}`);
                 }
               }
 
               cursor = items.pageInfo.hasNextPage ? items.pageInfo.endCursor : null;
             } while (cursor);
 
-            console.log(`Processed ${processed} open PR item(s).`);
+            console.log(`Processed ${processed} open PR item(s)${dryRun ? ' (dry run)' : ''}.`);
+            if (failed) {
+              core.setFailed(`${failed} item(s) failed, see the log above.`);
+            }
