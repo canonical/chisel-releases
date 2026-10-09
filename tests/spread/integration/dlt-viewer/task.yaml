@@ -2,6 +2,8 @@ summary: Integration tests for dlt-viewer
 
 variants:
   - bins
+  - dlt-parser
+  - dlt-viewer
   - libs
   - plugins
 
