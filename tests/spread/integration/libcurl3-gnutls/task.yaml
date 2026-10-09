@@ -3,7 +3,17 @@ summary: Integration tests for libcurl3-gnutls
 execute: |
   rootfs="$(install-slices libcurl3-gnutls_libs)"
 
-  arch=$(basename "${rootfs}"/usr/lib/*-linux-gnu)
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libcurl-gnutls.so.4" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
 
-  test -f ${rootfs}/usr/lib/${arch}/libcurl-gnutls.so.3
-  test -f ${rootfs}/usr/lib/${arch}/libcurl-gnutls.so.4
+  # The old soname is a symlink to the current one.
+  test "$(readlink "$(dirname "$lib")/libcurl-gnutls.so.3")" = "libcurl-gnutls.so.4"
+
+  # Have the dynamic loader resolve every shared library libcurl-gnutls links
+  # against; it fails if any is missing.
+  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+  echo "$output"
+  echo "$output" | grep -Fq "libgnutls.so.30"
