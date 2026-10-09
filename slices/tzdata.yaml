@@ -197,7 +197,7 @@ slices:
 
   eurasia:
     essential:
-      # Nothing links into Africa anymore; dropping an essential would shrink a published slice.
+      # TODO: remove tzdata_africa in a future release.
       - tzdata_africa
       - tzdata_config
     contents:
