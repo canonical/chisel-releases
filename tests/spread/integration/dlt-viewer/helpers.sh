@@ -22,3 +22,9 @@ write_trace() {
     printf '\x00\x02\x00\x00\x0d\x00hello chisel\x00'
   } > "$1"
 }
+
+# Write a project file that enables the plugin named $2, with the optional configuration file $3.
+write_project() {
+  printf '<dltproject><plugin><name>%s</name><filename>%s</filename><mode>1</mode></plugin></dltproject>\n' \
+    "$2" "${3:-}" > "$1"
+}

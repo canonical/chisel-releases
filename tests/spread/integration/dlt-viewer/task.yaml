@@ -5,6 +5,10 @@ variants:
   - dlt-parser
   - dlt-viewer
   - libs
+  - plugin-dbus
+  - plugin-filetransfer
+  - plugin-nonverbose
+  - plugin-segmentation
   - plugins
 
 execute: bash -eux ./test_${SPREAD_VARIANT}.sh
