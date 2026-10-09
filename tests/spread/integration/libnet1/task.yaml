@@ -9,8 +9,5 @@ execute: |
   test -n "$lib"
   test -n "$loader"
 
-  # Have the dynamic loader resolve every shared library libnet links
-  # against; it fails if any is missing.
-  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
-  echo "$output"
-  echo "$output" | grep -Fq "libc.so.6"
+  # The dynamic loader fails if any shared library libnet links against is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"

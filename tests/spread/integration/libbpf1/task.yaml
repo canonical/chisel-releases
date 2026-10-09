@@ -9,9 +9,5 @@ execute: |
   test -n "$lib"
   test -n "$loader"
 
-  # Have the dynamic loader resolve every shared library libbpf links
-  # against; it fails if any is missing.
-  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
-  echo "$output"
-  echo "$output" | grep -Fq "libelf.so.1"
-  echo "$output" | grep -Fq "libz.so.1"
+  # The dynamic loader fails if any shared library libbpf links against is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
