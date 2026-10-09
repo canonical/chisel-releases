@@ -33,8 +33,9 @@ concurrency:
   cancel-in-progress: false
 
 # GITHUB_TOKEN cannot access organization projects, so the board needs a token of
-# its own: PROJECT_BOARD_TOKEN, with organization Projects read+write and read
-# access to this repository's pull requests. It is used for nothing else.
+# its own: ROCKSBOT_BOARD_TOKEN, a ROCKsBot token with organization Projects
+# read+write and read access to this repository's pull requests, used for nothing
+# else. ROCKsBot also needs write access to the project itself.
 env:
   # Manual runs follow the dry_run input. Scheduled runs only write once the
   # repository variable PROJECT_BOARD_WRITE is set to "true".
@@ -60,7 +61,7 @@ jobs:
       - name: Sync release field and review status
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.PROJECT_BOARD_TOKEN }}
+          github-token: ${{ secrets.ROCKSBOT_BOARD_TOKEN }}
           script: |
             const projectOwner = process.env.PROJECT_OWNER;
             const projectNumber = parseInt(process.env.PROJECT_NUMBER, 10);
