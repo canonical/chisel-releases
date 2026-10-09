@@ -1,6 +1,12 @@
 # Qt needs no display with the offscreen platform plugin.
 export QT_QPA_PLATFORM=offscreen
 
+# dlt-viewer 2.25.0 reads DLT headers in host byte order, so on big-endian s390x it drops every
+# message of a trace and conversions come out empty.
+big_endian() {
+  test "$(uname -m)" = s390x
+}
+
 # Write a DLT trace holding one verbose info message from ECU1/APP1/CTX1 with the string
 # argument "hello chisel".
 write_trace() {
