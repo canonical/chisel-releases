@@ -18,9 +18,9 @@ slices:
       /usr/lib/aarch64-linux-gnu/libblas.so.3:
         arch: [arm64]
         symlink: /usr/lib/aarch64-linux-gnu/blas/libblas.so.3
-      /usr/lib/arm-linux-gnu/libblas.so.3:
+      /usr/lib/arm-linux-gnueabihf/libblas.so.3:
         arch: [armhf]
-        symlink: /usr/lib/arm-linux-gnu/blas/libblas.so.3
+        symlink: /usr/lib/arm-linux-gnueabihf/blas/libblas.so.3
       /usr/lib/powerpc64le-linux-gnu/libblas.so.3:
         arch: [ppc64el]
         symlink: /usr/lib/powerpc64le-linux-gnu/blas/libblas.so.3

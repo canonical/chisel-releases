@@ -1,0 +1,107 @@
+Backport of upstream sudo-rs PR #830 to the 0.2.2 in ubuntu 24.04.
+
+sudo-rs 0.2.2 builds `libc::sigaction` with struct-literal syntax. On s390x
+that struct carries a private `__glibc_reserved0` field (glibc's s390x ABI has
+a reserved int between the handler union and `sa_flags`), so the literal does
+not compile:
+
+    error: cannot construct `sigaction` with struct literal syntax due to private fields
+      --> src/system/signal/set.rs:34:18
+       = note: ...and other private field `__glibc_reserved0` that was not provided
+
+This is why noble has no s390x binary for sudo-rs: the archive build hit the
+same wall (LP #27776116). Upstream fixed it in 0.2.3 by zero-initialising and
+assigning members instead; noble is frozen at 0.2.2 so it will never get that.
+
+Refs: https://github.com/trifectatechfoundation/sudo-rs/issues/829
+      https://github.com/trifectatechfoundation/sudo-rs/pull/830
+
+The change is arch-independent -- it applies and compiles on every
+architecture, so the test applies it unconditionally.
+
+diff --git a/src/system/signal/set.rs b/src/system/signal/set.rs
+--- a/src/system/signal/set.rs
++++ b/src/system/signal/set.rs
+@@ -30,14 +30,13 @@ impl SignalAction {
+             }
+         };
+ 
+-        Ok(Self {
+-            raw: libc::sigaction {
+-                sa_sigaction,
+-                sa_mask: sa_mask.raw,
+-                sa_flags,
+-                sa_restorer: None,
+-            },
+-        })
++        // SAFETY: sigaction is a C struct, all-zeroes is a valid representation.
++        let mut raw: libc::sigaction = unsafe { std::mem::zeroed() };
++        raw.sa_sigaction = sa_sigaction;
++        raw.sa_mask = sa_mask.raw;
++        raw.sa_flags = sa_flags;
++
++        Ok(Self { raw })
+     }
+ 
+     pub(super) fn register(&self, signal: SignalNumber) -> io::Result<Self> {
+diff --git a/src/system/term/user_term.rs b/src/system/term/user_term.rs
+--- a/src/system/term/user_term.rs
++++ b/src/system/term/user_term.rs
+@@ -64,18 +64,17 @@ fn tcsetattr_nobg(fd: c_int, flags: c_int, tp: *const termios) -> io::Result<()>
+ 
+     let mut original_action = MaybeUninit::<sigaction>::uninit();
+ 
+-    let action = sigaction {
+-        // Call `on_sigttou` if `SIGTTOU` arrives.
+-        sa_sigaction: on_sigttou as sighandler_t,
+-        // Exclude any other signals from the set
+-        sa_mask: {
+-            let mut sa_mask = MaybeUninit::<sigset_t>::uninit();
+-            unsafe { sigemptyset(sa_mask.as_mut_ptr()) };
+-            unsafe { sa_mask.assume_init() }
+-        },
+-        sa_flags: 0,
+-        sa_restorer: None,
++    // SAFETY: sigaction is a C struct, all-zeroes is a valid representation.
++    let mut action: sigaction = unsafe { std::mem::zeroed() };
++    // Call `on_sigttou` if `SIGTTOU` arrives.
++    action.sa_sigaction = on_sigttou as sighandler_t;
++    // Exclude any other signals from the set
++    action.sa_mask = {
++        let mut sa_mask = MaybeUninit::<sigset_t>::uninit();
++        unsafe { sigemptyset(sa_mask.as_mut_ptr()) };
++        unsafe { sa_mask.assume_init() }
+     };
++    action.sa_flags = 0;
+     // Reset `GOT_SIGTTOU`.
+     GOT_SIGTTOU.store(false, Ordering::SeqCst);
+     // Set `action` as the action for `SIGTTOU` and store the original action in `original_action`
+@@ -225,18 +224,17 @@ impl UserTerm {
+ 
+         let mut original_action = MaybeUninit::<sigaction>::uninit();
+ 
+-        let action = sigaction {
+-            // Call `on_sigttou` if `SIGTTOU` arrives.
+-            sa_sigaction: on_sigttou as sighandler_t,
+-            // Exclude any other signals from the set
+-            sa_mask: {
+-                let mut sa_mask = MaybeUninit::<sigset_t>::uninit();
+-                unsafe { sigemptyset(sa_mask.as_mut_ptr()) };
+-                unsafe { sa_mask.assume_init() }
+-            },
+-            sa_flags: 0,
+-            sa_restorer: None,
++        // SAFETY: sigaction is a C struct, all-zeroes is a valid representation.
++        let mut action: sigaction = unsafe { std::mem::zeroed() };
++        // Call `on_sigttou` if `SIGTTOU` arrives.
++        action.sa_sigaction = on_sigttou as sighandler_t;
++        // Exclude any other signals from the set
++        action.sa_mask = {
++            let mut sa_mask = MaybeUninit::<sigset_t>::uninit();
++            unsafe { sigemptyset(sa_mask.as_mut_ptr()) };
++            unsafe { sa_mask.assume_init() }
+         };
++        action.sa_flags = 0;
+         // Reset `GOT_SIGTTOU`.
+         GOT_SIGTTOU.store(false, Ordering::SeqCst);
+         // Set `action` as the action for `SIGTTOU` and store the original action in `original_action`
