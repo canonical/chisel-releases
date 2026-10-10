@@ -6,9 +6,10 @@ import wheel
 from wheel._metadata import convert_requirements
 from wheel.wheelfile import WheelFile
 
-# bdist_wheel is a setuptools command, and wheel does not depend on setuptools.
+# bdist_wheel is a setuptools command, and wheel does not depend on setuptools. macosx_libfile is
+# for bdist_wheel on macOS and needs ctypes.
 for module in pkgutil.walk_packages(wheel.__path__, "wheel."):
-    if "bdist_wheel" not in module.name:
+    if "bdist_wheel" not in module.name and module.name != "wheel.macosx_libfile":
         importlib.import_module(module.name)
 
 assert list(convert_requirements(["demo[cli]>=1.0"])) == ["demo[cli] >=1.0"]
