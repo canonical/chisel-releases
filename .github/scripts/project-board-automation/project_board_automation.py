@@ -258,7 +258,9 @@ def sync(repo: str, apply: bool, now: datetime.datetime | None = None) -> int:
     project, team = load_project(), load_team(REVIEWER_TEAM)
     items = paged(ITEMS_QUERY, {"id": project["id"]}, lambda d: d["node"]["items"])
     # this repository's PRs only; the board may hold other content
-    items = [i for i in items if (i["content"] or {}).get("repository", {}).get("nameWithOwner") == repo]
+    items = [
+        i for i in items if (i["content"] or {}).get("repository", {}).get("nameWithOwner") == repo
+    ]
     on_board = {i["content"]["number"] for i in items}
     owner, name = repo.split("/")
     pulls = paged(
