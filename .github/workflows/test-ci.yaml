@@ -9,6 +9,7 @@ on:
       - ".github/scripts/validate-hints/**"
       - ".github/scripts/forward-port-missing/**"
       - ".github/scripts/install-slices/**"
+      - ".github/scripts/project-board-automation/**"
 
 jobs:
   test-validate-hints:
@@ -55,5 +56,19 @@ jobs:
       - name: Run "install-slices" unit tests
         run: |
           pytest .github/scripts/install-slices/
+
+  test-project-board-automation:
+    name: Test project board automation workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install pytest
+      - name: Run "project-board-automation" unit tests
+        run: |
+          pytest .github/scripts/project-board-automation/
 
   # TODO: add tests for remaining CI scripts
