@@ -6,8 +6,7 @@ essential:
 slices:
   bins:
     contents:
-      /bin/static-sh: { symlink: /usr/bin/busybox }
-      /usr/bin/busybox: { prefer: busybox }
+      /usr/bin/busybox-static:
 
   copyright:
     contents:

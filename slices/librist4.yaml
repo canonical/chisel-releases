@@ -8,7 +8,11 @@ slices:
     essential:
       libc6_libs:
       libcjson1_libs:
-      libmbedcrypto16_libs:
+      libgmp10_libs:
+      libgnutls30t64_libs:
+      libhogweed6t64_libs:
+      liblz4-1_libs:
+      libnettle8t64_libs:
     contents:
       /usr/lib/*-linux-*/librist.so.4*:
 
