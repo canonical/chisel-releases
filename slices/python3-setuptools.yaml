@@ -11,7 +11,40 @@ slices:
     contents:
       /usr/lib/python3/dist-packages/_distutils_hack/**:
       /usr/lib/python3/dist-packages/setuptools-*.egg-info/**:
-      /usr/lib/python3/dist-packages/setuptools/**:
+      # Listed one by one: python3-pkg-resources ships the rest of setuptools/_vendor.
+      /usr/lib/python3/dist-packages/setuptools/*.py:
+      /usr/lib/python3/dist-packages/setuptools/*.tmpl:
+      /usr/lib/python3/dist-packages/setuptools/_distutils/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/autocommand-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/autocommand/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/backports.tarfile-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/backports/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/importlib_metadata-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/importlib_metadata/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/inflect-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/inflect/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco.collections-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco.context-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco.functools-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco/collections/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco/context.py:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco/functools/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/more_itertools-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/more_itertools/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/tomli-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/tomli/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/typeguard-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/typeguard/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/typing_extensions-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/typing_extensions.py:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/wheel-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/wheel/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/zipp-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/zipp/**:
+      /usr/lib/python3/dist-packages/setuptools/command/**:
+      /usr/lib/python3/dist-packages/setuptools/compat/**:
+      /usr/lib/python3/dist-packages/setuptools/config/**:
+      /usr/lib/python3/dist-packages/setuptools/tests/**:
 
   copyright:
     contents:
