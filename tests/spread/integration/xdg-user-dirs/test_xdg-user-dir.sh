@@ -1,6 +1,6 @@
 #!/bin/bash
 #spellchecker: ignore rootfs
 
-rootfs="$(install-slices xdg-user-dirs_scripts)"
+rootfs="$(install-slices xdg-user-dirs_bins)"
 
 chroot "$rootfs" xdg-user-dir | grep -iqx '/root'

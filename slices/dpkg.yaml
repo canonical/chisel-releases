@@ -9,10 +9,11 @@ slices:
       coreutils_rm-bin:
       diffutils_bins:  # used by dpkg -i
       dpkg_config:
+      dpkg_divert:
       dpkg_realpath:
-      dpkg_scripts:
       dpkg_start-stop-daemon:
       dpkg_tables:
+      dpkg_update-alternatives:
       dpkg_var:
       libbz2-1.0_libs:
       libc-bin_ldconfig:
@@ -26,14 +27,10 @@ slices:
     contents:
       /usr/bin/dpkg:
       /usr/bin/dpkg-deb:
-      /usr/bin/dpkg-divert:
-      /usr/bin/dpkg-maintscript-helper:
       /usr/bin/dpkg-query:
       /usr/bin/dpkg-split:
       /usr/bin/dpkg-statoverride:
       /usr/bin/dpkg-trigger:
-      /usr/bin/update-alternatives:
-      /usr/libexec/dpkg/*:
 
   start-stop-daemon:
     hint: Start and stop system demon programs
@@ -42,12 +39,27 @@ slices:
     contents:
       /usr/sbin/start-stop-daemon:
 
+  update-alternatives:
+    hint: Maintain symbolic links for commands
+    essential:
+      libc6_libs:
+    contents:
+      /usr/bin/update-alternatives:
+
   realpath:
     hint: Resolve path with dpkg root support
     essential:
       libc6_libs:
     contents:
       /usr/bin/dpkg-realpath:
+
+  divert:
+    hint: Override a file with a diverted version
+    essential:
+      libc6_libs:
+      libmd0_libs:
+    contents:
+      /usr/bin/dpkg-divert:
 
   config:
     contents:
@@ -61,12 +73,58 @@ slices:
       /usr/share/locale/**/dpkg.mo:
 
   scripts:
+    hint: Helper scripts shipped with dpkg
     essential:
-      coreutils_echo:
+      dpkg_db-backup:
+      dpkg_db-keeper:
+      dpkg_maintscript-helper:
+
+  sh-lib:
+    hint: Shared shell functions for dpkg scripts
+    essential:
+      coreutils_basename:
     contents:
-      # Note: This file defines the color scheme used by dpkg.
-      # It is sourced by dpkg's `dpkg-maintscript-helper` script.
+      # Sourced by the dpkg scripts for their messages and colours.
       /usr/share/dpkg/sh/dpkg-error.sh:
+
+  maintscript-helper:
+    hint: Maintainer script helper for conffiles
+    essential:
+      base-files_bin:
+      coreutils_bins:
+      dash_bins:
+      dpkg_bins:
+      dpkg_sh-lib:
+      findutils_bins:
+      grep_bins:
+      sed_bins:
+    contents:
+      /usr/bin/dpkg-maintscript-helper:
+
+  db-backup:
+    hint: Back up the dpkg database
+    essential:
+      base-files_bin:
+      coreutils_bins:
+      dash_bins:
+      debianutils_savelog:
+      diffutils_cmp:
+      dpkg_sh-lib:
+      # savelog compresses the older backups
+      gzip_bins:
+      tar_tar:
+    contents:
+      /usr/libexec/dpkg/dpkg-db-backup:
+
+  db-keeper:
+    hint: Record dpkg database changes in git
+    essential:
+      base-files_bin:
+      dash_bins:
+      dpkg_sh-lib:
+    contents:
+      # git is optional: without it the script does nothing
+      /usr/libexec/dpkg/dpkg-db-keeper:
 
   tables:
     contents:
@@ -88,6 +146,7 @@ slices:
       base-files_bin:
       coreutils_bins:
       dpkg_bins:
+      dpkg_maintscript-helper:
       sed_bins:
 
   copyright:

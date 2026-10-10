@@ -4,11 +4,15 @@ essential:
   python3_copyright:
 
 slices:
+  minimal:
+    essential:
+      python3-minimal_python3:
+
   core:
     essential:
       libpython3-stdlib_core:
-      python3-minimal_python3:
       python3.14_core:
+      python3_minimal:
 
   standard:
     essential:
@@ -43,11 +47,11 @@ slices:
       python3.14_standard:
       python3_core:
 
-  utils:
+  scripts:
     essential:
       libpython3-stdlib_debug:
       libpython3-stdlib_pydoc:
-      python3.14_utils:
+      python3.14_scripts:
     contents:
       /usr/bin/pdb3:
       /usr/bin/pydoc3:
