@@ -261,6 +261,21 @@ def test_sync_adds_open_prs_and_configures_them_in_one_run(github):
     ]
 
 
+def test_sync_draft_round_trip_resets_a_hand_set_status(github):
+    """ready -> draft removes the item; draft -> ready adds a new one with a status from
+    the reviews, so a status set by hand does not survive the round trip."""
+    fake = github([item(pr(draft=True), status="Blocked")], pulls=[pr(draft=True)])
+    assert pba.sync(REPO, apply=True, now=NOW) == 0
+    assert fake.mutations == [("item", None)]
+    fake = github([], pulls=[pr()])
+    assert pba.sync(REPO, apply=True, now=NOW) == 0
+    assert fake.mutations == [
+        ("add:PR1", None),
+        ("new-PR1", {"text": "ubuntu-26.10"}),
+        ("new-PR1", {"singleSelectOptionId": f"o-{pba.AWAITING}"}),
+    ]
+
+
 def test_sync_dry_run_writes_nothing(github, caplog):
     caplog.set_level(logging.INFO)
     fake = github([item(pr(state="CLOSED"))], pulls=[pr(2)])
