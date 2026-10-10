@@ -6,7 +6,7 @@ essential:
 slices:
   libs:
     essential:
-      python3_standard:
+      python3_core:
     contents:
       /usr/lib/python3/dist-packages/jaraco/context/**:
       /usr/lib/python3/dist-packages/jaraco_context-*.dist-info/**:
