@@ -4,8 +4,10 @@ Unit tests for project_board_automation.py.
 """
 
 import datetime
+import inspect
 import logging
 import os
+import re
 import sys
 
 import pytest
@@ -40,6 +42,7 @@ def pr(
 ):
     merged = NOW - datetime.timedelta(days=merged_days_ago) if merged_days_ago else None
     return {
+        "id": f"PR{number}",
         "number": number,
         "state": state,
         "isDraft": draft,
@@ -61,7 +64,7 @@ def item(content, release="ubuntu-26.10", status=pba.AWAITING, archived=False, i
     }
 
 
-OPTIONS = [pba.AWAITING, pba.IN_PROGRESS, pba.PENDING_SECOND, pba.READY]
+OPTIONS = sorted(pba.STATUSES)
 
 
 def project_node(options=OPTIONS):
@@ -71,6 +74,12 @@ def project_node(options=OPTIONS):
 
 
 PROJECT = {**project_node(), "options": {n: f"o-{n}" for n in OPTIONS}}
+
+
+def test_mutations_only_touch_the_board():
+    """The script juggles board items; the repository and its PRs stay read-only."""
+    mutations = re.findall(r"mutation\([^)]*\)\s*\{\s*(\w+)\(", inspect.getsource(pba))
+    assert mutations and all("ProjectV2" in m for m in mutations), mutations
 
 
 @pytest.mark.parametrize(
@@ -111,13 +120,32 @@ PROJECT = {**project_node(), "options": {n: f"o-{n}" for n in OPTIONS}}
             pba.IN_PROGRESS,
             pba.PENDING_SECOND,
         ),
+        # reviews come oldest first, so a later change request overrides an approval
+        (
+            [review("a", "APPROVED"), review("a", "CHANGES_REQUESTED")],
+            [],
+            pba.READY,
+            pba.IN_PROGRESS,
+        ),
         # a dismissed approval no longer counts
         ([review("a", "APPROVED"), review("a", "DISMISSED")], [], pba.PENDING_SECOND, pba.AWAITING),
-        # an unaddressed change request leaves the status to the built-in workflow
-        ([review("a", "APPROVED"), review("b", "CHANGES_REQUESTED")], [], pba.IN_PROGRESS, None),
+        # an unaddressed change request wins over approvals
+        (
+            [review("a", "APPROVED"), review("b", "CHANGES_REQUESTED")],
+            [],
+            pba.READY,
+            pba.IN_PROGRESS,
+        ),
         # once re-requested, it is addressed; no approvals left -> back to awaiting
         ([review("b", "CHANGES_REQUESTED")], [{"login": "b"}], pba.IN_PROGRESS, pba.AWAITING),
         ([], [], pba.AWAITING, None),
+        # a status set by hand stays
+        ([], [], "Blocked", None),
+        # a new item gets a status from its reviews
+        ([], [], None, pba.AWAITING),
+        ([review("a", "APPROVED")], [], None, pba.PENDING_SECOND),
+        ([review("a", "APPROVED"), review("b", "APPROVED")], [], None, pba.READY),
+        ([review("b", "CHANGES_REQUESTED")], [], None, pba.IN_PROGRESS),
     ],
 )
 def test_target_status(reviews, requested, current, expected):
@@ -129,24 +157,42 @@ def test_target_status(reviews, requested, current, expected):
     [
         (item(pr(state="CLOSED")), ["remove (closed)"]),
         (item(pr(draft=True)), ["remove (draft)"]),
-        (item(pr(state="MERGED", merged_days_ago=30)), ["archive"]),
-        (item(pr(state="MERGED", merged_days_ago=2)), []),
+        (item(pr(state="MERGED", merged_days_ago=30)), ["status -> Merged", "archive"]),
+        (item(pr(state="MERGED", merged_days_ago=30), status=pba.MERGED), ["archive"]),
+        (item(pr(state="MERGED", merged_days_ago=2)), ["status -> Merged"]),
+        (item(pr(state="MERGED", merged_days_ago=2), status=pba.MERGED), []),
         (item(pr(state="MERGED", merged_days_ago=30), archived=True), []),
         (item(pr(base="ubuntu-24.04"), release=None), ["release -> ubuntu-24.04"]),
         (item(pr(reviews=[review("a", "APPROVED")]), status=pba.PENDING_SECOND), []),
+        # a freshly added item gets both fields in one go
+        (
+            item(pr(reviews=[review("a", "APPROVED")]), release=None, status=None),
+            ["release -> ubuntu-26.10", "status -> Pending Second Review"],
+        ),
     ],
 )
 def test_plan(board_item, expected):
     descriptions = [d for d, _, _ in pba.plan(board_item, PROJECT, TEAM, NOW)]
-    assert [d.split(" (merged")[0] for d in descriptions] == expected
+    assert [re.sub(r" \((was|merged) .*\)$", "", d) for d in descriptions] == expected
 
 
 class FakeGitHub:
-    """Serves the project, the team and the items in pages of 2; records mutations."""
+    """Serves the project, the team, the items and the open PRs in pages of 2; records
+    mutations as (item id, value), with "add:<pr id>" for additions."""
 
-    def __init__(self, items, project=project_node(), team=("Guildie",), fail=()):
-        self.items, self.project, self.team, self.fail = items, project, team, set(fail)
+    def __init__(self, items, pulls=(), project=project_node(), team=("Guildie",), fail=()):
+        self.items, self.pulls, self.project = items, list(pulls), project
+        self.team, self.fail = team, set(fail)
         self.mutations = []
+
+    @staticmethod
+    def page(nodes, variables):
+        start = int(variables["cursor"] or 0)
+        end = start + 2
+        return {
+            "pageInfo": {"hasNextPage": end < len(nodes), "endCursor": str(end)},
+            "nodes": nodes[start:end],
+        }
 
     def __call__(self, query, variables):
         if query is pba.PROJECT_QUERY:
@@ -158,16 +204,12 @@ class FakeGitHub:
             }
             return {"organization": {"team": members and {"members": members}}}
         if query is pba.ITEMS_QUERY:
-            start = int(variables["cursor"] or 0)
-            end = start + 2
-            return {
-                "node": {
-                    "items": {
-                        "pageInfo": {"hasNextPage": end < len(self.items), "endCursor": str(end)},
-                        "nodes": self.items[start:end],
-                    }
-                }
-            }
+            return {"node": {"items": self.page(self.items, variables)}}
+        if query is pba.OPEN_PRS_QUERY:
+            return {"repository": {"pullRequests": self.page(self.pulls, variables)}}
+        if query is pba.ADD:
+            self.mutations.append((f"add:{variables['contentId']}", None))
+            return {"addProjectV2ItemById": {"item": {"id": f"new-{variables['contentId']}"}}}
         if variables["itemId"] in self.fail:
             raise RuntimeError("boom")
         self.mutations.append((variables["itemId"], variables.get("value")))
@@ -205,12 +247,28 @@ def test_sync_applies_only_this_repository_across_pages(github):
     ]
 
 
+def test_sync_adds_open_prs_and_configures_them_in_one_run(github):
+    on_board = pr(1, reviews=[review("a", "APPROVED")])
+    fake = github(
+        [item(on_board, status=pba.PENDING_SECOND)],
+        pulls=[on_board, pr(2, draft=True), pr(3, reviews=[review("a", "APPROVED")])],
+    )
+    assert pba.sync(REPO, apply=True, now=NOW) == 0
+    assert fake.mutations == [
+        ("add:PR3", None),
+        ("new-PR3", {"text": "ubuntu-26.10"}),
+        ("new-PR3", {"singleSelectOptionId": f"o-{pba.PENDING_SECOND}"}),
+    ]
+
+
 def test_sync_dry_run_writes_nothing(github, caplog):
     caplog.set_level(logging.INFO)
-    fake = github([item(pr(state="CLOSED"))])
+    fake = github([item(pr(state="CLOSED"))], pulls=[pr(2)])
     assert pba.sync(REPO, apply=False, now=NOW) == 0
     assert fake.mutations == []
     assert "PR #1: remove (closed)" in caplog.text and "(dry run)" in caplog.text
+    assert "PR #2: add to the board" in caplog.text
+    assert "PR #2: release -> ubuntu-26.10" in caplog.text
 
 
 def test_sync_failed_item_does_not_stop_the_rest(github, caplog):
