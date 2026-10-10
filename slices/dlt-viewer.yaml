@@ -4,12 +4,49 @@ essential:
   dlt-viewer_copyright:
 
 slices:
+  # For now, dlt-parser and dlt-viewer only support offscreen rendering and abort unless
+  # QT_QPA_PLATFORM=offscreen is set. This is enough for headless use, such as dlt-viewer -s -c.
+  # TODO: maybe support other Qt platforms, such as xcb, in slices of their own under bins.
   bins:
     essential:
+      dlt-viewer_dlt-commander:
+      dlt-viewer_offscreen:
+
+  offscreen:
+    hint: Binaries with offscreen rendering only
+    essential:
+      dlt-viewer_dlt-parser:
+      dlt-viewer_dlt-viewer:
+      # Nothing links this; Qt loads the platform plugin at runtime.
+      libqt6gui6_offscreen:
+
+  dlt-commander:
+    essential:
       dlt-viewer_libs:
-      dlt-viewer_plugins:
       libc6_libs:
       libgcc-s1_libs:
+      libqt6core6t64_libs:
+      libstdc++6_libs:
+    contents:
+      /usr/bin/dlt-commander:
+
+  dlt-parser:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libs:
+      libqt6widgets6_libs:
+      libstdc++6_libs:
+    contents:
+      /usr/bin/dlt-parser:
+
+  dlt-viewer:
+    essential:
+      dlt-viewer_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libqt6concurrent6_libs:
       libqt6core6t64_libs:
       libqt6gui6_libs:
       libqt6network6_libs:
@@ -17,33 +54,30 @@ slices:
       libqt6widgets6_libs:
       libstdc++6_libs:
     contents:
-      /usr/bin/dlt-commander:
-      /usr/bin/dlt-parser:
       /usr/bin/dlt-viewer:
 
   libs:
     essential:
       libc6_libs:
-      libegl1_libs:
       libgcc-s1_libs:
-      libopengl0_libs:
       libqt6core6t64_libs:
-      libqt6gui6_libs:  # TODO: does this only need some libs from libqt6gui6 ?
-      libqt6network6_libs:  # TODO: does this only need libqt6network6_libnetwork ?
-      libqt6printsupport6_libs:  # TODO: does this only need libqt6printsupport6_libprintsupport ?
-      libqt6serialport6_libs:
-      libqt6widgets6_libs:
       libstdc++6_libs:
-      libxkbcommon0_libs:
-      qtcreator_libs:
-      zlib1g_libs:
     contents:
       /usr/lib/*-linux-*/libqdlt.so:
 
-  # TODO: add essentials and slice similar to, e.g. libqt6gui6
   plugins:
+    essential:
+      dlt-viewer_libs:
+      libc6_libs:
+      libgcc-s1_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libs:
+      libqt6network6_libs:
+      libqt6printsupport6_libs:
+      libqt6widgets6_libs:
+      libstdc++6_libs:
     contents:
-      /usr/lib/*-linux-*/dlt-viewer/plugins/**:
+      /usr/lib/*-linux-*/dlt-viewer/plugins/*.so:
 
   copyright:
     contents:
