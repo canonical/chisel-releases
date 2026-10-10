@@ -90,8 +90,10 @@ execute: |
     cp -r $1/srv $ftp_root
 
     pushd $ftp_root/srv/git
-    chroot $ftp_root /usr/bin/python3 -m pyftpdlib -V -p 2121 -d /srv/git &
+    # own process group, so the trap stops the server and anything it started
+    setsid chroot $ftp_root /usr/bin/python3 -m pyftpdlib -D -p 2121 -d /srv/git &
     pyftpdlib_pid=$!
+    trap 'kill -- -"$pyftpdlib_pid" 2>/dev/null || true' EXIT
     popd
 
     # wait for server port to become available
@@ -107,9 +109,6 @@ execute: |
 
     # Test cloning the repo
     chroot_git clone ftp://localhost:2121/ftp-src ftp-dst
-
-    # cleanup
-    kill -TERM $(fuser 2121/tcp  2>/dev/null)
   }
 
   function test_daemon_support(){
@@ -124,13 +123,16 @@ execute: |
     chroot_git commit -m "Hello daemon"
     popd
 
-    chroot_git daemon \
+    # own process group, so the trap stops the daemon and anything it started
+    repo="$(realpath -e --relative-to="$git_rootfs" "$PWD")"
+    setsid chroot "$git_rootfs" /usr/bin/git -C "$repo" daemon \
       --base-path=/srv/git \
       --reuseaddr \
       --listen=127.0.0.1 \
       --verbose \
       --export-all &
     daemon_pid=$!
+    trap 'kill -- -"$daemon_pid" 2>/dev/null || true' EXIT
 
 
     # Wait for daemon to start
@@ -146,9 +148,6 @@ execute: |
 
     # Test cloning the repo
     chroot_git clone git://localhost/daemon-src daemon-dst
-
-    # Cleanup. TERM or KILL cause git to return an en error.
-    kill -INT $(fuser 9418/tcp  2>/dev/null)
   }
 
   rootfs=$(install-slices $SLICE $EXTRA_SLICES)
