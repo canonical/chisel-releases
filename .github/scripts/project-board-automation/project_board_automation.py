@@ -15,9 +15,9 @@ status, "Merged", "Changes requested -> In Progress"), so the board has one owne
   Reviews count from reviewers with push access (what
   GitHub's required reviews and merge blocking count) and from slice-reviewers-guild
   members, so a change request from someone who has since left does not park a PR.
-  A reviewer the author has re-requested (directly, or through a team they reviewed
-  on behalf of) no longer counts: their approval is stale and their change request
-  is addressed.
+  A reviewer's opinion is their latest review; once the author re-requests them
+  (directly, or through the team they reviewed on behalf of) they have none: the
+  approval is stale and the change request is addressed.
 
 The board is the only thing it writes to: every mutation is a ProjectV2 one, and the
 repository, its PRs, labels and comments are read-only to it (the token has no write
@@ -25,8 +25,6 @@ scope on them either). Without --apply it only logs what it would change. It run
 hourly, so the board lags events by up to an hour where the built-in workflows
 reacted at once.
 """
-
-from __future__ import annotations
 
 import argparse
 import datetime
