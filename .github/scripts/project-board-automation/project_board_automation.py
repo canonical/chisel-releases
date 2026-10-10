@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Keep the chisel-releases Review board (canonical org project 161) in sync with this
+Keep the "chisel-releases review" board (canonical org project 161) in sync with this
 repository's PRs. It replaces the built-in project workflows (auto-add, default
 status, "Merged", "Changes requested -> In Progress"), so the board has one owner:
 
