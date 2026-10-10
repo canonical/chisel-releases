@@ -1,0 +1,14 @@
+summary: Integration tests for dlt-viewer
+
+variants:
+  - bins
+  - dlt-parser
+  - dlt-viewer
+  - libs
+  - plugin-dbus
+  - plugin-filetransfer
+  - plugin-nonverbose
+  - plugin-segmentation
+  - plugins
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

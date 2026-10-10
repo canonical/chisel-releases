@@ -1,0 +1,7 @@
+summary: Integration tests for libegl-mesa0
+
+variants:
+  - egl
+  - libs
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
