@@ -6,12 +6,13 @@ status, "Merged", "Changes requested -> In Progress"), so the board has one owne
 
 - add every open, non-draft PR; remove draft and closed (unmerged) ones; set merged
   ones to "Merged" and archive them a week after they merge, so the board holds the
-  review queue;
+  review queue. Archived items are left alone, whoever archived them;
 - set the "Release" field to the PR's base branch;
 - set the status from the reviews: an unaddressed change request -> "In Progress";
   otherwise 2+ approvals -> "Ready For Merge", 1 -> "Pending Second Review", 0 ->
-  "Awaiting Review", the last only for a new item or from one of those statuses, so
-  a status set by hand stays. Reviews count from reviewers with push access (what
+  "Awaiting Review". The script owns those four statuses and "Merged"; any other
+  status set by hand stays until the reviews give an approval or a change request.
+  Reviews count from reviewers with push access (what
   GitHub's required reviews and merge blocking count) and from slice-reviewers-guild
   members, so a change request from someone who has since left does not park a PR.
   A reviewer the author has re-requested (directly, or through a team they reviewed
@@ -49,7 +50,7 @@ query($owner: String!, $number: Int!) {
   organization(login: $owner) {
     projectV2(number: $number) {
       id
-      release: field(name: "Release") { ... on ProjectV2Field { id } }
+      release: field(name: "Release") { ... on ProjectV2Field { id dataType } }
       status: field(name: "Status") { ... on ProjectV2SingleSelectField { id options { id name } } }
     }
   }
@@ -125,7 +126,15 @@ mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $value: ProjectV2FieldVal
 """
 ADD = """
 mutation($projectId: ID!, $contentId: ID!) {
-  addProjectV2ItemById(input: { projectId: $projectId, contentId: $contentId }) { item { id } }
+  addProjectV2ItemById(input: { projectId: $projectId, contentId: $contentId }) {
+    item {
+      id isArchived
+      release: fieldValueByName(name: "Release") { ... on ProjectV2ItemFieldTextValue { text } }
+      status: fieldValueByName(name: "Status") {
+        ... on ProjectV2ItemFieldSingleSelectValue { name }
+      }
+    }
+  }
 }
 """
 ARCHIVE = """
@@ -149,7 +158,11 @@ def graphql(query: str, variables: dict) -> dict:
     with urllib.request.urlopen(request, timeout=60) as response:  # raises on non-2xx
         body = json.load(response)
     if body.get("errors"):
-        raise RuntimeError(f"GraphQL errors: {body['errors']}")
+        # a query can fail on one node (e.g. content the token cannot read) and still
+        # return the rest, with that node null; a mutation that failed has nothing to keep
+        if body.get("data") is None or query.lstrip().startswith("mutation"):
+            raise RuntimeError(f"GraphQL errors: {body['errors']}")
+        logging.warning("GraphQL errors alongside the data: %s", body["errors"])
     return body["data"]
 
 
@@ -169,7 +182,7 @@ def load_project() -> dict:
     project = data["organization"]["projectV2"]
     if not project:
         raise RuntimeError(f"Project {OWNER}/{PROJECT} not found, or no access to it")
-    if not project["release"] or not project["status"]:
+    if (project["release"] or {}).get("dataType") != "TEXT" or not project["status"]:
         raise RuntimeError('The project needs a "Release" text field and a "Status" field')
     options = {o["name"]: o["id"] for o in project["status"]["options"]}
     missing = STATUSES - options.keys()
@@ -214,7 +227,7 @@ def target_status(pr: dict, current: str | None, team: set[str]) -> str | None:
     approvals = decisions.count("APPROVED")
     if approvals:
         return READY if approvals >= 2 else PENDING_SECOND
-    return AWAITING if current in (None, IN_PROGRESS, PENDING_SECOND, READY) else None
+    return AWAITING if current in (None, IN_PROGRESS, PENDING_SECOND, READY, MERGED) else None
 
 
 def plan(item: dict, project: dict, team: set[str], now: datetime.datetime) -> list[tuple]:
@@ -229,11 +242,11 @@ def plan(item: dict, project: dict, team: set[str], now: datetime.datetime) -> l
         value = {"singleSelectOptionId": project["options"][target]}
         return (f"status -> {target} (was {current})", UPDATE, update("status", value))
 
+    if item["isArchived"]:
+        return []
     if pr["state"] == "CLOSED":
         return [("remove (closed)", REMOVE, ids)]
     if pr["state"] == "MERGED":
-        if item["isArchived"]:
-            return []
         changes = [status(MERGED)] if current != MERGED else []
         if now - datetime.datetime.fromisoformat(pr["mergedAt"]) > ARCHIVE_AFTER:
             changes.append((f"archive (merged {pr['mergedAt']})", ARCHIVE, ids))
@@ -259,7 +272,10 @@ def sync(repo: str, apply: bool, now: datetime.datetime | None = None) -> int:
     items = paged(ITEMS_QUERY, {"id": project["id"]}, lambda d: d["node"]["items"])
     # this repository's PRs only; the board may hold other content
     items = [
-        i for i in items if (i["content"] or {}).get("repository", {}).get("nameWithOwner") == repo
+        i
+        for i in items
+        if ((i["content"] or {}).get("repository") or {}).get("nameWithOwner", "").lower()
+        == repo.lower()
     ]
     on_board = {i["content"]["number"] for i in items}
     owner, name = repo.split("/")
@@ -276,7 +292,8 @@ def sync(repo: str, apply: bool, now: datetime.datetime | None = None) -> int:
         try:
             if apply:
                 added = graphql(ADD, {"projectId": project["id"], "contentId": pr["id"]})
-                new["id"] = added["addProjectV2ItemById"]["item"]["id"]
+                # an item someone added since the board was read comes back as it is
+                new.update(added["addProjectV2ItemById"]["item"])
         except Exception as e:
             failed += 1
             logging.error("PR #%d: failed: %s", pr["number"], e)

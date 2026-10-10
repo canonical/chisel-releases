@@ -55,11 +55,13 @@ jobs:
           # ROCKsBot also needs write access to the project itself.
           GITHUB_TOKEN: ${{ secrets.ROCKSBOT_BOARD_TOKEN }}
           GH_REPO: ${{ github.repository }}
-          # Manual runs follow the dry_run input. Scheduled runs only write once
-          # the repository variable PROJECT_BOARD_WRITE is set to "true".
+          # Only main writes: a manual run from another branch always dry-runs.
+          # Manual runs from main follow the dry_run input. Scheduled runs only
+          # write once the repository variable PROJECT_BOARD_WRITE is set to "true".
           APPLY: >-
-            ${{ github.event_name == 'workflow_dispatch' && !inputs.dry_run
-            || github.event_name != 'workflow_dispatch' && vars.PROJECT_BOARD_WRITE == 'true' }}
+            ${{ github.ref == 'refs/heads/main'
+            && (github.event_name == 'workflow_dispatch' && !inputs.dry_run
+            || github.event_name != 'workflow_dispatch' && vars.PROJECT_BOARD_WRITE == 'true') }}
         run: |
           args=()
           if [ "$APPLY" = "true" ]; then args+=(--apply); fi

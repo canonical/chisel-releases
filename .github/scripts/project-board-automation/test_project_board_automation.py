@@ -5,6 +5,7 @@ Unit tests for project_board_automation.py.
 
 import datetime
 import inspect
+import json
 import logging
 import os
 import re
@@ -67,10 +68,10 @@ def item(content, release="ubuntu-26.10", status=pba.AWAITING, archived=False, i
 OPTIONS = sorted(pba.STATUSES)
 
 
-def project_node(options=OPTIONS):
+def project_node(options=OPTIONS, release="TEXT"):
     """The project as the API returns it."""
     status = {"id": "f-status", "options": [{"id": f"o-{n}", "name": n} for n in options]}
-    return {"id": "P", "release": {"id": "f-release"}, "status": status}
+    return {"id": "P", "release": {"id": "f-release", "dataType": release}, "status": status}
 
 
 PROJECT = {**project_node(), "options": {n: f"o-{n}" for n in OPTIONS}}
@@ -147,6 +148,14 @@ def test_mutations_only_touch_the_board():
         ([review("Guildie", "CHANGES_REQUESTED", push=False)], [], pba.AWAITING, pba.IN_PROGRESS),
         # once re-requested, it is addressed; no approvals left -> back to awaiting
         ([review("b", "CHANGES_REQUESTED")], [{"login": "b"}], pba.IN_PROGRESS, pba.AWAITING),
+        (
+            [review("b", "CHANGES_REQUESTED", teams=["t"])],
+            [{"slug": "t"}],
+            pba.IN_PROGRESS,
+            pba.AWAITING,
+        ),
+        # Merged on an open PR can only be a mistake
+        ([], [], pba.MERGED, pba.AWAITING),
         ([], [], pba.AWAITING, None),
         # a status set by hand stays
         ([], [], "Blocked", None),
@@ -171,6 +180,13 @@ def test_target_status(reviews, requested, current, expected):
         (item(pr(state="MERGED", merged_days_ago=2)), ["status -> Merged"]),
         (item(pr(state="MERGED", merged_days_ago=2), status=pba.MERGED), []),
         (item(pr(state="MERGED", merged_days_ago=30), archived=True), []),
+        # as GitHub writes the timestamp
+        (
+            item({**pr(state="MERGED"), "mergedAt": "2026-10-01T00:00:00Z"}),
+            ["status -> Merged", "archive"],
+        ),
+        # archived by hand: left alone
+        (item(pr(), archived=True, release=None, status=None), []),
         (item(pr(base="ubuntu-24.04"), release=None), ["release -> ubuntu-24.04"]),
         (item(pr(reviews=[review("a", "APPROVED")]), status=pba.PENDING_SECOND), []),
         # a freshly added item gets both fields in one go
@@ -189,9 +205,12 @@ class FakeGitHub:
     """Serves the project, the team, the items and the open PRs in pages of 2; records
     mutations as (item id, value), with "add:<pr id>" for additions."""
 
-    def __init__(self, items, pulls=(), project=project_node(), team=("Guildie",), fail=()):
+    def __init__(
+        self, items, pulls=(), project=project_node(), team=("Guildie",), fail=(), existing=None
+    ):
         self.items, self.pulls, self.project = items, list(pulls), project
         self.team, self.fail = team, set(fail)
+        self.existing = existing or {}  # PR id -> the item the add call finds there already
         self.mutations = []
 
     @staticmethod
@@ -217,8 +236,12 @@ class FakeGitHub:
         if query is pba.OPEN_PRS_QUERY:
             return {"repository": {"pullRequests": self.page(self.pulls, variables)}}
         if query is pba.ADD:
-            self.mutations.append((f"add:{variables['contentId']}", None))
-            return {"addProjectV2ItemById": {"item": {"id": f"new-{variables['contentId']}"}}}
+            cid = variables["contentId"]
+            if cid in self.fail:
+                raise RuntimeError("boom")
+            self.mutations.append((f"add:{cid}", None))
+            new = {"id": f"new-{cid}", "isArchived": False, "release": None, "status": None}
+            return {"addProjectV2ItemById": {"item": self.existing.get(cid, new)}}
         if variables["itemId"] in self.fail:
             raise RuntimeError("boom")
         self.mutations.append((variables["itemId"], variables.get("value")))
@@ -270,6 +293,20 @@ def test_sync_adds_open_prs_and_configures_them_in_one_run(github):
     ]
 
 
+def test_sync_add_failure_does_not_stop_the_rest(github, caplog):
+    fake = github([], pulls=[pr(3), pr(4)], fail={"PR3"})
+    assert pba.sync(REPO, apply=True, now=NOW) == 1
+    assert [i for i, _ in fake.mutations] == ["add:PR4", "new-PR4", "new-PR4"]
+    assert "PR #3: failed: boom" in caplog.text
+
+
+def test_sync_keeps_the_fields_of_an_item_added_since_the_board_was_read(github):
+    on_board = {"id": "old", "isArchived": False, "release": {"text": "ubuntu-26.10"}}
+    fake = github([], pulls=[pr(3)], existing={"PR3": {**on_board, "status": {"name": "Blocked"}}})
+    assert pba.sync(REPO, apply=True, now=NOW) == 0
+    assert fake.mutations == [("add:PR3", None)]
+
+
 def test_sync_draft_round_trip_resets_a_hand_set_status(github):
     """ready -> draft removes the item; draft -> ready adds a new one with a status from
     the reviews, so a status set by hand does not survive the round trip."""
@@ -308,9 +345,49 @@ def test_sync_failed_item_does_not_stop_the_rest(github, caplog):
         ({"project": None}, "Project canonical/161 not found"),
         ({"team": None}, "Team canonical/slice-reviewers-guild not found"),
         ({"project": project_node(options=[pba.AWAITING])}, "Status options missing"),
+        ({"project": project_node(release="NUMBER")}, 'needs a "Release" text field'),
     ],
 )
 def test_sync_setup_errors(github, setup, error):
     github([], **setup)
     with pytest.raises(RuntimeError, match=error):
         pba.sync(REPO, apply=True, now=NOW)
+
+
+class FakeResponse:
+    def __init__(self, body):
+        self.body = body
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        pass
+
+    def read(self):
+        return json.dumps(self.body).encode()
+
+
+@pytest.mark.parametrize(
+    "query, body, error",
+    [
+        # a query that lost one node still returns the rest
+        ("query { x }", {"data": {"x": 1}, "errors": [{"type": "NOT_FOUND"}]}, None),
+        ("query { x }", {"data": None, "errors": [{"type": "FORBIDDEN"}]}, "GraphQL errors"),
+        # a failed mutation has nothing to keep
+        (
+            "mutation { x }",
+            {"data": {"x": None}, "errors": [{"type": "FORBIDDEN"}]},
+            "GraphQL errors",
+        ),
+    ],
+)
+def test_graphql_tolerates_a_lost_node_only_in_a_query(monkeypatch, caplog, query, body, error):
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setattr(pba.urllib.request, "urlopen", lambda req, timeout: FakeResponse(body))
+    if error:
+        with pytest.raises(RuntimeError, match=error):
+            pba.graphql(query, {})
+    else:
+        assert pba.graphql(query, {}) == body["data"]
+        assert "GraphQL errors alongside the data" in caplog.text
