@@ -23,6 +23,7 @@ slices:
       libgcc-s1_libs: {arch: [amd64, armhf, i386, riscv64]}
     contents:
       /usr/lib/*-linux-*/libEGL_mesa.so.0*:
+      /usr/share/glvnd/egl_vendor.d/50_mesa.json:
 
   copyright:
     contents:
