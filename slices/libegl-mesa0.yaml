@@ -10,6 +10,7 @@ slices:
       libdrm2_libs:
       libexpat1_libs:
       libgbm1_libs:
+      libgcc-s1_libs: {arch: [amd64, armhf, i386]}
       libwayland-client0_libs:
       libx11-6_libs:
       libx11-xcb1_libs:
@@ -21,7 +22,7 @@ slices:
       libxcb1_libs:
       mesa-libgallium_libs:
     contents:
-      /usr/lib/*-linux-*/libEGL_mesa.so*:
+      /usr/lib/*-linux-*/libEGL_mesa.so.0*:
 
   copyright:
     contents:

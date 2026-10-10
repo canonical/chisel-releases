@@ -1,0 +1,15 @@
+package: liburing2
+
+essential:
+  liburing2_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/*-linux-*/liburing.so.2*:
+
+  copyright:
+    contents:
+      /usr/share/doc/liburing2/copyright:

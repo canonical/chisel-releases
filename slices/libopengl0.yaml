@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libglvnd0_libs:
     contents:
-      /usr/lib/*-linux-*/libOpenGL.so*:
+      /usr/lib/*-linux-*/libOpenGL.so.0*:
 
   copyright:
     contents:
