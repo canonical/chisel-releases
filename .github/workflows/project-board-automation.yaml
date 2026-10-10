@@ -1,9 +1,9 @@
 name: Project board automation
 
-# Keeps the "chisel-releases review" board (canonical org project 161) in sync with this repository's
-# PRs, in place of the board's built-in workflows (auto-add, default status, Merged,
-# changes requested). It only writes to the board, never to this repository. The
-# logic and its tests live in .github/scripts/project-board-automation.
+# Keeps the "chisel-releases review" board (canonical org project 161) in sync with
+# this repository's PRs, in place of the board's built-in workflows (auto-add, default
+# status, Merged, changes requested). It only writes to the board, never to this
+# repository. The logic and its tests live in .github/scripts/project-board-automation.
 #
 # Rollout: run in dry-run first and read the logs, set the PROJECT_BOARD_WRITE
 # repository variable to "true", and only then switch the four built-in workflows
