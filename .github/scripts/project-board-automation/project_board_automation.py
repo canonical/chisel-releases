@@ -11,10 +11,12 @@ status, "Merged", "Changes requested -> In Progress"), so the board has one owne
 - set the status from the reviews: an unaddressed change request -> "In Progress";
   otherwise 2+ approvals -> "Ready For Merge", 1 -> "Pending Second Review", 0 ->
   "Awaiting Review", the last only for a new item or from one of those statuses, so
-  a status set by hand stays. Approvals count from reviewers with push access (what
-  the required reviews count) and from slice-reviewers-guild members. A reviewer the
-  author has re-requested (directly, or through a team they reviewed on behalf of)
-  no longer counts: their approval is stale and their change request is addressed.
+  a status set by hand stays. Reviews count from reviewers with push access (what
+  GitHub's required reviews and merge blocking count) and from slice-reviewers-guild
+  members, so a change request from someone who has since left does not park a PR.
+  A reviewer the author has re-requested (directly, or through a team they reviewed
+  on behalf of) no longer counts: their approval is stale and their change request
+  is addressed.
 
 The board is the only thing it writes to: every mutation is a ProjectV2 one, and the
 repository, its PRs, labels and comments are read-only to it (the token has no write
@@ -202,16 +204,14 @@ def target_status(pr: dict, current: str | None, team: set[str]) -> str | None:
 
     def counts(login: str, review: dict) -> bool:
         teams = {t["slug"] for t in review["onBehalfOf"]["nodes"]}
-        return login not in requested and not teams & requested
+        if login in requested or teams & requested:
+            return False
+        return review["authorCanPushToRepository"] or login.lower() in team
 
-    if any(r["state"] == "CHANGES_REQUESTED" and counts(u, r) for u, r in latest.items()):
+    decisions = [r["state"] for u, r in latest.items() if counts(u, r)]
+    if "CHANGES_REQUESTED" in decisions:
         return IN_PROGRESS
-    approvals = sum(
-        r["state"] == "APPROVED"
-        and (r["authorCanPushToRepository"] or u.lower() in team)
-        and counts(u, r)
-        for u, r in latest.items()
-    )
+    approvals = decisions.count("APPROVED")
     if approvals:
         return READY if approvals >= 2 else PENDING_SECOND
     return AWAITING if current in (None, IN_PROGRESS, PENDING_SECOND, READY) else None

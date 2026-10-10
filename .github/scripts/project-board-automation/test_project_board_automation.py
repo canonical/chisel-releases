@@ -136,6 +136,15 @@ def test_mutations_only_touch_the_board():
             pba.READY,
             pba.IN_PROGRESS,
         ),
+        # unless it comes from someone whose reviews do not count, e.g. a reviewer who
+        # has left: that would park the PR with nobody to clear it
+        (
+            [review("a", "APPROVED"), review("x", "CHANGES_REQUESTED", push=False)],
+            [],
+            pba.READY,
+            pba.PENDING_SECOND,
+        ),
+        ([review("Guildie", "CHANGES_REQUESTED", push=False)], [], pba.AWAITING, pba.IN_PROGRESS),
         # once re-requested, it is addressed; no approvals left -> back to awaiting
         ([review("b", "CHANGES_REQUESTED")], [{"login": "b"}], pba.IN_PROGRESS, pba.AWAITING),
         ([], [], pba.AWAITING, None),
