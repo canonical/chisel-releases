@@ -6,6 +6,10 @@ essential:
 slices:
   bins:
     essential:
+      openssl_openssl:
+
+  openssl:
+    essential:
       libc6_config:
       libc6_libs:
       libssl3t64_libs:
@@ -14,12 +18,17 @@ slices:
     contents:
       /usr/bin/openssl:
 
-  scripts:
+  # c_rehash is a perl script that runs the openssl binary.
+  c-rehash:
     essential:
-      openssl_bins:
+      openssl_openssl:
       perl-base_bins:
     contents:
       /usr/bin/c_rehash:
+
+  scripts:
+    essential:
+      openssl_c-rehash:
 
   config:
     contents:
