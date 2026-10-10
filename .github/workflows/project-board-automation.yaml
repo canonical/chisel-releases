@@ -5,9 +5,9 @@ name: Project board automation
 # status, Merged, changes requested). It only writes to the board, never to this
 # repository. The logic and its tests live in .github/scripts/project-board-automation.
 #
-# Rollout: run in dry-run first and read the logs, set the PROJECT_BOARD_WRITE
-# repository variable to "true", and only then switch the four built-in workflows
-# off on the board, so no PR goes unadded in between.
+# The board's built-in workflows are already off, so until the PROJECT_BOARD_WRITE
+# repository variable is "true" nothing adds new PRs to the board; the first run
+# that applies catches up (adds, statuses, Release, removals).
 #
 # This runs on a schedule rather than on pull_request events: PRs here target the
 # release branches, and a pull_request workflow only runs if it exists on the PR's
