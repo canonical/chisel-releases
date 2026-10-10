@@ -8,6 +8,8 @@ slices:
     essential:
       - libc6_libs
       - libstdc++6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf]}
     contents:
       /usr/lib/*-linux-*/libbs2b.so.0*:
 
