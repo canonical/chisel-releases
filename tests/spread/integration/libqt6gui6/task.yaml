@@ -1,0 +1,7 @@
+summary: Integration tests for libqt6gui6
+
+variants:
+  - libs
+  - offscreen
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
