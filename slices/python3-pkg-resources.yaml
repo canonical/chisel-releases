@@ -6,10 +6,11 @@ essential:
 slices:
   libs:
     essential:
+      libpython3-stdlib_file-formats:
       python3-jaraco.context_libs:
       python3-jaraco.functools_libs:
       python3-more-itertools_libs:
-      python3_standard:
+      python3_core:
     contents:
       /usr/lib/python3/dist-packages/pkg_resources/**:
       # pkg_resources adds setuptools/_vendor to sys.path and imports these from there.
