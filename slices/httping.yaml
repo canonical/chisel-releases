@@ -8,8 +8,8 @@ slices:
     essential:
       libc6_libs:
       libfftw3-double3_libs:
-      libncursesw6_libs:
-      libssl3t64_libs:
+      libncurses6_libs:
+      libssl4_libs:
       libtinfo6_libs:
       openssl_bins:
     contents:
