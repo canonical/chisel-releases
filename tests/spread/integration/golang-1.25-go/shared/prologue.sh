@@ -1,18 +1,20 @@
-# TODO: remove the --arch and the ${arch} logic once
-# canonical/chisel #256 is merged.
-arch=$(uname -m)
-arch="${arch//_/-}"
+rootfs="$(install-slices "golang-1.25-go_${SLICE}" golang-1.25-go_minimal)"
 
-if [ "${arch}" = "aarch64" ]; then
-chisel_arch="arm64"
-elif [ "${arch}" = "x86-64" ]; then
-chisel_arch="amd64"
-else
-echo "Unsupported architecture: ${arch}"
-exit 1
-fi
-
-rootfs="$(install-slices --arch "${chisel_arch}" golang-1.25-go_${SLICE} golang-1.25-go_minimal)"
+# Prune Go's own tests using the command documented in golang-1.25-src.yaml.
+(
+  cd "$rootfs" || exit
+  find . -depth \( \
+    \( -path '*test*' \
+       ! -path '*src/testing*' \
+       ! -path '*src/internal/test*' \
+       ! -path '*src/internal/synctest' \
+       ! -path '*synctest.go' \
+       ! -path '*synctest_o*' \
+       ! -path '*src/net/http/httptest*' \
+       ! -path '*src/net/http/internal/testcert*' \) -o \
+    \( -path '*/testing/*' -name '*_test.go' \) \
+    \) -exec rm -rf {} +
+)
 
 # we need dev/sys mounted for some of them
 mkdir "${rootfs}"/dev

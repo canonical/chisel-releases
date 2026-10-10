@@ -1,0 +1,18 @@
+summary: Integration tests for libboost-serialization1.83.0
+
+execute: |
+  rootfs="$(install-slices libboost-serialization1.83.0_libs)"
+
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
+
+  libdir="${rootfs}/usr/lib/${arch}"
+  ser="${libdir}/libboost_serialization.so.1.83.0"
+  wser="${libdir}/libboost_wserialization.so.1.83.0"
+
+  test -f "$ser"
+  test -f "$wser"
+
+  # Verify the shared objects are valid ELF binaries.
+  [[ "$(od -An -tx1 -N4 "$ser")" == *"7f 45 4c 46"* ]]
+  [[ "$(od -An -tx1 -N4 "$wser")" == *"7f 45 4c 46"* ]]

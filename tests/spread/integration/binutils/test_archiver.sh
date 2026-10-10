@@ -1,3 +1,4 @@
+set -eu
 rootfs="$(install-slices binutils_archiver)"
 
 touch "$rootfs/file1" "$rootfs/file2"
