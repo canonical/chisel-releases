@@ -7,8 +7,9 @@ slices:
   libs:
     essential:
       libc6_libs:
+      libgcc-s1_libs: {arch: [armhf]}
       libqt6core6t64_libs:
-      libqt6gui6_libgui:
+      libqt6gui6_libs:
       libstdc++6_libs:
     contents:
       /usr/lib/*-linux-*/libQt6Widgets.so.6*:

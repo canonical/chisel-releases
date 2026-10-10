@@ -5,17 +5,16 @@ essential:
 
 slices:
   libs:
-    # NOTE: libqt6core6t64 deb declares a dependency on shared-mime-info
-    # but this lib does not link with it.
     essential:
       libb2-1_libs:
       libc6_libs:
       libdouble-conversion3_libs:
       libgcc-s1_libs:
-      libglib2.0-0t64_libs:
+      libglib2.0-0t64_core:
       libicu78_libs:
       libpcre2-16-0_libs:
       libstdc++6_libs:
+      liburing2_libs:
       libzstd1_libs:
       zlib1g_libs:
     contents:
