@@ -1,6 +1,7 @@
 summary: Integration tests for cargo
 
 variants:
+    - doc
     - eza
     - hello_crate
     - hello
