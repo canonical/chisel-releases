@@ -5,6 +5,7 @@ Unit tests for project_board_automation.py.
 
 import datetime
 import inspect
+import io
 import json
 import logging
 import os
@@ -79,7 +80,7 @@ PROJECT = {**project_node(), "options": {n: f"o-{n}" for n in OPTIONS}}
 
 def test_mutations_only_touch_the_board():
     """The script juggles board items; the repository and its PRs stay read-only."""
-    mutations = re.findall(r"mutation\([^)]*\)\s*\{\s*(\w+)\(", inspect.getsource(pba))
+    mutations = re.findall(r"mutation\b[^{]*\{\s*(\w+)\(", inspect.getsource(pba))
     assert mutations and all("ProjectV2" in m for m in mutations), mutations
 
 
@@ -154,6 +155,16 @@ def test_mutations_only_touch_the_board():
             pba.IN_PROGRESS,
             pba.AWAITING,
         ),
+        # the latest review is the reviewer's opinion: once it is re-requested through the
+        # team, an earlier direct approval does not come back
+        (
+            [review("a", "APPROVED"), review("a", "CHANGES_REQUESTED", teams=["t"])],
+            [{"slug": "t"}],
+            pba.READY,
+            pba.AWAITING,
+        ),
+        # a deleted reviewer and an empty review request are ignored
+        ([{**review("a", "APPROVED"), "author": None}], [None], pba.AWAITING, None),
         # Merged on an open PR can only be a mistake
         ([], [], pba.MERGED, pba.AWAITING),
         ([], [], pba.AWAITING, None),
@@ -178,6 +189,8 @@ def test_target_status(reviews, requested, current, expected):
         (item(pr(state="MERGED", merged_days_ago=30)), ["status -> Merged", "archive"]),
         (item(pr(state="MERGED", merged_days_ago=30), status=pba.MERGED), ["archive"]),
         (item(pr(state="MERGED", merged_days_ago=2)), ["status -> Merged"]),
+        (item(pr(state="MERGED", merged_days_ago=7)), ["status -> Merged"]),
+        (item(pr(state="MERGED", merged_days_ago=8)), ["status -> Merged", "archive"]),
         (item(pr(state="MERGED", merged_days_ago=2), status=pba.MERGED), []),
         (item(pr(state="MERGED", merged_days_ago=30), archived=True), []),
         # as GitHub writes the timestamp
@@ -201,9 +214,19 @@ def test_plan(board_item, expected):
     assert [re.sub(r" \((was|merged) .*\)$", "", d) for d in descriptions] == expected
 
 
+def test_plan_targets_the_right_fields():
+    new = item(pr(reviews=[review("a", "APPROVED")]), release=None, status=None)
+    changes = pba.plan(new, PROJECT, TEAM, NOW)
+    assert [(q is pba.UPDATE, v["fieldId"], v["value"]) for _, q, v in changes] == [
+        (True, "f-release", {"text": "ubuntu-26.10"}),
+        (True, "f-status", {"singleSelectOptionId": f"o-{pba.PENDING_SECOND}"}),
+    ]
+
+
 class FakeGitHub:
     """Serves the project, the team, the items and the open PRs in pages of 2; records
-    mutations as (item id, value), with "add:<pr id>" for additions."""
+    mutations as (item id, value), with "add:<pr id>" for additions and the mutation's
+    name as the value where it has none."""
 
     def __init__(
         self, items, pulls=(), project=project_node(), team=("Guildie",), fail=(), existing=None
@@ -244,7 +267,8 @@ class FakeGitHub:
             return {"addProjectV2ItemById": {"item": self.existing.get(cid, new)}}
         if variables["itemId"] in self.fail:
             raise RuntimeError("boom")
-        self.mutations.append((variables["itemId"], variables.get("value")))
+        name = {pba.ARCHIVE: "archive", pba.REMOVE: "remove"}.get(query)
+        self.mutations.append((variables["itemId"], variables.get("value", name)))
         return {}
 
 
@@ -275,7 +299,7 @@ def test_sync_applies_only_this_repository_across_pages(github):
     assert fake.mutations == [
         ("mine", {"text": "ubuntu-26.10"}),
         ("mine", {"singleSelectOptionId": f"o-{pba.READY}"}),
-        ("closed", None),
+        ("closed", "remove"),
     ]
 
 
@@ -312,7 +336,7 @@ def test_sync_draft_round_trip_resets_a_hand_set_status(github):
     the reviews, so a status set by hand does not survive the round trip."""
     fake = github([item(pr(draft=True), status="Blocked")], pulls=[pr(draft=True)])
     assert pba.sync(REPO, apply=True, now=NOW) == 0
-    assert fake.mutations == [("item", None)]
+    assert fake.mutations == [("item", "remove")]
     fake = github([], pulls=[pr()])
     assert pba.sync(REPO, apply=True, now=NOW) == 0
     assert fake.mutations == [
@@ -346,26 +370,14 @@ def test_sync_failed_item_does_not_stop_the_rest(github, caplog):
         ({"team": None}, "Team canonical/slice-reviewers-guild not found"),
         ({"project": project_node(options=[pba.AWAITING])}, "Status options missing"),
         ({"project": project_node(release="NUMBER")}, 'needs a "Release" text field'),
+        ({"project": {**project_node(), "release": None}}, 'needs a "Release" text field'),
+        ({"project": {**project_node(), "status": None}}, 'needs a "Release" text field'),
     ],
 )
 def test_sync_setup_errors(github, setup, error):
     github([], **setup)
     with pytest.raises(RuntimeError, match=error):
         pba.sync(REPO, apply=True, now=NOW)
-
-
-class FakeResponse:
-    def __init__(self, body):
-        self.body = body
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *exc):
-        pass
-
-    def read(self):
-        return json.dumps(self.body).encode()
 
 
 @pytest.mark.parametrize(
@@ -384,10 +396,25 @@ class FakeResponse:
 )
 def test_graphql_tolerates_a_lost_node_only_in_a_query(monkeypatch, caplog, query, body, error):
     monkeypatch.setenv("GITHUB_TOKEN", "t")
-    monkeypatch.setattr(pba.urllib.request, "urlopen", lambda req, timeout: FakeResponse(body))
+    response = io.BytesIO(json.dumps(body).encode())
+    monkeypatch.setattr(pba.urllib.request, "urlopen", lambda req, timeout: response)
     if error:
         with pytest.raises(RuntimeError, match=error):
             pba.graphql(query, {})
     else:
         assert pba.graphql(query, {}) == body["data"]
         assert "GraphQL errors alongside the data" in caplog.text
+
+
+@pytest.mark.parametrize("argv, apply, failed", [(["--apply"], True, 1), ([], False, 0)])
+def test_main_passes_the_flags_and_exits_on_failures(monkeypatch, argv, apply, failed):
+    calls = []
+    monkeypatch.setattr(sys, "argv", ["project_board_automation.py", *argv])
+    monkeypatch.delenv("GH_REPO", raising=False)
+    monkeypatch.setattr(pba, "sync", lambda repo, apply: calls.append((repo, apply)) or failed)
+    if failed:
+        with pytest.raises(SystemExit, match="1 item"):
+            pba.main()
+    else:
+        pba.main()
+    assert calls == [(REPO, apply)]
