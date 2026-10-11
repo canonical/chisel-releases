@@ -166,10 +166,7 @@ cleanup
 
 # BASIC SASL AUTH (basic_sasl_auth)
 # ------------------------------------------------
-rootfs="$(install-slices squid_auth)"
-
-# saslpasswd2 creates the sasldb from its own rootfs (only for tests)
-sasl_tools="$(install-slices sasl2-bin_saslpasswd2)"
+rootfs="$(install-slices squid_auth sasl2-bin_saslpasswd2)"
 
 # Remove pre-existing http_access rules
 sed -i '/^http_access /d' "$rootfs/etc/squid/squid.conf"
@@ -192,9 +189,7 @@ auxprop_plugin: sasldb
 mech_list: PLAIN LOGIN
 EOF
 
-# Create sasl user using saslpasswd2 and move the generated sasldb into the chroot
-echo "testpass" | chroot "$sasl_tools" saslpasswd2 -f /sasldb2 -p -c -u testrealm testuser
-mv "$sasl_tools/sasldb2" "$rootfs/etc/sasldb2"
+echo "testpass" | chroot "$rootfs" saslpasswd2 -f /etc/sasldb2 -p -c -u testrealm testuser
 chown proxy:proxy "$rootfs/etc/sasldb2"
 chmod 640 "$rootfs/etc/sasldb2"
 
