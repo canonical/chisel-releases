@@ -1,0 +1,11 @@
+summary: Integration tests for libstd-rust-1.97
+
+execute: |
+  rootfs="$(install-slices libstd-rust-1.97_libs)"
+  found=false
+  for library in "$rootfs"/usr/lib/rust-1.97/lib/librustc_driver-*.so; do
+    test -f "$library"
+    file "$library" | grep -Eq 'ELF .*shared object'
+    found=true
+  done
+  test "$found" = true

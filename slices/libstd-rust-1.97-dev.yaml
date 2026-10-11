@@ -1,0 +1,18 @@
+package: libstd-rust-1.97-dev
+
+essential:
+  libstd-rust-1.97-dev_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libstd-rust-1.97_libs:
+    contents:
+      /usr/lib/rust-1.97/lib/rustlib/*-linux-*/lib/*.rlib:
+      /usr/lib/rust-1.97/lib/rustlib/*-linux-*/lib/*.rmeta:
+      /usr/lib/rust-1.97/lib/rustlib/*-linux-*/lib/*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libstd-rust-1.97-dev/copyright:
