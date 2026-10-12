@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   # Copilot looks for a job with exactly this name.
@@ -20,42 +21,33 @@ jobs:
           persist-credentials: false
 
       # Copilot reads instructions and skills from this checkout, so only the pull
-      # request's slices and tests stay in it; everything else goes back to the commit
-      # it branched from, and what it added is emptied rather than removed, since Copilot
-      # fails on a diff file it cannot read. The base is read off chisel.yaml, which only
-      # the release branches have, and fetched with enough history to reach the branch
-      # point; the job token goes through the environment since the checkout keeps none.
+      # request's slices and tests stay in it: every other path it touched goes back to
+      # the commit it branched from, and what it added is emptied rather than removed,
+      # since Copilot fails on a diff file it cannot read. The base is fetched with
+      # enough history to reach that commit.
       - name: Keep only the slice and test changes
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -e
-          if [ -f chisel.yaml ]; then
-            version="$(sed -n 's/^ *version: *//p' chisel.yaml | head -n 1)"
-            case "$version" in
-              [0-9][0-9].[0-9][0-9]) base="ubuntu-$version" ;;
-              *) echo "cannot read the release from chisel.yaml: '$version'" >&2; exit 1 ;;
-            esac
-          else
-            base=main
-          fi
-          echo "base branch: $base"
-          git checkout --quiet --detach
-          auth="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w 0)"
-          export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
-          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth"
-          git fetch --depth=1 origin "+refs/heads/$base:refs/remotes/origin/$base"
           head="$(git rev-parse HEAD)"
+          base="$(gh api "repos/$GITHUB_REPOSITORY/commits/$head/pulls" \
+            --jq "[.[] | select(.state == \"open\" and .head.sha == \"$head\")]
+                  | .[0].base.ref // empty")"
+          [ -n "$base" ] || { echo "no open pull request has $head as its head"; exit 0; }
+          export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
+          export GIT_CONFIG_VALUE_0='!gh auth git-credential'
+          git fetch --depth=1 origin "+refs/heads/$base:refs/remotes/origin/$base"
           rounds=0
-          until git merge-base "origin/$base" "$head" >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
+          until git merge-base "origin/$base" HEAD >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
             rounds=$((rounds + 1))
             git fetch --deepen=64 origin "$base" "$head"
           done
-          since="$(git merge-base "origin/$base" "$head" || echo "origin/$base")"
-          echo "comparing against: $since"
-          git diff --name-only --diff-filter=AMRT "$since" -- . \
-              ':(exclude)slices/*.yaml' ':(exclude)tests' \
-            | while IFS= read -r f; do
+          since="$(git merge-base "origin/$base" HEAD || echo "origin/$base")"
+          echo "base: $base, comparing against: $since"
+          git diff -z --name-only --diff-filter=AMRT "$since" \
+              -- . ':(exclude)slices/*.yaml' ':(exclude)tests' \
+            | while IFS= read -r -d '' f; do
                 if git cat-file -e "$since:$f" 2>/dev/null; then
                   rm -rf "$f" && git restore --source="$since" --worktree -- "$f"
                 else
@@ -63,10 +55,10 @@ jobs:
                 fi
                 echo "reverted: $f"
               done
-          # Instruction files are read wherever they are, tests included.
-          git diff --name-only "$since" -- slices tests \
-            | grep -E '(^|/)(AGENTS|CLAUDE|GEMINI|REVIEW)\.md$' \
-            | while IFS= read -r f; do : > "$f" && echo "emptied: $f"; done
+          # Instruction files are read wherever they sit, tests included.
+          git diff -z --name-only "$since" -- ':(glob)**/AGENTS.md' ':(glob)**/CLAUDE.md' \
+              ':(glob)**/GEMINI.md' ':(glob)**/REVIEW.md' \
+            | while IFS= read -r -d '' f; do rm -f "$f" && : > "$f" && echo "emptied: $f"; done
 
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
