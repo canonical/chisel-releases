@@ -1,0 +1,9 @@
+package: gcc-13-s390x-linux-gnu-base
+
+essential:
+  gcc-13-s390x-linux-gnu-base_copyright:
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/gcc-13-s390x-linux-gnu-base/copyright:
