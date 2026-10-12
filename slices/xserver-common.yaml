@@ -1,0 +1,14 @@
+package: xserver-common
+
+essential:
+  xserver-common_copyright:
+
+slices:
+  data:
+    contents:
+      /usr/lib/xorg/protocol.txt:
+      /var/lib/xkb/: {make: true}
+
+  copyright:
+    contents:
+      /usr/share/doc/xserver-common/copyright:
