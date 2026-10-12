@@ -40,7 +40,6 @@ jobs:
       - name: Fetch the base branch
         if: env.BASE
         run: |
-          set -e
           git fetch --unshallow origin "$BASE" "$(git rev-parse HEAD)"
           since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
           echo "base: $BASE, comparing against: $since"
@@ -57,7 +56,6 @@ jobs:
       - name: Install the review instructions
         if: env.BASE
         run: |
-          set -ex
           cp .main/.github/copilot-review/instructions.md .github/copilot-instructions.md
           rm -rf .main
 
@@ -72,7 +70,6 @@ jobs:
       - name: Install the mason skill
         if: env.BASE
         run: |
-          set -ex
           mkdir -p .github/skills
           cp -r .mason/skills/chisel-slice-reviewer .github/skills/
           rm -rf .mason
