@@ -1,6 +1,7 @@
 summary: Integration tests for Python3
 
 environment:
+  SLICE/minimal: "minimal"
   SLICE/core: "core"
   SLICE/standard: "standard"
 
@@ -10,5 +11,12 @@ execute: |
 
   rootfs="$(install-slices python3_${SLICE})"
 
-  cp ../python3.14/test_${SLICE}.py "$rootfs"
-  chroot "$rootfs" python3 /test_${SLICE}.py
+  # minimal runs the core checks too, plus its own.
+  test_slice="${SLICE/minimal/core}"
+  cp ../python3.14/test_${test_slice}.py "$rootfs"
+  chroot "$rootfs" python3 /test_${test_slice}.py
+
+  if [ "$SLICE" == "minimal" ]; then
+    cp test_minimal.py "$rootfs"
+    chroot "$rootfs" python3 /test_minimal.py
+  fi
