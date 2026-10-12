@@ -53,20 +53,12 @@ jobs:
           echo "SINCE=$since" >> "$GITHUB_ENV"
 
       # Copilot reads instructions and skills from this checkout, so only the pull
-      # request's slices and tests stay in it: every other path it touched goes back to
-      # the commit it branched from, and what it added is emptied rather than removed,
-      # since Copilot fails on a diff file it cannot read.
+      # request's slices and tests stay in it; everything else goes back to the commit it
+      # branched from. A file added anywhere else is removed, and Copilot then declines
+      # to review the pull request, since it cannot read that file for its diff.
       - name: Keep only the slice and test changes
         if: env.BASE
-        run: |
-          set -e
-          git diff -z --name-only "$SINCE" | while IFS= read -r -d '' f; do
-            case "$f" in tests/*|slices/*.yaml) continue ;; esac
-            rm -rf "$f"
-            git restore --source="$SINCE" --worktree -- "$f"
-            [ -e "$f" ] || { mkdir -p "$(dirname "$f")" && : > "$f"; }
-            echo "reverted: $f"
-          done
+        run: git restore --source="$SINCE" --worktree -- . ':!slices/*.yaml' ':!tests'
 
       - name: Install the review instructions
         if: env.BASE
