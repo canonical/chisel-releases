@@ -51,7 +51,7 @@ jobs:
           cp .main/.github/copilot-review/instructions.md .github/copilot-instructions.md
           rm -rf .main
 
-      - name: Install the mason skill
+      - name: Install mason/chisel-slice-reviewer skill
         if: env.BASE
         env:
           GH_TOKEN: ${{ github.token }}
