@@ -19,6 +19,7 @@ slices:
       # SDK directory - include all accessed files
       /usr/lib/dotnet/sdk/10.0.*/*.dll:
       /usr/lib/dotnet/sdk/10.0.*/*.json:
+      /usr/lib/dotnet/sdk/10.0.*/*.overridetasks:
       /usr/lib/dotnet/sdk/10.0.*/*.props:
       /usr/lib/dotnet/sdk/10.0.*/*.targets:
       /usr/lib/dotnet/sdk/10.0.*/*.tasks:
