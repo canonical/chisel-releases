@@ -15,7 +15,11 @@ slices:
       /usr/lib/gcc/*-linux-*/11/crtend.o:
       /usr/lib/gcc/*-linux-*/11/crtendS.o:
       /usr/lib/gcc/*-linux-*/11/crtfastmath.o:
-        arch: [amd64, arm64]
+        arch: [amd64, arm64, armhf, i386]
+      /usr/lib/gcc/*-linux-*/11/crti.o:
+        arch: [riscv64]
+      /usr/lib/gcc/*-linux-*/11/crtn.o:
+        arch: [riscv64]
       /usr/lib/gcc/*-linux-*/11/crtoffloadbegin.o:
         arch: [amd64, ppc64el]
       /usr/lib/gcc/*-linux-*/11/crtoffloadend.o:
@@ -23,11 +27,11 @@ slices:
       /usr/lib/gcc/*-linux-*/11/crtoffloadtable.o:
         arch: [amd64, ppc64el]
       /usr/lib/gcc/*-linux-*/11/crtprec32.o:
-        arch: [amd64]
+        arch: [amd64, i386]
       /usr/lib/gcc/*-linux-*/11/crtprec64.o:
-        arch: [amd64]
+        arch: [amd64, i386]
       /usr/lib/gcc/*-linux-*/11/crtprec80.o:
-        arch: [amd64]
+        arch: [amd64, i386]
       /usr/lib/gcc/*-linux-*/11/ecrti.o:
         arch: [ppc64el]
       /usr/lib/gcc/*-linux-*/11/ecrtn.o:
@@ -49,6 +53,7 @@ slices:
   headers:
     contents:
       /usr/lib/gcc/*-linux-*/11/include/*.h:
+      /usr/lib/gcc/*-linux-*/11/include/sanitizer/*.h:
 
   copyright:
     essential:
