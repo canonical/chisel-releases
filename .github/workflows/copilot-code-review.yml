@@ -18,8 +18,6 @@ jobs:
         with:
           persist-credentials: false
 
-      # Only the release branches have chisel.yaml; a pull request against main gets no
-      # setup, and every step below is conditional on this one finding a release.
       - name: Find the release branch
         run: |
           [ -f chisel.yaml ] || exit 0
