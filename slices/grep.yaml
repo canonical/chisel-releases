@@ -12,8 +12,6 @@ slices:
       /usr/bin/grep:
 
   scripts:
-    # These are shell scripts requiring a symlink from /usr/bin/dash to
-    # /usr/bin/sh.
     # They are deprecated upstream in favour of grep -E, grep -F and grep -r,
     # and Debian only keeps them for backward compatibility, so they may be
     # dropped from the package.
