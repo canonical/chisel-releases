@@ -1,7 +1,6 @@
 name: Copilot code review setup
 
-# Run by Copilot code review before it reviews a pull request. The trigger only
-# exists so that the steps can be run by hand as a normal workflow.
+# Run by Copilot code review before each review; the trigger is for running it by hand.
 on:
   workflow_dispatch:
 
