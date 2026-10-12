@@ -71,4 +71,9 @@ for _ in $(seq 60); do
 done
 # plain test commands, since set -e never fires on a failing "! cmd"
 test ! -e "/proc/$ssh_pid"
+# the session's sshd-session process can outlive the client for a moment
+for _ in $(seq 60); do
+  [ -z "$(chroot "$rootfs" pgrep --full "$session")" ] && break
+  sleep 0.5
+done
 test -z "$(chroot "$rootfs" pgrep --full "$session")"
