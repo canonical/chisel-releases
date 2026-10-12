@@ -1,0 +1,93 @@
+name: Copilot code review setup
+
+# Run by Copilot code review before it reviews a pull request. The trigger only
+# exists so that the steps can be run by hand as a normal workflow.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Copilot looks for a job with exactly this name.
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # This checkout is the pull request's code; nothing here may run anything from it.
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+
+      # Copilot reads instructions and skills from this checkout. Empty the pull request's
+      # so that only the ones installed below, from the default branch, are seen. Emptied
+      # rather than removed: Copilot fails on a diff that touches a file it cannot read.
+      # Symlinks are replaced, not truncated, so that their targets are left alone.
+      # This step comes first: when a step fails, Copilot skips the rest and reviews
+      # anyway, so nothing may stand between the checkout and this.
+      - name: Empty instruction and skill files from the pull request
+        run: |
+          set -ex
+          for d in .github/instructions .github/skills .github/agents; do
+            if [ -L "$d" ]; then rm "$d" && mkdir "$d"; fi
+          done
+          find . -path ./.git -prune -o \( -type f -o -type l \) \
+            \( -name AGENTS.md -o -name CLAUDE.md -o -name GEMINI.md -o -name REVIEW.md \
+            -o -path ./.github/copilot-instructions.md -o -path './.github/instructions/*' \
+            -o -path './.github/skills/*' -o -path './.github/agents/*' \) \
+            -print -exec sh -c 'for f; do rm -f "$f" && : > "$f"; done' sh {} +
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: main
+          path: .main
+          sparse-checkout: .github/copilot-review
+          persist-credentials: false
+
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          repository: canonical/mason
+          ref: 7b0fc402f94cdd6da9fcaff528bc6301da8624cc # v0.3.0
+          path: .mason
+          persist-credentials: false
+
+      - name: Install the review instructions and the mason skill
+        run: |
+          set -ex
+          cp .main/.github/copilot-review/instructions.md .github/copilot-instructions.md
+          mkdir -p .github/skills
+          cp -r .mason/skills/chisel-slice-reviewer .github/skills/
+          rm -rf .main .mason
+          ls -R .github/copilot-instructions.md .github/skills
+
+      # Copilot forces a shallow checkout of the head commit alone, so the base branch
+      # that the review diffs against has to be fetched here. Nothing in the environment
+      # names it, so it is read off chisel.yaml, which only the release branches have.
+      # One commit is enough for a diff. Fetched under both names so that either
+      # spelling resolves; detached first, since the head is checked out under its own
+      # branch name, which may be the base's. The checkout drops its credentials, and
+      # the repository may be private, so the job token goes on this one command.
+      - name: Fetch the base branch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          if [ -f chisel.yaml ]; then
+            version="$(sed -n 's/^ *version: *//p' chisel.yaml | head -n 1)"
+            case "$version" in
+              [0-9][0-9].[0-9][0-9]) base="ubuntu-$version" ;;
+              *) echo "cannot read the release from chisel.yaml: '$version'" >&2; exit 1 ;;
+            esac
+          else
+            base=main
+          fi
+          echo "base branch: $base"
+          git checkout --quiet --detach
+          auth="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w 0)"
+          GIT_CONFIG_COUNT=1 \
+            GIT_CONFIG_KEY_0=http.https://github.com/.extraheader \
+            GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth" \
+            git fetch --depth=1 origin "+refs/heads/$base:refs/heads/$base" \
+              "+refs/heads/$base:refs/remotes/origin/$base"
+
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
