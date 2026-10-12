@@ -19,33 +19,40 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      # Only the release branches have chisel.yaml; a pull request against main gets no
+      # setup, and every step below is conditional on this one finding a release.
+      - name: Find the release branch
+        run: |
+          [ -f chisel.yaml ] || { echo "no chisel.yaml: not a release branch"; exit 0; }
+          echo "BASE=ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)" >> "$GITHUB_ENV"
+
+      - if: env.BASE
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           ref: main
           path: .main
           sparse-checkout: .github/copilot-review
           persist-credentials: false
 
-      # The base is the release branch chisel.yaml names, main without one, fetched with
-      # enough history to reach the commit the pull request branched from. The checkout
-      # keeps no credentials, so the job token reaches git through the environment.
+      # Fetched with enough history to reach the commit the pull request branched from.
+      # The checkout keeps no credentials, so the job token reaches git through the
+      # environment.
       - name: Fetch the base branch
+        if: env.BASE
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -e
-          base=main
-          [ ! -f chisel.yaml ] || base="ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)"
           export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
           export GIT_CONFIG_VALUE_0='!gh auth git-credential'
-          git fetch --depth=1 origin "+refs/heads/$base:refs/remotes/origin/$base"
+          git fetch --depth=1 origin "+refs/heads/$BASE:refs/remotes/origin/$BASE"
           rounds=0
-          until git merge-base "origin/$base" HEAD >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
+          until git merge-base "origin/$BASE" HEAD >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
             rounds=$((rounds + 1))
-            git fetch --deepen=64 origin "$base" "$(git rev-parse HEAD)"
+            git fetch --deepen=64 origin "$BASE" "$(git rev-parse HEAD)"
           done
-          since="$(git merge-base "origin/$base" HEAD || echo "origin/$base")"
-          echo "base: $base, comparing against: $since"
+          since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
+          echo "base: $BASE, comparing against: $since"
           echo "SINCE=$since" >> "$GITHUB_ENV"
 
       # Copilot reads instructions and skills from this checkout, so only the pull
@@ -53,6 +60,7 @@ jobs:
       # the commit it branched from, and what it added is emptied rather than removed,
       # since Copilot fails on a diff file it cannot read.
       - name: Keep only the slice and test changes
+        if: env.BASE
         run: |
           set -e
           git diff -z --name-only --diff-filter=AMRT "$SINCE" \
@@ -70,7 +78,8 @@ jobs:
               ':(glob)**/GEMINI.md' ':(glob)**/REVIEW.md' \
             | while IFS= read -r -d '' f; do rm -f "$f" && : > "$f" && echo "emptied: $f"; done
 
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - if: env.BASE
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           repository: canonical/mason
           ref: 7b0fc402f94cdd6da9fcaff528bc6301da8624cc # v0.3.0
@@ -78,6 +87,7 @@ jobs:
           persist-credentials: false
 
       - name: Install the review instructions and the mason skill
+        if: env.BASE
         run: |
           set -ex
           cp .main/.github/copilot-review/instructions.md .github/copilot-instructions.md
@@ -86,4 +96,5 @@ jobs:
           rm -rf .main .mason
           ls -R .github/copilot-instructions.md .github/skills
 
-      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - if: env.BASE
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
