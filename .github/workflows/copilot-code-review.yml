@@ -13,8 +13,6 @@ jobs:
   copilot-setup-steps:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      main-branch-path: .main
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
@@ -30,7 +28,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           ref: main
-          path: ${{ env.main-branch-path }}
+          path: .main
           sparse-checkout: .github/copilot-review
           persist-credentials: false
 
@@ -50,9 +48,8 @@ jobs:
       - name: Install the review instructions
         if: env.BASE
         run: |
-          cp ${{ env.main-branch-path }}/.github/copilot-review/instructions.md \
-            .github/copilot-instructions.md
-          rm -rf ${{ env.main-branch-path }}
+          cp .main/.github/copilot-review/instructions.md .github/copilot-instructions.md
+          rm -rf .main
 
       - name: Install the mason skill
         if: env.BASE
