@@ -56,6 +56,7 @@ slices:
   divert:
     hint: Override a file with a diverted version
     essential:
+      dpkg_var:
       libc6_libs:
       libmd0_libs:
     contents:
@@ -110,11 +111,13 @@ slices:
       debianutils_savelog:
       diffutils_cmp:
       dpkg_sh-lib:
+      dpkg_var:
       # savelog compresses the older backups
       gzip_bins:
       tar_tar:
     contents:
       /usr/libexec/dpkg/dpkg-db-backup:
+      /var/backups/: {make: true, mode: 0755}
 
   db-keeper:
     hint: Record dpkg database changes in git
