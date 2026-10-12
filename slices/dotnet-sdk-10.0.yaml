@@ -5,6 +5,7 @@ essential:
 
 slices:
   minimal:
+    hint: SDK for apps on the shared runtime
     essential:
       aspnetcore-targeting-pack-10.0_libs:
       ca-certificates_data:
@@ -36,6 +37,7 @@ slices:
   # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
   # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
+    hint: SDK for ASP.NET Core and standalone apps
     essential:
       aspnetcore-runtime-10.0_core:
       dotnet-sdk-10.0_minimal:
@@ -49,6 +51,7 @@ slices:
       /usr/lib/dotnet/sdk/10.0.*/**:
 
   standard:
+    hint: SDK with native AOT and ICU
     essential:
       aspnetcore-runtime-10.0_standard:
       dotnet-sdk-10.0_core:

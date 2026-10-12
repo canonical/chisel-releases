@@ -5,6 +5,7 @@ essential:
 
 slices:
   minimal:
+    hint: Runtime for console apps
     essential:
       dotnet-hostfxr-10.0_libs:
       libbrotli1_libs: {arch: [ppc64el, s390x]}
@@ -39,6 +40,7 @@ slices:
   # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
   # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
+    hint: Runtime with crypto and compression
     essential:
       dotnet-runtime-10.0_minimal:
       libbrotli1_libs:
@@ -49,6 +51,7 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/**:
 
   standard:
+    hint: Runtime with ICU and time zones
     essential:
       dotnet-runtime-10.0_core:
       libicu78_libs:

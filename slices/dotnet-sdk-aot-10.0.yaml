@@ -5,6 +5,7 @@ essential:
 
 slices:
   libs:
+    hint: Native AOT compiler and runtime pack
     essential:
       dotnet-sdk-10.0_core:
       libbrotli1_libs:
