@@ -17,6 +17,7 @@ slices:
     # dropped from the package.
     # See: https://manpages.ubuntu.com/manpages/noble/en/man1/grep.1.html
     essential:
+      base-files_bin:
       dash_bins:
       grep_bins:
     contents:
