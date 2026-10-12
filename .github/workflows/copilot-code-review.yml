@@ -41,8 +41,7 @@ jobs:
         if: env.BASE
         run: |
           set -e
-          git fetch --unshallow origin "+refs/heads/$BASE:refs/remotes/origin/$BASE" \
-            "$(git rev-parse HEAD)"
+          git fetch --unshallow origin "$BASE" "$(git rev-parse HEAD)"
           since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
           echo "base: $BASE, comparing against: $since"
           echo "SINCE=$since" >> "$GITHUB_ENV"
