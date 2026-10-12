@@ -8,6 +8,9 @@ on:
 permissions:
   contents: read
 
+env:
+  MAIN: .main # the default branch, checked out next to the pull request
+
 jobs:
   # Copilot looks for a job with exactly this name.
   copilot-setup-steps:
@@ -28,7 +31,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           ref: main
-          path: .main
+          path: ${{ env.MAIN }}
           sparse-checkout: .github/copilot-review
           persist-credentials: false
 
@@ -53,8 +56,8 @@ jobs:
       - name: Install the review instructions
         if: env.BASE
         run: |
-          cp .main/.github/copilot-review/instructions.md .github/copilot-instructions.md
-          rm -rf .main
+          cp "$MAIN/.github/copilot-review/instructions.md" .github/copilot-instructions.md
+          rm -rf "$MAIN"
 
       - name: Install the mason skill
         if: env.BASE
