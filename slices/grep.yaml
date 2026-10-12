@@ -26,6 +26,10 @@ slices:
       /usr/bin/fgrep:
       /usr/bin/rgrep:
 
+  deprecated:
+    essential:
+      grep_scripts:
+
   copyright:
     contents:
       /usr/share/doc/grep/copyright:
