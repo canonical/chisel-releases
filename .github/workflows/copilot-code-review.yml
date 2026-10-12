@@ -23,7 +23,8 @@ jobs:
           [ -f chisel.yaml ] || exit 0
           echo "BASE=ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)" >> "$GITHUB_ENV"
 
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - name: Check out the review instructions from main
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         if: env.BASE
         with:
           ref: main
@@ -63,5 +64,6 @@ jobs:
           gh skill install --dir .github/skills canonical/mason chisel-slice-reviewer \
             --pin 7b0fc402f94cdd6da9fcaff528bc6301da8624cc # v0.3.0
 
-      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+      - name: Install uv
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         if: env.BASE
