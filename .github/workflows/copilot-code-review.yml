@@ -36,16 +36,11 @@ jobs:
 
       # Copilot's checkout is shallow; the base and the head are fetched with their full
       # history, a couple of megabytes here, so that the commit the pull request branched
-      # from is known. The checkout keeps no credentials, so the job token reaches git
-      # through the environment.
+      # from is known.
       - name: Fetch the base branch
         if: env.BASE
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           set -e
-          export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
-          export GIT_CONFIG_VALUE_0='!gh auth git-credential'
           git fetch --unshallow origin "+refs/heads/$BASE:refs/remotes/origin/$BASE" \
             "$(git rev-parse HEAD)"
           since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
