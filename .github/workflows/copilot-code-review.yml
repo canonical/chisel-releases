@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: read
 
 jobs:
   # Copilot looks for a job with exactly this name.
@@ -23,20 +22,17 @@ jobs:
       # Copilot reads instructions and skills from this checkout, so only the pull
       # request's slices and tests stay in it: every other path it touched goes back to
       # the commit it branched from, and what it added is emptied rather than removed,
-      # since Copilot fails on a diff file it cannot read. The base is fetched with
-      # enough history to reach that commit.
+      # since Copilot fails on a diff file it cannot read. The base is the release branch
+      # chisel.yaml names, main without one, fetched with enough history to reach that
+      # commit.
       - name: Keep only the slice and test changes
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -e
-          # Found among the open pull requests by head commit: the commit's own pull
-          # request list is empty for a head that only exists on a fork.
           head="$(git rev-parse HEAD)"
-          pulls="repos/$GITHUB_REPOSITORY/pulls?state=open&per_page=100"
-          base="$(gh api --paginate --slurp "$pulls" \
-            | jq -r "[.[][] | select(.head.sha == \"$head\")] | .[0].base.ref // empty")"
-          [ -n "$base" ] || { echo "no open pull request has $head as its head"; exit 0; }
+          base=main
+          [ ! -f chisel.yaml ] || base="ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)"
           export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
           export GIT_CONFIG_VALUE_0='!gh auth git-credential'
           git fetch --depth=1 origin "+refs/heads/$base:refs/remotes/origin/$base"
