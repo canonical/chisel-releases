@@ -42,7 +42,6 @@ jobs:
         run: |
           git fetch --unshallow origin "$BASE" "$(git rev-parse HEAD)"
           since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
-          echo "base: $BASE, comparing against: $since"
           echo "SINCE=$since" >> "$GITHUB_ENV"
 
       # Copilot reads instructions and skills from this checkout, so only the pull
