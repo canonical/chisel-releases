@@ -30,10 +30,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -e
+          # Found among the open pull requests by head commit: the commit's own pull
+          # request list is empty for a head that only exists on a fork.
           head="$(git rev-parse HEAD)"
-          base="$(gh api "repos/$GITHUB_REPOSITORY/commits/$head/pulls" \
-            --jq "[.[] | select(.state == \"open\" and .head.sha == \"$head\")]
-                  | .[0].base.ref // empty")"
+          pulls="repos/$GITHUB_REPOSITORY/pulls?state=open&per_page=100"
+          base="$(gh api --paginate --slurp "$pulls" \
+            | jq -r "[.[][] | select(.head.sha == \"$head\")] | .[0].base.ref // empty")"
           [ -n "$base" ] || { echo "no open pull request has $head as its head"; exit 0; }
           export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
           export GIT_CONFIG_VALUE_0='!gh auth git-credential'
