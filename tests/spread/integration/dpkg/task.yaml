@@ -5,6 +5,7 @@ variants:
     - basic
     - maintscript-support
     - update-alternatives
+    - divert
     - start-stop-daemon
     - scripts
     - sh-lib

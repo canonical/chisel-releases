@@ -3,7 +3,7 @@
 
 rootfs="$(install-slices dpkg_db-backup)"
 
-mkdir -p "$rootfs/dev" "$rootfs/var/backups" "$rootfs/var/lib/dpkg/alternatives"
+mkdir -p "$rootfs/dev"
 # the script sends its tool checks and tar output to /dev/null
 touch "$rootfs/dev/null"
 echo "Package: example" > "$rootfs/var/lib/dpkg/status"
