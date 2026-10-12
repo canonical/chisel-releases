@@ -23,7 +23,7 @@ jobs:
       # setup, and every step below is conditional on this one finding a release.
       - name: Find the release branch
         run: |
-          [ -f chisel.yaml ] || { echo "no chisel.yaml: not a release branch"; exit 0; }
+          [ -f chisel.yaml ] || exit 0
           echo "BASE=ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)" >> "$GITHUB_ENV"
 
       - if: env.BASE
