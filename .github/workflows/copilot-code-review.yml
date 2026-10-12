@@ -34,9 +34,6 @@ jobs:
           sparse-checkout: .github/copilot-review
           persist-credentials: false
 
-      # Copilot's checkout is shallow; the base and the head are fetched with their full
-      # history, a couple of megabytes here, so that the commit the pull request branched
-      # from is known.
       - name: Fetch the base branch
         if: env.BASE
         run: |
