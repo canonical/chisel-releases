@@ -44,7 +44,7 @@ slices:
       /usr/lib/dotnet/library-packs/Microsoft.NET.ILLink.Tasks.10.0.*.nupkg: {arch: [amd64, arm64]}
       /usr/lib/dotnet/metadata/workloads/10.0.*/userlocal:
       /usr/lib/dotnet/packs/Microsoft.AspNetCore.App.Runtime.*/10.0.*/**:
-      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.*/10.0.*/**:
+      /usr/lib/dotnet/packs/Microsoft.NETCore.App.Runtime.ubuntu.*/10.0.*/**:
       /usr/lib/dotnet/sdk-manifests/10.0.*/microsoft.net.workload.*/**:
       /usr/lib/dotnet/sdk/10.0.*/**:
 
