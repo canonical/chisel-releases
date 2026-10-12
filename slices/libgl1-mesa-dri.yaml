@@ -112,6 +112,7 @@ slices:
           - arm64
           - armhf
           - riscv64
+      /usr/lib/*-linux-*/dri/libdril_dri.so:
       /usr/lib/*-linux-*/dri/lima_dri.so:
         arch:
           - arm64
