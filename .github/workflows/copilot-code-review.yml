@@ -22,14 +22,19 @@ jobs:
       # Copilot reads instructions and skills from this checkout. Empty the pull request's
       # so that only the ones installed below, from the default branch, are seen. Emptied
       # rather than removed: Copilot fails on a diff that touches a file it cannot read.
-      # Symlinks are replaced, not truncated, so that their targets are left alone.
+      # Symlinks are replaced, not truncated, so that their targets are left alone, and
+      # so is anything else standing where one of the directories belongs, .github
+      # itself included: a symlinked .github would hide its real contents from the
+      # path filters below and the install would write through it.
       # This step comes first: when a step fails, Copilot skips the rest and reviews
       # anyway, so nothing may stand between the checkout and this.
       - name: Empty instruction and skill files from the pull request
         run: |
           set -ex
-          for d in .github/instructions .github/skills .github/agents; do
-            if [ -L "$d" ]; then rm "$d" && mkdir "$d"; fi
+          for d in .github .github/instructions .github/skills .github/agents; do
+            if [ -L "$d" ] || { [ -e "$d" ] && [ ! -d "$d" ]; }; then
+              rm -f "$d" && mkdir "$d"
+            fi
           done
           find . -path ./.git -prune -o \( -type f -o -type l \) \
             \( -name AGENTS.md -o -name CLAUDE.md -o -name GEMINI.md -o -name REVIEW.md \
@@ -63,10 +68,14 @@ jobs:
       # Copilot forces a shallow checkout of the head commit alone, so the base branch
       # that the review diffs against has to be fetched here. Nothing in the environment
       # names it, so it is read off chisel.yaml, which only the release branches have.
-      # One commit is enough for a diff. Fetched under both names so that either
-      # spelling resolves; detached first, since the head is checked out under its own
-      # branch name, which may be the base's. The checkout drops its credentials, and
-      # the repository may be private, so the job token goes on this one command.
+      # Fetched under both names so that either spelling resolves; detached first, since
+      # the head is checked out under its own branch name, which may be the base's. The
+      # checkout drops its credentials, and the repository may be private, so the job
+      # token goes on these commands through the environment, not the config.
+      # A diff against the base's tip would read everything landed there since the pull
+      # request branched as this change undoing it, so both histories are deepened until
+      # they meet. Bounded: a pull request older than that is compared against the tip,
+      # which the skill reports.
       - name: Fetch the base branch
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -84,10 +93,17 @@ jobs:
           echo "base branch: $base"
           git checkout --quiet --detach
           auth="$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w 0)"
-          GIT_CONFIG_COUNT=1 \
-            GIT_CONFIG_KEY_0=http.https://github.com/.extraheader \
-            GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth" \
-            git fetch --depth=1 origin "+refs/heads/$base:refs/heads/$base" \
-              "+refs/heads/$base:refs/remotes/origin/$base"
+          export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.https://github.com/.extraheader
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth"
+          git fetch --depth=1 origin "+refs/heads/$base:refs/heads/$base" \
+            "+refs/heads/$base:refs/remotes/origin/$base"
+          head="$(git rev-parse HEAD)"
+          rounds=0
+          until git merge-base "origin/$base" "$head" >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
+            rounds=$((rounds + 1))
+            git fetch --deepen=64 origin "$base" "$head"
+          done
+          git merge-base "origin/$base" "$head" \
+            || echo "no merge base within $((rounds * 64)) commits; the tip of $base stands in"
 
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
