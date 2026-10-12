@@ -1,6 +1,8 @@
 name: Copilot code review setup
 
-# Run by Copilot code review before each review; the trigger is for running it by hand.
+# This job is run to setup copilot code review. It does not need any triggers. The
+# 'workflow_dispatch' trigger below is a dummy. The single job in this workflow
+# *must* be named 'copilot-setup-steps'.
 on:
   workflow_dispatch:
 
@@ -8,7 +10,6 @@ permissions:
   contents: read
 
 jobs:
-  # Copilot looks for a job with exactly this name.
   copilot-setup-steps:
     runs-on: ubuntu-latest
     timeout-minutes: 10
