@@ -60,20 +60,13 @@ jobs:
         if: env.BASE
         run: |
           set -e
-          git diff -z --name-only --diff-filter=AMRT "$SINCE" \
-              -- . ':(exclude)slices/*.yaml' ':(exclude)tests' \
-            | while IFS= read -r -d '' f; do
-                if git cat-file -e "$SINCE:$f" 2>/dev/null; then
-                  rm -rf "$f" && git restore --source="$SINCE" --worktree -- "$f"
-                else
-                  rm -f "$f" && : > "$f"
-                fi
-                echo "reverted: $f"
-              done
-          # Instruction files are read wherever they sit, tests included.
-          git diff -z --name-only "$SINCE" -- ':(glob)**/AGENTS.md' ':(glob)**/CLAUDE.md' \
-              ':(glob)**/GEMINI.md' ':(glob)**/REVIEW.md' \
-            | while IFS= read -r -d '' f; do rm -f "$f" && : > "$f" && echo "emptied: $f"; done
+          git diff -z --name-only "$SINCE" | while IFS= read -r -d '' f; do
+            case "$f" in tests/*|slices/*.yaml) continue ;; esac
+            rm -rf "$f"
+            git restore --source="$SINCE" --worktree -- "$f"
+            [ -e "$f" ] || { mkdir -p "$(dirname "$f")" && : > "$f"; }
+            echo "reverted: $f"
+          done
 
       - name: Install the review instructions
         if: env.BASE
