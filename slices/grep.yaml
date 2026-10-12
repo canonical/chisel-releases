@@ -27,6 +27,7 @@ slices:
       /usr/bin/rgrep:
 
   deprecated:
+    hint: Deprecated egrep, fgrep and rgrep
     essential:
       grep_scripts:
 
