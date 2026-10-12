@@ -34,9 +34,10 @@ jobs:
           sparse-checkout: .github/copilot-review
           persist-credentials: false
 
-      # Fetched with enough history to reach the commit the pull request branched from.
-      # The checkout keeps no credentials, so the job token reaches git through the
-      # environment.
+      # Copilot's checkout is shallow; the base and the head are fetched with their full
+      # history, a couple of megabytes here, so that the commit the pull request branched
+      # from is known. The checkout keeps no credentials, so the job token reaches git
+      # through the environment.
       - name: Fetch the base branch
         if: env.BASE
         env:
@@ -45,12 +46,8 @@ jobs:
           set -e
           export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
           export GIT_CONFIG_VALUE_0='!gh auth git-credential'
-          git fetch --depth=1 origin "+refs/heads/$BASE:refs/remotes/origin/$BASE"
-          rounds=0
-          until git merge-base "origin/$BASE" HEAD >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
-            rounds=$((rounds + 1))
-            git fetch --deepen=64 origin "$BASE" "$(git rev-parse HEAD)"
-          done
+          git fetch --unshallow origin "+refs/heads/$BASE:refs/remotes/origin/$BASE" \
+            "$(git rev-parse HEAD)"
           since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
           echo "base: $BASE, comparing against: $since"
           echo "SINCE=$since" >> "$GITHUB_ENV"
