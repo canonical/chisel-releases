@@ -19,18 +19,21 @@ jobs:
         with:
           persist-credentials: false
 
-      # Copilot reads instructions and skills from this checkout, so only the pull
-      # request's slices and tests stay in it: every other path it touched goes back to
-      # the commit it branched from, and what it added is emptied rather than removed,
-      # since Copilot fails on a diff file it cannot read. The base is the release branch
-      # chisel.yaml names, main without one, fetched with enough history to reach that
-      # commit.
-      - name: Keep only the slice and test changes
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          ref: main
+          path: .main
+          sparse-checkout: .github/copilot-review
+          persist-credentials: false
+
+      # The base is the release branch chisel.yaml names, main without one, fetched with
+      # enough history to reach the commit the pull request branched from. The checkout
+      # keeps no credentials, so the job token reaches git through the environment.
+      - name: Fetch the base branch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -e
-          head="$(git rev-parse HEAD)"
           base=main
           [ ! -f chisel.yaml ] || base="ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)"
           export GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=credential.helper
@@ -39,31 +42,33 @@ jobs:
           rounds=0
           until git merge-base "origin/$base" HEAD >/dev/null 2>&1 || [ "$rounds" -eq 8 ]; do
             rounds=$((rounds + 1))
-            git fetch --deepen=64 origin "$base" "$head"
+            git fetch --deepen=64 origin "$base" "$(git rev-parse HEAD)"
           done
           since="$(git merge-base "origin/$base" HEAD || echo "origin/$base")"
           echo "base: $base, comparing against: $since"
-          git diff -z --name-only --diff-filter=AMRT "$since" \
+          echo "SINCE=$since" >> "$GITHUB_ENV"
+
+      # Copilot reads instructions and skills from this checkout, so only the pull
+      # request's slices and tests stay in it: every other path it touched goes back to
+      # the commit it branched from, and what it added is emptied rather than removed,
+      # since Copilot fails on a diff file it cannot read.
+      - name: Keep only the slice and test changes
+        run: |
+          set -e
+          git diff -z --name-only --diff-filter=AMRT "$SINCE" \
               -- . ':(exclude)slices/*.yaml' ':(exclude)tests' \
             | while IFS= read -r -d '' f; do
-                if git cat-file -e "$since:$f" 2>/dev/null; then
-                  rm -rf "$f" && git restore --source="$since" --worktree -- "$f"
+                if git cat-file -e "$SINCE:$f" 2>/dev/null; then
+                  rm -rf "$f" && git restore --source="$SINCE" --worktree -- "$f"
                 else
                   rm -f "$f" && : > "$f"
                 fi
                 echo "reverted: $f"
               done
           # Instruction files are read wherever they sit, tests included.
-          git diff -z --name-only "$since" -- ':(glob)**/AGENTS.md' ':(glob)**/CLAUDE.md' \
+          git diff -z --name-only "$SINCE" -- ':(glob)**/AGENTS.md' ':(glob)**/CLAUDE.md' \
               ':(glob)**/GEMINI.md' ':(glob)**/REVIEW.md' \
             | while IFS= read -r -d '' f; do rm -f "$f" && : > "$f" && echo "emptied: $f"; done
-
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-        with:
-          ref: main
-          path: .main
-          sparse-checkout: .github/copilot-review
-          persist-credentials: false
 
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
