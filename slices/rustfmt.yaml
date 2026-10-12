@@ -6,16 +6,16 @@ essential:
 slices:
   cargo-fmt:
     essential:
-      rustfmt-1.93_cargo-fmt:
+      rustfmt-1.97_cargo-fmt:
       rustfmt_rustfmt:
     contents:
-      /usr/bin/cargo-fmt:  # symlink to ../lib/rust-1.93/bin/cargo-fmt
+      /usr/bin/cargo-fmt:  # symlink to ../lib/rust-1.97/bin/cargo-fmt
 
   rustfmt:
     essential:
-      rustfmt-1.93_rustfmt:
+      rustfmt-1.97_rustfmt:
     contents:
-      /usr/bin/rustfmt:  # symlink to ../lib/rust-1.93/bin/rustfmt
+      /usr/bin/rustfmt:  # symlink to ../lib/rust-1.97/bin/rustfmt
 
   copyright:
     contents:
