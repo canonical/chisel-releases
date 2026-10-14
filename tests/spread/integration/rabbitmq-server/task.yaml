@@ -16,11 +16,20 @@ execute: |
   chroot "$rootfs" chown -R rabbitmq /var/lib/rabbitmq /var/log/rabbitmq /etc/rabbitmq
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl version
 
+  # The broker reads root's cookie and the /usr/sbin wrappers the one in
+  # /var/lib/rabbitmq; give them the same.
+  install -m 0400 "$rootfs/var/lib/rabbitmq/.erlang.cookie" "$rootfs/root/.erlang.cookie"
+
   # Server test
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status || echo "RabbitMQ not running"
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmq-server -detached
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl --timeout 180 await_startup
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status && echo "RabbitMQ is running now!"
+
+  # The /usr/sbin wrapper finds the plugins directory on its own.
+  plugins="$(chroot "$rootfs" /usr/sbin/rabbitmq-plugins list --minimal)"
+  echo "$plugins"
+  echo "$plugins" | grep -Fx rabbitmq_management
 
 restore: |
   # Kill the RabbitMQ server, which by default runs on port 25672
