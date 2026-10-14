@@ -3,6 +3,7 @@ summary: Integration tests for python3.14
 environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
+  SLICE/scripts: "scripts"
 
 execute: |
   # Test different slice installations
