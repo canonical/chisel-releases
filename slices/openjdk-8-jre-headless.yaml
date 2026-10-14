@@ -36,7 +36,6 @@ slices:
           - arm64
           - i386
           - ppc64el
-          - s390x
       /usr/lib/jvm/java-8-openjdk-*/jre/lib/*/server/libjvm.so:
         arch:
           - amd64
