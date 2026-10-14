@@ -1,0 +1,9 @@
+package: gcc-15-x86-64-linux-gnu-base
+
+essential:
+  gcc-15-x86-64-linux-gnu-base_copyright:
+
+slices:
+  copyright:
+    contents:
+      /usr/share/doc/gcc-15-x86-64-linux-gnu-base/copyright:
