@@ -142,6 +142,17 @@ class TestFetchPRs:
             forward_port_missing.fetch_prs()
 
 
+class TestRetryingSession:
+    def test_retries_rate_limits_on_every_https_host(self) -> None:
+        with forward_port_missing.retrying_session() as s:
+            for host in ("https://api.github.com/", "https://archive.ubuntu.com/"):
+                retry = s.get_adapter(host).max_retries
+                assert retry.total == 5
+                assert {429, 500, 502, 503, 504} <= set(retry.status_forcelist)
+                assert "GET" in retry.allowed_methods
+                assert retry.respect_retry_after_header
+
+
 class TestFetchPackagesInRelease:
     @patch("forward_port_missing.requests.Session")
     def test_fetch_packages_in_release(self, mock_session_class):
