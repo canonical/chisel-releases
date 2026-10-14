@@ -28,7 +28,6 @@ execute: |
 
   # The /usr/sbin wrapper finds the plugins directory on its own.
   plugins="$(chroot "$rootfs" /usr/sbin/rabbitmq-plugins list --minimal)"
-  echo "$plugins"
   echo "$plugins" | grep -Fx rabbitmq_management
 
 restore: |
