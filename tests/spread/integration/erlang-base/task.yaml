@@ -1,0 +1,20 @@
+summary: Integration tests for erlang-base
+
+execute: |
+  rootfs="$(install-slices erlang-base_bins)"
+
+  mkdir -p "$rootfs/dev"
+  mount --rbind /dev "$rootfs/dev"
+  mount --make-rprivate "$rootfs/dev"
+
+  # The vm loads the sctp library as it starts, and warns on stderr when
+  # it cannot; the only output is what the eval prints.
+  output="$(chroot "$rootfs" /usr/bin/erl -noshell -eval 'io:format("Erlang OK~n"), halt().' 2>&1)"
+  echo "$output"
+  test "$output" = "Erlang OK"
+
+  echo '#!/usr/bin/escript' > "$rootfs/hello"
+  echo 'main(_) -> io:format("escript OK~n").' >> "$rootfs/hello"
+  output="$(chroot "$rootfs" /usr/bin/escript /hello 2>&1)"
+  echo "$output"
+  test "$output" = "escript OK"
