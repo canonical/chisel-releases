@@ -6,14 +6,15 @@ essential:
 slices:
   bins:
     essential:
+      base-files_bin:
       coreutils_env:
       coreutils_file-name-manipulation:
       dash_bins:
       erlang-base_modules:
       libc6_libs:
       libgcc-s1_libs:
-      libstdc++6_libs:
       libsctp1_libs:
+      libstdc++6_libs:
       libsystemd0_libs:
       libtinfo6_libs:
       zlib1g_libs:
