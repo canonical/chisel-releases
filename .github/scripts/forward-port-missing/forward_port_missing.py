@@ -44,12 +44,19 @@ import yaml
 FORWARD_PORT_MISSING_LABEL = "forward port missing"
 
 # retry rate limits and transient server errors, honouring Retry-After
-GITHUB_API_RETRY = Retry(
+HTTP_RETRY = Retry(
     total=5,
     backoff_factor=2,
     status_forcelist=(429, 500, 502, 503, 504),
     allowed_methods=("GET",),
 )
+
+
+def retrying_session() -> requests.Session:
+    """A session that retries rate limits and transient server errors on every https host."""
+    s = requests.Session()
+    s.mount("https://", HTTPAdapter(max_retries=HTTP_RETRY))
+    return s
 
 COLORED_LOGGING: dict[str, str] = {
     "yellow": "\033[33m",
@@ -107,8 +114,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
     params: dict[str, str | int] = {"state": "open", "per_page": per_page, "page": 1}
 
     results: list[dict] = []
-    with requests.Session() as s:
-        s.mount("https://", HTTPAdapter(max_retries=GITHUB_API_RETRY))
+    with retrying_session() as s:
         while True:
             response = s.get(url, params=params, headers=headers)
             response.raise_for_status()
@@ -142,8 +148,7 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
         """Return the PR number and the names of the slice definition files the PR adds."""
         files: list[dict] = []
         params: dict[str, int] = {"per_page": per_page, "page": 1}
-        with requests.Session() as s:
-            s.mount("https://", HTTPAdapter(max_retries=GITHUB_API_RETRY))
+        with retrying_session() as s:
             while True:
                 response = s.get(f"{url}/{pr['number']}/files", params=params, headers=headers)
                 # no skipping on failure: a PR left out takes its slices out of the union
@@ -197,7 +202,7 @@ def fetch_packages_in_release(
 
         url = f"https://archive.ubuntu.com/ubuntu/dists/{name}/{component}/binary-amd64/Packages.gz"
 
-        with requests.Session() as s:
+        with retrying_session() as s:
             response = s.get(url)
             response.raise_for_status()
 
