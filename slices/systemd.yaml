@@ -272,7 +272,7 @@ slices:
       /usr/lib/systemd/system/initrd.target.wants/systemd-bsod.service:
         arch: [amd64, arm64, riscv64, ppc64el, armhf, s390x]
       /usr/lib/systemd/system/initrd.target.wants/systemd-pcrphase-initrd.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/integritysetup-pre.target:
       /usr/lib/systemd/system/integritysetup.target:
       /usr/lib/systemd/system/kexec.target:
@@ -363,11 +363,11 @@ slices:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-machine-id-commit.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-modules-load.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrmachine.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase-sysinit.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-pcrphase.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/sysinit.target.wants/systemd-random-seed.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysctl.service:
       /usr/lib/systemd/system/sysinit.target.wants/systemd-sysusers.service:
@@ -620,31 +620,31 @@ slices:
       /usr/lib/systemd/system/systemd-pcrextend@.service:
         arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrfs-root.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrfs@.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-file-system.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-firmware-code.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-firmware-config.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-machine-id.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-make-policy.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-secureboot-authority.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrlock-secureboot-policy.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrmachine.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrphase-initrd.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrphase-sysinit.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
       /usr/lib/systemd/system/systemd-pcrphase.service:
-        arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
+        arch: [amd64, arm64, armhf, riscv64]
 
   polkit:
     contents:
