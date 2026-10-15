@@ -25,6 +25,26 @@ slices:
       /usr/libexec/gcc/x86_64-linux-gnu/15/liblto_plugin.so:
         arch: [amd64]
 
+  lto:
+    essential:
+      gcc-15-x86-64-linux-gnu_gcc-15:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/15/lto-wrapper:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/libexec/gcc-cross/x86_64-linux-gnu/15/lto1:
+        arch: [arm64, i386, ppc64el, s390x]
+      /usr/libexec/gcc/x86_64-linux-gnu/15/lto-wrapper:
+        arch: [amd64]
+      /usr/libexec/gcc/x86_64-linux-gnu/15/lto1:
+        arch: [amd64]
+
   copyright:
     essential:
       gcc-15-base_copyright: {arch: [amd64]}
