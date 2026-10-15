@@ -1,0 +1,18 @@
+package: librelp0
+
+essential:
+  librelp0_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libgnutls30t64_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/lib/*-linux-*/librelp.so.0:
+      /usr/lib/*-linux-*/librelp.so.0.5.1:
+
+  copyright:
+    contents:
+      /usr/share/doc/librelp0/copyright:
