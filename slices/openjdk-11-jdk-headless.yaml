@@ -36,6 +36,9 @@ slices:
         arch:
           - amd64
           - arm64
+          - armhf
+          - i386
+          - ppc64el
       /usr/lib/jvm/java-11-openjdk-*/bin/jinfo:
       /usr/lib/jvm/java-11-openjdk-*/bin/jmap:
       /usr/lib/jvm/java-11-openjdk-*/bin/jps:
