@@ -5,5 +5,19 @@ execute: |
 
   chroot "${rootfs}/" nc.openbsd -h
   chroot "${rootfs}/" nc.openbsd -l 1234 >testfile &
-  echo "Hello World" | chroot "${rootfs}/" nc.openbsd -q 1 -w 1 127.0.0.1 1234
+  listener=$!
+  # A listener left running holds the task's output open, and spread waits on it until kill-timeout.
+  trap 'kill "$listener" 2>/dev/null || true' EXIT
+
+  # The listener may not be bound yet, and a refused connection fails silently without -v.
+  sent=false
+  for _ in $(seq 10); do
+    if echo "Hello World" | chroot "${rootfs}/" nc.openbsd -q 1 -w 1 127.0.0.1 1234; then
+      sent=true
+      break
+    fi
+    sleep 1
+  done
+  test "$sent" = true
+  wait "$listener"
   test "$(cat testfile)" = "Hello World"
