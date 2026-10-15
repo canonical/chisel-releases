@@ -1,0 +1,17 @@
+package: x11-xkb-utils
+
+essential:
+  - x11-xkb-utils_copyright
+
+slices:
+  xkbcomp:
+    essential:
+      - libc6_libs
+      - libx11-6_libs
+      - libxkbfile1_libs
+    contents:
+      /usr/bin/xkbcomp:
+
+  copyright:
+    contents:
+      /usr/share/doc/x11-xkb-utils/copyright:
