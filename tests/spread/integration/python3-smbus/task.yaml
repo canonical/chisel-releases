@@ -1,0 +1,21 @@
+summary: Integration tests for python3-smbus
+
+execute: |
+  rootfs="$(install-slices python3-smbus_libs)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  # A plain file standing in for an i2c-dev node: open(2) succeeds so the module
+  # gets as far as issuing real ioctl(2) calls. Loading i2c-stub would need a
+  # kernel module, which is not available in every CI backend.
+  touch "${rootfs}/dev/i2c-9"
+  chmod 666 "${rootfs}/dev/i2c-9"
+
+  # The extension has libi2c.so.0 as a DT_NEEDED, so importing it at all proves
+  # libi2c0_libs came in and resolved.
+  chroot "${rootfs}" /usr/bin/python3 -c 'import smbus'
+
+  cp test_smbus.py "${rootfs}/test_smbus.py"
+  out="$(chroot "${rootfs}" /usr/bin/python3 /test_smbus.py)"
+  echo "${out}" | grep -Fq "ALL-SMBUS-CHECKS-PASSED"
+  echo "${out}" | grep -Fq "version 1.1"
+  echo "${out}" | grep -Fq "ioctl rejected as expected"
