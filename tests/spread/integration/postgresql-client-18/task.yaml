@@ -80,7 +80,7 @@ execute: |
 
   # pg_dump (plain) + psql restore
   chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_dump testdb > /tmp/testdb.sql
-  grep -q 42 /tmp/testdb.sql
+  grep -Fq 42 /tmp/testdb.sql
   chroot "$rootfs" /usr/lib/postgresql/18/bin/dropdb testdb
   chroot "$rootfs" /usr/lib/postgresql/18/bin/createdb testdb
   chroot "$rootfs" /usr/lib/postgresql/18/bin/psql -d testdb < /tmp/testdb.sql
@@ -109,8 +109,8 @@ execute: |
 
   if [ "$SLICE" = "pg-dumpall" ]; then
     chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_dumpall > /tmp/all.sql
-    grep -q "CREATE ROLE testuser" /tmp/all.sql
-    grep -q "CREATE DATABASE testdb" /tmp/all.sql
+    grep -Fq "CREATE ROLE testuser" /tmp/all.sql
+    grep -Fq "CREATE DATABASE testdb" /tmp/all.sql
   fi
 
   if [ "$SLICE" = "pg-verifybackup" ]; then
