@@ -33,8 +33,6 @@ slices:
       /usr/lib/postgresql/18/bin/dropuser:
       /usr/lib/postgresql/18/bin/pg_restore:
 
-  # Separate slices for pg_dumpall and pg_verifybackup since they require a shell located at /bin/sh.
-  # Most chiseled images don't contain a shell so these are optional
   pg-dumpall:
     essential:
       base-files_bin:
