@@ -9,5 +9,6 @@ execute: |
   touch ${rootfs}/data/file2.txt
   touch ${rootfs}/dev/null
 
-  output=$(chroot ${rootfs} /usr/bin/find data -name "*.txt" | /usr/bin/xargs)
+  # find lists entries in directory order, which is not sorted
+  output=$(chroot ${rootfs} /usr/bin/find data -name "*.txt" | sort | /usr/bin/xargs)
   test "${output}" = "data/file1.txt data/file2.txt"
