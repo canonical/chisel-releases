@@ -4,22 +4,119 @@ essential:
   libsystemd-shared_copyright:
 
 slices:
+  # The link table is libc, libcrypt and libcrypto; every other library is
+  # reached through a dlopen gate, so the shared objects sit in a slice of
+  # their own and the tiers below add only dependencies. Each tier matches the
+  # systemd slice of the same name. libs lands on standard, and every slice
+  # that shipped before the tiers existed keeps it.
   libs:
+    hint: Systemd internal libraries
     essential:
-      libacl1_libs:
-      libaudit1_libs:
-      libblkid1_libs:
-      libc6_libs:
+      # TODO: nothing links it any more. Remove it for future releases.
       libcap2_libs:
+      libsystemd-shared_libsystemd-shared:
+      libsystemd-shared_standard:
+
+  libsystemd-shared:
+    essential:
+      libc6_libs:
       libcrypt1_libs:
-      libmount1_libs:
-      libpam0g_libs:
-      libseccomp2_libs:
-      libselinux1_libs:
       libssl3t64_libs:
     contents:
       /usr/lib/*-linux-*/systemd/libsystemd-core-*.so:
       /usr/lib/*-linux-*/systemd/libsystemd-shared-*.so:
+
+  # Each dlopen check is marked as 'recommended' or 'suggested'. This info
+  # can be found in the so's '.note.dlopen' section. Read it with:
+  #   readelf -p .note.dlopen /usr/lib/*/systemd/libsystemd-shared-*.so
+
+  # PID 1, the executor and systemd-shutdown.
+  minimal:
+    hint: Shared libraries for PID 1 and units
+    essential:
+      # early policy load at boot, and units with AppArmorProfile=
+      libapparmor1_libs:
+      # PID 1 reads mountinfo through it and systemd-shutdown unmounts with
+      # it; neither has any fallback
+      libmount1_libs:
+      # the executor turns SystemCallFilter= and friends into seccomp filters;
+      # without it every unit silently runs unfiltered
+      libseccomp2_libs:
+      # PID 1 treats SELinux as off without it, which stock Ubuntu does anyway
+      libselinux1_libs:
+      libsystemd-shared_libsystemd-shared:
+
+  # The journal, sysusers, tmpfiles and firstboot.
+  core:
+    hint: Shared libraries for journal and setup
+    essential:
+      # ACL lines in tmpfiles.d and per-user journal files
+      libacl1_libs:
+      libsystemd-shared_minimal:
+      # read compressed entries. journald compresses by default
+      libzstd1_libs:
+
+  # logind, run0, the service handlers and the system services.
+  standard:
+    hint: Shared libraries for logins and services
+    essential:
+      # audit records for unit starts and stops, and for sysusers accounts
+      libaudit1_libs:
+      # systemd-validatefs probes a filesystem with it
+      libblkid1_libs:
+      # systemd-modules-load
+      libkmod2_libs:
+      # units with PAMName=, e.g. user@.service and run0
+      libpam0g_libs:
+      libsystemd-shared_core:
+
+  # systemd-creds and the rest of the tooling. Every gate upstream marks
+  # suggested lands here, so the tiers above carry only what it recommends.
+  dev:
+    hint: Shared libraries for extra utilities
+    essential:
+      # decompressing archive files
+      libarchive13t64_libs:
+      # firewalling and sandboxing with BPF; the armhf, i386 and riscv64
+      # builds have no BPF support
+      libbpf1_libs: {arch: [amd64, arm64, ppc64el, s390x]}
+      # encrypted RootImage= and encrypted volumes
+      libcryptsetup12_libs:
+      # TODO: libdw1t64 is unsliced
+      # backtraces and ELF package metadata decoded from core files
+      # libdw1t64_libs:
+      # backtraces and ELF package metadata in core files
+      libelf1t64_libs:
+      # FIDO2 tokens for encryption and authentication
+      libfido2-1_libs:
+      # journald forward-sealing
+      libgcrypt20_libs:
+      # internationalised domain names
+      libidn2-0_libs:
+      # lz4-compressed journal and coredump files
+      liblz4-1_libs:
+      # xz-compressed journal and coredump files
+      liblzma5_libs:
+      # PKCS11 hardware tokens
+      libp11-kit0_libs:
+      # regular expressions, e.g. journalctl --grep
+      libpcre2-8-0_libs:
+      # TODO: libpwquality1 is unsliced
+      # password quality checks
+      # libpwquality1_libs:
+      # TODO: libqrencode4 is unsliced
+      # generating QR codes
+      # libqrencode4_libs:
+      libsystemd-shared_standard:
+      # TODO: libtss2-esys-3.0.2-0t64 is unsliced
+      # TPM, one of the three tss2 libraries the gate needs together
+      # libtss2-esys-3.0.2-0t64_libs:
+      # TODO: libtss2-mu-4.0.1-0t64 is unsliced
+      # TPM
+      # libtss2-mu-4.0.1-0t64_libs:
+      # TODO: libtss2-rc0t64 is unsliced
+      # TPM
+      # libtss2-rc0t64_libs:
 
   copyright:
     contents:
