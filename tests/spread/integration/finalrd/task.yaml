@@ -1,0 +1,13 @@
+summary: Integration tests for finalrd
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices bash_bins base-files_base finalrd_bins)"
+  
+  # the script need /bin/sh
+  chroot "${rootfs}" ln -s /usr/bin/bash /bin/sh
+
+  # try to execute the script, it will fail as it will hit
+  # an apparmor denial in remounting /run as rw,exec
+  chroot "${rootfs}" finalrd 2>&1 | grep "cannot remount"
