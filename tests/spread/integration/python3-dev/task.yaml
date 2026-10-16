@@ -1,0 +1,18 @@
+summary: Integration tests for python3-dev
+
+execute: |
+  rootfs="$(install-slices gcc_gcc python3-dev_scripts)"
+
+  mkdir -p "$rootfs/tmp"
+  ln -sf /usr/bin/dash "$rootfs/bin/sh"
+  cp slice_demo.c verify.py "$rootfs/tmp/"
+
+  read -r -a includes <<< "$(chroot "$rootfs" /usr/bin/python3-config --includes)"
+  suffix="$(chroot "$rootfs" /usr/bin/python3-config --extension-suffix)"
+  printf '%s\n' "${includes[@]}" | grep -Fq "/usr/include/python3.14"
+  echo "$suffix" | grep -Fq ".cpython-314-"
+
+  chroot "$rootfs" gcc -shared -fPIC "${includes[@]}" /tmp/slice_demo.c \
+    -o "/tmp/slice_demo${suffix}"
+
+  test "$(chroot "$rootfs" python3 /tmp/verify.py)" = "success"
