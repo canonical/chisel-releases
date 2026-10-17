@@ -1,0 +1,12 @@
+summary: Integration tests for x11-xkb-utils
+
+execute: |
+  set -eu
+
+  rootfs="$(install-slices x11-xkb-utils_xkbcomp xkb-data_data)"
+
+  chroot "$rootfs" /usr/bin/xkbcomp -w 0 -xkm - /keymap.xkm < keymap.xkb
+  test -s "$rootfs/keymap.xkm"
+
+  chroot "$rootfs" /usr/bin/xkbcomp -w 0 -xkb /keymap.xkm - > "$rootfs/keymap.xkb"
+  grep -A3 'key <AD01>' "$rootfs/keymap.xkb" | grep -Eq 'q, +Q'
