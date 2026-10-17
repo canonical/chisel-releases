@@ -1,0 +1,7 @@
+summary: Integration tests for libavahi-common-data
+
+execute: |
+  rootfs="$(install-slices libavahi-common-data_data)"
+
+  db="$(find "$rootfs" -maxdepth 5 -path "*/lib/*-linux-*/avahi/service-types.db" -print -quit)"
+  test -s "$db"
