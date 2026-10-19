@@ -13,7 +13,6 @@ slices:
       libssl3t64_libs:
       libzstd1_libs:
       zlib1g_libs:
-    
     contents:
       /usr/lib/postgresql/18/bin/pg_config:
       /usr/lib/postgresql/18/bin/createuser:
@@ -38,7 +37,6 @@ slices:
       base-files_bin:
       postgresql-client-18_bins:
       dash_bins:
-
     contents:
       /usr/lib/postgresql/18/bin/pg_dumpall:
 
@@ -47,7 +45,6 @@ slices:
       base-files_bin:
       postgresql-client-18_bins:
       dash_bins:
-
     contents:
       /usr/lib/postgresql/18/bin/pg_verifybackup:
 
