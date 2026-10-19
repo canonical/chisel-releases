@@ -6,45 +6,45 @@ essential:
 slices:
   bins:
     essential:
-      libpq5_libs:
       libc6_libs:
       liblz4-1_libs:
+      libpq5_libs:
       libreadline8t64_libs:
       libssl3t64_libs:
       libzstd1_libs:
       zlib1g_libs:
     contents:
-      /usr/lib/postgresql/18/bin/pg_config:
-      /usr/lib/postgresql/18/bin/createuser:
       /usr/lib/postgresql/18/bin/clusterdb:
-      /usr/lib/postgresql/18/bin/pg_basebackup:
-      /usr/lib/postgresql/18/bin/pg_dump:
       /usr/lib/postgresql/18/bin/createdb:
+      /usr/lib/postgresql/18/bin/createuser:
+      /usr/lib/postgresql/18/bin/dropdb:
+      /usr/lib/postgresql/18/bin/dropuser:
+      /usr/lib/postgresql/18/bin/pg_amcheck:
+      /usr/lib/postgresql/18/bin/pg_basebackup:
+      /usr/lib/postgresql/18/bin/pg_combinebackup:
+      /usr/lib/postgresql/18/bin/pg_config:
+      /usr/lib/postgresql/18/bin/pg_dump:
+      /usr/lib/postgresql/18/bin/pg_isready:
+      /usr/lib/postgresql/18/bin/pg_receivewal:
+      /usr/lib/postgresql/18/bin/pg_recvlogical:
+      /usr/lib/postgresql/18/bin/pg_restore:
       /usr/lib/postgresql/18/bin/psql:
       /usr/lib/postgresql/18/bin/reindexdb:
       /usr/lib/postgresql/18/bin/vacuumdb:
-      /usr/lib/postgresql/18/bin/pg_combinebackup:
-      /usr/lib/postgresql/18/bin/pg_recvlogical:
-      /usr/lib/postgresql/18/bin/pg_amcheck:
-      /usr/lib/postgresql/18/bin/pg_receivewal:
-      /usr/lib/postgresql/18/bin/pg_isready:
-      /usr/lib/postgresql/18/bin/dropdb:
-      /usr/lib/postgresql/18/bin/dropuser:
-      /usr/lib/postgresql/18/bin/pg_restore:
 
   pg-dumpall:
     essential:
       base-files_bin:
-      postgresql-client-18_bins:
       dash_bins:
+      postgresql-client-18_bins:
     contents:
       /usr/lib/postgresql/18/bin/pg_dumpall:
 
   pg-verifybackup:
     essential:
       base-files_bin:
-      postgresql-client-18_bins:
       dash_bins:
+      postgresql-client-18_bins:
     contents:
       /usr/lib/postgresql/18/bin/pg_verifybackup:
 
