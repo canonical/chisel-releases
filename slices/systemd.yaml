@@ -897,8 +897,17 @@ slices:
       /usr/lib/systemd/system/breakpoint-pre-switch-root.service:
       /usr/lib/systemd/system/breakpoint-pre-udev.service:
 
+  data:
+    hint: Keyboard, locale and MIME data
+    contents:
+      /usr/share/mime/packages/io.systemd.xml:
+      /usr/share/systemd/kbd-model-map:
+      /usr/share/systemd/language-fallback-map:
+
   extras:
     hint: Keyboard, locale and MIME data
+    essential:
+      systemd_data:
     contents:
       /etc/modules-load.d/modules.conf:
       /usr/share/mime/packages/io.systemd.xml:
