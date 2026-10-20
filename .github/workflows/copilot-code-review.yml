@@ -60,6 +60,15 @@ jobs:
           gh skill install --dir .github/skills canonical/mason chisel-slice-reviewer \
             --pin 7b0fc402f94cdd6da9fcaff528bc6301da8624cc # v0.3.0
 
+      # A fork pull request is checked out again over the workspace after these steps
+      # and takes its skills from the base branch, where a stub points at this copy.
+      - name: Install the review files under HOME too
+        if: env.BASE
+        run: |
+          mkdir -p "$HOME/.copilot"
+          cp .github/copilot-instructions.md "$HOME/.copilot/"
+          cp -r .github/skills "$HOME/.copilot/"
+
       - name: Install uv
         if: env.BASE
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
