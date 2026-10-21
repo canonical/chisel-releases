@@ -324,7 +324,7 @@ slices:
       libcrypt1_libs:
       libffi8_libs:
       libgmp10_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libyaml-0-2_libs:
       zlib1g_libs:
     contents:

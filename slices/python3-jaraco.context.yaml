@@ -1,0 +1,16 @@
+package: python3-jaraco.context
+
+essential:
+  python3-jaraco.context_copyright:
+
+slices:
+  libs:
+    essential:
+      python3_core:
+    contents:
+      /usr/lib/python3/dist-packages/jaraco/context/**:
+      /usr/lib/python3/dist-packages/jaraco_context-*.dist-info/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-jaraco.context/copyright:

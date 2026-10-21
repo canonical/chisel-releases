@@ -6,9 +6,9 @@ essential:
 slices:
   src:
     essential:
-      rust-1.93-src_src:
+      rust-1.97-src_src:
     contents:
-      /usr/lib/rustlib/src/rust:  # Symlink to ../../rust-1.93/lib/rustlib/src/rust
+      /usr/lib/rustlib/src/rust:  # Symlink to ../../rust-1.97/lib/rustlib/src/rust
 
   copyright:
     contents:

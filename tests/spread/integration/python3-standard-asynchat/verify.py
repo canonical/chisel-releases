@@ -1,0 +1,33 @@
+"""An async_chat splits incoming data on its terminator and pushes a reply for every line."""
+
+import asynchat
+import asyncore
+import socket
+
+a, b = socket.socketpair()
+lines = []
+
+class Chat(asynchat.async_chat):
+    def __init__(self, sock):
+        super().__init__(sock=sock)
+        self.buf = []
+        self.set_terminator(b"\n")
+
+    def collect_incoming_data(self, data):
+        self.buf.append(data)
+
+    def found_terminator(self):
+        lines.append(b"".join(self.buf))
+        self.buf = []
+        self.push(b"ack\n")
+
+Chat(a)
+b.sendall(b"hello\nchisel\n")
+asyncore.loop(timeout=1, count=10)
+assert lines == [b"hello", b"chisel"], lines
+
+b.settimeout(5)
+reply = b""
+while reply.count(b"\n") < 2:
+    reply += b.recv(64)
+assert reply == b"ack\nack\n", reply
