@@ -1,0 +1,22 @@
+package: python3-yaml
+
+essential:
+  - python3-yaml_copyright
+
+slices:
+  data:
+    essential:
+      - libc6_libs
+      - libyaml-0-2_libs
+      - python3.12_standard
+    contents:
+      /usr/lib/python3/dist-packages/PyYAML-6.0.1.dist-info/INSTALLER:
+      /usr/lib/python3/dist-packages/PyYAML-6.0.1.dist-info/METADATA:
+      /usr/lib/python3/dist-packages/PyYAML-6.0.1.dist-info/WHEEL:
+      /usr/lib/python3/dist-packages/PyYAML-6.0.1.dist-info/top_level.txt:
+      /usr/lib/python3/dist-packages/_yaml/__init__.py:
+      /usr/lib/python3/dist-packages/yaml/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-yaml/copyright:
