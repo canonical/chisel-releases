@@ -285,6 +285,14 @@ slices:
     essential:
       coreutils-from-gnu_whoami:
 
+  md5sum:
+    essential:
+      coreutils-from-gnu_md5sum:
+
+  seq:
+    essential:
+      coreutils-from-gnu_seq:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
