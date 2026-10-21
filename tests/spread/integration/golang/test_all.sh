@@ -4,7 +4,8 @@ ca-certificates_data \  # for `go get` to work properly
 )"
 
 find ${rootfs}/usr/share/go-1.22 -depth \( \
-\( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \) -o \
+\( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \
+   ! -path '*src/net/http/httptest*' ! -path '*src/net/http/internal/testcert*' \) -o \
 \( -path '*/testing/*' -name '*_test.go' \) \
 \) -exec rm -rf {} +
 
