@@ -22,6 +22,7 @@ slices:
 
   copyright:
     essential:
-      gcc-15-base_copyright:
+      gcc-15-base_copyright: {arch: [amd64]}
+      gcc-15-x86-64-linux-gnu-base_copyright: {arch: [arm64, i386, ppc64el, s390x]}
     contents:
-      /usr/share/doc/cpp-15-x86-64-linux-gnu:
+      /usr/share/doc/cpp-15-x86-64-linux-gnu:  # Symlink to a gcc-15 base package
