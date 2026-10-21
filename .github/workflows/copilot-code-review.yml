@@ -55,7 +55,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh skill install --dir "$HOME/skills" canonical/mason chisel-slice-reviewer \
+          gh skill install --dir /home/runner/skills canonical/mason chisel-slice-reviewer \
             --pin 7b0fc402f94cdd6da9fcaff528bc6301da8624cc # v0.3.0
 
       - name: Install uv
