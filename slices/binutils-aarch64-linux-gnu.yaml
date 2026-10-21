@@ -29,7 +29,7 @@ slices:
         arch: [amd64, i386, ppc64el, s390x]
       /usr/aarch64-linux-gnu/bin/ld.bfd:
         arch: [amd64, i386, ppc64el, s390x]
-      /usr/bin/aarch64-linux-gnu-ld:
+      /usr/bin/aarch64-linux-gnu-ld:  # Symlink to aarch64-linux-gnu-ld.bfd
       /usr/bin/aarch64-linux-gnu-ld.bfd:
 
   archiver:
@@ -99,7 +99,7 @@ slices:
     essential:
       - libbinutils_copyright
     contents:
-      /usr/share/doc/binutils-aarch64-linux-gnu:
+      /usr/share/doc/binutils-aarch64-linux-gnu:  # Symlink to libbinutils
         arch: [arm64]
       /usr/share/doc/binutils-aarch64-linux-gnu/copyright:
         arch: [amd64, i386, ppc64el, s390x]

@@ -1,22 +1,11 @@
-arch=$(uname -m)
-arch="${arch//_/-}"
-
-if [ "${arch}" = "aarch64" ]; then
-chisel_arch="arm64"
-elif [ "${arch}" = "x86-64" ]; then
-chisel_arch="amd64"
-else
-echo "Unsupported architecture: ${arch}"
-exit 1
-fi
-
-rootfs="$(install-slices --arch "${chisel_arch}" \
+rootfs="$(install-slices \
 golang_cgo-support \
 ca-certificates_data \  # for `go get` to work properly
 )"
 
 find ${rootfs}/usr/share/go-1.22 -depth \( \
-\( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \) -o \
+\( -path '*test*' ! -path '*src/testing*' ! -path '*src/internal/test*' \
+   ! -path '*src/net/http/httptest*' ! -path '*src/net/http/internal/testcert*' \) -o \
 \( -path '*/testing/*' -name '*_test.go' \) \
 \) -exec rm -rf {} +
 

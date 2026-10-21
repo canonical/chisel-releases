@@ -1,0 +1,10 @@
+summary: Integration tests for gcc-s390x-linux-gnu
+
+variants:
+    - dump
+    - hello
+    - help_and_version
+    - print
+    - std
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

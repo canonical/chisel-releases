@@ -10,8 +10,12 @@ slices:
       binutils_assembler:
       binutils_linker:
       cpp-13-aarch64-linux-gnu_cc1: {arch: [arm64]}
+      cpp-13-powerpc64le-linux-gnu_cc1: {arch: [ppc64el]}
+      cpp-13-s390x-linux-gnu_cc1: {arch: [s390x]}
       cpp-13-x86-64-linux-gnu_cc1: {arch: [amd64]}
       gcc-13-aarch64-linux-gnu_gcc-13: {arch: [arm64]}
+      gcc-13-powerpc64le-linux-gnu_gcc-13: {arch: [ppc64el]}
+      gcc-13-s390x-linux-gnu_gcc-13: {arch: [s390x]}
       gcc-13-x86-64-linux-gnu_gcc-13: {arch: [amd64]}
       libgcc-13-dev_core:
     contents:

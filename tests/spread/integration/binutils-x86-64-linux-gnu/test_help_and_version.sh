@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver libbfd libctf libopcodes
+set -eu
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "aarch64" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
     cross=true
 elif [[ "$arch" == "x86_64" ]]; then
     cross=false
@@ -16,6 +17,7 @@ if $cross; then
     slices=(
         binutils-x86-64-linux-gnu_assembler
         binutils-x86-64-linux-gnu_cross-libbfd
+        binutils-x86-64-linux-gnu_cross-libopcodes
     )
     rootfs_as="$(install-slices "${slices[@]}")"
     ln -s "x86_64-linux-gnu-as" "$rootfs_as/usr/bin/as"
