@@ -1,0 +1,117 @@
+# Reviewers requested by the "Triage PRs" workflow on PRs into release branches.
+# This is not a GitHub CODEOWNERS file: nobody listed here gates a merge.
+
+# Each entry lists reviewers, as GitHub logins or <org>/<team>, and the
+# packages they review. They are requested on PRs which touch
+# slices/<package>.yaml or tests/spread/integration/<package>/ of any listed
+# package. A package listed in several entries gets all of their reviewers.
+# Packages are keys with empty values. Globs only stand in for versions, so
+# that unrelated packages are not matched, except for "*", which matches every
+# PR.
+
+# Everyone listed must be a collaborator of this repository (read access is
+# enough), as GitHub rejects review requests for anyone else.
+
+- reviewers: [canonical/slice-reviewers-guild]
+  packages:
+    "*":
+
+# .NET
+- reviewers: [dviererbe]
+  packages:
+    aspnetcore-runtime-*:
+    aspnetcore-targeting-pack-*:
+    dotnet-apphost-pack-*:
+    dotnet-host:
+    dotnet-host-*:
+    dotnet-hostfxr-*:
+    dotnet-runtime-*:
+    dotnet-sdk-*:
+    dotnet-targeting-pack-*:
+    dotnet-templates-*:
+    netstandard-targeting-pack-*:
+
+# go
+- reviewers: [zhijie-yang]
+  packages:
+    golang:
+    golang-1.*:
+    golang-go:
+    golang-src:
+
+# java
+- reviewers: [vpa1977]
+  packages:
+    ca-certificates-java:
+    libeclipse-jdt-core-compiler-batch-java:
+    libeclipse-jdt-core-java:
+    libtcnative-*:
+    libtomcat*-java:
+    openjdk-*-jdk-headless:
+    openjdk-*-jre-headless:
+    tomcat*:
+
+# php
+- reviewers: [alesancor1]
+  packages:
+    php:
+    php-common:
+    php8.*:
+
+# rust toolchain
+- reviewers: [lczyk, ruancomelli]
+  packages:
+    cargo:
+    cargo-*:
+    libstd-rust-*:
+    rust-*-clippy:
+    rust-*-miri:
+    rust-*-src:
+    rust-clippy:
+    rust-miri:
+    rust-src:
+    rustc:
+    rustc-*:
+    rustfmt:
+    rustfmt-*:
+
+# SONiC: rsyslog, libnl
+- reviewers: [jy5275]
+  packages:
+    libestr0:
+    libfastjson4:
+    libnl-3-200:
+    libnl-cli-3-200:
+    libnl-genl-3-200:
+    libnl-nf-3-200:
+    libnl-route-3-200:
+    rsyslog:
+
+# squid
+- reviewers: [alesancor1]
+  packages:
+    libecap3:
+    squid:
+    squid-common:
+    squid-langpack:
+
+# systemd, dbus, apparmor, openssh
+- reviewers: [lczyk, Meulengracht]
+  packages:
+    apparmor:
+    dbus:
+    dbus-bin:
+    dbus-daemon:
+    dbus-session-bus-common:
+    dbus-system-bus-common:
+    libapparmor1:
+    libdbus-1-3:
+    libsystemd-shared:
+    libsystemd0:
+    libudev1:
+    openssh-client:
+    openssh-common:
+    openssh-server:
+    openssh-sftp-server:
+    systemd:
+    systemd-dev:
