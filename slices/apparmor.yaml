@@ -181,7 +181,6 @@ slices:
       /etc/apparmor.d/balena-etcher:
       /etc/apparmor.d/brave:
       /etc/apparmor.d/buildah:
-      /etc/apparmor.d/busybox:
       /etc/apparmor.d/cam:
       /etc/apparmor.d/ch-checkns:
       /etc/apparmor.d/ch-run:
