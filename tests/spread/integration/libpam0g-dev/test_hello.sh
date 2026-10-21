@@ -9,7 +9,7 @@ chroot "$rootfs" gcc -c -o hello-pam.o hello-pam.c
 # can't link since we don't have the actual library
 chroot "$rootfs" gcc -o hello-pam hello-pam.o -lpam 2>&1 | grep -q "cannot find -lpam"
 
-# so let's link it it a different rootfs with the library slices
+# so let's link it in a different rootfs with the library slices
 rootfs_libs=$(install-slices gcc_gcc libc6-dev_libs libpam0g-dev_libs)
 cp "$rootfs/hello-pam.o" "$rootfs_libs/hello-pam.o"
 chroot "$rootfs_libs" gcc -o hello-pam hello-pam.o -lpam
