@@ -1,0 +1,7 @@
+summary: Integration tests for python3-standard-asynchat
+
+execute: |
+  rootfs="$(install-slices python3-standard-asynchat_libs)"
+
+  cp verify.py "$rootfs"
+  chroot "$rootfs" python3 verify.py

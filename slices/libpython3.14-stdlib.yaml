@@ -146,6 +146,9 @@ slices:
       libpython3.14-stdlib_custom-interpreters:
       libpython3.14-stdlib_data-types:
       libpython3.14-stdlib_frameworks:
+      # pdb imports asyncio and _pyrepl
+      libpython3.14-stdlib_ipc:
+      libpython3.14-stdlib_pyrepl:
       libpython3.14-stdlib_text:
     contents:
       /usr/lib/python3.14/bdb.py:

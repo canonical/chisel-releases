@@ -1,0 +1,7 @@
+summary: Integration tests for python3-build
+
+variants:
+  - api
+  - cli
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
