@@ -25,7 +25,7 @@ jobs:
       - name: Check out the pull request head
         run: |
           n="$(jq -r '.inputs.COPILOT_AGENT_PULL_REQUEST_NUMBER // empty' "$GITHUB_EVENT_PATH")"
-          [ -n "$n" ] || exit 0
+          [ -n "$n" ] || { echo "::error::the job inputs name no pull request"; exit 1; }
           git fetch origin "refs/pull/$n/head"
           git -c advice.detachedHead=false switch --detach FETCH_HEAD
 
