@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# spellchecker: ignore rootfs coreutils gnurealpath
+
+rootfs="$(install-slices gnu-coreutils_realpath)"
+chroot "$rootfs" gnurealpath --version
+mkdir -p "$rootfs/foo/bar"
+touch "$rootfs/foo/bar/baz.txt"
+test "$(chroot "$rootfs" gnurealpath /foo/bar/baz.txt)" = "/foo/bar/baz.txt"
+ln -s /foo/bar/baz.txt "$rootfs/foo/bar/baz_link.txt"
+test "$(chroot "$rootfs" gnurealpath /foo/bar/baz_link.txt)" = "/foo/bar/baz.txt"

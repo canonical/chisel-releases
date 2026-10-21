@@ -6,9 +6,9 @@ essential:
 slices:
   src-with-tests:
     essential:
-      golang-1.26-src_src-with-tests:
+      golang-1.27-src_src-with-tests:
     contents:
-      /usr/share/go:  # Symlink to go-1.26
+      /usr/share/go:  # Symlink to go-1.27
 
   copyright:
     contents:

@@ -4,7 +4,7 @@
 rootfs="$(install-slices rust-src_src)"
 
 # The unversioned symlink chain should resolve to the source tree
-# /usr/lib/rustlib/src/rust -> ../../rust-1.93/lib/rustlib/src/rust -> /usr/src/rustc-1.93.*
+# /usr/lib/rustlib/src/rust -> ../../rust-1.97/lib/rustlib/src/rust -> /usr/src/rustc-1.97.*
 test -L "$rootfs/usr/lib/rustlib/src/rust"
 test -f "$rootfs/usr/lib/rustlib/src/rust/library/std/src/lib.rs"
 test -f "$rootfs/usr/lib/rustlib/src/rust/library/core/src/lib.rs"
@@ -16,7 +16,7 @@ test -f "$rootfs/usr/lib/rustlib/src/rust/README.md"
 
 # Verify the actual source tree exists (don't pin the patch version)
 shopt -s nullglob  # no match -> empty array, not the literal glob
-src_dirs=("$rootfs"/usr/src/rustc-1.93.*)
+src_dirs=("$rootfs"/usr/src/rustc-1.97.*)
 test "${#src_dirs[@]}" -eq 1   # exactly one source tree
 src_dir="${src_dirs[0]}"
 shopt -u nullglob
