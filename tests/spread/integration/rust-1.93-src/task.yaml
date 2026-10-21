@@ -1,3 +1,0 @@
-summary: Integration tests for rust-1.93-src
-
-execute: bash -ex ./test.sh

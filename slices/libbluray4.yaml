@@ -1,0 +1,19 @@
+package: libbluray4
+
+essential:
+  libbluray4_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libudfread3_libs:
+      libxml2-16_libs:
+    contents:
+      /usr/lib/*-linux-*/libbluray.so.4*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libbluray4/copyright:

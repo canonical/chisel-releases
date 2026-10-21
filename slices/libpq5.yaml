@@ -9,7 +9,7 @@ slices:
       libc6_libs:
       libgssapi-krb5-2_libs:
       libldap2_libs:
-      libssl3t64_libs:
+      libssl4_libs:
     contents:
       /usr/lib/*-linux-*/libpq.so.5*:
   copyright:
