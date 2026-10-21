@@ -23,7 +23,8 @@ execute: |
   cmp "${rootfs}"/test.txt "${rootfs}"/test.original
 
   # Test gzexe
-  cp /usr/bin/uname "${rootfs}"/uname
+  # the rootfs's own uname; the host's may need libraries the rootfs lacks
+  chroot "${rootfs}" cp /usr/bin/uname /uname
   chroot "${rootfs}" gzexe uname
   test -x "${rootfs}"/uname~
   test -x "${rootfs}"/uname

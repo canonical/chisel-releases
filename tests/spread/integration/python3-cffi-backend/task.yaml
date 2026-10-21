@@ -1,0 +1,7 @@
+summary: Integration tests for python3-cffi-backend
+
+execute: |
+  rootfs="$(install-slices python3-cffi-backend_libs)"
+
+  cp verify.py "$rootfs"
+  chroot "$rootfs" python3 verify.py

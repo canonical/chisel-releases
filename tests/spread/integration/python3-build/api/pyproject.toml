@@ -1,0 +1,8 @@
+[build-system]
+requires = []
+build-backend = "backend"
+backend-path = ["."]
+
+[project]
+name = "api-demo"
+version = "1.0"
