@@ -10,7 +10,7 @@ execute: |
 
   # Test different slice installations
   echo "SLICE=${SLICE}"
-  export ROOTFS="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins)"
+  export ROOTFS="$(install-slices openjdk-25-jdk-headless_${SLICE} dash_bins base-passwd_data)"
   # Find java in the chroot
   java=/$(find "$ROOTFS" -name java -type f -printf '%P\n' -quit 2>/dev/null)
   export JAVA_HOME="$(dirname $(dirname ${java}))"
@@ -23,17 +23,10 @@ execute: |
   mkdir -p "$ROOTFS/tmp"
   sudo mount --bind /proc "$ROOTFS/proc"
 
-  # NOTE: we install openjdk-25-jdk-headless *on the testing host*, not in the chroot
-  apt-get install --update -y openjdk-25-jdk-headless curl retry
-  # Need to ensure we're using the right java version
-  update-java-alternatives --set /usr/lib/jvm/java-1.25.0*
-
   # Build and copy java test files
-  javac testfiles/*.java -d "$ROOTFS/"
+  cp -r testfiles "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
+  chroot "$ROOTFS" "$JAVA_HOME/bin/javac" -d / testfiles/*.java
   cp testfiles/*.sh "$ROOTFS/"
 
   bash -ex test_${SLICE}.sh
-
-restore: |
-  apt-get remove -y --purge openjdk-25-jdk-headless
