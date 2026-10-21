@@ -5,12 +5,24 @@ essential:
 
 slices:
   libs:
+    hint: FTP server library and handlers
     essential:
       python3-standard-asynchat_libs:
       python3_minimal:
     contents:
       /usr/lib/python3/dist-packages/pyftpdlib/*.py:
-      /usr/lib/python3/dist-packages/pyftpdlib/handlers/**:
+      /usr/lib/python3/dist-packages/pyftpdlib/handlers/__init__.py:
+      /usr/lib/python3/dist-packages/pyftpdlib/handlers/ftp/*.py:
+
+  # The ftps handlers import pyOpenSSL, which the deb does not depend on;
+  # handlers/__init__.py only exposes them when that import succeeds.
+  ftps:
+    hint: FTPS handlers on pyOpenSSL
+    essential:
+      python3-openssl_libs:
+      python3-pyftpdlib_libs:
+    contents:
+      /usr/lib/python3/dist-packages/pyftpdlib/handlers/ftps/*.py:
 
   copyright:
     contents:
