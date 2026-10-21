@@ -1,0 +1,16 @@
+package: libmicrohttpd12t64
+
+essential:
+  libmicrohttpd12t64_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libgnutls30t64_libs:
+    contents:
+      /usr/lib/*-linux-*/libmicrohttpd.so.12*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libmicrohttpd12t64/copyright:

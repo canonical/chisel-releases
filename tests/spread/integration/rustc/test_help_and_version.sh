@@ -3,4 +3,4 @@
 rootfs="$(install-slices rustc_rustc)"
 
 chroot "${rootfs}/" rustc --help | grep -q "Usage: rustc"
-chroot "${rootfs}/" rustc --version | grep -q 'rustc 1.93'
+chroot "${rootfs}/" rustc --version | grep -q 'rustc 1.97'

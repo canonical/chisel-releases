@@ -1,0 +1,19 @@
+package: libswscale9
+
+essential:
+  libswscale9_copyright:
+
+slices:
+  libs:
+    essential:
+      libavutil60_libs:
+      libc6_libs:
+      libgcc-s1_libs: {arch: [armhf]}
+      libstdc++6_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libswscale.so.9*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libswscale9/copyright:

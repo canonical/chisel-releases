@@ -6,10 +6,10 @@ essential:
 slices:
   cargo:
     essential:
-      cargo-1.93_cargo:
+      cargo-1.97_cargo:
       rustc_rustc:
     contents:
-      /usr/bin/cargo:  # symlink to cargo-1.93
+      /usr/bin/cargo:  # symlink to cargo-1.97
 
   copyright:
     contents:

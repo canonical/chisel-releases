@@ -1,0 +1,12 @@
+summary: Integration tests for libstd-rust-1.97-dev
+
+execute: |
+  rootfs="$(install-slices libstd-rust-1.97-dev_libs rustc-1.97_rustc)"
+  cat > "$rootfs/main.rs" <<'EOF'
+  fn main() {
+      let values: Vec<_> = (1..=3).collect();
+      println!("{}", values.iter().sum::<i32>());
+  }
+  EOF
+  chroot "$rootfs" rustc-1.97 /main.rs -o /main
+  chroot "$rootfs" /main | grep -Fxq 6

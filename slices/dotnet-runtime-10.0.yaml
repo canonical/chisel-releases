@@ -5,18 +5,25 @@ essential:
 
 slices:
   minimal:
+    hint: Runtime for console apps
     essential:
       dotnet-hostfxr-10.0_libs:
+      libbrotli1_libs: {arch: [ppc64el, s390x]}
       libc6_libs:
       libgcc-s1_libs:
       libstdc++6_libs:
       libunwind8_libs: {arch: [amd64]}
+      zlib1g_libs: {arch: [ppc64el, s390x]}
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.NETCore.App.deps.json:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.NETCore.App.runtimeconfig.json:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/Microsoft.Win32.Primitives.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Collections.Concurrent.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Collections.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Console.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Memory.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Private.CoreLib.dll:
+      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Private.Uri.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Runtime.InteropServices.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Runtime.dll:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/System.Threading.dll:
@@ -24,8 +31,6 @@ slices:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libclrjit.so:
         arch: [amd64, arm64]
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclr.so:
-      /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libcoreclrtraceptprovider.so:
-        arch: [amd64, arm64]
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/libhostpolicy.so:
 
   # libicu is not needed if the environment is set to invariant by using
@@ -35,16 +40,18 @@ slices:
   # https://learn.microsoft.com/en-us/dotnet/core/runtime-config/globalization
   # https://github.com/dotnet/runtime/blob/main/docs/design/features/globalization-invariant-mode.md
   core:
+    hint: Runtime with crypto and compression
     essential:
       dotnet-runtime-10.0_minimal:
       libbrotli1_libs:
       liblttng-ust1t64_libs: {arch: [amd64, arm64]}
-      libssl3t64_libs:
+      libssl4_libs:
       zlib1g_libs:
     contents:
       /usr/lib/dotnet/shared/Microsoft.NETCore.App/10.0.*/**:
 
   standard:
+    hint: Runtime with ICU and time zones
     essential:
       dotnet-runtime-10.0_core:
       libicu78_libs:

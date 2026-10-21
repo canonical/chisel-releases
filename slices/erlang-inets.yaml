@@ -4,10 +4,6 @@ essential:
   erlang-inets_copyright:
 
 slices:
-  scripts:
-    contents:
-      /usr/lib/erlang/lib/inets-*/priv/bin/runcgi.sh:
-
   modules:
     essential:
       erlang-base_bins:

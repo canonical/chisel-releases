@@ -5,6 +5,7 @@ essential:
 
 slices:
   bins:
+    hint: Perl interpreter binary
     essential:
       libc6_libs:
       # perl binary requires libcrypt.so.1 upon loading
@@ -12,9 +13,10 @@ slices:
     contents:
       # hard link
       /usr/bin/perl:
-      /usr/bin/perl5.40.1: {copy: /usr/bin/perl}
+      /usr/bin/perl5.42.3: {copy: /usr/bin/perl}
 
   modules:
+    hint: Core modules for interpreter bootstrap
     essential:
       libc6_libs:
       libcrypt1_libs:
@@ -69,9 +71,11 @@ slices:
       /usr/lib/*-linux-*/perl-base/warnings/**.pm:
 
   unicore:
+    hint: Unicode tables for the base interpreter
     contents:
       /usr/lib/*-linux-*/perl-base/unicore/**.pl:
 
   copyright:
+    hint: Interpreter package license text
     contents:
       /usr/share/doc/perl-base/copyright:
