@@ -24,6 +24,7 @@ slices:
       # shebang in scripts reference interpreter in /bin not /usr/bin
       - base-files_bin
       - bash_bins  # needed for zstdless
+      - dash_bins
       - grep_bins  # needed for zstdgrep
       - less_bins  # needed for zstdless
       - zstd_bins
