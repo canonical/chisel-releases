@@ -18,20 +18,21 @@ jobs:
         with:
           persist-credentials: false
 
+      # Copilot checks a fork's pull request out itself after these steps, unless the
+      # repository is already at the head commit, so the setup fetches the head by the
+      # pull request number the job is given. A pull request from a branch of this
+      # repository is checked out already.
+      - name: Check out the pull request head
+        run: |
+          n="$(jq -r '.inputs.COPILOT_AGENT_PULL_REQUEST_NUMBER // empty' "$GITHUB_EVENT_PATH")"
+          [ -n "$n" ] || { echo "::error::the job inputs name no pull request"; exit 1; }
+          git fetch origin "refs/pull/$n/head"
+          git -c advice.detachedHead=false switch --detach FETCH_HEAD
+
       - name: Find the release branch
         run: |
           [ -f chisel.yaml ] || exit 0
           echo "BASE=ubuntu-$(yq '.archives.ubuntu.version' chisel.yaml)" >> "$GITHUB_ENV"
-          echo "MAIN=.main" >> "$GITHUB_ENV"
-
-      - name: Checkout main branch
-        if: env.BASE
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-        with:
-          ref: main
-          path: ${{ env.MAIN }}
-          sparse-checkout: .github/copilot-review
-          persist-credentials: false
 
       - name: Fetch the base branch
         if: env.BASE
@@ -40,24 +41,21 @@ jobs:
           since="$(git merge-base "origin/$BASE" HEAD || echo "origin/$BASE")"
           echo "SINCE=$since" >> "$GITHUB_ENV"
 
-      # Copilot reads instructions and skills from the checkout, so everything the pull
-      # request changed outside slices and tests goes back to the branch point.
+      # Copilot reads a pull request from a branch of this repository with the instructions
+      # and skills in the checkout, so everything the pull request changed outside slices
+      # and tests goes back to the branch point.
       - name: Keep only the slice and test changes
         if: env.BASE
         run: git restore --source="$SINCE" --worktree -- . ':!slices/*.yaml' ':!tests'
 
-      - name: Install the review instructions
-        if: env.BASE
-        run: |
-          cp "$MAIN/.github/copilot-review/instructions.md" .github/copilot-instructions.md
-          rm -rf "$MAIN"
-
+      # The skill lives outside the checkout, where the review reads it the same way for
+      # every pull request. The release branches' .github/copilot-instructions.md names it.
       - name: Install mason/chisel-slice-reviewer skill
         if: env.BASE
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh skill install --dir .github/skills canonical/mason chisel-slice-reviewer \
+          gh skill install --dir /home/runner/skills canonical/mason chisel-slice-reviewer \
             --pin 7b0fc402f94cdd6da9fcaff528bc6301da8624cc # v0.3.0
 
       - name: Install uv
