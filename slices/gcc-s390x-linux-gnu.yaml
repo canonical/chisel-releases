@@ -1,0 +1,17 @@
+package: gcc-s390x-linux-gnu
+
+essential:
+  gcc-s390x-linux-gnu_copyright:
+
+slices:
+  gcc:
+    essential:
+      gcc-15-s390x-linux-gnu_gcc-15:
+    contents:
+      /usr/bin/s390x-linux-gnu-gcc:  # Symlink to s390x-linux-gnu-gcc-15
+
+  copyright:
+    essential:
+      cpp-s390x-linux-gnu_copyright:
+    contents:
+      /usr/share/doc/gcc-s390x-linux-gnu:  # Symlink to cpp-s390x-linux-gnu

@@ -33,9 +33,9 @@ slices:
   jars:
     essential:
       libtomcat10-java_jars:
-      openjdk-21-jre-headless_jfr:
-      openjdk-21-jre-headless_management:
-      openjdk-21-jre-headless_security:
+      openjdk-25-jre-headless_jfr:
+      openjdk-25-jre-headless_management:
+      openjdk-25-jre-headless_security:
     contents:
       /usr/share/tomcat10/bin/bootstrap.jar:
       /usr/share/tomcat10/bin/tomcat-juli.jar:

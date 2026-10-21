@@ -1,0 +1,35 @@
+package: cron
+
+essential:
+  cron_copyright:
+
+slices:
+  daemon:
+    essential:
+      base-files_bin:
+      base-passwd_data:
+      dash_bins:
+      libpam-modules_libs:
+      libpam-runtime_config:
+      libpam0g_libs:
+      libselinux1_libs:
+    contents:
+      /usr/sbin/cron:
+
+  crontab:
+    # crontab needs /var/spool/cron/crontabs to store user crontabs, so user must create this dir
+    essential:
+      base-files_tmp:
+      base-passwd_data:
+      libc6_libs:
+    contents:
+      /usr/bin/crontab:
+
+  config:
+    contents:
+      /etc/default/cron:
+      /etc/pam.d/cron:
+
+  copyright:
+    contents:
+      /usr/share/doc/cron/copyright:

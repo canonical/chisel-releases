@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # spellchecker: ignore rootfs binutils archiver libbfd
+set -eu
 
 arch=$(uname -m)
 cross=false
-if [[ "$arch" == "aarch64" ]]; then
+if [[ "$arch" == "aarch64" || "$arch" == "ppc64le" || "$arch" == "s390x" ]]; then
     cross=true
 elif [[ "$arch" == "x86_64" ]]; then
     cross=false

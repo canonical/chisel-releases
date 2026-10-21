@@ -1,0 +1,25 @@
+package: ncurses-bin
+
+essential:
+  ncurses-bin_copyright:
+
+slices:
+  bins:
+    essential:
+      libc6_libs:
+      libtinfo6_libs:
+    contents:
+      /usr/bin/captoinfo:  # Symlink to tic
+      /usr/bin/clear:
+      /usr/bin/infocmp:
+      /usr/bin/infotocap:  # Symlink to tic
+      /usr/bin/reset:  # Symlink to tset
+      /usr/bin/tabs:
+      /usr/bin/tic:
+      /usr/bin/toe:
+      /usr/bin/tput:
+      /usr/bin/tset:
+
+  copyright:
+    contents:
+      /usr/share/doc/ncurses-bin/copyright:

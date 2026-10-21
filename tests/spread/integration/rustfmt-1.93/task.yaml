@@ -1,0 +1,7 @@
+summary: Integration tests for rustfmt-1.93
+
+variants:
+    - format
+    - help_and_version
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh

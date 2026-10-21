@@ -1,0 +1,20 @@
+summary: Integration tests for golang-1.26-go
+
+variants:
+  - build-tools
+  - cgo-tools
+  - core
+  - fix-tools
+  - minimal
+  - profiling-tools
+  - testing-tools
+
+environment:
+  GOTOOLCHAIN: local
+
+execute: |
+  export SLICE="$SPREAD_VARIANT"
+  rootfs="$(bash -ex ./shared/prologue.sh)"
+  export rootfs
+  trap 'bash -ex ./shared/epilogue.sh' EXIT
+  bash -ex "./test_${SPREAD_VARIANT}.sh"
