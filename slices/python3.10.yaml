@@ -48,8 +48,11 @@ slices:
   # The "utlis" slice extends "core" with various tools.
   utils:
     essential:
+      # pdb3.10 and pygettext3.10 start with "#! /usr/bin/env python3".
+      - coreutils_env
       - libpython3.10-stdlib_debug
       - libpython3.10-stdlib_pydoc
+      - python3-minimal_python3
       - python3.10_core
     contents:
       /usr/bin/pdb3.10:
