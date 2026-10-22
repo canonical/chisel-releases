@@ -7,8 +7,10 @@ mkdir -p "$rootfs/dev" && touch "$rootfs/dev/null"
 chroot "$rootfs" ucfq --help 2>&1 | grep -iq "usage: ucfq"
 
 # with no registry there is nothing to report, for files or for packages
-test -z "$(chroot "$rootfs" ucfq)"
-test -z "$(chroot "$rootfs" ucfq no-such-package)"
+chroot "$rootfs" ucfq > /tmp/output
+test -z "$(cat /tmp/output)"
+chroot "$rootfs" ucfq no-such-package > /tmp/output
+test -z "$(cat /tmp/output)"
 
 # an argument with a slash in it is a path, and paths must be absolute
 chroot "$rootfs" ucfq relative/path.conf > /tmp/output 2>&1
