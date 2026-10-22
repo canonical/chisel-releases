@@ -2,5 +2,6 @@ summary: Integration tests for gcc-15
 
 variants:
     - hello
+    - lto
 
 execute: bash -ex ./test_${SPREAD_VARIANT}.sh
