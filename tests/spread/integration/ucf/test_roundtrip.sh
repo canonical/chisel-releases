@@ -29,4 +29,5 @@ test "$(tail -n 1 /tmp/output)" = "/etc/b.conf:mypkg:Yes:"
 
 # and a purge round-trips too
 chroot "$rootfs" ucfr --state-dir "$state" --purge mypkg /etc/a.conf
-test -z "$(chroot "$rootfs" ucfq --state-dir "$state" --with-colons mypkg | grep a.conf)"
+chroot "$rootfs" ucfq --state-dir "$state" --with-colons mypkg > /tmp/output
+test "$(cat /tmp/output)" = "/etc/b.conf:mypkg:Yes:"
