@@ -31,7 +31,8 @@ cleanup_postgresql() {
 
   # cleanup
   chroot "$rootfs" /usr/lib/postgresql/18/bin/dropdb testdb
-  chroot "$rootfs" /usr/lib/postgresql/18/bin/dropuser testuser
+  /usr/lib/postgresql/18/bin/dropdb testdb
+  /usr/lib/postgresql/18/bin/dropuser testuser
 
   pg_ctlcluster 18 main stop || true
 }

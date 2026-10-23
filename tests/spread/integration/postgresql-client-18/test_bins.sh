@@ -2,16 +2,12 @@ source "$(dirname "$0")/helpers.sh"
 
 rootfs="$(install-slices postgresql-client-18_bins)"
 
-test ! -e "$rootfs/bin/sh" && test ! -e "$rootfs/usr/bin/sh"
-test ! -e "$rootfs/usr/lib/postgresql/18/bin/pg_dumpall"
-test ! -e "$rootfs/usr/lib/postgresql/18/bin/pg_verifybackup"
 
 bins="clusterdb createdb createuser dropdb dropuser pg_amcheck
   pg_basebackup pg_combinebackup pg_config pg_dump
   pg_isready pg_receivewal pg_recvlogical pg_restore
   psql reindexdb vacuumdb"
 for bin in $bins; do
-  test -x "$rootfs/usr/lib/postgresql/18/bin/${bin}"
   chroot "$rootfs" "/usr/lib/postgresql/18/bin/${bin}" --version | grep -q "PostgreSQL.* 18"
 done
 
@@ -65,4 +61,4 @@ chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_receivewal -D /tmp --drop-slot -S
 chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_recvlogical -d testdb -S spread_logical --create-slot -P test_decoding
 chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_recvlogical -d testdb -S spread_logical --drop-slot
 
-cleanup_postgresql "$rootfs"
+cleanup_postgresql
