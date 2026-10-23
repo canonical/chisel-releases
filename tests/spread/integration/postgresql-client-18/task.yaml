@@ -1,0 +1,17 @@
+summary: Integration tests for postgresql-client-18
+
+prepare: |
+  export DEBIAN_FRONTEND=noninteractive
+  apt-get update
+  apt-get install -y postgresql-18
+
+variants:
+  - bins
+  - pg-dumpall
+  - pg-verifybackup
+
++restore: |
++  pg_dropcluster --stop 18 main || true
++  pg_createcluster 18 main
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh
