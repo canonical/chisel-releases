@@ -27,10 +27,7 @@ start_postgresql() {
 }
 
 cleanup_postgresql() {
-  local rootfs="$1"
-
   # cleanup
-  chroot "$rootfs" /usr/lib/postgresql/18/bin/dropdb testdb
   /usr/lib/postgresql/18/bin/dropdb testdb
   /usr/lib/postgresql/18/bin/dropuser testuser
 
