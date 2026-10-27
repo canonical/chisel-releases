@@ -1,7 +1,7 @@
 summary: Integration tests for rsyslog
 
 execute: |
-  rootfs="$(install-slices base-files_tmp base-passwd_data rsyslog_bins rsyslog_data)"
+  rootfs="$(install-slices base-files_tmp base-passwd_data rsyslog_bins)"
 
   chroot "${rootfs}" /usr/sbin/rsyslogd -v | grep -q "^rsyslogd"
 
