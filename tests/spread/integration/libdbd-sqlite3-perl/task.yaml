@@ -1,0 +1,7 @@
+summary: Integration tests for libdbd-sqlite3-perl
+
+variants:
+    - libs
+    - modules
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

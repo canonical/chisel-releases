@@ -15,7 +15,9 @@ slices:
   #         ! -path '*src/internal/test*' \
   #         ! -path '*src/internal/synctest' \
   #         ! -path '*synctest.go' \
-  #         ! -path '*synctest_o*' \) -o \
+  #         ! -path '*synctest_o*' \
+  #         ! -path '*src/net/http/httptest*' \
+  #         ! -path '*src/net/http/internal/testcert*' \) -o \
   #      \( -path '*/testing/*' -name '*_test.go' \) \
   #      \) -exec rm -rf {} +
   src-with-tests:
