@@ -1,0 +1,3 @@
+summary: Integration tests for bash
+
+execute: bash -ex ./test_bash.sh
