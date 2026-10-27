@@ -1,0 +1,17 @@
+package: libswresample6
+
+essential:
+  libswresample6_copyright:
+
+slices:
+  libs:
+    essential:
+      libavutil60_libs:
+      libc6_libs:
+      libsoxr0_libs:
+    contents:
+      /usr/lib/*-linux-*/libswresample.so.6*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libswresample6/copyright:
