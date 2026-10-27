@@ -1,0 +1,39 @@
+summary: Integration tests for libfreeipmi17
+
+execute: |
+  rootfs="$(install-slices libfreeipmi17_libs)"
+
+  for lib in "${rootfs}"/usr/lib/*-linux-*/libfreeipmi.so.17; do
+    rel="${lib#"${rootfs}"}"
+
+    # The soname symlink and the versioned object both have to land.
+    test -L "${lib}"
+    target="$(readlink -f "${lib}")"
+    test -f "${target}"
+    head -c4 "${target}" | grep -Fq "ELF"
+
+    # The dynamic linker has to resolve the whole closure from inside the
+    # rootfs: anything the slice forgot shows up as "not found".
+    ld="$(find "${rootfs}/usr/lib" -maxdepth 2 -name 'ld*.so.*' -print -quit)"
+    test -n "${ld}"
+    out="$(chroot "${rootfs}" "${ld#"${rootfs}"}" --list "${rel}")"
+    echo "${out}" | grep -Fq "libc.so.6 =>"
+    echo "${out}" | grep -Fq "libgcrypt.so.20 =>"
+    ! echo "${out}" | grep -Fq "not found"
+  done
+
+  # freeipmi-common comes in through the libs slice's essential, because the
+  # library reads its interpretation rules from /etc/freeipmi.
+  grep -Fq "FreeIPMI Interpret SEL" \
+    "${rootfs}/etc/freeipmi/freeipmi_interpret_sel.conf"
+  grep -Fq "FreeIPMI Interpret Sensor" \
+    "${rootfs}/etc/freeipmi/freeipmi_interpret_sensor.conf"
+
+  # Prove the library loads and works by pairing it with its consumer in a fresh
+  # rootfs: libfreeipmi is a DT_NEEDED of ipmitool, so ipmitool cannot even
+  # print its version unless the library resolves.
+  rootfs="$(install-slices libfreeipmi17_libs ipmitool_bins)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  out="$(chroot "${rootfs}" /usr/bin/ipmitool -V)"
+  echo "${out}" | grep -Fq "ipmitool version 1.8"
