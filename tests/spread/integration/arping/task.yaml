@@ -1,0 +1,45 @@
+summary: Integration tests for arping
+
+execute: |
+  # arping drops privileges to "nobody" and chroots before it sends, so the
+  # rootfs needs the passwd entry from base-passwd.
+  rootfs="$(install-slices arping_bins base-passwd_data)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  out="$(chroot "${rootfs}" /usr/sbin/arping -h 2>&1)"
+  echo "${out}" | grep -Fiq "arping 2."
+  echo "${out}" | grep -Fq "usage: arping"
+
+  # Send real ARP requests to the default gateway: it is on the local link, so
+  # no external network is involved, and it always answers ARP.
+  gw="$(ip -4 route show default | awk '{print $3; exit}')"
+  iface="$(ip -4 route show default | awk '{print $5; exit}')"
+  test -n "${gw}"
+  test -n "${iface}"
+
+  arp() { chroot "${rootfs}" /usr/sbin/arping -i "${iface}" "$@"; }
+
+  out="$(arp -c 2 -w 5 "${gw}" 2>&1)"
+  echo "${out}" | grep -Fq "ARPING ${gw}"
+  echo "${out}" | grep -Eq "2 packets transmitted, [12] packets received"
+
+  # -r prints only the resolved MAC address.
+  mac="$(arp -r -c 1 -w 5 "${gw}")"
+  echo "${mac}" | grep -Eq '^([0-9a-f]{2}:){5}[0-9a-f]{2}$'
+
+  # -q stays silent on success (stdout only: spread runs the task with -x).
+  out="$(arp -q -c 1 -w 5 "${gw}")"
+  test -z "${out}"
+
+  # -0 sends with 0.0.0.0 as the sender address.
+  out="$(arp -0 -c 1 -w 5 "${gw}" 2>&1)"
+  echo "${out}" | grep -Eq "1 packets transmitted, 1 packets received"
+
+  # -v reports the sender's own interface details before pinging.
+  out="$(arp -v -c 1 -w 5 "${gw}" 2>&1)"
+  echo "${out}" | grep -Fq "Interface: ${iface}"
+
+  # An unused link-local address must not answer, and that is an error exit.
+  rc=0
+  arp -c 1 -w 2 169.254.111.222 >/dev/null 2>&1 || rc=$?
+  test "${rc}" -eq 1
