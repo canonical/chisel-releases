@@ -25,6 +25,8 @@ slices:
 
   config:
     essential:
+      # /etc/rsyslog.conf sets $WorkDirectory /var/spool/rsyslog
+      rsyslog_data:
       rsyslog_modules:
     contents:
       /etc/logcheck/ignore.d.server/rsyslog:
