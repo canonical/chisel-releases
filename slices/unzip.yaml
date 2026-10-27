@@ -22,7 +22,7 @@ slices:
   scripts:
     essential:
       dash_bins:
-      grep_deprecated:
+      grep_scripts:
       sed_bins:
       unzip_bins:
     contents:

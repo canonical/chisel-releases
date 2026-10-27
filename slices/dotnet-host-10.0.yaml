@@ -11,6 +11,8 @@ slices:
       libgcc-s1_libs:
       libstdc++6_libs:
     contents:
+      # an app started through its own executable, and nethost, find .NET here
+      /etc/dotnet/install_location*:
       /usr/bin/dotnet:  # Symlink to ../lib/dotnet/dotnet
       /usr/lib/dotnet/dotnet:
 

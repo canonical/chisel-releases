@@ -28,7 +28,7 @@ slices:
       libgcc-s1_libs:
       libgnutls30t64_libs:
       libseccomp2_libs:
-      libssl3t64_libs:
+      libssl4_libs:
       libstdc++6_libs:
       libsystemd0_libs:
     contents:
