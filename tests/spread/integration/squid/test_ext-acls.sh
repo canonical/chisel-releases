@@ -24,6 +24,7 @@ rootfs="$(install-slices \
     base-passwd_data \
     libc-bin_nsswitch \
     sqlite3_bins \
+    libdbd-sqlite3-perl_modules \
     libpam-runtime_config \
     passwd_bins)"
 
@@ -108,7 +109,6 @@ test_proxy_deny "ext_kerberos_ldap_group_acl"
 # ------------------------------------------------
 # Uses %SRC (no %LOGIN needed). Session DB contains entry for 127.0.0.1.
 reset_squid_conf
-apt download libdbd-sqlite3-perl && dpkg -x libdbd-sqlite3-perl_*.deb "$rootfs/" && rm libdbd-sqlite3-perl_*.deb
 echo "external_acl_type sql_session_check ttl=5 concurrency=1 %SRC \
 /usr/lib/squid/ext_sql_session_acl \
 --dsn DBI:SQLite:dbname=/etc/squid/sql/sessions.db \
