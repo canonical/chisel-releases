@@ -1,0 +1,30 @@
+package: tcpdump
+
+essential:
+  tcpdump_copyright:
+
+slices:
+  # /etc/apparmor.d/usr.bin.tcpdump is left out: loading it needs
+  # apparmor_parser plus an AppArmor-enabled kernel, and per-package profiles
+  # are not shipped by any other slice definition here.
+  bins:
+    hint: Network traffic capture and analysis
+    essential:
+      libc6_libs:
+      libpcap0.8t64_libs:
+      libssl3t64_libs:
+    contents:
+      # For live capture tcpdump drops privileges to the "tcpdump" user, so it
+      # needs that user in /etc/passwd (see the sysusers-config slice) or
+      # -Z <user> on the command line. Reading and writing savefiles does not.
+      /usr/bin/tcpdump:
+
+  sysusers-config:
+    contents:
+      # The deb's postinst runs systemd-sysusers to create the "tcpdump" user;
+      # maintainer scripts are handled differently in Chisel.
+      /usr/lib/sysusers.d/tcpdump.conf:
+
+  copyright:
+    contents:
+      /usr/share/doc/tcpdump/copyright:
