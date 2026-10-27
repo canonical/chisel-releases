@@ -1,0 +1,8 @@
+summary: Integration tests for rust-1.93-miri
+
+variants:
+    - help_and_version
+    - run
+    - ub
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
