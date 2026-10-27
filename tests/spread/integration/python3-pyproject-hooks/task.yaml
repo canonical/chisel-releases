@@ -1,0 +1,10 @@
+summary: Integration tests for python3-pyproject-hooks
+
+execute: |
+  rootfs="$(install-slices python3-pyproject-hooks_libs)"
+
+  mkdir -p "$rootfs/tmp/metadata" "$rootfs/tmp/project" "$rootfs/tmp/wheels"
+  cp project/backend.py "$rootfs/tmp/project/"
+  cp verify.py "$rootfs/tmp/"
+
+  test "$(chroot "$rootfs" python3 /tmp/verify.py)" = "success"
