@@ -1,0 +1,43 @@
+package: libqt6gui6
+
+essential:
+  libqt6gui6_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libegl1_libs:
+      libfontconfig1_libs:
+      libfreetype6_libs:
+      libgcc-s1_libs: {arch: [amd64, armhf]}
+      libglib2.0-0t64_core:
+      libglx0_libs:
+      libharfbuzz0b_libs:
+      libmd4c0_libs:
+      libopengl0_libs:
+      libpng16-16t64_libs:
+      libqt6core6t64_libs:
+      libqt6dbus6_libs:
+      libstdc++6_libs:
+      libx11-6_libs:
+      libxkbcommon0_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libQt6Gui.so.6*:
+
+  offscreen:
+    essential:
+      libc6_libs:
+      libglx0_libs:
+      libopengl0_libs:
+      libqt6core6t64_libs:
+      libqt6gui6_libs:
+      libstdc++6_libs:
+      libx11-6_libs:
+    contents:
+      /usr/lib/*-linux-*/qt6/plugins/platforms/libqoffscreen.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt6gui6/copyright:
