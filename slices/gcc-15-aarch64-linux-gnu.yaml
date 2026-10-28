@@ -20,9 +20,17 @@ slices:
         arch: [amd64, i386, ppc64el, s390x]
       /usr/libexec/gcc-cross/aarch64-linux-gnu/15/liblto_plugin.so:
         arch: [amd64, i386, ppc64el, s390x]
+      /usr/libexec/gcc-cross/aarch64-linux-gnu/15/lto-wrapper:
+        arch: [amd64, i386, ppc64el, s390x]
+      /usr/libexec/gcc-cross/aarch64-linux-gnu/15/lto1:
+        arch: [amd64, i386, ppc64el, s390x]
       /usr/libexec/gcc/aarch64-linux-gnu/15/collect2:
         arch: [arm64]
       /usr/libexec/gcc/aarch64-linux-gnu/15/liblto_plugin.so:
+        arch: [arm64]
+      /usr/libexec/gcc/aarch64-linux-gnu/15/lto-wrapper:
+        arch: [arm64]
+      /usr/libexec/gcc/aarch64-linux-gnu/15/lto1:
         arch: [arm64]
 
   copyright:

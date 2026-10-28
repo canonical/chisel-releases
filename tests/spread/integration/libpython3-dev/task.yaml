@@ -1,0 +1,7 @@
+summary: Integration tests for libpython3-dev
+
+variants:
+  - libs
+  - scripts
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

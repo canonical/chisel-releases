@@ -1,0 +1,49 @@
+package: libpython3.14-dev
+
+essential:
+  libpython3.14-dev_copyright:
+
+slices:
+  scripts:
+    essential:
+      coreutils_dirname:
+      coreutils_readlink:
+      dash_bins:
+      debianutils_which:
+      libpython3.14-dev_headers:
+      libpython3.14-dev_libs:
+      sed_bins:
+    contents:
+      /usr/bin/aarch64-linux-gnu-python3.14-config: {arch: arm64}
+      /usr/bin/arm-linux-gnueabihf-python3.14-config: {arch: armhf}
+      /usr/bin/i386-linux-gnu-python3.14-config: {arch: i386}
+      /usr/bin/powerpc64le-linux-gnu-python3.14-config: {arch: ppc64el}
+      /usr/bin/riscv64-linux-gnu-python3.14-config: {arch: riscv64}
+      /usr/bin/s390x-linux-gnu-python3.14-config: {arch: s390x}
+      /usr/bin/x86_64-linux-gnu-python3.14-config: {arch: amd64}
+
+  libs:
+    essential:
+      libexpat1-dev_libs:
+      libpython3.14-dev_headers:
+      libpython3.14_libs:
+      zlib1g-dev_libs:
+    contents:
+      /usr/lib/*-linux-*/libpython3.14.a:
+      /usr/lib/*-linux-*/libpython3.14.so:
+      /usr/lib/*-linux-*/pkgconfig/python-3.14-embed.pc:
+      /usr/lib/*-linux-*/pkgconfig/python-3.14.pc:
+      /usr/lib/python3.14/config-3.14-*-linux-*/**:
+
+  headers:
+    essential:
+      libc6-dev_headers:
+    contents:
+      /usr/include/*-linux-*/python3.14/pyconfig.h:
+      /usr/include/python3.14/**:
+
+  copyright:
+    essential:
+      libpython3.14-stdlib_copyright:
+    contents:
+      /usr/share/doc/libpython3.14-dev:

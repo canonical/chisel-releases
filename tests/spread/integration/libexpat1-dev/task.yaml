@@ -1,0 +1,16 @@
+summary: Integration tests for libexpat1-dev
+
+execute: |
+  rootfs="$(install-slices \
+    gcc_gcc \
+    libexpat1-dev_headers \
+    libexpat1-dev_libs)"
+
+  mkdir -p "$rootfs/tmp"
+  cp expat-test.c "$rootfs/tmp/"
+
+  chroot "$rootfs" gcc /tmp/expat-test.c -lexpat -o /tmp/expat-test
+  chroot "$rootfs" /tmp/expat-test
+
+  test -n "$(find "$rootfs/usr/lib" -path "*/cmake/expat-*/expat-config.cmake" -print -quit)"
+  test -n "$(find "$rootfs/usr/lib" -path "*/pkgconfig/expat.pc" -print -quit)"
