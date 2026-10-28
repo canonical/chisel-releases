@@ -1,0 +1,16 @@
+package: python3-packaging
+
+essential:
+  - python3-packaging_copyright
+
+slices:
+  libs:
+    essential:
+      - python3_standard
+    contents:
+      /usr/lib/python3/dist-packages/packaging-*.dist-info/**:
+      /usr/lib/python3/dist-packages/packaging/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-packaging/copyright:
