@@ -10,7 +10,7 @@ slices:
       - libgcc-s1_libs
       - libstdc++6_libs
     contents:
-      /usr/lib/dotnet/dotnet:
+      /usr/lib/dotnet/dotnet: { prefer: dotnet-host-8.0 }
 
   copyright:
     contents:
