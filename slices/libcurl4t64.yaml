@@ -17,6 +17,7 @@ slices:
       librtmp1_libs:
       libssh2-1t64_libs:
       libssl4_libs:
+      libupki-openssl1_libs:
       libzstd1_libs:
       zlib1g_libs:
     contents:
