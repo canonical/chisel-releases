@@ -1,0 +1,18 @@
+package: libupki-openssl1
+
+essential:
+  libupki-openssl1_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libgcc-s1_libs:
+      libssl4_libs:
+    contents:
+      /usr/lib/*-linux-*/libupki_openssl.so.1:
+      /usr/lib/*-linux-*/libupki_openssl.so.1.0.0:
+
+  copyright:
+    contents:
+      /usr/share/doc/libupki-openssl1/copyright:
