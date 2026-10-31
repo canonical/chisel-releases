@@ -1,0 +1,7 @@
+summary: Integration tests for libupki-openssl1
+
+execute: |
+  rootfs="$(install-slices libupki-openssl1_libs)"
+  lib="$(find "$rootfs/usr/lib" -name 'libupki_openssl.so.1')"
+  test -n "$lib"
+  head -c4 "$lib" | grep -Fq "ELF"
