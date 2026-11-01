@@ -1,0 +1,15 @@
+package: libglapi-mesa
+
+essential:
+  - libglapi-mesa_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libglapi.so.0*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libglapi-mesa/copyright:

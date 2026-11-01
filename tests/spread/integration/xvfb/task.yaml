@@ -1,0 +1,68 @@
+summary: Integration tests for xvfb
+
+prepare: |
+  # The matching Ubuntu test system supplies ABI-compatible client binaries.
+  apt-get install -y mesa-utils x11-utils
+
+execute: |
+  set -eu
+
+  rootfs="$(install-slices xvfb_server)"
+
+  cleanup() {
+    status=$?
+    trap - EXIT
+    kill "$server_pid" 2>/dev/null || true
+    wait "$server_pid" || true
+    if [ "$status" -ne 0 ]; then
+      tail -n 80 "$rootfs/xvfb.log"
+    fi
+    exit "$status"
+  }
+
+  # Let Xvfb choose a free display and report it only when ready.
+  chroot "$rootfs" /usr/bin/Xvfb \
+    -displayfd 3 -screen 0 640x480x24 -nolisten tcp \
+    3>"$rootfs/display" >"$rootfs/xvfb.log" 2>&1 &
+  server_pid=$!
+  trap cleanup EXIT
+
+  for _ in $(seq 1 300); do
+    test ! -s "$rootfs/display" || break
+    if ! jobs -pr | grep -qx "$server_pid"; then
+      wait "$server_pid"
+      exit 1
+    fi
+    sleep 0.1
+  done
+  test -s "$rootfs/display"
+
+  # Query the display without adding any server dependencies to the rootfs.
+  # Linux abstract Unix sockets are shared across this chroot boundary.
+  display=":$(cat "$rootfs/display")"
+  xdpyinfo -display "$display" >"$rootfs/xdpyinfo"
+  grep -Eq 'dimensions: +640x480 pixels' "$rootfs/xdpyinfo"
+  grep -Eq 'depth of root window: +24 planes' "$rootfs/xdpyinfo"
+
+  # Copy only the test executable; all GL libraries must come from the slices.
+  install -m 755 "$(command -v glxinfo)" "$rootfs/glxinfo-test"
+  XDG_CACHE_HOME=/tmp LIBGL_ALWAYS_SOFTWARE=1 \
+    chroot "$rootfs" /glxinfo-test \
+    -display "$display" -B >"$rootfs/glxinfo"
+  grep -q 'OpenGL renderer string: llvmpipe' "$rootfs/glxinfo"
+
+  wrapper_root="$(install-slices xvfb_bins)"
+  install -m 755 "$(command -v glxinfo)" "$wrapper_root/glxinfo-test"
+  # Supply a writable sink for /dev/null redirects in the test chroot.
+  # Real containers provide the device; this also works on rootless runners.
+  install -d "$wrapper_root/dev"
+  touch "$wrapper_root/dev/null"
+  XDG_CACHE_HOME=/tmp LIBGL_ALWAYS_SOFTWARE=1 \
+    chroot "$wrapper_root" /usr/bin/xvfb-run -a /glxinfo-test -B \
+    >"$wrapper_root/wrapper-glxinfo"
+  grep -q 'OpenGL renderer string: llvmpipe' "$wrapper_root/wrapper-glxinfo"
+
+  status=0
+  chroot "$wrapper_root" /usr/bin/xvfb-run -a /bin/sh -c 'exit 42' || status=$?
+  test "$status" -eq 42
+  test -z "$(find "$wrapper_root/tmp" -maxdepth 1 -name 'xvfb-run.*' -print)"
