@@ -1,0 +1,15 @@
+summary: Integration tests for tzdata
+
+execute: |
+  slices="$(sed -n 's/^  \([a-z0-9-]*\):$/tzdata_\1/p' "$PROJECT_PATH/slices/tzdata.yaml")"
+  test -n "$slices"
+
+  # Cut every slice on its own, so a zone symlink whose target lives in a slice
+  # that is not an essential of its owner shows up as dangling. Only relative
+  # symlinks are checked: /usr/share/zoneinfo/localtime points at the system's
+  # /etc/localtime by design.
+  for slice in $slices; do
+    rootfs="$(install-slices "$slice")"
+    dangling="$(find "$rootfs" -type l -lname '[!/]*' -xtype l)"
+    test -z "$dangling"
+  done
