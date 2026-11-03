@@ -10,8 +10,7 @@ slices:
       libgcc-s1_libs:
       libssl4_libs:
     contents:
-      /usr/lib/*-linux-*/libupki_openssl.so.1:
-      /usr/lib/*-linux-*/libupki_openssl.so.1.0.0:
+      /usr/lib/*-linux-*/libupki_openssl.so.1*:
 
   copyright:
     contents:
