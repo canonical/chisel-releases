@@ -2,7 +2,7 @@ source "$(dirname "$0")/helpers.sh"
 
 rootfs="$(install-slices postgresql-client-18_pg-verifybackup)"
 
-chroot "$rootfs" "/usr/lib/postgresql/18/bin/pg-verifybackup" --version | grep -q "PostgreSQL.* 18"
+chroot "$rootfs" "/usr/lib/postgresql/18/bin/pg_verifybackup" --version | grep -q "PostgreSQL.* 18"
 
 prepare_postgresql "$rootfs"
 start_postgresql
