@@ -6,6 +6,6 @@ execute: |
   esac
 
   rootfs="$(install-slices libupki-openssl1_libs)"
-  lib="$(find "$rootfs/usr/lib" -name 'libupki_openssl.so.1')"
-  test -n "$lib"
-  head -c4 "$lib" | grep -Fq "ELF"
+  libdir="$(find "$rootfs/usr/lib" -maxdepth 1 -type d -name '*-linux-*')"
+  loader="$(find "$libdir" -maxdepth 1 -name 'ld*.so.*')"
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${libdir#"$rootfs"}/libupki_openssl.so.1"
