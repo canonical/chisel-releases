@@ -1,6 +1,10 @@
 summary: Integration tests for libupki-openssl1
 
 execute: |
+  case "$(dpkg --print-architecture)" in
+    s390x | i386) exit 0 ;;
+  esac
+
   rootfs="$(install-slices libupki-openssl1_libs)"
   lib="$(find "$rootfs/usr/lib" -name 'libupki_openssl.so.1')"
   test -n "$lib"

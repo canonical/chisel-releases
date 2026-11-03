@@ -18,6 +18,7 @@ slices:
       libssh2-1t64_libs:
       libssl4_libs:
       libupki-openssl1_libs:
+        arch: [amd64, arm64, armhf, ppc64el, riscv64]
       libzstd1_libs:
       zlib1g_libs:
     contents:
