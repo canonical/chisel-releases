@@ -1,0 +1,21 @@
+package: libqt5printsupport5t64
+
+essential:
+  - libqt5printsupport5t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libqt5core5t64_libs
+      - libqt5gui5t64_libs
+      - libqt5widgets5t64_libs
+      - libstdc++6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf, riscv64]}
+    contents:
+      /usr/lib/*-linux-*/libQt5PrintSupport.so.5*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libqt5printsupport5t64/copyright:
