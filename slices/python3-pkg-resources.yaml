@@ -6,9 +6,19 @@ essential:
 slices:
   libs:
     essential:
+      python3-jaraco.context_libs:
+      python3-jaraco.functools_libs:
+      python3-more-itertools_libs:
       python3_standard:
     contents:
       /usr/lib/python3/dist-packages/pkg_resources/**:
+      # pkg_resources adds setuptools/_vendor to sys.path and imports these from there.
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco.text-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/jaraco/text/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/packaging-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/packaging/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/platformdirs-*.dist-info/**:
+      /usr/lib/python3/dist-packages/setuptools/_vendor/platformdirs/**:
 
   copyright:
     contents:

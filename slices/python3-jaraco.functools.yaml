@@ -1,0 +1,17 @@
+package: python3-jaraco.functools
+
+essential:
+  python3-jaraco.functools_copyright:
+
+slices:
+  libs:
+    essential:
+      python3-more-itertools_libs:
+      python3_core:
+    contents:
+      /usr/lib/python3/dist-packages/jaraco/functools/**:
+      /usr/lib/python3/dist-packages/jaraco_functools-*.dist-info/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-jaraco.functools/copyright:
