@@ -21,6 +21,11 @@ slices:
         symlink: /usr/bin/gcc
       /usr/bin/gcc:  # Symlink to gcc-15
 
+  lto:
+    essential:
+      gcc-15_lto:
+      gcc_gcc:
+
   copyright:
     essential:
       cpp-15-aarch64-linux-gnu_copyright: {arch: [arm64]}

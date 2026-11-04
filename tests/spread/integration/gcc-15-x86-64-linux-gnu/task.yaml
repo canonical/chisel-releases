@@ -4,6 +4,7 @@ variants:
     - dump
     - hello
     - help_and_version
+    - lto
     - print
     - std
 

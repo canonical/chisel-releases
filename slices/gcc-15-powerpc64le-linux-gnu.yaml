@@ -25,6 +25,26 @@ slices:
       /usr/libexec/gcc/powerpc64le-linux-gnu/15/liblto_plugin.so:
         arch: [ppc64el]
 
+  lto:
+    essential:
+      gcc-15-powerpc64le-linux-gnu_gcc-15:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/lto-wrapper:
+        arch: [amd64, arm64, i386, s390x]
+      /usr/libexec/gcc-cross/powerpc64le-linux-gnu/15/lto1:
+        arch: [amd64, arm64, i386, s390x]
+      /usr/libexec/gcc/powerpc64le-linux-gnu/15/lto-wrapper:
+        arch: [ppc64el]
+      /usr/libexec/gcc/powerpc64le-linux-gnu/15/lto1:
+        arch: [ppc64el]
+
   copyright:
     essential:
       gcc-15-base_copyright: {arch: [ppc64el]}

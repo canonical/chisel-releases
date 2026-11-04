@@ -25,6 +25,26 @@ slices:
       /usr/libexec/gcc/s390x-linux-gnu/15/liblto_plugin.so:
         arch: [s390x]
 
+  lto:
+    essential:
+      gcc-15-s390x-linux-gnu_gcc-15:
+      libc6_libs:
+      libgmp10_libs:
+      libisl23_libs:
+      libmpc3_libs:
+      libmpfr6_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/libexec/gcc-cross/s390x-linux-gnu/15/lto-wrapper:
+        arch: [amd64, arm64, i386, ppc64el]
+      /usr/libexec/gcc-cross/s390x-linux-gnu/15/lto1:
+        arch: [amd64, arm64, i386, ppc64el]
+      /usr/libexec/gcc/s390x-linux-gnu/15/lto-wrapper:
+        arch: [s390x]
+      /usr/libexec/gcc/s390x-linux-gnu/15/lto1:
+        arch: [s390x]
+
   copyright:
     essential:
       gcc-15-base_copyright: {arch: [s390x]}
