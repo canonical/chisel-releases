@@ -5,10 +5,33 @@ prepare: |
   apt-get update
   apt-get install -y postgresql-18
 
+  cp spread.conf /etc/postgresql/18/main/conf.d/spread.conf
+  cp pg_hba.conf /etc/postgresql/18/main/pg_hba.conf
+
+environment:
+  PGUSER: postgres
+  PGHOST: 127.0.0.1
+
 variants:
-  - bins
+  - clusterdb
+  - createdb
+  - createuser
+  - dropdb
+  - dropuser
+  - pg-amcheck
+  - pg-basebackup
+  - pg-combinebackup
+  - pg-config
+  - pg-dump
   - pg-dumpall
+  - pg-isready
+  - pg-receivewal
+  - pg-recvlogical
+  - pg-restore
   - pg-verifybackup
+  - psql
+  - reindexdb
+  - vacuumdb
 
 restore: |
   pg_dropcluster --stop 18 main || true

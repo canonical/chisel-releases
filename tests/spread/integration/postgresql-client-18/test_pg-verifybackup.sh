@@ -2,21 +2,17 @@ source "$(dirname "$0")/helpers.sh"
 
 rootfs="$(install-slices postgresql-client-18_pg-verifybackup)"
 
-chroot "$rootfs" "/usr/lib/postgresql/18/bin/pg_verifybackup" --version | grep -q "PostgreSQL.* 18"
+verifybackup() { pg_run "$rootfs" pg_verifybackup "$@"; }
 
-prepare_postgresql "$rootfs"
+create_tmp "$rootfs"
+
+expect_version "$rootfs" pg_verifybackup
+expect_output "Usage:" verifybackup --help
+
 start_postgresql
 
-/usr/lib/postgresql/18/bin/createuser testuser
-/usr/lib/postgresql/18/bin/createdb -O testuser testdb
-
-/usr/lib/postgresql/18/bin/pg_basebackup -D "$rootfs/tmp/base"
-/usr/lib/postgresql/18/bin/pg_basebackup -D "$rootfs/tmp/base-tar" -Ft --compress=server-zstd
-
-chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_verifybackup -n /tmp/base
-chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_verifybackup -n /tmp/base-tar
-# TODO: WAL parsing needs pg_waldump, which ships in postgresql-18. Add it
-# here once sliced
-chroot "$rootfs" /usr/lib/postgresql/18/bin/pg_verifybackup /tmp/base 2>&1 | grep -Fq '"pg_waldump" is needed'
-
-cleanup_postgresql
+for c in gzip lz4 zstd; do
+  "$PG_BIN/pg_basebackup" -D "$rootfs/tmp/bb_$c" -Ft --compress=client-$c --manifest-checksums=SHA256
+  # TODO: test `verifybackup /tmp/bb_$c` when postgresql-18 slice is created
+  expect_rc 0 verifybackup --no-parse-wal /tmp/bb_$c
+done
