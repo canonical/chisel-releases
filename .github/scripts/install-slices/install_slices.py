@@ -25,9 +25,11 @@ import logging
 import math
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import tempfile
+import time
 
 import magic
 import requests
@@ -212,6 +214,56 @@ def parse_package(filepath: str) -> Package:
     return pkg
 
 
+# rmadison runs `curl -f -s -S -L` without --retry, so a failed request shows
+# up as curl's own error message on stderr, while rmadison itself exits 1.
+_rmadison_patterns_to_retry: list[re.Pattern] = [
+    # https://github.com/canonical/chisel-releases/issues/1451
+    # Server errors only: a 4xx such as the 414 in #717 will not get better.
+    re.compile(r"curl: \(22\) The requested URL returned error: 5\d\d"),
+    # Operation timed out.
+    re.compile(r"curl: \(28\)"),
+    # Failed to connect.
+    re.compile(r"curl: \(7\)"),
+]
+
+
+def _run_rmadison(
+    args: list[str],
+    n_retries: int = 3,
+    retry_delay: float = 10,
+) -> subprocess.CompletedProcess:
+    """
+    Run rmadison. Retry up to n_retries times if the query fails with a
+    transient error, waiting retry_delay seconds before the first retry and
+    twice as long before each next one.
+    Return the result of the last attempt.
+    """
+    for attempt in range(1, n_retries + 1):
+        res = subprocess.run(args, capture_output=True, text=True, check=False)
+        if res.returncode == 0:
+            return res
+
+        # Match stderr against known patterns to retry
+        matched: None | str = None
+        for line in res.stderr.splitlines():
+            if any(pattern.match(line) for pattern in _rmadison_patterns_to_retry):
+                matched = line
+                break
+
+        if attempt < n_retries and matched is not None:
+            delay = retry_delay * 2 ** (attempt - 1)
+            logging.warning(
+                "Failed to query the archives (attempt %d/%d): %s. Retrying in %ds...",
+                attempt,
+                n_retries,
+                matched,
+                delay,
+            )
+            time.sleep(delay)
+            continue
+        return res
+
+
 def _query_package_existence(
     packages: list[str],
     archive: Archive,
@@ -233,7 +285,7 @@ def _query_package_existence(
     # Query the archives using rmadison.
     logging.debug("Querying the archives for packages...")
     logging.debug("Executing %s", " ".join(args))
-    res = subprocess.run(args, capture_output=True, text=True, check=False)
+    res = _run_rmadison(args)
     if res.returncode != 0:
         logging.error("Failed to query the archives %d", res.returncode)
         logging.error("==============================================\n%s", res.stderr)
