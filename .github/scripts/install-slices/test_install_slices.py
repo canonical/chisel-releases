@@ -134,13 +134,13 @@ class TestParsePackage:
         assert install_slices.parse_package(str(path)).slices == ["bins", "mid", "zed"]
 
     @pytest.mark.parametrize(
-        "sdf",
+        "package_slices_file",
         ["package: hello\n", "slices: [\n"],
         ids=["no-slices-key", "malformed-yaml"],
     )
-    def test_unusable_file_exits(self, tmp_path, sdf):
+    def test_unusable_file_exits(self, tmp_path, package_slices_file):
         path = tmp_path / "hello.yaml"
-        path.write_text(sdf, encoding="utf-8")
+        path.write_text(package_slices_file, encoding="utf-8")
         with pytest.raises(SystemExit) as exc:
             install_slices.parse_package(str(path))
         assert exc.value.code == 1
@@ -380,8 +380,8 @@ class TestMain:
     def _main(tmp_path, extra_argv=(), slices=("bins",), workers=None):
         """Run main() over a one-package release; return the submitted chunks."""
         release = write_release(tmp_path)
-        sdf = tmp_path / "hello.yaml"
-        sdf.write_text(
+        package_slices_file = tmp_path / "hello.yaml"
+        package_slices_file.write_text(
             "package: hello\nslices:\n"
             + "".join(f"    {s}:\n        contents:\n" for s in slices),
             encoding="utf-8",
@@ -389,7 +389,7 @@ class TestMain:
         argv = ["", "--arch", "amd64", "--release", release]
         if workers is not None:
             argv += ["--workers", str(workers)]
-        argv += [*extra_argv, str(sdf)]
+        argv += [*extra_argv, str(package_slices_file)]
 
         executor = MagicMock()
         with (

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Verify chisel slice definition files by installing the slices.
+Verify chisel package slices files by installing the slices.
 
 Usage
 -----
@@ -9,7 +9,7 @@ install_slices [-h] --arch ARCH --release RELEASE [--dry-run]
                [--ensure-existence] [--ignore-missing] [file ...]
 
 positional arguments:
-  file                Chisel slice definition file(s)
+  file                Chisel package slices file(s)
 
 options:
   -h, --help          show this help message and exit
@@ -72,7 +72,7 @@ def parse_args() -> argparse.Namespace:
     Parse CLI args passed to this script.
     """
     parser = argparse.ArgumentParser(
-        description="Verify slice definition files by installing the slices",
+        description="Verify package slices files by installing the slices",
     )
     parser.add_argument(
         "--arch",
@@ -111,7 +111,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "files",
         metavar="file",
-        help="Chisel slice definition file(s)",
+        help="Chisel package slices file(s)",
         nargs="*",
     )
     parser.add_argument(
@@ -192,7 +192,7 @@ def full_slice_name(pkg: str, slice: str) -> str:
 
 def parse_package(filepath: str) -> Package:
     """
-    Parse a slice definition file and return the Package.
+    Parse a package slices file and return the Package.
     """
     logging.debug("Parsing %s...", filepath)
     with open(filepath, "r", encoding="utf-8") as stream:
@@ -454,7 +454,7 @@ def main() -> None:
     """
     configure_logging()
     cli_args = parse_args()
-    # Parse slice definition files.
+    # Parse package slices files.
     packages = []
     for file in cli_args.files:
         pkg = parse_package(file)

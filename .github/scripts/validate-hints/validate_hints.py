@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script to validate hints in slice definition files.
+Script to validate hints in package slices files.
 """
 
 import argparse
@@ -126,7 +126,7 @@ def no_consecutive_spaces(text: str) -> ErrorMessage | None:
 
 
 def validate_hints(file_path: str) -> list[str]:
-    """Validate hints in a single slice definition file."""
+    """Validate hints in a single package slices file."""
     logging.info(f"Processing {file_path}...")
     errors: list[str] = []
 
@@ -173,14 +173,14 @@ def validate_hints(file_path: str) -> list[str]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Validate hints in slice definitions")
-    parser.add_argument("files", nargs="+", help="Slice definition files to validate")
+    parser = argparse.ArgumentParser(description="Validate hints in package slices files")
+    parser.add_argument("files", nargs="+", help="Package slices files to validate")
     args = parser.parse_args()
 
     # Configure logging
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    logging.info("Validating slice definition hints")
+    logging.info("Validating slice hints")
 
     all_errors: list[str] = []
     for input_file in args.files:
