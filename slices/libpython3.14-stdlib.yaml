@@ -9,7 +9,7 @@ essential:
 #
 # Aside from the "core" slice which contains the minimal libraries that
 # should come from this package and the "extra" slice which contains
-# miscellaneous libraries, all the other slice definitions are sorted by
+# miscellaneous libraries, all the other slices are sorted by
 # their names. The "core" slice is placed at the very beginning and the
 # "extra" slice at the very end.
 slices:
