@@ -9,6 +9,7 @@ slices:
       coreutils_env:
       node-lru-cache_libs:
       node-semver_libs:
+      # NOTE: nodejs does not exist for i386, bring your own `node` there.
       nodejs_bins: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
     contents:
       /usr/bin/semver:  # Symlink to ../share/nodejs/semver/bin/semver.js
