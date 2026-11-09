@@ -6,9 +6,9 @@
 set -eu
 
 PKG="tzdata-legacy"
-SDF="${PROJECT_PATH}/slices/${PKG}.yaml"
+PACKAGE_SLICES_FILE="${PROJECT_PATH}/slices/${PKG}.yaml"
 
-slices=$(yq '.slices | keys | .[]' "${SDF}")
+slices=$(yq '.slices | keys | .[]' "${PACKAGE_SLICES_FILE}")
 for s in ${slices[@]}; do
     slice="${PKG}_$s"
     echo "Testing $slice ..."
