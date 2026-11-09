@@ -2,17 +2,17 @@
 
 <!-- AI AGENTS: Agent guidance is in AGENTS.md -->
 
-*The collection of package slice definitions, for
+*The collection of package slices files, for
 [Chisel](https://github.com/canonical/chisel).*
 
 - [The Basics](#the-basics)
 - [Using a Specific Chisel Release](#using-a-specific-chisel-release)
-- [Adding New Slice Definitions](#adding-new-slice-definitions)
+- [Adding New Package Slices Files](#adding-new-package-slices-files)
 - [Chisel Releases Navigator](#chisel-releases-navigator)
 
 ## The Basics
 
-This repository is the official source of all package slice definitions that
+This repository is the official source of all package slices files that
 are supported by [Chisel](https://github.com/canonical/chisel).
 
 Every Chisel release is represented by a Git branch within this repository. At
@@ -42,10 +42,10 @@ the moment, the officially supported Chisel releases are:
 \- Stonking
 
 In each release branch, you'll find a `chisel.yaml` file that defines the Chisel
-release, plus a `slices` folder with all the Slice Definitions Files (SDFs) for
+release, plus a `slices` folder with all the Package Slices Files for
 that release.
 
-For more information on the SDFs' YAML schema and how to install slices, please
+For more information on the Package Slices Files' YAML schema and how to install slices, please
 refer to the
 [Chisel documentation](https://ubuntu.com/chisel/docs).
 
@@ -68,12 +68,12 @@ defining new slices);
 - **if** `--release` is a string that matches the `ubuntu-##.##` pattern, then
 Chisel will use the corresponding Git branch from this repository if it exists.
 
-## Adding New Slice Definitions
+## Adding New Package Slices Files
 
 We welcome and encourage community contributions! To better understand how to
-write and propose new package slice definitions, please read the
+write and propose new package slices files, please read the
 [contributing guidelines](./CONTRIBUTING.md).
 
 ## Chisel Releases Navigator
 
-To easily navigate through the different Chisel releases, and what slice definitions are available in each, please refer to the [Chisel Releases Navigator](https://canonical.github.io/chisel-releases-navigator/).
+To easily navigate through the different Chisel releases, and what slices are available in each, please refer to the [Chisel Releases Navigator](https://canonical.github.io/chisel-releases-navigator/).

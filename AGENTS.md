@@ -3,8 +3,8 @@
 ## Repository rules
 
 - **BRANCH STRUCTURE:** 
-   - `main` is meta-only (reusable CI workflows, CI scripts and their tests, and docs) - there are no slice definitions in `main`
-   - each `ubuntu-XX.YY` branch is a [Chisel](https://github.com/canonical/chisel) release ([docs](https://ubuntu.com/chisel/docs/latest/)), where `XX.YY` maps to the corresponding Ubuntu release (e.g. `26.04`). These branches contain the release definition file `chisel.yaml`, the Slice Definition Files (aka SDFs), and the slices' [Spread](https://github.com/canonical/spread) tests
+   - `main` is meta-only (reusable CI workflows, CI scripts and their tests, and docs) - there are no package slices files in `main`
+   - each `ubuntu-XX.YY` branch is a [Chisel](https://github.com/canonical/chisel) release ([docs](https://ubuntu.com/chisel/docs/latest/)), where `XX.YY` maps to the corresponding Ubuntu release (e.g. `26.04`). These branches contain the release definition file `chisel.yaml`, the Package Slices Files, and the slices' [Spread](https://github.com/canonical/spread) tests
 
 ## Working on `main`
 
