@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Reject slice definition files that use keys Chisel does not read.
+Reject package slices files that use keys Chisel does not read.
 
-Chisel deliberately ignores unrecognised keys in an SDF so that an older Chisel
-binary can still parse a release that uses fields added in a later format. That
-leniency is correct for Chisel, but it means a misspelled key is indistinguishable
-from a future one: it is silently dropped, and the slice resolves to something
-other than what the author wrote. `chisel cut` succeeds, no gate complains, and
+Chisel deliberately ignores unrecognised keys in a package slices file so that an
+older Chisel binary can still parse a release that uses fields added in a later
+format. That leniency is correct for Chisel, but it means a misspelled key is
+indistinguishable from a future one: it is silently dropped, and the slice
+resolves to something other than what the author wrote. `chisel cut` succeeds, no gate complains, and
 the defect ships.
 
 This check only asks whether Chisel reads a key at all. Keys that are valid under
@@ -129,7 +129,7 @@ def _check_slice(path: Path, body: yaml.Node) -> Iterator[Finding]:
 
 
 def check_file(path: Path) -> list[Finding]:
-    """Report every key in an SDF that Chisel would not read."""
+    """Report every key in a package slices file that Chisel would not read."""
     try:
         root = yaml.compose(path.read_text())
     except yaml.YAMLError as err:
@@ -148,7 +148,7 @@ def check_file(path: Path) -> list[Finding]:
 
 
 def resolve_targets(release_dir: Path, files: Iterable[str]) -> list[Path]:
-    """Return the SDFs to check: those named, else every slice in the release.
+    """Return the package slices files to check: those named, else all of them.
 
     Paths outside slices/ are dropped so the caller can hand over a raw
     changed-file list, and missing paths are dropped because a pull request may
@@ -162,12 +162,12 @@ def resolve_targets(release_dir: Path, files: Iterable[str]) -> list[Path]:
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Reject slice definition files that use keys Chisel does not read."
+        description="Reject package slices files that use keys Chisel does not read."
     )
     parser.add_argument(
         "files",
         nargs="*",
-        help="SDFs to check. Entries outside slices/ are ignored. Defaults to every slice.",
+        help="Package slices files to check. Entries outside slices/ are ignored. Defaults to every slice.",
     )
     parser.add_argument(
         "--release",

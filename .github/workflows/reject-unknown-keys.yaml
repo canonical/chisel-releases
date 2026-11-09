@@ -1,11 +1,11 @@
 name: Reject unknown keys
 
-# Chisel ignores SDF keys it does not recognise, so that an older binary can
-# still parse a release using fields added in a later format. A misspelled key
-# is therefore indistinguishable from a future one: it is silently dropped and
-# the slice resolves to something other than what the author wrote. This repo
-# knows which format each branch targets, so it can be strict where Chisel
-# cannot.
+# Chisel ignores package slices file keys it does not recognise, so that an
+# older binary can still parse a release using fields added in a later format.
+# A misspelled key is therefore indistinguishable from a future one: it is
+# silently dropped and the slice resolves to something other than what the
+# author wrote. This repo knows which format each branch targets, so it can be
+# strict where Chisel cannot.
 
 # Called by each release branch's ci.yaml, so the checked-out ref is always the
 # release under test and there is never a matrix of branches to iterate.
