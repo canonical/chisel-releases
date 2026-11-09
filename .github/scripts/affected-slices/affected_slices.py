@@ -47,15 +47,17 @@ def _normalise_essential(fields: dict) -> dict:
     return fields
 
 
-def parse_sdf(text: str) -> tuple[str, dict[str, dict]]:
-    """Parse a slice definition file into the package name and a map of slice
-    keys (e.g. "libc6_libs") to slice definitions."""
-    sdf = yaml.safe_load(text)
-    package = sdf["package"]
-    shared = {k: v for k, v in sdf.items() if k not in ("package", "slices")}
+def parse_package_slices_file(text: str) -> tuple[str, dict[str, dict]]:
+    """Parse a package slices file into the package name and a map of slice
+    keys (e.g. "libc6_libs") to slices."""
+    package_slices_file = yaml.safe_load(text)
+    package = package_slices_file["package"]
+    shared = {
+        k: v for k, v in package_slices_file.items() if k not in ("package", "slices")
+    }
     shared = _normalise_essential(shared)
     slices: dict[str, dict] = {}
-    for name, fields in (sdf.get("slices") or {}).items():
+    for name, fields in (package_slices_file.get("slices") or {}).items():
         fields = {k: v for k, v in (fields or {}).items() if k != "hint"}
         slices[f"{package}_{name}"] = {
             "package": shared,
@@ -65,7 +67,7 @@ def parse_sdf(text: str) -> tuple[str, dict[str, dict]]:
 
 
 def dependencies(definition: dict) -> set[str]:
-    """The slices which a slice definition directly depends on."""
+    """The slices which a slice directly depends on."""
     deps: set[str] = set()
     for fields in definition.values():
         deps.update(fields.get("essential") or {})
@@ -112,7 +114,9 @@ def find_affected(release: Path, base: str | None) -> dict:
     base_slices: dict[str, dict] = {}
     for path, status in paths.items():
         if path.startswith("slices/") and path.endswith(".yaml") and status != "A":
-            _, slices = parse_sdf(git(release, "show", f"{base}:{path}"))
+            _, slices = parse_package_slices_file(
+                git(release, "show", f"{base}:{path}")
+            )
             base_slices.update(slices)
 
     head_slices: dict[str, dict] = {}
@@ -120,7 +124,7 @@ def find_affected(release: Path, base: str | None) -> dict:
     files: dict[str, str] = {}
     for file in sorted((release / "slices").rglob("*.yaml")):
         path = file.relative_to(release).as_posix()
-        package, slices = parse_sdf(file.read_text())
+        package, slices = parse_package_slices_file(file.read_text())
         files[package] = path
         head_slices.update(slices)
         if path in paths:

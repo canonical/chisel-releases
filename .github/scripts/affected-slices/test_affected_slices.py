@@ -18,10 +18,10 @@ import affected_slices
 
 
 def parse(text: str) -> dict[str, dict]:
-    return affected_slices.parse_sdf(dedent(text))[1]
+    return affected_slices.parse_package_slices_file(dedent(text))[1]
 
 
-LIB_SDF = """
+LIB_PACKAGE_SLICES_FILE = """
     package: lib
     essential:
       - lib_copyright
@@ -37,9 +37,11 @@ LIB_SDF = """
 """
 
 
-class TestParseSDF:
+class TestParsePackageSlicesFile:
     def test_package_and_slice_keys(self):
-        package, slices = affected_slices.parse_sdf(dedent(LIB_SDF))
+        package, slices = affected_slices.parse_package_slices_file(
+            dedent(LIB_PACKAGE_SLICES_FILE)
+        )
         assert package == "lib"
         assert set(slices) == {"lib_libs", "lib_copyright"}
 
@@ -94,7 +96,7 @@ class TestParseSDF:
                 essential: [base_files]
             essential: [lib_copyright]
         """)
-        assert reformatted == parse(LIB_SDF)
+        assert reformatted == parse(LIB_PACKAGE_SLICES_FILE)
 
     def test_dependencies(self):
         slices = parse("""
@@ -130,8 +132,12 @@ class TestChangedSlices:
         assert affected_slices.changed_slices(base, head) == {"b_x", "c_x", "d_x"}
 
     def test_package_field_changes_every_slice(self):
-        base = parse(LIB_SDF)
-        head = parse(LIB_SDF.replace("package: lib", "package: lib\n    archive: pro"))
+        base = parse(LIB_PACKAGE_SLICES_FILE)
+        head = parse(
+            LIB_PACKAGE_SLICES_FILE.replace(
+                "package: lib", "package: lib\n    archive: pro"
+            )
+        )
         assert affected_slices.changed_slices(base, head) == {
             "lib_libs",
             "lib_copyright",
@@ -176,7 +182,7 @@ def repo(tmp_path: Path) -> tuple[Path, str]:
     files = {
         "chisel.yaml": "format: v3\n",
         ".github/workflows/ci.yaml": "name: CI\n",
-        "slices/lib.yaml": LIB_SDF,
+        "slices/lib.yaml": LIB_PACKAGE_SLICES_FILE,
         "slices/app.yaml": """
             package: app
             slices:
@@ -232,7 +238,9 @@ class TestFindAffected:
 
     def test_modified_slice_affects_dependents(self, repo):
         release, base = repo
-        write(release, "slices/lib.yaml", LIB_SDF.replace("so.1", "so.2"))
+        write(
+            release, "slices/lib.yaml", LIB_PACKAGE_SLICES_FILE.replace("so.1", "so.2")
+        )
         stage(release)
         result = affected_slices.find_affected(release, base)
         assert result["changed_slices"] == ["lib_libs"]
@@ -243,12 +251,14 @@ class TestFindAffected:
 
     def test_hint_only_change(self, repo):
         release, base = repo
-        sdf = LIB_SDF.replace("libs:\n", "libs:\n        hint: Shared library\n")
-        write(release, "slices/lib.yaml", sdf)
+        package_slices_file = LIB_PACKAGE_SLICES_FILE.replace(
+            "libs:\n", "libs:\n        hint: Shared library\n"
+        )
+        write(release, "slices/lib.yaml", package_slices_file)
         stage(release)
         assert affected_slices.find_affected(release, base)["changed_slices"] == []
 
-    def test_removed_sdf_with_dangling_dependent(self, repo):
+    def test_removed_package_slices_file_with_dangling_dependent(self, repo):
         release, base = repo
         (release / "slices/lib.yaml").unlink()
         stage(release)
@@ -257,7 +267,7 @@ class TestFindAffected:
         assert result["affected_slices"] == ["app_bins"]
         assert result["files"] == ["slices/app.yaml"]
 
-    def test_removed_sdf_and_dependency(self, repo):
+    def test_removed_package_slices_file_and_dependency(self, repo):
         release, base = repo
         (release / "slices/lib.yaml").unlink()
         write(release, "slices/app.yaml", """
@@ -272,7 +282,7 @@ class TestFindAffected:
         assert result["changed_slices"] == ["app_bins", "lib_copyright", "lib_libs"]
         assert result["files"] == ["slices/app.yaml"]
 
-    def test_added_nested_sdf(self, repo):
+    def test_added_nested_package_slices_file(self, repo):
         release, base = repo
         write(release, "slices/nested/new.yaml", """
             package: new
@@ -286,7 +296,7 @@ class TestFindAffected:
         assert result["changed_slices"] == ["new_bins"]
         assert result["files"] == ["slices/nested/new.yaml"]
 
-    def test_moved_sdf(self, repo):
+    def test_moved_package_slices_file(self, repo):
         release, base = repo
         (release / "slices/nested/other.yaml").rename(release / "slices/other.yaml")
         stage(release)
@@ -307,7 +317,9 @@ class TestFindAffected:
 
     def test_no_base(self, repo):
         release, _ = repo
-        write(release, "slices/lib.yaml", LIB_SDF.replace("so.1", "so.2"))
+        write(
+            release, "slices/lib.yaml", LIB_PACKAGE_SLICES_FILE.replace("so.1", "so.2")
+        )
         result = affected_slices.find_affected(release, None)
         assert result["all"] is True
         assert result["changed_slices"] == []
@@ -324,7 +336,9 @@ class TestFindAffected:
     )
     def test_cli(self, repo, extra_args, files):
         release, base = repo
-        write(release, "slices/lib.yaml", LIB_SDF.replace("so.1", "so.2"))
+        write(
+            release, "slices/lib.yaml", LIB_PACKAGE_SLICES_FILE.replace("so.1", "so.2")
+        )
         stage(release)
         script = Path(affected_slices.__file__)
         out = subprocess.run(
