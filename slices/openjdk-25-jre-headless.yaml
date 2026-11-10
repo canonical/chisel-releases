@@ -229,8 +229,10 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/lib/security/cacerts:
       /usr/lib/jvm/java-25-openjdk-*/lib/security/public_suffix_list.dat:
 
+  # The JDK opens libsctp.so.1 at run time, so the package does not depend on libsctp1.
   stcp:
     essential:
+      - libsctp1_libs
       - openjdk-25-jre-headless_core
     contents:
       /usr/lib/jvm/java-25-openjdk-*/lib/libsctp.so:
