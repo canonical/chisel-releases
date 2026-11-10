@@ -16,8 +16,10 @@ slices:
       # This package still has many other libraries which are not part of any
       # slices yet. Upon creation of new slices containing those libraries,
       # make sure to add those slices in this list.
+      - libnss3_freebl
       - libnss3_nss
       - libnss3_smime
+      - libnss3_softokn
 
   nss:
     essential:
@@ -27,6 +29,31 @@ slices:
     contents:
       /usr/lib/*-linux-*/libnss3.so:
       /usr/lib/*-linux-*/libnssutil3.so:
+
+  freebl:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libfreebl3.chk:  # Symlink to nss/libfreebl3.chk
+      /usr/lib/*-linux-*/libfreebl3.so:  # Symlink to nss/libfreebl3.so
+      /usr/lib/*-linux-*/libfreeblpriv3.chk:  # Symlink to nss/libfreeblpriv3.chk
+      /usr/lib/*-linux-*/libfreeblpriv3.so:  # Symlink to nss/libfreeblpriv3.so
+      /usr/lib/*-linux-*/nss/libfreebl3.chk:
+      /usr/lib/*-linux-*/nss/libfreebl3.so:
+      /usr/lib/*-linux-*/nss/libfreeblpriv3.chk:
+      /usr/lib/*-linux-*/nss/libfreeblpriv3.so:
+
+  # The softoken opens libfreeblpriv3.so at run time.
+  softokn:
+    essential:
+      - libc6_libs
+      - libnspr4_libs
+      - libnss3_freebl
+      - libnss3_nss
+      - libsqlite3-0_libs
+    contents:
+      /usr/lib/*-linux-*/nss/libsoftokn3.chk:
+      /usr/lib/*-linux-*/nss/libsoftokn3.so:
 
   smime:
     essential:
