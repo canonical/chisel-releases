@@ -52,6 +52,14 @@ execute: |
       ;;
       security)
         chroot . ${java} /ReadCertificate.java
+        # NSS seeds itself from the random device
+        mkdir -p dev
+        touch dev/urandom
+        mount --bind /dev/urandom dev/urandom
+        trap 'umount dev/urandom' EXIT
+        nss_cfg=/etc/java-21-openjdk/security/nss.cfg
+        out="$(chroot . ${java} /NssProvider.java "$nss_cfg")"
+        test "$out" = "provider: SunPKCS11-NSS"
       ;;
       tools)
         DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"
