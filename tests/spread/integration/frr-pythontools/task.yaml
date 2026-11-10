@@ -1,0 +1,12 @@
+summary: Integration tests for frr-pythontools
+
+execute: |
+  rootfs="$(install-slices frr-pythontools_scripts)"
+
+  # Each script imports everything it needs at the top, so getting through
+  # argument parsing proves the Python closure of the slice.
+  for script in frr-reload.py generate_support_bundle.py ospfclient.py; do
+    output="$(chroot "$rootfs" "/usr/lib/frr/$script" --help)"
+    echo "$output"
+    echo "$output" | grep -q "usage:"
+  done
