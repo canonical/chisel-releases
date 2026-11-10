@@ -1,7 +1,7 @@
-package: libyang3
+package: libyang5
 
 essential:
-  libyang3_copyright:
+  libyang5_copyright:
 
 slices:
   libs:
@@ -9,9 +9,9 @@ slices:
       libc6_libs:
       libpcre2-8-0_libs:
       libxxhash0_libs:
-      libyang3_modules:
+      libyang5_modules:
     contents:
-      /usr/lib/*-linux-*/libyang.so.3*:
+      /usr/lib/*-linux-*/libyang.so.5*:
 
   modules:
     contents:
@@ -19,4 +19,4 @@ slices:
 
   copyright:
     contents:
-      /usr/share/doc/libyang3/copyright:
+      /usr/share/doc/libyang5/copyright:

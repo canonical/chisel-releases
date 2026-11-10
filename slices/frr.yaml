@@ -90,9 +90,9 @@ slices:
       libcrypt1_libs:
       libgcc-s1_libs: {arch: [armhf]}
       libjson-c5_libs:
-      liblua5.4-0_libs:
+      liblua5.5-0_libs:
       libunwind8_libs:
-      libyang3_libs:
+      libyang5_libs:
     contents:
       /usr/lib/*-linux-*/frr/libfrr*.so.0*:
       /usr/lib/*-linux-*/frr/libmgmt_be_nb.so.0*:
