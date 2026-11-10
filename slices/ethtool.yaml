@@ -13,7 +13,10 @@ slices:
 
   network-if-hooks:
     essential:
+      base-files_bin:
+      dash_bins:
       ethtool_bins:
+      sed_bins:
     contents:
       /etc/network/if-pre-up.d/ethtool:
       /etc/network/if-up.d/ethtool:
