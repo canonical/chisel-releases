@@ -38,6 +38,8 @@ execute: |
       ;;
       core)
         chroot . ${java} /Main.java
+        chroot . ${java} -cp / SysLookup
+        grep -q '^JAVA_VERSION="21' "$(dirname ${java})/../release"
       ;;
       prefs)
         chroot . ${java} /PrefsTest.java put
