@@ -2,6 +2,7 @@ summary: Integration tests for openjdk-8-jre-headless
 
 environment:
   SLICE/core: "core"
+  SLICE/sctp: "sctp"
 
 execute: |
   # Test core slice installation
