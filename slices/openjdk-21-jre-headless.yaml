@@ -66,12 +66,16 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/libnet.so:
       # required for IO.
       /usr/lib/jvm/java-21-openjdk-*/lib/libnio.so:
+      # default symbol lookup of the foreign function API
+      /usr/lib/jvm/java-21-openjdk-*/lib/libsyslookup.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libverify.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/libzip.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/modules:
       /usr/lib/jvm/java-21-openjdk-*/lib/server/libjsig.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/server/libjvm.so:
       /usr/lib/jvm/java-21-openjdk-*/lib/tzdb.dat:
+      # describes the module image, e.g. MODULES=
+      /usr/lib/jvm/java-21-openjdk-*/release:
 
   # Native part of jdk.prefs modules
   prefs:
