@@ -23,3 +23,14 @@ execute: |
 
   umount -l "${rootfs}/sys"
   umount -l "${rootfs}/proc"
+
+  # The if-up.d hook gathers its settings with sed and hands them to ethtool,
+  # which then fails on an interface that does not exist (over netlink, or over
+  # ioctl where netlink is not available). The hook itself carries on and exits 0.
+  rootfs="$(install-slices ethtool_network-if-hooks)"
+
+  out="$(IFACE=nosuchif0 IF_ETHERNET_PAUSE_AUTONEG=on \
+    chroot "${rootfs}/" /etc/network/if-up.d/ethtool 2>&1)"
+  echo "$out" | grep -E "No such device|Cannot get device pause settings"
+
+  IFACE=lo chroot "${rootfs}/" /etc/network/if-pre-up.d/ethtool
