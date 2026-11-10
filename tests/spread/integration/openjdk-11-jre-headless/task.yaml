@@ -4,6 +4,7 @@ variants:
   - classdatasharing
   - core
   - prefs
+  - sctp
 #  - rmi # Tested in management slice
   - debug
   - management
