@@ -29,12 +29,15 @@ sed -e '/^ip route 198.51.100.0\/28 127.0.0.1/ c ip route 198.51.100.64/28 127.0
 timeout 60 chroot "${rootfs}" /usr/lib/frr/frr-reload
 
 # wait for the new config to load
+loaded=no
 for __t in $(seq 1 10); do
 	if timeout 10 chroot "${rootfs}" vtysh -c 'show running-config' | grep -q 'ip route 198.51.100.64/28 127.0.0.1'; then
+		loaded=yes
 		break
 	fi
 	sleep "$__t"
 done
+test "$loaded" = yes
 
 # fail if the old config is still loaded
 if timeout 10 chroot "${rootfs}" vtysh -c 'show running-config' | grep -q 'ip route 198.51.100.0/28 127.0.0.1'; then

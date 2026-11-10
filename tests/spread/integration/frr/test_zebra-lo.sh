@@ -20,3 +20,10 @@ timeout 10 chroot "${rootfs}" vtysh -c 'show version'
 
 # check zebra is properly talking to the kernel
 timeout 10 chroot "${rootfs}" vtysh -c 'show interface lo' | grep -q LOOPBACK
+
+# mtracebis needs a multicast source to trace, so check it starts and parses
+rc=0
+output="$(chroot "${rootfs}" mtracebis 2>&1)" || rc=$?
+echo "$output"
+test "$rc" -ne 0
+echo "$output" | grep -q "Usage"
