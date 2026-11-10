@@ -83,6 +83,7 @@ slices:
   security:
     essential:
       - libnss3_nss
+      - libnss3_softokn
       - libpcsclite1_libs
       - openjdk-8-jre-headless_core
     contents:
