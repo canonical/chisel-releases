@@ -1,29 +1,30 @@
-#!/usr/bin/python3
-
+#!/usr/bin/env python3
 """
-Tests for install_slices.py script
+Unit tests for install_slices.py
 """
 
-import logging
+import contextlib
 import os
-import tempfile
-import unittest
-import unittest.mock
+import subprocess
+import sys
+from textwrap import dedent
+from unittest.mock import MagicMock, patch
 
-from install_slices import (
-    CHISEL_PKG_CACHE,
-    Package,
-    Archive,
-    parse_archive,
-    full_slice_name,
-    parse_package,
-    query_package_existence,
-    ensure_package_existence,
-    ignore_missing_packages,
-    install_slice,
-    deb_has_copyright_file,
-    main,
-)
+import pytest
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+try:
+    import install_slices
+except ImportError:
+    # python3-apt is a system package pip cannot provide, and python-magic
+    # raises without libmagic. Both are only reached from
+    # deb_has_copyright_file(), which the tests below mock.
+    apt = sys.modules.setdefault("apt", MagicMock())
+    sys.modules["apt.debfile"] = apt.debfile
+    sys.modules.setdefault("magic", MagicMock())
+
+    import install_slices
 
 
 # Default archive for testing. Copied from the ubuntu-22.04 release.
@@ -35,51 +36,13 @@ archives:
         version: 22.04
         components: [main, universe]
         suites: [jammy, jammy-security, jammy-updates]
-        public-keys: [ubuntu-archive-key-2018]
-
-public-keys:
-    # Ubuntu Archive Automatic Signing Key (2018) <ftpmaster@ubuntu.com>
-    # rsa4096/f6ecb3762474eda9d21b7022871920d1991bc93c 2018-09-17T15:01:46Z
-    ubuntu-archive-key-2018:
-        id: "871920D1991BC93C"
-        armor: |
-            -----BEGIN PGP PUBLIC KEY BLOCK-----
-
-            mQINBFufwdoBEADv/Gxytx/LcSXYuM0MwKojbBye81s0G1nEx+lz6VAUpIUZnbkq
-            dXBHC+dwrGS/CeeLuAjPRLU8AoxE/jjvZVp8xFGEWHYdklqXGZ/gJfP5d3fIUBtZ
-            HZEJl8B8m9pMHf/AQQdsC+YzizSG5t5Mhnotw044LXtdEEkx2t6Jz0OGrh+5Ioxq
-            X7pZiq6Cv19BohaUioKMdp7ES6RYfN7ol6HSLFlrMXtVfh/ijpN9j3ZhVGVeRC8k
-            KHQsJ5PkIbmvxBiUh7SJmfZUx0IQhNMaDHXfdZAGNtnhzzNReb1FqNLSVkrS/Pns
-            AQzMhG1BDm2VOSF64jebKXffFqM5LXRQTeqTLsjUbbrqR6s/GCO8UF7jfUj6I7ta
-            LygmsHO/JD4jpKRC0gbpUBfaiJyLvuepx3kWoqL3sN0LhlMI80+fA7GTvoOx4tpq
-            VlzlE6TajYu+jfW3QpOFS5ewEMdL26hzxsZg/geZvTbArcP+OsJKRmhv4kNo6Ayd
-            yHQ/3ZV/f3X9mT3/SPLbJaumkgp3Yzd6t5PeBu+ZQk/mN5WNNuaihNEV7llb1Zhv
-            Y0Fxu9BVd/BNl0rzuxp3rIinB2TX2SCg7wE5xXkwXuQ/2eTDE0v0HlGntkuZjGow
-            DZkxHZQSxZVOzdZCRVaX/WEFLpKa2AQpw5RJrQ4oZ/OfifXyJzP27o03wQARAQAB
-            tEJVYnVudHUgQXJjaGl2ZSBBdXRvbWF0aWMgU2lnbmluZyBLZXkgKDIwMTgpIDxm
-            dHBtYXN0ZXJAdWJ1bnR1LmNvbT6JAjgEEwEKACIFAlufwdoCGwMGCwkIBwMCBhUI
-            AgkKCwQWAgMBAh4BAheAAAoJEIcZINGZG8k8LHMQAKS2cnxz/5WaoCOWArf5g6UH
-            beOCgc5DBm0hCuFDZWWv427aGei3CPuLw0DGLCXZdyc5dqE8mvjMlOmmAKKlj1uG
-            g3TYCbQWjWPeMnBPZbkFgkZoXJ7/6CB7bWRht1sHzpt1LTZ+SYDwOwJ68QRp7DRa
-            Zl9Y6QiUbeuhq2DUcTofVbBxbhrckN4ZteLvm+/nG9m/ciopc66LwRdkxqfJ32Cy
-            q+1TS5VaIJDG7DWziG+Kbu6qCDM4QNlg3LH7p14CrRxAbc4lvohRgsV4eQqsIcdF
-            kuVY5HPPj2K8TqpY6STe8Gh0aprG1RV8ZKay3KSMpnyV1fAKn4fM9byiLzQAovC0
-            LZ9MMMsrAS/45AvC3IEKSShjLFn1X1dRCiO6/7jmZEoZtAp53hkf8SMBsi78hVNr
-            BumZwfIdBA1v22+LY4xQK8q4XCoRcA9G+pvzU9YVW7cRnDZZGl0uwOw7z9PkQBF5
-            KFKjWDz4fCk+K6+YtGpovGKekGBb8I7EA6UpvPgqA/QdI0t1IBP0N06RQcs1fUaA
-            QEtz6DGy5zkRhR4pGSZn+dFET7PdAjEK84y7BdY4t+U1jcSIvBj0F2B7LwRL7xGp
-            SpIKi/ekAXLs117bvFHaCvmUYN7JVp1GMmVFxhIdx6CFm3fxG8QjNb5tere/YqK+
-            uOgcXny1UlwtCUzlrSaP
-            =9AdM
-            -----END PGP PUBLIC KEY BLOCK-----
 """
-DEFAULT_ARCHIVE = Archive(
+DEFAULT_ARCHIVE = install_slices.Archive(
     version="22.04",
     components=["main", "universe"],
     suites=["jammy", "jammy-security", "jammy-updates"],
 )
 
-# Default package for testing.
 DEFAULT_PACKAGE_YAML = """
 package: hello
 slices:
@@ -87,209 +50,371 @@ slices:
         contents:
             /usr/bin/hello:
 """
-DEFAULT_PACKAGE = Package(
-    package="hello",
-    slices=["bins"],
-)
+DEFAULT_PACKAGE = install_slices.Package(package="hello", slices=["bins"])
 
 
-class TestScriptMethods(unittest.TestCase):
-    """
-    Test the methods of install-slices
-    """
+def completed(
+    returncode: int = 0, stdout: str = "", stderr: str = ""
+) -> subprocess.CompletedProcess:
+    """A subprocess.run result. The real type, so attribute typos raise."""
+    return subprocess.CompletedProcess([], returncode, stdout, stderr)
 
-    def setUp(self) -> None:
-        logging.disable(logging.CRITICAL)
 
-    def tearDown(self) -> None:
-        logging.disable(logging.NOTSET)
+def rmadison_output(*packages: str) -> str:
+    """Build output in the format rmadison prints for found packages."""
+    return "".join(f" {p} | 1.0-1 | jammy | source, amd64, arm64\n" for p in packages)
 
-    def test_parse_archive(self):
-        """
-        Test parse_archive()
-        """
-        # test parsing local release
-        with tempfile.TemporaryDirectory() as tmpfs:
-            filepath = os.path.join(tmpfs, "chisel.yaml")
-            with open(filepath, "w", encoding="utf-8") as file:
-                file.write(DEFAULT_CHISEL_YAML)
-            archive = parse_archive(tmpfs)
-            self.assertEqual(archive, DEFAULT_ARCHIVE)
-        # test parsing remote release
-        archive = parse_archive("ubuntu-22.04")
-        self.assertEqual(archive, DEFAULT_ARCHIVE)
-        # test parsing archive version properly
+
+def mock_rmadison(*found: str, returncode: int = 0) -> MagicMock:
+    """A subprocess.run replacement that reports `found` as present."""
+    return MagicMock(return_value=completed(returncode, rmadison_output(*found)))
+
+
+def write_release(tmp_path, chisel_yaml: str = DEFAULT_CHISEL_YAML) -> str:
+    """Write a minimal chisel release directory and return its path."""
+    (tmp_path / "chisel.yaml").write_text(chisel_yaml, encoding="utf-8")
+    return str(tmp_path)
+
+
+class TestParseArchive:
+    """parse_archive()"""
+
+    def test_local_release(self, tmp_path):
+        archive = install_slices.parse_archive(write_release(tmp_path))
+        assert archive == DEFAULT_ARCHIVE
+
+    def test_remote_release(self):
+        # A bare release name is fetched over HTTP rather than read from disk.
+        response = MagicMock(content=DEFAULT_CHISEL_YAML.encode())
+        with patch("requests.get", return_value=response) as get:
+            archive = install_slices.parse_archive("ubuntu-22.04")
+        assert archive == DEFAULT_ARCHIVE
+        assert get.call_args.args[0].endswith("/ubuntu-22.04/chisel.yaml")
+
+    def test_version_is_stringified(self, tmp_path):
+        # YAML parses 23.10 as a float; it must not become "23.1".
         chisel_yaml = DEFAULT_CHISEL_YAML.replace("22.04", "23.10")
         chisel_yaml = chisel_yaml.replace("jammy", "mantic")
-        with tempfile.TemporaryDirectory() as tmpfs:
-            filepath = os.path.join(tmpfs, "chisel.yaml")
-            with open(filepath, "w", encoding="utf-8") as file:
-                file.write(chisel_yaml)
-            archive = parse_archive(tmpfs)
-            self.assertEqual(
-                archive,
-                Archive(
-                    version="23.10",
-                    components=["main", "universe"],
-                    suites=["mantic", "mantic-security", "mantic-updates"],
-                ),
-            )
+        archive = install_slices.parse_archive(write_release(tmp_path, chisel_yaml))
+        assert archive == install_slices.Archive(
+            version="23.10",
+            components=["main", "universe"],
+            suites=["mantic", "mantic-security", "mantic-updates"],
+        )
+
+    def test_malformed_yaml(self, tmp_path):
+        with pytest.raises(SystemExit) as exc:
+            install_slices.parse_archive(write_release(tmp_path, "archives: ["))
+        assert exc.value.code == 1
+
+
+class TestParsePackage:
+    """parse_package() and full_slice_name()"""
 
     def test_full_slice_name(self):
-        """
-        Test full_slice_name()
-        """
-        name = full_slice_name("foo", "bar")
-        self.assertEqual(name, "foo_bar")
+        assert install_slices.full_slice_name("foo", "bar") == "foo_bar"
 
-    def test_parse_package(self):
-        """
-        Test parse_package()
-        """
-        with tempfile.TemporaryDirectory() as tmpfs:
-            filepath = os.path.join(tmpfs, "hello.yaml")
-            with open(filepath, "w", encoding="utf-8") as file:
-                file.write(DEFAULT_PACKAGE_YAML)
-            pkg = parse_package(filepath)
-            self.assertEqual(pkg, DEFAULT_PACKAGE)
+    def test_parse_package(self, tmp_path):
+        path = tmp_path / "hello.yaml"
+        path.write_text(DEFAULT_PACKAGE_YAML, encoding="utf-8")
+        assert install_slices.parse_package(str(path)) == DEFAULT_PACKAGE
 
-    def test_query_package_existence(self):
-        """
-        Test query_package_existence()
-        """
-        found, missing = query_package_existence(
-            packages=["libc6", "hello", "foo123"],
-            archive=DEFAULT_ARCHIVE,
+    def test_slices_are_sorted(self, tmp_path):
+        path = tmp_path / "hello.yaml"
+        path.write_text(
+            dedent("""
+                package: hello
+                slices:
+                    zed:
+                    bins:
+                    mid:
+            """),
+            encoding="utf-8",
         )
-        self.assertEqual(found, ["hello", "libc6"])
-        self.assertEqual(missing, ["foo123"])
-        # with specific arch
-        found, missing = query_package_existence(
-            packages=["libc6", "hello", "foo123"],
-            archive=DEFAULT_ARCHIVE,
-            arch=["i386"],
-        )
-        self.assertEqual(found, ["libc6"])
-        self.assertEqual(missing, ["foo123", "hello"])
+        assert install_slices.parse_package(str(path)).slices == ["bins", "mid", "zed"]
 
-    def test_ensure_package_existence(self):
-        """
-        Test ensure_package_existence()
-        """
-        ensure_package_existence(
-            packages=["libc6", "hello"],
-            archive=DEFAULT_ARCHIVE,
-        )
-        #
-        try:
-            ensure_package_existence(
-                packages=["libc6", "hello", "foo123"],
-                archive=DEFAULT_ARCHIVE,
+    @pytest.mark.parametrize(
+        "sdf",
+        ["package: hello\n", "slices: [\n"],
+        ids=["no-slices-key", "malformed-yaml"],
+    )
+    def test_unusable_file_exits(self, tmp_path, sdf):
+        path = tmp_path / "hello.yaml"
+        path.write_text(sdf, encoding="utf-8")
+        with pytest.raises(SystemExit) as exc:
+            install_slices.parse_package(str(path))
+        assert exc.value.code == 1
+
+
+class TestQueryPackageExistence:
+    """query_package_existence() and its rmadison invocation"""
+
+    def test_found_and_missing(self):
+        with patch("subprocess.run", mock_rmadison("libc6", "hello")):
+            found, missing = install_slices.query_package_existence(
+                packages=["libc6", "hello", "foo123"], archive=DEFAULT_ARCHIVE
             )
-            assert False
-        except SystemExit as e:
-            self.assertEqual(e.code, 1)
+        assert found == ["hello", "libc6"]
+        assert missing == ["foo123"]
 
-    def test_ignore_missing_packages(self):
-        """
-        Test ignore_missing_packages()
-        """
-        filtered, ignored = ignore_missing_packages(
-            packages=[
-                Package("libc6", []),
-                Package("hello", []),
-                Package("foo123", []),
-            ],
-            arch="i386",
-            release="ubuntu-22.04",
-        )
-        self.assertEqual(filtered, [Package("libc6", [])])
-        self.assertEqual(
-            ignored,
-            [
-                Package("hello", []),
-                Package("foo123", []),
-            ],
-        )
-
-    def test_install_slice(self):
-        """
-        Test install_slice()
-        """
-        mock_missing_copyright = set()
-        install_slice("libc6", "libs", "amd64", "ubuntu-22.04", mock_missing_copyright)
-        assert mock_missing_copyright == set()
-        #
-        try:
-            install_slice(
-                "foo123", "bar", "amd64", "ubuntu-22.04", mock_missing_copyright
+    def test_rmadison_args(self):
+        run = mock_rmadison("libc6")
+        with patch("subprocess.run", run):
+            install_slices.query_package_existence(
+                packages=["libc6", "hello"], archive=DEFAULT_ARCHIVE, arch=["i386"]
             )
-            assert False
-        except SystemExit as e:
-            self.assertEqual(e.code, 1)
+        args = run.call_args.args[0]
+        assert args[0] == "rmadison"
+        assert args[args.index("--architecture") + 1] == "i386"
+        assert args[args.index("--component") + 1] == "main,universe"
+        assert args[args.index("--suite") + 1] == "jammy,jammy-security,jammy-updates"
+        # rmadison takes the package names as a single space-delimited argument.
+        assert args[-1] == "libc6 hello"
 
-    @unittest.mock.patch("os.popen")
-    @unittest.mock.patch("pathlib.Path.rglob")
-    @unittest.mock.patch("apt.debfile.DebPackage.__new__")
-    @unittest.mock.patch("magic.from_file")
-    def test_deb_has_copyright_file(
-        self, mock_magic, mock_debpackage, mock_rglob, mock_popen
-    ):
-        """
-        Test deb_has_copyright_file()
-        """
-        # No files, nothing to do
-        mock_rglob.return_value = []
-        assert deb_has_copyright_file("mock_pkg") == False
-        mock_debpackage.assert_not_called()
+    def test_batching(self):
+        packages = [f"pkg{i}" for i in range(120)]
+        batches = []
 
-        # If SHA exists but is not a deb, we skip
-        mock_rglob.return_value = ["fake_sha"]
-        mock_magic.return_value = "not-a-deb"
-        assert deb_has_copyright_file("mock_pkg") == False
-        mock_magic.assert_called_once_with("fake_sha", mime=True)
-        mock_popen.assert_not_called()
+        def echo(args, **kwargs):
+            batches.append(args[-1].split())
+            return completed(stdout=rmadison_output(*batches[-1]))
 
-        # If the deb exists but the pkg doesn't match, we skip
-        mock_magic.return_value = "debian.binary-package"
-        mock_popen.return_value.read.return_value = "bad-pkg-name"
-        assert deb_has_copyright_file("mock_pkg") == False
-        mock_popen.assert_called_once_with(
-            f"dpkg-deb -f {str(CHISEL_PKG_CACHE) + '/fake_sha'} Package"
+        with patch("subprocess.run", side_effect=echo):
+            found, missing = install_slices.query_package_existence(
+                packages=packages, archive=DEFAULT_ARCHIVE, batch_size=50
+            )
+        assert [len(b) for b in batches] == [50, 50, 20]
+        assert found == sorted(packages)
+        assert missing == []
+
+    def test_rmadison_failure_exits(self):
+        with patch("subprocess.run", mock_rmadison(returncode=2)):
+            with pytest.raises(SystemExit) as exc:
+                install_slices.query_package_existence(
+                    packages=["libc6"], archive=DEFAULT_ARCHIVE
+                )
+        assert exc.value.code == 2
+
+
+class TestEnsurePackageExistence:
+    """ensure_package_existence()"""
+
+    def test_all_present(self):
+        with patch("subprocess.run", mock_rmadison("libc6", "hello")):
+            install_slices.ensure_package_existence(
+                packages=["libc6", "hello"], archive=DEFAULT_ARCHIVE
+            )
+
+    def test_missing_exits(self):
+        with patch("subprocess.run", mock_rmadison("libc6", "hello")):
+            with pytest.raises(SystemExit) as exc:
+                install_slices.ensure_package_existence(
+                    packages=["libc6", "hello", "foo123"], archive=DEFAULT_ARCHIVE
+                )
+        assert exc.value.code == 1
+
+
+class TestIgnoreMissingPackages:
+    """ignore_missing_packages()"""
+
+    def test_split(self, tmp_path):
+        packages = [
+            install_slices.Package("libc6", []),
+            install_slices.Package("hello", []),
+            install_slices.Package("foo123", []),
+        ]
+        with patch("subprocess.run", mock_rmadison("libc6")):
+            filtered, ignored = install_slices.ignore_missing_packages(
+                packages=packages, arch="i386", release=write_release(tmp_path)
+            )
+        assert filtered == [install_slices.Package("libc6", [])]
+        assert ignored == [
+            install_slices.Package("hello", []),
+            install_slices.Package("foo123", []),
+        ]
+
+
+class TestChiselCut:
+    """chisel_cut() -- argument construction and retries"""
+
+    @staticmethod
+    def _cut(results, **overrides):
+        """Run chisel_cut with subprocess.run yielding `results` in order."""
+        run = MagicMock(side_effect=results)
+        kwargs = {
+            "arch": "amd64",
+            "release": "./",
+            "root": "/tmp/root",
+            "slice_name": "hello_bins",
+            "chisel_version": "main",
+            "cache_dir": "/tmp/cache",
+        }
+        kwargs.update(overrides)
+        with patch("subprocess.run", run):
+            return install_slices.chisel_cut(**kwargs), run
+
+    def test_cache_dir_is_passed_through_the_environment(self):
+        _, run = self._cut([completed()], cache_dir="/tmp/xyz")
+        assert run.call_args.kwargs["env"]["XDG_CACHE_HOME"] == "/tmp/xyz"
+
+    def test_command_line(self):
+        _, run = self._cut([completed()])
+        args = run.call_args.args[0]
+        assert args[:2] == ["chisel", "cut"]
+        assert args[args.index("--arch") + 1] == "amd64"
+        assert args[args.index("--root") + 1] == "/tmp/root"
+        assert args[-1] == "hello_bins"
+
+    @pytest.mark.parametrize(
+        "version,expected",
+        [
+            ("v1.1.0", False),
+            ("v1.2.0", False),
+            ("v1.4.2", True),
+            ("main", True),
+            ("unknown", True),
+        ],
+    )
+    def test_ignore_unstable_version_gate(self, version, expected):
+        _, run = self._cut([completed()], chisel_version=version)
+        assert ("--ignore=unstable" in run.call_args.args[0]) is expected
+
+    @pytest.mark.parametrize(
+        "results,expected_err,expected_calls",
+        [
+            ([completed(1, stderr="error: no such slice")], "error: no such slice", 1),
+            (
+                [completed(1, stderr="cannot talk to archive")] * 3,
+                "cannot talk to archive",
+                3,
+            ),
+            ([completed(1, stderr="cannot fetch from archive"), completed()], None, 2),
+        ],
+        ids=["not-retryable", "retryable-gives-up", "retryable-then-success"],
+    )
+    def test_retries(self, results, expected_err, expected_calls):
+        err, run = self._cut(results)
+        assert err == expected_err
+        assert run.call_count == expected_calls
+
+
+class TestInstallSlices:
+    """install_slices() -- per-chunk behaviour"""
+
+    CHUNK = [("coreutils", "bins"), ("coreutils", "cat"), ("bash", "bins")]
+
+    @staticmethod
+    def _run(chunk, dry_run=False, cut=None):
+        """Run a chunk with chisel_cut stubbed; return its recorded calls."""
+        cut = cut or MagicMock(return_value=None)
+        with (
+            patch("install_slices.chisel_cut", cut),
+            patch("install_slices.deb_has_copyright_file", return_value=False),
+        ):
+            install_slices.install_slices(
+                chunk, dry_run, "amd64", "ubuntu-26.04", 1, "main"
+            )
+        return [c.kwargs for c in cut.call_args_list]
+
+    def test_every_slice_is_installed(self):
+        calls = self._run(self.CHUNK)
+        assert [c["slice_name"] for c in calls] == [
+            "coreutils_bins",
+            "coreutils_cat",
+            "bash_bins",
+        ]
+
+    def test_dry_run_installs_nothing(self):
+        assert self._run(self.CHUNK, dry_run=True) == []
+
+    def test_error_aborts_the_rest_of_the_chunk(self):
+        calls = self._run(self.CHUNK, cut=MagicMock(return_value="boom"))
+        assert len(calls) == 1
+
+
+class TestDebHasCopyrightFile:
+    """deb_has_copyright_file()"""
+
+    @patch("os.popen")
+    @patch("pathlib.Path.rglob")
+    @patch("install_slices.DebPackage")
+    @patch("magic.from_file")
+    def test_deb_has_copyright_file(self, magic_from_file, debpackage, rglob, popen):
+        # No files in the cache, nothing to inspect.
+        rglob.return_value = []
+        assert install_slices.deb_has_copyright_file("mock_pkg") is False
+        debpackage.assert_not_called()
+
+        # A cached blob that is not a deb is skipped.
+        rglob.return_value = ["fake_sha"]
+        magic_from_file.return_value = "not-a-deb"
+        assert install_slices.deb_has_copyright_file("mock_pkg") is False
+        magic_from_file.assert_called_once_with("fake_sha", mime=True)
+        popen.assert_not_called()
+
+        # A deb belonging to another package is skipped.
+        magic_from_file.return_value = "debian.binary-package"
+        popen.return_value.read.return_value = "bad-pkg-name"
+        assert install_slices.deb_has_copyright_file("mock_pkg") is False
+        popen.assert_called_once_with(
+            f"dpkg-deb -f {str(install_slices.CHISEL_PKG_CACHE)}/fake_sha Package"
         )
-        mock_debpackage.assert_not_called()
+        debpackage.assert_not_called()
 
-        # If the deb exists and matches, then return True is copyright exists
-        mock_popen.return_value.read.return_value = "mock_pkg"
-        mock_deb = unittest.mock.MagicMock()
-        mock_deb.filelist = "no\ncopyright\nfile"
-        mock_debpackage.return_value = mock_deb
-        assert deb_has_copyright_file("mock_pkg") == False
-        mock_debpackage.assert_called_once()
+        # The matching deb decides the answer.
+        popen.return_value.read.return_value = "mock_pkg"
+        deb = MagicMock()
+        deb.filelist = "no\ncopyright\nfile"
+        debpackage.return_value = deb
+        assert install_slices.deb_has_copyright_file("mock_pkg") is False
+        debpackage.assert_called_once()
 
-        mock_deb.filelist = "something\nusr/share/doc/mock_pkg/copyright\nextra"
-        mock_debpackage.return_value = mock_deb
-        assert deb_has_copyright_file("mock_pkg") == True
-
-    def test_main(self):
-        """
-        Test main()
-        """
-        with tempfile.TemporaryDirectory() as tmpfs:
-            with open(os.path.join(tmpfs, "chisel.yaml"), "w", encoding="utf-8") as f:
-                f.write(DEFAULT_CHISEL_YAML)
-            slices_dir = os.path.join(tmpfs, "slices")
-            os.mkdir(slices_dir)
-            slice_path = os.path.join(slices_dir, "hello.yaml")
-            with open(slice_path, "w", encoding="utf-8") as f:
-                f.write(DEFAULT_PACKAGE_YAML)
-            args = ["", "--arch", "amd64", "--release", tmpfs, slice_path]
-            with unittest.mock.patch("sys.argv", args):
-                try:
-                    main()
-                except SystemExit as e:
-                    self.assertEqual(e.code, 0)
+        deb.filelist = "something\nusr/share/doc/mock_pkg/copyright\nextra"
+        assert install_slices.deb_has_copyright_file("mock_pkg") is True
 
 
-if __name__ == "__main__":
-    unittest.main()
+class TestMain:
+    """main() -- argument handling and chunking"""
+
+    @staticmethod
+    def _main(tmp_path, extra_argv=(), slices=("bins",), workers=None):
+        """Run main() over a one-package release; return the submitted chunks."""
+        release = write_release(tmp_path)
+        sdf = tmp_path / "hello.yaml"
+        sdf.write_text(
+            "package: hello\nslices:\n"
+            + "".join(f"    {s}:\n        contents:\n" for s in slices),
+            encoding="utf-8",
+        )
+        argv = ["", "--arch", "amd64", "--release", release]
+        if workers is not None:
+            argv += ["--workers", str(workers)]
+        argv += [*extra_argv, str(sdf)]
+
+        executor = MagicMock()
+        with (
+            # configure_logging() writes error.log into the working directory.
+            contextlib.chdir(tmp_path),
+            patch("sys.argv", argv),
+            patch("install_slices.ProcessPoolExecutor") as pool,
+            patch("install_slices.as_completed", lambda fs: fs),
+        ):
+            pool.return_value.__enter__.return_value = executor
+            install_slices.main()
+        return [c.args for c in executor.submit.call_args_list]
+
+    def test_chunks_are_submitted(self, tmp_path):
+        chunks = self._main(tmp_path)
+        assert len(chunks) == 1
+        fn, slices, dry_run, arch, release, worker, version = chunks[0]
+        assert fn is install_slices.install_slices
+        assert slices == [("hello", "bins")]
+        assert (dry_run, arch, worker, version) == (False, "amd64", 1, "unknown")
+
+    def test_slices_are_split_across_workers(self, tmp_path):
+        chunks = self._main(tmp_path, slices=("a", "b", "c", "d"), workers=2)
+        assert [c[1] for c in chunks] == [
+            [("hello", "a"), ("hello", "b")],
+            [("hello", "c"), ("hello", "d")],
+        ]
+        assert [c[5] for c in chunks] == [1, 2]
