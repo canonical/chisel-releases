@@ -4,6 +4,7 @@ environment:
   SLICE/classdatasharing: "class-data-sharing"
   SLICE/core: "core"
   SLICE/prefs: "prefs"
+  SLICE/sctp: "sctp"
 #  SLICE/rmi: "rmi" # Tested in management slice
   SLICE/debug: "debug"
   SLICE/management: "management"
@@ -40,6 +41,11 @@ execute: |
       ;;
       core)
         chroot . ${java} -cp . Main
+      ;;
+      sctp)
+        # Without SCTP in the kernel the socket call fails, which is past loading libsctp.
+        out="$(chroot . ${java} -cp / SctpOpen 2>&1)" || true
+        echo "$out" | grep -E "sctp channel open|SocketException: Protocol not"
       ;;
       prefs)
         chroot . ${java} -cp . PrefsTest put
