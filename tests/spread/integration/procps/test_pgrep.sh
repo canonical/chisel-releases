@@ -18,15 +18,20 @@ chroot "$rootfs" pkill --help 2>&1 | grep -Fiq 'usage:'
 chroot "$rootfs" pkill --version 2>&1 | grep -Fq 'pkill from procps-ng'
 
 # find a named process with pgrep and kill it with pkill
-rootfs_2="$(install-slices procps_pgrep bash_bins)"
+rootfs_2="$(install-slices procps_pgrep bash_bins coreutils_sleep)"
 
 mkdir -p "$rootfs_2"/proc
 mount --bind /proc "$rootfs_2"/proc
 trap "umount '$rootfs_2'/proc; umount '$rootfs'/proc" EXIT
 
-chroot "$rootfs_2" bash -c '
+# -P keeps the match to the children of this shell
+chroot "$rootfs_2" bash -ec '
     sleep 1000 &
-    pgrep -x sleep | grep -q .
-    pkill -x sleep
-    wait 2>/dev/null || true
+    pid=$!
+    found="$(pgrep -P $$ -x sleep)"
+    test "$found" = "$pid"
+    pkill -P $$ -x sleep
+    wait "$pid" || true
+    left="$(pgrep -P $$ -x sleep || true)"
+    test -z "$left"
 '

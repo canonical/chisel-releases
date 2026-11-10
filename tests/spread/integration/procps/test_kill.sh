@@ -11,17 +11,20 @@ chroot "$rootfs" kill -l | grep -Fq 'HUP'
 chroot "$rootfs" kill -l | grep -Fq 'TERM'
 
 # spawn a process. verify it exists. kill it and make sure its gone
-rootfs_2="$(install-slices procps_kill bash_bins)"
+rootfs_2="$(install-slices procps_kill bash_bins coreutils_sleep)"
 
 mkdir -p "$rootfs_2"/proc
 mount --bind /proc "$rootfs_2"/proc
 trap "umount '$rootfs_2'/proc" EXIT
 
-chroot "$rootfs_2" bash -c '
+# the full path, since a bare kill is the bash builtin
+chroot "$rootfs_2" bash -ec '
     sleep 1000 &
     pid=$!
-    kill -0 "$pid"
-    kill -9 "$pid"
-    wait "$pid" 2>/dev/null || true
-    ! kill -0 "$pid" 2>/dev/null
+    /usr/bin/kill -0 "$pid"
+    /usr/bin/kill -9 "$pid"
+    wait "$pid" || true
+    if /usr/bin/kill -0 "$pid" 2>/dev/null; then
+        exit 1
+    fi
 '
