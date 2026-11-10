@@ -45,10 +45,10 @@ slices:
       /usr/lib/systemd/systemd-executor:
       /usr/lib/systemd/systemd-shutdown:
 
-  # What an ordinary daemon's unit file assumes on top of minimal. The manager's
-  # D-Bus registration and systemd-detect-virt are left out since no unit
-  # depends on either. Users can additionally cut systemd_dbus-services, or
-  # systemd_detect-virt to get these respectively.
+  # What an ordinary daemon's unit file assumes on top of minimal, the manager's
+  # bus policy included: a BusName= unit or a bus-activated daemon needs PID 1
+  # on the bus once there is one. systemd-detect-virt is left out since no unit
+  # depends on it; users can additionally cut systemd_detect-virt to get it.
   # TODO: the journal's paths are listed here, as systemd_journal pulls in
   # system-services on this release; depend on it instead for future releases.
   core:
