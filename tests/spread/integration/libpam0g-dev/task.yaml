@@ -1,0 +1,6 @@
+summary: Integration tests for libpam0g-dev
+
+variants:
+    - hello
+
+execute: bash -ex ./test_${SPREAD_VARIANT}.sh
