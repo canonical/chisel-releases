@@ -4,6 +4,7 @@ environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
   SLICE/modules: "modules"
+  SLICE/runtimetools: "runtime-tools"
 
 execute: |
   set -x
@@ -26,7 +27,10 @@ execute: |
   # Build and copy java test files
   cp -r testfiles "$ROOTFS/"
   cp testfiles/*.java "$ROOTFS/"
-  chroot "$ROOTFS" "$JAVA_HOME/bin/javac" -d / testfiles/*.java
+  # the runtime-tools slice has no javac
+  if [ "${SLICE}" != "runtime-tools" ]; then
+    chroot "$ROOTFS" "$JAVA_HOME/bin/javac" -d / testfiles/*.java
+  fi
   cp testfiles/*.sh "$ROOTFS/"
 
   bash -ex test_${SLICE}.sh
