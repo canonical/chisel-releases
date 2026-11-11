@@ -49,6 +49,14 @@ slices:
       /usr/lib/jvm/java-11-openjdk-*/bin/jstatd:
       /usr/lib/jvm/java-11-openjdk-*/bin/rmic:
 
+  # Launchers for tools whose modules are part of the runtime image
+  runtime-tools:
+    essential:
+      openjdk-11-jre-headless_core:
+    contents:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jfr:
+      /usr/lib/jvm/java-11-openjdk-*/bin/jrunscript:
+
   # OpenJDK modules required to build the runtime image
   modules:
     essential:
