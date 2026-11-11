@@ -127,8 +127,9 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/lib/psfont.properties.ja:
       /usr/lib/jvm/java-25-openjdk-*/lib/psfontj2d.properties:
 
-  # v2 of awt: the same files with a trimmed font stack, without glib's gio
-  # and brotli's encoder, and without libatomic, which no awt library links.
+  # v2 of awt: the same files and functionality, with a smaller set of
+  # dependencies (no gio, brotli encoder or libexpatw, and no libatomic1_libs
+  # essential of its own, since no awt library links those).
   # use this instead of awt.
   awt-v2:
     essential:
