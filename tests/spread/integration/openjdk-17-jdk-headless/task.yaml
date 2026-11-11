@@ -4,5 +4,6 @@ variants:
   - core
   - standard
   - modules
+  - runtime-tools
 
 execute: bash -eux ./test_$SPREAD_VARIANT.sh
