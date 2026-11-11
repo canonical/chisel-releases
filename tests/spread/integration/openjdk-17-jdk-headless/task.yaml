@@ -4,6 +4,7 @@ environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
   SLICE/modules: "modules"
+  SLICE/runtimetools: "runtime-tools"
 
 execute: |
   pids=()
@@ -55,6 +56,13 @@ execute: |
         chroot . ${home}/jimage info ${home}/../lib/modules
         # /usr/lib/jvm/java-17-openjdk-*/bin/serialver:
         chroot . ${home}/serialver -classpath / SerializableObject
+      done
+      ;;
+    runtime-tools)
+      for java in `find usr/lib/jvm -name java`; do
+        home=$(dirname ${java})
+        chroot . ${home}/jfr --version
+        chroot . ${home}/jrunscript -q
       done
       ;;
     standard)
