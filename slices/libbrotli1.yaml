@@ -12,6 +12,19 @@ slices:
       /usr/lib/*-linux-*/libbrotlidec.so.1*:
       /usr/lib/*-linux-*/libbrotlienc.so.1*:
 
+  brotlicommon:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libbrotlicommon.so.1*:
+
+  brotlidec:
+    essential:
+      - libbrotli1_brotlicommon
+      - libc6_libs
+    contents:
+      /usr/lib/*-linux-*/libbrotlidec.so.1*:
+
   copyright:
     contents:
       /usr/share/doc/libbrotli1/copyright:

@@ -11,6 +11,14 @@ slices:
       /usr/lib/*-linux-*/libexpat.so.1*:
       /usr/lib/*-linux-*/libexpatw.so.1*:
 
+  expat:
+    essential:
+      - libc6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf]}
+    contents:
+      /usr/lib/*-linux-*/libexpat.so.1*:
+
   copyright:
     contents:
       /usr/share/doc/libexpat1/copyright:
