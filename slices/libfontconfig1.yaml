@@ -14,13 +14,13 @@ slices:
       /usr/lib/*-linux-*/libfontconfig.so.1*:
 
   # TODO: in the next release give libs these essentials and drop this slice.
-  # fontconfig links only libexpat and freetype, see libfreetype6_freetype.
-  fontconfig:
+  # fontconfig links only libexpat and freetype, see libfreetype6_libs-v2.
+  libs-v2:
     essential:
       fontconfig-config_config:
       libc6_libs:
       libexpat1_expat:
-      libfreetype6_freetype:
+      libfreetype6_libs-v2:
     contents:
       /usr/lib/*-linux-*/libfontconfig.so.1*:
 

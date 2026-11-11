@@ -203,8 +203,8 @@ slices:
   # TODO: in the next release give awt these essentials and drop this slice.
   awt-v2:
     essential:
-      libfontconfig1_fontconfig:
-      libharfbuzz0b_harfbuzz:
+      libfontconfig1_libs-v2:
+      libharfbuzz0b_libs-v2:
       libjpeg8_libs:
       liblcms2-2_libs:
       openjdk-21-jre-headless_core:

@@ -16,7 +16,7 @@ slices:
 
   # TODO: in the next release give libs these essentials and drop this slice.
   # freetype links only libbrotlidec, not the whole of libbrotli1_libs.
-  freetype:
+  libs-v2:
     essential:
       libbrotli1_brotlidec:
       libbz2-1.0_libs:

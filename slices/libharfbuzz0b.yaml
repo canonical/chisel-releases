@@ -16,10 +16,10 @@ slices:
   # TODO: in the next release give libs these essentials and drop this slice.
   # harfbuzz links only libglib-2.0, not gio or gobject. check the users of
   # libs for a gio or gobject need they only meet through harfbuzz first.
-  harfbuzz:
+  libs-v2:
     essential:
       libc6_libs:
-      libfreetype6_freetype:
+      libfreetype6_libs-v2:
       libglib2.0-0t64_core:
       libgraphite2-3_libs:
     contents:
