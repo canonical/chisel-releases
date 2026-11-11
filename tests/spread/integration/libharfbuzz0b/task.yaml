@@ -7,6 +7,6 @@ execute: |
   cp test-harfbuzz ${rootfs}/
   chroot ${rootfs} /test-harfbuzz
 
-  rootfs="$(install-slices libharfbuzz0b_harfbuzz fonts-dejavu-mono_fonts)"
+  rootfs="$(install-slices libharfbuzz0b_libs-v2 fonts-dejavu-mono_fonts)"
   cp test-harfbuzz ${rootfs}/
   chroot ${rootfs} /test-harfbuzz

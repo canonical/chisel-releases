@@ -14,8 +14,9 @@ slices:
     contents:
       /usr/lib/*-linux-*/libfreetype.so.6*:
 
-  # libfreetype.so.6 with only the essentials it links. use this instead of libs.
-  freetype:
+  # v2 of libs: the same files, with only the essentials libfreetype links.
+  # use this instead of libs.
+  libs-v2:
     essential:
       libbrotli1_brotlidec:
       libbz2-1.0_libs:
