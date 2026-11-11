@@ -1,7 +1,7 @@
 summary: Integration tests for libfreetype6
 
 execute: |
-  rootfs="$(install-slices libfreetype6_freetype)"
+  rootfs="$(install-slices libfreetype6_libs-v2)"
 
   # The multiarch directory and the dynamic loader's name differ per arch.
   lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libfreetype.so.6" -print -quit)"
