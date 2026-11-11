@@ -1,0 +1,14 @@
+summary: Integration tests for libfreetype6
+
+execute: |
+  rootfs="$(install-slices libfreetype6_freetype)"
+
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libfreetype.so.6" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
+
+  # Have the dynamic loader resolve every shared library libfreetype links
+  # against; it fails if any is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
