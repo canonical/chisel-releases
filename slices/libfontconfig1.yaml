@@ -13,6 +13,16 @@ slices:
     contents:
       /usr/lib/*-linux-*/libfontconfig.so.1*:
 
+  # libfontconfig.so.1 with only the essentials it links. use this instead of libs.
+  fontconfig:
+    essential:
+      fontconfig-config_config:
+      libc6_libs:
+      libexpat1_expat:
+      libfreetype6_freetype:
+    contents:
+      /usr/lib/*-linux-*/libfontconfig.so.1*:
+
   copyright:
     contents:
       /usr/share/doc/libfontconfig1/copyright:

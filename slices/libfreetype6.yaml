@@ -14,6 +14,17 @@ slices:
     contents:
       /usr/lib/*-linux-*/libfreetype.so.6*:
 
+  # libfreetype.so.6 with only the essentials it links. use this instead of libs.
+  freetype:
+    essential:
+      libbrotli1_brotlidec:
+      libbz2-1.0_libs:
+      libc6_libs:
+      libpng16-16t64_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libfreetype.so.6*:
+
   copyright:
     contents:
       /usr/share/doc/libfreetype6/copyright:

@@ -13,6 +13,16 @@ slices:
     contents:
       /usr/lib/*-linux-*/libharfbuzz.so.0*:
 
+  # libharfbuzz.so.0 with only the essentials it links. use this instead of libs.
+  harfbuzz:
+    essential:
+      libc6_libs:
+      libfreetype6_freetype:
+      libglib2.0-0t64_core:
+      libgraphite2-3_libs:
+    contents:
+      /usr/lib/*-linux-*/libharfbuzz.so.0*:
+
   copyright:
     contents:
       /usr/share/doc/libharfbuzz0b/copyright:

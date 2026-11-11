@@ -106,11 +106,34 @@ slices:
       openjdk-25-jre-headless_security:
       openjdk-25-jre-headless_tools:
 
+  # superseded by awt-v2
   awt:
     essential:
       libatomic1_libs:
       libfontconfig1_libs:
       libharfbuzz0b_libs:
+      libjpeg8_libs:
+      liblcms2-2_libs:
+      openjdk-25-jre-headless_core:
+    contents:
+      /etc/java-25-openjdk/psfont.properties.ja:
+      /etc/java-25-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libawt.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libawt_headless.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libfontmanager.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/liblcms.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/libmlib_image.so:
+      /usr/lib/jvm/java-25-openjdk-*/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-25-openjdk-*/lib/psfontj2d.properties:
+
+  # v2 of awt: the same files with a trimmed font stack, without glib's gio
+  # and brotli's encoder, and without libatomic, which no awt library links.
+  # use this instead of awt.
+  awt-v2:
+    essential:
+      libfontconfig1_fontconfig:
+      libharfbuzz0b_harfbuzz:
       libjpeg8_libs:
       liblcms2-2_libs:
       openjdk-25-jre-headless_core:
