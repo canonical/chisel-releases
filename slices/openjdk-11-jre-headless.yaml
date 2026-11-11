@@ -80,6 +80,8 @@ slices:
       /usr/lib/jvm/java-11-openjdk-*/lib/server/libjsig.so:
       /usr/lib/jvm/java-11-openjdk-*/lib/server/libjvm.so:
       /usr/lib/jvm/java-11-openjdk-*/lib/tzdb.dat:
+      # describes the module image, e.g. MODULES=
+      /usr/lib/jvm/java-11-openjdk-*/release:
 
   # Native part of jdk.prefs modules
   prefs:
