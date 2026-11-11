@@ -12,5 +12,6 @@ variants:
   - security
   - tools
   - awt
+  - awt-v2
 
 execute: bash -eux ./test_$SPREAD_VARIANT.sh

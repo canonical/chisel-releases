@@ -12,6 +12,7 @@ environment:
   SLICE/security: "security"
   SLICE/tools: "tools"
   SLICE/awt: "awt"
+  SLICE/awtv2: "awt-v2"
 
 execute: |
   set -x
