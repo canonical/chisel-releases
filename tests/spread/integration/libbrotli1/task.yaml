@@ -10,3 +10,8 @@ execute: |
   # Have the dynamic loader resolve every shared library libbrotlidec links
   # against; it fails if any is missing.
   chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
+
+  rootfs="$(install-slices libbrotli1_brotlienc)"
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libbrotlienc.so.1" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
