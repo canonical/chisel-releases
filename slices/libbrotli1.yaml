@@ -6,11 +6,9 @@ essential:
 slices:
   libs:
     essential:
-      - libc6_libs
-    contents:
-      /usr/lib/*-linux-*/libbrotlicommon.so.1*:
-      /usr/lib/*-linux-*/libbrotlidec.so.1*:
-      /usr/lib/*-linux-*/libbrotlienc.so.1*:
+      - libbrotli1_brotlicommon
+      - libbrotli1_brotlidec
+      - libbrotli1_brotlienc
 
   brotlicommon:
     essential:
