@@ -34,13 +34,9 @@ slices:
     essential:
       - libc6_libs
     contents:
-      /usr/lib/*-linux-*/libfreebl3.chk:  # Symlink to nss/libfreebl3.chk
       /usr/lib/*-linux-*/libfreebl3.so:  # Symlink to nss/libfreebl3.so
-      /usr/lib/*-linux-*/libfreeblpriv3.chk:  # Symlink to nss/libfreeblpriv3.chk
       /usr/lib/*-linux-*/libfreeblpriv3.so:  # Symlink to nss/libfreeblpriv3.so
-      /usr/lib/*-linux-*/nss/libfreebl3.chk:
       /usr/lib/*-linux-*/nss/libfreebl3.so:
-      /usr/lib/*-linux-*/nss/libfreeblpriv3.chk:
       /usr/lib/*-linux-*/nss/libfreeblpriv3.so:
 
   # The softoken opens libfreeblpriv3.so at run time.
@@ -52,7 +48,6 @@ slices:
       - libnss3_nss
       - libsqlite3-0_libs
     contents:
-      /usr/lib/*-linux-*/nss/libsoftokn3.chk:
       /usr/lib/*-linux-*/nss/libsoftokn3.so:
 
   smime:
