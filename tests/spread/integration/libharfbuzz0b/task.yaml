@@ -6,3 +6,9 @@ execute: |
   gcc test.c -lharfbuzz -o test-harfbuzz
   cp test-harfbuzz ${rootfs}/
   chroot ${rootfs} /test-harfbuzz
+
+  rootfs="$(install-slices libharfbuzz0b_harfbuzz fonts-dejavu-mono_fonts)"
+  cp test-harfbuzz ${rootfs}/
+  chroot ${rootfs} /test-harfbuzz
+  # the trimmed stack leaves out gio and brotli's encoder
+  test -z "$(find "$rootfs" -name 'libgio-2.0.so*' -o -name 'libbrotlienc.so*')"
