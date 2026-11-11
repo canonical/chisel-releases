@@ -4,6 +4,7 @@ environment:
   SLICE/core: "core"
   SLICE/standard: "standard"
   SLICE/modules: "modules"
+  SLICE/runtimetools: "runtime-tools"
 
 execute: |
   set -x

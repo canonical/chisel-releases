@@ -6,3 +6,4 @@ if [ -z "$ROOTFS" ] || [ -z "$JAVA_HOME" ]; then
 fi
 
 chroot "$ROOTFS" "$JAVA_HOME/bin/java" /Main.java
+grep -q '^JAVA_VERSION="25' "$ROOTFS$JAVA_HOME/release"
