@@ -14,6 +14,18 @@ slices:
     contents:
       /usr/lib/*-linux-*/libfreetype.so.6*:
 
+  # TODO: in the next release give libs these essentials and drop this slice.
+  # freetype links only libbrotlidec, not the whole of libbrotli1_libs.
+  freetype:
+    essential:
+      libbrotli1_brotlidec:
+      libbz2-1.0_libs:
+      libc6_libs:
+      libpng16-16t64_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/*-linux-*/libfreetype.so.6*:
+
   copyright:
     contents:
       /usr/share/doc/libfreetype6/copyright:
