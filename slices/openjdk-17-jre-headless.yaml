@@ -173,11 +173,35 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/ct.sym:
 
   # headless UI
+  # superseded by awt-v2
   awt:
     essential:
       libatomic1_libs:
       libfontconfig1_libs:
       libharfbuzz0b_libs:
+      libjpeg8_libs:
+      liblcms2-2_libs:
+      openjdk-17-jre-headless_core:
+    contents:
+      /etc/java-17-openjdk/psfont.properties.ja:
+      /etc/java-17-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-17-openjdk-*/lib/libawt.so:
+      /usr/lib/jvm/java-17-openjdk-*/lib/libawt_headless.so:
+      /usr/lib/jvm/java-17-openjdk-*/lib/libfontmanager.so:
+      /usr/lib/jvm/java-17-openjdk-*/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-17-openjdk-*/lib/liblcms.so:
+      /usr/lib/jvm/java-17-openjdk-*/lib/libmlib_image.so:
+      /usr/lib/jvm/java-17-openjdk-*/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-17-openjdk-*/lib/psfontj2d.properties:
+
+  # v2 of awt: the same files and functionality, with a smaller set of
+  # dependencies (no gio, brotli encoder or libexpatw, and no libatomic1_libs
+  # essential of its own, since no awt library links those).
+  # TODO: in the next release give awt these essentials and drop this slice.
+  awt-v2:
+    essential:
+      libfontconfig1_libs-v2:
+      libharfbuzz0b_libs-v2:
       libjpeg8_libs:
       liblcms2-2_libs:
       openjdk-17-jre-headless_core:

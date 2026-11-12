@@ -10,5 +10,6 @@ variants:
   - jfr
   - security
   - tools
+  - awt-v2
 
 execute: bash -eux ./test_$SPREAD_VARIANT.sh
