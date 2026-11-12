@@ -13,6 +13,17 @@ slices:
     contents:
       /usr/lib/*-linux-*/libfontconfig.so.1*:
 
+  # v2 of libs: the same files, with only the essentials libfontconfig links.
+  # use this instead of libs.
+  libs-v2:
+    essential:
+      - fontconfig-config_config
+      - libc6_libs
+      - libexpat1_expat
+      - libfreetype6_libs-v2
+    contents:
+      /usr/lib/*-linux-*/libfontconfig.so.1*:
+
   copyright:
     contents:
       /usr/share/doc/libfontconfig1/copyright:

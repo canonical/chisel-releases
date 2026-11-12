@@ -12,6 +12,7 @@ environment:
   SLICE/security: "security"
   SLICE/tools: "tools"
   SLICE/awt: "awt"
+  SLICE/awtv2: "awt-v2"
 
 execute: |
   # Test different slice installations
@@ -32,6 +33,11 @@ execute: |
       awt)
         chroot . ${java} /ImageTest.java
         file -i HelloWorld.png | grep -q "image/png; charset=binary"
+      ;;
+      awt-v2)
+        chroot . ${java} -cp . ImageTest
+        file -i HelloWorld.png | grep -q "image/png; charset=binary"
+        chroot . ${java} -Djava.net.useSystemProxies=true -cp . ProxyTest
       ;;
       class-data-sharing)
         chroot . ${java} -XX:ArchiveClassesAtExit=archive.cds /Main.java

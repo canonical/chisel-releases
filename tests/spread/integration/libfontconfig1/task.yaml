@@ -1,0 +1,12 @@
+summary: Integration tests for libfontconfig1
+
+execute: |
+  rootfs="$(install-slices libfontconfig1_libs-v2)"
+
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libfontconfig.so.1" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+
+  # Have the dynamic loader resolve every shared library libfontconfig links
+  # against; it fails if any is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"

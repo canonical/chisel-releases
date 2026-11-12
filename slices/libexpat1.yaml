@@ -6,9 +6,23 @@ essential:
 slices:
   libs:
     essential:
+      - libexpat1_expat
+      - libexpat1_expatw
+
+  expat:
+    essential:
       - libc6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf]}
     contents:
       /usr/lib/*-linux-*/libexpat.so.1*:
+
+  expatw:
+    essential:
+      - libc6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf]}
+    contents:
       /usr/lib/*-linux-*/libexpatw.so.1*:
 
   copyright:

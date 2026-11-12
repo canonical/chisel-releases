@@ -176,11 +176,35 @@ slices:
       /usr/lib/jvm/java-21-openjdk-*/lib/jrt-fs.jar:
 
   # headless UI
+  # superseded by awt-v2
   awt:
     essential:
       - libatomic1_libs
       - libfontconfig1_libs
       - libharfbuzz0b_libs
+      - libjpeg8_libs
+      - liblcms2-2_libs
+      - openjdk-21-jre-headless_core
+    contents:
+      /etc/java-21-openjdk/psfont.properties.ja:
+      /etc/java-21-openjdk/psfontj2d.properties:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libawt.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libawt_headless.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libfontmanager.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libjavajpeg.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/liblcms.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/libmlib_image.so:
+      /usr/lib/jvm/java-21-openjdk-*/lib/psfont.properties.ja:
+      /usr/lib/jvm/java-21-openjdk-*/lib/psfontj2d.properties:
+
+  # v2 of awt: the same files and functionality, with a smaller set of
+  # dependencies (no gio, brotli encoder or libexpatw, and no libatomic1_libs
+  # essential of its own, since no awt library links those).
+  # use this instead of awt.
+  awt-v2:
+    essential:
+      - libfontconfig1_libs-v2
+      - libharfbuzz0b_libs-v2
       - libjpeg8_libs
       - liblcms2-2_libs
       - openjdk-21-jre-headless_core
