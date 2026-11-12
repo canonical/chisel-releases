@@ -1,0 +1,16 @@
+package: python3-iniconfig
+
+essential:
+  python3-iniconfig_copyright:
+
+slices:
+  libs:
+    essential:
+      python3-minimal_python3:
+    contents:
+      /usr/lib/python3/dist-packages/iniconfig-*.dist-info/**:
+      /usr/lib/python3/dist-packages/iniconfig/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-iniconfig/copyright:

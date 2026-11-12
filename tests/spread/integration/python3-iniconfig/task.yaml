@@ -1,0 +1,9 @@
+summary: Integration tests for python3-iniconfig
+
+execute: |
+  rootfs="$(install-slices python3-iniconfig_libs)"
+
+  mkdir -p "$rootfs/tmp"
+  cp verify.py "$rootfs/tmp/"
+
+  test "$(chroot "$rootfs" python3 /tmp/verify.py)" = "success"
