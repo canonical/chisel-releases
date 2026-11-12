@@ -1,0 +1,195 @@
+package: postgresql-client-18
+
+essential:
+  postgresql-client-18_copyright:
+
+slices:
+  bins:
+    essential:
+      postgresql-client-18_clusterdb:
+      postgresql-client-18_createdb:
+      postgresql-client-18_createuser:
+      postgresql-client-18_dropdb:
+      postgresql-client-18_dropuser:
+      postgresql-client-18_pg-amcheck:
+      postgresql-client-18_pg-basebackup:
+      postgresql-client-18_pg-combinebackup:
+      postgresql-client-18_pg-config:
+      postgresql-client-18_pg-dump:
+      postgresql-client-18_pg-dumpall:
+      postgresql-client-18_pg-isready:
+      postgresql-client-18_pg-receivewal:
+      postgresql-client-18_pg-recvlogical:
+      postgresql-client-18_pg-restore:
+      postgresql-client-18_pg-verifybackup:
+      postgresql-client-18_psql:
+      postgresql-client-18_reindexdb:
+      postgresql-client-18_vacuumdb:
+
+  clusterdb:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/clusterdb:
+
+  createdb:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/createdb:
+
+  createuser:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/createuser:
+
+  dropdb:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/dropdb:
+
+  dropuser:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/dropuser:
+
+  pg-amcheck:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_amcheck:
+
+  pg-basebackup:
+    essential:
+      libc6_libs:
+      liblz4-1_libs:
+      libpq5_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_basebackup:
+
+  pg-combinebackup:
+    essential:
+      libc6_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_combinebackup:
+
+  pg-config:
+    essential:
+      libc6_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_config:
+
+  pg-dump:
+    essential:
+      libc6_libs:
+      liblz4-1_libs:
+      libpq5_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_dump:
+
+  pg-dumpall:
+    hint: Runs pg_dump via /bin/sh (popen, system)
+    essential:
+      base-files_bin:
+      dash_bins:
+      libc6_libs:
+      liblz4-1_libs:
+      libpq5_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
+      postgresql-client-18_pg-dump:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_dumpall:
+
+  pg-isready:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_isready:
+
+  pg-receivewal:
+    essential:
+      libc6_libs:
+      liblz4-1_libs:
+      libpq5_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_receivewal:
+
+  pg-recvlogical:
+    essential:
+      libc6_libs:
+      liblz4-1_libs:
+      libpq5_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_recvlogical:
+
+  pg-restore:
+    essential:
+      libc6_libs:
+      liblz4-1_libs:
+      libpq5_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_restore:
+
+  # TODO: add postgresql-18_pg-waldump (+ base-files_bin, dash_bins) once postgresql-18 is sliced; until then use --no-parse-wal
+  pg-verifybackup:
+    essential:
+      # base-files_bin:
+      # dash_bins:
+      libc6_libs:
+      liblz4-1_libs:
+      libssl3t64_libs:
+      libzstd1_libs:
+      # postgresql-18_pg-waldump:
+      zlib1g_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/pg_verifybackup:
+
+  psql:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+      libreadline8t64_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/psql:
+
+  reindexdb:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/reindexdb:
+
+  vacuumdb:
+    essential:
+      libc6_libs:
+      libpq5_libs:
+    contents:
+      /usr/lib/postgresql/18/bin/vacuumdb:
+
+  copyright:
+    contents:
+      /usr/share/doc/postgresql-client-18/copyright:
