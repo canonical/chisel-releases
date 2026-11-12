@@ -1,0 +1,29 @@
+package: radvd
+
+essential:
+  radvd_copyright:
+
+slices:
+  # The adduser dependency is only used by the postinst, to create the "radvd"
+  # system user for the optional --username option; maintainer scripts are
+  # handled differently in Chisel. /etc/init.d/radvd is left out as well: the
+  # systemd unit below supersedes it.
+  bins:
+    hint: IPv6 router advertisement daemon
+    essential:
+      libc6_libs:
+    contents:
+      /usr/sbin/radvd:
+
+  services:
+    essential:
+      radvd_bins:
+    contents:
+      # The unit has ConditionPathExists=/etc/radvd.conf. The deb ships no
+      # default config -- only examples under /usr/share/doc -- so the
+      # configuration stays up to the consumer.
+      /usr/lib/systemd/system/radvd.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/radvd/copyright:
