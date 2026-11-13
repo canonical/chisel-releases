@@ -359,6 +359,13 @@ def test_sync_failed_item_does_not_stop_the_rest(github, caplog):
     assert "PR #2: failed: boom" in caplog.text
 
 
+def test_sync_skips_nodes_lost_to_a_partial_error(github):
+    """A node the API could not resolve comes back null, next to the error graphql() logs."""
+    fake = github([None, item(pr(state="CLOSED"))], pulls=[None, pr(2)])
+    assert pba.sync(REPO, apply=True, now=NOW) == 0
+    assert [i for i, _ in fake.mutations] == ["add:PR2", "item", "new-PR2", "new-PR2"]
+
+
 @pytest.mark.parametrize(
     "setup, error",
     [

@@ -164,7 +164,8 @@ def paged(query: str, variables: dict, connection) -> list[dict]:
     nodes, cursor = [], None
     while True:
         conn = connection(graphql(query, {**variables, "cursor": cursor}))
-        nodes += conn["nodes"]
+        # a node lost to a partial error is null; graphql() has logged the error
+        nodes += [n for n in conn["nodes"] if n]
         if not conn["pageInfo"]["hasNextPage"]:
             return nodes
         cursor = conn["pageInfo"]["endCursor"]
