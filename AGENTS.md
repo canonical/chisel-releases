@@ -4,7 +4,7 @@
 
 - **BRANCH STRUCTURE:** 
    - `main` is meta-only (reusable CI workflows, CI scripts and their tests, and docs) - there are no package slices files in `main`
-   - each `ubuntu-XX.YY` branch is a [Chisel](https://github.com/canonical/chisel) release ([docs](https://ubuntu.com/chisel/docs/latest/)), where `XX.YY` maps to the corresponding Ubuntu release (e.g. `26.04`). These branches contain the release definition file `chisel.yaml`, the Package Slices Files, and the slices' [Spread](https://github.com/canonical/spread) tests
+   - each `ubuntu-XX.YY` branch is a [Chisel](https://github.com/canonical/chisel) release ([docs](https://ubuntu.com/chisel/docs/latest/)), where `XX.YY` maps to the corresponding Ubuntu release (e.g. `26.04`). These branches contain the release definition file `chisel.yaml`, the package slices files, and the slices' [Spread](https://github.com/canonical/spread) tests
 
 ## Working on `main`
 

@@ -42,10 +42,10 @@ the moment, the officially supported Chisel releases are:
 \- Stonking
 
 In each release branch, you'll find a `chisel.yaml` file that defines the Chisel
-release, plus a `slices` folder with all the Package Slices Files for
+release, plus a `slices` folder with all the package slices files for
 that release.
 
-For more information on the Package Slices Files' YAML schema and how to install slices, please
+For more information on the package slices files' YAML schema and how to install slices, please
 refer to the
 [Chisel documentation](https://ubuntu.com/chisel/docs).
 
