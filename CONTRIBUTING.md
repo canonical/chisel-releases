@@ -18,6 +18,7 @@ Any non-conforming proposals will be subject to immediate rejection.
     - [Commit Conventions](#commit-conventions)
     - [Pull Request Etiquette](#pull-request-etiquette)
   - [Slicing Debian Packages](#slicing-debian-packages)
+  - [Testing Slice Changes](#testing-slice-changes)
 
 ## Code of Conduct
 
@@ -112,4 +113,25 @@ If you are slicing Debian packages and thus proposing new slice definitions,
 make sure you read the [package slicing guidelines available in the
 Chisel documentation](https://ubuntu.com/chisel/docs/latest/how-to/slice-a-package/).
 
+### Testing Slice Changes
+
+Work from the release branch containing your slice files. Before opening
+a PR, cut each changed slice from your local checkout into an empty rootfs and
+check that the expected files and functionality are present. For example:
+
+```bash
+mkdir rootfs
+chisel cut --release . --root rootfs/ vim-tiny_bins
+```
+
+Replace `vim-tiny_bins` with the slice you changed. Functional slices also need
+an integration test in `tests/spread/integration/<package>/task.yaml`. Run that
+task locally with Spread and LXD, for example:
+
+```bash
+spread lxd:tests/spread/integration/vim-tiny
+```
+
+The [Chisel slice testing guide](https://ubuntu.com/chisel/docs/latest/how-to/slice-a-package/#test-the-slices)
+shows how to check a rootfs, write a Spread task, and run it.
 
