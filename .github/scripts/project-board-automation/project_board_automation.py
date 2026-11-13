@@ -15,9 +15,9 @@ status, "Merged", "Changes requested -> In Progress"), so the board has one owne
   Reviews count from reviewers with push access (what
   GitHub's required reviews and merge blocking count) and from slice-reviewers-guild
   members, so a change request from someone who has since left does not park a PR.
-  A reviewer's opinion is their latest review; once the author re-requests them
-  (directly, or through the team they reviewed on behalf of) they have none: the
-  approval is stale and the change request is addressed.
+  A reviewer's opinion is their latest review; once the author re-requests them they
+  have none: the approval is stale and the change request is addressed. A requested
+  team says nothing: triage-prs re-requests the reviewer team on every PR.
 
 The board is the only thing it writes to: every mutation is a ProjectV2 one, and the
 repository, its PRs, labels and comments are read-only to it (the token has no write
@@ -72,14 +72,9 @@ fragment prFields on PullRequest {
   # last, not first: the connection is oldest first. A PR with over 100 reviews loses
   # its oldest ones, which only matters for a reviewer whose last decision is that old.
   reviews(last: 100) {
-    nodes {
-      state authorCanPushToRepository author { login }
-      onBehalfOf(first: 10) { nodes { slug } }
-    }
+    nodes { state authorCanPushToRepository author { login } }
   }
-  reviewRequests(first: 50) {
-    nodes { requestedReviewer { ... on User { login } ... on Team { slug } } }
-  }
+  reviewRequests(first: 50) { nodes { requestedReviewer { ... on User { login } } } }
 }
 """
 
@@ -207,15 +202,15 @@ def target_status(pr: dict, current: str | None, team: set[str]) -> str | None:
         for r in pr["reviews"]["nodes"]
         if r["author"] and r["state"] in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED")
     }
+    # users only; a requested team comes back empty
     requested = {
-        rr["requestedReviewer"].get("login") or rr["requestedReviewer"].get("slug")
+        rr["requestedReviewer"].get("login")
         for rr in pr["reviewRequests"]["nodes"]
         if rr["requestedReviewer"]
     }
 
     def counts(login: str, review: dict) -> bool:
-        teams = {t["slug"] for t in review["onBehalfOf"]["nodes"]}
-        if login in requested or teams & requested:
+        if login in requested:
             return False
         return review["authorCanPushToRepository"] or login.lower() in team
 

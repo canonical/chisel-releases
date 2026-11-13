@@ -23,13 +23,12 @@ REPO = "canonical/chisel-releases"
 TEAM = {"guildie"}
 
 
-def review(login, state, push=True, teams=()):
-    return {
-        "state": state,
-        "authorCanPushToRepository": push,
-        "author": {"login": login},
-        "onBehalfOf": {"nodes": [{"slug": t} for t in teams]},
-    }
+def review(login, state, push=True):
+    return {"state": state, "authorCanPushToRepository": push, "author": {"login": login}}
+
+
+# a requested team as the query returns it: only users are asked for their login
+TEAM_REQUEST = {}
 
 
 def pr(
@@ -102,19 +101,22 @@ def test_mutations_only_touch_the_board():
             pba.AWAITING,
             pba.READY,
         ),
-        # a re-requested approver is stale, by user or by the team they reviewed for
+        # a re-requested approver is stale
         (
             [review("a", "APPROVED"), review("b", "APPROVED")],
             [{"login": "b"}],
             pba.READY,
             pba.PENDING_SECOND,
         ),
+        # a requested team makes nobody stale: triage-prs re-requests the reviewer team
+        # on every PR, whoever has reviewed it
         (
-            [review("a", "APPROVED"), review("b", "APPROVED", teams=["t"])],
-            [{"slug": "t"}],
-            pba.READY,
+            [review("a", "APPROVED"), review("b", "APPROVED")],
+            [TEAM_REQUEST],
             pba.PENDING_SECOND,
+            pba.READY,
         ),
+        ([review("b", "CHANGES_REQUESTED")], [TEAM_REQUEST], pba.AWAITING, pba.IN_PROGRESS),
         # the latest decision wins and a later comment does not replace it
         (
             [review("a", "CHANGES_REQUESTED"), review("a", "APPROVED"), review("a", "COMMENTED")],
@@ -149,17 +151,11 @@ def test_mutations_only_touch_the_board():
         ([review("Guildie", "CHANGES_REQUESTED", push=False)], [], pba.AWAITING, pba.IN_PROGRESS),
         # once re-requested, it is addressed; no approvals left -> back to awaiting
         ([review("b", "CHANGES_REQUESTED")], [{"login": "b"}], pba.IN_PROGRESS, pba.AWAITING),
+        # the latest review is the reviewer's opinion: once they are re-requested, an
+        # earlier approval does not come back
         (
-            [review("b", "CHANGES_REQUESTED", teams=["t"])],
-            [{"slug": "t"}],
-            pba.IN_PROGRESS,
-            pba.AWAITING,
-        ),
-        # the latest review is the reviewer's opinion: once it is re-requested through the
-        # team, an earlier direct approval does not come back
-        (
-            [review("a", "APPROVED"), review("a", "CHANGES_REQUESTED", teams=["t"])],
-            [{"slug": "t"}],
+            [review("a", "APPROVED"), review("a", "CHANGES_REQUESTED")],
+            [{"login": "a"}],
             pba.READY,
             pba.AWAITING,
         ),
