@@ -15,14 +15,14 @@ jobs:
       changed-files: ${{ steps.changed-paths.outputs.slices_files }}
       has-changes: ${{ steps.changed-paths.outputs.slices }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
         with:
           ref: ${{ github.head_ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Check changed paths
         id: changed-paths
-        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        uses: dorny/paths-filter@v3.0.2
         with:
           # ref: https://github.com/marketplace/actions/paths-changes-filter
           filters: |
@@ -41,16 +41,16 @@ jobs:
     env:
       main-branch-path: files-from-main
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
 
       - name: Checkout main branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.4.0
         with:
           ref: main
           path: ${{ env.main-branch-path }}
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.12"
           pip-install: -r ${{ env.main-branch-path }}/.github/scripts/validate-hints/requirements.txt

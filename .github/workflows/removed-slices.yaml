@@ -13,7 +13,7 @@ jobs:
     env:
       files_main: "main-files"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
         with:
           # We do need to fetch all history for all branches.
           fetch-depth: 0
@@ -50,7 +50,7 @@ jobs:
 
       - name: "Checkout main branch"
         if: steps.is-devel.outputs.value != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.4.0
         with:
           ref: ${{ steps.set-main-ref.outputs.ref_main }}
           path: ${{ env.files_main }}
