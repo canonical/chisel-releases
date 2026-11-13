@@ -36,7 +36,7 @@ runs:
 
     - name: Upload PR comment data
       if: steps.prepare.outputs.name
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: ${{ steps.prepare.outputs.name }}
         path: ${{ steps.prepare.outputs.name }}.txt

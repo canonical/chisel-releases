@@ -60,12 +60,12 @@ jobs:
       main-branch-ref: ${{ needs.prepare-lint.outputs.main-ref }}
       main-branch-path: files-from-main
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
         with:
           ref: ${{ matrix.ref }}
 
       - name: Checkout main branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.4.0
         with:
           ref: ${{ env.main-branch-ref }}
           path: ${{ env.main-branch-path }}
