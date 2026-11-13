@@ -409,6 +409,17 @@ def test_graphql_tolerates_a_lost_node_only_in_a_query(monkeypatch, caplog, quer
         assert "GraphQL errors alongside the data" in caplog.text
 
 
+def test_graphql_sends_json(monkeypatch):
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    sent, response = [], io.BytesIO(b'{"data": {}}')
+    monkeypatch.setattr(
+        pba.urllib.request, "urlopen", lambda req, timeout: sent.append(req) or response
+    )
+    pba.graphql("query { x }", {"a": 1})
+    assert sent[0].get_header("Content-type") == "application/json"
+    assert json.loads(sent[0].data) == {"query": "query { x }", "variables": {"a": 1}}
+
+
 @pytest.mark.parametrize("argv, apply, failed", [(["--apply"], True, 1), ([], False, 0)])
 def test_main_passes_the_flags_and_exits_on_failures(monkeypatch, argv, apply, failed):
     calls = []

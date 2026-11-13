@@ -146,7 +146,10 @@ def graphql(query: str, variables: dict) -> dict:
     request = urllib.request.Request(
         "https://api.github.com/graphql",
         data=json.dumps({"query": query, "variables": variables}).encode(),
-        headers={"Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}"},
+        headers={
+            "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+            "Content-Type": "application/json",
+        },
     )
     with urllib.request.urlopen(request, timeout=60) as response:  # raises on non-2xx
         body = json.load(response)
