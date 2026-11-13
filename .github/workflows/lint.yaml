@@ -85,7 +85,7 @@ jobs:
             chisel.yaml \
             slices/
 
-      - name: Lint with SDF-specific rules
+      - name: Lint with package slices file rules
         run: |
           set -e
 

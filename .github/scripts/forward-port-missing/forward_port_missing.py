@@ -142,10 +142,10 @@ def fetch_prs(supported_branches: set[str] | None = None) -> set[PR]:
     # run the generator
     results = list(_results)
 
-    # fetch the file list of each PR in parallel and collect the slice definition files it adds
+    # fetch the file list of each PR in parallel and collect the package slices files it adds
 
     def _fetch_new_slices(pr: dict) -> tuple[int, list[str]]:
-        """Return the PR number and the names of the slice definition files the PR adds."""
+        """Return the PR number and the names of the package slices files the PR adds."""
         files: list[dict] = []
         params: dict[str, int] = {"per_page": per_page, "page": 1}
         with retrying_session() as s:
@@ -298,7 +298,7 @@ def checkout_chisel_releases_info(
                 continue
 
             slices_per_branch[branch] = set(
-                sdf.stem for sdf in (tmpdir / "slices").glob("*.yaml")
+                file.stem for file in (tmpdir / "slices").glob("*.yaml")
             )
             codenames[branch] = _codenames.pop()
 
