@@ -41,7 +41,7 @@ slices:
       names = [
         "mozilla/{}".format(name) for name in content.list(certs_dir)
       ]
-      content.write("/etc/ca-certificates.conf", "\n".join(names))
+      content.write("/etc/ca-certificates.conf", "\n".join(names) + "\n")
 
   scripts:
     essential:
