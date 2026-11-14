@@ -6,7 +6,7 @@
 
 set -eu
 
-SDF="${PROJECT_PATH}/slices/coreutils.yaml"
+PACKAGE_SLICES_FILE="${PROJECT_PATH}/slices/coreutils.yaml"
 ROOTFS="$(mktemp -d)"
 
 install_slices() {
@@ -58,7 +58,7 @@ for s in ${slices[@]}; do
     echo "Testing $slice ..."
     install_slices "$slice"
 
-    files=$(s="$s" yq ".slices.[env(s)].contents | keys | .[]" "${SDF}")
+    files=$(s="$s" yq ".slices.[env(s)].contents | keys | .[]" "${PACKAGE_SLICES_FILE}")
     for file in ${files[@]}; do
         cmd="$(basename "$file")"
         run_command "$cmd"
