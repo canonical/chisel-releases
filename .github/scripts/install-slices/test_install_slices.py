@@ -195,6 +195,58 @@ class TestQueryPackageExistence:
                 )
         assert exc.value.code == 2
 
+    @pytest.mark.parametrize(
+        "stderr",
+        [
+            "curl: (22) The requested URL returned error: 504",
+            "curl: (28) Failed to connect to ubuntu-archive-team.ubuntu.com port 443"
+            " after 300000 ms: Timeout was reached",
+            "curl: (7) Failed to connect to ubuntu-archive-team.ubuntu.com port 443"
+            " after 3 ms: Couldn't connect to server",
+        ],
+        ids=["server-error", "timeout", "connect-failed"],
+    )
+    def test_rmadison_transient_failure_is_retried(self, stderr, caplog):
+        run = MagicMock(
+            side_effect=[
+                completed(1, stderr=stderr),
+                completed(stdout=rmadison_output("libc6")),
+            ]
+        )
+        with patch("subprocess.run", run), patch("time.sleep") as sleep:
+            found, missing = install_slices.query_package_existence(
+                packages=["libc6"], archive=DEFAULT_ARCHIVE
+            )
+        assert (found, missing) == (["libc6"], [])
+        assert run.call_count == 2
+        sleep.assert_called_once_with(10)
+        assert stderr in caplog.text
+
+    def test_rmadison_retries_give_up(self):
+        stderr = "curl: (22) The requested URL returned error: 503"
+        run = MagicMock(return_value=completed(1, stderr=stderr))
+        with patch("subprocess.run", run), patch("time.sleep") as sleep:
+            with pytest.raises(SystemExit) as exc:
+                install_slices.query_package_existence(
+                    packages=["libc6"], archive=DEFAULT_ARCHIVE
+                )
+        assert exc.value.code == 1
+        assert run.call_count == 3
+        assert [c.args[0] for c in sleep.call_args_list] == [10, 20]
+
+    def test_rmadison_client_error_is_not_retried(self):
+        # A 4xx, such as the 414 in #717, fails the same way on every attempt.
+        stderr = "curl: (22) The requested URL returned error: 414"
+        run = MagicMock(return_value=completed(1, stderr=stderr))
+        with patch("subprocess.run", run), patch("time.sleep") as sleep:
+            with pytest.raises(SystemExit) as exc:
+                install_slices.query_package_existence(
+                    packages=["libc6"], archive=DEFAULT_ARCHIVE
+                )
+        assert exc.value.code == 1
+        assert run.call_count == 1
+        sleep.assert_not_called()
+
 
 class TestEnsurePackageExistence:
     """ensure_package_existence()"""
