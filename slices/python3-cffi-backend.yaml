@@ -8,7 +8,7 @@ slices:
     essential:
       libc6_libs:
       libffi8_libs:
-      python3-minimal_python3:
+      python3_minimal:
     contents:
       /usr/lib/python3/dist-packages/_cffi_backend.cpython-314-*-linux-*.so:
 
