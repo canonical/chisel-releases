@@ -24,13 +24,13 @@ oldref="$1"
 curref="$(git rev-parse --short HEAD)"
 exitcode=0
 
-# Check for deleted or renamed slice definition files.
+# Check for deleted or renamed package slices files.
 deleted_files=()
 while IFS= read -r f; do
   deleted_files+=( "$f" )
 done < <(git diff --name-only --diff-filter=DR "$oldref" "$curref" -- slices/)
 if (( ${#deleted_files[@]} )); then
-  echo "The following slice definition files have been deleted or renamed:"
+  echo "The following package slices files have been deleted or renamed:"
   for f in "${deleted_files[@]}"; do
     echo "- $f"
   done

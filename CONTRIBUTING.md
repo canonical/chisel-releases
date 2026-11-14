@@ -94,7 +94,7 @@ all checks are green,
 - when needed, update your PR by merging the latest changes from the target
 branch,
 - be holistic! I.e. you should avoid proposing multiple
-uncorrelated slice definitions in the same PR,
+uncorrelated package slices files in the same PR,
 - you can close a review comment if you applied the proposed change. Otherwise,
 or when in doubt, you should simply reply and let the reviewers resolve it.
 
@@ -108,7 +108,7 @@ two project maintainers.
 
 ### Slicing Debian Packages
 
-If you are slicing Debian packages and thus proposing new slice definitions,
+If you are slicing Debian packages and thus proposing new package slices files,
 make sure you read the [package slicing guidelines available in the
 Chisel documentation](https://ubuntu.com/chisel/docs/latest/how-to/slice-a-package/).
 

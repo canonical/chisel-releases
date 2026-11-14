@@ -126,10 +126,10 @@ jobs:
   # The "install" job tests the slices by installing them.
   # It installs **all** slices if:
   #   - chisel.yaml is changed
-  #   - any slice definition files are deleted
+  #   - any package slices files are deleted
   #   - github workflows (and related files) are changed
   # Otherwise, it installs only the slices from **added** and/or
-  # **modified** slice definition files.
+  # **modified** package slices files.
   # Please note that "change" is defined to encompass additions,
   # modifications and deletions here.
   install:

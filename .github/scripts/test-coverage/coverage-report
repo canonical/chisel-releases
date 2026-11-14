@@ -7,7 +7,7 @@
 #
 # Arguments:
 #   installed-slices-manifest    json wall manifest of installed slices
-#   committed-slices-yaml        combined yaml of committed SDFs
+#   committed-slices-yaml        combined yaml of committed package slices files
 #
 # Exit codes:
 #   0   Success

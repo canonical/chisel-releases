@@ -100,7 +100,7 @@ class TestFetchPRs:
         assert len(prs) == 0, "PRs that don't add new slices should be ignored"
 
     @patch("forward_port_missing.requests.Session")
-    def test_only_added_slice_definitions(self, mock_session: MagicMock) -> None:
+    def test_only_added_package_slices_files(self, mock_session: MagicMock) -> None:
         files = [
             {"filename": "slices/foo.yaml", "status": "added"},
             {"filename": "slices/bar.yaml", "status": "renamed"},

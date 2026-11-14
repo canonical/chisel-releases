@@ -121,7 +121,7 @@ class TestValidateHints:
     """Test the file validation logic."""
 
     def test_validate_hints(self, tmp_path):
-        f = tmp_path / "sdf.yaml"
+        f = tmp_path / "package-slices-file.yaml"
         yaml_content = """slices:
   good:
     hint: Pass the test
