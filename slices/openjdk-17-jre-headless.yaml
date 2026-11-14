@@ -69,6 +69,15 @@ slices:
       /usr/lib/jvm/java-17-openjdk-*/lib/server/libjvm.so:
       /usr/lib/jvm/java-17-openjdk-*/lib/tzdb.dat:
 
+  # Native part of jdk.sctp. The JDK opens libsctp.so.1 at run time, so the
+  # package does not depend on libsctp1.
+  sctp:
+    essential:
+      libsctp1_libs:
+      openjdk-17-jre-headless_core:
+    contents:
+      /usr/lib/jvm/java-17-openjdk-*/lib/libsctp.so:
+
   # Native part of jdk.prefs modules
   prefs:
     essential:
