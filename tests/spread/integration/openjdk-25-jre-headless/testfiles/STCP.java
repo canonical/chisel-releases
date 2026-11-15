@@ -37,8 +37,10 @@ public class STCP {
 
                 sc.close();
             }
-            catch (Exception e) {
-                e.printStackTrace();
+            catch (Throwable t) {
+                // main is waiting on startSignal, so a failure here must end the JVM
+                t.printStackTrace();
+                System.exit(1);
             }
         }
     }
