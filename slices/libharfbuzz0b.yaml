@@ -13,6 +13,17 @@ slices:
     contents:
       /usr/lib/*-linux-*/libharfbuzz.so.0*:
 
+  # v2 of libs: the same files, with only the essentials libharfbuzz links.
+  # use this instead of libs.
+  libs-v2:
+    essential:
+      libc6_libs:
+      libfreetype6_libs-v2:
+      libglib2.0-0t64_core:
+      libgraphite2-3_libs:
+    contents:
+      /usr/lib/*-linux-*/libharfbuzz.so.0*:
+
   copyright:
     contents:
       /usr/share/doc/libharfbuzz0b/copyright:

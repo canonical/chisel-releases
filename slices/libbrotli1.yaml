@@ -6,10 +6,28 @@ essential:
 slices:
   libs:
     essential:
+      libbrotli1_brotlicommon:
+      libbrotli1_brotlidec:
+      libbrotli1_brotlienc:
+
+  brotlicommon:
+    essential:
       libc6_libs:
     contents:
       /usr/lib/*-linux-*/libbrotlicommon.so.1*:
+
+  brotlidec:
+    essential:
+      libbrotli1_brotlicommon:
+      libc6_libs:
+    contents:
       /usr/lib/*-linux-*/libbrotlidec.so.1*:
+
+  brotlienc:
+    essential:
+      libbrotli1_brotlicommon:
+      libc6_libs:
+    contents:
       /usr/lib/*-linux-*/libbrotlienc.so.1*:
 
   copyright:
