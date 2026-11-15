@@ -9,6 +9,8 @@ on:
       - ".github/scripts/validate-hints/**"
       - ".github/scripts/forward-port-missing/**"
       - ".github/scripts/install-slices/**"
+      - ".github/scripts/triage-prs/**"
+      - ".github/codeowners.yaml"
 
 jobs:
   test-validate-hints:
@@ -55,5 +57,21 @@ jobs:
       - name: Run "install-slices" unit tests
         run: |
           pytest .github/scripts/install-slices/
+
+  test-triage-prs:
+    name: Test triage PRs workflow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          pip-install: -r .github/scripts/triage-prs/requirements.txt
+      - run: pip install pytest
+      # also validates .github/codeowners.yaml
+      - name: Run "triage-prs" unit tests
+        run: |
+          pytest .github/scripts/triage-prs/
 
   # TODO: add tests for remaining CI scripts
