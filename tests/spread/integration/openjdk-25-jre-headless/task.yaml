@@ -10,6 +10,7 @@ environment:
   SLICE/management: "management"
   SLICE/jfr: "jfr"
   SLICE/security: "security"
+  SLICE/stcp: "stcp"
   SLICE/tools: "tools"
   SLICE/awt: "awt"
 
