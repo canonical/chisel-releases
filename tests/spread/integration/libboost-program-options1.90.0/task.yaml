@@ -1,0 +1,14 @@
+summary: Integration tests for libboost-program-options1.90.0
+
+execute: |
+  rootfs="$(install-slices libboost-program-options1.90.0_libs)"
+
+  apt install --update -y gcc
+  arch=$(gcc -dumpmachine)
+
+  lib="${rootfs}/usr/lib/${arch}/libboost_program_options.so.1.90.0"
+
+  test -f "$lib"
+
+  # Verify the shared object is a valid ELF binary.
+  [[ "$(od -An -tx1 -N4 "$lib")" == *"7f 45 4c 46"* ]]
