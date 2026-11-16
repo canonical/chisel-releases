@@ -1,0 +1,25 @@
+summary: Integration tests for ethtool
+
+execute: |
+  rootfs="$(install-slices ethtool_bins)"
+
+  chroot "${rootfs}/" /usr/sbin/ethtool --version
+
+  # Exercise ethtool against a real interface without changing system state.
+  # ethtool reads interface metadata from sysfs, so bind-mount /sys.
+  mkdir -p "${rootfs}/sys" "${rootfs}/proc"
+  mount --bind /sys "${rootfs}/sys"
+  mount --bind /proc "${rootfs}/proc"
+
+  iface="$(ls -1 /sys/class/net | grep -v '^lo$' | head -n 1 || true)"
+  if [ -z "${iface}" ]; then
+    echo "No non-loopback interface found; skipping ethtool interface smoke test"
+  else
+    # Basic query that should succeed on most interfaces.
+    chroot "${rootfs}/" /usr/sbin/ethtool "${iface}" | grep -E 'Settings for|Speed:|Link detected:' >/dev/null
+    # Driver info is another lightweight query; some virtual interfaces may not support it.
+    chroot "${rootfs}/" /usr/sbin/ethtool -i "${iface}" >/dev/null || true
+  fi
+
+  umount -l "${rootfs}/sys"
+  umount -l "${rootfs}/proc"
