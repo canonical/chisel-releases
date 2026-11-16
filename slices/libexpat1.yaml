@@ -7,6 +7,7 @@ slices:
   libs:
     essential:
       libc6_libs:
+      libgcc-s1_libs: {arch: [armhf]}
     contents:
       /usr/lib/*-linux-*/libexpat.so.1*:
       /usr/lib/*-linux-*/libexpatw.so.1*:

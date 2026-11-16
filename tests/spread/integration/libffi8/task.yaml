@@ -1,0 +1,19 @@
+summary: Integration tests for libffi8
+
+execute: |
+  rootfs="$(install-slices libffi8_libs)"
+
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libffi.so.8" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
+
+  # Have the dynamic loader resolve every shared library libffi links
+  # against (e.g. libgcc_s.so.1 on armhf); it fails if any is missing.
+  output="$(chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}")"
+  echo "$output"
+  echo "$output" | grep -Fq "libc.so.6"
+  if echo "$output" | grep -Fiq "not found"; then
+    exit 1
+  fi

@@ -1,0 +1,8 @@
+[build-system]
+requires = []
+build-backend = "backend"
+backend-path = ["."]
+
+[project]
+name = "slice-demo"
+version = "1.0"

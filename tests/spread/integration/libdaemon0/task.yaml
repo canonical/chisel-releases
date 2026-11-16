@@ -1,0 +1,7 @@
+summary: Integration tests for libdaemon0
+
+variants:
+    - libs
+    - c
+
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

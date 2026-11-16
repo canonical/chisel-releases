@@ -34,10 +34,10 @@ execute: |
 
   # Test 5: misc
   rootfs=$(install-slices perl_misc)
+  # The first output line is the CoreList data date, which changes with every
+  # perl release, so only the query result is checked.
   out=$(chroot "$rootfs" /usr/bin/corelist -d 2024-07-26 2>null)
-  test "$out" = """
-  Data for 2023-11-29
-  2024-07-26 was first released with perl v5.19.5"""
+  echo "$out" | grep -qx "2024-07-26 was first released with perl v5.19.5"
 
   echo "1234" > "$rootfs/file1.txt"
   out=$(chroot "$rootfs" /usr/bin/shasum file1.txt 2>null)

@@ -1,10 +1,9 @@
 summary: Integration tests for sbsigntool
 
-systems:
-  - -ubuntu-24.04-ppc64le
-  - -ubuntu-24.04-s390x
-
 execute: |
+  # sbsigntool is not built for ppc64el and s390x
+  case "$(dpkg --print-architecture)" in (ppc64el|s390x) exit 0 ;; esac
+
   rootfs="$(install-slices sbsigntool_bins)"
 
   # create sign keys
