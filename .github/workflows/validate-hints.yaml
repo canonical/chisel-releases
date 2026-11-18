@@ -22,7 +22,7 @@ jobs:
 
       - name: Check changed paths
         id: changed-paths
-        uses: dorny/paths-filter@v3.0.2
+        uses: dorny/paths-filter@v3.0.4
         with:
           # ref: https://github.com/marketplace/actions/paths-changes-filter
           filters: |

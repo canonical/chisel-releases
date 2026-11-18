@@ -40,7 +40,7 @@ workflows:
         - 'actions/upload-artifact@v4.6.2'
         - 'canonical/setup-lxd@v0.1.1'
         - 'dorny/paths-filter@v3.0.4'
-        - 'tj-actions/changed-files@531f5f7d163941f0c1c04e0ff4d8bb243ac4366f'
+        - 'tj-actions/changed-files@v47.0.6'
     '.github/workflows/test-ci.yaml':
         - 'actions/checkout@v6.1.0'
         - 'actions/setup-python@v6.3.0'
@@ -48,7 +48,7 @@ workflows:
     '.github/workflows/validate-hints.yaml':
         - 'actions/checkout@v4.4.0'
         - 'actions/setup-python@v6.3.0'
-        - 'dorny/paths-filter@v3.0.2'
+        - 'dorny/paths-filter@v3.0.4'
 dependencies:
     'actions/checkout@v4.4.0':
         ref: 'v4.4.0'
@@ -115,11 +115,6 @@ dependencies:
         commit: 'sha1-4e959f8e0d9c5feb27d44c5e4d9a330a782edee0'
         owner_id: 53057619
         repo_id: 569963336
-    'dorny/paths-filter@v3.0.2':
-        ref: 'v3.0.2'
-        commit: 'sha1-de90cc6fb38fc0963ad72b210f1f284cd68cea36'
-        owner_id: 1588572
-        repo_id: 265601040
     'dorny/paths-filter@v3.0.4':
         ref: 'v3.0.4'
         commit: 'sha1-0e4a8c6effa4802afeda77dc8d303f8176d7dfad'
@@ -130,8 +125,8 @@ dependencies:
         commit: 'sha1-b8f338c590a895d50bcbfa6c5859251edc8952fc'
         owner_id: 277401
         repo_id: 223494945
-    'tj-actions/changed-files@531f5f7d163941f0c1c04e0ff4d8bb243ac4366f':
-        ref: 'main'
-        commit: 'sha1-531f5f7d163941f0c1c04e0ff4d8bb243ac4366f'
+    'tj-actions/changed-files@v47.0.6':
+        ref: 'v47.0.6'
+        commit: 'sha1-9426d40962ed5378910ee2e21d5f8c6fcbf2dd96'
         owner_id: 67116787
         repo_id: 344672439
