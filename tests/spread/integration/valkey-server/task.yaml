@@ -1,11 +1,7 @@
 summary: Integration tests for valkey-server
 
 execute: |
-  # valkey-server_bins: pulls in valkey-server_config and
-  # valkey-tools_valkey-check-rdb (the actual binary behind the
-  # /usr/bin/valkey-server symlink).
-  # valkey-tools_valkey-cli is added explicitly to drive the server over
-  # the protocol.
+  # valkey-tools_valkey-cli is added explicitly to drive the server
   rootfs="$(install-slices valkey-server_bins valkey-tools_valkey-cli)"
 
   chroot "$rootfs" valkey-server -v
