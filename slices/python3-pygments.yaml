@@ -1,0 +1,23 @@
+package: python3-pygments
+
+essential:
+  python3-pygments_copyright:
+
+slices:
+  scripts:
+    essential:
+      python3-pygments_libs:
+    contents:
+      /usr/bin/pygmentize:
+
+  libs:
+    essential:
+      libpython3-stdlib_markup-tools:
+      python3_core:
+    contents:
+      /usr/lib/python3/dist-packages/pygments-*.dist-info/**:
+      /usr/lib/python3/dist-packages/pygments/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-pygments/copyright:

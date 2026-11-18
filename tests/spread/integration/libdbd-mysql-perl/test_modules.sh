@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# spellchecker: ignore rootfs
+
+rootfs="$(install-slices libdbd-mysql-perl_modules)"
+# perl -e reads its script handle from /dev/null
+mkdir -p "$rootfs/dev"
+touch "$rootfs/dev/null"
+
+# There is no server here, so connect to a closed port: the refusal comes
+# back from libmysqlclient, which proves the driver and the library load.
+out="$(chroot "$rootfs" perl -MDBI -e '
+  print join(",", DBI->available_drivers), "\n";
+  DBI->connect("dbi:mysql:database=x;host=127.0.0.1;port=1", "u", "p", { PrintError => 0 })
+    or print DBI->errstr, "\n";
+')"
+echo "$out"
+echo "$out" | grep -q "mysql"
+echo "$out" | grep -q "Can't connect to MySQL server on '127.0.0.1"

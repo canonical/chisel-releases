@@ -19,7 +19,7 @@ execute: |
   # Server test
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status || echo "RabbitMQ not running"
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmq-server -detached
-  sleep 10
+  chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl --timeout 180 await_startup
   chroot "$rootfs" /usr/lib/rabbitmq/bin/rabbitmqctl status && echo "RabbitMQ is running now!"
 
 restore: |

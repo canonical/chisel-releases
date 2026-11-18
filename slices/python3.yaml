@@ -4,11 +4,15 @@ essential:
   python3_copyright:
 
 slices:
+  minimal:
+    essential:
+      python3-minimal_python3:
+
   core:
     essential:
       libpython3-stdlib_core:
-      python3-minimal_python3:
       python3.14_core:
+      python3_minimal:
 
   standard:
     essential:
