@@ -1,0 +1,119 @@
+summary: Integration tests for radvd
+
+execute: |
+  rootfs="$(install-slices radvd_bins)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+  chmod 666 "${rootfs}/dev/null"
+
+  # radvd reads /proc/sys/net/ipv6 to check forwarding and MTU settings.
+  cleanup() {
+    if [ -f "${rootfs}/radvd.pid" ]; then
+      kill -TERM "$(cat "${rootfs}/radvd.pid")" 2>/dev/null || true
+    fi
+    umount -l "${rootfs}/proc" 2>/dev/null || true
+  }
+  trap cleanup EXIT
+  mkdir -p "${rootfs}/proc"
+  mount -t proc proc "${rootfs}/proc"
+
+  # radvd exits 1 from both --version and --help, so the status is captured
+  # rather than let through.
+  rc=0
+  out="$(chroot "${rootfs}" /usr/sbin/radvd --version 2>&1)" || rc=$?
+  test "${rc}" -eq 1
+  echo "${out}" | grep -Fq "Version: 2.20"
+  # The compiled-in defaults are what the systemd unit relies on.
+  echo "${out}" | grep -Fq '"/etc/radvd.conf"'
+  echo "${out}" | grep -Fq '"/run/radvd.pid"'
+
+  rc=0
+  out="$(chroot "${rootfs}" /usr/sbin/radvd --help 2>&1)" || rc=$?
+  test "${rc}" -eq 1
+  echo "${out}" | grep -Fq "usage: radvd"
+  echo "${out}" | grep -Fq -- "--configtest"
+
+  # A router advertisement config for the interface this container actually has,
+  # so the daemon has something real to poll.
+  iface="$(ip -4 route show default | awk '{print $5; exit}')"
+  test -n "${iface}"
+  {
+    echo "interface ${iface}"
+    echo "{"
+    echo "    AdvSendAdvert on;"
+    echo "    MinRtrAdvInterval 30;"
+    echo "    MaxRtrAdvInterval 100;"
+    echo "    prefix 2001:db8:dead:beef::/64"
+    echo "    {"
+    echo "        AdvOnLink on;"
+    echo "        AdvAutonomous on;"
+    echo "        AdvRouterAddr on;"
+    echo "    };"
+    echo "    RDNSS 2001:db8:dead:beef::1"
+    echo "    {"
+    echo "        AdvRDNSSLifetime 300;"
+    echo "    };"
+    echo "};"
+  } > "${rootfs}/radvd.conf"
+
+  # --configtest parses the config and exits, which exercises the whole parser
+  # without touching the network.
+  out="$(chroot "${rootfs}" /usr/sbin/radvd --configtest \
+    --config /radvd.conf --logmethod stderr_clean 2>&1)"
+  echo "${out}" | grep -Fq "syntax ok"
+
+  # A malformed config has to be rejected, with the offending line reported.
+  printf 'interface eth0 {\n  AdvSendAdvert bogusvalue;\n};\n' \
+    > "${rootfs}/broken.conf"
+  rc=0
+  out="$(chroot "${rootfs}" /usr/sbin/radvd --configtest \
+    --config /broken.conf --logmethod stderr_clean 2>&1)" || rc=$?
+  test "${rc}" -ne 0
+  echo "${out}" | grep -Fq "/broken.conf:2 error: syntax error"
+  echo "${out}" | grep -Fiq "failed to read config file"
+
+  # Advertising needs IPv6 forwarding; radvd only warns when it is off, so this
+  # is best effort and nothing below depends on it.
+  sysctl -w net.ipv6.conf.all.forwarding=1 >/dev/null 2>&1 || true
+
+  # Now run it for real: radvd daemonises, drops a pidfile and starts sending
+  # advertisements on the interface. --debug 2 makes it log the config parse and
+  # the per-interface polling, which is what gets asserted below.
+  chroot "${rootfs}" /usr/sbin/radvd --config /radvd.conf --debug 2 \
+    --logmethod logfile --logfile /radvd.log --pidfile /radvd.pid
+
+  for _ in $(seq 50); do
+    [ -s "${rootfs}/radvd.pid" ] && break
+    sleep 0.1
+  done
+  test -s "${rootfs}/radvd.pid"
+  pid="$(cat "${rootfs}/radvd.pid")"
+
+  # The daemon is alive and logged a successful start.
+  kill -0 "${pid}"
+  for _ in $(seq 50); do
+    grep -Fq "next iface is ${iface}" "${rootfs}/radvd.log" && break
+    sleep 0.1
+  done
+  grep -Fq "version 2.20 started" "${rootfs}/radvd.log"
+  grep -Fq "config file, /radvd.conf, syntax ok" "${rootfs}/radvd.log"
+  # It picked up the configured interface and is servicing it.
+  grep -Fq "next iface is ${iface}" "${rootfs}/radvd.log"
+
+  # SIGTERM has to make it withdraw its advertisements and clean up the pidfile.
+  kill -TERM "${pid}"
+  for _ in $(seq 50); do
+    [ -e "${rootfs}/radvd.pid" ] || break
+    sleep 0.1
+  done
+  ! test -e "${rootfs}/radvd.pid"
+  grep -Fq "sending stop adverts" "${rootfs}/radvd.log"
+
+  sysctl -w net.ipv6.conf.all.forwarding=0 >/dev/null 2>&1 || true
+
+  # radvd_services -- the unit and the binary it starts.
+  rootfs="$(install-slices radvd_services)"
+  unit="${rootfs}/usr/lib/systemd/system/radvd.service"
+  grep -Fq "ExecStart=/usr/sbin/radvd" "${unit}"
+  grep -Fq "ConditionPathExists=/etc/radvd.conf" "${unit}"
+  grep -Fq "PIDFile=/run/radvd.pid" "${unit}"
+  test -x "${rootfs}/usr/sbin/radvd"
