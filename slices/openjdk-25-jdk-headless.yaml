@@ -48,6 +48,15 @@ slices:
       /usr/lib/jvm/java-25-openjdk-*/bin/jstatd:
       /usr/lib/jvm/java-25-openjdk-*/bin/jwebserver:
 
+  # Launchers for tools whose modules are part of the runtime image
+  runtime-tools:
+    essential:
+      openjdk-25-jre-headless_core:
+    contents:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jfr:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jrunscript:
+      /usr/lib/jvm/java-25-openjdk-*/bin/jwebserver:
+
   # OpenJDK modules required to build the runtime image
   modules:
     essential:

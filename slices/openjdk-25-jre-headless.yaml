@@ -92,6 +92,8 @@ slices:
         arch:
           - armhf
           - i386
+      # describes the module image, e.g. MODULES=
+      /usr/lib/jvm/java-25-openjdk-*/release:
 
   # A set of slices to run headless openjdk runtime
   standard:
