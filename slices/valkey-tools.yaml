@@ -1,0 +1,59 @@
+package: valkey-tools
+
+essential:
+  # valkey-tools actually depends on adduser as well to create and remove
+  # a user during package install/removal - however we don't support this
+  # currently so adduser is not added here.
+  valkey-tools_copyright:
+
+slices:
+  bins:
+    essential:
+      valkey-tools_valkey-benchmark:
+      valkey-tools_valkey-check-aof:
+      valkey-tools_valkey-check-rdb:
+      valkey-tools_valkey-cli:
+
+  valkey-check-rdb:
+    essential:
+      libatomic1_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+      libssl3t64_libs:
+      libsystemd0_libs:
+    contents:
+      /usr/bin/valkey-check-rdb:
+
+  valkey-check-aof:
+    essential:
+      libatomic1_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+      libssl3t64_libs:
+      libsystemd0_libs:
+    contents:
+      /usr/bin/valkey-check-aof:
+
+  valkey-cli:
+    essential:
+      libatomic1_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+      libssl3t64_libs:
+      libsystemd0_libs:
+    contents:
+      /usr/bin/valkey-cli:
+
+  valkey-benchmark:
+    essential:
+      libatomic1_libs:
+      libc6_libs:
+      libjemalloc2_libs:
+      libssl3t64_libs:
+      libsystemd0_libs:
+    contents:
+      /usr/bin/valkey-benchmark:
+
+  copyright:
+    contents:
+      /usr/share/doc/valkey-tools/copyright:

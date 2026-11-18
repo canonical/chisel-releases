@@ -1,0 +1,31 @@
+summary: Integration tests for valkey-tools
+
+execute: |
+  # Each slice gets a fresh rootfs so a missing dep can't hide behind another test.
+
+  # valkey-tools_bins: aggregate slice ships all binaries.
+  rootfs="$(install-slices valkey-tools_bins)"
+  for bin in valkey-benchmark valkey-check-aof valkey-check-rdb valkey-cli; do
+    test -x "$rootfs/usr/bin/$bin"
+  done
+
+  # valkey-tools_valkey-check-rdb: the real server binary (target of the
+  # /usr/bin/valkey-server symlink). It has no version flag; verify it
+  # runs and prints usage.
+  rootfs="$(install-slices valkey-tools_valkey-check-rdb)"
+  chroot "$rootfs" valkey-check-rdb 2>&1 | grep -Fiq "usage"
+
+  # valkey-tools_valkey-check-aof: needs a file argument; an empty file is
+  # a valid empty AOF.
+  rootfs="$(install-slices valkey-tools_valkey-check-aof)"
+  mkdir -p "$rootfs/tmp"
+  touch "$rootfs/tmp/empty.aof"
+  chroot "$rootfs" valkey-check-aof /tmp/empty.aof | grep -Fiq "empty"
+
+  # valkey-tools_valkey-cli:
+  rootfs="$(install-slices valkey-tools_valkey-cli)"
+  chroot "$rootfs" valkey-cli -v
+
+  # valkey-tools_valkey-benchmark:
+  rootfs="$(install-slices valkey-tools_valkey-benchmark)"
+  chroot "$rootfs" valkey-benchmark -v
