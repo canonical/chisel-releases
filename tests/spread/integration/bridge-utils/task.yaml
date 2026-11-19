@@ -1,0 +1,43 @@
+summary: Integration tests for bridge-utils
+
+execute: |
+  rootfs="$(install-slices bridge-utils_bins)"
+
+  cleanup() {
+    chroot "${rootfs}" /usr/sbin/brctl delbr chisel-br0 2>/dev/null || true
+    umount -l "${rootfs}/sys" 2>/dev/null || true
+  }
+  trap cleanup EXIT
+
+  # brctl reports its version and usage without any kernel interaction.
+  chroot "${rootfs}" /usr/sbin/brctl --version | grep -Fiq "bridge-utils"
+  out="$(chroot "${rootfs}" /usr/sbin/brctl 2>&1 || true)"
+  echo "${out}" | grep -Fiq "usage: brctl"
+
+  # "show"/"showstp"/"showmacs" read /sys/class/net, so sysfs has to be visible.
+  mkdir -p "${rootfs}/sys"
+  mount --bind /sys "${rootfs}/sys"
+
+  # Enumerating an empty bridge list has to succeed (and prints no header).
+  chroot "${rootfs}" /usr/sbin/brctl show >/dev/null
+
+  # Create a bridge, configure it, read the settings back, then remove it.
+  chroot "${rootfs}" /usr/sbin/brctl addbr chisel-br0
+  out="$(chroot "${rootfs}" /usr/sbin/brctl show)"
+  echo "${out}" | grep -Fiq "bridge name"
+  echo "${out}" | grep -Fq "chisel-br0"
+
+  chroot "${rootfs}" /usr/sbin/brctl stp chisel-br0 on
+  chroot "${rootfs}" /usr/sbin/brctl setageing chisel-br0 120
+  chroot "${rootfs}" /usr/sbin/brctl setbridgeprio chisel-br0 4096
+
+  out="$(chroot "${rootfs}" /usr/sbin/brctl showstp chisel-br0)"
+  echo "${out}" | grep -Eq "ageing time[[:space:]]+120\.00"
+  echo "${out}" | grep -Eq "bridge id[[:space:]]+1000\."
+
+  out="$(chroot "${rootfs}" /usr/sbin/brctl showmacs chisel-br0)"
+  echo "${out}" | grep -Fiq "port no"
+
+  chroot "${rootfs}" /usr/sbin/brctl delbr chisel-br0
+  out="$(chroot "${rootfs}" /usr/sbin/brctl show)"
+  ! echo "${out}" | grep -Fq "chisel-br0"
