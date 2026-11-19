@@ -1,0 +1,38 @@
+package: ipmitool
+
+essential:
+  ipmitool_copyright:
+
+slices:
+  # /etc/init.d/ipmievd is left out: the systemd unit below supersedes it, and
+  # it also needs start-stop-daemon plus the runlevel links update-rc.d creates.
+  bins:
+    hint: IPMI baseboard management utility
+    essential:
+      ipmitool_data:
+      libc6_libs:
+      libfreeipmi17_libs:
+      libreadline8t64_libs:
+      libssl3t64_libs:
+    contents:
+      /usr/bin/ipmitool:
+      /usr/sbin/ipmievd:
+
+  data:
+    hint: IANA PEN and OEM SEL tables
+    contents:
+      # enterprise-numbers.txt is the IANA Private Enterprise Number registry,
+      # loaded from this path on every run. oem_ibm_sel_map is the IBM OEM SEL
+      # decode table, read via IPMI_OEM_IBM_DATAFILE with "-o ibm".
+      /usr/share/ipmitool/oem_ibm_sel_map:
+      /usr/share/misc/enterprise-numbers.txt:
+
+  services:
+    essential:
+      ipmitool_bins:
+    contents:
+      /usr/lib/systemd/system/ipmievd.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/ipmitool/copyright:
