@@ -20,6 +20,14 @@ slices:
     contents:
       /usr/bin/gcc-15:  # Symlink to ${ARCH_TRIPLET}-gcc-15
 
+  lto:
+    essential:
+      gcc-15-aarch64-linux-gnu_lto: {arch: [arm64]}
+      gcc-15-powerpc64le-linux-gnu_lto: {arch: [ppc64el]}
+      gcc-15-s390x-linux-gnu_lto: {arch: [s390x]}
+      gcc-15-x86-64-linux-gnu_lto: {arch: [amd64]}
+      gcc-15_gcc-15:
+
   copyright:
     essential:
       gcc-15-base_copyright:
