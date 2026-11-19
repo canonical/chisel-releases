@@ -1,0 +1,33 @@
+summary: Integration tests for libi2c0
+
+execute: |
+  rootfs="$(install-slices libi2c0_libs)"
+
+  for lib in "${rootfs}"/usr/lib/*-linux-*/libi2c.so.0; do
+    rel="${lib#"${rootfs}"}"
+
+    # The soname symlink and the versioned object both have to land.
+    test -L "${lib}"
+    target="$(readlink -f "${lib}")"
+    test -f "${target}"
+    head -c4 "${target}" | grep -Fq "ELF"
+
+    # The dynamic linker has to resolve the whole closure from inside the
+    # rootfs: anything the slice forgot shows up as "not found".
+    ld="$(find "${rootfs}/usr/lib" -maxdepth 2 -name 'ld*.so.*' -print -quit)"
+    test -n "${ld}"
+    out="$(chroot "${rootfs}" "${ld#"${rootfs}"}" --list "${rel}")"
+    echo "${out}" | grep -Fq "libc.so.6 =>"
+    ! echo "${out}" | grep -Fq "not found"
+  done
+
+  # Prove the library loads and works by pairing it with its consumer in a fresh
+  # rootfs: the smbus extension module has libi2c.so.0 as a DT_NEEDED, so the
+  # import only succeeds once the linker resolves it.
+  rootfs="$(install-slices libi2c0_libs python3-smbus_libs)"
+  mkdir -p "${rootfs}/dev" && touch "${rootfs}/dev/null"
+
+  out="$(chroot "${rootfs}" /usr/bin/python3 -c \
+    'import smbus; print(sorted(a for a in dir(smbus.SMBus) if a[0] != "_"))')"
+  echo "${out}" | grep -Fq "read_i2c_block_data"
+  echo "${out}" | grep -Fq "write_i2c_block_data"

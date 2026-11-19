@@ -1,0 +1,19 @@
+package: python3-smbus
+
+essential:
+  python3-smbus_copyright:
+
+slices:
+  libs:
+    hint: SMBus Python bindings
+    essential:
+      libc6_libs:
+      libi2c0_libs:
+      python3_core:
+    contents:
+      /usr/lib/python3/dist-packages/smbus-*.egg-info/**:
+      /usr/lib/python3/dist-packages/smbus.cpython-314-*-linux-*.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/python3-smbus/copyright:
