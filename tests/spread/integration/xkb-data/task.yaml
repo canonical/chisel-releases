@@ -1,0 +1,16 @@
+summary: Integration tests for xkb-data
+
+execute: |
+  rootfs="$(install-slices xkb-data_data)"
+  xkb="$rootfs/usr/share/X11/xkb"
+
+  # libxkbcommon's default keymap: evdev rules, pc105 model, us layout.
+  test -f "$xkb/rules/evdev"
+  test -f "$xkb/keycodes/evdev"
+  test -f "$xkb/types/complete"
+  test -f "$xkb/compat/complete"
+  test -f "$xkb/symbols/pc"
+  test -f "$xkb/symbols/us"
+
+  # The xorg rules are a symlink to the base rules.
+  test -f "$xkb/rules/xorg"
