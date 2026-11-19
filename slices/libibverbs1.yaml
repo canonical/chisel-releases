@@ -1,0 +1,20 @@
+package: libibverbs1
+
+essential:
+  libibverbs1_copyright:
+
+slices:
+  # The adduser dependency is only used by the postinst, to create the "rdma"
+  # group; maintainer scripts are handled differently in Chisel.
+  libs:
+    hint: InfiniBand and RDMA userspace library
+    essential:
+      libc6_libs:
+      libnl-3-200_libs:
+      libnl-route-3-200_libs:
+    contents:
+      /usr/lib/*-linux-*/libibverbs.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libibverbs1/copyright:

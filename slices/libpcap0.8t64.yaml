@@ -1,0 +1,19 @@
+package: libpcap0.8t64
+
+essential:
+  libpcap0.8t64_copyright:
+
+slices:
+  libs:
+    hint: Packet capture library
+    essential:
+      libc6_libs:
+      libdbus-1-3_libs:
+      libibverbs1_libs:
+    contents:
+      /usr/lib/*-linux-*/libpcap.so.0.8:  # Symlink to libpcap.so.1.10.x
+      /usr/lib/*-linux-*/libpcap.so.1.10*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpcap0.8t64/copyright:

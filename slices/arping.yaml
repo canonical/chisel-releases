@@ -1,0 +1,23 @@
+package: arping
+
+essential:
+  arping_copyright:
+
+slices:
+  # /usr/include/arping.h ships in the runtime deb (there is no -dev package)
+  # but there is no library to build against, so it is left out.
+  bins:
+    hint: ARP level ping utility
+    essential:
+      libc6_libs:
+      libnet9_libs:
+      libpcap0.8t64_libs:
+      libseccomp2_libs:
+    contents:
+      # arping drops privileges to "nobody" and chroots before sending, so a
+      # rootfs also needs base-passwd_data for the passwd entry.
+      /usr/sbin/arping:
+
+  copyright:
+    contents:
+      /usr/share/doc/arping/copyright:
