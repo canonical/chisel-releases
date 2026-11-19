@@ -1,0 +1,22 @@
+package: libyang5
+
+essential:
+  libyang5_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libpcre2-8-0_libs:
+      libxxhash0_libs:
+      libyang5_modules:
+    contents:
+      /usr/lib/*-linux-*/libyang.so.5*:
+
+  modules:
+    contents:
+      /usr/share/yang/modules/libyang/*.yang:
+
+  copyright:
+    contents:
+      /usr/share/doc/libyang5/copyright:

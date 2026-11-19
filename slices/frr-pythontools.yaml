@@ -1,0 +1,23 @@
+package: frr-pythontools
+
+essential:
+  frr-pythontools_copyright:
+
+slices:
+  scripts:
+    essential:
+      frr_bins:
+      libpython3.14-stdlib_data-types:
+      libpython3.14-stdlib_ipc:  # ospfclient.py imports asyncio
+      python3-minimal_python3:
+      python3.14_core:
+    # frr_babeltrace.py is left out since it imports babeltrace, which is not a
+    # dependency of the package.
+    contents:
+      /usr/lib/frr/frr-reload.py:
+      /usr/lib/frr/generate_support_bundle.py:
+      /usr/lib/frr/ospfclient.py:
+
+  copyright:
+    contents:
+      /usr/share/doc/frr-pythontools/copyright:
