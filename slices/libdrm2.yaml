@@ -7,6 +7,8 @@ slices:
   libs:
     essential:
       libc6_libs:
+      # TODO: libdrm.so.2 does not read amdgpu.ids, only libdrm_amdgpu.so.1 does, so this is
+      # likely not needed here. Remove it in the next release.
       libdrm-common_data:
     contents:
       /usr/lib/*-linux-*/libdrm.so.2*:
