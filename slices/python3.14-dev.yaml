@@ -1,0 +1,17 @@
+package: python3.14-dev
+
+essential:
+  python3.14-dev_copyright:
+
+slices:
+  scripts:
+    essential:
+      libpython3.14-dev_scripts:
+    contents:
+      /usr/bin/python3.14-config:
+
+  copyright:
+    essential:
+      python3.14_copyright:
+    contents:
+      /usr/share/doc/python3.14-dev:

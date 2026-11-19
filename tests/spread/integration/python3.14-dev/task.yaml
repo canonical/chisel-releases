@@ -1,0 +1,10 @@
+summary: Integration tests for python3.14-dev
+
+execute: |
+  rootfs="$(install-slices python3.14-dev_scripts)"
+
+  ln -sf /usr/bin/dash "$rootfs/bin/sh"
+
+  output="$(chroot "$rootfs" /usr/bin/python3.14-config --includes)"
+  echo "$output" | grep -Fq "/usr/include/python3.14"
+  chroot "$rootfs" /usr/bin/python3.14-config --extension-suffix | grep -Fq ".cpython-314-"

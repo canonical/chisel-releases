@@ -1,10 +1,11 @@
 summary: Integration tests for gcc-15-aarch64-linux-gnu
 
 variants:
-    - dump
-    - hello
-    - help_and_version
-    - print
-    - std
+  - dump
+  - hello
+  - help_and_version
+  - lto
+  - print
+  - std
 
-execute: bash -ex ./test_${SPREAD_VARIANT}.sh
+execute: bash -eux ./test_${SPREAD_VARIANT}.sh

@@ -1,0 +1,29 @@
+package: libexpat1-dev
+
+essential:
+  libexpat1-dev_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6-dev_libs:
+      libexpat1_libs:
+    contents:
+      /usr/lib/*-linux-*/cmake/expat-*/**:
+      /usr/lib/*-linux-*/libexpat.a:
+      /usr/lib/*-linux-*/libexpat.so:
+      /usr/lib/*-linux-*/libexpatw.a:
+      /usr/lib/*-linux-*/libexpatw.so:
+      /usr/lib/*-linux-*/pkgconfig/expat.pc:
+
+  headers:
+    essential:
+      libc6-dev_headers:
+    contents:
+      /usr/include/*-linux-*/expat_config.h:
+      /usr/include/expat.h:
+      /usr/include/expat_external.h:
+
+  copyright:
+    contents:
+      /usr/share/doc/libexpat1-dev/copyright:

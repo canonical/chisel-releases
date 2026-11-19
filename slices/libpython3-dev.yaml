@@ -1,0 +1,28 @@
+package: libpython3-dev
+
+essential:
+  libpython3-dev_copyright:
+
+slices:
+  scripts:
+    essential:
+      libpython3.14-dev_scripts:
+    contents:
+      /usr/bin/aarch64-linux-gnu-python3-config: {arch: arm64}
+      /usr/bin/arm-linux-gnueabihf-python3-config: {arch: armhf}
+      /usr/bin/i386-linux-gnu-python3-config: {arch: i386}
+      /usr/bin/powerpc64le-linux-gnu-python3-config: {arch: ppc64el}
+      /usr/bin/riscv64-linux-gnu-python3-config: {arch: riscv64}
+      /usr/bin/s390x-linux-gnu-python3-config: {arch: s390x}
+      /usr/bin/x86_64-linux-gnu-python3-config: {arch: amd64}
+
+  libs:
+    essential:
+      libpython3.14-dev_libs:
+    contents:
+      /usr/lib/*-linux-*/pkgconfig/python3-embed.pc:
+      /usr/lib/*-linux-*/pkgconfig/python3.pc:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpython3-dev/copyright:

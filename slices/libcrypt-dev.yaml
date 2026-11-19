@@ -18,7 +18,35 @@ slices:
 
   pkgconfig:
     contents:
-      /usr/lib/*-linux-*/pkgconfig/*:
+      /usr/lib/*-linux-*/pkgconfig/libxcrypt.pc:
+      /usr/lib/aarch64-linux-gnu/pkgconfig/: {arch: arm64, make: true}
+      /usr/lib/aarch64-linux-gnu/pkgconfig/libcrypt.pc:
+        arch: arm64
+        symlink: /usr/lib/aarch64-linux-gnu/pkgconfig/libxcrypt.pc
+      /usr/lib/arm-linux-gnueabihf/pkgconfig/: {arch: armhf, make: true}
+      /usr/lib/arm-linux-gnueabihf/pkgconfig/libcrypt.pc:
+        arch: armhf
+        symlink: /usr/lib/arm-linux-gnueabihf/pkgconfig/libxcrypt.pc
+      /usr/lib/i386-linux-gnu/pkgconfig/: {arch: i386, make: true}
+      /usr/lib/i386-linux-gnu/pkgconfig/libcrypt.pc:
+        arch: i386
+        symlink: /usr/lib/i386-linux-gnu/pkgconfig/libxcrypt.pc
+      /usr/lib/powerpc64le-linux-gnu/pkgconfig/: {arch: ppc64el, make: true}
+      /usr/lib/powerpc64le-linux-gnu/pkgconfig/libcrypt.pc:
+        arch: ppc64el
+        symlink: /usr/lib/powerpc64le-linux-gnu/pkgconfig/libxcrypt.pc
+      /usr/lib/riscv64-linux-gnu/pkgconfig/: {arch: riscv64, make: true}
+      /usr/lib/riscv64-linux-gnu/pkgconfig/libcrypt.pc:
+        arch: riscv64
+        symlink: /usr/lib/riscv64-linux-gnu/pkgconfig/libxcrypt.pc
+      /usr/lib/s390x-linux-gnu/pkgconfig/: {arch: s390x, make: true}
+      /usr/lib/s390x-linux-gnu/pkgconfig/libcrypt.pc:
+        arch: s390x
+        symlink: /usr/lib/s390x-linux-gnu/pkgconfig/libxcrypt.pc
+      /usr/lib/x86_64-linux-gnu/pkgconfig/: {arch: amd64, make: true}
+      /usr/lib/x86_64-linux-gnu/pkgconfig/libcrypt.pc:
+        arch: amd64
+        symlink: /usr/lib/x86_64-linux-gnu/pkgconfig/libxcrypt.pc
 
   copyright:
     contents:
