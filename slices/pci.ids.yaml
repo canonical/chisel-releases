@@ -1,0 +1,14 @@
+package: pci.ids
+
+essential:
+  pci.ids_copyright:
+
+slices:
+  data:
+    hint: PCI ID database
+    contents:
+      /usr/share/misc/pci.ids:
+
+  copyright:
+    contents:
+      /usr/share/doc/pci.ids/copyright:
