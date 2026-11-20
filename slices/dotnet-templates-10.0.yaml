@@ -5,6 +5,7 @@ essential:
 
 slices:
   libs:
+    hint: Project and item templates
     essential:
       dotnet-host-10.0_bins:
     contents:

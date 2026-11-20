@@ -48,9 +48,12 @@ slices:
       python3.14_core:
       tzdata_zoneinfo:
 
-  # The "utlis" slice extends "core" with various tools.
-  utils:
+  # The "scripts" slice extends "core" with the pdb, pydoc and pygettext
+  # scripts. pdb3.14 is a sh script.
+  scripts:
     essential:
+      base-files_bin:
+      dash_bins:
       libpython3.14-stdlib_debug:
       libpython3.14-stdlib_pydoc:
       python3.14_core:

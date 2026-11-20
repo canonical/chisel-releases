@@ -42,3 +42,5 @@ execute: |
 
   # test the helloworld app
   chroot "${rootfs}" /usr/bin/dotnet /app_helloworld/bin/Release/net10.0/Hello.dll | grep -q "Hello, World!"
+  # and through its own executable, which finds the runtime via /etc/dotnet
+  chroot "${rootfs}" /app_helloworld/bin/Release/net10.0/Hello | grep -q "Hello, World!"

@@ -12,18 +12,11 @@ slices:
       /etc/xdg/user-dirs.conf:
       /etc/xdg/user-dirs.defaults:
 
-  scripts:
-    essential:
-      base-files_bin:
-      dash_bins:
-      xdg-user-dirs_config:
-    contents:
-      /usr/bin/xdg-user-dir:
-
   bins:
     essential:
       libc6_libs:
     contents:
+      /usr/bin/xdg-user-dir:
       /usr/bin/xdg-user-dirs-update:
 
   copyright:

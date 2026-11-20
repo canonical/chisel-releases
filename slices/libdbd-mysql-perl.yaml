@@ -1,0 +1,24 @@
+package: libdbd-mysql-perl
+
+essential:
+  libdbd-mysql-perl_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libmysqlclient24_libs:
+    contents:
+      /usr/lib/*-linux-*/perl5/*/auto/DBD/mysql/mysql.so:
+
+  modules:
+    essential:
+      libdbd-mysql-perl_libs:
+      libdbi-perl_modules:
+    contents:
+      /usr/lib/*-linux-*/perl5/*/DBD/mysql.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/mysql/GetInfo.pm:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdbd-mysql-perl/copyright:

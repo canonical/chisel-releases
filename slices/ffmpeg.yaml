@@ -14,13 +14,13 @@ slices:
       libc6_libs:
       libgcc-s1_libs: {arch: [amd64, armhf]}
       libplacebo360_libs:
-      libsdl2-2.0-0_libs:
+      libsdl2-2.0-0_libs: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
       libswresample6_libs:
       libswscale9_libs:
       zlib1g_libs:
     contents:
       /usr/bin/ffmpeg:
-      /usr/bin/ffplay:
+      /usr/bin/ffplay: {arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]}
       /usr/bin/ffprobe:
       /usr/bin/qt-faststart:
 

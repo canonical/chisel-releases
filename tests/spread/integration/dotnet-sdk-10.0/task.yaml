@@ -69,7 +69,7 @@ execute: |
 
   # Build the C# Hello World .NET app
   chroot "${rootfs}" /usr/bin/dotnet restore /app_helloworld/app_helloworld.csproj
-  chroot "${rootfs}" /usr/bin/dotnet build /app_helloworld/app_helloworld.csproj --configuration Release --no-restore
+  chroot "${rootfs}" /usr/bin/dotnet build /app_helloworld/app_helloworld.csproj --configuration Release --no-restore -warnaserror
   chroot "${rootfs}" /usr/bin/dotnet publish /app_helloworld/app_helloworld.csproj --no-restore --no-build
   
   # Run the C# Hello World .NET app

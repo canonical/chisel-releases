@@ -9,7 +9,7 @@ essential:
 #
 # Aside from the "core" slice which contains the minimal libraries that
 # should come from this package and the "extra" slice which contains
-# miscellaneous libraries, all the other slice definitions are sorted by
+# miscellaneous libraries, all the other slices are sorted by
 # their names. The "core" slice is placed at the very beginning and the
 # "extra" slice at the very end.
 slices:
@@ -146,6 +146,9 @@ slices:
       libpython3.14-stdlib_custom-interpreters:
       libpython3.14-stdlib_data-types:
       libpython3.14-stdlib_frameworks:
+      # pdb imports asyncio and _pyrepl
+      libpython3.14-stdlib_ipc:
+      libpython3.14-stdlib_pyrepl:
       libpython3.14-stdlib_text:
     contents:
       /usr/lib/python3.14/bdb.py:

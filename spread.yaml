@@ -56,7 +56,7 @@ backends:
           # Mask here (not right after launch) so the system bus is up and the
           # mask actually takes effect, then clear the failed unit so the
           # degraded state resolves. Anything else degraded is still fatal.
-          if [ "$release" = "resolute" ]; then
+          if [ "$release" = "resolute" ] || [ "$release" = "stonking" ]; then
             lxc exec $SPREAD_SYSTEM -q -- systemctl mask --now console-getty.service
             lxc exec $SPREAD_SYSTEM -q -- systemctl reset-failed console-getty.service
             status=$(lxc exec $SPREAD_SYSTEM -- systemctl is-system-running 2>/dev/null || true)

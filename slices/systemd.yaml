@@ -87,8 +87,8 @@ slices:
       systemd_catalog:
       systemd_config:
       systemd_core:
+      systemd_data:
       systemd_detect-virt:
-      systemd_extras:
       systemd_hostname:
       systemd_journal:
       systemd_kernel-install:
@@ -761,7 +761,7 @@ slices:
       /usr/lib/systemd/user/timers.target:
       /usr/lib/systemd/user/xdg-desktop-autostart.target:
 
-  extras:
+  data:
     hint: Keyboard, locale and MIME data
     contents:
       /usr/share/mime/packages/io.systemd.xml:

@@ -49,7 +49,6 @@ slices:
     essential:
       base-files_bin:
       coreutils_basename:
-      coreutils_cat:
       coreutils_env:
       coreutils_ln-bin:
       coreutils_rm-bin:

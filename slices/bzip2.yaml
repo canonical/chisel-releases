@@ -22,7 +22,7 @@ slices:
       coreutils_bins:
       diffutils_bins:
       grep_bins:
-      grep_deprecated:
+      grep_scripts:
       less_bins:
       sed_bins:
       util-linux_file-manipulation:

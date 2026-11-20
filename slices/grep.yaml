@@ -11,17 +11,24 @@ slices:
     contents:
       /usr/bin/grep:
 
-  deprecated:
-    # These are shell scripts requiring a symlink from /usr/bin/dash to
-    # /usr/bin/sh.
+  scripts:
+    # These are deprecated upstream in favour of grep -E, grep -F and grep -r,
+    # and Debian only keeps them for backward compatibility, so they may be
+    # dropped from the package.
     # See: https://manpages.ubuntu.com/manpages/noble/en/man1/grep.1.html
     essential:
+      base-files_bin:
       dash_bins:
       grep_bins:
     contents:
       /usr/bin/egrep:
       /usr/bin/fgrep:
       /usr/bin/rgrep:
+
+  deprecated:
+    hint: Deprecated grep variant scripts
+    essential:
+      grep_scripts:
 
   copyright:
     contents:

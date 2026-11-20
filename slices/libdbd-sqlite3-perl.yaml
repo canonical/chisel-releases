@@ -1,0 +1,28 @@
+package: libdbd-sqlite3-perl
+
+essential:
+  libdbd-sqlite3-perl_copyright:
+
+slices:
+  libs:
+    essential:
+      libc6_libs:
+      libsqlite3-0_libs:
+    contents:
+      /usr/lib/*-linux-*/perl5/*/auto/DBD/SQLite/SQLite.so:
+
+  modules:
+    essential:
+      libdbd-sqlite3-perl_libs:
+      libdbi-perl_modules:
+    contents:
+      /usr/lib/*-linux-*/perl5/*/DBD/SQLite.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/SQLite/Constants.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/SQLite/GetInfo.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/SQLite/VirtualTable.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/SQLite/VirtualTable/FileContent.pm:
+      /usr/lib/*-linux-*/perl5/*/DBD/SQLite/VirtualTable/PerlData.pm:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdbd-sqlite3-perl/copyright:
