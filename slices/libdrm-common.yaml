@@ -1,0 +1,13 @@
+package: libdrm-common
+
+essential:
+  - libdrm-common_copyright
+
+slices:
+  data:
+    contents:
+      /usr/share/libdrm/amdgpu.ids:
+
+  copyright:
+    contents:
+      /usr/share/doc/libdrm-common/copyright:

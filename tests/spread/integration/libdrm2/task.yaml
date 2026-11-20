@@ -1,0 +1,7 @@
+summary: Integration tests for libdrm2
+
+execute: |
+  rootfs="$(install-slices libdrm2_libs)"
+  libdir="$(find "$rootfs/usr/lib" -maxdepth 1 -type d -name '*-linux-*')"
+  loader="$(find "$rootfs/lib" -maxdepth 2 -name 'ld*.so.*' -print -quit)"
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${libdir#"$rootfs"}/libdrm.so.2"
