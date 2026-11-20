@@ -15,9 +15,9 @@ jobs:
     name: Test validate hints workflow
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.1.0
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.12"
           pip-install: -r .github/scripts/validate-hints/requirements.txt
@@ -30,9 +30,9 @@ jobs:
     name: Test forward port missing workflow
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.1.0
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.12"
           pip-install: -r .github/scripts/forward-port-missing/requirements.txt
@@ -45,9 +45,9 @@ jobs:
     name: Test install slices workflow
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.1.0
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.12"
           pip-install: -r .github/scripts/install-slices/requirements.txt

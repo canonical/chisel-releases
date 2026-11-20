@@ -17,7 +17,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.maintained-releases }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
         with:
           fetch-depth: 0
 
@@ -54,12 +54,12 @@ jobs:
         ref: ${{ fromJson(needs.infer-releases.outputs.matrix) }}
         arch: [amd64, arm64, armhf, ppc64el, riscv64, s390x]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.4.0
         with:
           ref: ${{ matrix.ref }}
 
       - name: Setup Go environment
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v5.6.0
         with:
           cache: false
           go-version: "stable"
