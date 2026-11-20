@@ -1,0 +1,11 @@
+summary: Integration tests for libupki-openssl1
+
+execute: |
+  case "$(dpkg --print-architecture)" in
+    s390x | i386) exit 0 ;;
+  esac
+
+  rootfs="$(install-slices libupki-openssl1_libs)"
+  libdir="$(find "$rootfs/usr/lib" -maxdepth 1 -type d -name '*-linux-*')"
+  loader="$(find "$libdir" -maxdepth 1 -name 'ld*.so.*')"
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${libdir#"$rootfs"}/libupki_openssl.so.1"

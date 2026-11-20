@@ -1,0 +1,19 @@
+summary: Integration tests for curl
+
+execute: |
+  rootfs="$(install-slices curl_bins)"
+  chroot "$rootfs" curl --version | grep -Fiq "curl"
+
+  # Protocols and features the bins slice must be linked against
+  features="$(chroot "$rootfs" curl --version)"
+  grep -Fiq "https" <<< "$features"
+  grep -Fiq "OpenSSL" <<< "$features"
+
+  # Local file transfer, no network needed
+  echo "hello chisel" > "$rootfs/input.txt"
+  chroot "$rootfs" curl -fsS file:///input.txt | grep -Fiq "hello chisel"
+
+  # HTTPS, verifying against the shipped CA bundle
+  rootfs="$(install-slices curl_bins ca-certificates_data)"
+  cp /etc/resolv.conf "$rootfs/etc/"
+  chroot "$rootfs" curl -fsS --max-time 30 https://example.com | grep -Fiq "Example Domain"
