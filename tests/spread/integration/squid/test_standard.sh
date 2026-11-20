@@ -2,12 +2,12 @@
 # spellchecker: ignore rootfs
 source "$(dirname "$0")/helpers.sh"
 
-# perl-base_modules and libmysqlclient24_libs are only 
+# perl-base_modules and libdbd-mysql-perl_modules are only
 # needed for log_db_daemon tests in a mysql db
 rootfs="$(install-slices \
     squid_standard \
     perl-base_modules \
-    libmysqlclient24_libs
+    libdbd-mysql-perl_modules
 )"
 
 # Create a test user (username: testuser, password: testpass)
@@ -16,23 +16,22 @@ printf "testuser:$(openssl passwd -apr1 testpass)\n" > "$rootfs/etc/squid/auth/p
 
 # Configured standard NCSA auth managed by helper-mux
 echo "auth_param basic program /usr/lib/squid/helper-mux /usr/lib/squid/basic_ncsa_auth /etc/squid/auth/passwd" >> "$rootfs/etc/squid/squid.conf"
-echo "auth_param basic children 20 startup=5 idle=1" >> "$rootfs/etc/squid/squid.conf"
-echo "auth_param basic concurrency 10" >> "$rootfs/etc/squid/squid.conf"
+echo "auth_param basic children 20 startup=5 idle=1 concurrency=10" >> "$rootfs/etc/squid/squid.conf"
 
-# Setup mysql for testing
+# Setup mysql for testing. The server is the one thing the host provides:
+# log_db_daemon only talks to it over tcp, it is not part of the rootfs.
 apt install -y mysql-server
-apt download libdbd-mysql-perl && dpkg -x libdbd-mysql-perl_*.deb "$rootfs/" && rm libdbd-mysql-perl_*.deb
 trap "pkill mysqld; wait; cleanup" EXIT
 
-# Enable mysql_native_password plugin
-echo "[mysqld]" > /etc/mysql/mysql.conf.d/mysql.cnf
-echo "mysql_native_password=ON" >> /etc/mysql/mysql.conf.d/mysql.cnf
-service mysql restart
-
+# mysql 9 clients do not support mysql_native_password, so the squid user
+# keeps the server's default auth plugin.
 mysql -e "CREATE DATABASE IF NOT EXISTS squid_log;"
-mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'test_password';"
+mysql -e "CREATE USER IF NOT EXISTS 'squid'@'127.0.0.1' IDENTIFIED BY 'test_password';"
 mysql -e "GRANT ALL PRIVILEGES ON squid_log.* TO 'squid'@'127.0.0.1';"
 mysql -e "FLUSH PRIVILEGES;"
+# DBD::mysql connects without TLS, and caching_sha2_password then only admits
+# a user the server already has in its auth cache. One login over TLS fills it.
+mysql -h 127.0.0.1 -u squid -ptest_password -e "SELECT 1;" squid_log
 mysql squid_log <<EOF
 CREATE TABLE IF NOT EXISTS access_log (
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -69,7 +68,14 @@ ps -aux | grep -qF "/usr/lib/squid/helper-mux /usr/lib/squid/basic_ncsa_auth /et
 
 test_proxy "standard"
 
-# Verify the request is logged in the database
-mysql squid_log -e "SELECT http_status_code FROM access_log WHERE http_url = 'ubuntu.com:443';" | grep -qF "200"
+# Verify the request is logged in the database. log_db_daemon writes behind
+# the request, so give it a moment.
+query="SELECT http_status_code FROM access_log WHERE http_url = 'ubuntu.com:443';"
+for i in $(seq 30); do
+    mysql squid_log -Nse "$query" | grep -qF "200" && break
+    sleep 1
+done
+echo "logged after ${i}s"
+mysql squid_log -Nse "$query" | grep -qF "200"
 
 cleanup
