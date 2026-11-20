@@ -36,6 +36,10 @@ slices:
         arch:
           - amd64
           - arm64
+          - armhf
+          - i386
+          - ppc64el
+          - riscv64
       /usr/lib/jvm/java-21-openjdk-*/bin/jinfo:
       /usr/lib/jvm/java-21-openjdk-*/bin/jmap:
       /usr/lib/jvm/java-21-openjdk-*/bin/jps:

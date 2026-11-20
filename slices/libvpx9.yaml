@@ -7,6 +7,8 @@ slices:
   libs:
     essential:
       - libc6_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [armhf]}
     contents:
       /usr/lib/*-linux-*/libvpx.so.9*:
 

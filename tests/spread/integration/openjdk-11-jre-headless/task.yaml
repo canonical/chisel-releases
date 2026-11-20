@@ -4,6 +4,7 @@ environment:
   SLICE/classdatasharing: "class-data-sharing"
   SLICE/core: "core"
   SLICE/prefs: "prefs"
+  SLICE/sctp: "sctp"
 #  SLICE/rmi: "rmi" # Tested in management slice
   SLICE/debug: "debug"
   SLICE/management: "management"
@@ -40,6 +41,11 @@ execute: |
       core)
         chroot . ${java} -cp . Main
       ;;
+      sctp)
+        # Without SCTP in the kernel the socket call fails, which is past loading libsctp.
+        out="$(chroot . ${java} -cp / SctpOpen 2>&1)" || true
+        echo "$out" | grep -E "sctp channel open|SocketException: Protocol not"
+      ;;
       prefs)
         chroot . ${java} -cp . PrefsTest put
         chroot . ${java} -cp . PrefsTest get
@@ -58,6 +64,14 @@ execute: |
       ;;
       security)
         chroot . ${java} -cp . ReadCertificate
+        # NSS seeds itself from the random device
+        mkdir -p dev
+        touch dev/urandom
+        mount --bind /dev/urandom dev/urandom
+        trap 'umount dev/urandom' EXIT
+        nss_cfg=/etc/java-11-openjdk/security/nss.cfg
+        out="$(chroot . ${java} -cp . NssProvider "$nss_cfg")"
+        test "$out" = "provider: SunPKCS11-NSS"
       ;;
       tools)
         DNAME="CN=Sample Cert, OU=R&D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE"

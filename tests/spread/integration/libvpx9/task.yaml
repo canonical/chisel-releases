@@ -1,0 +1,14 @@
+summary: Integration tests for libvpx9
+
+execute: |
+  rootfs="$(install-slices libvpx9_libs)"
+
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libvpx.so.9" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  test -n "$lib"
+  test -n "$loader"
+
+  # Have the dynamic loader resolve every shared library libvpx9 links
+  # against (e.g. libgcc_s.so.1 on armhf); it fails if any is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"

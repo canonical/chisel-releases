@@ -52,10 +52,12 @@ slices:
       /usr/lib/*-linux-*/libfreebl3.so:
       /usr/lib/*-linux-*/libfreeblpriv3.so:
 
+  # The softoken opens libfreeblpriv3.so at run time.
   softokn:
     essential:
       - libc6_libs
       - libnspr4_libs
+      - libnss3_freebl
       - libnss3_nss
       - libsqlite3-0_libs
     contents:
