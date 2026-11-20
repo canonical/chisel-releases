@@ -103,7 +103,7 @@ slices:
       /usr/lib/postgresql/18/bin/pg_dump:
 
   pg-dumpall:
-    hint: Runs pg_dump via /bin/sh (popen, system)
+    hint: Runs the PostgreSQL dump tool via a shell (popen, system) for backups
     essential:
       base-files_bin:
       dash_bins:
