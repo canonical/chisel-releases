@@ -6,13 +6,30 @@ essential:
 slices:
   bins:
     essential:
+      # TODO: remove openssl_c-rehash in a future release.
+      - openssl_c-rehash
+      - openssl_openssl
+
+  openssl:
+    essential:
       - libc6_config
       - libc6_libs
       - libssl1.1_libs
       - openssl_config
     contents:
-      /usr/bin/c_rehash:
       /usr/bin/openssl:
+
+  # c_rehash is a perl script that runs the openssl binary.
+  c-rehash:
+    essential:
+      - openssl_openssl
+      - perl-base_bins
+    contents:
+      /usr/bin/c_rehash:
+
+  scripts:
+    essential:
+      - openssl_c-rehash
 
   config:
     contents:
