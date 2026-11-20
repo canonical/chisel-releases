@@ -2,11 +2,13 @@ summary: Integration tests for openjdk-8-jre-headless
 
 environment:
   SLICE/core: "core"
+  SLICE/sctp: "sctp"
 
 execute: |
   # Test core slice installation
   echo "SLICE=${SLICE}"
   rootfs="$(install-slices openjdk-8-jre-headless_${SLICE})"
+  cp SctpOpen.java ${rootfs}/
 
   cd ${rootfs}
   mkdir -p proc/self
@@ -14,3 +16,17 @@ execute: |
       ln -sf /${java} proc/self/exe
       chroot . ${java} -version
   done
+
+  if [ "${SLICE}" = "sctp" ]; then
+      # jre 8 has no javac, so compile the probe in a jre 11 rootfs
+      jre11="$(install-slices openjdk-11-jre-headless_core)"
+      java11="$(cd ${jre11} && find usr/lib/jvm -name java -type f)"
+      mkdir -p ${jre11}/proc/self && ln -sf /${java11} ${jre11}/proc/self/exe
+      cp SctpOpen.java ${jre11}/
+      chroot ${jre11} /${java11} -m jdk.compiler/com.sun.tools.javac.Main \
+          -source 8 -target 8 -d / /SctpOpen.java
+      cp ${jre11}/SctpOpen.class .
+      # without SCTP in the kernel the socket call fails, which is past loading libsctp
+      out="$(chroot . ${java} -cp / SctpOpen 2>&1)" || true
+      echo "${out}" | grep -E "sctp channel open|SocketException: Protocol not"
+  fi
