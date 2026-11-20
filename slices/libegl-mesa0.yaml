@@ -1,0 +1,30 @@
+package: libegl-mesa0
+
+essential:
+  - libegl-mesa0_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libdrm2_libs
+      - libexpat1_libs
+      - libgbm1_libs
+      - libwayland-client0_libs
+      - libx11-xcb1_libs
+      - libxcb-dri3-0_libs
+      - libxcb-present0_libs
+      - libxcb-randr0_libs
+      - libxcb-shm0_libs
+      - libxcb-xfixes0_libs
+      - libxcb1_libs
+      - mesa-libgallium_libs
+    v3-essential:
+      libgcc-s1_libs: {arch: [amd64, armhf, i386, riscv64]}
+    contents:
+      /usr/lib/*-linux-*/libEGL_mesa.so.0*:
+      /usr/share/glvnd/egl_vendor.d/50_mesa.json:
+
+  copyright:
+    contents:
+      /usr/share/doc/libegl-mesa0/copyright:

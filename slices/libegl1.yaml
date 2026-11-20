@@ -1,0 +1,17 @@
+package: libegl1
+
+essential:
+  - libegl1_copyright
+
+slices:
+  libs:
+    # libEGL finds its vendor library, such as libegl-mesa0, at runtime and does not link it.
+    essential:
+      - libc6_libs
+      - libglvnd0_libs
+    contents:
+      /usr/lib/*-linux-*/libEGL.so.1*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libegl1/copyright:
