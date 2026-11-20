@@ -1,0 +1,7 @@
+summary: Integration tests for python3-minimal
+
+execute: |
+  rootfs="$(install-slices python3-minimal_python3)"
+
+  chroot "$rootfs" python3 --version | grep -q '^Python 3\.8\.'
+  test "$(echo 'print(6 * 7)' | chroot "$rootfs" python3)" = 42

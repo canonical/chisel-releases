@@ -124,6 +124,12 @@ slices:
       /usr/bin/yes:
       /usr/sbin/chroot:
 
+  env:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/env:
+
   copyright:
     contents:
       /usr/share/doc/coreutils/copyright:
