@@ -1,0 +1,17 @@
+summary: Integration tests for libexpat1
+
+execute: |
+  rootfs="$(install-slices libexpat1_expat)"
+
+  # The multiarch directory and the dynamic loader's name differ per arch.
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libexpat.so.1" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+
+  # Have the dynamic loader resolve every shared library libexpat links
+  # against; it fails if any is missing.
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
+
+  rootfs="$(install-slices libexpat1_expatw)"
+  lib="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/libexpatw.so.1" -print -quit)"
+  loader="$(find "$rootfs" -maxdepth 4 -path "*/lib/*-linux-*/ld*.so.*" -print -quit)"
+  chroot "$rootfs" "${loader#"$rootfs"}" --list "${lib#"$rootfs"}"
