@@ -1,0 +1,22 @@
+package: libpam-pwquality
+
+essential:
+  - libpam-pwquality_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libpam-runtime_pam-defaults
+      - libpam0g_libs
+      - libpwquality1_libs
+    contents:
+      /usr/lib/*-linux-*/security/pam_pwquality.so:
+
+  pam-config:
+    contents:
+      /usr/share/pam-configs/pwquality:
+
+  copyright:
+    contents:
+      /usr/share/doc/libpam-pwquality/copyright:
