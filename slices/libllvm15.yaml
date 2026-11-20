@@ -1,0 +1,26 @@
+package: libllvm15
+
+essential:
+  - libllvm15_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libedit2_libs
+      - libffi8_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+      - libtinfo6_libs
+      - libxml2_libs
+      - zlib1g_libs
+    # Chisel < 1.3 silently ignores this block and omits the atomic runtime
+    # required by LLVM on these architectures. Use Chisel >= 1.3.
+    v3-essential:
+      libatomic1_libs: {arch: [i386, riscv64]}
+    contents:
+      /usr/lib/*-linux-*/libLLVM-15.so.1:
+
+  copyright:
+    contents:
+      /usr/share/doc/libllvm15/copyright:
