@@ -41,6 +41,8 @@ execute: |
       ;;
       core)
         chroot . ${java} -cp . Main
+        chroot . ${java} -cp . SysLookup
+        grep -q '^JAVA_VERSION="17' "$(dirname ${java})/../release"
       ;;
       sctp)
         # Without SCTP in the kernel the socket call fails, which is past loading libsctp.
