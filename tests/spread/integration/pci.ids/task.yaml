@@ -1,0 +1,16 @@
+summary: Integration tests for pci.ids
+
+execute: |
+  rootfs="$(install-slices pci.ids_data pciutils_bins)"
+
+  # Saved config space of an Intel 82540EM network card (8086:100e).
+  cat > "$rootfs/dump" <<'EOF'
+  00:03.0 Ethernet controller
+  00: 86 80 0e 10 07 00 10 00 03 00 00 02 00 00 00 00
+  10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  20: 00 00 00 00 00 00 00 00 00 00 00 00 86 80 1e 00
+  30: 00 00 00 00 00 00 00 00 00 00 00 00 0b 00 00 00
+  EOF
+
+  # lspci gets the device's name from pci.ids.
+  chroot "$rootfs" lspci -F /dump | grep -Fq "Intel Corporation 82540EM Gigabit Ethernet Controller"
