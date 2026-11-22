@@ -1,0 +1,20 @@
+package: pciutils
+
+essential:
+  - pciutils_copyright
+
+slices:
+  # update-pciids is left out because it downloads pci.ids with curl, wget
+  # or lynx, and this package depends on none of them.
+  bins:
+    essential:
+      - libc6_libs
+      - libkmod2_libs
+      - libpci3_libs
+    contents:
+      /usr/bin/lspci:
+      /usr/bin/setpci:
+
+  copyright:
+    contents:
+      /usr/share/doc/pciutils/copyright:
