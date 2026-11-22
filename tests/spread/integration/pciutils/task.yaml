@@ -1,0 +1,24 @@
+summary: Integration tests for pciutils
+
+execute: |
+  rootfs="$(install-slices pciutils_bins)"
+
+  chroot "$rootfs" lspci --version
+  chroot "$rootfs" setpci --version
+
+  # Saved config space of an Intel 82540EM network card (8086:100e), so the
+  # test does not depend on the PCI devices of the machine it runs on.
+  cat > "$rootfs/dump" <<'EOF'
+  00:03.0 Ethernet controller
+  00: 86 80 0e 10 07 00 10 00 03 00 00 02 00 00 00 00
+  10: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  20: 00 00 00 00 00 00 00 00 00 00 00 00 86 80 1e 00
+  30: 00 00 00 00 00 00 00 00 00 00 00 00 0b 00 00 00
+  EOF
+  chroot "$rootfs" lspci -F /dump -nn | grep -Fq "82540EM Gigabit Ethernet Controller [8086:100e]"
+
+  chroot "$rootfs" setpci --dumpregs | grep -Fq "VENDOR_ID"
+
+  # pcilmr needs PCI hardware access even for --help, which a chroot without
+  # /sys or /proc does not have, so check that libpci reports that.
+  chroot "$rootfs" pcilmr 2>&1 | grep -Fq "Cannot find any working access method"
