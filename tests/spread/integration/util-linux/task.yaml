@@ -10,6 +10,7 @@ variants:
     - ipc
     - kernel
     - lock
+    - logger
     - login
     - mcookie
     - namespace
