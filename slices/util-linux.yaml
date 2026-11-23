@@ -14,6 +14,7 @@ slices:
       util-linux_generated:
       util-linux_ipc:
       util-linux_kernel:
+      util-linux_logger:
       util-linux_login:
       util-linux_mcookie:
       util-linux_namespace:
@@ -141,6 +142,13 @@ slices:
     contents:
       /usr/bin/flock:
       /usr/bin/lslocks:
+
+  logger:
+    essential:
+      libc6_libs:
+      libsystemd0_libs:
+    contents:
+      /usr/bin/logger:
 
   login:
     essential:
