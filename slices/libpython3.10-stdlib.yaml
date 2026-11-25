@@ -153,11 +153,10 @@ slices:
     # pdb.py starts with "#! /usr/bin/env python3". See python3.10_utils.
     mutate: |
       path = "/usr/lib/python3.10/pdb.py"
-      shebang = "#! /usr/bin/env python3\n"
-      script = content.read(path)
-      if not script.startswith(shebang):
+      shebang, _, rest = content.read(path).partition("\n")
+      if shebang != "#! /usr/bin/env python3":
         fail("pdb.py does not start with an unversioned shebang")
-      content.write(path, "#!/usr/bin/python3.10\n" + script[len(shebang):])
+      content.write(path, "#!/usr/bin/python3.10\n" + rest)
 
   # Development Tools
   # https://docs.python.org/3.10/library/development.html

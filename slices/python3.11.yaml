@@ -61,11 +61,10 @@ slices:
     # the same way.
     mutate: |
       path = "/usr/bin/pygettext3.11"
-      shebang = "#! /usr/bin/env python3\n"
-      script = content.read(path)
-      if not script.startswith(shebang):
+      shebang, _, rest = content.read(path).partition("\n")
+      if shebang != "#! /usr/bin/env python3":
         fail("pygettext3.11 does not start with an unversioned shebang")
-      content.write(path, "#!/usr/bin/python3.11\n" + script[len(shebang):])
+      content.write(path, "#!/usr/bin/python3.11\n" + rest)
 
   copyright:
     contents:
