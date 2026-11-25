@@ -145,11 +145,19 @@ slices:
       /usr/lib/python3.10/bdb.py:
       /usr/lib/python3.10/cProfile.py:
       /usr/lib/python3.10/lib-dynload/_lsprof.cpython-310-*-linux-*.so:
-      /usr/lib/python3.10/pdb.py:
+      /usr/lib/python3.10/pdb.py: {mutable: true}
       /usr/lib/python3.10/profile.py:
       /usr/lib/python3.10/pstats.py:
       /usr/lib/python3.10/timeit.py:
       /usr/lib/python3.10/trace.py:
+    # pdb.py starts with "#! /usr/bin/env python3". See python3.10_utils.
+    mutate: |
+      path = "/usr/lib/python3.10/pdb.py"
+      shebang = "#! /usr/bin/env python3\n"
+      script = content.read(path)
+      if not script.startswith(shebang):
+        fail("pdb.py does not start with an unversioned shebang")
+      content.write(path, "#!/usr/bin/python3.10\n" + script[len(shebang):])
 
   # Development Tools
   # https://docs.python.org/3.10/library/development.html
