@@ -53,7 +53,17 @@ slices:
     contents:
       /usr/bin/pdb3.9:
       /usr/bin/pydoc3.9:
-      /usr/bin/pygettext3.9:
+      /usr/bin/pygettext3.9: {mutable: true}
+    # pygettext3.9 starts with "#! /usr/bin/env python3", which need not be
+    # Python 3.9. Point it at python3.9, as the deb does on later releases.
+    # pdb3.9 is a symlink to pdb.py, which libpython3.9-stdlib_debug rewrites
+    # the same way.
+    mutate: |
+      path = "/usr/bin/pygettext3.9"
+      shebang, _, rest = content.read(path).partition("\n")
+      if shebang != "#! /usr/bin/env python3":
+        fail("pygettext3.9 does not start with an unversioned shebang")
+      content.write(path, "#!/usr/bin/python3.9\n" + rest)
 
   copyright:
     contents:

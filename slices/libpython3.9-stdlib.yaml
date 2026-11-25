@@ -129,11 +129,18 @@ slices:
       /usr/lib/python3.9/bdb.py:
       /usr/lib/python3.9/cProfile.py:
       /usr/lib/python3.9/lib-dynload/_lsprof.cpython-39-*-linux-*.so:
-      /usr/lib/python3.9/pdb.py:
+      /usr/lib/python3.9/pdb.py: {mutable: true}
       /usr/lib/python3.9/profile.py:
       /usr/lib/python3.9/pstats.py:
       /usr/lib/python3.9/timeit.py:
       /usr/lib/python3.9/trace.py:
+    # pdb.py starts with "#! /usr/bin/env python3". See python3.9_utils.
+    mutate: |
+      path = "/usr/lib/python3.9/pdb.py"
+      shebang, _, rest = content.read(path).partition("\n")
+      if shebang != "#! /usr/bin/env python3":
+        fail("pdb.py does not start with an unversioned shebang")
+      content.write(path, "#!/usr/bin/python3.9\n" + rest)
 
   # Development Tools
   # https://docs.python.org/3.9/library/development.html
