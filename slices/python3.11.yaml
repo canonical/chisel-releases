@@ -54,7 +54,17 @@ slices:
     contents:
       /usr/bin/pdb3.11:
       /usr/bin/pydoc3.11:
-      /usr/bin/pygettext3.11:
+      /usr/bin/pygettext3.11: {mutable: true}
+    # pygettext3.11 starts with "#! /usr/bin/env python3", which need not be
+    # Python 3.11. Point it at python3.11, as the deb does on later releases.
+    # pdb3.11 is a symlink to pdb.py, which libpython3.11-stdlib_debug rewrites
+    # the same way.
+    mutate: |
+      path = "/usr/bin/pygettext3.11"
+      shebang, _, rest = content.read(path).partition("\n")
+      if shebang != "#! /usr/bin/env python3":
+        fail("pygettext3.11 does not start with an unversioned shebang")
+      content.write(path, "#!/usr/bin/python3.11\n" + rest)
 
   copyright:
     contents:

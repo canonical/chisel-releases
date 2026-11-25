@@ -54,7 +54,17 @@ slices:
     contents:
       /usr/bin/pdb3.10:
       /usr/bin/pydoc3.10:
-      /usr/bin/pygettext3.10:
+      /usr/bin/pygettext3.10: {mutable: true}
+    # pygettext3.10 starts with "#! /usr/bin/env python3", which need not be
+    # Python 3.10. Point it at python3.10, as the deb does on later releases.
+    # pdb3.10 is a symlink to pdb.py, which libpython3.10-stdlib_debug rewrites
+    # the same way.
+    mutate: |
+      path = "/usr/bin/pygettext3.10"
+      shebang, _, rest = content.read(path).partition("\n")
+      if shebang != "#! /usr/bin/env python3":
+        fail("pygettext3.10 does not start with an unversioned shebang")
+      content.write(path, "#!/usr/bin/python3.10\n" + rest)
 
   copyright:
     contents:
