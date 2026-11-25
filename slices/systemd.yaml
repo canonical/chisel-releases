@@ -194,8 +194,6 @@ slices:
     contents:
       /usr/bin/systemd-detect-virt:
 
-  # Standalone: applies sysusers.d fragments to a root of its choice, running
-  # system or not, which is how an image build uses it.
   ask-password:
     hint: Password prompts and their agent
     essential:
@@ -246,6 +244,8 @@ slices:
       /usr/bin/systemd-confext:  # Symlink to systemd-sysext
       /usr/bin/systemd-sysext:
 
+  # Standalone: applies sysusers.d fragments to a root of its choice, running
+  # system or not, which is how an image build uses it.
   sysusers:
     hint: Create system users and groups
     essential:
@@ -578,6 +578,7 @@ slices:
       systemd_core:
       systemd_creds:
       systemd_generated-services:
+      # sysinit.target.wants/systemd-machine-id-commit.service runs it
       systemd_machine-id-setup:
       systemd_mute-console:
       # the binaries most of these units run, the boot-time ones included
@@ -588,8 +589,6 @@ slices:
       # the getty units run agetty wherever their tty exists, and fail without it
       util-linux_tty:
     contents:
-      # sysinit.target.wants/systemd-machine-id-commit.service runs it
-      /usr/bin/systemd-machine-id-setup:
       /usr/lib/lsb/init-functions.d/40-systemd:
       /usr/lib/systemd/system/autovt@.service:
       /usr/lib/systemd/system/basic.target:
@@ -905,7 +904,7 @@ slices:
       /usr/share/systemd/language-fallback-map:
 
   extras:
-    hint: Keyboard, locale and MIME data
+    hint: Extra data and module load configuration
     essential:
       systemd_data:
     contents:
