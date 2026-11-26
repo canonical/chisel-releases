@@ -1,0 +1,15 @@
+package: rubygems-integration
+
+essential:
+  rubygems-integration_copyright:
+
+slices:
+  # RubyGems operating system defaults: adds the Debian gem directories, like
+  # /usr/share/rubygems-integration/all, to the default gem path
+  config:
+    contents:
+      /usr/lib/ruby/vendor_ruby/rubygems/defaults/operating_system.rb:
+
+  copyright:
+    contents:
+      /usr/share/doc/rubygems-integration/copyright:
