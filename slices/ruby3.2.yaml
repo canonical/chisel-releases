@@ -22,6 +22,9 @@ slices:
       - libgmp10_libs
       - libruby3.2_libs
       - zlib1g_libs
+    # riscv64 builds link libatomic
+    v3-essential:
+      libatomic1_libs: {arch: [riscv64]}
 
   copyright:
     contents:

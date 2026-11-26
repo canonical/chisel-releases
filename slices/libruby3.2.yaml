@@ -324,6 +324,9 @@ slices:
       - libssl3t64_libs
       - libyaml-0-2_libs
       - zlib1g_libs
+    # riscv64 builds link libatomic
+    v3-essential:
+      libatomic1_libs: {arch: [riscv64]}
     contents:
       /usr/lib/*-linux-*/libruby-3.2.so.3.2*:
       /usr/lib/*-linux-*/ruby/3.2.*/**:
