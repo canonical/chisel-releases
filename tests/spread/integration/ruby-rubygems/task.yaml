@@ -1,0 +1,36 @@
+summary: Integration tests for ruby-rubygems
+
+environment:
+  SLICE/bins: "bins"
+  SLICE/libs: "libs"
+
+execute: |
+  slices=("ruby-rubygems_${SLICE}")
+  # bash to build the test gem from its own directory
+  if [ "$SLICE" = "bins" ]; then
+    slices+=(bash_bins)
+  fi
+  rootfs="$(install-slices "${slices[@]}")"
+  mkdir -p "$rootfs/dev"
+  touch "$rootfs/dev/null"
+
+  case "$SLICE" in
+    bins)
+      # build and install a gem with an executable, then run its stub
+      cp -r hello "$rootfs/"
+      chroot "$rootfs" bash -c 'cd /hello && gem build hello.gemspec' 2>&1 | grep -Fq "Successfully built RubyGem"
+      chroot "$rootfs" gem install --local --no-document --bindir /usr/bin /hello/hello-1.0.0.gem
+      chroot "$rootfs" gem list hello | grep -Fq "hello (1.0.0)"
+      chroot "$rootfs" /usr/bin/hello | grep -Fxq "hello from a gem"
+      ;;
+    libs)
+      # a gem laid out the Debian way is found on the default gem path and
+      # activated by the full RubyGems, which the reduced copy in libruby can't do
+      gems="$rootfs/usr/share/rubygems-integration/all"
+      mkdir -p "$gems/gems/hello-1.0.0" "$gems/specifications"
+      cp -r hello/lib "$gems/gems/hello-1.0.0/"
+      cp hello/hello.gemspec "$gems/specifications/hello-1.0.0.gemspec"
+      chroot "$rootfs" ruby -e 'gem "hello"; require "hello"; puts Hello.greeting' \
+        | grep -Fxq "hello from a gem"
+      ;;
+  esac
