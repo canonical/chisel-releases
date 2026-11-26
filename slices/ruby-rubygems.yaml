@@ -1,0 +1,40 @@
+package: ruby-rubygems
+
+essential:
+  ruby-rubygems_copyright:
+
+slices:
+  bins:
+    essential:
+      coreutils_env:
+      ruby-rubygems_libs:
+    contents:
+      /usr/bin/gem:
+
+  # the full RubyGems library. it takes precedence over the reduced copy in
+  # libruby3.3_core, and is what activates gems for gem executables
+  libs:
+    essential:
+      ruby_ruby:
+      rubygems-integration_config:
+    contents:
+      /usr/lib/ruby/vendor_ruby/rubygems.rb:
+      /usr/lib/ruby/vendor_ruby/rubygems/*.rb:
+      /usr/lib/ruby/vendor_ruby/rubygems/commands/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/core_ext/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/ext/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/gemcutter_utilities/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/package/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/request/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/request_set/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/resolver/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/safe_marshal/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/security/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/source/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/ssl_certs/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/util/**:
+      /usr/lib/ruby/vendor_ruby/rubygems/vendor/**:
+
+  copyright:
+    contents:
+      /usr/share/doc/ruby-rubygems/copyright:
