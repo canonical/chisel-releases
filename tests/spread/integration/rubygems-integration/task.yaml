@@ -1,0 +1,8 @@
+summary: Integration tests for rubygems-integration
+
+execute: |
+  rootfs="$(install-slices rubygems-integration_config ruby_ruby)"
+
+  # RubyGems loads the operating system defaults, which add the Debian gem
+  # directories to the default gem path
+  chroot "$rootfs" ruby -e 'puts Gem.default_path' | grep -Fxq "/usr/share/rubygems-integration/all"
