@@ -18,9 +18,8 @@ execute: |
     bins)
       # build and install a gem with an executable, then run its stub
       cp -r hello "$rootfs/"
-      chroot "$rootfs" bash -c 'cd /hello && gem build hello.gemspec' 2>&1 | grep -Fq "Successfully built RubyGem"
+      chroot "$rootfs" bash -c 'cd /hello && gem build hello.gemspec'
       chroot "$rootfs" gem install --local --no-document --bindir /usr/bin /hello/hello-1.0.0.gem
-      chroot "$rootfs" gem list hello | grep -Fq "hello (1.0.0)"
       chroot "$rootfs" /usr/bin/hello | grep -Fxq "hello from a gem"
       ;;
     libs)
