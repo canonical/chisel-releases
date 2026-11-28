@@ -1,0 +1,36 @@
+summary: Integration tests for valkey-server
+
+execute: |
+  # valkey-tools_valkey-cli is added explicitly to drive the server
+  rootfs="$(install-slices valkey-server_bins valkey-tools_valkey-cli)"
+
+  chroot "$rootfs" valkey-server -v
+
+  # Start the server and verify it accepts commands via valkey-cli.
+  # LC_ALL=C avoids a locale lookup that fails in the minimal rootfs.
+  mkdir -p "$rootfs/dev" "$rootfs/tmp"
+  chmod 1777 "$rootfs/tmp"
+  touch "$rootfs/dev/null"
+  server_rootfs="$rootfs"
+  trap 'chroot "$server_rootfs" valkey-cli -p 6399 shutdown nosave 2>/dev/null || true' EXIT
+  LC_ALL=C chroot "$rootfs" valkey-server --daemonize yes --port 6399 \
+    --dir /tmp --logfile /dev/null --pidfile /tmp/valkey.pid
+  for i in $(seq 10); do
+    chroot "$rootfs" valkey-cli -p 6399 ping 2>/dev/null && break
+    sleep 1
+  done
+  chroot "$rootfs" valkey-cli -p 6399 ping | grep -Fiq "pong"
+  chroot "$rootfs" valkey-cli -p 6399 set chisel test | grep -Fiq "ok"
+  chroot "$rootfs" valkey-cli -p 6399 get chisel | grep -Fiq "test"
+  chroot "$rootfs" valkey-cli -p 6399 shutdown nosave
+
+  # valkey-server_config: config file is present and non-empty.
+  rootfs="$(install-slices valkey-server_config)"
+  test -s "$rootfs/etc/valkey/valkey.conf"
+  grep -Fiq "port 6379" "$rootfs/etc/valkey/valkey.conf"
+
+  # valkey-server_services: systemd unit files are present.
+  rootfs="$(install-slices valkey-server_services)"
+  test -f "$rootfs/usr/lib/systemd/system/valkey-server.service"
+  test -f "$rootfs/usr/lib/systemd/system/valkey-server@.service"
+  grep -Fiq "ExecStart" "$rootfs/usr/lib/systemd/system/valkey-server.service"

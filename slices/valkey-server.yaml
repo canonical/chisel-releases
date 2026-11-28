@@ -1,0 +1,27 @@
+package: valkey-server
+
+essential:
+  valkey-server_copyright:
+
+slices:
+  bins:
+    essential:
+      valkey-server_config:
+      valkey-tools_valkey-check-rdb:
+    contents:
+      /usr/bin/valkey-server:
+
+  config:
+    contents:
+      /etc/valkey/valkey.conf:
+
+  services:
+    essential:
+      valkey-server_bins:
+    contents:
+      /usr/lib/systemd/system/valkey-server.service:
+      /usr/lib/systemd/system/valkey-server@.service:
+
+  copyright:
+    contents:
+      /usr/share/doc/valkey-server/copyright:
